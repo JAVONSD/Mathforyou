@@ -47,6 +47,10 @@
 		C76EFB69202E91F000FA2BB9 /* LifeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C76EFB6D202E91F000FA2BB9 /* LifeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeUITests.swift; sourceTree = "<group>"; };
 		C76EFB6F202E91F000FA2BB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C76EFB7B202E923700FA2BB9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		C76EFB7C202E923700FA2BB9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C76EFB7F202E926900FA2BB9 /* kk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kk; path = kk.lproj/Main.strings; sourceTree = "<group>"; };
+		C76EFB80202E926900FA2BB9 /* kk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kk; path = kk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,10 +102,14 @@
 			isa = PBXGroup;
 			children = (
 				C76EFB4D202E91F000FA2BB9 /* AppDelegate.swift */,
-				C76EFB4F202E91F000FA2BB9 /* ViewController.swift */,
-				C76EFB51202E91F000FA2BB9 /* Main.storyboard */,
+				C76EFB82202E92BB00FA2BB9 /* Categories */,
+				C76EFB85202E92BB00FA2BB9 /* Controllers */,
+				C76EFB87202E92EE00FA2BB9 /* InterfaceBuilder */,
+				C76EFB86202E92C600FA2BB9 /* Localization */,
+				C76EFB84202E92BB00FA2BB9 /* Models */,
+				C76EFB81202E92BB00FA2BB9 /* Resources */,
+				C76EFB83202E92BB00FA2BB9 /* Views */,
 				C76EFB54202E91F000FA2BB9 /* Assets.xcassets */,
-				C76EFB56202E91F000FA2BB9 /* LaunchScreen.storyboard */,
 				C76EFB59202E91F000FA2BB9 /* Info.plist */,
 			);
 			path = Life;
@@ -123,6 +131,58 @@
 				C76EFB6F202E91F000FA2BB9 /* Info.plist */,
 			);
 			path = LifeUITests;
+			sourceTree = "<group>";
+		};
+		C76EFB81202E92BB00FA2BB9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		C76EFB82202E92BB00FA2BB9 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		C76EFB83202E92BB00FA2BB9 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C76EFB84202E92BB00FA2BB9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C76EFB85202E92BB00FA2BB9 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C76EFB4F202E91F000FA2BB9 /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C76EFB86202E92C600FA2BB9 /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
+		C76EFB87202E92EE00FA2BB9 /* InterfaceBuilder */ = {
+			isa = PBXGroup;
+			children = (
+				C76EFB51202E91F000FA2BB9 /* Main.storyboard */,
+				C76EFB56202E91F000FA2BB9 /* LaunchScreen.storyboard */,
+			);
+			path = InterfaceBuilder;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,6 +360,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				C76EFB52202E91F000FA2BB9 /* Base */,
+				C76EFB7B202E923700FA2BB9 /* ru */,
+				C76EFB7F202E926900FA2BB9 /* kk */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -308,6 +370,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				C76EFB57202E91F000FA2BB9 /* Base */,
+				C76EFB7C202E923700FA2BB9 /* ru */,
+				C76EFB80202E926900FA2BB9 /* kk */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -319,6 +383,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -363,7 +428,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -376,6 +441,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -414,7 +480,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
