@@ -14,3 +14,9 @@
 "forgot_password_descr" = "Забыли свои данные для входа?";
 "help" = "Помощь";
 "bi_group_2017" = "BI Group 2017";
+
+/* Reset Password */
+
+"new_password" = "Новый пароль";
+"new_password_repeat" = "Подтвержение пароля";
+"change" = "Изменить";

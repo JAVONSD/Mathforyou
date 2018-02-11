@@ -14,3 +14,9 @@
 "forgot_password_descr" = "Did you forget your login credentials?";
 "help" = "Help";
 "bi_group_2017" = "BI Group 2017";
+
+/* Reset Password */
+
+"new_password" = "New password";
+"new_password_repeat" = "New password confirmation";
+"change" = "Change";

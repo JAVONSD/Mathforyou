@@ -82,7 +82,8 @@ struct App {
 
         static let sideOffset: CGFloat = 24
         static let itemSpacingSmall: CGFloat = 8
-        static let itemSpacingBig: CGFloat = 16
+        static let itemSpacingMedium: CGFloat = 16
+        static let itemSpacingBig: CGFloat = 21
     }
 
 }

@@ -117,7 +117,7 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
                 return
             }
 
-            make.top.equalTo(headerView.snp.bottom).offset(App.Layout.sideOffset)
+            make.top.equalTo(headerView.snp.bottom).offset(App.Layout.itemSpacingMedium * 2)
             make.left.equalTo(self).inset(App.Layout.sideOffset)
             make.right.equalTo(self).inset(App.Layout.sideOffset)
         }
@@ -140,7 +140,7 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
                 return
             }
 
-            make.top.equalTo(phoneField.snp.bottom).offset(App.Layout.itemSpacingBig)
+            make.top.equalTo(phoneField.snp.bottom).offset(App.Layout.itemSpacingMedium)
             make.left.equalTo(self).inset(App.Layout.sideOffset)
             make.right.equalTo(self).inset(App.Layout.sideOffset)
         }
@@ -178,7 +178,7 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
                 return
             }
 
-            make.top.equalTo(loginButton.snp.bottom).offset(App.Layout.itemSpacingBig * 2)
+            make.top.equalTo(loginButton.snp.bottom).offset(App.Layout.itemSpacingMedium * 2)
             make.centerX.equalTo(self)
         }
 
@@ -247,7 +247,7 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
             }
 
             make.centerX.equalTo(self)
-            make.bottom.equalTo(self).inset(App.Layout.itemSpacingBig)
+            make.bottom.equalTo(self).inset(App.Layout.itemSpacingMedium)
         }
     }
 
