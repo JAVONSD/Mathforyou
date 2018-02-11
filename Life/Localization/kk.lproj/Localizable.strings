@@ -13,7 +13,7 @@
 "login" = "Войти";
 "forgot_password_descr" = "Забыли свои данные для входа?";
 "help" = "Помощь";
-"bi_group_2017" = "BI Group 2017";
+"bi_group_2017" = "BI Group %d";
 
 /* Reset Password */
 

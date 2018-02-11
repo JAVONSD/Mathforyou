@@ -180,7 +180,10 @@ class ForgotPasswordView: UIView, MaskedTextFieldDelegateListener {
 
         biGroupLabel.font = App.Font.footnote
         biGroupLabel.textColor = UIColor.white.withAlphaComponent(0.4)
-        biGroupLabel.text = NSLocalizedString("bi_group_2017", comment: "")
+
+        let format = NSLocalizedString("bi_group_2017", comment: "") as NSString
+        let biGroupText = NSString(string: "").appendingFormat(format, Date().year)
+        biGroupLabel.text = biGroupText as String
 
         addSubview(biGroupLabel)
         biGroupLabel.snp.makeConstraints { [weak self] (make) in

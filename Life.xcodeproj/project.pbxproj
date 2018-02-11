@@ -280,6 +280,7 @@
 		C76EFB84202E92BB00FA2BB9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C7B5FA072030614F003F3D2C /* Auth */,
 				C76EFBC3203008D100FA2BB9 /* Constants.swift */,
 			);
 			path = Models;
@@ -440,6 +441,13 @@
 				C76EFBE120302F8B00FA2BB9 /* String.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		C7B5FA072030614F003F3D2C /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 		C864E4175CD626F6101B47B6 /* Frameworks */ = {

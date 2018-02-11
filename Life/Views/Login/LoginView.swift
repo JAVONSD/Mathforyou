@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DateToolsSwift
 import DynamicColor
 import Material
 import SnapKit
@@ -225,7 +226,10 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
 
         biGroupLabel.font = App.Font.footnote
         biGroupLabel.textColor = App.Color.slateGrey
-        biGroupLabel.text = NSLocalizedString("bi_group_2017", comment: "")
+
+        let format = NSLocalizedString("bi_group_2017", comment: "") as NSString
+        let biGroupText = NSString(string: "").appendingFormat(format, Date().year)
+        biGroupLabel.text = biGroupText as String
 
         addSubview(biGroupLabel)
         biGroupLabel.snp.makeConstraints { [weak self] (make) in
