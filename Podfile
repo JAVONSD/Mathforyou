@@ -23,6 +23,9 @@ target 'Life' do
   # Database
   pod 'RxRealm', '~> 0.7'
 
+  # AutoLayout
+  pod 'SnapKit', '~> 4.0'
+
   # Linting
   pod 'SwiftLint'
 

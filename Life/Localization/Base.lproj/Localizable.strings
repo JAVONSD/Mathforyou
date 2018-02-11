@@ -5,3 +5,12 @@
   Created by Shyngys Kassymov on 10.02.2018.
   Copyright © 2018 Shyngys Kassymov. All rights reserved.
 */
+
+/* Login */
+
+"phone" = "Phone";
+"password" = "Password";
+"login" = "Login";
+"forgot_password_descr" = "Did you forget your login credentials?";
+"help" = "Help";
+"bi_group_2017" = "BI Group 2017";

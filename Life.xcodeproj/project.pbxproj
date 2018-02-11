@@ -18,6 +18,41 @@
 		C76EFB8A202E947800FA2BB9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C76EFB8C202E947800FA2BB9 /* Localizable.strings */; };
 		C76EFB9E202EA76300FA2BB9 /* Observable+Argo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB99202EA76200FA2BB9 /* Observable+Argo.swift */; };
 		C76EFBA0202EA76300FA2BB9 /* Response+Argo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB9B202EA76200FA2BB9 /* Response+Argo.swift */; };
+		C76EFBA42030056000FA2BB9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBA32030056000FA2BB9 /* LoginView.swift */; };
+		C76EFBA92030060400FA2BB9 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBA82030060400FA2BB9 /* Button.swift */; };
+		C76EFBB7203008C100FA2BB9 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76EFBAB203008BF00FA2BB9 /* Roboto-Medium.ttf */; };
+		C76EFBB8203008C100FA2BB9 /* Roboto-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76EFBAC203008BF00FA2BB9 /* Roboto-Italic.ttf */; };
+		C76EFBB9203008C100FA2BB9 /* Roboto-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76EFBAD203008BF00FA2BB9 /* Roboto-BlackItalic.ttf */; };
+		C76EFBBA203008C100FA2BB9 /* Roboto-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76EFBAE203008C000FA2BB9 /* Roboto-Black.ttf */; };
+		C76EFBBB203008C100FA2BB9 /* Roboto-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76EFBAF203008C000FA2BB9 /* Roboto-BoldItalic.ttf */; };
+		C76EFBBC203008C100FA2BB9 /* Roboto-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76EFBB0203008C000FA2BB9 /* Roboto-ThinItalic.ttf */; };
+		C76EFBBD203008C100FA2BB9 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76EFBB1203008C000FA2BB9 /* Roboto-Bold.ttf */; };
+		C76EFBBE203008C100FA2BB9 /* Roboto-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76EFBB2203008C100FA2BB9 /* Roboto-Thin.ttf */; };
+		C76EFBBF203008C100FA2BB9 /* Roboto-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76EFBB3203008C100FA2BB9 /* Roboto-Light.ttf */; };
+		C76EFBC0203008C100FA2BB9 /* Roboto-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76EFBB4203008C100FA2BB9 /* Roboto-MediumItalic.ttf */; };
+		C76EFBC1203008C100FA2BB9 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76EFBB5203008C100FA2BB9 /* Roboto-Regular.ttf */; };
+		C76EFBC2203008C100FA2BB9 /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76EFBB6203008C100FA2BB9 /* Roboto-LightItalic.ttf */; };
+		C76EFBC4203008D200FA2BB9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBC3203008D100FA2BB9 /* Constants.swift */; };
+		C76EFBC620301AE500FA2BB9 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBC520301AE500FA2BB9 /* TextField.swift */; };
+		C76EFBC82030201B00FA2BB9 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBC72030201A00FA2BB9 /* GradientView.swift */; };
+		C76EFBCB203027EB00FA2BB9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBCA203027EB00FA2BB9 /* LoginViewController.swift */; };
+		C76EFBE220302F8C00FA2BB9 /* Next.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBCE20302F8B00FA2BB9 /* Next.swift */; };
+		C76EFBE320302F8C00FA2BB9 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBCF20302F8B00FA2BB9 /* State.swift */; };
+		C76EFBE420302F8C00FA2BB9 /* ValueState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBD120302F8B00FA2BB9 /* ValueState.swift */; };
+		C76EFBE520302F8C00FA2BB9 /* EOLState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBD220302F8B00FA2BB9 /* EOLState.swift */; };
+		C76EFBE620302F8C00FA2BB9 /* FixedState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBD320302F8B00FA2BB9 /* FixedState.swift */; };
+		C76EFBE720302F8C00FA2BB9 /* OptionalValueState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBD420302F8B00FA2BB9 /* OptionalValueState.swift */; };
+		C76EFBE820302F8C00FA2BB9 /* FreeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBD520302F8B00FA2BB9 /* FreeState.swift */; };
+		C76EFBE920302F8C00FA2BB9 /* CaretString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBD620302F8B00FA2BB9 /* CaretString.swift */; };
+		C76EFBEA20302F8C00FA2BB9 /* Mask.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBD720302F8B00FA2BB9 /* Mask.swift */; };
+		C76EFBEB20302F8C00FA2BB9 /* InterfaceBuilderSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBD920302F8B00FA2BB9 /* InterfaceBuilderSupport.swift */; };
+		C76EFBEC20302F8C00FA2BB9 /* PolyMaskTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBDA20302F8B00FA2BB9 /* PolyMaskTextFieldDelegate.swift */; };
+		C76EFBED20302F8C00FA2BB9 /* MaskedTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBDB20302F8B00FA2BB9 /* MaskedTextFieldDelegate.swift */; };
+		C76EFBEE20302F8C00FA2BB9 /* CaretStringIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBDD20302F8B00FA2BB9 /* CaretStringIterator.swift */; };
+		C76EFBEF20302F8C00FA2BB9 /* Compiler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBDE20302F8B00FA2BB9 /* Compiler.swift */; };
+		C76EFBF020302F8C00FA2BB9 /* FormatSanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBDF20302F8B00FA2BB9 /* FormatSanitizer.swift */; };
+		C76EFBF120302F8C00FA2BB9 /* NSCharacterSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBE020302F8B00FA2BB9 /* NSCharacterSet.swift */; };
+		C76EFBF220302F8C00FA2BB9 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBE120302F8B00FA2BB9 /* String.swift */; };
 		C8980F5F06EB082954A1EC12 /* Pods_LifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46E59888BA0BE2BC7F655D2 /* Pods_LifeUITests.framework */; };
 		E662A33585BEC04BB9C4E8C4 /* Pods_LifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6832F87B3CF9A6B146EC0E0 /* Pods_LifeTests.framework */; };
 /* End PBXBuildFile section */
@@ -72,6 +107,41 @@
 		C76EFB94202E94D000FA2BB9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C76EFB99202EA76200FA2BB9 /* Observable+Argo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Argo.swift"; sourceTree = "<group>"; };
 		C76EFB9B202EA76200FA2BB9 /* Response+Argo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Response+Argo.swift"; sourceTree = "<group>"; };
+		C76EFBA32030056000FA2BB9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		C76EFBA82030060400FA2BB9 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		C76EFBAB203008BF00FA2BB9 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		C76EFBAC203008BF00FA2BB9 /* Roboto-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Italic.ttf"; sourceTree = "<group>"; };
+		C76EFBAD203008BF00FA2BB9 /* Roboto-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BlackItalic.ttf"; sourceTree = "<group>"; };
+		C76EFBAE203008C000FA2BB9 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
+		C76EFBAF203008C000FA2BB9 /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
+		C76EFBB0203008C000FA2BB9 /* Roboto-ThinItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-ThinItalic.ttf"; sourceTree = "<group>"; };
+		C76EFBB1203008C000FA2BB9 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		C76EFBB2203008C100FA2BB9 /* Roboto-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Thin.ttf"; sourceTree = "<group>"; };
+		C76EFBB3203008C100FA2BB9 /* Roboto-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Light.ttf"; sourceTree = "<group>"; };
+		C76EFBB4203008C100FA2BB9 /* Roboto-MediumItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-MediumItalic.ttf"; sourceTree = "<group>"; };
+		C76EFBB5203008C100FA2BB9 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		C76EFBB6203008C100FA2BB9 /* Roboto-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-LightItalic.ttf"; sourceTree = "<group>"; };
+		C76EFBC3203008D100FA2BB9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C76EFBC520301AE500FA2BB9 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		C76EFBC72030201A00FA2BB9 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		C76EFBCA203027EB00FA2BB9 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		C76EFBCE20302F8B00FA2BB9 /* Next.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Next.swift; sourceTree = "<group>"; };
+		C76EFBCF20302F8B00FA2BB9 /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
+		C76EFBD120302F8B00FA2BB9 /* ValueState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValueState.swift; sourceTree = "<group>"; };
+		C76EFBD220302F8B00FA2BB9 /* EOLState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EOLState.swift; sourceTree = "<group>"; };
+		C76EFBD320302F8B00FA2BB9 /* FixedState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FixedState.swift; sourceTree = "<group>"; };
+		C76EFBD420302F8B00FA2BB9 /* OptionalValueState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalValueState.swift; sourceTree = "<group>"; };
+		C76EFBD520302F8B00FA2BB9 /* FreeState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FreeState.swift; sourceTree = "<group>"; };
+		C76EFBD620302F8B00FA2BB9 /* CaretString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaretString.swift; sourceTree = "<group>"; };
+		C76EFBD720302F8B00FA2BB9 /* Mask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mask.swift; sourceTree = "<group>"; };
+		C76EFBD920302F8B00FA2BB9 /* InterfaceBuilderSupport.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterfaceBuilderSupport.swift; sourceTree = "<group>"; };
+		C76EFBDA20302F8B00FA2BB9 /* PolyMaskTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolyMaskTextFieldDelegate.swift; sourceTree = "<group>"; };
+		C76EFBDB20302F8B00FA2BB9 /* MaskedTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaskedTextFieldDelegate.swift; sourceTree = "<group>"; };
+		C76EFBDD20302F8B00FA2BB9 /* CaretStringIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaretStringIterator.swift; sourceTree = "<group>"; };
+		C76EFBDE20302F8B00FA2BB9 /* Compiler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Compiler.swift; sourceTree = "<group>"; };
+		C76EFBDF20302F8B00FA2BB9 /* FormatSanitizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormatSanitizer.swift; sourceTree = "<group>"; };
+		C76EFBE020302F8B00FA2BB9 /* NSCharacterSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSCharacterSet.swift; sourceTree = "<group>"; };
+		C76EFBE120302F8B00FA2BB9 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		D176AD02439750FEBCD45041 /* Pods-LifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeUITests/Pods-LifeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D46E59888BA0BE2BC7F655D2 /* Pods_LifeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LifeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -178,6 +248,7 @@
 		C76EFB81202E92BB00FA2BB9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C76EFBAA203008B200FA2BB9 /* Fonts */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -192,6 +263,8 @@
 		C76EFB83202E92BB00FA2BB9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C76EFBA52030056C00FA2BB9 /* Common */,
+				C76EFBA22030052800FA2BB9 /* Login */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -199,6 +272,7 @@
 		C76EFB84202E92BB00FA2BB9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C76EFBC3203008D100FA2BB9 /* Constants.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -206,6 +280,7 @@
 		C76EFB85202E92BB00FA2BB9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C76EFBC9203027DD00FA2BB9 /* Login */,
 				C76EFB4F202E91F000FA2BB9 /* ViewController.swift */,
 			);
 			path = Controllers;
@@ -231,6 +306,7 @@
 		C76EFB96202EA72C00FA2BB9 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				C76EFBCC20302F8500FA2BB9 /* InputMask */,
 				C76EFB97202EA76200FA2BB9 /* Moya-Argo */,
 			);
 			path = External;
@@ -251,6 +327,107 @@
 				C76EFB99202EA76200FA2BB9 /* Observable+Argo.swift */,
 			);
 			path = RxSwift;
+			sourceTree = "<group>";
+		};
+		C76EFBA22030052800FA2BB9 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				C76EFBA32030056000FA2BB9 /* LoginView.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		C76EFBA52030056C00FA2BB9 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				C76EFBA82030060400FA2BB9 /* Button.swift */,
+				C76EFBC520301AE500FA2BB9 /* TextField.swift */,
+				C76EFBC72030201A00FA2BB9 /* GradientView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		C76EFBAA203008B200FA2BB9 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				C76EFBAE203008C000FA2BB9 /* Roboto-Black.ttf */,
+				C76EFBAD203008BF00FA2BB9 /* Roboto-BlackItalic.ttf */,
+				C76EFBB1203008C000FA2BB9 /* Roboto-Bold.ttf */,
+				C76EFBAF203008C000FA2BB9 /* Roboto-BoldItalic.ttf */,
+				C76EFBAC203008BF00FA2BB9 /* Roboto-Italic.ttf */,
+				C76EFBB3203008C100FA2BB9 /* Roboto-Light.ttf */,
+				C76EFBB6203008C100FA2BB9 /* Roboto-LightItalic.ttf */,
+				C76EFBAB203008BF00FA2BB9 /* Roboto-Medium.ttf */,
+				C76EFBB4203008C100FA2BB9 /* Roboto-MediumItalic.ttf */,
+				C76EFBB5203008C100FA2BB9 /* Roboto-Regular.ttf */,
+				C76EFBB2203008C100FA2BB9 /* Roboto-Thin.ttf */,
+				C76EFBB0203008C000FA2BB9 /* Roboto-ThinItalic.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		C76EFBC9203027DD00FA2BB9 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				C76EFBCA203027EB00FA2BB9 /* LoginViewController.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		C76EFBCC20302F8500FA2BB9 /* InputMask */ = {
+			isa = PBXGroup;
+			children = (
+				C76EFBDC20302F8B00FA2BB9 /* Helper */,
+				C76EFBD720302F8B00FA2BB9 /* Mask.swift */,
+				C76EFBCD20302F8B00FA2BB9 /* Model */,
+				C76EFBD820302F8B00FA2BB9 /* View */,
+			);
+			path = InputMask;
+			sourceTree = "<group>";
+		};
+		C76EFBCD20302F8B00FA2BB9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				C76EFBCE20302F8B00FA2BB9 /* Next.swift */,
+				C76EFBCF20302F8B00FA2BB9 /* State.swift */,
+				C76EFBD020302F8B00FA2BB9 /* State */,
+				C76EFBD620302F8B00FA2BB9 /* CaretString.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		C76EFBD020302F8B00FA2BB9 /* State */ = {
+			isa = PBXGroup;
+			children = (
+				C76EFBD120302F8B00FA2BB9 /* ValueState.swift */,
+				C76EFBD220302F8B00FA2BB9 /* EOLState.swift */,
+				C76EFBD320302F8B00FA2BB9 /* FixedState.swift */,
+				C76EFBD420302F8B00FA2BB9 /* OptionalValueState.swift */,
+				C76EFBD520302F8B00FA2BB9 /* FreeState.swift */,
+			);
+			path = State;
+			sourceTree = "<group>";
+		};
+		C76EFBD820302F8B00FA2BB9 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C76EFBD920302F8B00FA2BB9 /* InterfaceBuilderSupport.swift */,
+				C76EFBDA20302F8B00FA2BB9 /* PolyMaskTextFieldDelegate.swift */,
+				C76EFBDB20302F8B00FA2BB9 /* MaskedTextFieldDelegate.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C76EFBDC20302F8B00FA2BB9 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				C76EFBDD20302F8B00FA2BB9 /* CaretStringIterator.swift */,
+				C76EFBDE20302F8B00FA2BB9 /* Compiler.swift */,
+				C76EFBDF20302F8B00FA2BB9 /* FormatSanitizer.swift */,
+				C76EFBE020302F8B00FA2BB9 /* NSCharacterSet.swift */,
+				C76EFBE120302F8B00FA2BB9 /* String.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		C864E4175CD626F6101B47B6 /* Frameworks */ = {
@@ -382,8 +559,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C76EFBBC203008C100FA2BB9 /* Roboto-ThinItalic.ttf in Resources */,
+				C76EFBBB203008C100FA2BB9 /* Roboto-BoldItalic.ttf in Resources */,
+				C76EFBC2203008C100FA2BB9 /* Roboto-LightItalic.ttf in Resources */,
+				C76EFBB7203008C100FA2BB9 /* Roboto-Medium.ttf in Resources */,
+				C76EFBB8203008C100FA2BB9 /* Roboto-Italic.ttf in Resources */,
+				C76EFBC0203008C100FA2BB9 /* Roboto-MediumItalic.ttf in Resources */,
+				C76EFBBD203008C100FA2BB9 /* Roboto-Bold.ttf in Resources */,
 				C76EFB58202E91F000FA2BB9 /* LaunchScreen.storyboard in Resources */,
+				C76EFBBA203008C100FA2BB9 /* Roboto-Black.ttf in Resources */,
+				C76EFBB9203008C100FA2BB9 /* Roboto-BlackItalic.ttf in Resources */,
+				C76EFBBE203008C100FA2BB9 /* Roboto-Thin.ttf in Resources */,
+				C76EFBBF203008C100FA2BB9 /* Roboto-Light.ttf in Resources */,
 				C76EFB8A202E947800FA2BB9 /* Localizable.strings in Resources */,
+				C76EFBC1203008C100FA2BB9 /* Roboto-Regular.ttf in Resources */,
 				C76EFB55202E91F000FA2BB9 /* Assets.xcassets in Resources */,
 				C76EFB53202E91F000FA2BB9 /* Main.storyboard in Resources */,
 			);
@@ -553,6 +742,7 @@
 				"${BUILT_PRODUCTS_DIR}/Runes/Runes.framework",
 				"${BUILT_PRODUCTS_DIR}/RxRealm/RxRealm.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -569,6 +759,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Runes.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRealm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -597,10 +788,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C76EFBE220302F8C00FA2BB9 /* Next.swift in Sources */,
+				C76EFBED20302F8C00FA2BB9 /* MaskedTextFieldDelegate.swift in Sources */,
 				C76EFB50202E91F000FA2BB9 /* ViewController.swift in Sources */,
+				C76EFBF220302F8C00FA2BB9 /* String.swift in Sources */,
+				C76EFBEC20302F8C00FA2BB9 /* PolyMaskTextFieldDelegate.swift in Sources */,
+				C76EFBEF20302F8C00FA2BB9 /* Compiler.swift in Sources */,
+				C76EFBA92030060400FA2BB9 /* Button.swift in Sources */,
 				C76EFBA0202EA76300FA2BB9 /* Response+Argo.swift in Sources */,
+				C76EFBF120302F8C00FA2BB9 /* NSCharacterSet.swift in Sources */,
+				C76EFBC620301AE500FA2BB9 /* TextField.swift in Sources */,
 				C76EFB4E202E91F000FA2BB9 /* AppDelegate.swift in Sources */,
+				C76EFBC4203008D200FA2BB9 /* Constants.swift in Sources */,
+				C76EFBE720302F8C00FA2BB9 /* OptionalValueState.swift in Sources */,
+				C76EFBE920302F8C00FA2BB9 /* CaretString.swift in Sources */,
+				C76EFBE620302F8C00FA2BB9 /* FixedState.swift in Sources */,
+				C76EFBA42030056000FA2BB9 /* LoginView.swift in Sources */,
+				C76EFBE520302F8C00FA2BB9 /* EOLState.swift in Sources */,
 				C76EFB9E202EA76300FA2BB9 /* Observable+Argo.swift in Sources */,
+				C76EFBCB203027EB00FA2BB9 /* LoginViewController.swift in Sources */,
+				C76EFBEE20302F8C00FA2BB9 /* CaretStringIterator.swift in Sources */,
+				C76EFBEA20302F8C00FA2BB9 /* Mask.swift in Sources */,
+				C76EFBC82030201B00FA2BB9 /* GradientView.swift in Sources */,
+				C76EFBE320302F8C00FA2BB9 /* State.swift in Sources */,
+				C76EFBF020302F8C00FA2BB9 /* FormatSanitizer.swift in Sources */,
+				C76EFBEB20302F8C00FA2BB9 /* InterfaceBuilderSupport.swift in Sources */,
+				C76EFBE420302F8C00FA2BB9 /* ValueState.swift in Sources */,
+				C76EFBE820302F8C00FA2BB9 /* FreeState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
