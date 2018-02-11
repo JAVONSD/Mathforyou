@@ -14,6 +14,7 @@ struct App {
     // MARK: - Colors
 
     struct Color {
+
         static let coolGrey24 = UIColor(hexString: "#95989a").withAlphaComponent(0.24)
         static let azure = UIColor(hexString: "#108aeb")
         static let skyBlue = UIColor(hexString: "#4fc3f7")
@@ -37,6 +38,13 @@ struct App {
         static let coolGrey = UIColor(hexString: "#bcbbc1")
         static let black = UIColor(hexString: "#333333")
         static let sky = UIColor(hexString: "#87cefa")
+
+        static let blueGradient = [
+            UIColor(hexString: "#1a44a9"),
+            UIColor(hexString: "#175abe"),
+            App.Color.azure
+        ]
+
     }
 
     // MARK: - Fonts

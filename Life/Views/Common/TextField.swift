@@ -32,4 +32,16 @@ class TextField: ErrorTextField {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Methods
+
+    public func makeLight() {
+        dividerColor = App.Color.coolGrey
+        dividerActiveColor = UIColor.white.withAlphaComponent(0.7)
+
+        placeholderNormalColor = UIColor.white.withAlphaComponent(0.4)
+        placeholderActiveColor = UIColor.white.withAlphaComponent(0.7)
+
+        textColor = .white
+    }
+
 }

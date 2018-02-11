@@ -12,6 +12,7 @@ import Material
 import SnapKit
 
 class ResetPasswordView: UIView {
+
     private(set) var headerView: GradientView?
     private(set) var headerImageView: UIImageView?
     private(set) var newPasswordField: TextField?
@@ -38,17 +39,10 @@ class ResetPasswordView: UIView {
     private func setupHeaderView() {
         headerView = GradientView()
 
-        guard let headerView = headerView else {
-            return
-        }
+        guard let headerView = headerView else { return }
 
-        let colors = [
-            UIColor(hexString: "#1a44a9"),
-            UIColor(hexString: "#175abe"),
-            App.Color.azure
-        ]
         headerView.makeHorizontal()
-        headerView.setGradient(colors: colors)
+        headerView.setGradient(colors: App.Color.blueGradient)
 
         headerView.layer.shadowColor = App.Color.black12.cgColor
         headerView.layer.shadowOffset = CGSize(width: 0, height: 6)
@@ -57,9 +51,7 @@ class ResetPasswordView: UIView {
 
         addSubview(headerView)
         headerView.snp.makeConstraints { [weak self] (make) in
-            guard let `self` = self else {
-                return
-            }
+            guard let `self` = self else { return }
 
             make.top.equalTo(self)
             make.left.equalTo(self)
@@ -73,7 +65,8 @@ class ResetPasswordView: UIView {
     private func setupHeaderImageView() {
         headerImageView = UIImageView()
 
-        guard let headerView = headerView, let headerImageView = headerImageView else {
+        guard let headerView = headerView,
+            let headerImageView = headerImageView else {
             return
         }
 
@@ -97,15 +90,14 @@ class ResetPasswordView: UIView {
         newPasswordField?.visibilityIconButton?.tintColor = App.Color.azure
         newPasswordField?.isVisibilityIconButtonEnabled = true
 
-        guard let headerView = headerView, let newPasswordField = newPasswordField else {
+        guard let headerView = headerView,
+            let newPasswordField = newPasswordField else {
             return
         }
 
         addSubview(newPasswordField)
         newPasswordField.snp.makeConstraints { [weak self] (make) in
-            guard let `self` = self else {
-                return
-            }
+            guard let `self` = self else { return }
 
             make.top.equalTo(headerView.snp.bottom).offset(App.Layout.itemSpacingMedium * 2)
             make.left.equalTo(self).inset(App.Layout.sideOffset)
@@ -127,9 +119,7 @@ class ResetPasswordView: UIView {
 
         addSubview(newPasswordRepeatField)
         newPasswordRepeatField.snp.makeConstraints { [weak self] (make) in
-            guard let `self` = self else {
-                return
-            }
+            guard let `self` = self else { return }
 
             make.top.equalTo(newPasswordField.snp.bottom).offset(App.Layout.itemSpacingMedium)
             make.left.equalTo(self).inset(App.Layout.sideOffset)
@@ -140,15 +130,14 @@ class ResetPasswordView: UIView {
     private func setupLoginButton() {
         changeButton = Button(title: NSLocalizedString("change", comment: "").uppercased())
 
-        guard let newPasswordRepeatField = newPasswordRepeatField, let changeButton = changeButton else {
+        guard let newPasswordRepeatField = newPasswordRepeatField,
+            let changeButton = changeButton else {
             return
         }
 
         addSubview(changeButton)
         changeButton.snp.makeConstraints { [weak self] (make) in
-            guard let `self` = self else {
-                return
-            }
+            guard let `self` = self else { return }
 
             make.top.equalTo(newPasswordRepeatField.snp.bottom).offset(App.Layout.itemSpacingBig)
             make.left.equalTo(self).inset(App.Layout.sideOffset)
@@ -159,9 +148,7 @@ class ResetPasswordView: UIView {
     private func setupBIGroupLabel() {
         biGroupLabel = UILabel()
 
-        guard let biGroupLabel = biGroupLabel else {
-            return
-        }
+        guard let biGroupLabel = biGroupLabel else { return }
 
         biGroupLabel.font = App.Font.footnote
         biGroupLabel.textColor = App.Color.slateGrey
@@ -169,9 +156,7 @@ class ResetPasswordView: UIView {
 
         addSubview(biGroupLabel)
         biGroupLabel.snp.makeConstraints { [weak self] (make) in
-            guard let `self` = self else {
-                return
-            }
+            guard let `self` = self else { return }
 
             make.centerX.equalTo(self)
             make.bottom.equalTo(self).inset(App.Layout.itemSpacingMedium)

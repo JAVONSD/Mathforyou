@@ -55,6 +55,8 @@
 		C76EFBF220302F8C00FA2BB9 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBE120302F8B00FA2BB9 /* String.swift */; };
 		C76EFBF42030315C00FA2BB9 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBF32030315C00FA2BB9 /* ResetPasswordView.swift */; };
 		C76EFBF6203032B600FA2BB9 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBF5203032B600FA2BB9 /* ResetPasswordViewController.swift */; };
+		C7B5FA0420305691003F3D2C /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B5FA0320305691003F3D2C /* ForgotPasswordView.swift */; };
+		C7B5FA0620305D11003F3D2C /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B5FA0520305D11003F3D2C /* ForgotPasswordViewController.swift */; };
 		C8980F5F06EB082954A1EC12 /* Pods_LifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46E59888BA0BE2BC7F655D2 /* Pods_LifeUITests.framework */; };
 		E662A33585BEC04BB9C4E8C4 /* Pods_LifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6832F87B3CF9A6B146EC0E0 /* Pods_LifeTests.framework */; };
 /* End PBXBuildFile section */
@@ -146,6 +148,8 @@
 		C76EFBE120302F8B00FA2BB9 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		C76EFBF32030315C00FA2BB9 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		C76EFBF5203032B600FA2BB9 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		C7B5FA0320305691003F3D2C /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
+		C7B5FA0520305D11003F3D2C /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		D176AD02439750FEBCD45041 /* Pods-LifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeUITests/Pods-LifeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D46E59888BA0BE2BC7F655D2 /* Pods_LifeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LifeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -338,6 +342,7 @@
 			children = (
 				C76EFBA32030056000FA2BB9 /* LoginView.swift */,
 				C76EFBF32030315C00FA2BB9 /* ResetPasswordView.swift */,
+				C7B5FA0320305691003F3D2C /* ForgotPasswordView.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -376,6 +381,7 @@
 			children = (
 				C76EFBCA203027EB00FA2BB9 /* LoginViewController.swift */,
 				C76EFBF5203032B600FA2BB9 /* ResetPasswordViewController.swift */,
+				C7B5FA0520305D11003F3D2C /* ForgotPasswordViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -812,6 +818,7 @@
 				C76EFBE920302F8C00FA2BB9 /* CaretString.swift in Sources */,
 				C76EFBE620302F8C00FA2BB9 /* FixedState.swift in Sources */,
 				C76EFBA42030056000FA2BB9 /* LoginView.swift in Sources */,
+				C7B5FA0620305D11003F3D2C /* ForgotPasswordViewController.swift in Sources */,
 				C76EFBE520302F8C00FA2BB9 /* EOLState.swift in Sources */,
 				C76EFB9E202EA76300FA2BB9 /* Observable+Argo.swift in Sources */,
 				C76EFBCB203027EB00FA2BB9 /* LoginViewController.swift in Sources */,
@@ -822,6 +829,7 @@
 				C76EFBF020302F8C00FA2BB9 /* FormatSanitizer.swift in Sources */,
 				C76EFBEB20302F8C00FA2BB9 /* InterfaceBuilderSupport.swift in Sources */,
 				C76EFBE420302F8C00FA2BB9 /* ValueState.swift in Sources */,
+				C7B5FA0420305691003F3D2C /* ForgotPasswordView.swift in Sources */,
 				C76EFBE820302F8C00FA2BB9 /* FreeState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

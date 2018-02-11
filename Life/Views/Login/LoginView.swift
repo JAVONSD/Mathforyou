@@ -12,6 +12,7 @@ import Material
 import SnapKit
 
 class LoginView: UIView, MaskedTextFieldDelegateListener {
+
     private(set) var headerView: GradientView?
     private(set) var headerImageView: UIImageView?
     private(set) var phoneField: TextField?
@@ -44,17 +45,10 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
     private func setupHeaderView() {
         headerView = GradientView()
 
-        guard let headerView = headerView else {
-            return
-        }
+        guard let headerView = headerView else { return }
 
-        let colors = [
-            UIColor(hexString: "#1a44a9"),
-            UIColor(hexString: "#175abe"),
-            App.Color.azure
-        ]
         headerView.makeHorizontal()
-        headerView.setGradient(colors: colors)
+        headerView.setGradient(colors: App.Color.blueGradient)
 
         headerView.layer.shadowColor = App.Color.black12.cgColor
         headerView.layer.shadowOffset = CGSize(width: 0, height: 6)
@@ -63,9 +57,7 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
 
         addSubview(headerView)
         headerView.snp.makeConstraints { [weak self] (make) in
-            guard let `self` = self else {
-                return
-            }
+            guard let `self` = self else { return }
 
             make.top.equalTo(self)
             make.left.equalTo(self)
@@ -79,7 +71,8 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
     private func setupHeaderImageView() {
         headerImageView = UIImageView()
 
-        guard let headerView = headerView, let headerImageView = headerImageView else {
+        guard let headerView = headerView,
+            let headerImageView = headerImageView else {
             return
         }
 
@@ -102,7 +95,8 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
 
         phoneField = TextField(frame: .zero)
 
-        guard let headerView = headerView, let phoneField = phoneField else {
+        guard let headerView = headerView,
+            let phoneField = phoneField else {
             return
         }
 
@@ -113,9 +107,7 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
 
         addSubview(phoneField)
         phoneField.snp.makeConstraints { [weak self] (make) in
-            guard let `self` = self else {
-                return
-            }
+            guard let `self` = self else { return }
 
             make.top.equalTo(headerView.snp.bottom).offset(App.Layout.itemSpacingMedium * 2)
             make.left.equalTo(self).inset(App.Layout.sideOffset)
@@ -130,15 +122,14 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
         passwordField?.visibilityIconButton?.tintColor = App.Color.azure
         passwordField?.isVisibilityIconButtonEnabled = true
 
-        guard let passwordField = passwordField, let phoneField = phoneField else {
+        guard let passwordField = passwordField,
+            let phoneField = phoneField else {
             return
         }
 
         addSubview(passwordField)
         passwordField.snp.makeConstraints { [weak self] (make) in
-            guard let `self` = self else {
-                return
-            }
+            guard let `self` = self else { return }
 
             make.top.equalTo(phoneField.snp.bottom).offset(App.Layout.itemSpacingMedium)
             make.left.equalTo(self).inset(App.Layout.sideOffset)
@@ -149,15 +140,14 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
     private func setupLoginButton() {
         loginButton = Button(title: NSLocalizedString("login", comment: "").uppercased())
 
-        guard let passwordField = passwordField, let loginButton = loginButton else {
+        guard let passwordField = passwordField,
+            let loginButton = loginButton else {
             return
         }
 
         addSubview(loginButton)
         loginButton.snp.makeConstraints { [weak self] (make) in
-            guard let `self` = self else {
-                return
-            }
+            guard let `self` = self else { return }
 
             make.top.equalTo(passwordField.snp.bottom).offset(App.Layout.itemSpacingBig)
             make.left.equalTo(self).inset(App.Layout.sideOffset)
@@ -168,15 +158,14 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
     private func setupForgotPasswordView() {
         forgotPasswordView = UIView()
 
-        guard let forgotPasswordView = forgotPasswordView, let loginButton = loginButton else {
+        guard let forgotPasswordView = forgotPasswordView,
+            let loginButton = loginButton else {
             return
         }
 
         addSubview(forgotPasswordView)
         forgotPasswordView.snp.makeConstraints { [weak self] (make) in
-            guard let `self` = self else {
-                return
-            }
+            guard let `self` = self else { return }
 
             make.top.equalTo(loginButton.snp.bottom).offset(App.Layout.itemSpacingMedium * 2)
             make.centerX.equalTo(self)
@@ -232,9 +221,7 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
     private func setupBIGroupLabel() {
         biGroupLabel = UILabel()
 
-        guard let biGroupLabel = biGroupLabel else {
-            return
-        }
+        guard let biGroupLabel = biGroupLabel else { return }
 
         biGroupLabel.font = App.Font.footnote
         biGroupLabel.textColor = App.Color.slateGrey
@@ -242,9 +229,7 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
 
         addSubview(biGroupLabel)
         biGroupLabel.snp.makeConstraints { [weak self] (make) in
-            guard let `self` = self else {
-                return
-            }
+            guard let `self` = self else { return }
 
             make.centerX.equalTo(self)
             make.bottom.equalTo(self).inset(App.Layout.itemSpacingMedium)
