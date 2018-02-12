@@ -24,6 +24,7 @@ struct App {
         static let silver = UIColor(hexString: "#d1d1d6")
         static let mango = UIColor(hexString: "#ffa726")
         static let white = UIColor(hexString: "#fefefe")
+        static let whiteSmoke = UIColor(hexString: "#f5f5f5")
         static let blackDisable = UIColor(hexString: "#333333").withAlphaComponent(0.4)
         static let grapefruit = UIColor(hexString: "#ff5252")
         static let whiteTwo = UIColor(hexString: "#f7f7f7")
@@ -92,6 +93,8 @@ struct App {
         static let itemSpacingSmall: CGFloat = 8
         static let itemSpacingMedium: CGFloat = 16
         static let itemSpacingBig: CGFloat = 21
+
+        static let cornerRadius: CGFloat = 14
     }
 
 }

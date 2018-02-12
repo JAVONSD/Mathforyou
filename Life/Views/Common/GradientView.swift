@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Material
 import SnapKit
 
-class GradientView: UIView {
+class GradientView: View {
     private class GradientSubview: UIView {
         override open class var layerClass: AnyClass {
             return CAGradientLayer.classForCoder()

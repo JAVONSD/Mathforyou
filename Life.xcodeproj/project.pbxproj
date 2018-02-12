@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		2645CE45D7BDDF7B375C06AD /* Pods_Life.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6099E4209624F63B0227327D /* Pods_Life.framework */; };
 		C76EFB4E202E91F000FA2BB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB4D202E91F000FA2BB9 /* AppDelegate.swift */; };
-		C76EFB50202E91F000FA2BB9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB4F202E91F000FA2BB9 /* ViewController.swift */; };
-		C76EFB53202E91F000FA2BB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C76EFB51202E91F000FA2BB9 /* Main.storyboard */; };
 		C76EFB55202E91F000FA2BB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C76EFB54202E91F000FA2BB9 /* Assets.xcassets */; };
 		C76EFB58202E91F000FA2BB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C76EFB56202E91F000FA2BB9 /* LaunchScreen.storyboard */; };
 		C76EFB63202E91F000FA2BB9 /* LifeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB62202E91F000FA2BB9 /* LifeTests.swift */; };
@@ -55,6 +53,22 @@
 		C76EFBF220302F8C00FA2BB9 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBE120302F8B00FA2BB9 /* String.swift */; };
 		C76EFBF42030315C00FA2BB9 /* ResetPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBF32030315C00FA2BB9 /* ResetPasswordView.swift */; };
 		C76EFBF6203032B600FA2BB9 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBF5203032B600FA2BB9 /* ResetPasswordViewController.swift */; };
+		C79251E0203145E200CDFBBA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79251DF203145E200CDFBBA /* ProfileViewController.swift */; };
+		C79251E22031487C00CDFBBA /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79251E12031487C00CDFBBA /* MyInfoViewController.swift */; };
+		C79251E42031489A00CDFBBA /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79251E32031489A00CDFBBA /* ResultsViewController.swift */; };
+		C79251E6203148AF00CDFBBA /* PlansViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79251E5203148AF00CDFBBA /* PlansViewController.swift */; };
+		C79251E8203148D300CDFBBA /* BenefitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79251E7203148D300CDFBBA /* BenefitsViewController.swift */; };
+		C79251EB2031532E00CDFBBA /* MyInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79251EA2031532E00CDFBBA /* MyInfoView.swift */; };
+		C79251ED2031561E00CDFBBA /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79251EC2031561E00CDFBBA /* UIView+Extensions.swift */; };
+		C79251EF2031569B00CDFBBA /* StackedScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79251EE2031569B00CDFBBA /* StackedScrollView.swift */; };
+		C79251F120315CE800CDFBBA /* StackedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79251F020315CE800CDFBBA /* StackedView.swift */; };
+		C79251F320315DDC00CDFBBA /* ImageTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79251F220315DDC00CDFBBA /* ImageTextView.swift */; };
+		C79251F520317A6100CDFBBA /* AppToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79251F420317A6100CDFBBA /* AppToolbarController.swift */; };
+		C79251F720317AE600CDFBBA /* AppFABMenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79251F620317AE600CDFBBA /* AppFABMenuController.swift */; };
+		C79251F9203184F800CDFBBA /* ImageTextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79251F8203184F800CDFBBA /* ImageTextButton.swift */; };
+		C79251FB2031A14600CDFBBA /* MyInfoDetailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79251FA2031A14600CDFBBA /* MyInfoDetailedView.swift */; };
+		C79251FD2031A16700CDFBBA /* MyInfoContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79251FC2031A16700CDFBBA /* MyInfoContactView.swift */; };
+		C79251FF2031A18B00CDFBBA /* MyInfoMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79251FE2031A18B00CDFBBA /* MyInfoMainView.swift */; };
 		C7B5FA0420305691003F3D2C /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B5FA0320305691003F3D2C /* ForgotPasswordView.swift */; };
 		C7B5FA0620305D11003F3D2C /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B5FA0520305D11003F3D2C /* ForgotPasswordViewController.swift */; };
 		C8980F5F06EB082954A1EC12 /* Pods_LifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46E59888BA0BE2BC7F655D2 /* Pods_LifeUITests.framework */; };
@@ -88,8 +102,6 @@
 		C6832F87B3CF9A6B146EC0E0 /* Pods_LifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C76EFB4A202E91F000FA2BB9 /* Life.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Life.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C76EFB4D202E91F000FA2BB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C76EFB4F202E91F000FA2BB9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C76EFB52202E91F000FA2BB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C76EFB54202E91F000FA2BB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C76EFB57202E91F000FA2BB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C76EFB59202E91F000FA2BB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -99,15 +111,12 @@
 		C76EFB69202E91F000FA2BB9 /* LifeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LifeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C76EFB6D202E91F000FA2BB9 /* LifeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifeUITests.swift; sourceTree = "<group>"; };
 		C76EFB6F202E91F000FA2BB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C76EFB7B202E923700FA2BB9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		C76EFB7C202E923700FA2BB9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		C76EFB7F202E926900FA2BB9 /* kk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kk; path = kk.lproj/Main.strings; sourceTree = "<group>"; };
 		C76EFB80202E926900FA2BB9 /* kk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kk; path = kk.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C76EFB8D202E947E00FA2BB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C76EFB8E202E948000FA2BB9 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C76EFB8F202E948100FA2BB9 /* kk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kk; path = kk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C76EFB91202E94C400FA2BB9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		C76EFB93202E94C800FA2BB9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		C76EFB94202E94D000FA2BB9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C76EFB99202EA76200FA2BB9 /* Observable+Argo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Argo.swift"; sourceTree = "<group>"; };
 		C76EFB9B202EA76200FA2BB9 /* Response+Argo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Response+Argo.swift"; sourceTree = "<group>"; };
@@ -148,6 +157,22 @@
 		C76EFBE120302F8B00FA2BB9 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		C76EFBF32030315C00FA2BB9 /* ResetPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordView.swift; sourceTree = "<group>"; };
 		C76EFBF5203032B600FA2BB9 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
+		C79251DF203145E200CDFBBA /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		C79251E12031487C00CDFBBA /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
+		C79251E32031489A00CDFBBA /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		C79251E5203148AF00CDFBBA /* PlansViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansViewController.swift; sourceTree = "<group>"; };
+		C79251E7203148D300CDFBBA /* BenefitsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitsViewController.swift; sourceTree = "<group>"; };
+		C79251EA2031532E00CDFBBA /* MyInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoView.swift; sourceTree = "<group>"; };
+		C79251EC2031561E00CDFBBA /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
+		C79251EE2031569B00CDFBBA /* StackedScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedScrollView.swift; sourceTree = "<group>"; };
+		C79251F020315CE800CDFBBA /* StackedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StackedView.swift; sourceTree = "<group>"; };
+		C79251F220315DDC00CDFBBA /* ImageTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTextView.swift; sourceTree = "<group>"; };
+		C79251F420317A6100CDFBBA /* AppToolbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppToolbarController.swift; sourceTree = "<group>"; };
+		C79251F620317AE600CDFBBA /* AppFABMenuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFABMenuController.swift; sourceTree = "<group>"; };
+		C79251F8203184F800CDFBBA /* ImageTextButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTextButton.swift; sourceTree = "<group>"; };
+		C79251FA2031A14600CDFBBA /* MyInfoDetailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoDetailedView.swift; sourceTree = "<group>"; };
+		C79251FC2031A16700CDFBBA /* MyInfoContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoContactView.swift; sourceTree = "<group>"; };
+		C79251FE2031A18B00CDFBBA /* MyInfoMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoMainView.swift; sourceTree = "<group>"; };
 		C7B5FA0320305691003F3D2C /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		C7B5FA0520305D11003F3D2C /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		D176AD02439750FEBCD45041 /* Pods-LifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeUITests/Pods-LifeUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -264,6 +289,7 @@
 		C76EFB82202E92BB00FA2BB9 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				C79251EC2031561E00CDFBBA /* UIView+Extensions.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -271,6 +297,7 @@
 		C76EFB83202E92BB00FA2BB9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C79251E92031531E00CDFBBA /* Profile */,
 				C76EFBA52030056C00FA2BB9 /* Common */,
 				C76EFBA22030052800FA2BB9 /* Login */,
 			);
@@ -289,8 +316,10 @@
 		C76EFB85202E92BB00FA2BB9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C79251DE203145D500CDFBBA /* Profile */,
 				C76EFBC9203027DD00FA2BB9 /* Login */,
-				C76EFB4F202E91F000FA2BB9 /* ViewController.swift */,
+				C79251F420317A6100CDFBBA /* AppToolbarController.swift */,
+				C79251F620317AE600CDFBBA /* AppFABMenuController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -306,7 +335,6 @@
 		C76EFB87202E92EE00FA2BB9 /* InterfaceBuilder */ = {
 			isa = PBXGroup;
 			children = (
-				C76EFB51202E91F000FA2BB9 /* Main.storyboard */,
 				C76EFB56202E91F000FA2BB9 /* LaunchScreen.storyboard */,
 			);
 			path = InterfaceBuilder;
@@ -354,6 +382,10 @@
 				C76EFBA82030060400FA2BB9 /* Button.swift */,
 				C76EFBC520301AE500FA2BB9 /* TextField.swift */,
 				C76EFBC72030201A00FA2BB9 /* GradientView.swift */,
+				C79251EE2031569B00CDFBBA /* StackedScrollView.swift */,
+				C79251F020315CE800CDFBBA /* StackedView.swift */,
+				C79251F220315DDC00CDFBBA /* ImageTextView.swift */,
+				C79251F8203184F800CDFBBA /* ImageTextButton.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -441,6 +473,29 @@
 				C76EFBE120302F8B00FA2BB9 /* String.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		C79251DE203145D500CDFBBA /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				C79251DF203145E200CDFBBA /* ProfileViewController.swift */,
+				C79251E12031487C00CDFBBA /* MyInfoViewController.swift */,
+				C79251E32031489A00CDFBBA /* ResultsViewController.swift */,
+				C79251E5203148AF00CDFBBA /* PlansViewController.swift */,
+				C79251E7203148D300CDFBBA /* BenefitsViewController.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		C79251E92031531E00CDFBBA /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				C79251EA2031532E00CDFBBA /* MyInfoView.swift */,
+				C79251FE2031A18B00CDFBBA /* MyInfoMainView.swift */,
+				C79251FC2031A16700CDFBBA /* MyInfoContactView.swift */,
+				C79251FA2031A14600CDFBBA /* MyInfoDetailedView.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		C7B5FA072030614F003F3D2C /* Auth */ = {
@@ -594,7 +649,6 @@
 				C76EFB8A202E947800FA2BB9 /* Localizable.strings in Resources */,
 				C76EFBC1203008C100FA2BB9 /* Roboto-Regular.ttf in Resources */,
 				C76EFB55202E91F000FA2BB9 /* Assets.xcassets in Resources */,
-				C76EFB53202E91F000FA2BB9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -810,12 +864,22 @@
 			files = (
 				C76EFBE220302F8C00FA2BB9 /* Next.swift in Sources */,
 				C76EFBED20302F8C00FA2BB9 /* MaskedTextFieldDelegate.swift in Sources */,
+				C79251F9203184F800CDFBBA /* ImageTextButton.swift in Sources */,
+				C79251F720317AE600CDFBBA /* AppFABMenuController.swift in Sources */,
+				C79251EF2031569B00CDFBBA /* StackedScrollView.swift in Sources */,
 				C76EFBF6203032B600FA2BB9 /* ResetPasswordViewController.swift in Sources */,
-				C76EFB50202E91F000FA2BB9 /* ViewController.swift in Sources */,
+				C79251E6203148AF00CDFBBA /* PlansViewController.swift in Sources */,
 				C76EFBF42030315C00FA2BB9 /* ResetPasswordView.swift in Sources */,
+				C79251F520317A6100CDFBBA /* AppToolbarController.swift in Sources */,
+				C79251E8203148D300CDFBBA /* BenefitsViewController.swift in Sources */,
 				C76EFBF220302F8C00FA2BB9 /* String.swift in Sources */,
+				C79251FF2031A18B00CDFBBA /* MyInfoMainView.swift in Sources */,
+				C79251E0203145E200CDFBBA /* ProfileViewController.swift in Sources */,
+				C79251E42031489A00CDFBBA /* ResultsViewController.swift in Sources */,
 				C76EFBEC20302F8C00FA2BB9 /* PolyMaskTextFieldDelegate.swift in Sources */,
 				C76EFBEF20302F8C00FA2BB9 /* Compiler.swift in Sources */,
+				C79251ED2031561E00CDFBBA /* UIView+Extensions.swift in Sources */,
+				C79251F120315CE800CDFBBA /* StackedView.swift in Sources */,
 				C76EFBA92030060400FA2BB9 /* Button.swift in Sources */,
 				C76EFBA0202EA76300FA2BB9 /* Response+Argo.swift in Sources */,
 				C76EFBF120302F8C00FA2BB9 /* NSCharacterSet.swift in Sources */,
@@ -826,16 +890,21 @@
 				C76EFBE920302F8C00FA2BB9 /* CaretString.swift in Sources */,
 				C76EFBE620302F8C00FA2BB9 /* FixedState.swift in Sources */,
 				C76EFBA42030056000FA2BB9 /* LoginView.swift in Sources */,
+				C79251E22031487C00CDFBBA /* MyInfoViewController.swift in Sources */,
 				C7B5FA0620305D11003F3D2C /* ForgotPasswordViewController.swift in Sources */,
 				C76EFBE520302F8C00FA2BB9 /* EOLState.swift in Sources */,
 				C76EFB9E202EA76300FA2BB9 /* Observable+Argo.swift in Sources */,
 				C76EFBCB203027EB00FA2BB9 /* LoginViewController.swift in Sources */,
+				C79251FB2031A14600CDFBBA /* MyInfoDetailedView.swift in Sources */,
+				C79251F320315DDC00CDFBBA /* ImageTextView.swift in Sources */,
 				C76EFBEE20302F8C00FA2BB9 /* CaretStringIterator.swift in Sources */,
 				C76EFBEA20302F8C00FA2BB9 /* Mask.swift in Sources */,
 				C76EFBC82030201B00FA2BB9 /* GradientView.swift in Sources */,
+				C79251FD2031A16700CDFBBA /* MyInfoContactView.swift in Sources */,
 				C76EFBE320302F8C00FA2BB9 /* State.swift in Sources */,
 				C76EFBF020302F8C00FA2BB9 /* FormatSanitizer.swift in Sources */,
 				C76EFBEB20302F8C00FA2BB9 /* InterfaceBuilderSupport.swift in Sources */,
+				C79251EB2031532E00CDFBBA /* MyInfoView.swift in Sources */,
 				C76EFBE420302F8C00FA2BB9 /* ValueState.swift in Sources */,
 				C7B5FA0420305691003F3D2C /* ForgotPasswordView.swift in Sources */,
 				C76EFBE820302F8C00FA2BB9 /* FreeState.swift in Sources */,
@@ -874,17 +943,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		C76EFB51202E91F000FA2BB9 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C76EFB52202E91F000FA2BB9 /* Base */,
-				C76EFB7B202E923700FA2BB9 /* ru */,
-				C76EFB7F202E926900FA2BB9 /* kk */,
-				C76EFB93202E94C800FA2BB9 /* en */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		C76EFB56202E91F000FA2BB9 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

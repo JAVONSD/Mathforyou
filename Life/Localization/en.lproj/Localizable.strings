@@ -26,3 +26,27 @@
 "cant_login_title" = "Can not login?";
 "cant_login_descr" = "Enter your username or e-mail address, and we'll send you a link for restore access to your account.";
 "send" = "Send";
+
+/* Profile */
+
+"profile" = "Profile";
+"info" = "Info";
+"results" = "Results";
+"plans" = "Plans";
+"benefits" = "Benefits";
+"division" = "Subdivision";
+"cell_phone" = "Cell phone";
+"email" = "Email";
+"official_phone" = "Official telephone";
+"detailed_info" = "Detailed info";
+"hide_detailed_info" = "Hide Info";
+"personal_and_family_info" = "Personal and family";
+"iin" = "IIN";
+"family_status" = "Family status";
+"children" = "Children";
+"birthdate" = "Date of birth";
+"gender" = "Gender";
+"clothing_size" = "Clothing size";
+"work_info" = "Work experience";
+"work_experience" = "General experience";
+"corporate_experience" = "Corporate experience";

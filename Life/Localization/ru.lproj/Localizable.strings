@@ -26,3 +26,27 @@
 "cant_login_title" = "Не можете войти?";
 "cant_login_descr" = "Введите имя пользователя или e-mail, и мы отправим вам ссылку для восстановления доступа к учетной записи.";
 "send" = "Отправить";
+
+/* Profile */
+
+"profile" = "Профиль";
+"info" = "Данные";
+"results" = "Результаты";
+"plans" = "Планы";
+"benefits" = "Преимущества";
+"division" = "Подразделение";
+"cell_phone" = "Мобильный";
+"email" = "Почта";
+"official_phone" = "Служебный телефон";
+"detailed_info" = "Подробная информация";
+"hide_detailed_info" = "Скрыть информацию";
+"personal_and_family_info" = "Личные и семья";
+"iin" = "ИИН";
+"family_status" = "Семейное положение";
+"children" = "Дети";
+"birthdate" = "Дата рождения";
+"gender" = "Пол";
+"clothing_size" = "Размер одежды";
+"work_info" = "Трудовая деятельность";
+"work_experience" = "Общий стаж";
+"corporate_experience" = "Корпоративный стаж";

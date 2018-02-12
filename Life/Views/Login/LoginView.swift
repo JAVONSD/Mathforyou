@@ -51,10 +51,8 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
         headerView.makeHorizontal()
         headerView.setGradient(colors: App.Color.blueGradient)
 
-        headerView.layer.shadowColor = App.Color.black12.cgColor
-        headerView.layer.shadowOffset = CGSize(width: 0, height: 6)
-        headerView.layer.shadowRadius = 6
-        headerView.layer.shadowOpacity = 1
+        headerView.shadowColor = App.Color.black12
+        headerView.depth = Depth(offset: Offset.init(horizontal: 0, vertical: 6), opacity: 1, radius: 6)
 
         addSubview(headerView)
         headerView.snp.makeConstraints { [weak self] (make) in

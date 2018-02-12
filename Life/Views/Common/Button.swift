@@ -18,7 +18,7 @@ class Button: RaisedButton {
         pulseColor = .white
         backgroundColor = App.Color.azure
 
-        layer.cornerRadius = 14
+        layer.cornerRadius = App.Layout.cornerRadius
         titleLabel?.font = App.Font.button
 
         snp.makeConstraints { (make) in

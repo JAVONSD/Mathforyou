@@ -13,8 +13,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions
+        launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.backgroundColor = .white
+
+        let loggedIn = true
+        if loggedIn {
+            let profileController = ProfileViewController.configuredVC
+            let toolbarController = AppToolbarController(rootViewController: profileController)
+            window?.rootViewController = toolbarController
+        } else {
+            window?.rootViewController = LoginViewController()
+        }
+
+        window?.makeKeyAndVisible()
+
         return true
     }
 
