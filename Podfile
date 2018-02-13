@@ -14,11 +14,15 @@ target 'Life' do
   # Date tools
   pod 'DateToolsSwift', '~> 2.0'
 
+  # Image Caching
+  pod 'Kingfisher', '~> 4.0'
+
   # Material design
   pod 'Material', '~> 2.0'
 
   # Network wrapper and Rx
   pod 'Moya/RxSwift', '~> 11.0'
+  pod 'RxCocoa', '~> 4.0'
 
   # Database
   pod 'RxRealm', '~> 0.7'

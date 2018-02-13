@@ -11,6 +11,7 @@ import Material
 import SnapKit
 
 class MyInfoViewController: UIViewController {
+
     private var myInfoView: MyInfoView!
 
     override func viewDidLoad() {

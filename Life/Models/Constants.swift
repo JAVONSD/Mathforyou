@@ -95,6 +95,20 @@ struct App {
         static let itemSpacingBig: CGFloat = 21
 
         static let cornerRadius: CGFloat = 14
+        static let cornerRadiusSmall: CGFloat = 8
+    }
+
+    // MARK: - Cell Identifiers
+
+    struct CellIdentifier {
+
+        // MARK: - Profile
+
+        static let resultsHeaderViewId = "resultsHeaderViewId"
+        static let corporateResultsCellId = "corporateResultsCellId"
+        static let educationResultsCellId = "educationResultsCellId"
+        static let attestationResultsCellId = "attestationResultsCellId"
+
     }
 
 }
