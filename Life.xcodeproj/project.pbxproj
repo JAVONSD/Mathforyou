@@ -42,6 +42,12 @@
 		C73EB2AB2032F9B100429921 /* RxImagePickerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2892032F9B000429921 /* RxImagePickerDelegateProxy.swift */; };
 		C73EB2AC2032F9B100429921 /* RxCLLocationManagerDelegateProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB28A2032F9B000429921 /* RxCLLocationManagerDelegateProxy.swift */; };
 		C73EB2AE2033114500429921 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2AD2033114500429921 /* HeaderView.swift */; };
+		C73EB2B020331DCC00429921 /* PlansView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2AF20331DCC00429921 /* PlansView.swift */; };
+		C73EB2B420331EAF00429921 /* PlansViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2B320331EAF00429921 /* PlansViewModel.swift */; };
+		C73EB2B620331EB900429921 /* BenefitsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2B520331EB900429921 /* BenefitsViewModel.swift */; };
+		C73EB2B8203323C500429921 /* BenefitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2B7203323C500429921 /* BenefitsView.swift */; };
+		C73EB2BA203327AA00429921 /* BenefitsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2B9203327AA00429921 /* BenefitsTableViewCell.swift */; };
+		C73EB2BC203329D000429921 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2BB203329D000429921 /* ImageCollectionViewCell.swift */; };
 		C76EFB4E202E91F000FA2BB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB4D202E91F000FA2BB9 /* AppDelegate.swift */; };
 		C76EFB55202E91F000FA2BB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C76EFB54202E91F000FA2BB9 /* Assets.xcassets */; };
 		C76EFB58202E91F000FA2BB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C76EFB56202E91F000FA2BB9 /* LaunchScreen.storyboard */; };
@@ -172,6 +178,12 @@
 		C73EB2892032F9B000429921 /* RxImagePickerDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxImagePickerDelegateProxy.swift; sourceTree = "<group>"; };
 		C73EB28A2032F9B000429921 /* RxCLLocationManagerDelegateProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxCLLocationManagerDelegateProxy.swift; sourceTree = "<group>"; };
 		C73EB2AD2033114500429921 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+		C73EB2AF20331DCC00429921 /* PlansView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansView.swift; sourceTree = "<group>"; };
+		C73EB2B320331EAF00429921 /* PlansViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlansViewModel.swift; sourceTree = "<group>"; };
+		C73EB2B520331EB900429921 /* BenefitsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitsViewModel.swift; sourceTree = "<group>"; };
+		C73EB2B7203323C500429921 /* BenefitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitsView.swift; sourceTree = "<group>"; };
+		C73EB2B9203327AA00429921 /* BenefitsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitsTableViewCell.swift; sourceTree = "<group>"; };
+		C73EB2BB203329D000429921 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		C76EFB4A202E91F000FA2BB9 /* Life.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Life.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C76EFB4D202E91F000FA2BB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C76EFB54202E91F000FA2BB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -313,6 +325,8 @@
 		C73EB24F2032D70600429921 /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				C73EB2B120331EA400429921 /* Benefits */,
+				C73EB2B220331EA400429921 /* Plans */,
 				C73EB2522032D74300429921 /* Results */,
 			);
 			path = Profile;
@@ -404,6 +418,22 @@
 				C73EB28A2032F9B000429921 /* RxCLLocationManagerDelegateProxy.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C73EB2B120331EA400429921 /* Benefits */ = {
+			isa = PBXGroup;
+			children = (
+				C73EB2B520331EB900429921 /* BenefitsViewModel.swift */,
+			);
+			path = Benefits;
+			sourceTree = "<group>";
+		};
+		C73EB2B220331EA400429921 /* Plans */ = {
+			isa = PBXGroup;
+			children = (
+				C73EB2B320331EAF00429921 /* PlansViewModel.swift */,
+			);
+			path = Plans;
 			sourceTree = "<group>";
 		};
 		C76EFB41202E91F000FA2BB9 = {
@@ -577,6 +607,7 @@
 				C79251F8203184F800CDFBBA /* ImageTextButton.swift */,
 				C79252062031B43700CDFBBA /* ImageTextTableViewCell.swift */,
 				C73EB2AD2033114500429921 /* HeaderView.swift */,
+				C73EB2BB203329D000429921 /* ImageCollectionViewCell.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -711,6 +742,7 @@
 		C79252022031B3C200CDFBBA /* Plans */ = {
 			isa = PBXGroup;
 			children = (
+				C73EB2AF20331DCC00429921 /* PlansView.swift */,
 			);
 			path = Plans;
 			sourceTree = "<group>";
@@ -718,6 +750,8 @@
 		C79252032031B3C300CDFBBA /* Benefits */ = {
 			isa = PBXGroup;
 			children = (
+				C73EB2B7203323C500429921 /* BenefitsView.swift */,
+				C73EB2B9203327AA00429921 /* BenefitsTableViewCell.swift */,
 			);
 			path = Benefits;
 			sourceTree = "<group>";
@@ -1097,6 +1131,7 @@
 				C73EB2A02032F9B100429921 /* Diff.swift in Sources */,
 				C73EB2512032D71B00429921 /* ResultsViewModel.swift in Sources */,
 				C79252052031B3EF00CDFBBA /* ResultsView.swift in Sources */,
+				C73EB2B620331EB900429921 /* BenefitsViewModel.swift in Sources */,
 				C79252072031B43700CDFBBA /* ImageTextTableViewCell.swift in Sources */,
 				C76EFBED20302F8C00FA2BB9 /* MaskedTextFieldDelegate.swift in Sources */,
 				C79251F9203184F800CDFBBA /* ImageTextButton.swift in Sources */,
@@ -1111,6 +1146,7 @@
 				C73EB2A82032F9B100429921 /* AnimatableSectionModelType.swift in Sources */,
 				C73EB2982032F9B100429921 /* RxCollectionViewSectionedAnimatedDataSource.swift in Sources */,
 				C76EFBF42030315C00FA2BB9 /* ResetPasswordView.swift in Sources */,
+				C73EB2BA203327AA00429921 /* BenefitsTableViewCell.swift in Sources */,
 				C73EB2AA2032F9B100429921 /* UIImagePickerController+Rx.swift in Sources */,
 				C73EB2A32032F9B100429921 /* ItemPath.swift in Sources */,
 				C79251F520317A6100CDFBBA /* AppToolbarController.swift in Sources */,
@@ -1121,6 +1157,8 @@
 				C73EB2992032F9B100429921 /* TableViewSectionedDataSource.swift in Sources */,
 				C76EFBF220302F8C00FA2BB9 /* String.swift in Sources */,
 				C79251FF2031A18B00CDFBBA /* MyInfoMainView.swift in Sources */,
+				C73EB2B8203323C500429921 /* BenefitsView.swift in Sources */,
+				C73EB2BC203329D000429921 /* ImageCollectionViewCell.swift in Sources */,
 				C79251E0203145E200CDFBBA /* ProfileViewController.swift in Sources */,
 				C73EB2A42032F9B100429921 /* Optional+Extensions.swift in Sources */,
 				C73EB2AE2033114500429921 /* HeaderView.swift in Sources */,
@@ -1145,6 +1183,7 @@
 				C73EB2912032F9B100429921 /* String+IdentifiableType.swift in Sources */,
 				C76EFBE620302F8C00FA2BB9 /* FixedState.swift in Sources */,
 				C76EFBA42030056000FA2BB9 /* LoginView.swift in Sources */,
+				C73EB2B020331DCC00429921 /* PlansView.swift in Sources */,
 				C79251E22031487C00CDFBBA /* MyInfoViewController.swift in Sources */,
 				C7B5FA0620305D11003F3D2C /* ForgotPasswordViewController.swift in Sources */,
 				C76EFBE520302F8C00FA2BB9 /* EOLState.swift in Sources */,
@@ -1154,6 +1193,7 @@
 				C79251F320315DDC00CDFBBA /* ImageTextView.swift in Sources */,
 				C76EFBEE20302F8C00FA2BB9 /* CaretStringIterator.swift in Sources */,
 				C73EB2922032F9B100429921 /* RxPickerViewAdapter.swift in Sources */,
+				C73EB2B420331EAF00429921 /* PlansViewModel.swift in Sources */,
 				C76EFBEA20302F8C00FA2BB9 /* Mask.swift in Sources */,
 				C73EB2942032F9B100429921 /* CollectionViewSectionedDataSource.swift in Sources */,
 				C73EB2AC2032F9B100429921 /* RxCLLocationManagerDelegateProxy.swift in Sources */,

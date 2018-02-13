@@ -42,6 +42,10 @@ class ImageTextTableViewCell: TableViewCell {
         view?.imageRadius = imageRadius
     }
 
+    public func setImage(hidden: Bool) {
+        view?.imageView?.isHidden = hidden
+    }
+
     public func setImageText(spacing: CGFloat) {
         view?.stackView?.stackView?.spacing = spacing
     }
@@ -79,6 +83,10 @@ class ImageTextTableViewCell: TableViewCell {
 
     public func setDivider(leftInset: CGFloat) {
         view?.dividerLeftOffset = leftInset
+    }
+
+    public func setDivider(rightInset: CGFloat) {
+        view?.dividerRightOffset = rightInset
     }
 
     // MARK: - UI

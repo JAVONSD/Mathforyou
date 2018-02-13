@@ -109,6 +109,17 @@ struct App {
         static let educationResultsCellId = "educationResultsCellId"
         static let attestationResultsCellId = "attestationResultsCellId"
 
+        static let plansHeaderViewId = "plansHeaderViewId"
+        static let kpiPlansCellId = "kpiPlansCellId"
+        static let idpPlansCellId = "idpPlansCellId"
+        static let vacationPlansCellId = "vacationPlansCellId"
+
+        static let benefitsHeaderViewId = "benefitsHeaderViewId"
+        static let fitnessBenefitsCellId = "fitnessBenefitsCellId"
+        static let accBenefitsCellId = "accBenefitsCellId"
+        static let biClubBenefitsCellId = "biClubBenefitsCellId"
+        static let biClubCollBenefitsCellId = "biClubCollBenefitsCellId"
+
     }
 
 }

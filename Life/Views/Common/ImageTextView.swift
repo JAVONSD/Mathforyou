@@ -41,7 +41,19 @@ class ImageTextView: UIView {
                 guard let `self` = self else { return }
                 make.left.equalTo(self).inset(dividerLeftOffset)
                 make.bottom.equalTo(self)
-                make.right.equalTo(self)
+                make.right.equalTo(self).inset(dividerRightOffset)
+                make.height.equalTo(0.5)
+            }
+        }
+    }
+
+    var dividerRightOffset: CGFloat = 0 {
+        didSet {
+            dividerView?.snp.remakeConstraints { [weak self] (make) in
+                guard let `self` = self else { return }
+                make.left.equalTo(self).inset(dividerLeftOffset)
+                make.bottom.equalTo(self)
+                make.right.equalTo(self).inset(dividerRightOffset)
                 make.height.equalTo(0.5)
             }
         }

@@ -24,7 +24,7 @@ class ResultsViewController: UIViewController {
             var cellId = App.CellIdentifier.corporateResultsCellId
             if indexPath.section == 1 {
                 cellId = App.CellIdentifier.educationResultsCellId
-            } else if indexPath.section == 1 {
+            } else if indexPath.section == 2 {
                 cellId = App.CellIdentifier.attestationResultsCellId
             }
 
@@ -51,6 +51,7 @@ class ResultsViewController: UIViewController {
                     right: App.Layout.sideOffset)
                 )
                 cell.setDivider(leftInset: App.Layout.sideOffset)
+                cell.setDivider(rightInset: App.Layout.sideOffset)
             } else {
                 cell.set(insets: .init(
                     top: App.Layout.itemSpacingMedium,
@@ -59,11 +60,12 @@ class ResultsViewController: UIViewController {
                     right: App.Layout.sideOffset)
                 )
                 cell.setDivider(leftInset: 80)
+                cell.setDivider(rightInset: 0)
             }
 
             return cell
         },
-        viewForHeaderInSection: { (tv, indexPath, element) in
+        viewForHeaderInSection: { (tv, _, element) in
             let headerId = App.CellIdentifier.resultsHeaderViewId
             let someHeader = tv.dequeueReusableHeaderFooterView(withIdentifier: headerId) as? HeaderView
             guard let header = someHeader else {
