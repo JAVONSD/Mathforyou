@@ -14,18 +14,17 @@ class LentaFlow: Flow {
         return self.rootViewController
     }
 
-    private var rootViewController = AppToolbarController(
-        rootViewController: LentaViewController.instantiate(
-            withViewModel: LentaViewModel()
-        )
-    )
+    private var rootViewController: UIViewController
+
+    init(viewController: UIViewController) {
+        rootViewController = viewController
+    }
 
     func navigate(to step: Step) -> NextFlowItems {
         guard let step = step as? AppStep else { return NextFlowItems.stepNotHandled }
 
         switch step {
         case .lenta:
-            rootViewController.tabItem.image = #imageLiteral(resourceName: "feed-office-inactive")
             return NextFlowItems.none
         default:
             return NextFlowItems.stepNotHandled

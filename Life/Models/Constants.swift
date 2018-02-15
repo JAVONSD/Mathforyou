@@ -88,6 +88,7 @@ struct App {
 
     struct Layout {
         static let buttonHeight: CGFloat = 48
+        static let tabBarHeight: CGFloat = 56
 
         static let sideOffset: CGFloat = 24
         static let itemSpacingSmall: CGFloat = 8

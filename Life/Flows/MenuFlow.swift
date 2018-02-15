@@ -14,18 +14,17 @@ class MenuFlow: Flow {
         return self.rootViewController
     }
 
-    private var rootViewController = AppToolbarController(
-        rootViewController: MenuViewController.instantiate(
-            withViewModel: MenuViewModel()
-        )
-    )
+    private var rootViewController: UIViewController
+
+    init(viewController: UIViewController) {
+        rootViewController = viewController
+    }
 
     func navigate(to step: Step) -> NextFlowItems {
         guard let step = step as? AppStep else { return NextFlowItems.stepNotHandled }
 
         switch step {
         case .menu:
-            rootViewController.tabItem.image = #imageLiteral(resourceName: "menu-inactive")
             return NextFlowItems.none
         default:
             return NextFlowItems.stepNotHandled

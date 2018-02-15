@@ -174,6 +174,7 @@
 		C7D832B920356F9B00282891 /* Response+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D832B820356F9B00282891 /* Response+Extensions.swift */; };
 		C7D832BB203576B400282891 /* Error+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D832BA203576B400282891 /* Error+Extensions.swift */; };
 		C7D832BD203596AA00282891 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D832BC203596AA00282891 /* UIViewController+Extensions.swift */; };
+		C7D832BF2035B8EB00282891 /* SizedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D832BE2035B8EB00282891 /* SizedButton.swift */; };
 		C8980F5F06EB082954A1EC12 /* Pods_LifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46E59888BA0BE2BC7F655D2 /* Pods_LifeUITests.framework */; };
 		E662A33585BEC04BB9C4E8C4 /* Pods_LifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6832F87B3CF9A6B146EC0E0 /* Pods_LifeTests.framework */; };
 /* End PBXBuildFile section */
@@ -383,6 +384,7 @@
 		C7D832B820356F9B00282891 /* Response+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+Extensions.swift"; sourceTree = "<group>"; };
 		C7D832BA203576B400282891 /* Error+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Extensions.swift"; sourceTree = "<group>"; };
 		C7D832BC203596AA00282891 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		C7D832BE2035B8EB00282891 /* SizedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizedButton.swift; sourceTree = "<group>"; };
 		D176AD02439750FEBCD45041 /* Pods-LifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeUITests/Pods-LifeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D46E59888BA0BE2BC7F655D2 /* Pods_LifeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LifeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -737,6 +739,7 @@
 				C79252062031B43700CDFBBA /* ImageTextTableViewCell.swift */,
 				C73EB2AD2033114500429921 /* HeaderView.swift */,
 				C73EB2BB203329D000429921 /* ImageCollectionViewCell.swift */,
+				C7D832BE2035B8EB00282891 /* SizedButton.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1630,6 +1633,7 @@
 				C7D641A42034085C001DCA98 /* GalleryService.swift in Sources */,
 				C7D6423820346FAC001DCA98 /* BIBoardViewModel.swift in Sources */,
 				C76EFBC620301AE500FA2BB9 /* TextField.swift in Sources */,
+				C7D832BF2035B8EB00282891 /* SizedButton.swift in Sources */,
 				C7D641B4203408E0001DCA98 /* SuggestionsService.swift in Sources */,
 				C76EFB4E202E91F000FA2BB9 /* AppDelegate.swift in Sources */,
 				C76EFBC4203008D200FA2BB9 /* Constants.swift in Sources */,
