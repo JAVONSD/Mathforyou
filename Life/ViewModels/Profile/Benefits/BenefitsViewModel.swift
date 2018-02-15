@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct BenefitsViewModel {
+struct BenefitsViewModel: ViewModel {
     var sections = [BenefitsSectionViewModel]()
 }
 
@@ -53,7 +53,7 @@ extension BenefitsViewModel: Mockable {
     }
 }
 
-struct BenefitsSectionViewModel {
+struct BenefitsSectionViewModel: ViewModel {
     var title: String
     var benefits = [BenefitViewModel]()
 
@@ -62,7 +62,7 @@ struct BenefitsSectionViewModel {
     }
 }
 
-struct BenefitViewModel {
+struct BenefitViewModel: ViewModel {
     var title: String
     var description: String
     var images = [String]()

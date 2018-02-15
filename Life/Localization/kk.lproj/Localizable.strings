@@ -8,6 +8,7 @@
 
 /* Login */
 
+"username_or_phone" = "Имя пользователя или номер телефона";
 "phone" = "Телефон";
 "password" = "Пароль";
 "login" = "Войти";
@@ -59,3 +60,11 @@
 "fitness" = "Фитнес";
 "accommodation" = "Жилье";
 "bi_club" = "BI Club";
+
+/* Errors */
+
+"bad_requet_error_message" = "Некорректный запрос";
+"unathorized_error_message" = "Вы не авторизованы";
+"time_out_error_message" = "Время запроса истекло";
+"server_error_message" = "Серверная ошибка";
+"default_network_error" = "Ошибка в сети";

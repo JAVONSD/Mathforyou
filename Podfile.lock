@@ -1,7 +1,5 @@
 PODS:
   - Alamofire (4.6.0)
-  - Argo (4.1.2):
-    - Runes (>= 4.0.0)
   - DateToolsSwift (2.0.3)
   - DynamicColor (4.0.2)
   - Kingfisher (4.6.1)
@@ -18,53 +16,60 @@ PODS:
   - Moya/RxSwift (11.0.0):
     - Moya/Core
     - RxSwift (~> 4.0)
+  - NVActivityIndicatorView (4.1.1):
+    - NVActivityIndicatorView/Presenter (= 4.1.1)
+  - NVActivityIndicatorView/Presenter (4.1.1)
   - Realm (3.1.1):
     - Realm/Headers (= 3.1.1)
   - Realm/Headers (3.1.1)
   - RealmSwift (3.1.1):
     - Realm (= 3.1.1)
   - Result (3.2.4)
-  - Runes (4.1.0)
   - RxCocoa (4.1.2):
     - RxSwift (~> 4.0)
   - RxRealm (0.7.5):
     - RealmSwift (~> 3.0)
     - RxSwift (~> 4.0)
   - RxSwift (4.1.2)
+  - SkeletonView (1.1.1)
   - SnapKit (4.0.0)
   - SwiftLint (0.24.2)
+  - Toast (4.0.0)
 
 DEPENDENCIES:
-  - Argo (~> 4.0)
   - DateToolsSwift (~> 2.0)
   - DynamicColor (~> 4.0)
   - Kingfisher (~> 4.0)
   - Material (~> 2.0)
   - Moya/RxSwift (~> 11.0)
+  - NVActivityIndicatorView (~> 4.0)
   - RxCocoa (~> 4.0)
   - RxRealm (~> 0.7)
+  - SkeletonView (~> 1.0)
   - SnapKit (~> 4.0)
   - SwiftLint
+  - Toast (~> 4.0.0)
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
-  Argo: 5db06502fc1222d83011f574243089dab25202ff
   DateToolsSwift: bf69bf9056d9e53c5c03f06e51f219b9b8b02f9e
   DynamicColor: c7adcfe871781a2b39877a5774e452ba51b79eb3
   Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
   Material: ef704dcc1bced32ab7c91ece2ba734da557e3f36
   Motion: 9f74d115d7f72bb5380a8e3cde2f8a1fc898ac36
   Moya: be29766339783963a70d1279d69c891ab3a1393c
+  NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
   Realm: 42d1c38a5b1bbcc828b48a7ce702cb86fc68adf4
   RealmSwift: d31937ca6a6ee54acde64ec839523c0a3c04924b
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
-  Runes: 72a67a5bbbe1b5fdae08b5a01b10c60d83fc69aa
   RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
   RxRealm: a6c6c0a07cb61f34209969ca6657734edfdfff30
   RxSwift: e49536837d9901277638493ea537394d4b55f570
+  SkeletonView: 041053e904504e7d8db83df166e599be75659fe1
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
   SwiftLint: 2aa21b96c8d13396a051bc1cb659d2ce1e0075b0
+  Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
 
-PODFILE CHECKSUM: 0d20192c6622864d61c3355ddf0f8ea52394ed2e
+PODFILE CHECKSUM: 8422fecd6f8eebbe28c7484d7d55e7ce879b0575
 
-COCOAPODS: 1.3.1
+COCOAPODS: 1.4.0

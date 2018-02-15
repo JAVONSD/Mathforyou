@@ -24,7 +24,10 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
     private(set) var forgotPasswordButton: FlatButton?
     private(set) var biGroupLabel: UILabel?
 
-    private var maskedDelegate: MaskedTextFieldDelegate!
+    private var maskFormatter: MaskedTextFieldDelegate!
+
+    var didTapLogin: ((String, String) -> Void)?
+    var didTapForgotPassword: ((String) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,6 +42,45 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Actions
+
+    @objc
+    private func handleLoginButton() {
+        let login = phoneField?.text ?? ""
+        let password = passwordField?.text ?? ""
+
+        if let didTapLogin = didTapLogin {
+            didTapLogin(login, password)
+        }
+    }
+
+    @objc
+    private func handleForgotPasswordButton() {
+        let login = phoneField?.text ?? ""
+
+        if let didTapForgotPassword = didTapForgotPassword {
+            didTapForgotPassword(login)
+        }
+    }
+
+    // MARK: - Methods
+
+    public func setLogin(error: String?) {
+        phoneField?.detail = error
+        phoneField?.isErrorRevealed = error != nil
+
+        setNeedsLayout()
+        layoutIfNeeded()
+    }
+
+    public func setPassword(error: String?) {
+        passwordField?.detail = error
+        passwordField?.isErrorRevealed = error != nil
+
+        setNeedsLayout()
+        layoutIfNeeded()
     }
 
     // MARK: - UI
@@ -89,8 +131,8 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
     }
 
     private func setupPhoneField() {
-        maskedDelegate = MaskedTextFieldDelegate(format: "{+7} ([000]) [000] [00] [00]")
-        maskedDelegate.listener = self
+//        maskFormatter = MaskedTextFieldDelegate(format: "{+7} ([000]) [000] [00] [00]")
+//        maskFormatter.listener = self
 
         phoneField = TextField(frame: .zero)
 
@@ -99,10 +141,13 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
             return
         }
 
-        phoneField.placeholder = NSLocalizedString("phone", comment: "")
-        phoneField.delegate = maskedDelegate
+        phoneField.placeholder = NSLocalizedString("username_or_phone", comment: "")
+        phoneField.autocorrectionType = .no
+        phoneField.autocapitalizationType = .none
 
-        maskedDelegate.put(text: "+7 ", into: phoneField)
+//        phoneField.delegate = maskFormatter
+
+//        maskFormatter.put(text: "+7 ", into: phoneField)
 
         addSubview(phoneField)
         phoneField.snp.makeConstraints { [weak self] (make) in
@@ -143,6 +188,8 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
             let loginButton = loginButton else {
             return
         }
+
+        loginButton.addTarget(self, action: #selector(handleLoginButton), for: .touchUpInside)
 
         addSubview(loginButton)
         loginButton.snp.makeConstraints { [weak self] (make) in
@@ -206,6 +253,11 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
             return
         }
 
+        forgotPasswordButton.addTarget(
+            self,
+            action: #selector(handleForgotPasswordButton),
+            for: .touchUpInside
+        )
         forgotPasswordButton.titleLabel?.font = App.Font.footnote
 
         addSubview(forgotPasswordButton)

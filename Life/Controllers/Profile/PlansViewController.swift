@@ -19,7 +19,8 @@ class PlansViewController: UIViewController {
 
     private let disposeBag = DisposeBag()
 
-    private let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<PlansSectionViewModel, PlanViewModel>>(
+    private let dataSource =
+        RxTableViewSectionedReloadDataSource<SectionModel<PlansSectionViewModel, PlanViewModel>>(
         configureCell: { (_, tv, indexPath, element) in
             var cellId = App.CellIdentifier.kpiPlansCellId
             if indexPath.section == 1 {
@@ -115,7 +116,7 @@ class PlansViewController: UIViewController {
             .setDelegate(plansView)
             .disposed(by: disposeBag)
 
-        plansView.viewForHeaderDelegate = { (tableView, section) in
+        plansView.configureViewForHeader = { (tableView, section) in
             return dataSource.tableView(tableView, viewForHeaderInSection: section)
         }
     }

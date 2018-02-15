@@ -9,7 +9,10 @@
 import UIKit
 import SnapKit
 
-class ResetPasswordViewController: UIViewController {
+class ResetPasswordViewController: UIViewController, ViewModelBased, Stepper {
+    typealias ViewModelType = ResetPasswordViewModel
+    var viewModel: ResetPasswordViewModel!
+
     private var resetPasswordView: ResetPasswordView!
 
     override func viewDidLoad() {

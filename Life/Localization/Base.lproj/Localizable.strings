@@ -8,6 +8,7 @@
 
 /* Login */
 
+"username_or_phone" = "User name or phone number";
 "phone" = "Phone";
 "password" = "Password";
 "login" = "Login";
@@ -59,3 +60,11 @@
 "fitness" = "Fitness";
 "accommodation" = "Accommodation";
 "bi_club" = "BI Club";
+
+/* Errors */
+
+"bad_requet_error_message" = "Bad Request";
+"unathorized_error_message" = "You are unathorized";
+"time_out_error_message" = "Request time out";
+"server_error_message" = "Server Error";
+"default_network_error" = "Network Error";

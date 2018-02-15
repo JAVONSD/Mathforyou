@@ -19,7 +19,8 @@ class ResultsViewController: UIViewController {
 
     private let disposeBag = DisposeBag()
 
-    private let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<ResultsSectionViewModel, ResultViewModel>>(
+    private let dataSource =
+        RxTableViewSectionedReloadDataSource<SectionModel<ResultsSectionViewModel, ResultViewModel>>(
         configureCell: { (_, tv, indexPath, element) in
             var cellId = App.CellIdentifier.corporateResultsCellId
             if indexPath.section == 1 {
@@ -118,7 +119,7 @@ class ResultsViewController: UIViewController {
             .setDelegate(resultsView)
             .disposed(by: disposeBag)
 
-        resultsView.viewForHeaderDelegate = { (tableView, section) in
+        resultsView.configureViewForHeader = { (tableView, section) in
             return dataSource.tableView(tableView, viewForHeaderInSection: section)
         }
     }

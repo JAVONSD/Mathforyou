@@ -20,10 +20,13 @@ class TextField: ErrorTextField {
         placeholderNormalColor = App.Color.blackDisable
         placeholderActiveColor = App.Color.azure
 
+        detailLabel.textAlignment = .right
+
         font = App.Font.subheadAlts
         placeholderLabel.font = App.Font.subhead
 
         placeholderVerticalOffset = 16
+        detailVerticalOffset = 2
 
         textColor = .black
     }

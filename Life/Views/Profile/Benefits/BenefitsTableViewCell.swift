@@ -88,7 +88,9 @@ class BenefitsTableViewCell: UITableViewCell, UICollectionViewDataSource, UIColl
         return 0
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellId = App.CellIdentifier.biClubCollBenefitsCellId
         let someCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath)
         guard let cell = someCell as? ImageCollectionViewCell else {

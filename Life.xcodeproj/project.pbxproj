@@ -54,8 +54,6 @@
 		C76EFB63202E91F000FA2BB9 /* LifeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB62202E91F000FA2BB9 /* LifeTests.swift */; };
 		C76EFB6E202E91F000FA2BB9 /* LifeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB6D202E91F000FA2BB9 /* LifeUITests.swift */; };
 		C76EFB8A202E947800FA2BB9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C76EFB8C202E947800FA2BB9 /* Localizable.strings */; };
-		C76EFB9E202EA76300FA2BB9 /* Observable+Argo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB99202EA76200FA2BB9 /* Observable+Argo.swift */; };
-		C76EFBA0202EA76300FA2BB9 /* Response+Argo.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB9B202EA76200FA2BB9 /* Response+Argo.swift */; };
 		C76EFBA42030056000FA2BB9 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBA32030056000FA2BB9 /* LoginView.swift */; };
 		C76EFBA92030060400FA2BB9 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFBA82030060400FA2BB9 /* Button.swift */; };
 		C76EFBB7203008C100FA2BB9 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C76EFBAB203008BF00FA2BB9 /* Roboto-Medium.ttf */; };
@@ -113,6 +111,69 @@
 		C79252072031B43700CDFBBA /* ImageTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79252062031B43700CDFBBA /* ImageTextTableViewCell.swift */; };
 		C7B5FA0420305691003F3D2C /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B5FA0320305691003F3D2C /* ForgotPasswordView.swift */; };
 		C7B5FA0620305D11003F3D2C /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B5FA0520305D11003F3D2C /* ForgotPasswordViewController.swift */; };
+		C7D6419C20340750001DCA98 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419B20340750001DCA98 /* AuthService.swift */; };
+		C7D6419E20340777001DCA98 /* EmployeesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419D20340777001DCA98 /* EmployeesService.swift */; };
+		C7D641A020340789001DCA98 /* EventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419F20340789001DCA98 /* EventsService.swift */; };
+		C7D641A42034085C001DCA98 /* GalleryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641A32034085C001DCA98 /* GalleryService.swift */; };
+		C7D641A620340869001DCA98 /* IntegrationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641A520340869001DCA98 /* IntegrationService.swift */; };
+		C7D641A820340878001DCA98 /* NewsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641A720340878001DCA98 /* NewsService.swift */; };
+		C7D641AA20340880001DCA98 /* LentaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641A920340880001DCA98 /* LentaService.swift */; };
+		C7D641AC2034088A001DCA98 /* NotificationsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641AB2034088A001DCA98 /* NotificationsService.swift */; };
+		C7D641AE2034089F001DCA98 /* QuestionnairesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641AD2034089F001DCA98 /* QuestionnairesService.swift */; };
+		C7D641B0203408C1001DCA98 /* ReferencesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641AF203408C1001DCA98 /* ReferencesService.swift */; };
+		C7D641B2203408D3001DCA98 /* RequestsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641B1203408D3001DCA98 /* RequestsService.swift */; };
+		C7D641B4203408E0001DCA98 /* SuggestionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641B3203408E0001DCA98 /* SuggestionsService.swift */; };
+		C7D641B6203408E9001DCA98 /* TasksService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641B5203408E9001DCA98 /* TasksService.swift */; };
+		C7D641B8203408FD001DCA98 /* TopQuestionsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641B7203408FD001DCA98 /* TopQuestionsService.swift */; };
+		C7D641BA20340C7E001DCA98 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641B920340C7E001DCA98 /* String+Extensions.swift */; };
+		C7D641BC20340D77001DCA98 /* Dictionary+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641BB20340D77001DCA98 /* Dictionary+Extensions.swift */; };
+		C7D641CF203411C4001DCA98 /* auth.json in Resources */ = {isa = PBXBuildFile; fileRef = C7D641CE203411C4001DCA98 /* auth.json */; };
+		C7D641D1203411D3001DCA98 /* token.json in Resources */ = {isa = PBXBuildFile; fileRef = C7D641D0203411D3001DCA98 /* token.json */; };
+		C7D641D3203411EA001DCA98 /* testtokenauth.json in Resources */ = {isa = PBXBuildFile; fileRef = C7D641D2203411EA001DCA98 /* testtokenauth.json */; };
+		C7D641D5203413A1001DCA98 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641D4203413A1001DCA98 /* Bundle+Extensions.swift */; };
+		C7D641D7203417CB001DCA98 /* UserProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641D6203417CB001DCA98 /* UserProfileService.swift */; };
+		C7D641D920341813001DCA98 /* user_profile.json in Resources */ = {isa = PBXBuildFile; fileRef = C7D641D820341813001DCA98 /* user_profile.json */; };
+		C7D641DB203418D1001DCA98 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641DA203418D1001DCA98 /* LoginViewModel.swift */; };
+		C7D641DD20341901001DCA98 /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641DC20341901001DCA98 /* ForgotPasswordViewModel.swift */; };
+		C7D641DF2034190B001DCA98 /* ResetPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641DE2034190B001DCA98 /* ResetPasswordViewModel.swift */; };
+		C7D641E120341A42001DCA98 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641E020341A42001DCA98 /* User.swift */; };
+		C7D641EE20344664001DCA98 /* AppStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641ED20344664001DCA98 /* AppStep.swift */; };
+		C7D641F02034466B001DCA98 /* AppFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641EF2034466B001DCA98 /* AppFlow.swift */; };
+		C7D641F320344B22001DCA98 /* ViewModelBased.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641F220344B22001DCA98 /* ViewModelBased.swift */; };
+		C7D641F520344C70001DCA98 /* LoginFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641F420344C70001DCA98 /* LoginFlow.swift */; };
+		C7D641F720344DC0001DCA98 /* AppTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641F620344DC0001DCA98 /* AppTabBarController.swift */; };
+		C7D641F920344F3B001DCA98 /* BIOfficeFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641F820344F3B001DCA98 /* BIOfficeFlow.swift */; };
+		C7D641FB20344F43001DCA98 /* BIBoardFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641FA20344F43001DCA98 /* BIBoardFlow.swift */; };
+		C7D641FD20344F4A001DCA98 /* LentaFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641FC20344F4A001DCA98 /* LentaFlow.swift */; };
+		C7D641FF20344F58001DCA98 /* EmployeesFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D641FE20344F58001DCA98 /* EmployeesFlow.swift */; };
+		C7D6420120344F61001DCA98 /* MenuFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6420020344F61001DCA98 /* MenuFlow.swift */; };
+		C7D6420320344F74001DCA98 /* ProfileFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6420220344F74001DCA98 /* ProfileFlow.swift */; };
+		C7D64215203463E0001DCA98 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D64206203463E0001DCA98 /* Flow.swift */; };
+		C7D64216203463E0001DCA98 /* NextFlowItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D64207203463E0001DCA98 /* NextFlowItem.swift */; };
+		C7D64217203463E0001DCA98 /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D64208203463E0001DCA98 /* Presentable.swift */; };
+		C7D64218203463E0001DCA98 /* UIViewController+Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6420A203463E0001DCA98 /* UIViewController+Presentable.swift */; };
+		C7D64219203463E0001DCA98 /* UIViewController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6420B203463E0001DCA98 /* UIViewController+Rx.swift */; };
+		C7D6421A203463E0001DCA98 /* UIWindow+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6420C203463E0001DCA98 /* UIWindow+Rx.swift */; };
+		C7D6421B203463E0001DCA98 /* UIWindow+Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6420D203463E0001DCA98 /* UIWindow+Presentable.swift */; };
+		C7D6421C203463E0001DCA98 /* Rx+Pausable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6420E203463E0001DCA98 /* Rx+Pausable.swift */; };
+		C7D6421D203463E0001DCA98 /* Step.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6420F203463E0001DCA98 /* Step.swift */; };
+		C7D6421E203463E0001DCA98 /* HasDisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D64210203463E0001DCA98 /* HasDisposeBag.swift */; };
+		C7D6421F203463E0001DCA98 /* Synchronizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D64211203463E0001DCA98 /* Synchronizable.swift */; };
+		C7D64220203463E0001DCA98 /* Stepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D64212203463E0001DCA98 /* Stepper.swift */; };
+		C7D64222203463E0001DCA98 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D64214203463E0001DCA98 /* Coordinator.swift */; };
+		C7D6422920346F2D001DCA98 /* BIBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6422820346F2D001DCA98 /* BIBoardViewController.swift */; };
+		C7D6422B20346F3F001DCA98 /* BIOfficeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6422A20346F3F001DCA98 /* BIOfficeViewController.swift */; };
+		C7D6422D20346F4B001DCA98 /* EmployeesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6422C20346F4B001DCA98 /* EmployeesViewController.swift */; };
+		C7D6422F20346F53001DCA98 /* LentaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6422E20346F53001DCA98 /* LentaViewController.swift */; };
+		C7D6423120346F5A001DCA98 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6423020346F5A001DCA98 /* MenuViewController.swift */; };
+		C7D6423820346FAC001DCA98 /* BIBoardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6423720346FAC001DCA98 /* BIBoardViewModel.swift */; };
+		C7D6423A20346FB7001DCA98 /* BIOfficeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6423920346FB7001DCA98 /* BIOfficeViewModel.swift */; };
+		C7D6423C20346FC0001DCA98 /* EmployeesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6423B20346FC0001DCA98 /* EmployeesViewModel.swift */; };
+		C7D6423E20346FC9001DCA98 /* LentaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6423D20346FC9001DCA98 /* LentaViewModel.swift */; };
+		C7D6424020346FD3001DCA98 /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6423F20346FD3001DCA98 /* MenuViewModel.swift */; };
+		C7D832B920356F9B00282891 /* Response+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D832B820356F9B00282891 /* Response+Extensions.swift */; };
+		C7D832BB203576B400282891 /* Error+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D832BA203576B400282891 /* Error+Extensions.swift */; };
+		C7D832BD203596AA00282891 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D832BC203596AA00282891 /* UIViewController+Extensions.swift */; };
 		C8980F5F06EB082954A1EC12 /* Pods_LifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46E59888BA0BE2BC7F655D2 /* Pods_LifeUITests.framework */; };
 		E662A33585BEC04BB9C4E8C4 /* Pods_LifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6832F87B3CF9A6B146EC0E0 /* Pods_LifeTests.framework */; };
 /* End PBXBuildFile section */
@@ -202,8 +263,6 @@
 		C76EFB8F202E948100FA2BB9 /* kk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = kk; path = kk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C76EFB91202E94C400FA2BB9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C76EFB94202E94D000FA2BB9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		C76EFB99202EA76200FA2BB9 /* Observable+Argo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Observable+Argo.swift"; sourceTree = "<group>"; };
-		C76EFB9B202EA76200FA2BB9 /* Response+Argo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Response+Argo.swift"; sourceTree = "<group>"; };
 		C76EFBA32030056000FA2BB9 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		C76EFBA82030060400FA2BB9 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		C76EFBAB203008BF00FA2BB9 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
@@ -261,6 +320,69 @@
 		C79252062031B43700CDFBBA /* ImageTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTextTableViewCell.swift; sourceTree = "<group>"; };
 		C7B5FA0320305691003F3D2C /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		C7B5FA0520305D11003F3D2C /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		C7D6419B20340750001DCA98 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		C7D6419D20340777001DCA98 /* EmployeesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesService.swift; sourceTree = "<group>"; };
+		C7D6419F20340789001DCA98 /* EventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsService.swift; sourceTree = "<group>"; };
+		C7D641A32034085C001DCA98 /* GalleryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryService.swift; sourceTree = "<group>"; };
+		C7D641A520340869001DCA98 /* IntegrationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntegrationService.swift; sourceTree = "<group>"; };
+		C7D641A720340878001DCA98 /* NewsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsService.swift; sourceTree = "<group>"; };
+		C7D641A920340880001DCA98 /* LentaService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LentaService.swift; sourceTree = "<group>"; };
+		C7D641AB2034088A001DCA98 /* NotificationsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsService.swift; sourceTree = "<group>"; };
+		C7D641AD2034089F001DCA98 /* QuestionnairesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnairesService.swift; sourceTree = "<group>"; };
+		C7D641AF203408C1001DCA98 /* ReferencesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReferencesService.swift; sourceTree = "<group>"; };
+		C7D641B1203408D3001DCA98 /* RequestsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestsService.swift; sourceTree = "<group>"; };
+		C7D641B3203408E0001DCA98 /* SuggestionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsService.swift; sourceTree = "<group>"; };
+		C7D641B5203408E9001DCA98 /* TasksService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksService.swift; sourceTree = "<group>"; };
+		C7D641B7203408FD001DCA98 /* TopQuestionsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopQuestionsService.swift; sourceTree = "<group>"; };
+		C7D641B920340C7E001DCA98 /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		C7D641BB20340D77001DCA98 /* Dictionary+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Extensions.swift"; sourceTree = "<group>"; };
+		C7D641CE203411C4001DCA98 /* auth.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = auth.json; sourceTree = "<group>"; };
+		C7D641D0203411D3001DCA98 /* token.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = token.json; sourceTree = "<group>"; };
+		C7D641D2203411EA001DCA98 /* testtokenauth.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = testtokenauth.json; sourceTree = "<group>"; };
+		C7D641D4203413A1001DCA98 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
+		C7D641D6203417CB001DCA98 /* UserProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileService.swift; sourceTree = "<group>"; };
+		C7D641D820341813001DCA98 /* user_profile.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = user_profile.json; sourceTree = "<group>"; };
+		C7D641DA203418D1001DCA98 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		C7D641DC20341901001DCA98 /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
+		C7D641DE2034190B001DCA98 /* ResetPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewModel.swift; sourceTree = "<group>"; };
+		C7D641E020341A42001DCA98 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		C7D641ED20344664001DCA98 /* AppStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStep.swift; sourceTree = "<group>"; };
+		C7D641EF2034466B001DCA98 /* AppFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlow.swift; sourceTree = "<group>"; };
+		C7D641F220344B22001DCA98 /* ViewModelBased.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelBased.swift; sourceTree = "<group>"; };
+		C7D641F420344C70001DCA98 /* LoginFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginFlow.swift; sourceTree = "<group>"; };
+		C7D641F620344DC0001DCA98 /* AppTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTabBarController.swift; sourceTree = "<group>"; };
+		C7D641F820344F3B001DCA98 /* BIOfficeFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIOfficeFlow.swift; sourceTree = "<group>"; };
+		C7D641FA20344F43001DCA98 /* BIBoardFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIBoardFlow.swift; sourceTree = "<group>"; };
+		C7D641FC20344F4A001DCA98 /* LentaFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LentaFlow.swift; sourceTree = "<group>"; };
+		C7D641FE20344F58001DCA98 /* EmployeesFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesFlow.swift; sourceTree = "<group>"; };
+		C7D6420020344F61001DCA98 /* MenuFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuFlow.swift; sourceTree = "<group>"; };
+		C7D6420220344F74001DCA98 /* ProfileFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFlow.swift; sourceTree = "<group>"; };
+		C7D64206203463E0001DCA98 /* Flow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
+		C7D64207203463E0001DCA98 /* NextFlowItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextFlowItem.swift; sourceTree = "<group>"; };
+		C7D64208203463E0001DCA98 /* Presentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Presentable.swift; sourceTree = "<group>"; };
+		C7D6420A203463E0001DCA98 /* UIViewController+Presentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Presentable.swift"; sourceTree = "<group>"; };
+		C7D6420B203463E0001DCA98 /* UIViewController+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Rx.swift"; sourceTree = "<group>"; };
+		C7D6420C203463E0001DCA98 /* UIWindow+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+Rx.swift"; sourceTree = "<group>"; };
+		C7D6420D203463E0001DCA98 /* UIWindow+Presentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+Presentable.swift"; sourceTree = "<group>"; };
+		C7D6420E203463E0001DCA98 /* Rx+Pausable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Rx+Pausable.swift"; sourceTree = "<group>"; };
+		C7D6420F203463E0001DCA98 /* Step.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Step.swift; sourceTree = "<group>"; };
+		C7D64210203463E0001DCA98 /* HasDisposeBag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HasDisposeBag.swift; sourceTree = "<group>"; };
+		C7D64211203463E0001DCA98 /* Synchronizable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Synchronizable.swift; sourceTree = "<group>"; };
+		C7D64212203463E0001DCA98 /* Stepper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stepper.swift; sourceTree = "<group>"; };
+		C7D64214203463E0001DCA98 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		C7D6422820346F2D001DCA98 /* BIBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIBoardViewController.swift; sourceTree = "<group>"; };
+		C7D6422A20346F3F001DCA98 /* BIOfficeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIOfficeViewController.swift; sourceTree = "<group>"; };
+		C7D6422C20346F4B001DCA98 /* EmployeesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesViewController.swift; sourceTree = "<group>"; };
+		C7D6422E20346F53001DCA98 /* LentaViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LentaViewController.swift; sourceTree = "<group>"; };
+		C7D6423020346F5A001DCA98 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		C7D6423720346FAC001DCA98 /* BIBoardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIBoardViewModel.swift; sourceTree = "<group>"; };
+		C7D6423920346FB7001DCA98 /* BIOfficeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIOfficeViewModel.swift; sourceTree = "<group>"; };
+		C7D6423B20346FC0001DCA98 /* EmployeesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesViewModel.swift; sourceTree = "<group>"; };
+		C7D6423D20346FC9001DCA98 /* LentaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LentaViewModel.swift; sourceTree = "<group>"; };
+		C7D6423F20346FD3001DCA98 /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
+		C7D832B820356F9B00282891 /* Response+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Response+Extensions.swift"; sourceTree = "<group>"; };
+		C7D832BA203576B400282891 /* Error+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Extensions.swift"; sourceTree = "<group>"; };
+		C7D832BC203596AA00282891 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		D176AD02439750FEBCD45041 /* Pods-LifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeUITests/Pods-LifeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D46E59888BA0BE2BC7F655D2 /* Pods_LifeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LifeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -309,6 +431,11 @@
 		C73EB24D2032D6F100429921 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				C7D6423220346F9C001DCA98 /* BIBoard */,
+				C7D6423620346F9D001DCA98 /* BIOffice */,
+				C7D6423420346F9C001DCA98 /* Employees */,
+				C7D6423320346F9C001DCA98 /* Lenta */,
+				C7D6423520346F9D001DCA98 /* Menu */,
 				C73EB24E2032D70600429921 /* Login */,
 				C73EB24F2032D70600429921 /* Profile */,
 			);
@@ -318,6 +445,9 @@
 		C73EB24E2032D70600429921 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				C7D641DA203418D1001DCA98 /* LoginViewModel.swift */,
+				C7D641DC20341901001DCA98 /* ForgotPasswordViewModel.swift */,
+				C7D641DE2034190B001DCA98 /* ResetPasswordViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -465,9 +595,11 @@
 				C76EFB82202E92BB00FA2BB9 /* Categories */,
 				C76EFB85202E92BB00FA2BB9 /* Controllers */,
 				C76EFB96202EA72C00FA2BB9 /* External */,
+				C7D641EC2034464B001DCA98 /* Flows */,
 				C76EFB87202E92EE00FA2BB9 /* InterfaceBuilder */,
 				C76EFB86202E92C600FA2BB9 /* Localization */,
 				C76EFB84202E92BB00FA2BB9 /* Models */,
+				C7D641F120344B22001DCA98 /* Protocols */,
 				C76EFB81202E92BB00FA2BB9 /* Resources */,
 				C76EFB83202E92BB00FA2BB9 /* Views */,
 				C73EB24D2032D6F100429921 /* ViewModels */,
@@ -498,6 +630,7 @@
 		C76EFB81202E92BB00FA2BB9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C7D641BD20341125001DCA98 /* StubData */,
 				C76EFBAA203008B200FA2BB9 /* Fonts */,
 			);
 			path = Resources;
@@ -507,6 +640,12 @@
 			isa = PBXGroup;
 			children = (
 				C79251EC2031561E00CDFBBA /* UIView+Extensions.swift */,
+				C7D641B920340C7E001DCA98 /* String+Extensions.swift */,
+				C7D641BB20340D77001DCA98 /* Dictionary+Extensions.swift */,
+				C7D641D4203413A1001DCA98 /* Bundle+Extensions.swift */,
+				C7D832B820356F9B00282891 /* Response+Extensions.swift */,
+				C7D832BA203576B400282891 /* Error+Extensions.swift */,
+				C7D832BC203596AA00282891 /* UIViewController+Extensions.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -525,8 +664,9 @@
 			isa = PBXGroup;
 			children = (
 				C73EB2592032DA2200429921 /* Common */,
-				C7B5FA072030614F003F3D2C /* Auth */,
+				C7B5FA072030614F003F3D2C /* API */,
 				C76EFBC3203008D100FA2BB9 /* Constants.swift */,
+				C7D641E020341A42001DCA98 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -534,10 +674,16 @@
 		C76EFB85202E92BB00FA2BB9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C7D6422320346EF3001DCA98 /* BIBoard */,
+				C7D6422720346EF4001DCA98 /* BIOffice */,
+				C7D6422620346EF4001DCA98 /* Employees */,
+				C7D6422420346EF4001DCA98 /* Lenta */,
+				C7D6422520346EF4001DCA98 /* Menu */,
 				C79251DE203145D500CDFBBA /* Profile */,
 				C76EFBC9203027DD00FA2BB9 /* Login */,
 				C79251F420317A6100CDFBBA /* AppToolbarController.swift */,
 				C79251F620317AE600CDFBBA /* AppFABMenuController.swift */,
+				C7D641F620344DC0001DCA98 /* AppTabBarController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -561,28 +707,11 @@
 		C76EFB96202EA72C00FA2BB9 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				C7D64204203463E0001DCA98 /* RxFlow */,
 				C73EB2622032F9A300429921 /* RxAdditions */,
 				C76EFBCC20302F8500FA2BB9 /* InputMask */,
-				C76EFB97202EA76200FA2BB9 /* Moya-Argo */,
 			);
 			path = External;
-			sourceTree = "<group>";
-		};
-		C76EFB97202EA76200FA2BB9 /* Moya-Argo */ = {
-			isa = PBXGroup;
-			children = (
-				C76EFB98202EA76200FA2BB9 /* RxSwift */,
-				C76EFB9B202EA76200FA2BB9 /* Response+Argo.swift */,
-			);
-			path = "Moya-Argo";
-			sourceTree = "<group>";
-		};
-		C76EFB98202EA76200FA2BB9 /* RxSwift */ = {
-			isa = PBXGroup;
-			children = (
-				C76EFB99202EA76200FA2BB9 /* Observable+Argo.swift */,
-			);
-			path = RxSwift;
 			sourceTree = "<group>";
 		};
 		C76EFBA22030052800FA2BB9 /* Login */ = {
@@ -756,11 +885,297 @@
 			path = Benefits;
 			sourceTree = "<group>";
 		};
-		C7B5FA072030614F003F3D2C /* Auth */ = {
+		C7B5FA072030614F003F3D2C /* API */ = {
+			isa = PBXGroup;
+			children = (
+				C7D6419B20340750001DCA98 /* AuthService.swift */,
+				C7D6419D20340777001DCA98 /* EmployeesService.swift */,
+				C7D6419F20340789001DCA98 /* EventsService.swift */,
+				C7D641A32034085C001DCA98 /* GalleryService.swift */,
+				C7D641A520340869001DCA98 /* IntegrationService.swift */,
+				C7D641A720340878001DCA98 /* NewsService.swift */,
+				C7D641A920340880001DCA98 /* LentaService.swift */,
+				C7D641AB2034088A001DCA98 /* NotificationsService.swift */,
+				C7D641AD2034089F001DCA98 /* QuestionnairesService.swift */,
+				C7D641AF203408C1001DCA98 /* ReferencesService.swift */,
+				C7D641B1203408D3001DCA98 /* RequestsService.swift */,
+				C7D641B3203408E0001DCA98 /* SuggestionsService.swift */,
+				C7D641B5203408E9001DCA98 /* TasksService.swift */,
+				C7D641B7203408FD001DCA98 /* TopQuestionsService.swift */,
+				C7D641D6203417CB001DCA98 /* UserProfileService.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		C7D641BD20341125001DCA98 /* StubData */ = {
+			isa = PBXGroup;
+			children = (
+				C7D641BE203411B3001DCA98 /* Auth */,
+				C7D641CB203411B5001DCA98 /* Employees */,
+				C7D641C4203411B4001DCA98 /* Events */,
+				C7D641C9203411B4001DCA98 /* Files */,
+				C7D641BF203411B3001DCA98 /* Gallery */,
+				C7D641C5203411B4001DCA98 /* Integration */,
+				C7D641CC203411B5001DCA98 /* Lenta */,
+				C7D641C6203411B4001DCA98 /* News */,
+				C7D641C7203411B4001DCA98 /* Notifications */,
+				C7D641C8203411B4001DCA98 /* Questionnaires */,
+				C7D641C0203411B3001DCA98 /* References */,
+				C7D641CD203411B5001DCA98 /* Requests */,
+				C7D641C1203411B3001DCA98 /* Suggestions */,
+				C7D641C2203411B3001DCA98 /* Tasks */,
+				C7D641CA203411B4001DCA98 /* TopQuestions */,
+				C7D641C3203411B4001DCA98 /* UserProfile */,
+			);
+			path = StubData;
+			sourceTree = "<group>";
+		};
+		C7D641BE203411B3001DCA98 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				C7D641CE203411C4001DCA98 /* auth.json */,
+				C7D641D0203411D3001DCA98 /* token.json */,
+				C7D641D2203411EA001DCA98 /* testtokenauth.json */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		C7D641BF203411B3001DCA98 /* Gallery */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Auth;
+			path = Gallery;
+			sourceTree = "<group>";
+		};
+		C7D641C0203411B3001DCA98 /* References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = References;
+			sourceTree = "<group>";
+		};
+		C7D641C1203411B3001DCA98 /* Suggestions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Suggestions;
+			sourceTree = "<group>";
+		};
+		C7D641C2203411B3001DCA98 /* Tasks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tasks;
+			sourceTree = "<group>";
+		};
+		C7D641C3203411B4001DCA98 /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				C7D641D820341813001DCA98 /* user_profile.json */,
+			);
+			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		C7D641C4203411B4001DCA98 /* Events */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Events;
+			sourceTree = "<group>";
+		};
+		C7D641C5203411B4001DCA98 /* Integration */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Integration;
+			sourceTree = "<group>";
+		};
+		C7D641C6203411B4001DCA98 /* News */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = News;
+			sourceTree = "<group>";
+		};
+		C7D641C7203411B4001DCA98 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		C7D641C8203411B4001DCA98 /* Questionnaires */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Questionnaires;
+			sourceTree = "<group>";
+		};
+		C7D641C9203411B4001DCA98 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Files;
+			sourceTree = "<group>";
+		};
+		C7D641CA203411B4001DCA98 /* TopQuestions */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = TopQuestions;
+			sourceTree = "<group>";
+		};
+		C7D641CB203411B5001DCA98 /* Employees */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Employees;
+			sourceTree = "<group>";
+		};
+		C7D641CC203411B5001DCA98 /* Lenta */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Lenta;
+			sourceTree = "<group>";
+		};
+		C7D641CD203411B5001DCA98 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		C7D641EC2034464B001DCA98 /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				C7D641ED20344664001DCA98 /* AppStep.swift */,
+				C7D641EF2034466B001DCA98 /* AppFlow.swift */,
+				C7D641F420344C70001DCA98 /* LoginFlow.swift */,
+				C7D641F820344F3B001DCA98 /* BIOfficeFlow.swift */,
+				C7D641FA20344F43001DCA98 /* BIBoardFlow.swift */,
+				C7D641FC20344F4A001DCA98 /* LentaFlow.swift */,
+				C7D641FE20344F58001DCA98 /* EmployeesFlow.swift */,
+				C7D6420020344F61001DCA98 /* MenuFlow.swift */,
+				C7D6420220344F74001DCA98 /* ProfileFlow.swift */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		C7D641F120344B22001DCA98 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				C7D641F220344B22001DCA98 /* ViewModelBased.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		C7D64204203463E0001DCA98 /* RxFlow */ = {
+			isa = PBXGroup;
+			children = (
+				C7D64206203463E0001DCA98 /* Flow.swift */,
+				C7D64207203463E0001DCA98 /* NextFlowItem.swift */,
+				C7D64208203463E0001DCA98 /* Presentable.swift */,
+				C7D64209203463E0001DCA98 /* Extensions */,
+				C7D6420F203463E0001DCA98 /* Step.swift */,
+				C7D64210203463E0001DCA98 /* HasDisposeBag.swift */,
+				C7D64211203463E0001DCA98 /* Synchronizable.swift */,
+				C7D64212203463E0001DCA98 /* Stepper.swift */,
+				C7D64214203463E0001DCA98 /* Coordinator.swift */,
+			);
+			path = RxFlow;
+			sourceTree = "<group>";
+		};
+		C7D64209203463E0001DCA98 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C7D6420A203463E0001DCA98 /* UIViewController+Presentable.swift */,
+				C7D6420B203463E0001DCA98 /* UIViewController+Rx.swift */,
+				C7D6420C203463E0001DCA98 /* UIWindow+Rx.swift */,
+				C7D6420D203463E0001DCA98 /* UIWindow+Presentable.swift */,
+				C7D6420E203463E0001DCA98 /* Rx+Pausable.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		C7D6422320346EF3001DCA98 /* BIBoard */ = {
+			isa = PBXGroup;
+			children = (
+				C7D6422820346F2D001DCA98 /* BIBoardViewController.swift */,
+			);
+			path = BIBoard;
+			sourceTree = "<group>";
+		};
+		C7D6422420346EF4001DCA98 /* Lenta */ = {
+			isa = PBXGroup;
+			children = (
+				C7D6422E20346F53001DCA98 /* LentaViewController.swift */,
+			);
+			path = Lenta;
+			sourceTree = "<group>";
+		};
+		C7D6422520346EF4001DCA98 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				C7D6423020346F5A001DCA98 /* MenuViewController.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		C7D6422620346EF4001DCA98 /* Employees */ = {
+			isa = PBXGroup;
+			children = (
+				C7D6422C20346F4B001DCA98 /* EmployeesViewController.swift */,
+			);
+			path = Employees;
+			sourceTree = "<group>";
+		};
+		C7D6422720346EF4001DCA98 /* BIOffice */ = {
+			isa = PBXGroup;
+			children = (
+				C7D6422A20346F3F001DCA98 /* BIOfficeViewController.swift */,
+			);
+			path = BIOffice;
+			sourceTree = "<group>";
+		};
+		C7D6423220346F9C001DCA98 /* BIBoard */ = {
+			isa = PBXGroup;
+			children = (
+				C7D6423720346FAC001DCA98 /* BIBoardViewModel.swift */,
+			);
+			path = BIBoard;
+			sourceTree = "<group>";
+		};
+		C7D6423320346F9C001DCA98 /* Lenta */ = {
+			isa = PBXGroup;
+			children = (
+				C7D6423D20346FC9001DCA98 /* LentaViewModel.swift */,
+			);
+			path = Lenta;
+			sourceTree = "<group>";
+		};
+		C7D6423420346F9C001DCA98 /* Employees */ = {
+			isa = PBXGroup;
+			children = (
+				C7D6423B20346FC0001DCA98 /* EmployeesViewModel.swift */,
+			);
+			path = Employees;
+			sourceTree = "<group>";
+		};
+		C7D6423520346F9D001DCA98 /* Menu */ = {
+			isa = PBXGroup;
+			children = (
+				C7D6423F20346FD3001DCA98 /* MenuViewModel.swift */,
+			);
+			path = Menu;
+			sourceTree = "<group>";
+		};
+		C7D6423620346F9D001DCA98 /* BIOffice */ = {
+			isa = PBXGroup;
+			children = (
+				C7D6423920346FB7001DCA98 /* BIOfficeViewModel.swift */,
+			);
+			path = BIOffice;
 			sourceTree = "<group>";
 		};
 		C864E4175CD626F6101B47B6 /* Frameworks */ = {
@@ -893,15 +1308,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				C76EFBBC203008C100FA2BB9 /* Roboto-ThinItalic.ttf in Resources */,
+				C7D641D3203411EA001DCA98 /* testtokenauth.json in Resources */,
 				C76EFBBB203008C100FA2BB9 /* Roboto-BoldItalic.ttf in Resources */,
 				C76EFBC2203008C100FA2BB9 /* Roboto-LightItalic.ttf in Resources */,
+				C7D641CF203411C4001DCA98 /* auth.json in Resources */,
 				C76EFBB7203008C100FA2BB9 /* Roboto-Medium.ttf in Resources */,
+				C7D641D920341813001DCA98 /* user_profile.json in Resources */,
 				C76EFBB8203008C100FA2BB9 /* Roboto-Italic.ttf in Resources */,
 				C76EFBC0203008C100FA2BB9 /* Roboto-MediumItalic.ttf in Resources */,
 				C76EFBBD203008C100FA2BB9 /* Roboto-Bold.ttf in Resources */,
 				C76EFB58202E91F000FA2BB9 /* LaunchScreen.storyboard in Resources */,
 				C76EFBBA203008C100FA2BB9 /* Roboto-Black.ttf in Resources */,
 				C76EFBB9203008C100FA2BB9 /* Roboto-BlackItalic.ttf in Resources */,
+				C7D641D1203411D3001DCA98 /* token.json in Resources */,
 				C76EFBBE203008C100FA2BB9 /* Roboto-Thin.ttf in Resources */,
 				C76EFBBF203008C100FA2BB9 /* Roboto-Light.ttf in Resources */,
 				C76EFB8A202E947800FA2BB9 /* Localizable.strings in Resources */,
@@ -1062,40 +1481,42 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Life/Pods-Life-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Argo/Argo.framework",
 				"${BUILT_PRODUCTS_DIR}/DateToolsSwift/DateToolsSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicColor/DynamicColor.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
-				"${BUILT_PRODUCTS_DIR}/Runes/Runes.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxRealm/RxRealm.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Toast/Toast.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Argo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateToolsSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicColor.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Runes.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRealm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1125,90 +1546,147 @@
 			buildActionMask = 2147483647;
 			files = (
 				C73EB29E2032F9B100429921 /* IdentifiableType.swift in Sources */,
+				C7D6421D203463E0001DCA98 /* Step.swift in Sources */,
 				C73EB28E2032F9B100429921 /* RxTableViewSectionedAnimatedDataSource.swift in Sources */,
 				C73EB2962032F9B100429921 /* IntegerType+IdentifiableType.swift in Sources */,
 				C76EFBE220302F8C00FA2BB9 /* Next.swift in Sources */,
 				C73EB2A02032F9B100429921 /* Diff.swift in Sources */,
 				C73EB2512032D71B00429921 /* ResultsViewModel.swift in Sources */,
+				C7D641D5203413A1001DCA98 /* Bundle+Extensions.swift in Sources */,
+				C7D6421F203463E0001DCA98 /* Synchronizable.swift in Sources */,
 				C79252052031B3EF00CDFBBA /* ResultsView.swift in Sources */,
+				C7D641AE2034089F001DCA98 /* QuestionnairesService.swift in Sources */,
 				C73EB2B620331EB900429921 /* BenefitsViewModel.swift in Sources */,
 				C79252072031B43700CDFBBA /* ImageTextTableViewCell.swift in Sources */,
 				C76EFBED20302F8C00FA2BB9 /* MaskedTextFieldDelegate.swift in Sources */,
 				C79251F9203184F800CDFBBA /* ImageTextButton.swift in Sources */,
 				C79251F720317AE600CDFBBA /* AppFABMenuController.swift in Sources */,
+				C7D6420120344F61001DCA98 /* MenuFlow.swift in Sources */,
 				C79251EF2031569B00CDFBBA /* StackedScrollView.swift in Sources */,
 				C73EB29F2032F9B100429921 /* SectionModel.swift in Sources */,
+				C7D641F920344F3B001DCA98 /* BIOfficeFlow.swift in Sources */,
+				C7D6423A20346FB7001DCA98 /* BIOfficeViewModel.swift in Sources */,
 				C73EB28F2032F9B100429921 /* RxCollectionViewSectionedReloadDataSource.swift in Sources */,
 				C76EFBF6203032B600FA2BB9 /* ResetPasswordViewController.swift in Sources */,
+				C7D641B0203408C1001DCA98 /* ReferencesService.swift in Sources */,
+				C7D64215203463E0001DCA98 /* Flow.swift in Sources */,
 				C73EB2A12032F9B100429921 /* AnimatableSectionModel.swift in Sources */,
 				C79251E6203148AF00CDFBBA /* PlansViewController.swift in Sources */,
 				C73EB2902032F9B100429921 /* DataSources.swift in Sources */,
 				C73EB2A82032F9B100429921 /* AnimatableSectionModelType.swift in Sources */,
+				C7D641F720344DC0001DCA98 /* AppTabBarController.swift in Sources */,
 				C73EB2982032F9B100429921 /* RxCollectionViewSectionedAnimatedDataSource.swift in Sources */,
+				C7D641BC20340D77001DCA98 /* Dictionary+Extensions.swift in Sources */,
 				C76EFBF42030315C00FA2BB9 /* ResetPasswordView.swift in Sources */,
 				C73EB2BA203327AA00429921 /* BenefitsTableViewCell.swift in Sources */,
 				C73EB2AA2032F9B100429921 /* UIImagePickerController+Rx.swift in Sources */,
+				C7D64216203463E0001DCA98 /* NextFlowItem.swift in Sources */,
 				C73EB2A32032F9B100429921 /* ItemPath.swift in Sources */,
 				C79251F520317A6100CDFBBA /* AppToolbarController.swift in Sources */,
+				C7D832BB203576B400282891 /* Error+Extensions.swift in Sources */,
+				C7D6423C20346FC0001DCA98 /* EmployeesViewModel.swift in Sources */,
+				C7D6421A203463E0001DCA98 /* UIWindow+Rx.swift in Sources */,
 				C73EB29C2032F9B100429921 /* SectionModelType.swift in Sources */,
 				C73EB2A22032F9B100429921 /* IdentifiableValue.swift in Sources */,
 				C79251E8203148D300CDFBBA /* BenefitsViewController.swift in Sources */,
+				C7D641AA20340880001DCA98 /* LentaService.swift in Sources */,
 				C73EB2A62032F9B100429921 /* Changeset.swift in Sources */,
 				C73EB2992032F9B100429921 /* TableViewSectionedDataSource.swift in Sources */,
+				C7D641DB203418D1001DCA98 /* LoginViewModel.swift in Sources */,
 				C76EFBF220302F8C00FA2BB9 /* String.swift in Sources */,
+				C7D832B920356F9B00282891 /* Response+Extensions.swift in Sources */,
+				C7D641DF2034190B001DCA98 /* ResetPasswordViewModel.swift in Sources */,
 				C79251FF2031A18B00CDFBBA /* MyInfoMainView.swift in Sources */,
+				C7D641BA20340C7E001DCA98 /* String+Extensions.swift in Sources */,
+				C7D6421B203463E0001DCA98 /* UIWindow+Presentable.swift in Sources */,
 				C73EB2B8203323C500429921 /* BenefitsView.swift in Sources */,
+				C7D641A020340789001DCA98 /* EventsService.swift in Sources */,
 				C73EB2BC203329D000429921 /* ImageCollectionViewCell.swift in Sources */,
+				C7D832BD203596AA00282891 /* UIViewController+Extensions.swift in Sources */,
 				C79251E0203145E200CDFBBA /* ProfileViewController.swift in Sources */,
+				C7D64219203463E0001DCA98 /* UIViewController+Rx.swift in Sources */,
 				C73EB2A42032F9B100429921 /* Optional+Extensions.swift in Sources */,
 				C73EB2AE2033114500429921 /* HeaderView.swift in Sources */,
 				C79251E42031489A00CDFBBA /* ResultsViewController.swift in Sources */,
 				C76EFBEC20302F8C00FA2BB9 /* PolyMaskTextFieldDelegate.swift in Sources */,
+				C7D641F320344B22001DCA98 /* ViewModelBased.swift in Sources */,
+				C7D641F02034466B001DCA98 /* AppFlow.swift in Sources */,
 				C73EB28B2032F9B100429921 /* Array+Extensions.swift in Sources */,
 				C73EB28C2032F9B100429921 /* AnimationConfiguration.swift in Sources */,
 				C76EFBEF20302F8C00FA2BB9 /* Compiler.swift in Sources */,
+				C7D641A820340878001DCA98 /* NewsService.swift in Sources */,
+				C7D6422920346F2D001DCA98 /* BIBoardViewController.swift in Sources */,
 				C73EB2952032F9B100429921 /* UI+SectionedViewType.swift in Sources */,
+				C7D6422B20346F3F001DCA98 /* BIOfficeViewController.swift in Sources */,
 				C79251ED2031561E00CDFBBA /* UIView+Extensions.swift in Sources */,
+				C7D6419E20340777001DCA98 /* EmployeesService.swift in Sources */,
+				C7D641A620340869001DCA98 /* IntegrationService.swift in Sources */,
 				C79251F120315CE800CDFBBA /* StackedView.swift in Sources */,
 				C76EFBA92030060400FA2BB9 /* Button.swift in Sources */,
 				C73EB2AB2032F9B100429921 /* RxImagePickerDelegateProxy.swift in Sources */,
-				C76EFBA0202EA76300FA2BB9 /* Response+Argo.swift in Sources */,
+				C7D641FB20344F43001DCA98 /* BIBoardFlow.swift in Sources */,
 				C76EFBF120302F8C00FA2BB9 /* NSCharacterSet.swift in Sources */,
+				C7D6420320344F74001DCA98 /* ProfileFlow.swift in Sources */,
+				C7D641A42034085C001DCA98 /* GalleryService.swift in Sources */,
+				C7D6423820346FAC001DCA98 /* BIBoardViewModel.swift in Sources */,
 				C76EFBC620301AE500FA2BB9 /* TextField.swift in Sources */,
+				C7D641B4203408E0001DCA98 /* SuggestionsService.swift in Sources */,
 				C76EFB4E202E91F000FA2BB9 /* AppDelegate.swift in Sources */,
 				C76EFBC4203008D200FA2BB9 /* Constants.swift in Sources */,
 				C76EFBE720302F8C00FA2BB9 /* OptionalValueState.swift in Sources */,
+				C7D6423120346F5A001DCA98 /* MenuViewController.swift in Sources */,
 				C76EFBE920302F8C00FA2BB9 /* CaretString.swift in Sources */,
 				C73EB28D2032F9B100429921 /* FloatingPointType+IdentifiableType.swift in Sources */,
+				C7D6419C20340750001DCA98 /* AuthService.swift in Sources */,
 				C73EB2912032F9B100429921 /* String+IdentifiableType.swift in Sources */,
 				C76EFBE620302F8C00FA2BB9 /* FixedState.swift in Sources */,
 				C76EFBA42030056000FA2BB9 /* LoginView.swift in Sources */,
+				C7D64218203463E0001DCA98 /* UIViewController+Presentable.swift in Sources */,
+				C7D64220203463E0001DCA98 /* Stepper.swift in Sources */,
+				C7D641B6203408E9001DCA98 /* TasksService.swift in Sources */,
+				C7D6423E20346FC9001DCA98 /* LentaViewModel.swift in Sources */,
 				C73EB2B020331DCC00429921 /* PlansView.swift in Sources */,
+				C7D641EE20344664001DCA98 /* AppStep.swift in Sources */,
 				C79251E22031487C00CDFBBA /* MyInfoViewController.swift in Sources */,
 				C7B5FA0620305D11003F3D2C /* ForgotPasswordViewController.swift in Sources */,
+				C7D6424020346FD3001DCA98 /* MenuViewModel.swift in Sources */,
 				C76EFBE520302F8C00FA2BB9 /* EOLState.swift in Sources */,
-				C76EFB9E202EA76300FA2BB9 /* Observable+Argo.swift in Sources */,
+				C7D641B8203408FD001DCA98 /* TopQuestionsService.swift in Sources */,
+				C7D6422D20346F4B001DCA98 /* EmployeesViewController.swift in Sources */,
 				C76EFBCB203027EB00FA2BB9 /* LoginViewController.swift in Sources */,
+				C7D641AC2034088A001DCA98 /* NotificationsService.swift in Sources */,
+				C7D6421E203463E0001DCA98 /* HasDisposeBag.swift in Sources */,
 				C79251FB2031A14600CDFBBA /* MyInfoDetailedView.swift in Sources */,
+				C7D641B2203408D3001DCA98 /* RequestsService.swift in Sources */,
 				C79251F320315DDC00CDFBBA /* ImageTextView.swift in Sources */,
+				C7D641FD20344F4A001DCA98 /* LentaFlow.swift in Sources */,
 				C76EFBEE20302F8C00FA2BB9 /* CaretStringIterator.swift in Sources */,
 				C73EB2922032F9B100429921 /* RxPickerViewAdapter.swift in Sources */,
 				C73EB2B420331EAF00429921 /* PlansViewModel.swift in Sources */,
 				C76EFBEA20302F8C00FA2BB9 /* Mask.swift in Sources */,
 				C73EB2942032F9B100429921 /* CollectionViewSectionedDataSource.swift in Sources */,
+				C7D6422F20346F53001DCA98 /* LentaViewController.swift in Sources */,
 				C73EB2AC2032F9B100429921 /* RxCLLocationManagerDelegateProxy.swift in Sources */,
 				C73EB2932032F9B100429921 /* Deprecated.swift in Sources */,
 				C76EFBC82030201B00FA2BB9 /* GradientView.swift in Sources */,
 				C73EB29D2032F9B100429921 /* Utilities.swift in Sources */,
 				C79251FD2031A16700CDFBBA /* MyInfoContactView.swift in Sources */,
 				C73EB2A92032F9B100429921 /* CLLocationManager+Rx.swift in Sources */,
+				C7D641DD20341901001DCA98 /* ForgotPasswordViewModel.swift in Sources */,
+				C7D64217203463E0001DCA98 /* Presentable.swift in Sources */,
+				C7D64222203463E0001DCA98 /* Coordinator.swift in Sources */,
+				C7D641E120341A42001DCA98 /* User.swift in Sources */,
+				C7D641FF20344F58001DCA98 /* EmployeesFlow.swift in Sources */,
+				C7D6421C203463E0001DCA98 /* Rx+Pausable.swift in Sources */,
 				C76EFBE320302F8C00FA2BB9 /* State.swift in Sources */,
 				C76EFBF020302F8C00FA2BB9 /* FormatSanitizer.swift in Sources */,
 				C76EFBEB20302F8C00FA2BB9 /* InterfaceBuilderSupport.swift in Sources */,
 				C79251EB2031532E00CDFBBA /* MyInfoView.swift in Sources */,
 				C76EFBE420302F8C00FA2BB9 /* ValueState.swift in Sources */,
+				C7D641F520344C70001DCA98 /* LoginFlow.swift in Sources */,
 				C7B5FA0420305691003F3D2C /* ForgotPasswordView.swift in Sources */,
 				C76EFBE820302F8C00FA2BB9 /* FreeState.swift in Sources */,
+				C7D641D7203417CB001DCA98 /* UserProfileService.swift in Sources */,
 				C73EB2A52032F9B100429921 /* AnimatableSectionModelType+ItemPath.swift in Sources */,
 				C73EB29A2032F9B100429921 /* RxTableViewSectionedReloadDataSource.swift in Sources */,
 				C73EB25B2032DA4300429921 /* Mockable.swift in Sources */,

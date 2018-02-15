@@ -10,22 +10,15 @@ import UIKit
 import Material
 
 class AppToolbarController: ToolbarController {
-    private var menuButton: IconButton!
 
     open override func prepare() {
         super.prepare()
 
-        setupMenuButton()
         setupStatusBar()
         setupToolbar()
     }
 
     // MARK: - UI
-
-    private func setupMenuButton() {
-        menuButton = IconButton(image: #imageLiteral(resourceName: "back"), tintColor: App.Color.azure)
-        menuButton.pulseColor = App.Color.azure
-    }
 
     private func setupStatusBar() {
         statusBarStyle = .lightContent
@@ -36,12 +29,9 @@ class AppToolbarController: ToolbarController {
         toolbar.depthPreset = .none
         toolbar.backgroundColor = App.Color.white
 
-        toolbar.title = NSLocalizedString("profile", comment: "")
         toolbar.titleLabel.font = App.Font.headline
         toolbar.titleLabel.textColor = .black
         toolbar.titleLabel.textAlignment = .left
-
-        toolbar.leftViews = [menuButton]
     }
 
 }

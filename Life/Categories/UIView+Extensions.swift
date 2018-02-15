@@ -9,9 +9,21 @@
 import UIKit
 
 extension UIView {
+
     func setAllConstraintsPriority(to priority: UILayoutPriority) {
         for constraint in constraints {
             constraint.priority = priority
         }
     }
+
+    func setView(disabled: Bool, decreaseOpacity: Bool = false) {
+        isUserInteractionEnabled = !disabled
+
+        if disabled {
+            alpha = decreaseOpacity ? 0.5 : 1
+        } else {
+            alpha = 1
+        }
+    }
+
 }

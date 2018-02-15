@@ -9,7 +9,10 @@
 import UIKit
 import SnapKit
 
-class ForgotPasswordViewController: UIViewController {
+class ForgotPasswordViewController: UIViewController, ViewModelBased, Stepper {
+    typealias ViewModelType = ForgotPasswordViewModel
+    var viewModel: ForgotPasswordViewModel!
+
     private var forgotPasswordView: ForgotPasswordView!
 
     override func viewDidLoad() {
@@ -21,7 +24,11 @@ class ForgotPasswordViewController: UIViewController {
     // MARK: - UI
 
     private func setupUI() {
-        forgotPasswordView = ForgotPasswordView(frame: .zero)
+        forgotPasswordView = ForgotPasswordView(login: viewModel.login)
+        forgotPasswordView.didTapClose = { [weak self] in
+            guard let `self` = self else { return }
+            self.step.accept(AppStep.forgotPasswordCancel)
+        }
         view.addSubview(forgotPasswordView)
         forgotPasswordView.snp.makeConstraints({ [weak self] (make) in
             guard let `self` = self else { return }

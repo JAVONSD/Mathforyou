@@ -122,4 +122,20 @@ struct App {
 
     }
 
+    // MARK: - UserDefaults
+
+    struct Key {
+        static let userToken = "userToken"
+        static let userLogin = "userLogin"
+        static let userEmployeeCode = "userEmployeeCode"
+    }
+
+    // MARK: - Fields
+
+    struct Field {
+        static let `default` = "error"
+        static let login = "Login"
+        static let password = "Password"
+    }
+
 }

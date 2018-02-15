@@ -21,16 +21,18 @@ class ForgotPasswordView: UIView, MaskedTextFieldDelegateListener {
     private(set) var sendButton: Button?
     private(set) var biGroupLabel: UILabel?
 
-    private var maskedDelegate: MaskedTextFieldDelegate!
+    private var maskFormatter: MaskedTextFieldDelegate!
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    var didTapClose: (() -> Void)?
+
+    init(login: String) {
+        super.init(frame: .zero)
 
         setupBackgroundView()
         setupCloseButton()
         setupTitleLabel()
         setupDescriptionLabel()
-        setupPhoneField()
+        setupPhoneField(login: login)
         setupSendButton()
         setupBIGroupLabel()
     }
@@ -44,6 +46,15 @@ class ForgotPasswordView: UIView, MaskedTextFieldDelegateListener {
 
         if let descriptionLabel = descriptionLabel {
             descriptionLabel.preferredMaxLayoutWidth = descriptionLabel.frame.size.width
+        }
+    }
+
+    // MARK: - Actions
+
+    @objc
+    private func handleCloseButton() {
+        if let didTapClose = didTapClose {
+            didTapClose()
         }
     }
 
@@ -74,6 +85,8 @@ class ForgotPasswordView: UIView, MaskedTextFieldDelegateListener {
         closeButton?.imageView?.contentMode = .scaleAspectFit
 
         guard let closeButton = closeButton else { return }
+
+        closeButton.addTarget(self, action: #selector(handleCloseButton), for: .touchUpInside)
 
         addSubview(closeButton)
         closeButton.snp.makeConstraints { [weak self] (make) in
@@ -131,22 +144,26 @@ class ForgotPasswordView: UIView, MaskedTextFieldDelegateListener {
         }
     }
 
-    private func setupPhoneField() {
-        maskedDelegate = MaskedTextFieldDelegate(format: "{+7} ([000]) [000] [00] [00]")
-        maskedDelegate.listener = self
+    private func setupPhoneField(login: String) {
+//        maskFormatter = MaskedTextFieldDelegate(format: "{+7} ([000]) [000] [00] [00]")
+//        maskFormatter.listener = self
 
         phoneField = TextField(frame: .zero)
+        phoneField?.text = login
 
         guard let phoneField = phoneField,
             let descriptionLabel = descriptionLabel else {
                 return
         }
 
-        phoneField.placeholder = NSLocalizedString("phone", comment: "")
-        phoneField.delegate = maskedDelegate
+        phoneField.placeholder = NSLocalizedString("username_or_phone", comment: "")
+        phoneField.autocorrectionType = .no
+        phoneField.autocapitalizationType = .none
+
+//        phoneField.delegate = maskFormatter
         phoneField.makeLight()
 
-        maskedDelegate.put(text: "+7 ", into: phoneField)
+//        maskFormatter.put(text: "+7 ", into: phoneField)
 
         addSubview(phoneField)
         phoneField.snp.makeConstraints { [weak self] (make) in

@@ -9,13 +9,13 @@
 import Foundation
 import RxSwift
 
-struct ResultViewModel {
+struct ResultViewModel: ViewModel {
     var title: String
     var description: String
     var image: String
 }
 
-struct ResultsSectionViewModel {
+struct ResultsSectionViewModel: ViewModel {
     var title: String
     var results = [ResultViewModel]()
 
@@ -24,7 +24,7 @@ struct ResultsSectionViewModel {
     }
 }
 
-struct ResultsViewModel {
+struct ResultsViewModel: ViewModel {
     var sections = [ResultsSectionViewModel]()
 }
 

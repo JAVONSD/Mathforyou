@@ -14,7 +14,7 @@ class BenefitsView: UIView {
 
     private(set) var tableView: UITableView?
 
-    var viewForHeaderDelegate: ((UITableView, Int) -> UIView?)?
+    var configureViewForHeader: ((UITableView, Int) -> UIView?)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -101,7 +101,7 @@ extension BenefitsView: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if let viewForHeaderDelegate = viewForHeaderDelegate {
+        if let viewForHeaderDelegate = configureViewForHeader {
             return viewForHeaderDelegate(tableView, section)
         }
         return nil

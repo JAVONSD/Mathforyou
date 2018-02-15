@@ -19,7 +19,8 @@ class BenefitsViewController: UIViewController {
 
     private let disposeBag = DisposeBag()
 
-    private let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<BenefitsSectionViewModel, BenefitViewModel>>(
+    private let dataSource =
+        RxTableViewSectionedReloadDataSource<SectionModel<BenefitsSectionViewModel, BenefitViewModel>>(
         configureCell: { (_, tv, indexPath, element) in
             var cellId = App.CellIdentifier.fitnessBenefitsCellId
             if indexPath.section == 1 {
@@ -134,7 +135,7 @@ class BenefitsViewController: UIViewController {
             .setDelegate(benefitsView)
             .disposed(by: disposeBag)
 
-        benefitsView.viewForHeaderDelegate = { (tableView, section) in
+        benefitsView.configureViewForHeader = { (tableView, section) in
             return dataSource.tableView(tableView, viewForHeaderInSection: section)
         }
     }
