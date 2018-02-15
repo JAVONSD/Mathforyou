@@ -25,6 +25,8 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
     // MARK: - UI
 
     private func setupUI() {
+        view.backgroundColor = App.Color.whiteSmoke
+
         label.text = "Menu"
         label.textAlignment = .center
         view.addSubview(label)

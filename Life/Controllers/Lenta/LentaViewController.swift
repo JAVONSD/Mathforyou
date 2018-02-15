@@ -25,6 +25,8 @@ class LentaViewController: UIViewController, ViewModelBased, Stepper {
     // MARK: - UI
 
     private func setupUI() {
+        view.backgroundColor = App.Color.whiteSmoke
+
         label.text = "Lenta"
         label.textAlignment = .center
         view.addSubview(label)

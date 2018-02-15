@@ -25,6 +25,8 @@ class BIBoardViewController: UIViewController, ViewModelBased, Stepper {
     // MARK: - UI
 
     private func setupUI() {
+        view.backgroundColor = App.Color.whiteSmoke
+
         label.text = "BI Board"
         label.textAlignment = .center
         view.addSubview(label)

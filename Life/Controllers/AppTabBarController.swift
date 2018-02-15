@@ -20,14 +20,17 @@ class AppTabBarController: TabsController {
 
         tabBar.setTabItemsColor(App.Color.coolGrey, for: .normal)
         tabBar.setTabItemsColor(App.Color.azure, for: .selected)
-        tabBar.setTabItemsColor(UIColor.black, for: .highlighted)
+        tabBar.setTabItemsColor(App.Color.coolGrey, for: .highlighted)
 
         tabBarAlignment = .bottom
         tabBar.tabBarStyle = .nonScrollable
         tabBar.dividerColor = nil
         tabBar.lineHeight = 0.0
         tabBar.lineAlignment = .bottom
-        tabBar.backgroundColor = App.Color.paleGreyTwo
+        tabBar.backgroundColor = App.Color.white
+
+        tabBar.shadowColor = App.Color.paleGreyTwo
+        tabBar.depth = Depth(offset: Offset.init(horizontal: 0, vertical: -0.5), opacity: 1, radius: 0)
     }
 
 }

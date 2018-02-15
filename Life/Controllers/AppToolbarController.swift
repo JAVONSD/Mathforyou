@@ -23,10 +23,13 @@ class AppToolbarController: ToolbarController {
     private func setupStatusBar() {
         statusBarStyle = .lightContent
         statusBar.backgroundColor = App.Color.white
+        statusBar.layer.zPosition = toolbar.layer.zPosition + 1
     }
 
     private func setupToolbar() {
-        toolbar.depthPreset = .none
+        toolbar.shadowColor = UIColor.black.withAlphaComponent(0.16)
+        toolbar.depth = Depth(offset: Offset.init(horizontal: 0, vertical: 1), opacity: 1, radius: 6)
+
         toolbar.backgroundColor = App.Color.white
 
         toolbar.titleLabel.font = App.Font.headline

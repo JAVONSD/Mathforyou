@@ -25,6 +25,8 @@ class BIOfficeViewController: UIViewController, ViewModelBased, Stepper {
     // MARK: - UI
 
     private func setupUI() {
+        view.backgroundColor = App.Color.whiteSmoke
+
         label.text = "BI Office"
         label.textAlignment = .center
         view.addSubview(label)
