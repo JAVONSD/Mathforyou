@@ -9,7 +9,9 @@
 import UIKit
 import Material
 
-class AppToolbarController: ToolbarController {
+class AppToolbarController: NavigationController {
+
+    private(set) var shadowHidden = true
 
     open override func prepare() {
         super.prepare()
@@ -18,23 +20,46 @@ class AppToolbarController: ToolbarController {
         setupToolbar()
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+
+    // MARK: - Methods
+
+    public func setShadow(hidden: Bool) {
+        shadowHidden = hidden
+
+        if let navBar = navigationBar as? NavigationBar {
+            navBar.shadowColor = hidden ? UIColor.clear : UIColor.black.withAlphaComponent(0.16)
+
+            let depthNone = Depth(preset: .none)
+            let depthExist = Depth(offset: Offset.init(horizontal: 0, vertical: 1), opacity: 1, radius: 6)
+            navBar.depth =  hidden ? depthNone : depthExist
+
+            navBar.interimSpacePreset = .none
+            navBar.contentEdgeInsets = .init(
+                top: 4,
+                left: 0,
+                bottom: 4,
+                right: 6
+            )
+        }
+    }
+
     // MARK: - UI
 
     private func setupStatusBar() {
-        statusBarStyle = .lightContent
-        statusBar.backgroundColor = App.Color.white
-        statusBar.layer.zPosition = toolbar.layer.zPosition + 1
+        statusBarStyle = .default
     }
 
     private func setupToolbar() {
-        toolbar.shadowColor = UIColor.black.withAlphaComponent(0.16)
-        toolbar.depth = Depth(offset: Offset.init(horizontal: 0, vertical: 1), opacity: 1, radius: 6)
+        if let navBar = navigationBar as? NavigationBar {
+            navBar.backButtonImage = #imageLiteral(resourceName: "back")
 
-        toolbar.backgroundColor = App.Color.white
+            navBar.backgroundColor = App.Color.white
+        }
 
-        toolbar.titleLabel.font = App.Font.headline
-        toolbar.titleLabel.textColor = .black
-        toolbar.titleLabel.textAlignment = .left
+        setShadow(hidden: false)
     }
 
 }

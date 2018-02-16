@@ -22,6 +22,10 @@ class LentaViewController: UIViewController, ViewModelBased, Stepper {
         setupUI()
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+
     // MARK: - UI
 
     private func setupUI() {

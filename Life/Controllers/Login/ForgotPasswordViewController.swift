@@ -21,6 +21,10 @@ class ForgotPasswordViewController: UIViewController, ViewModelBased, Stepper {
         setupUI()
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+
     // MARK: - UI
 
     private func setupUI() {

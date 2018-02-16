@@ -121,6 +121,11 @@ struct App {
         static let biClubBenefitsCellId = "biClubBenefitsCellId"
         static let biClubCollBenefitsCellId = "biClubCollBenefitsCellId"
 
+        // MARK: - Employees
+
+        static let employeeHeaderViewId = "employeeHeaderViewId"
+        static let employeeCellId = "employeeCellId"
+
     }
 
     // MARK: - UserDefaults

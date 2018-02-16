@@ -40,6 +40,13 @@ class HeaderView: UITableViewHeaderFooterView {
     // MARK: - UI
 
     private func setupUI() {
+        backgroundColor = .clear
+        contentView.backgroundColor = .clear
+        backgroundView?.backgroundColor = .clear
+        textLabel?.backgroundColor = .clear
+        detailTextLabel?.backgroundColor = .clear
+        backgroundView = nil
+
         titleLabel = UILabel()
         titleLabel?.font = App.Font.subheadAlts
         titleLabel?.textColor = .black

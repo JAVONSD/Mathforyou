@@ -68,3 +68,13 @@
 "time_out_error_message" = "Время запроса истекло";
 "server_error_message" = "Серверная ошибка";
 "default_network_error" = "Ошибка в сети";
+
+/* Employees */
+
+"employees" = "Сотрудники";
+"all" = "Все";
+"birthdays" = "Дни рождения";
+"vacancies" = "Вакансии";
+"search" = "Поиск";
+
+

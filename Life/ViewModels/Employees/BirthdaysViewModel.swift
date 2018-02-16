@@ -1,22 +1,22 @@
 //
-//  EmployeesViewModel.swift
+//  BirthdaysViewModel.swift
 //  Life
 //
-//  Created by Shyngys Kassymov on 14.02.2018.
+//  Created by Shyngys Kassymov on 15.02.2018.
 //  Copyright © 2018 Shyngys Kassymov. All rights reserved.
 //
 
 import Foundation
 
-struct EmployeesViewModel: ViewModel {
+struct BirthdaysViewModel: ViewModel {
     var employees = [EmployeeViewModel]()
 }
 
-extension EmployeesViewModel: Mockable {
-    typealias T = EmployeesViewModel
+extension BirthdaysViewModel: Mockable {
+    typealias T = BirthdaysViewModel
 
-    static func sample() -> EmployeesViewModel {
-        var employeesViewModel = EmployeesViewModel()
+    static func sample() -> BirthdaysViewModel {
+        var employeesViewModel = BirthdaysViewModel()
 
         let employee = EmployeeViewModel(
             image: "",

@@ -1,8 +1,8 @@
 //
-//  EmployeesViewController.swift
+//  VacanciesViewController.swift
 //  Life
 //
-//  Created by Shyngys Kassymov on 14.02.2018.
+//  Created by Shyngys Kassymov on 15.02.2018.
 //  Copyright © 2018 Shyngys Kassymov. All rights reserved.
 //
 
@@ -12,17 +12,17 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class EmployeesViewController: UIViewController, ViewModelBased, Stepper {
+class VacanciesViewController: UIViewController, ViewModelBased, Stepper {
 
-    typealias ViewModelType = EmployeesViewModel
+    typealias ViewModelType = VacanciesViewModel
 
-    var viewModel: EmployeesViewModel!
+    var viewModel: VacanciesViewModel!
 
     private var employeesView: EmployeesView!
 
     private let disposeBag = DisposeBag()
     private let dataSource =
-        RxTableViewSectionedReloadDataSource<SectionModel<EmployeesViewModel, EmployeeViewModel>>(
+        RxTableViewSectionedReloadDataSource<SectionModel<VacanciesViewModel, EmployeeViewModel>>(
             configureCell: { (_, tv, indexPath, element) in
                 let cellId = App.CellIdentifier.employeeCellId
 
@@ -68,7 +68,7 @@ class EmployeesViewController: UIViewController, ViewModelBased, Stepper {
         setupUI()
 
         // For debug
-        viewModel = EmployeesViewModel.sample()
+        viewModel = VacanciesViewModel.sample()
 
         bind()
     }
@@ -116,7 +116,7 @@ class EmployeesViewController: UIViewController, ViewModelBased, Stepper {
     }
 
     private func setupTabItem() {
-        tabItem.title = NSLocalizedString("all", comment: "").uppercased()
+        tabItem.title = NSLocalizedString("vacancies", comment: "").uppercased()
         tabItem.titleLabel?.font = App.Font.buttonSmall
     }
 

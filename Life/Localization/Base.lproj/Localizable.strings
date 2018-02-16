@@ -68,3 +68,13 @@
 "time_out_error_message" = "Request time out";
 "server_error_message" = "Server Error";
 "default_network_error" = "Network Error";
+
+/* Employees */
+
+"employees" = "Employees";
+"all" = "All";
+"birthdays" = "Birthdays";
+"vacancies" = "Vacancies";
+"search" = "Search";
+
+

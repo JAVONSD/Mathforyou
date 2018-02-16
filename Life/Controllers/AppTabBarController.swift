@@ -10,7 +10,7 @@ import UIKit
 import Material
 import SnapKit
 
-class AppTabBarController: UIViewController, TabBarDelegate {
+class AppTabBarController: UIViewController, TabBarDelegate, Stepper {
 
     private(set) lazy var containerView = UIView(frame: .zero)
     private(set) lazy var tabBar = TabBar(frame: .zero)
@@ -28,28 +28,43 @@ class AppTabBarController: UIViewController, TabBarDelegate {
         setupUI()
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
+        guard currentTabIndex < viewControllers.count else { return }
         viewControllers[currentTabIndex].beginAppearanceTransition(true, animated: animated)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        guard currentTabIndex < viewControllers.count else { return }
         viewControllers[currentTabIndex].endAppearanceTransition()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
+        guard currentTabIndex < viewControllers.count else { return }
         viewControllers[currentTabIndex].beginAppearanceTransition(false, animated: animated)
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
+        guard currentTabIndex < viewControllers.count else { return }
         viewControllers[currentTabIndex].endAppearanceTransition()
+    }
+
+    // MARK: - Actions
+
+    @objc
+    private func handleProfileButtonTap() {
+        step.accept(AppStep.profile)
     }
 
     // MARK: - Methods
@@ -71,7 +86,9 @@ class AppTabBarController: UIViewController, TabBarDelegate {
     }
 
     private func move(to: Int) {
-        if currentTabIndex == to {
+        if currentTabIndex == to ||
+            currentTabIndex >= viewControllers.count ||
+            to >= viewControllers.count {
             return
         }
 
@@ -96,21 +113,12 @@ class AppTabBarController: UIViewController, TabBarDelegate {
     }
 
     private func setupToolbar() {
-        guard let navVC = toolbarController else { return }
-
         setupBiGroupButton()
         setupNotificationsButotn()
         setupProfileButton()
 
-        navVC.toolbar.leftViews = [biGroupButton]
-        navVC.toolbar.rightViews = [notificationsButton, profileButton]
-        navVC.toolbar.interimSpacePreset = .none
-        navVC.toolbar.contentEdgeInsets = .init(
-            top: 4,
-            left: 8,
-            bottom: 4,
-            right: 0
-        )
+        navigationItem.leftViews = [biGroupButton]
+        navigationItem.rightViews = [notificationsButton, profileButton]
     }
 
     private func setupBiGroupButton() {
@@ -131,6 +139,7 @@ class AppTabBarController: UIViewController, TabBarDelegate {
         profileButton.pulseColor = App.Color.azure
         profileButton.iconView.layer.cornerRadius = 12
         profileButton.iconView.layer.masksToBounds = true
+        profileButton.addTarget(self, action: #selector(handleProfileButtonTap), for: .touchUpInside)
     }
 
     private func setupTabBar() {

@@ -28,6 +28,10 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
         observeChanges()
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+
     // MARK: - UI
 
     private func setupUI() {
