@@ -7,37 +7,90 @@
 //
 
 import UIKit
+import AsyncDisplayKit
+import IGListKit
 import Material
 import SnapKit
 
-class LentaViewController: UIViewController, ViewModelBased, Stepper {
-    typealias ViewModelType = LentaViewModel
+class LentaViewController: ASViewController<ASCollectionNode> {
+
+    private var listAdapter: ListAdapter!
+    private var collectionNode: ASCollectionNode {
+        return node
+    }
+    private lazy var spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    private lazy var refreshCtrl = UIRefreshControl()
+
     var viewModel: LentaViewModel!
 
-    private lazy var label = UILabel()
+    init() {
+        let layout = UICollectionViewFlowLayout()
+        let node = ASCollectionNode(collectionViewLayout: layout)
+
+        super.init(node: node)
+
+        viewModel = LentaViewModel()
+
+        let updater = ListAdapterUpdater()
+        listAdapter = ListAdapter(updater: updater, viewController: self, workingRangeSize: 0)
+        listAdapter.dataSource = self
+        listAdapter.setASDKCollectionNode(collectionNode)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupUI()
+        collectionNode.view.backgroundView = nil
+        collectionNode.view.backgroundColor = .clear
+        collectionNode.view.alwaysBounceVertical = true
+        collectionNode.view.scrollIndicatorInsets = .init(
+            top: 176,
+            left: 0,
+            bottom: 0,
+            right: 0)
+
+        refreshCtrl = UIRefreshControl()
+        refreshCtrl.addTarget(self, action: #selector(refreshFeed), for: .valueChanged)
+        collectionNode.view.addSubview(refreshCtrl)
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
-    }
+    // MARK: - Methods
 
-    // MARK: - UI
+    @objc
+    private func refreshFeed() {
+        guard let secCtrl = listAdapter
+            .sectionController(for: viewModel) as? RefreshingSectionControllerType else {
+            return
+        }
 
-    private func setupUI() {
-        view.backgroundColor = App.Color.whiteSmoke
-
-        label.text = "Lenta"
-        label.textAlignment = .center
-        view.addSubview(label)
-        label.snp.makeConstraints { [weak self] (make) in
-            guard let `self` = self else { return }
-            make.edges.equalTo(self.view)
+        secCtrl.refreshContent {
+            self.refreshCtrl.endRefreshing()
         }
     }
 
+}
+
+extension LentaViewController: ListAdapterDataSource {
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        return [viewModel]
+    }
+
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+        return NewsSectionController(viewModel: viewModel)
+    }
+
+    func emptyView(for listAdapter: ListAdapter) -> UIView? {
+        spinner.startAnimating()
+        return spinner
+    }
+}
+
+extension LentaViewController: ASCollectionDelegate {
+    func collectionNode(_ collectionNode: ASCollectionNode, didSelectItemAt indexPath: IndexPath) {
+        print("Did select collectionNode item at index path - (indexPath)")
+    }
 }

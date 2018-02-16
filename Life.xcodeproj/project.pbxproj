@@ -13,6 +13,12 @@
 		C720EC7420369287007E4CD4 /* EmployeeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720EC7320369287007E4CD4 /* EmployeeViewModel.swift */; };
 		C720EC7620369EA8007E4CD4 /* EmployeeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720EC7520369EA8007E4CD4 /* EmployeeDetailView.swift */; };
 		C720EC782036A0E0007E4CD4 /* EmployeeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720EC772036A0E0007E4CD4 /* EmployeeCell.swift */; };
+		C720EC7A2036CC0E007E4CD4 /* BoardSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720EC792036CC0D007E4CD4 /* BoardSliderCell.swift */; };
+		C720EC7C2036CD54007E4CD4 /* NewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720EC7B2036CD54007E4CD4 /* NewsCell.swift */; };
+		C720EC802036E3C1007E4CD4 /* ASCollectionSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720EC7F2036E3C1007E4CD4 /* ASCollectionSectionController.swift */; };
+		C720EC822036E67E007E4CD4 /* NewsSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720EC812036E67D007E4CD4 /* NewsSectionController.swift */; };
+		C720EC862037093A007E4CD4 /* LentaOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720EC852037093A007E4CD4 /* LentaOverviewCell.swift */; };
+		C720EC8820370B03007E4CD4 /* OverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720EC8720370B03007E4CD4 /* OverviewCell.swift */; };
 		C73EB2512032D71B00429921 /* ResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2502032D71B00429921 /* ResultsViewModel.swift */; };
 		C73EB25B2032DA4300429921 /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB25A2032DA4300429921 /* Mockable.swift */; };
 		C73EB28B2032F9B100429921 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2652032F9B000429921 /* Array+Extensions.swift */; };
@@ -219,6 +225,12 @@
 		C720EC7320369287007E4CD4 /* EmployeeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeViewModel.swift; sourceTree = "<group>"; };
 		C720EC7520369EA8007E4CD4 /* EmployeeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeDetailView.swift; sourceTree = "<group>"; };
 		C720EC772036A0E0007E4CD4 /* EmployeeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeCell.swift; sourceTree = "<group>"; };
+		C720EC792036CC0D007E4CD4 /* BoardSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoardSliderCell.swift; sourceTree = "<group>"; };
+		C720EC7B2036CD54007E4CD4 /* NewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCell.swift; sourceTree = "<group>"; };
+		C720EC7F2036E3C1007E4CD4 /* ASCollectionSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASCollectionSectionController.swift; sourceTree = "<group>"; };
+		C720EC812036E67D007E4CD4 /* NewsSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSectionController.swift; sourceTree = "<group>"; };
+		C720EC852037093A007E4CD4 /* LentaOverviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LentaOverviewCell.swift; sourceTree = "<group>"; };
+		C720EC8720370B03007E4CD4 /* OverviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewCell.swift; sourceTree = "<group>"; };
 		C73EB2502032D71B00429921 /* ResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewModel.swift; sourceTree = "<group>"; };
 		C73EB25A2032DA4300429921 /* Mockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mockable.swift; sourceTree = "<group>"; };
 		C73EB2652032F9B000429921 /* Array+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
@@ -710,6 +722,7 @@
 				C76EFBC9203027DD00FA2BB9 /* Login */,
 				C79251F420317A6100CDFBBA /* AppToolbarController.swift */,
 				C7D641F620344DC0001DCA98 /* AppTabBarController.swift */,
+				C720EC7F2036E3C1007E4CD4 /* ASCollectionSectionController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1139,6 +1152,7 @@
 			isa = PBXGroup;
 			children = (
 				C7D6422E20346F53001DCA98 /* LentaViewController.swift */,
+				C720EC812036E67D007E4CD4 /* NewsSectionController.swift */,
 			);
 			path = Lenta;
 			sourceTree = "<group>";
@@ -1223,6 +1237,9 @@
 		C7D832C92035C52700282891 /* Lenta */ = {
 			isa = PBXGroup;
 			children = (
+				C720EC7B2036CD54007E4CD4 /* NewsCell.swift */,
+				C720EC852037093A007E4CD4 /* LentaOverviewCell.swift */,
+				C720EC8720370B03007E4CD4 /* OverviewCell.swift */,
 			);
 			path = Lenta;
 			sourceTree = "<group>";
@@ -1247,6 +1264,7 @@
 		C7D832CC2035C52800282891 /* BIBoard */ = {
 			isa = PBXGroup;
 			children = (
+				C720EC792036CC0D007E4CD4 /* BoardSliderCell.swift */,
 			);
 			path = BIBoard;
 			sourceTree = "<group>";
@@ -1556,11 +1574,15 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/DateToolsSwift/DateToolsSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicColor/DynamicColor.framework",
+				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
+				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
+				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
+				"${BUILT_PRODUCTS_DIR}/PINRemoteImage/PINRemoteImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
@@ -1569,18 +1591,24 @@
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/Texture/AsyncDisplayKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast/Toast.framework",
+				"${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateToolsSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicColor.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINRemoteImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
@@ -1589,7 +1617,9 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AsyncDisplayKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1638,6 +1668,7 @@
 				C73EB29F2032F9B100429921 /* SectionModel.swift in Sources */,
 				C7D832D42035C80E00282891 /* MainMenuFlow.swift in Sources */,
 				C7D641F920344F3B001DCA98 /* BIOfficeFlow.swift in Sources */,
+				C720EC862037093A007E4CD4 /* LentaOverviewCell.swift in Sources */,
 				C7D6423A20346FB7001DCA98 /* BIOfficeViewModel.swift in Sources */,
 				C73EB28F2032F9B100429921 /* RxCollectionViewSectionedReloadDataSource.swift in Sources */,
 				C76EFBF6203032B600FA2BB9 /* ResetPasswordViewController.swift in Sources */,
@@ -1664,6 +1695,7 @@
 				C73EB29C2032F9B100429921 /* SectionModelType.swift in Sources */,
 				C73EB2A22032F9B100429921 /* IdentifiableValue.swift in Sources */,
 				C79251E8203148D300CDFBBA /* BenefitsViewController.swift in Sources */,
+				C720EC802036E3C1007E4CD4 /* ASCollectionSectionController.swift in Sources */,
 				C7D641AA20340880001DCA98 /* LentaService.swift in Sources */,
 				C73EB2A62032F9B100429921 /* Changeset.swift in Sources */,
 				C73EB2992032F9B100429921 /* TableViewSectionedDataSource.swift in Sources */,
@@ -1728,6 +1760,7 @@
 				C73EB2B020331DCC00429921 /* PlansView.swift in Sources */,
 				C7D641EE20344664001DCA98 /* AppStep.swift in Sources */,
 				C79251E22031487C00CDFBBA /* MyInfoViewController.swift in Sources */,
+				C720EC7C2036CD54007E4CD4 /* NewsCell.swift in Sources */,
 				C7B5FA0620305D11003F3D2C /* ForgotPasswordViewController.swift in Sources */,
 				C7D6424020346FD3001DCA98 /* MenuViewModel.swift in Sources */,
 				C720EC7220368E64007E4CD4 /* SearchView.swift in Sources */,
@@ -1735,12 +1768,14 @@
 				C7D641B8203408FD001DCA98 /* TopQuestionsService.swift in Sources */,
 				C7D6422D20346F4B001DCA98 /* EmployeesViewController.swift in Sources */,
 				C76EFBCB203027EB00FA2BB9 /* LoginViewController.swift in Sources */,
+				C720EC8820370B03007E4CD4 /* OverviewCell.swift in Sources */,
 				C7D641AC2034088A001DCA98 /* NotificationsService.swift in Sources */,
 				C7D6421E203463E0001DCA98 /* HasDisposeBag.swift in Sources */,
 				C79251FB2031A14600CDFBBA /* MyInfoDetailedView.swift in Sources */,
 				C7D641B2203408D3001DCA98 /* RequestsService.swift in Sources */,
 				C79251F320315DDC00CDFBBA /* ImageTextView.swift in Sources */,
 				C7D641FD20344F4A001DCA98 /* LentaFlow.swift in Sources */,
+				C720EC7A2036CC0E007E4CD4 /* BoardSliderCell.swift in Sources */,
 				C76EFBEE20302F8C00FA2BB9 /* CaretStringIterator.swift in Sources */,
 				C720EC7420369287007E4CD4 /* EmployeeViewModel.swift in Sources */,
 				C73EB2922032F9B100429921 /* RxPickerViewAdapter.swift in Sources */,
@@ -1768,6 +1803,7 @@
 				C79251EB2031532E00CDFBBA /* MyInfoView.swift in Sources */,
 				C76EFBE420302F8C00FA2BB9 /* ValueState.swift in Sources */,
 				C7D641F520344C70001DCA98 /* LoginFlow.swift in Sources */,
+				C720EC822036E67E007E4CD4 /* NewsSectionController.swift in Sources */,
 				C7B5FA0420305691003F3D2C /* ForgotPasswordView.swift in Sources */,
 				C76EFBE820302F8C00FA2BB9 /* FreeState.swift in Sources */,
 				C7D641D7203417CB001DCA98 /* UserProfileService.swift in Sources */,

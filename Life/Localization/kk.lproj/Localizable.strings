@@ -77,4 +77,11 @@
 "vacancies" = "Вакансии";
 "search" = "Поиск";
 
+/* Lenta */
+
+"feed" = "Лента";
+"news" = "Новости";
+"questionnaires" = "Опросы";
+"suggestions" = "Предложения";
+
 

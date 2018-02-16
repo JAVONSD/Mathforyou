@@ -11,6 +11,9 @@ target 'Life' do
   # Date tools
   pod 'DateToolsSwift', '~> 2.0'
 
+  # Collection Views
+  pod 'IGListKit', '3.0.0'
+
   # Image Caching
   pod 'Kingfisher', '~> 4.0'
 
@@ -35,6 +38,10 @@ target 'Life' do
 
   # Linting
   pod 'SwiftLint'
+
+  # Async Views
+  pod 'Texture/IGListKit', '~> 2.0'
+  pod 'Texture/PINRemoteImage', '~> 2.0'
 
   # Toast
   pod 'Toast', '~> 4.0.0'

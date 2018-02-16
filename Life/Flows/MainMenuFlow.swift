@@ -51,7 +51,7 @@ class MainMenuFlow: Flow {
     private func navigationToMainMenuScreen() -> NextFlowItems {
         let biBoardVC = BIBoardViewController.instantiate(withViewModel: BIBoardViewModel())
         let biOfficeVC = BIOfficeViewController.instantiate(withViewModel: BIOfficeViewModel())
-        let lentaVC = LentaViewController.instantiate(withViewModel: LentaViewModel())
+        let lentaVC = LentaViewController()
         let stuffVC = StuffViewController.configuredVC
         let menuVC = MenuViewController.instantiate(withViewModel: MenuViewModel())
 

@@ -126,6 +126,10 @@ struct App {
         static let employeeHeaderViewId = "employeeHeaderViewId"
         static let employeeCellId = "employeeCellId"
 
+        // MARK: - Lenta
+
+        static let lentaOverviewCellId = "lentaOverviewCellId"
+
     }
 
     // MARK: - UserDefaults
