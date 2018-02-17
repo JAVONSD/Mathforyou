@@ -17,6 +17,8 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
     typealias ViewModelType = LoginViewModel
 
     var viewModel: LoginViewModel!
+    var isUnauthorized = false
+
     private let disposeBag = DisposeBag()
 
     private var loginView: LoginView!
@@ -26,6 +28,16 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
 
         setupUI()
         observeChanges()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        if isUnauthorized {
+            showToast(NSLocalizedString("you_are_unathorized_message", comment: ""))
+
+            isUnauthorized = false
+        }
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -48,6 +60,8 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
             guard let `self` = self else { return }
             make.edges.equalTo(self.view)
         })
+
+        loginView.phoneField?.text = User.current.login
     }
 
     // MARK: - Methods
@@ -87,13 +101,13 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
 
     private func onLogin(json: Response) {
         if let user = try? JSONDecoder().decode(User.self, from: json.data) {
-            User.currentUser.token = user.token
-            User.currentUser.login = user.login
-            User.currentUser.employeeCode = user.employeeCode
-            User.currentUser.save()
+            User.current.token = user.token
+            User.current.login = user.login
+            User.current.employeeCode = user.employeeCode
+            User.current.save()
         }
 
-        if User.currentUser.isAuthenticated {
+        if User.current.isAuthenticated {
             self.step.accept(AppStep.mainMenu)
         }
     }

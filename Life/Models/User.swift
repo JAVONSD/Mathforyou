@@ -24,21 +24,21 @@ struct User: Codable {
 
     // MARK: - Methods
 
-    private static var _currentUser: User?
-    static var currentUser: User {
+    private static var _current: User?
+    static var current: User {
         get {
-            if _currentUser != nil {
-                return _currentUser!
+            if _current != nil {
+                return _current!
             }
 
             let token = UserDefaults.standard.string(forKey: App.Key.userToken)
             let login = UserDefaults.standard.string(forKey: App.Key.userLogin) ?? ""
             let employeeCode = UserDefaults.standard.string(forKey: App.Key.userEmployeeCode) ?? ""
-            _currentUser = User(token: token, login: login, employeeCode: employeeCode)
-            return _currentUser!
+            _current = User(token: token, login: login, employeeCode: employeeCode)
+            return _current!
         }
         set(newValue) {
-            _currentUser = newValue
+            _current = newValue
         }
     }
 
@@ -52,6 +52,13 @@ struct User: Codable {
         }
         UserDefaults.standard.set(login, forKey: App.Key.userLogin)
         UserDefaults.standard.set(employeeCode, forKey: App.Key.userEmployeeCode)
+        UserDefaults.standard.synchronize()
+    }
+
+    public func logout() {
+        UserDefaults.standard.set(nil, forKey: App.Key.userToken)
+        UserDefaults.standard.set(login, forKey: App.Key.userLogin)
+        UserDefaults.standard.set(nil, forKey: App.Key.userEmployeeCode)
         UserDefaults.standard.synchronize()
     }
 

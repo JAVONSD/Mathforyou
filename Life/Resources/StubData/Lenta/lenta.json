@@ -1,0 +1,451 @@
+ [
+  {
+  "id": "92e499c9-8232-4724-9b38-f6ad3a907bf8",
+  "authorCode": "00-000485",
+  "authorName": "Тестовый сотрудник (Карибекова Сана)",
+  "createDate": "2018-02-13T12:43:07.99",
+  "title": "Test News With Updated Title",
+  "description": "This is a raw text!",
+  "imageUrl": "",
+  "imageStreamId": null,
+  "commentsQuantity": 0,
+  "likesQuantity": 0,
+  "isLikedByMe": false,
+  "viewsQuantity": 3,
+  "isFromSharepoint": false,
+  "imageSize": {
+  "width": 0,
+  "height": 0
+  },
+  "entityType": {
+  "code": 10,
+  "name": "News"
+  }
+  },
+  {
+  "id": "0fd1878c-ef2c-4eb5-9801-6b9d56dca642",
+  "authorCode": "KPO102505",
+  "authorName": "Жакупова Арайлым",
+  "title": "Тестовое предложение",
+  "description": "<p>Новое тестовое предложение</p>",
+  "createDate": "2018-02-12T13:01:24.433",
+  "imageStreamId": "bdb23b72-ebaf-4c0b-8bfe-8dcf447960f6",
+  "likesQuantity": 0,
+  "dislikesQuantity": 2,
+  "userVote": -1,
+  "commentsQuantity": 0,
+  "viewsQuantity": 1,
+  "imageSize": {
+  "width": 1912,
+  "height": 1093
+  },
+  "entityType": {
+  "code": 20,
+  "name": "Suggestion"
+  }
+  },
+  {
+  "id": "62ee0e86-3131-41c3-906e-f96c54c686c8",
+  "authorCode": "KPO102505",
+  "authorName": "Жакупова Арайлым",
+  "title": "аав",
+  "description": "ва",
+  "createDate": "2018-02-09T15:55:57.207",
+  "imageStreamId": null,
+  "questionsQuantity": 1,
+  "imageSize": {
+  "width": 0,
+  "height": 0
+  },
+  "entityType": {
+  "code": 30,
+  "name": "Questionnaire"
+  }
+  },
+  {
+  "id": "368e0b54-2a1b-4f23-80b8-3e92b99ec94c",
+  "authorCode": "KPO102505",
+  "authorName": "Жакупова Арайлым",
+  "createDate": "2018-02-09T15:41:16.787",
+  "title": "Новая новость",
+  "description": "оврпмрам\r\n",
+  "imageUrl": "http://life.bi-group.org:8090/api/files/b0840e26-82d7-4972-b703-dd2d677df185",
+  "imageStreamId": "b0840e26-82d7-4972-b703-dd2d677df185",
+  "commentsQuantity": 5,
+  "likesQuantity": 1,
+  "isLikedByMe": true,
+  "viewsQuantity": 41,
+  "isFromSharepoint": false,
+  "imageSize": {
+  "width": 1440,
+  "height": 840
+  },
+  "entityType": {
+  "code": 10,
+  "name": "News"
+  }
+  },
+  {
+  "id": "84c78ea7-0a6b-4ede-8c27-76d0012dc982",
+  "authorCode": "KPO102505",
+  "authorName": "Жакупова Арайлым",
+  "createDate": "2018-02-09T10:48:59.73",
+  "title": "Вертикальная картинка",
+  "description": "undefined 123\r\n",
+  "imageUrl": "http://life.bi-group.org:8090/api/files/1ed14347-28ce-4793-8fce-68e7fa183958",
+  "imageStreamId": "1ed14347-28ce-4793-8fce-68e7fa183958",
+  "commentsQuantity": 0,
+  "likesQuantity": 1,
+  "isLikedByMe": false,
+  "viewsQuantity": 18,
+  "isFromSharepoint": false,
+  "imageSize": {
+  "width": 533,
+  "height": 800
+  },
+  "entityType": {
+  "code": 10,
+  "name": "News"
+  }
+  },
+  {
+  "id": "a72b7af9-afa9-4448-b7ba-e918ddd28a5f",
+  "authorCode": "KPO102505",
+  "authorName": "Жакупова Арайлым",
+  "createDate": "2018-02-07T08:45:14.71",
+  "title": "Новость 07,02,2018",
+  "description": "Сдача ключей нового ЖК. \r\n",
+  "imageUrl": "http://life.bi-group.org:8090/api/files/71446f92-ae4f-48e9-83d9-b103a926fb10",
+  "imageStreamId": "71446f92-ae4f-48e9-83d9-b103a926fb10",
+  "commentsQuantity": 1,
+  "likesQuantity": 2,
+  "isLikedByMe": true,
+  "viewsQuantity": 44,
+  "isFromSharepoint": false,
+  "imageSize": {
+  "width": 800,
+  "height": 440
+  },
+  "entityType": {
+  "code": 10,
+  "name": "News"
+  }
+  },
+  {
+  "id": "72775f29-0ea5-4cbf-a262-14f525ab0e41",
+  "authorCode": "KPO102505",
+  "authorName": "Жакупова Арайлым",
+  "title": "новый опрос",
+  "description": "ваммм",
+  "createDate": "2018-02-06T15:22:32.643",
+  "imageStreamId": "b9ed86c1-c0a1-47a0-9139-deb27aa5f9eb",
+  "questionsQuantity": 2,
+  "imageSize": {
+  "width": 335,
+  "height": 329
+  },
+  "entityType": {
+  "code": 30,
+  "name": "Questionnaire"
+  }
+  },
+  {
+  "id": "62125951-471c-4eb1-9bdf-4b152f377cdc",
+  "authorCode": "KPO102505",
+  "authorName": "Жакупова Арайлым Биржанкызы",
+  "createDate": "2018-02-05T18:21:49.957",
+  "title": "ньюс ньюс",
+  "description": "undefined\r\n",
+  "imageUrl": "http://life.bi-group.org:8090/api/files/85ccadac-afe7-47d7-b495-636c90a542e6",
+  "imageStreamId": "85ccadac-afe7-47d7-b495-636c90a542e6",
+  "commentsQuantity": 4,
+  "likesQuantity": 3,
+  "isLikedByMe": false,
+  "viewsQuantity": 22,
+  "isFromSharepoint": false,
+  "imageSize": {
+  "width": 800,
+  "height": 532
+  },
+  "entityType": {
+  "code": 10,
+  "name": "News"
+  }
+  },
+  {
+  "id": "89c7c53c-13da-4eb8-9c9d-b3ee8de1cf10",
+  "authorCode": "KPO102505",
+  "authorName": "Жакупова Арайлым Биржанкызы",
+  "createDate": "2018-02-05T16:33:04.39",
+  "title": "\\новость 2",
+  "description": "undefined",
+  "imageUrl": "http://life.bi-group.org:8090/api/files/781aa4b1-334e-44fe-af3d-647db018b6fb",
+  "imageStreamId": "781aa4b1-334e-44fe-af3d-647db018b6fb",
+  "commentsQuantity": 1,
+  "likesQuantity": 1,
+  "isLikedByMe": true,
+  "viewsQuantity": 14,
+  "isFromSharepoint": false,
+  "imageSize": {
+  "width": 800,
+  "height": 440
+  },
+  "entityType": {
+  "code": 10,
+  "name": "News"
+  }
+  },
+  {
+  "id": "2ecfa54c-1e18-49cd-8ec5-8aa3c5604538",
+  "authorCode": "KPO102505",
+  "authorName": "Жакупова Арайлым Биржанкызы",
+  "createDate": "2018-02-05T16:26:43.8",
+  "title": "Новая новость",
+  "description": "авапрапрараер\r\n\r\nаерипрпрп\r\n",
+  "imageUrl": "http://life.bi-group.org:8090/api/files/a12f84b7-2f21-4273-9491-520a5745ce3b",
+  "imageStreamId": "a12f84b7-2f21-4273-9491-520a5745ce3b",
+  "commentsQuantity": 0,
+  "likesQuantity": 0,
+  "isLikedByMe": false,
+  "viewsQuantity": 34,
+  "isFromSharepoint": false,
+  "imageSize": {
+  "width": 533,
+  "height": 800
+  },
+  "entityType": {
+  "code": 10,
+  "name": "News"
+  }
+  },
+  {
+  "id": "e169e3ed-6154-40a1-a965-0f33b63d1da9",
+  "authorCode": null,
+  "authorName": "Пресс-Служба BI Group",
+  "createDate": "2018-02-05T12:50:45",
+  "title": "​  В Алматы открыл свои двери первый Додзё-центр",
+  "description": "​  В Алматы открыл свои двери первый Додзё-центр",
+  "imageUrl": "https://bi-portal.bi-group.org/news/Lists/Photos/P80203-123711.jpg",
+  "imageStreamId": null,
+  "commentsQuantity": 0,
+  "likesQuantity": 0,
+  "isLikedByMe": false,
+  "viewsQuantity": 26,
+  "isFromSharepoint": true,
+  "imageSize": {
+  "width": 800,
+  "height": 592
+  },
+  "entityType": {
+  "code": 10,
+  "name": "News"
+  }
+  },
+  {
+  "id": "64eb62ad-84e0-44d7-ba34-893950adaa4a",
+  "authorCode": null,
+  "authorName": "Ғарыпжан Архат",
+  "createDate": "2018-02-05T10:15:26",
+  "title": "Астанада сантехниктерді... оқытатын орталық ашылды!",
+  "description": "Астанада сантехниктерді... оқытатын орталық ашылды!",
+  "imageUrl": "https://bi-portal.bi-group.org/news/Lists/Photos/DSC_0155_cd8811cf563a494cb7bab5958d077749.JPG",
+  "imageStreamId": null,
+  "commentsQuantity": 0,
+  "likesQuantity": 0,
+  "isLikedByMe": false,
+  "viewsQuantity": 3,
+  "isFromSharepoint": true,
+  "imageSize": {
+  "width": 799,
+  "height": 533
+  },
+  "entityType": {
+  "code": 10,
+  "name": "News"
+  }
+  },
+  {
+  "id": "ff6a8575-5f0f-4cc4-8e9a-a5f9c8aee849",
+  "authorCode": null,
+  "authorName": "Пресс-Служба BI Group",
+  "createDate": "2018-02-05T05:38:27",
+  "title": " Сто голов за сезон! Нам не слабо!",
+  "description": " Сто голов за сезон! Нам не слабо!",
+  "imageUrl": "https://bi-portal.bi-group.org/news/Lists/Photos/_DSC0436_83997262bc8e4d059737cddfbf86338b.jpg",
+  "imageStreamId": null,
+  "commentsQuantity": 0,
+  "likesQuantity": 1,
+  "isLikedByMe": false,
+  "viewsQuantity": 1,
+  "isFromSharepoint": true,
+  "imageSize": {
+  "width": 800,
+  "height": 531
+  },
+  "entityType": {
+  "code": 10,
+  "name": "News"
+  }
+  },
+  {
+  "id": "f54011cd-e11b-4531-93c7-0af3630438d4",
+  "authorCode": null,
+  "authorName": "Пресс-Служба BI Group",
+  "createDate": "2018-02-05T05:25:06",
+  "title": "Ключи к новой жизни",
+  "description": "Ключи к новой жизни",
+  "imageUrl": "https://bi-portal.bi-group.org/news/Lists/Photos/23_81f0daeb90c844dab04df52de593eb19.jpg",
+  "imageStreamId": null,
+  "commentsQuantity": 0,
+  "likesQuantity": 0,
+  "isLikedByMe": false,
+  "viewsQuantity": 2,
+  "isFromSharepoint": true,
+  "imageSize": {
+  "width": 600,
+  "height": 800
+  },
+  "entityType": {
+  "code": 10,
+  "name": "News"
+  }
+  },
+  {
+  "id": "b3053d3b-cafd-4a38-b9be-acf9e093cf57",
+  "authorCode": null,
+  "authorName": "Пресс-Служба BI Group",
+  "createDate": "2018-02-05T04:49:02",
+  "title": "Цена забывается, качество остается!",
+  "description": "Цена забывается, качество остается!",
+  "imageUrl": "https://bi-portal.bi-group.org/news/Lists/Photos/на%20проверке%20квартир_81e9fe3bbaf04ed5adf6d0270c664fa0.jpg",
+  "imageStreamId": null,
+  "commentsQuantity": 0,
+  "likesQuantity": 1,
+  "isLikedByMe": true,
+  "viewsQuantity": 0,
+  "isFromSharepoint": true,
+  "imageSize": {
+  "width": 600,
+  "height": 800
+  },
+  "entityType": {
+  "code": 10,
+  "name": "News"
+  }
+  },
+  {
+  "id": "cea7b491-4a00-4057-957a-172be817b4ad",
+  "authorCode": null,
+  "authorName": "Ғарыпжан Архат",
+  "createDate": "2018-02-03T09:05:35",
+  "title": "Самый тёплый жилой комплекс строится в Астане",
+  "description": "Самый тёплый жилой комплекс строится в Астане",
+  "imageUrl": "https://bi-portal.bi-group.org/news/Lists/Photos/IMG_2946_24b9b19140af4219a98cbe5e7ac10ede.JPG",
+  "imageStreamId": null,
+  "commentsQuantity": 0,
+  "likesQuantity": 0,
+  "isLikedByMe": false,
+  "viewsQuantity": 2,
+  "isFromSharepoint": true,
+  "imageSize": {
+  "width": 800,
+  "height": 574
+  },
+  "entityType": {
+  "code": 10,
+  "name": "News"
+  }
+  },
+  {
+  "id": "8050f30b-0414-4642-92d4-2da9838169de",
+  "authorCode": null,
+  "authorName": "Ғарыпжан Архат",
+  "createDate": "2018-02-03T08:36:19",
+  "title": "Астанада қоқыстан түскен қаражат үй қажеттіліктеріне жұмсалады",
+  "description": "Астанада қоқыстан түскен қаражат үй қажеттіліктеріне жұмсалады",
+  "imageUrl": "https://bi-portal.bi-group.org/news/Lists/Photos/IMG_20180201_162136_1324c3fcecc9495a9c6c8084874e4098_c37d9c5f771e44688783988dd7b1b9bf.jpg",
+  "imageStreamId": null,
+  "commentsQuantity": 0,
+  "likesQuantity": 0,
+  "isLikedByMe": false,
+  "viewsQuantity": 1,
+  "isFromSharepoint": true,
+  "imageSize": {
+  "width": 799,
+  "height": 599
+  },
+  "entityType": {
+  "code": 10,
+  "name": "News"
+  }
+  },
+  {
+  "id": "fc49b52e-256d-41d8-8db5-6d6797e3efef",
+  "authorCode": null,
+  "authorName": "Пресс-Служба BI Group",
+  "createDate": "2018-02-03T08:15:17",
+  "title": "В Астане открыли школу…сантехников!",
+  "description": "В Астане открыли школу…сантехников!",
+  "imageUrl": "https://bi-portal.bi-group.org/news/Lists/Photos/DSC_0184_0074e38519d446df822d94f041c51f40.JPG",
+  "imageStreamId": null,
+  "commentsQuantity": 0,
+  "likesQuantity": 0,
+  "isLikedByMe": false,
+  "viewsQuantity": 0,
+  "isFromSharepoint": true,
+  "imageSize": {
+  "width": 800,
+  "height": 570
+  },
+  "entityType": {
+  "code": 10,
+  "name": "News"
+  }
+  },
+  {
+  "id": "f521a570-6d08-409c-a4b4-e230295d4396",
+  "authorCode": null,
+  "authorName": "Абашева Луиза Мырзахановна",
+  "createDate": "2018-02-03T04:48:21",
+  "title": "Обучение в разгаре. По расписанию ‒ экскурсия",
+  "description": "Обучение в разгаре. По расписанию ‒ экскурсия",
+  "imageUrl": "https://bi-portal.bi-group.org/news/Lists/Photos/KIP-135_2c63a592d2c34fd9936c7f4807201727.jpg",
+  "imageStreamId": null,
+  "commentsQuantity": 0,
+  "likesQuantity": 0,
+  "isLikedByMe": false,
+  "viewsQuantity": 0,
+  "isFromSharepoint": true,
+  "imageSize": {
+  "width": 800,
+  "height": 533
+  },
+  "entityType": {
+  "code": 10,
+  "name": "News"
+  }
+  },
+  {
+  "id": "b1a8b3f8-d312-45e1-966e-3c16d7dbeb72",
+  "authorCode": null,
+  "authorName": "Пресс-Служба BI Group",
+  "createDate": "2018-02-02T13:37:37",
+  "title": "​«Мы делаем больше, чем кто-либо!»",
+  "description": "​«Мы делаем больше, чем кто-либо!»",
+  "imageUrl": "https://bi-portal.bi-group.org/news/Lists/Photos/IMG_2819_c2d90134efbf4c56b7942eca08d12c09.jpg",
+  "imageStreamId": null,
+  "commentsQuantity": 0,
+  "likesQuantity": 0,
+  "isLikedByMe": false,
+  "viewsQuantity": 1,
+  "isFromSharepoint": true,
+  "imageSize": {
+  "width": 799,
+  "height": 533
+  },
+  "entityType": {
+  "code": 10,
+  "name": "News"
+  }
+  }
+]

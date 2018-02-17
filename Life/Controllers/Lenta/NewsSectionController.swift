@@ -9,6 +9,7 @@
 import UIKit
 import AsyncDisplayKit
 import IGListKit
+import Moya
 
 protocol RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?)
@@ -16,6 +17,8 @@ protocol RefreshingSectionControllerType {
 
 class NewsSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: LentaViewModel?
+
+    var onUnathorizedError: (() -> Void)?
 
     init(viewModel: LentaViewModel) {
         self.viewModel = viewModel
@@ -69,19 +72,41 @@ extension NewsSectionController: ASSectionController {
 
     func beginBatchFetch(with context: ASBatchContext) {
         DispatchQueue.main.async {
-            self.viewModel?.fetchNextPage({ (items) in
-                self.set(items: items, animated: false, completion: {
+            self.viewModel?.fetchNextPage({ [weak self] (error) in
+                guard let `self` = self,
+                    let viewModel = self.viewModel else { return }
+
+                if let moyaError = error as? MoyaError,
+                    moyaError.response?.statusCode == 401,
+                    let onUnathorizedError = self.onUnathorizedError {
+                    onUnathorizedError()
+                }
+
+                self.set(items: viewModel.items, animated: false, completion: {
                     context.completeBatchFetching(true)
                 })
             })
         }
     }
+
+    func shouldBatchFetch() -> Bool {
+        return viewModel?.canLoadMore ?? false
+    }
+
 }
 
 extension NewsSectionController: RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?) {
-        viewModel?.reload { (items) in
-            self.set(items: items, animated: true, completion: completion)
+        viewModel?.reload { [weak self] (error) in
+            guard let `self` = self,
+                let viewModel = self.viewModel else { return }
+
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401,
+                let onUnathorizedError = self.onUnathorizedError {
+                onUnathorizedError()
+            }
+            self.set(items: viewModel.items, animated: true, completion: completion)
         }
     }
 }

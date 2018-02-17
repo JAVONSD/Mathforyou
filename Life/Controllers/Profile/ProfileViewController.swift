@@ -11,6 +11,8 @@ import Material
 
 class ProfileViewController: TabsController {
 
+    var onUnathorizedError: (() -> Void)?
+
     private var previousShadowHidden = false
 
     override func viewDidLoad() {

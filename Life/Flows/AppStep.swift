@@ -16,6 +16,7 @@ enum AppStep: Step {
     case forgotPassword(login: String)
     case forgotPasswordCancel
     case resetPassword
+    case unauthorized
 
     // MARK: - Main tab bar
 

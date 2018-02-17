@@ -14,6 +14,8 @@ class BIOfficeViewController: UIViewController, ViewModelBased, Stepper {
     typealias ViewModelType = BIOfficeViewModel
     var viewModel: BIOfficeViewModel!
 
+    var onUnathorizedError: (() -> Void)?
+
     private lazy var label = UILabel()
 
     override func viewDidLoad() {

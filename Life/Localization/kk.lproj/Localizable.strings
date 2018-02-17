@@ -15,6 +15,7 @@
 "forgot_password_descr" = "Забыли свои данные для входа?";
 "help" = "Помощь";
 "bi_group_2017" = "BI Group %d";
+"you_are_unathorized_message" = "Ваша сессия истекла. Пожалуйста, авторизуйтесь снова.";
 
 /* Reset Password */
 

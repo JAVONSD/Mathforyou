@@ -11,6 +11,8 @@ import Material
 
 class StuffViewController: TabsController {
 
+    var onUnathorizedError: (() -> Void)?
+
     private var previousShadowHidden = false
 
     override func viewWillAppear(_ animated: Bool) {

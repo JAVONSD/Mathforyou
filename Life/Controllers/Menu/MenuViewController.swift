@@ -14,6 +14,8 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
     typealias ViewModelType = MenuViewModel
     var viewModel: MenuViewModel!
 
+    var onUnathorizedError: (() -> Void)?
+
     private lazy var label = UILabel()
 
     override func viewDidLoad() {

@@ -26,6 +26,8 @@ class AppFlow: Flow {
         switch step {
         case .login:
             return navigationToLoginScreen()
+        case .unauthorized:
+            return navigationToLoginScreen(isUnathorized: true)
         case .mainMenu:
             return navigationToMainMenuScreen()
         default:
@@ -33,7 +35,7 @@ class AppFlow: Flow {
         }
     }
 
-    private func navigationToLoginScreen () -> NextFlowItems {
+    private func navigationToLoginScreen (isUnathorized: Bool = false) -> NextFlowItems {
         let navVC = UINavigationController()
         navVC.setNavigationBarHidden(true, animated: false)
         let loginFlow = LoginFlow(rootViewController: navVC)
@@ -42,10 +44,11 @@ class AppFlow: Flow {
             self.rootWindow.rootViewController = navigationController
         }
 
+        let step = isUnathorized ? AppStep.unauthorized : AppStep.login
         return NextFlowItems.one(
             flowItem: NextFlowItem(
                 nextPresentable: loginFlow,
-                nextStepper: OneStepper(withSingleStep: AppStep.login)
+                nextStepper: OneStepper(withSingleStep: step)
             )
         )
     }

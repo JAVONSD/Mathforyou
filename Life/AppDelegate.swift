@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.appFlow = AppFlow(window: window)
 
-        let loggedIn = User.currentUser.isAuthenticated
+        let loggedIn = User.current.isAuthenticated
         if loggedIn {
             coordinator.coordinate(
                 flow: self.appFlow,

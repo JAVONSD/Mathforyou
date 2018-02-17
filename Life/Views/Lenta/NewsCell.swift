@@ -9,8 +9,11 @@
 import UIKit
 import AsyncDisplayKit
 import DynamicColor
+import Kingfisher
 
 class NewsCell: ASCellNode {
+
+    private weak var viewModel: LentaItemViewModel?
 
     private(set) var backgroundNode: ASDisplayNode!
 
@@ -32,19 +35,20 @@ class NewsCell: ASCellNode {
     private(set) var viewsNode: ASTextNode!
 
     fileprivate func setupHeader(_ viewModel: LentaItemViewModel) {
+        self.viewModel = viewModel
+
         authorAvatarNode = ASNetworkImageNode()
-        authorAvatarNode.url = URL(string: viewModel.authorAvatar)
         authorAvatarNode.cornerRadius = 8
         authorAvatarNode.backgroundColor = UIColor(hexString: "#d8d8d8")
         backgroundNode.addSubnode(authorAvatarNode)
 
         createDateNode = ASTextNode()
-        createDateNode.attributedText = attDetailText(viewModel.createDate)
+        createDateNode.attributedText = attDetailText(viewModel.timeAgo)
         createDateNode.maximumNumberOfLines = 1
         backgroundNode.addSubnode(createDateNode)
 
         authorNameNode = ASTextNode()
-        authorNameNode.attributedText = attUserText(viewModel.authorName)
+        authorNameNode.attributedText = attUserText(viewModel.item.authorName)
         authorNameNode.maximumNumberOfLines = 1
         backgroundNode.addSubnode(authorNameNode)
 
@@ -62,7 +66,7 @@ class NewsCell: ASCellNode {
 
         likesNode = ASTextNode()
         likesNode.maximumNumberOfLines = 1
-        likesNode.attributedText = attDetailText("\(viewModel.likesQuantity)")
+        likesNode.attributedText = attDetailText("\(viewModel.item.likesQuantity)")
         backgroundNode.addSubnode(likesNode)
 
         commentsIconNode = ASImageNode()
@@ -72,17 +76,17 @@ class NewsCell: ASCellNode {
 
         commentsNode = ASTextNode()
         commentsNode.maximumNumberOfLines = 1
-        commentsNode.attributedText = attDetailText("\(viewModel.commentsQuantity)")
+        commentsNode.attributedText = attDetailText("\(viewModel.item.commentsQuantity)")
         backgroundNode.addSubnode(commentsNode)
 
         viewsIconNode = ASImageNode()
         viewsIconNode.contentMode = .scaleAspectFit
-        viewsIconNode.image = viewModel.entityType != .questionnaire ? #imageLiteral(resourceName: "view") : #imageLiteral(resourceName: "poll")
+        viewsIconNode.image = viewModel.item.entityType != .questionnaire ? #imageLiteral(resourceName: "view") : #imageLiteral(resourceName: "poll")
         backgroundNode.addSubnode(viewsIconNode)
 
         viewsNode = ASTextNode()
         viewsNode.maximumNumberOfLines = 1
-        viewsNode.attributedText = attDetailText("\(viewModel.viewsQuantity)")
+        viewsNode.attributedText = attDetailText("\(viewModel.item.viewsQuantity)")
         backgroundNode.addSubnode(viewsNode)
     }
 
@@ -104,25 +108,60 @@ class NewsCell: ASCellNode {
         setupHeader(viewModel)
 
         titleNode = ASTextNode()
-        titleNode.attributedText = attTitleText(viewModel.title)
+        titleNode.attributedText = attTitleText(viewModel.item.title)
         titleNode.maximumNumberOfLines = 0
         backgroundNode.addSubnode(titleNode)
 
-        if !viewModel.image.isEmpty,
-            let url = URL(string: viewModel.image) {
+        if !viewModel.item.image.isEmpty,
+            URL(string: viewModel.item.image) != nil {
             imageNode = ASNetworkImageNode()
-            imageNode?.url = url
             imageNode?.backgroundColor = App.Color.paleGreyTwo
 
             var size = CGSize(width: 200, height: 200)
-            if viewModel.imageSize.width > 0 && viewModel.imageSize.height > 0 {
-                size = CGSize(width: viewModel.imageSize.width, height: viewModel.imageSize.height)
+            if viewModel.item.imageSize.width > 0 && viewModel.item.imageSize.height > 0 {
+                size = CGSize(width: viewModel.item.imageSize.width, height: viewModel.item.imageSize.height)
             }
             imageNode?.style.preferredSize = size
             backgroundNode.addSubnode(imageNode!)
         }
 
         setupFooter(viewModel)
+    }
+
+    override func didLoad() {
+        super.didLoad()
+
+        guard let viewModel = self.viewModel else { return }
+
+        let modifier = AnyModifier { request in
+            var r = request
+            let token = User.current.token ?? ""
+            r.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            return r
+        }
+
+        if let avatarUrl = URL(string: viewModel.item.authorAvatar) {
+            ImageDownloader
+                .default
+                .downloadImage(
+                    with: avatarUrl,
+                    options: [.requestModifier(modifier)],
+                    progressBlock: nil) { (image, _, _, _) in
+                        self.authorAvatarNode.image = image
+                }
+        }
+
+        if !viewModel.item.image.isEmpty,
+            let url = URL(string: viewModel.item.image) {
+            ImageDownloader
+                .default
+                .downloadImage(
+                    with: url,
+                    options: [.requestModifier(modifier)],
+                    progressBlock: nil) { (image, _, _, _) in
+                        self.imageNode?.image = image
+                }
+        }
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -177,6 +216,10 @@ class NewsCell: ASCellNode {
         }
 
         verticalLayout.style.minWidth = ASDimension(
+            unit: .points,
+            value: UIScreen.main.bounds.size.width - App.Layout.sideOffset * 2
+        )
+        verticalLayout.style.maxWidth = ASDimension(
             unit: .points,
             value: UIScreen.main.bounds.size.width - App.Layout.sideOffset * 2
         )

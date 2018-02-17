@@ -38,22 +38,46 @@ class MainMenuFlow: Flow {
         }
     }
 
-    private func navigationToLoginScreen() -> NextFlowItems {
+    private func navigateToLoginScreen(isUnathorized: Bool = false) {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            let step = isUnathorized ? AppStep.unauthorized : AppStep.login
             appDelegate.coordinator.coordinate(
                 flow: appDelegate.appFlow,
-                withStepper: OneStepper(withSingleStep: AppStep.login)
+                withStepper: OneStepper(withSingleStep: step)
             )
         }
+    }
+
+    private func navigationToLoginScreen() -> NextFlowItems {
+        navigateToLoginScreen()
         return NextFlowItems.none
     }
 
     private func navigationToMainMenuScreen() -> NextFlowItems {
         let biBoardVC = BIBoardViewController.instantiate(withViewModel: BIBoardViewModel())
+        biBoardVC.onUnathorizedError = {
+            self.navigateToLoginScreen(isUnathorized: true)
+        }
+
         let biOfficeVC = BIOfficeViewController.instantiate(withViewModel: BIOfficeViewModel())
+        biOfficeVC.onUnathorizedError = {
+            self.navigateToLoginScreen(isUnathorized: true)
+        }
+
         let lentaVC = LentaViewController()
+        lentaVC.onUnathorizedError = {
+            self.navigateToLoginScreen(isUnathorized: true)
+        }
+
         let stuffVC = StuffViewController.configuredVC
+        stuffVC.onUnathorizedError = {
+            self.navigateToLoginScreen(isUnathorized: true)
+        }
+
         let menuVC = MenuViewController.instantiate(withViewModel: MenuViewModel())
+        menuVC.onUnathorizedError = {
+            self.navigateToLoginScreen(isUnathorized: true)
+        }
 
         tabBarController.viewControllers = [
             biBoardVC,

@@ -23,6 +23,8 @@ class LentaViewController: ASViewController<ASCollectionNode> {
 
     var viewModel: LentaViewModel!
 
+    var onUnathorizedError: (() -> Void)?
+
     init() {
         let layout = UICollectionViewFlowLayout()
         let node = ASCollectionNode(collectionViewLayout: layout)
@@ -44,8 +46,7 @@ class LentaViewController: ASViewController<ASCollectionNode> {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        collectionNode.view.backgroundView = nil
-        collectionNode.view.backgroundColor = .clear
+        collectionNode.view.backgroundColor = App.Color.whiteSmoke
         collectionNode.view.alwaysBounceVertical = true
         collectionNode.view.scrollIndicatorInsets = .init(
             top: 176,
@@ -80,7 +81,17 @@ extension LentaViewController: ListAdapterDataSource {
     }
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        return NewsSectionController(viewModel: viewModel)
+        let section = NewsSectionController(viewModel: viewModel)
+        section.onUnathorizedError = { [weak self] in
+            guard let `self` = self else { return }
+            DispatchQueue.main.async {
+                User.current.logout()
+                if let onUnathorizedError = self.onUnathorizedError {
+                    onUnathorizedError()
+                }
+            }
+        }
+        return section
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? {

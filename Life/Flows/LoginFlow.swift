@@ -27,6 +27,8 @@ class LoginFlow: Flow {
         switch step {
         case .login:
             return navigateToLoginScreen()
+        case .unauthorized:
+            return navigateToLoginScreen(isUnauthorized: true)
         case .forgotPassword(let login):
             return navigateToForgotPasswordScreen(login)
         case .forgotPasswordCancel:
@@ -42,8 +44,9 @@ class LoginFlow: Flow {
         }
     }
 
-    private func navigateToLoginScreen() -> NextFlowItems {
+    private func navigateToLoginScreen(isUnauthorized: Bool = false) -> NextFlowItems {
         let viewController = LoginViewController.instantiate(withViewModel: LoginViewModel())
+        viewController.isUnauthorized = isUnauthorized
         self.rootViewController.pushViewController(viewController, animated: true)
         return NextFlowItems.one(
             flowItem: NextFlowItem(

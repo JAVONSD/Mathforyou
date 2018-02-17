@@ -15,6 +15,7 @@
 "forgot_password_descr" = "Did you forget your login credentials?";
 "help" = "Help";
 "bi_group_2017" = "BI Group %d";
+"you_are_unathorized_message" = "Your session is expired. Please, login again.";
 
 /* Reset Password */
 

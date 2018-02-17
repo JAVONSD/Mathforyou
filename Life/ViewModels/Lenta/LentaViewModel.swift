@@ -7,82 +7,43 @@
 //
 
 import Foundation
+import DateToolsSwift
 import IGListKit
-
-struct ImageSize {
-    var width: Int
-    var height: Int
-}
-
-enum EntityType: Int {
-    case news = 10, questionnaire = 20, suggestion = 30
-}
+import Moya
+import RxSwift
+import RxCocoa
 
 class LentaItemViewModel: NSObject {
-    var id: String
-    var authorCode: String
-    var authorAvatar: String
-    var authorName: String
-    var createDate: String
-    var title: String
-    var descr: String
-    var image: String
-    var imageStreamId: String?
-    var imageSize: ImageSize
-    var questionsQuantity: Int
-    var commentsQuantity: Int
-    var likesQuantity: Int
-    var dislikesQuantity: Int
-    var userVote: Int
-    var isLikedByMe: Bool
-    var viewsQuantity: Int
-    var isFromSharepoint: Bool
-    var entityType: EntityType
+    var item: Lenta
 
-    init(json: [String: Any?]) {
-        id = json["id"] as? String ?? UUID().uuidString
-        authorCode = json["authorCode"] as? String ?? ""
-        authorAvatar = json["authorAvatar"] as? String ?? ""
-        authorName = json["authorName"] as? String ?? ""
-        createDate = json["createDate"] as? String ?? ""
-        title = json["title"] as? String ?? ""
-        descr = json["description"] as? String ?? ""
-        image = json["image"] as? String ?? ""
-        imageStreamId = json["imageStreamId"] as? String ?? ""
-        questionsQuantity = json["questionsQuantity"] as? Int ?? 0
-        commentsQuantity = json["commentsQuantity"] as? Int ?? 0
-        likesQuantity = json["likesQuantity"] as? Int ?? 0
-        dislikesQuantity = json["dislikesQuantity"] as? Int ?? 0
-        userVote = json["userVote"] as? Int ?? 0
-        isLikedByMe = json["isLikedByMe"] as? Bool ?? false
-        viewsQuantity = json["viewsQuantity"] as? Int ?? 0
-        isFromSharepoint = json["isFromSharepoint"] as? Bool ?? false
+    var timeAgo: String {
+        let dateFormatter = DateFormatter()
+        let enUSPosixLocale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.locale = enUSPosixLocale
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
 
-        if let size = json["imageSize"] as? [String: Int] {
-            let width = size["width"] ?? 0
-            let height = size["height"] ?? 0
-            imageSize = ImageSize(width: width, height: height)
-        } else {
-            imageSize = ImageSize(width: 0, height: 0)
+        var date = dateFormatter.date(from: item.createDate)
+        if date == nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            date = dateFormatter.date(from: item.createDate)
         }
 
-        if let entity = json["entityType"] as? [String: Any] {
-            let type = entity["code"] as? Int ?? 0
-            entityType = EntityType(rawValue: type) ?? .news
-        } else {
-            entityType = .news
-        }
+        return (date ?? Date()).timeAgoSinceNow
+    }
+
+    init(lenta: Lenta) {
+        item = lenta
     }
 }
 
 extension LentaItemViewModel: ListDiffable {
     func diffIdentifier() -> NSObjectProtocol {
-        return NSString(string: id)
+        return NSString(string: item.id)
     }
 
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         if let item = object as? LentaItemViewModel {
-            return id == item.id
+            return self.item.id == item.item.id
         }
         return false
     }
@@ -90,20 +51,78 @@ extension LentaItemViewModel: ListDiffable {
 
 class LentaViewModel: NSObject {
     private var offset = 0
-    private var limit = 10
+    private let rows = 10
+    private(set) var canLoadMore = true
+    private(set) var loading = false
+
+    private var disposeBag = DisposeBag()
+
+    private var _provider: MoyaProvider<LentaService>?
+    private var provider: MoyaProvider<LentaService> {
+        if _provider != nil {
+            return _provider!
+        }
+        let authPlugin = AuthPlugin(tokenClosure: {
+            return User.current.token
+        })
+        _provider = MoyaProvider<LentaService>(plugins: [authPlugin])
+        return _provider!
+    }
 
     var items = [LentaItemViewModel]()
 
-    func reload(_ completion: (([LentaItemViewModel]) -> Void)) {
-        offset = 0
-        items = LentaViewModel.sample().items
-        completion(items)
+    func reload(_ completion: @escaping ((Error?) -> Void)) {
+        fetchNextPage(reset: true, completion)
     }
 
-    func fetchNextPage(_ completion: (([LentaItemViewModel]) -> Void)) {
-        offset += 1
-        items.append(contentsOf: LentaViewModel.sample().items)
-        completion(items)
+    func fetchNextPage(
+        reset: Bool = false,
+        _ completion: @escaping ((Error?) -> Void)) {
+        if loading {
+            completion(nil)
+            return
+        }
+
+        loading = true
+
+        if reset {
+            offset = 0
+            items = []
+        }
+
+        provider
+            .rx
+            .request(
+                .lenta(
+                    rows: rows,
+                    offset: offset,
+                    withDescription: true
+                ))
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                self.loading = false
+
+                switch response {
+                case .success(let json):
+                    if let lentaItems = try? JSONDecoder().decode([Lenta].self, from: json.data) {
+                        let items = lentaItems.map { LentaItemViewModel(lenta: $0) }
+                        self.items.append(contentsOf: items)
+
+                        self.canLoadMore = items.count >= self.rows
+                        if self.canLoadMore {
+                            self.offset += 1
+                        }
+
+                        completion(nil)
+                    } else {
+                        self.canLoadMore = false
+                        completion(nil)
+                    }
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -142,8 +161,10 @@ extension LentaViewModel: Mockable {
                 "code": 10
             ]
             ] as [String : Any]
-        let item1 = LentaItemViewModel(json: item1Json)
-        lenta.items.append(item1)
+        if let litem1 = try? JSONDecoder().decode(Lenta.self, from: item1Json.toJSONData()) {
+            let item1 = LentaItemViewModel(lenta: litem1)
+            lenta.items.append(item1)
+        }
 
         let item2Json = [
             "authorName": "Name",
@@ -156,8 +177,10 @@ extension LentaViewModel: Mockable {
                 "code": 20
             ]
             ] as [String : Any]
-        let item2 = LentaItemViewModel(json: item2Json)
-        lenta.items.append(item2)
+        if let litem2 = try? JSONDecoder().decode(Lenta.self, from: item2Json.toJSONData()) {
+            let item2 = LentaItemViewModel(lenta: litem2)
+            lenta.items.append(item2)
+        }
 
         let item3Json = [
             "authorName": "Account",
@@ -176,8 +199,10 @@ extension LentaViewModel: Mockable {
                 "code": 10
             ]
             ] as [String : Any]
-        let item3 = LentaItemViewModel(json: item3Json)
-        lenta.items.append(item3)
+        if let litem3 = try? JSONDecoder().decode(Lenta.self, from: item3Json.toJSONData()) {
+            let item3 = LentaItemViewModel(lenta: litem3)
+            lenta.items.append(item3)
+        }
 
         return lenta
     }
