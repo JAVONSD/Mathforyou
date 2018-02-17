@@ -11,7 +11,7 @@ import DynamicColor
 import Material
 import SnapKit
 
-class ForgotPasswordView: UIView, MaskedTextFieldDelegateListener {
+class ForgotPasswordView: UIView, UITextFieldDelegate, MaskedTextFieldDelegateListener {
 
     private(set) var backgroundView: GradientView?
     private(set) var closeButton: FlatButton?
@@ -159,6 +159,7 @@ class ForgotPasswordView: UIView, MaskedTextFieldDelegateListener {
         phoneField.placeholder = NSLocalizedString("username_or_phone", comment: "")
         phoneField.autocorrectionType = .no
         phoneField.autocapitalizationType = .none
+        phoneField.delegate = self
 
 //        phoneField.delegate = maskFormatter
         phoneField.makeLight()
@@ -216,5 +217,12 @@ class ForgotPasswordView: UIView, MaskedTextFieldDelegateListener {
     open func textField(_ textField: UITextField,
                         didFillMandatoryCharacters complete: Bool,
                         didExtractValue value: String) { }
+
+    // MARK: - UITextFieldDelegate
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 
 }

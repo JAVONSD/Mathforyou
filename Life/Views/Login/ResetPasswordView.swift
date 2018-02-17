@@ -11,7 +11,7 @@ import DynamicColor
 import Material
 import SnapKit
 
-class ResetPasswordView: UIView {
+class ResetPasswordView: UIView, UITextFieldDelegate {
 
     private(set) var headerView: GradientView?
     private(set) var headerImageView: UIImageView?
@@ -89,6 +89,7 @@ class ResetPasswordView: UIView {
         newPasswordField?.clearButtonMode = .whileEditing
         newPasswordField?.visibilityIconButton?.tintColor = App.Color.azure
         newPasswordField?.isVisibilityIconButtonEnabled = true
+        newPasswordField?.delegate = self
 
         guard let headerView = headerView,
             let newPasswordField = newPasswordField else {
@@ -111,6 +112,7 @@ class ResetPasswordView: UIView {
         newPasswordRepeatField?.clearButtonMode = .whileEditing
         newPasswordRepeatField?.visibilityIconButton?.tintColor = App.Color.azure
         newPasswordRepeatField?.isVisibilityIconButtonEnabled = true
+        newPasswordRepeatField?.delegate = self
 
         guard let newPasswordRepeatField = newPasswordRepeatField,
             let newPasswordField = newPasswordField else {
@@ -164,6 +166,13 @@ class ResetPasswordView: UIView {
             make.centerX.equalTo(self)
             make.bottom.equalTo(self).inset(App.Layout.itemSpacingMedium)
         }
+    }
+
+    // MARK: - UITextFieldDelegate
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 
 }

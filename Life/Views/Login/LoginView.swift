@@ -12,7 +12,7 @@ import DynamicColor
 import Material
 import SnapKit
 
-class LoginView: UIView, MaskedTextFieldDelegateListener {
+class LoginView: UIView, UITextFieldDelegate, MaskedTextFieldDelegateListener {
 
     private(set) var headerView: GradientView?
     private(set) var headerImageView: UIImageView?
@@ -144,6 +144,7 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
         phoneField.placeholder = NSLocalizedString("username_or_phone", comment: "")
         phoneField.autocorrectionType = .no
         phoneField.autocapitalizationType = .none
+        phoneField.delegate = self
 
 //        phoneField.delegate = maskFormatter
 
@@ -165,6 +166,7 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
         passwordField?.clearButtonMode = .whileEditing
         passwordField?.visibilityIconButton?.tintColor = App.Color.azure
         passwordField?.isVisibilityIconButtonEnabled = true
+        passwordField?.delegate = self
 
         guard let passwordField = passwordField,
             let phoneField = phoneField else {
@@ -295,5 +297,12 @@ class LoginView: UIView, MaskedTextFieldDelegateListener {
     open func textField(_ textField: UITextField,
                         didFillMandatoryCharacters complete: Bool,
                         didExtractValue value: String) { }
+
+    // MARK: - UITextFieldDelegate
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 
 }

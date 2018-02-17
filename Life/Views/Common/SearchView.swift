@@ -11,7 +11,7 @@ import DynamicColor
 import Material
 import SnapKit
 
-class SearchView: UIView {
+class SearchView: UIView, UITextFieldDelegate {
 
     private(set) lazy var searchBar = TextField(frame: .zero)
 
@@ -82,6 +82,7 @@ class SearchView: UIView {
         searchBar.leftViewMode = .always
         searchBar.leftViewOffset = 0
         searchBar.textInset = 0
+        searchBar.delegate = self
 
         addSubview(searchBar)
         searchBar.snp.makeConstraints { [weak self] (make) in
@@ -91,6 +92,13 @@ class SearchView: UIView {
             make.right.equalTo(self).inset(edgeInsets.right)
             make.height.equalTo(self.searchBarHeight)
         }
+    }
+
+    // MARK: - UITextFieldDelegate
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 
 }
