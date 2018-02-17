@@ -121,6 +121,11 @@
 		C79252072031B43700CDFBBA /* ImageTextTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79252062031B43700CDFBBA /* ImageTextTableViewCell.swift */; };
 		C792634A2037CE5900067371 /* lenta.json in Resources */ = {isa = PBXBuildFile; fileRef = C79263492037CE5900067371 /* lenta.json */; };
 		C792634C2037D24F00067371 /* Lenta.swift in Sources */ = {isa = PBXBuildFile; fileRef = C792634B2037D24F00067371 /* Lenta.swift */; };
+		C792634F20382CF700067371 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C792634E20382CF700067371 /* NotificationView.swift */; };
+		C792635220382D2D00067371 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C792635120382D2D00067371 /* NotificationsViewModel.swift */; };
+		C792635420382E6B00067371 /* NotificationHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C792635320382E6B00067371 /* NotificationHeaderView.swift */; };
+		C79263562038318E00067371 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79263552038318E00067371 /* NotificationCell.swift */; };
+		C79263592038374500067371 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79263582038374500067371 /* NotificationsViewController.swift */; };
 		C7B5FA0420305691003F3D2C /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B5FA0320305691003F3D2C /* ForgotPasswordView.swift */; };
 		C7B5FA0620305D11003F3D2C /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B5FA0520305D11003F3D2C /* ForgotPasswordViewController.swift */; };
 		C7D6419C20340750001DCA98 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419B20340750001DCA98 /* AuthService.swift */; };
@@ -349,6 +354,11 @@
 		C79252062031B43700CDFBBA /* ImageTextTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTextTableViewCell.swift; sourceTree = "<group>"; };
 		C79263492037CE5900067371 /* lenta.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = lenta.json; sourceTree = "<group>"; };
 		C792634B2037D24F00067371 /* Lenta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lenta.swift; sourceTree = "<group>"; };
+		C792634E20382CF700067371 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		C792635120382D2D00067371 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
+		C792635320382E6B00067371 /* NotificationHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHeaderView.swift; sourceTree = "<group>"; };
+		C79263552038318E00067371 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		C79263582038374500067371 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		C7B5FA0320305691003F3D2C /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		C7B5FA0520305D11003F3D2C /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		C7D6419B20340750001DCA98 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -469,6 +479,7 @@
 		C73EB24D2032D6F100429921 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				C792635020382D2200067371 /* Notifications */,
 				C7D6423220346F9C001DCA98 /* BIBoard */,
 				C7D6423620346F9D001DCA98 /* BIOffice */,
 				C7D6423420346F9C001DCA98 /* Employees */,
@@ -691,6 +702,7 @@
 		C76EFB83202E92BB00FA2BB9 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C792634D20382CE200067371 /* Notifications */,
 				C7D832CC2035C52800282891 /* BIBoard */,
 				C7D832CB2035C52800282891 /* BIOffice */,
 				C7D832CA2035C52700282891 /* Employees */,
@@ -718,6 +730,7 @@
 		C76EFB85202E92BB00FA2BB9 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				C79263572038373900067371 /* Notifications */,
 				C7D6422320346EF3001DCA98 /* BIBoard */,
 				C7D6422720346EF4001DCA98 /* BIOffice */,
 				C7D6422620346EF4001DCA98 /* Employees */,
@@ -929,6 +942,32 @@
 				C73EB2B9203327AA00429921 /* BenefitsTableViewCell.swift */,
 			);
 			path = Benefits;
+			sourceTree = "<group>";
+		};
+		C792634D20382CE200067371 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				C792634E20382CF700067371 /* NotificationView.swift */,
+				C792635320382E6B00067371 /* NotificationHeaderView.swift */,
+				C79263552038318E00067371 /* NotificationCell.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		C792635020382D2200067371 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				C792635120382D2D00067371 /* NotificationsViewModel.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		C79263572038373900067371 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				C79263582038374500067371 /* NotificationsViewController.swift */,
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		C7B5FA072030614F003F3D2C /* API */ = {
@@ -1660,6 +1699,7 @@
 				C73EB28E2032F9B100429921 /* RxTableViewSectionedAnimatedDataSource.swift in Sources */,
 				C73EB2962032F9B100429921 /* IntegerType+IdentifiableType.swift in Sources */,
 				C76EFBE220302F8C00FA2BB9 /* Next.swift in Sources */,
+				C792635220382D2D00067371 /* NotificationsViewModel.swift in Sources */,
 				C73EB2A02032F9B100429921 /* Diff.swift in Sources */,
 				C73EB2512032D71B00429921 /* ResultsViewModel.swift in Sources */,
 				C7D641D5203413A1001DCA98 /* Bundle+Extensions.swift in Sources */,
@@ -1786,6 +1826,7 @@
 				C76EFBEE20302F8C00FA2BB9 /* CaretStringIterator.swift in Sources */,
 				C720EC7420369287007E4CD4 /* EmployeeViewModel.swift in Sources */,
 				C73EB2922032F9B100429921 /* RxPickerViewAdapter.swift in Sources */,
+				C792634F20382CF700067371 /* NotificationView.swift in Sources */,
 				C73EB2B420331EAF00429921 /* PlansViewModel.swift in Sources */,
 				C76EFBEA20302F8C00FA2BB9 /* Mask.swift in Sources */,
 				C73EB2942032F9B100429921 /* CollectionViewSectionedDataSource.swift in Sources */,
@@ -1799,6 +1840,7 @@
 				C73EB2A92032F9B100429921 /* CLLocationManager+Rx.swift in Sources */,
 				C7D832C12035C48700282891 /* BirthdaysViewController.swift in Sources */,
 				C7D641DD20341901001DCA98 /* ForgotPasswordViewModel.swift in Sources */,
+				C79263562038318E00067371 /* NotificationCell.swift in Sources */,
 				C7D64217203463E0001DCA98 /* Presentable.swift in Sources */,
 				C7D64222203463E0001DCA98 /* Coordinator.swift in Sources */,
 				C7D641E120341A42001DCA98 /* User.swift in Sources */,
@@ -1811,12 +1853,14 @@
 				C79251EB2031532E00CDFBBA /* MyInfoView.swift in Sources */,
 				C76EFBE420302F8C00FA2BB9 /* ValueState.swift in Sources */,
 				C7D641F520344C70001DCA98 /* LoginFlow.swift in Sources */,
+				C79263592038374500067371 /* NotificationsViewController.swift in Sources */,
 				C720EC822036E67E007E4CD4 /* NewsSectionController.swift in Sources */,
 				C7B5FA0420305691003F3D2C /* ForgotPasswordView.swift in Sources */,
 				C76EFBE820302F8C00FA2BB9 /* FreeState.swift in Sources */,
 				C7D641D7203417CB001DCA98 /* UserProfileService.swift in Sources */,
 				C73EB2A52032F9B100429921 /* AnimatableSectionModelType+ItemPath.swift in Sources */,
 				C73EB29A2032F9B100429921 /* RxTableViewSectionedReloadDataSource.swift in Sources */,
+				C792635420382E6B00067371 /* NotificationHeaderView.swift in Sources */,
 				C73EB25B2032DA4300429921 /* Mockable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

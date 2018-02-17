@@ -85,4 +85,8 @@
 "questionnaires" = "Опросы";
 "suggestions" = "Предложения";
 
+/* Notifications */
+
+"notifications" = "Уведомления";
+
 

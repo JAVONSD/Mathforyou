@@ -33,6 +33,10 @@ class MainMenuFlow: Flow {
             return navigationToMainMenuScreen()
         case .profile:
             return navigationToProfileScreen()
+        case .notifications:
+            return navigationToNotifications()
+        case .notificationsDone:
+            return navigationFromNotifications()
         default:
             return NextFlowItems.stepNotHandled
         }
@@ -96,6 +100,23 @@ class MainMenuFlow: Flow {
     private func navigationToProfileScreen() -> NextFlowItems {
         let viewController = ProfileViewController.configuredVC
         self.rootViewController.pushViewController(viewController, animated: true)
+        return NextFlowItems.none
+    }
+
+    private func navigationToNotifications() -> NextFlowItems {
+        let notificationsViewController = NotificationsViewController.instantiate(
+            withViewModel: NotificationsViewModel()
+        )
+        self.rootViewController.present(notificationsViewController, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem:
+            NextFlowItem(
+                nextPresentable: notificationsViewController,
+                nextStepper: notificationsViewController)
+        )
+    }
+
+    private func navigationFromNotifications() -> NextFlowItems {
+        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
         return NextFlowItems.none
     }
 

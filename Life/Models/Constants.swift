@@ -130,6 +130,10 @@ struct App {
 
         static let lentaOverviewCellId = "lentaOverviewCellId"
 
+        // MARK: - Notifications
+
+        static let notificationsCellId = "notificationsCellId"
+
     }
 
     // MARK: - UserDefaults

@@ -68,6 +68,11 @@ class AppTabBarController: UIViewController, TabBarDelegate, Stepper {
     // MARK: - Actions
 
     @objc
+    private func handleNotificationsButtonTap() {
+        step.accept(AppStep.notifications)
+    }
+
+    @objc
     private func handleProfileButtonTap() {
         step.accept(AppStep.profile)
     }
@@ -136,6 +141,12 @@ class AppTabBarController: UIViewController, TabBarDelegate, Stepper {
     private func setupNotificationsButotn() {
         notificationsButton = IconButton(image: #imageLiteral(resourceName: "ic-notification"))
         notificationsButton.pulseColor = App.Color.azure
+
+        notificationsButton.addTarget(
+            self,
+            action: #selector(handleNotificationsButtonTap),
+            for: .touchUpInside
+        )
     }
 
     private func setupProfileButton() {
