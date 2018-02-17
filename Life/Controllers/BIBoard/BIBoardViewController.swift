@@ -24,6 +24,16 @@ class BIBoardViewController: UIViewController, ViewModelBased, Stepper {
         setupUI()
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        viewModel.syncUserProfile {
+            if let onUnathorizedError = self.onUnathorizedError {
+                onUnathorizedError()
+            }
+        }
+    }
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
     }

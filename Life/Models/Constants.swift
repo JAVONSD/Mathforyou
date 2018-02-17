@@ -138,6 +138,7 @@ struct App {
         static let userToken = "userToken"
         static let userLogin = "userLogin"
         static let userEmployeeCode = "userEmployeeCode"
+        static let userProfile = "userProfile"
     }
 
     // MARK: - Fields

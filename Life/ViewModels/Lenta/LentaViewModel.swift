@@ -17,18 +17,7 @@ class LentaItemViewModel: NSObject {
     var item: Lenta
 
     var timeAgo: String {
-        let dateFormatter = DateFormatter()
-        let enUSPosixLocale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.locale = enUSPosixLocale
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
-
-        var date = dateFormatter.date(from: item.createDate)
-        if date == nil {
-            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-            date = dateFormatter.date(from: item.createDate)
-        }
-
-        return (date ?? Date()).timeAgoSinceNow
+        return item.createDate.date.timeAgoSinceNow
     }
 
     init(lenta: Lenta) {

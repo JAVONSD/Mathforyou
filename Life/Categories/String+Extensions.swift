@@ -18,4 +18,26 @@ public extension String {
         return data(using: .utf8)!
     }
 
+    public var date: Date {
+        let dateFormatter = DateFormatter()
+        let enUSPosixLocale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.locale = enUSPosixLocale
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS"
+
+        var date = dateFormatter.date(from: self)
+        if date == nil {
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+            date = dateFormatter.date(from: self)
+        }
+
+        return date ?? Date()
+    }
+
+    public func prettyDateString(format: String) -> String {
+        let date = self.date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: date)
+    }
+
 }

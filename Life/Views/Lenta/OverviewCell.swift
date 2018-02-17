@@ -102,7 +102,7 @@ class OverviewCell: ASCellNode {
     private func attTitleText(_ string: String) -> NSMutableAttributedString {
         let attText = NSMutableAttributedString(string: string)
 
-        let allRange = NSMakeRange(0, attText.length)
+        let allRange = NSRange(location: 0, length: attText.length)
         attText.addAttribute(.font, value: App.Font.captionAlts, range: allRange)
         attText.addAttribute(.foregroundColor, value: UIColor.black, range: allRange)
 
@@ -112,7 +112,7 @@ class OverviewCell: ASCellNode {
     private func attDetailText(_ string: String) -> NSMutableAttributedString {
         let attText = NSMutableAttributedString(string: string)
 
-        let allRange = NSMakeRange(0, attText.length)
+        let allRange = NSRange(location: 0, length: attText.length)
         attText.addAttribute(.font, value: App.Font.caption, range: allRange)
         attText.addAttribute(.foregroundColor, value: App.Color.steel, range: allRange)
 

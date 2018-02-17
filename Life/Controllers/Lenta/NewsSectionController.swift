@@ -72,6 +72,8 @@ extension NewsSectionController: ASSectionController {
 
     func beginBatchFetch(with context: ASBatchContext) {
         DispatchQueue.main.async {
+            let itemsCount = self.items.count
+
             self.viewModel?.fetchNextPage({ [weak self] (error) in
                 guard let `self` = self,
                     let viewModel = self.viewModel else { return }
@@ -84,6 +86,12 @@ extension NewsSectionController: ASSectionController {
 
                 self.set(items: viewModel.items, animated: false, completion: {
                     context.completeBatchFetching(true)
+
+                    if itemsCount == 0 {
+                        if let vc = self.viewController as? LentaViewController {
+                            vc.node.reloadData()
+                        }
+                    }
                 })
             })
         }
@@ -107,6 +115,10 @@ extension NewsSectionController: RefreshingSectionControllerType {
                 onUnathorizedError()
             }
             self.set(items: viewModel.items, animated: true, completion: completion)
+
+            if let vc = self.viewController as? LentaViewController {
+                vc.node.reloadData()
+            }
         }
     }
 }

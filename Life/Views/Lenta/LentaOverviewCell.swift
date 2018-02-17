@@ -71,7 +71,7 @@ class LentaOverviewCell: ASCellNode {
     private func attText(_ string: String) -> NSMutableAttributedString {
         let attText = NSMutableAttributedString(string: string)
 
-        let allRange = NSMakeRange(0, attText.length)
+        let allRange = NSRange(location: 0, length: attText.length)
         attText.addAttribute(.font, value: App.Font.headline, range: allRange)
         attText.addAttribute(.foregroundColor, value: UIColor.black, range: allRange)
 

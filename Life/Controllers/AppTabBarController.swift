@@ -9,6 +9,8 @@
 import UIKit
 import Kingfisher
 import Material
+import RxSwift
+import RxCocoa
 import SnapKit
 
 class AppTabBarController: UIViewController, TabBarDelegate, Stepper {
@@ -19,6 +21,8 @@ class AppTabBarController: UIViewController, TabBarDelegate, Stepper {
     private var biGroupButton: SizedButton!
     private var notificationsButton: IconButton!
     private var profileButton: SizedButton!
+
+    private let disposeBag = DisposeBag()
 
     var viewControllers = [UIViewController]()
     private var currentTabIndex = 0
@@ -141,6 +145,25 @@ class AppTabBarController: UIViewController, TabBarDelegate, Stepper {
         profileButton.iconView.layer.cornerRadius = 12
         profileButton.iconView.layer.masksToBounds = true
         profileButton.addTarget(self, action: #selector(handleProfileButtonTap), for: .touchUpInside)
+
+        let modifier = AnyModifier { request in
+            var r = request
+            let token = User.current.token ?? ""
+            r.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            return r
+        }
+
+        Observable.just(User.current.profile).bind { (profile) in
+            if let url = URL(string: profile?.employeeCode ?? "") {
+                self.profileButton
+                .iconView
+                .kf
+                .setImage(
+                    with: url,
+                    placeholder: nil,
+                    options: [.requestModifier(modifier)])
+            }
+        }.disposed(by: disposeBag)
     }
 
     private func setupTabBar() {

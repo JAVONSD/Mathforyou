@@ -50,6 +50,7 @@ class NewsCell: ASCellNode {
         authorNameNode = ASTextNode()
         authorNameNode.attributedText = attUserText(viewModel.item.authorName)
         authorNameNode.maximumNumberOfLines = 1
+        authorNameNode.truncationMode = .byTruncatingTail
         backgroundNode.addSubnode(authorNameNode)
 
         shareNode = ASButtonNode()
@@ -219,10 +220,6 @@ class NewsCell: ASCellNode {
             unit: .points,
             value: UIScreen.main.bounds.size.width - App.Layout.sideOffset * 2
         )
-        verticalLayout.style.maxWidth = ASDimension(
-            unit: .points,
-            value: UIScreen.main.bounds.size.width - App.Layout.sideOffset * 2
-        )
 
         return verticalLayout
     }
@@ -230,6 +227,15 @@ class NewsCell: ASCellNode {
     private func layoutHeader() -> ASLayoutSpec {
         authorAvatarNode.style.preferredSize = CGSize(width: 40, height: 40)
         shareNode.style.preferredSize = CGSize(width: 40, height: 40)
+
+        authorNameNode.style.maxWidth = ASDimension(
+            unit: .points,
+            value: UIScreen.main.bounds.size.width
+                - App.Layout.sideOffset * 2
+                - App.Layout.itemSpacingMedium * 3
+                - App.Layout.itemSpacingSmall / 2
+                - 2 * 40
+        )
 
         let userDateStack = ASStackLayoutSpec.vertical()
         userDateStack.children = [
@@ -248,6 +254,7 @@ class NewsCell: ASCellNode {
         let headerStack = ASStackLayoutSpec.horizontal()
         headerStack.children = [avatarUserDateStack, shareNode]
         headerStack.justifyContent = .spaceBetween
+        headerStack.spacing = 16
 
         let headerInsetSpec = ASInsetLayoutSpec(
             insets: .init(
@@ -257,6 +264,7 @@ class NewsCell: ASCellNode {
                 right: App.Layout.itemSpacingSmall / 2
             ),
             child: headerStack)
+
         return headerInsetSpec
     }
 
@@ -306,7 +314,7 @@ class NewsCell: ASCellNode {
     private func attUserText(_ string: String) -> NSMutableAttributedString {
         let attText = NSMutableAttributedString(string: string)
 
-        let allRange = NSMakeRange(0, attText.length)
+        let allRange = NSRange(location: 0, length: attText.length)
         attText.addAttribute(.font, value: App.Font.bodyAlts, range: allRange)
         attText.addAttribute(.foregroundColor, value: UIColor.black, range: allRange)
 
@@ -316,7 +324,7 @@ class NewsCell: ASCellNode {
     private func attTitleText(_ string: String) -> NSMutableAttributedString {
         let attText = NSMutableAttributedString(string: string)
 
-        let allRange = NSMakeRange(0, attText.length)
+        let allRange = NSRange(location: 0, length: attText.length)
         attText.addAttribute(.font, value: App.Font.subhead, range: allRange)
         attText.addAttribute(.foregroundColor, value: UIColor.black, range: allRange)
 
@@ -326,7 +334,7 @@ class NewsCell: ASCellNode {
     private func attDetailText(_ string: String) -> NSMutableAttributedString {
         let attText = NSMutableAttributedString(string: string)
 
-        let allRange = NSMakeRange(0, attText.length)
+        let allRange = NSRange(location: 0, length: attText.length)
         attText.addAttribute(.font, value: App.Font.caption, range: allRange)
         attText.addAttribute(.foregroundColor, value: App.Color.steel, range: allRange)
 
