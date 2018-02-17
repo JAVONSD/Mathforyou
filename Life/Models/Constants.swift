@@ -134,6 +134,10 @@ struct App {
 
         static let notificationsCellId = "notificationsCellId"
 
+        // MARK: - Menu
+
+        static let menuCellId = "menuCellId"
+
     }
 
     // MARK: - UserDefaults
