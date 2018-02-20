@@ -22,7 +22,7 @@ class VacanciesViewController: UIViewController, ViewModelBased, Stepper {
 
     private let disposeBag = DisposeBag()
     private let dataSource =
-        RxTableViewSectionedReloadDataSource<SectionModel<VacanciesViewModel, EmployeeViewModel>>(
+        RxTableViewSectionedReloadDataSource<SectionModel<VacanciesViewModel, VacancyViewModel>>(
             configureCell: { (_, tv, indexPath, element) in
                 let cellId = App.CellIdentifier.employeeCellId
 
@@ -31,9 +31,10 @@ class VacanciesViewController: UIViewController, ViewModelBased, Stepper {
                     return EmployeeCell(style: .default, reuseIdentifier: cellId)
                 }
 
-                cell.set(imageURL: element.image)
-                cell.set(title: element.fullName)
-                cell.set(subtitle: element.position)
+                cell.setImage(hidden: true)
+
+                cell.set(title: element.vacancy.jobPosition)
+                cell.set(subtitle: element.vacancy.companyName)
 
                 let itemsCount = tv.numberOfRows(inSection: indexPath.section)
                 if indexPath.row == itemsCount - 1 {
@@ -80,7 +81,7 @@ class VacanciesViewController: UIViewController, ViewModelBased, Stepper {
 
         let dataSource = self.dataSource
 
-        let sectionModels = [SectionModel(model: viewModel!, items: viewModel.employees)]
+        let sectionModels = [SectionModel(model: viewModel!, items: viewModel.vacancies)]
         let items = Observable.just(sectionModels)
 
         items

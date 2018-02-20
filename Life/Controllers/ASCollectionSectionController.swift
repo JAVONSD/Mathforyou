@@ -49,6 +49,7 @@ class ASCollectionSectionController: ListSectionController {
             DispatchQueue.main.async {
                 let ctx = self.collectionContext
                 ctx?.performBatch(animated: animated, updates: { (batchContext) in
+                    batchContext.reload(in: self, at: result.updates)
                     batchContext.insert(in: self, at: result.inserts)
                     batchContext.delete(in: self, at: result.deletes)
                     self.items = newItems

@@ -62,13 +62,13 @@ open class RxCollectionViewSectionedAnimatedDataSource<S: AnimatableSectionModel
     // This subject and throttle are here
     // because collection view has problems processing animated updates fast.
     // This should somewhat help to alleviate the problem.
-    private let partialUpdateEvent = PublishSubject<(UICollectionView, Event<Element>)>()
+    private let partialUpdateEvent = PublishSubject<(UICollectionView, RxSwift.Event<Element>)>()
 
     /**
      This method exists because collection view updates are throttled because of internal collection view bugs.
      Collection view behaves poorly during fast updates, so this should remedy those issues.
     */
-    open func collectionView(_ collectionView: UICollectionView, throttledObservedEvent event: Event<Element>) {
+    open func collectionView(_ collectionView: UICollectionView, throttledObservedEvent event: RxSwift.Event<Element>) {
         Binder(self) { dataSource, newSections in
             let oldSections = dataSource.sectionModels
             do {
@@ -97,7 +97,7 @@ open class RxCollectionViewSectionedAnimatedDataSource<S: AnimatableSectionModel
         }.on(event)
     }
 
-    open func collectionView(_ collectionView: UICollectionView, observedEvent: Event<Element>) {
+    open func collectionView(_ collectionView: UICollectionView, observedEvent: RxSwift.Event<Element>) {
         Binder(self) { dataSource, newSections in
             #if DEBUG
                 self._dataSourceBound = true

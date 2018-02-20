@@ -29,7 +29,7 @@ extension LentaService: AuthorizedTargetType {
         }
     }
 
-    var task: Task {
+    var task: Moya.Task {
         switch self {
         case let .lenta(rows, offset, withDescription):
             return .requestParameters(

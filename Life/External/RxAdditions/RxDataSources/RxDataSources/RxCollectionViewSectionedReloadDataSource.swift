@@ -19,7 +19,7 @@ open class RxCollectionViewSectionedReloadDataSource<S: SectionModelType>
     
     public typealias Element = [S]
 
-    open func collectionView(_ collectionView: UICollectionView, observedEvent: Event<Element>) {
+    open func collectionView(_ collectionView: UICollectionView, observedEvent: RxSwift.Event<Element>) {
         Binder(self) { dataSource, element in
             #if DEBUG
                 self._dataSourceBound = true

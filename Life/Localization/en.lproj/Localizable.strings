@@ -89,4 +89,17 @@
 
 "notifications" = "Notifications";
 
+/* Top Questions */
+
+"questions" = "Top-7 Questions";
+
+/* BI Office */
+
+"tasks_and_requests" = "Tasks and requests";
+"kpi_projects" = "KPI projects";
+"s_and_b" = "S&B";
+"idp" = "IDP";
+"calend" = "Calend";
+"today" = "Today";
+
 

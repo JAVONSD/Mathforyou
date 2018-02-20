@@ -58,12 +58,12 @@ class MainMenuFlow: Flow {
     }
 
     private func navigationToMainMenuScreen() -> NextFlowItems {
-        let biBoardVC = BIBoardViewController.instantiate(withViewModel: BIBoardViewModel())
+        let biBoardVC = BIBoardViewController()
         biBoardVC.onUnathorizedError = {
             self.navigateToLoginScreen(isUnathorized: true)
         }
 
-        let biOfficeVC = BIOfficeViewController.instantiate(withViewModel: BIOfficeViewModel())
+        let biOfficeVC = BIOfficeViewController()
         biOfficeVC.onUnathorizedError = {
             self.navigateToLoginScreen(isUnathorized: true)
         }
@@ -84,8 +84,8 @@ class MainMenuFlow: Flow {
         }
 
         tabBarController.viewControllers = [
-            biBoardVC,
             biOfficeVC,
+            biBoardVC,
             lentaVC,
             stuffVC,
             menuVC

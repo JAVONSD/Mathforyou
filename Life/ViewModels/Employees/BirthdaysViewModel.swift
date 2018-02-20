@@ -18,13 +18,15 @@ extension BirthdaysViewModel: Mockable {
     static func sample() -> BirthdaysViewModel {
         var employeesViewModel = BirthdaysViewModel()
 
-        let employee = EmployeeViewModel(
-            image: "",
-            fullName: "Фамилия Имя",
-            position: "Должность"
-        )
         for _ in 0..<5 {
-            employeesViewModel.employees.append(employee)
+            let json = [
+                "fullname": "Фамилия Имя",
+                "jobPosition": "Должность"
+            ]
+            if let employee = try? JSONDecoder().decode(Employee.self, from: json.toJSONData()) {
+                let employeeItem = EmployeeViewModel(employee: employee)
+                employeesViewModel.employees.append(employeeItem)
+            }
         }
 
         return employeesViewModel

@@ -108,6 +108,7 @@ class LentaViewModel: NSObject {
                         completion(nil)
                     }
                 case .error(let error):
+                    self.canLoadMore = false
                     completion(error)
                 }
             }
@@ -127,6 +128,8 @@ extension LentaViewModel: ListDiffable {
         return false
     }
 }
+
+//swiftlint:disable function_body_length
 
 extension LentaViewModel: Mockable {
     typealias T = LentaViewModel
@@ -196,3 +199,5 @@ extension LentaViewModel: Mockable {
         return lenta
     }
 }
+
+//swiftlint:enable function_body_length

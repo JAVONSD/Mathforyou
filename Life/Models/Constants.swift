@@ -97,6 +97,8 @@ struct App {
 
         static let cornerRadius: CGFloat = 14
         static let cornerRadiusSmall: CGFloat = 8
+
+        static let zPositionCommon: CGFloat = 5
     }
 
     // MARK: - Cell Identifiers

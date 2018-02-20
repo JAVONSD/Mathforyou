@@ -37,7 +37,7 @@ extension AuthService: AuthorizedTargetType {
         }
     }
 
-    var task: Task {
+    var task: Moya.Task {
         switch self {
         case .auth, .testtokenauth:
             return .requestPlain

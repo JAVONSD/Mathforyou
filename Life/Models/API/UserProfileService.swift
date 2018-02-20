@@ -29,7 +29,7 @@ extension UserProfileService: AuthorizedTargetType {
         }
     }
 
-    var task: Task {
+    var task: Moya.Task {
         switch self {
         case .userProfile:
             return .requestPlain

@@ -9,7 +9,7 @@
 import Foundation
 
 struct VacanciesViewModel: ViewModel {
-    var employees = [EmployeeViewModel]()
+    var vacancies = [VacancyViewModel]()
 }
 
 extension VacanciesViewModel: Mockable {
@@ -18,15 +18,23 @@ extension VacanciesViewModel: Mockable {
     static func sample() -> VacanciesViewModel {
         var employeesViewModel = VacanciesViewModel()
 
-        let employee = EmployeeViewModel(
-            image: "",
-            fullName: "Фамилия Имя",
-            position: "Должность"
+        let vacancy = VacancyViewModel(
+            vacancy: Vacancy(
+                jobPosition: "Начальник Коммерческого Отдела Дивизиона",
+                companyName: "Otau Development Group ТОО",
+                createDate: "2018-01-30T00:00:00",
+                departmentName: "Коммерческий отдел",
+                salary: "Не указана"
+            )
         )
         for _ in 0..<5 {
-            employeesViewModel.employees.append(employee)
+            employeesViewModel.vacancies.append(vacancy)
         }
 
         return employeesViewModel
     }
+}
+
+struct VacancyViewModel: ViewModel {
+    var vacancy: Vacancy
 }

@@ -31,9 +31,9 @@ class BirthdaysViewController: UIViewController, ViewModelBased, Stepper {
                     return EmployeeCell(style: .default, reuseIdentifier: cellId)
                 }
 
-                cell.set(imageURL: element.image)
-                cell.set(title: element.fullName)
-                cell.set(subtitle: element.position)
+                cell.set(imageURL: "")
+                cell.set(title: element.employee.fullname)
+                cell.set(subtitle: element.employee.jobPosition)
 
                 let itemsCount = tv.numberOfRows(inSection: indexPath.section)
                 if indexPath.row == itemsCount - 1 {

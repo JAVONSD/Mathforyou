@@ -220,7 +220,7 @@ open class RxPickerViewDataSource<T>: NSObject, UIPickerViewDataSource {
 }
 
 extension RxPickerViewDataSource: RxPickerViewDataSourceType {
-    public func pickerView(_ pickerView: UIPickerView, observedEvent: Event<T>) {
+    public func pickerView(_ pickerView: UIPickerView, observedEvent: RxSwift.Event<T>) {
         Binder(self) { (dataSource, components) in
             dataSource.components = components
             pickerView.reloadAllComponents()
