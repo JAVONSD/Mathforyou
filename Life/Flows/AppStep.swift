@@ -37,6 +37,7 @@ enum AppStep: Step {
     // MARK: - Tasks and Requests
 
     case tasksAndRequests
+    case tasksAndRequestsDone
     case createReqeust
 
     // MARK: - News

@@ -15,6 +15,8 @@ class TasksAndRequestsSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: TasksAndRequestsViewModel?
 
     var onUnathorizedError: (() -> Void)?
+    var didTapOnTasksAndRequests: (() -> Void)?
+    var didTapOnTaskOrRequest: ((Int) -> Void)?
 
     init(viewModel: TasksAndRequestsViewModel) {
         self.viewModel = viewModel
@@ -47,10 +49,21 @@ class TasksAndRequestsSectionController: ASCollectionSectionController {
     }
 
     override func didSelectItem(at index: Int) {
-        print("Selected item at index - \(index)")
+        if index == 0 {
+            if let didTapOnTasksAndRequests = didTapOnTasksAndRequests {
+                didTapOnTasksAndRequests()
+            }
+        } else {
+            if let didTapOnTaskOrRequest = didTapOnTaskOrRequest {
+                didTapOnTaskOrRequest(index - 1)
+            }
+        }
+    }
 
-        if index == 0,
-            let viewModel = self.viewModel,
+    // MARK: - Methods
+
+    private func toggle() {
+        if let viewModel = self.viewModel,
             !viewModel.items.isEmpty {
             viewModel.minimized = !viewModel.minimized
 
@@ -149,11 +162,20 @@ extension TasksAndRequestsSectionController: ASSectionController {
             item3Title: "new",
             showAddButton: true,
             corners: corners,
+            minimized: viewModel.minimized,
             didTapAddButton: {
                 print("Did tap button in suggestion section  ...")
         })
 
-        return DashboardCell(config: config)
+        let cell = DashboardCell(config: config)
+        cell.didTapToggle = { [weak self] in
+            print("Toggle tapped ...")
+            self?.toggle()
+        }
+        cell.didTapAdd = {
+            print("Add pressed ...")
+        }
+        return cell
     }
 
     func beginBatchFetch(with context: ASBatchContext) {

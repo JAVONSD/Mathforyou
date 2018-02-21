@@ -140,6 +140,10 @@ struct App {
 
         static let menuCellId = "menuCellId"
 
+        // MARK: - Tasks And Requests
+
+        static let taskOrReqeustCellId = "taskOrReqeustCellId"
+
     }
 
     // MARK: - UserDefaults

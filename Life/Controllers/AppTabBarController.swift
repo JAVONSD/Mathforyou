@@ -13,7 +13,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class AppTabBarController: UIViewController, TabBarDelegate, Stepper {
+class AppTabBarController: UIViewController, TabBarDelegate {
 
     private(set) lazy var containerView = UIView(frame: .zero)
     private(set) lazy var tabBar = TabBar(frame: .zero)
@@ -69,12 +69,16 @@ class AppTabBarController: UIViewController, TabBarDelegate, Stepper {
 
     @objc
     private func handleNotificationsButtonTap() {
-        step.accept(AppStep.notifications)
+        if let navigationControler = self.navigationController as? AppToolbarController {
+            navigationControler.step.accept(AppStep.notifications)
+        }
     }
 
     @objc
     private func handleProfileButtonTap() {
-        step.accept(AppStep.profile)
+        if let navigationControler = self.navigationController as? AppToolbarController {
+            navigationControler.step.accept(AppStep.profile)
+        }
     }
 
     // MARK: - Methods

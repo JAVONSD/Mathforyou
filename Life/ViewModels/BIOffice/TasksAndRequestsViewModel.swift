@@ -9,9 +9,18 @@
 import Foundation
 import IGListKit
 
-class TasksAndRequestsViewModel: NSObject, ListDiffable {
+class TasksAndRequestsViewModel: NSObject, ViewModel, ListDiffable {
     var tasks = TasksViewModel()
     var requests = RequestsViewModel()
+
+    var minimized = true
+
+    enum SelectedItemsType {
+        case inbox, outbox
+    }
+
+    var selectedItemsType = SelectedItemsType.inbox
+
     var items: [ListDiffable] {
         var allItems = [ListDiffable]()
         allItems.append(contentsOf: tasks.tasks as [ListDiffable])
@@ -19,7 +28,14 @@ class TasksAndRequestsViewModel: NSObject, ListDiffable {
         return allItems
     }
 
-    var minimized = true
+    var currentItems: [ListDiffable] {
+        if selectedItemsType == .outbox {
+            return (tasks.outboxTasks as [ListDiffable]) + (requests.outboxRequests as [ListDiffable])
+        }
+        return (tasks.inboxTasks as [ListDiffable]) + (requests.inboxRequests as [ListDiffable])
+    }
+
+    // MARK: - ListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {
         return self

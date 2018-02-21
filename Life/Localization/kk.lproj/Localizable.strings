@@ -102,4 +102,9 @@
 "calend" = "Календ";
 "today" = "Сегодня";
 
+/* Tasks and Requests */
+
+"inbox" = "Входящие";
+"outbox" = "Исходящие";
+
 

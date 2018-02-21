@@ -9,7 +9,7 @@
 import UIKit
 import Material
 
-class AppToolbarController: NavigationController {
+class AppToolbarController: NavigationController, Stepper {
 
     private(set) var shadowHidden = true
 

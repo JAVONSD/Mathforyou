@@ -10,7 +10,13 @@ import Foundation
 import IGListKit
 
 class TasksViewModel: NSObject, ListDiffable {
-    var tasks = [TaskViewModel]()
+
+    var inboxTasks = [TaskViewModel]()
+    var outboxTasks = [TaskViewModel]()
+
+    var tasks: [TaskViewModel] {
+        return inboxTasks + outboxTasks
+    }
 
     func diffIdentifier() -> NSObjectProtocol {
         return self
@@ -31,11 +37,20 @@ extension TasksViewModel: Mockable {
         let sample = TasksViewModel()
 
         for _ in 0..<3 {
-            let json = [
-                "topic": "Test task"
+            let json1 = [
+                "topic": "Test inbox task",
+                "endDate": "2018-02-21T10:00:30.563"
             ]
-            if let task = try? JSONDecoder().decode(Task.self, from: json.toJSONData()) {
-                sample.tasks.append(TaskViewModel(task: task))
+            if let task = try? JSONDecoder().decode(Task.self, from: json1.toJSONData()) {
+                sample.inboxTasks.append(TaskViewModel(task: task))
+            }
+
+            let json2 = [
+                "topic": "Test outobx task",
+                "endDate": "2018-02-21T10:00:30.563"
+            ]
+            if let task = try? JSONDecoder().decode(Task.self, from: json2.toJSONData()) {
+                sample.outboxTasks.append(TaskViewModel(task: task))
             }
         }
 

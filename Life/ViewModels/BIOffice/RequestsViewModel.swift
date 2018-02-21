@@ -10,7 +10,13 @@ import Foundation
 import IGListKit
 
 class RequestsViewModel: NSObject, ListDiffable {
-    var requests = [RequestViewModel]()
+
+    var inboxRequests = [RequestViewModel]()
+    var outboxRequests = [RequestViewModel]()
+
+    var requests: [RequestViewModel] {
+        return inboxRequests + outboxRequests
+    }
 
     func diffIdentifier() -> NSObjectProtocol {
         return self
@@ -31,11 +37,18 @@ extension RequestsViewModel: Mockable {
         let sample = RequestsViewModel()
 
         for _ in 0..<3 {
-            let json = [
-                "topic": "Test request"
+            let json1 = [
+                "topic": "Test inbox request"
             ]
-            if let request = try? JSONDecoder().decode(Request.self, from: json.toJSONData()) {
-                sample.requests.append(RequestViewModel(request: request))
+            if let request = try? JSONDecoder().decode(Request.self, from: json1.toJSONData()) {
+                sample.inboxRequests.append(RequestViewModel(request: request))
+            }
+
+            let json2 = [
+                "topic": "Test outbox request"
+            ]
+            if let request = try? JSONDecoder().decode(Request.self, from: json2.toJSONData()) {
+                sample.outboxRequests.append(RequestViewModel(request: request))
             }
         }
 

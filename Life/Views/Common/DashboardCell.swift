@@ -24,12 +24,16 @@ class DashboardCell: ASCellNode {
         var item3Title: String
         var showAddButton: Bool
         var corners: UIRectCorner
+        var minimized: Bool
         var didTapAddButton: (() -> Void)?
     }
 
+    var didTapToggle: (() -> Void)?
+    var didTapAdd: (() -> Void)?
+
     private(set) var backgroundNode: RoundedNode!
     private(set) var imageNode: ASNetworkImageNode!
-    private(set) var titleNode: ASTextNode!
+    private(set) var toggleNode: ASButtonNode!
 
     private(set) var item1CountNode: ASTextNode!
     private(set) var item1TitleNode: ASTextNode!
@@ -140,14 +144,26 @@ class DashboardCell: ASCellNode {
         )
         backgroundNode.addSubnode(imageNode)
 
-        titleNode = ASTextNode()
-        titleNode.attributedText = attTitle(config.title)
-        titleNode.maximumNumberOfLines = 1
-        backgroundNode.addSubnode(titleNode)
+        toggleNode = ASButtonNode()
+        toggleNode.addTarget(self, action: #selector(handleToggle), forControlEvents: .touchUpInside)
+        toggleNode.setAttributedTitle(attTitle(config.title), for: .normal)
+        toggleNode.contentHorizontalAlignment = .left
+        toggleNode.imageAlignment = .end
+        let image = config.minimized ? #imageLiteral(resourceName: "expand_arrow") : #imageLiteral(resourceName: "collapse_arrow")
+        toggleNode.setImage(image, for: .normal)
+        toggleNode.imageNode.style.preferredSize = CGSize(
+            width: App.Layout.itemSpacingSmall,
+            height: App.Layout.itemSpacingSmall
+        )
+        toggleNode.imageNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(
+            App.Color.slateGrey
+        )
+        backgroundNode.addSubnode(toggleNode)
 
         addItemsAndSeparators(config)
 
         addNode = ASButtonNode()
+        addNode.addTarget(self, action: #selector(handleAddButton), forControlEvents: .touchUpInside)
         addNode.setImage(#imageLiteral(resourceName: "button-flat"), for: .normal)
         let addSize = App.Layout.sideOffset + App.Layout.itemSpacingMedium * 2
         addNode.style.preferredSize = CGSize(
@@ -175,14 +191,18 @@ class DashboardCell: ASCellNode {
     }
 
     private func backgroundSpec(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        toggleNode.style.flexGrow = 1.0
+        toggleNode.style.minHeight = ASDimension(unit: .points, value: App.Layout.itemSpacingMedium * 2)
+
         let imageTitleStackSpeck = ASStackLayoutSpec.horizontal()
-        imageTitleStackSpeck.children = [imageNode, titleNode]
+        imageTitleStackSpeck.children = [imageNode, toggleNode]
         imageTitleStackSpeck.spacing = App.Layout.itemSpacingSmall
+        imageTitleStackSpeck.alignItems = .center
 
         let imageTitleInsetSpec = ASInsetLayoutSpec(insets: .init(
-            top: App.Layout.itemSpacingSmall,
+            top: 0,
             left: App.Layout.itemSpacingSmall,
-            bottom: App.Layout.itemSpacingSmall,
+            bottom: 0,
             right: App.Layout.itemSpacingSmall), child: imageTitleStackSpeck)
 
         let leftStackSpec = ASStackLayoutSpec.vertical()
@@ -257,6 +277,24 @@ class DashboardCell: ASCellNode {
                     progressBlock: nil) { (image, _, _, _) in
                         self.imageNode.image = image
             }
+        }
+
+        toggleNode.view.tintColor = App.Color.slateGrey
+    }
+
+    // MARK: - Actions
+
+    @objc
+    private func handleToggle() {
+        if let didTapToggle = didTapToggle {
+            didTapToggle()
+        }
+    }
+
+    @objc
+    private func handleAddButton() {
+        if let didTapAdd = didTapAdd {
+            didTapAdd()
         }
     }
 

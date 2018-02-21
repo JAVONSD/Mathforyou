@@ -45,7 +45,6 @@ class TopQuestionsSectionController: ASCollectionSectionController {
     }
 
     override func didSelectItem(at index: Int) {
-        print("Selected item at index - \(index)")
     }
 }
 

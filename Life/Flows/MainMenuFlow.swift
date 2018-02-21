@@ -11,6 +11,8 @@ import Material
 
 class MainMenuFlow: Flow {
 
+    private var tasksAndRequestsViewModel = TasksAndRequestsViewModel.sample()
+
     var root: Presentable {
         return self.rootViewController
     }
@@ -37,6 +39,10 @@ class MainMenuFlow: Flow {
             return navigationToNotifications()
         case .notificationsDone:
             return navigationFromNotifications()
+        case .tasksAndRequests:
+            return navigationToTasksAndRequests()
+        case .tasksAndRequestsDone:
+            return navigationFromTasksAndRequests()
         default:
             return NextFlowItems.stepNotHandled
         }
@@ -64,6 +70,9 @@ class MainMenuFlow: Flow {
         }
 
         let biOfficeVC = BIOfficeViewController()
+        var biOfficeViewModel = BIOfficeViewModel()
+        biOfficeViewModel.tasksAndRequestsViewModel = tasksAndRequestsViewModel
+        biOfficeVC.viewModel = biOfficeViewModel
         biOfficeVC.onUnathorizedError = {
             self.navigateToLoginScreen(isUnathorized: true)
         }
@@ -92,8 +101,8 @@ class MainMenuFlow: Flow {
         ]
 
         return NextFlowItems.one(flowItem: NextFlowItem(
-            nextPresentable: tabBarController,
-            nextStepper: tabBarController
+            nextPresentable: rootViewController,
+            nextStepper: rootViewController
         ))
     }
 
@@ -116,6 +125,23 @@ class MainMenuFlow: Flow {
     }
 
     private func navigationFromNotifications() -> NextFlowItems {
+        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
+        return NextFlowItems.none
+    }
+
+    private func navigationToTasksAndRequests() -> NextFlowItems {
+        let tasksAndRequestsViewController = TasksAndRequestsViewController.instantiate(
+            withViewModel: tasksAndRequestsViewModel
+        )
+        self.rootViewController.present(tasksAndRequestsViewController, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem:
+            NextFlowItem(
+                nextPresentable: tasksAndRequestsViewController,
+                nextStepper: tasksAndRequestsViewController)
+        )
+    }
+
+    private func navigationFromTasksAndRequests() -> NextFlowItems {
         self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
         return NextFlowItems.none
     }

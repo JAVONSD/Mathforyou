@@ -127,6 +127,15 @@ extension BIOfficeViewController: ListAdapterDataSource {
                 guard let `self` = self else { return }
                 self.onUnauthorized()
             }
+            section.didTapOnTaskOrRequest = { index in
+                print("Openning task or request ...")
+            }
+            section.didTapOnTasksAndRequests = { [weak self] in
+                if let `self` = self,
+                    let navigationController = self.navigationController as? AppToolbarController {
+                    navigationController.step.accept(AppStep.tasksAndRequests)
+                }
+            }
             return section
         } else if let viewModel = object as? KPIViewModel {
             let section = KPISectionController(viewModel: viewModel)

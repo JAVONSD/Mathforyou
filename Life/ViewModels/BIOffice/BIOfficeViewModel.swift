@@ -15,7 +15,17 @@ struct BIOfficeViewModel: ViewModel {
 
     // debug
     var eventsViewModel = EventsViewModel.sample()
-    var tasksAndRequestsViewModel = TasksAndRequestsViewModel.sample()
+
+    private weak var _tasksAndRequestsViewModel: TasksAndRequestsViewModel?
+    var tasksAndRequestsViewModel: TasksAndRequestsViewModel {
+        get {
+            return _tasksAndRequestsViewModel ?? TasksAndRequestsViewModel.sample()
+        }
+        set(newValue) {
+            _tasksAndRequestsViewModel = newValue
+        }
+    }
+
     var kpiViewModel = KPIViewModel()
     var sbvViewModel = SBViewModel()
     var idpViewModel = IDPViewModel()

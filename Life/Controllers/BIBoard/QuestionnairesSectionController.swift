@@ -47,10 +47,12 @@ class QuestionnairesSectionController: ASCollectionSectionController {
     }
 
     override func didSelectItem(at index: Int) {
-        print("Selected item at index - \(index)")
+    }
 
-        if index == 0,
-            let viewModel = self.viewModel,
+    // MARK: - Methods
+
+    private func toggle() {
+        if let viewModel = self.viewModel,
             !viewModel.questionnaires.isEmpty {
             viewModel.minimized = !viewModel.minimized
 
@@ -121,11 +123,20 @@ extension QuestionnairesSectionController: ASSectionController {
             item3Title: "new",
             showAddButton: true,
             corners: corners,
+            minimized: viewModel.minimized,
             didTapAddButton: {
                 print("Did tap button in suggestion section  ...")
         })
 
-        return DashboardCell(config: config)
+        let cell = DashboardCell(config: config)
+        cell.didTapToggle = { [weak self] in
+            print("Toggle tapped ...")
+            self?.toggle()
+        }
+        cell.didTapAdd = {
+            print("Add pressed ...")
+        }
+        return cell
     }
 
     func beginBatchFetch(with context: ASBatchContext) {
