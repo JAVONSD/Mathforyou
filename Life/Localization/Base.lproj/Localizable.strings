@@ -106,5 +106,9 @@
 
 "inbox" = "Inbox";
 "outbox" = "Outbox";
+"it_department" = "IT department";
+"bookkeeping" = "Bookkeeping";
+"hr_department" = "HR department";
+"to_employee" = "To employee";
 
 

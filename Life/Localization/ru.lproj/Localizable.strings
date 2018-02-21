@@ -106,5 +106,9 @@
 
 "inbox" = "Входящие";
 "outbox" = "Исходящие";
+"it_department" = "IT отдел";
+"bookkeeping" = "Бухгалтерия";
+"hr_department" = "HR отдел";
+"to_employee" = "Сотруднику";
 
 

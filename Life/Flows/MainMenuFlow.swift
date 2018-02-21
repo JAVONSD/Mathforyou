@@ -133,7 +133,10 @@ class MainMenuFlow: Flow {
         let tasksAndRequestsViewController = TasksAndRequestsViewController.instantiate(
             withViewModel: tasksAndRequestsViewModel
         )
-        self.rootViewController.present(tasksAndRequestsViewController, animated: true, completion: nil)
+        let fabController = TasksAndRequestsFABController(
+            rootViewController: tasksAndRequestsViewController
+        )
+        self.rootViewController.present(fabController, animated: true, completion: nil)
         return NextFlowItems.one(flowItem:
             NextFlowItem(
                 nextPresentable: tasksAndRequestsViewController,

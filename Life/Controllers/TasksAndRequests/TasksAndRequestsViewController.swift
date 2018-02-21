@@ -50,10 +50,6 @@ class TasksAndRequestsViewController: UIViewController, ViewModelBased, Stepper 
         super.viewDidLoad()
 
         setupUI()
-
-        // For debug
-        viewModel = TasksAndRequestsViewModel.sample()
-
         bind()
     }
 
