@@ -9,7 +9,7 @@
 import Foundation
 
 struct Message: Codable {
-    
+
     var authorCode: String
     var authorName: String
     var message: String

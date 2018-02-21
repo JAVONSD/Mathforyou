@@ -76,7 +76,7 @@ extension SBSectionController: ASSectionController {
                 }
         }
 
-        if let _ = items[index] as? SBViewModel {
+        if (items[index] as? SBViewModel) != nil {
             return {
                 let separatorInset = index == 1
                     ? ItemCell.SeparatorInset(

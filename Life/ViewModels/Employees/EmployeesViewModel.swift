@@ -33,7 +33,8 @@ extension EmployeesViewModel: Mockable {
 
         for _ in 0..<2 {
             let json = [
-                "fullname": "Test employee"
+                "fullname": "Фамилия Имя",
+                "jobPosition": "Должность"
             ]
             if let suggestion = try? JSONDecoder().decode(Employee.self, from: json.toJSONData()) {
                 let item = EmployeeViewModel(employee: suggestion)

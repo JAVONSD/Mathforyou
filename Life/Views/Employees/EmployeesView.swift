@@ -90,18 +90,17 @@ class EmployeesView: UIView {
             EmployeeCell.self,
             forCellReuseIdentifier: App.CellIdentifier.employeeCellId
         )
-        tableView.register(
-            HeaderView.self,
-            forHeaderFooterViewReuseIdentifier: App.CellIdentifier.employeeHeaderViewId
-        )
+
+        tableView.estimatedRowHeight = 72
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
 
 }
 
 extension EmployeesView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 72
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 72
+//    }
 
     func tableView(
         _ tableView: UITableView,
@@ -130,8 +129,6 @@ extension EmployeesView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let header = view as? HeaderView {
-            header.contentView.backgroundColor = App.Color.whiteSmoke
-            header.backgroundView?.backgroundColor = App.Color.whiteSmoke
             header.backgroundColor = App.Color.whiteSmoke
         }
     }

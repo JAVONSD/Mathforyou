@@ -68,10 +68,6 @@ class BenefitsView: UIView {
             BenefitsTableViewCell.self,
             forCellReuseIdentifier: App.CellIdentifier.biClubBenefitsCellId
         )
-        tableView.register(
-            HeaderView.self,
-            forHeaderFooterViewReuseIdentifier: App.CellIdentifier.benefitsHeaderViewId
-        )
     }
 
 }

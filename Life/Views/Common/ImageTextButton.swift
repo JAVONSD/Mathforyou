@@ -22,6 +22,9 @@ class ImageTextButton: UIView {
          subtitle: String? = nil) {
         super.init(frame: .zero)
 
+        setContentCompressionResistancePriority(.required, for: .vertical)
+        setContentHuggingPriority(.defaultLow, for: .vertical)
+
         setupView(image: image, title: title, subtitle: subtitle)
         setupButton()
     }
@@ -59,6 +62,9 @@ class ImageTextButton: UIView {
     private func setupButton() {
         button = FlatButton(title: nil)
         button?.addTarget(self, action: #selector(onButtonTap), for: .touchUpInside)
+
+        button?.setContentCompressionResistancePriority(.required, for: .vertical)
+        button?.setContentHuggingPriority(.defaultLow, for: .vertical)
 
         guard let button = button else { return }
 

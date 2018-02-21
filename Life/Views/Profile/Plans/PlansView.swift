@@ -68,10 +68,6 @@ class PlansView: UIView {
             ImageTextTableViewCell.self,
             forCellReuseIdentifier: App.CellIdentifier.vacationPlansCellId
         )
-        tableView.register(
-            HeaderView.self,
-            forHeaderFooterViewReuseIdentifier: App.CellIdentifier.plansHeaderViewId
-        )
     }
 
 }

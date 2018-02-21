@@ -56,11 +56,13 @@ extension EventsSectionController: ASSectionController {
 
         return {
             let slides = viewModel.events.map {
+                //swiftlint:disable line_length
                 return SliderViewModel(
                     title: $0.event.title,
                     label: NSLocalizedString("calend", comment: "").uppercased(),
                     image: "https://images.pexels.com/photos/313691/pexels-photo-313691.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb"
                 )
+                //swiftlint:enable line_length
             }
 
             let defaultLayout = UICollectionViewFlowLayout()

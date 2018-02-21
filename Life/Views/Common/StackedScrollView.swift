@@ -17,6 +17,28 @@ class StackedScrollView: UIScrollView {
         case vertical, horizontal
     }
 
+    var insets: UIEdgeInsets = .zero {
+        didSet {
+            guard let stackView = stackView else { return }
+
+            stackView.snp.remakeConstraints { [weak self] (make) in
+                guard let `self` = self else { return }
+
+                if scrollDirection == .vertical {
+                    make.top.equalTo(self).inset(insets.top)
+                    make.left.equalTo(self).inset(insets.left)
+                    make.right.equalTo(self).inset(insets.right)
+                    make.width.equalTo(self).offset(-insets.left - insets.right)
+                } else {
+                    make.top.equalTo(self).inset(insets.top)
+                    make.left.equalTo(self).inset(insets.left)
+                    make.bottom.equalTo(self).inset(insets.bottom)
+                    make.height.equalTo(self).offset(-insets.top - insets.bottom)
+                }
+            }
+        }
+    }
+
     private(set) var scrollDirection = ScrollDirection.vertical
 
     init(direction: ScrollDirection) {
@@ -39,8 +61,10 @@ class StackedScrollView: UIScrollView {
         var size = stackView.frame.size
         if scrollDirection == .vertical {
             size.width = frame.size.width
+            size.height += insets.top + insets.bottom
         } else {
             size.height = frame.size.height
+            size.width += insets.left + insets.right
         }
         contentSize = size
     }

@@ -107,17 +107,14 @@ struct App {
 
         // MARK: - Profile
 
-        static let resultsHeaderViewId = "resultsHeaderViewId"
         static let corporateResultsCellId = "corporateResultsCellId"
         static let educationResultsCellId = "educationResultsCellId"
         static let attestationResultsCellId = "attestationResultsCellId"
 
-        static let plansHeaderViewId = "plansHeaderViewId"
         static let kpiPlansCellId = "kpiPlansCellId"
         static let idpPlansCellId = "idpPlansCellId"
         static let vacationPlansCellId = "vacationPlansCellId"
 
-        static let benefitsHeaderViewId = "benefitsHeaderViewId"
         static let fitnessBenefitsCellId = "fitnessBenefitsCellId"
         static let accBenefitsCellId = "accBenefitsCellId"
         static let biClubBenefitsCellId = "biClubBenefitsCellId"
@@ -125,7 +122,6 @@ struct App {
 
         // MARK: - Employees
 
-        static let employeeHeaderViewId = "employeeHeaderViewId"
         static let employeeCellId = "employeeCellId"
 
         // MARK: - Lenta

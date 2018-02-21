@@ -76,7 +76,7 @@ extension KPISectionController: ASSectionController {
                 }
         }
 
-        if let _ = items[index] as? KPIViewModel {
+        if (items[index] as? KPIViewModel) != nil {
             return {
                 let separatorInset = index == 1
                     ? ItemCell.SeparatorInset(

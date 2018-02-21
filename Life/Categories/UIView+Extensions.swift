@@ -37,4 +37,12 @@ extension UIView {
         self.layer.mask = mask
     }
 
+    func getHeightConstraint() -> NSLayoutConstraint? {
+        var heightConstraint: NSLayoutConstraint?
+        for constraint in constraints where constraint.firstAttribute == .height {
+            heightConstraint = constraint
+        }
+        return heightConstraint
+    }
+
 }

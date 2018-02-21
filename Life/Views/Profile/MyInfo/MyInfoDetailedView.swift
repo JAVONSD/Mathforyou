@@ -45,6 +45,7 @@ class MyInfoDetailedView: StackedView {
         personalAndFamilyInfoView = ImageTextView(
             title: NSLocalizedString("personal_and_family_info", comment: "")
         )
+        personalAndFamilyInfoView?.accessibilityIdentifier = "_S_O_M_E__L_A_B_E_L__1_"
 
         guard let stackView = stackView,
             let pafiView = personalAndFamilyInfoView else {
@@ -67,13 +68,11 @@ class MyInfoDetailedView: StackedView {
                                   left: 0,
                                   bottom: App.Layout.itemSpacingMedium,
                                   right: 0)
-        firstColStackView.stackView?.layoutMargins = insets
-        firstColStackView.stackView?.isLayoutMarginsRelativeArrangement = true
+        firstColStackView.insets = insets
         horizStackView.stackView?.addArrangedSubview(firstColStackView)
 
         let secondColStackView = StackedView(frame: .zero)
-        secondColStackView.stackView?.layoutMargins = insets
-        secondColStackView.stackView?.isLayoutMarginsRelativeArrangement = true
+        secondColStackView.insets = insets
         horizStackView.stackView?.addArrangedSubview(secondColStackView)
 
         pafiView.textStackView?.stackView?.addArrangedSubview(horizStackView)
@@ -93,6 +92,7 @@ class MyInfoDetailedView: StackedView {
 
     private func setupIinView(stackView: UIStackView) {
         iinView = ImageTextView(title: NSLocalizedString("iin", comment: ""), subtitle: "000900800666")
+        iinView?.accessibilityIdentifier = "_S_O_M_E__L_A_B_E_L__2_"
 
         guard let iinView = iinView else { return }
 
@@ -105,6 +105,7 @@ class MyInfoDetailedView: StackedView {
             title: NSLocalizedString("family_status", comment: ""),
             subtitle: "В браке"
         )
+        familyStatusView?.accessibilityIdentifier = "_S_O_M_E__L_A_B_E_L__3_"
 
         guard let familyStatusView = familyStatusView else { return }
 
@@ -117,6 +118,7 @@ class MyInfoDetailedView: StackedView {
             title: NSLocalizedString("children", comment: ""),
             subtitle: "Двое"
         )
+        childrenCountView?.accessibilityIdentifier = "_S_O_M_E__L_A_B_E_L__4_"
 
         guard let childrenCountView = childrenCountView else { return }
 
@@ -129,6 +131,7 @@ class MyInfoDetailedView: StackedView {
             title: NSLocalizedString("birthdate", comment: ""),
             subtitle: "13 декабря 1989"
         )
+        birthdateView?.accessibilityIdentifier = "_S_O_M_E__L_A_B_E_L__5_"
 
         guard let birthdateView = birthdateView else { return }
 
@@ -141,6 +144,7 @@ class MyInfoDetailedView: StackedView {
             title: NSLocalizedString("gender", comment: ""),
             subtitle: "Мужской"
         )
+        genderView?.accessibilityIdentifier = "_S_O_M_E__L_A_B_E_L__6_"
 
         guard let genderView = genderView else { return }
 
@@ -153,6 +157,7 @@ class MyInfoDetailedView: StackedView {
             title: NSLocalizedString("clothing_size", comment: ""),
             subtitle: "42 - 48"
         )
+        genderView?.accessibilityIdentifier = "_S_O_M_E__L_A_B_E_L__7_"
 
         guard let clothingSizeView = clothingSizeView else { return }
 
@@ -162,6 +167,7 @@ class MyInfoDetailedView: StackedView {
 
     private func setupWorkInfoView() {
         workInfoView = ImageTextView(title: NSLocalizedString("work_info", comment: ""))
+        workInfoView?.accessibilityIdentifier = "_S_O_M_E__L_A_B_E_L__8_"
 
         guard let stackView = stackView,
             let workInfoView = workInfoView else {
@@ -173,8 +179,8 @@ class MyInfoDetailedView: StackedView {
                                   left: 0,
                                   bottom: App.Layout.itemSpacingSmall,
                                   right: 0)
-        workInfoView.textStackView?.stackView?.layoutMargins = insets
-        workInfoView.textStackView?.stackView?.isLayoutMarginsRelativeArrangement = true
+        workInfoView.textStackView?.insets = insets
+        workInfoView.textStackView?.stackView?.distribution = .fill
         workInfoView.titleLabel?.font = App.Font.subheadAlts
 
         stackView.addArrangedSubview(workInfoView)
@@ -192,6 +198,7 @@ class MyInfoDetailedView: StackedView {
             title: NSLocalizedString("work_experience", comment: ""),
             subtitle: "5 лет"
         )
+        workExperienceView?.accessibilityIdentifier = "_S_O_M_E__L_A_B_E_L__9_"
 
         guard let workExperienceView = workExperienceView else { return }
 
@@ -204,6 +211,7 @@ class MyInfoDetailedView: StackedView {
             title: NSLocalizedString("corporate_experience", comment: ""),
             subtitle: "2 года"
         )
+        corporateExperienceView?.accessibilityIdentifier = "_S_O_M_E__L_A_B_E_L__10_"
 
         guard let corporateExperienceView = corporateExperienceView else { return }
 
@@ -217,8 +225,7 @@ class MyInfoDetailedView: StackedView {
                                   left: 0,
                                   bottom: App.Layout.itemSpacingSmall,
                                   right: 0)
-        subview.textStackView?.stackView?.layoutMargins = insets
-        subview.textStackView?.stackView?.isLayoutMarginsRelativeArrangement = true
+        subview.textStackView?.insets = insets
         subview.textStackView?.stackView?.spacing = 5
         subview.titleLabel?.font = App.Font.caption
         subview.titleLabel?.textColor = App.Color.steel

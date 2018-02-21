@@ -129,14 +129,11 @@ class MyInfoContactView: StackedView {
         button.view?.imageRadius = 0
         button.view?.imageView?.backgroundColor = .clear
         button.view?.stackView?.stackView?.spacing = App.Layout.itemSpacingMedium
-        let insets = UIEdgeInsets(top: App.Layout.itemSpacingMedium,
-                                  left: 0,
-                                  bottom: App.Layout.itemSpacingMedium,
-                                  right: 0)
-        button.view?.textStackView?.stackView?.layoutMargins = insets
-        button.view?.textStackView?.stackView?.isLayoutMarginsRelativeArrangement = true
         button.view?.titleLabel?.font = App.Font.body
         button.view?.dividerView?.isHidden = false
+        button.snp.makeConstraints { (make) in
+            make.height.greaterThanOrEqualTo(40)
+        }
     }
 
 }

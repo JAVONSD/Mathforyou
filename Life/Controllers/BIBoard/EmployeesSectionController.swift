@@ -68,6 +68,40 @@ class EmployeesSectionController: ASCollectionSectionController {
 }
 
 extension EmployeesSectionController: ASSectionController {
+    private func dashboardCell(_ viewModel: EmployeesViewModel) -> () -> ASCellNode {
+        return {
+            let corners = viewModel.minimized
+                ? UIRectCorner.allCorners
+                : [UIRectCorner.topLeft, UIRectCorner.topRight]
+            let config = DashboardCell.Config(
+                image: "",
+                title: NSLocalizedString("employees", comment: ""),
+                itemColor: .black,
+                item1Count: 18,
+                item1Title: "new",
+                item2Count: 20,
+                item2Title: "new",
+                item3Count: 3,
+                item3Title: "new",
+                showAddButton: true,
+                corners: corners,
+                minimized: viewModel.minimized,
+                didTapAddButton: {
+                    print("Did tap button in suggestion section  ...")
+            })
+
+            let cell = DashboardCell(config: config)
+            cell.didTapToggle = { [weak self] in
+                print("Toggle tapped ...")
+                self?.toggle()
+            }
+            cell.didTapAdd = {
+                print("Add pressed ...")
+            }
+            return cell
+        }
+    }
+
     func nodeBlockForItem(at index: Int) -> ASCellNodeBlock {
         guard index < items.count,
             let viewModel = self.viewModel else {
@@ -102,37 +136,7 @@ extension EmployeesSectionController: ASSectionController {
             }
         }
 
-        return {
-            let corners = viewModel.minimized
-                ? UIRectCorner.allCorners
-                : [UIRectCorner.topLeft, UIRectCorner.topRight]
-            let config = DashboardCell.Config(
-                image: "",
-                title: NSLocalizedString("employees", comment: ""),
-                itemColor: .black,
-                item1Count: 18,
-                item1Title: "new",
-                item2Count: 20,
-                item2Title: "new",
-                item3Count: 3,
-                item3Title: "new",
-                showAddButton: true,
-                corners: corners,
-                minimized: viewModel.minimized,
-                didTapAddButton: {
-                    print("Did tap button in suggestion section  ...")
-            })
-
-            let cell = DashboardCell(config: config)
-            cell.didTapToggle = { [weak self] in
-                print("Toggle tapped ...")
-                self?.toggle()
-            }
-            cell.didTapAdd = {
-                print("Add pressed ...")
-            }
-            return cell
-        }
+        return dashboardCell(viewModel)
     }
 
     func beginBatchFetch(with context: ASBatchContext) {

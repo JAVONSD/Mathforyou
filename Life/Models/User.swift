@@ -14,7 +14,9 @@ struct User: Codable {
     var login: String
     var employeeCode: String
 
+    //swiftlint:disable redundant_optional_initialization
     var profile: UserProfile? = nil
+    //swiftlint:enable redundant_optional_initialization
 
     init(token: String?, login: String, employeeCode: String) {
         self.token = token

@@ -54,11 +54,13 @@ extension BIBoardHeaderSectionController: ASSectionController {
 
         return {
             let slides = viewModel.news.map {
+                //swiftlint:disable line_length
                 return SliderViewModel(
                     title: $0.news.title,
                     label: NSLocalizedString("news", comment: "").uppercased(),
                     image: "https://images.pexels.com/photos/60006/spring-tree-flowers-meadow-60006.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb"
                 )
+                //swiftlint:enable line_length
             }
             return BoardSliderCell(slides: slides, height: 200)
         }

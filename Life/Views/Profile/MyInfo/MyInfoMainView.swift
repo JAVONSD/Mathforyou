@@ -32,12 +32,12 @@ class MyInfoMainView: StackedView {
 
         guard let stackView = stackView, let infoView = infoView else { return }
 
-        infoView.textStackView?.stackView?.layoutMargins = UIEdgeInsets(top: App.Layout.itemSpacingSmall,
+        infoView.textStackView?.insets = UIEdgeInsets(top: App.Layout.itemSpacingSmall,
                                                                         left: 0,
                                                                         bottom: App.Layout.itemSpacingSmall,
                                                                         right: 0)
-        infoView.textStackView?.stackView?.isLayoutMarginsRelativeArrangement = true
         infoView.textStackView?.stackView?.spacing = App.Layout.itemSpacingMedium
+        infoView.textStackView?.stackView?.distribution = .equalCentering
 
         stackView.addArrangedSubview(infoView)
     }

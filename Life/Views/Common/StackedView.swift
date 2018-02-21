@@ -13,6 +13,20 @@ class StackedView: UIView {
 
     private(set) var stackView: UIStackView?
 
+    var insets: UIEdgeInsets = .zero {
+        didSet {
+            guard let stackView = stackView else { return }
+
+            stackView.snp.remakeConstraints { [weak self] (make) in
+                guard let `self` = self else { return }
+                make.top.equalTo(self).inset(insets.top)
+                make.left.equalTo(self).inset(insets.left)
+                make.bottom.equalTo(self).inset(insets.bottom)
+                make.right.equalTo(self).inset(insets.right)
+            }
+        }
+    }
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
 
@@ -33,11 +47,16 @@ class StackedView: UIView {
         stackView.alignment = .fill
         stackView.distribution = .fill
         stackView.axis = .vertical
+        stackView.setContentCompressionResistancePriority(.required, for: .vertical)
+        stackView.setContentHuggingPriority(.defaultLow, for: .vertical)
         addSubview(stackView)
         stackView.snp.makeConstraints { [weak self] (make) in
             guard let `self` = self else { return }
             make.edges.equalTo(self)
         }
+
+        setContentCompressionResistancePriority(.required, for: .vertical)
+        setContentHuggingPriority(.defaultLow, for: .vertical)
 
         setAllConstraintsPriority(to: UILayoutPriority(rawValue: 999))
     }

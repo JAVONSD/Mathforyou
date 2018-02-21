@@ -43,13 +43,12 @@ class MenuView: UIView {
         )
         headerButton?.view?.imageSize = CGSize(width: 56, height: 56)
         headerButton?.view?.imageView?.backgroundColor = UIColor(hexString: "#d8d8d8")
-        headerButton?.view?.stackView?.stackView?.layoutMargins = .init(
+        headerButton?.view?.stackView?.insets = .init(
             top: App.Layout.sideOffset,
             left: App.Layout.sideOffset,
             bottom: App.Layout.sideOffset,
             right: 0
         )
-        headerButton?.view?.stackView?.stackView?.isLayoutMarginsRelativeArrangement = true
         headerButton?.view?.stackView?.stackView?.spacing = App.Layout.itemSpacingMedium
         headerButton?.view?.textStackView?.stackView?.spacing = App.Layout.itemSpacingSmall / 2
         headerButton?.view?.titleLabel?.font = App.Font.headline

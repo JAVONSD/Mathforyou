@@ -93,6 +93,9 @@ class ImageTextView: UIView {
     // MARK: - UI
 
     private func setupUI() {
+        setContentCompressionResistancePriority(.required, for: .vertical)
+        setContentHuggingPriority(.defaultLow, for: .vertical)
+
         setupStackView()
         setupImageView()
         setupTextStackView()
@@ -133,14 +136,14 @@ class ImageTextView: UIView {
     }
 
     private func setupTextStackView() {
-        textStackView = StackedView()
+        textStackView = StackedView(frame: .zero)
 
         guard let stackView = stackView,
             let textStackView = textStackView else {
             return
         }
 
-        textStackView.stackView?.distribution = .fill
+        textStackView.stackView?.distribution = .fillProportionally
         stackView.stackView?.addArrangedSubview(textStackView)
 
         setupLabels()

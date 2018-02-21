@@ -14,6 +14,7 @@ import SnapKit
 class ImageTextTableViewCell: TableViewCell {
 
     private(set) var view: ImageTextView?
+    private var heightConstraint: NSLayoutConstraint?
 
     override func prepare() {
         super.prepare()
@@ -77,8 +78,7 @@ class ImageTextTableViewCell: TableViewCell {
     }
 
     public func set(insets: UIEdgeInsets) {
-        view?.stackView?.stackView?.layoutMargins = insets
-        view?.stackView?.stackView?.isLayoutMarginsRelativeArrangement = true
+        view?.stackView?.insets = insets
     }
 
     public func setDivider(leftInset: CGFloat) {
@@ -87,6 +87,31 @@ class ImageTextTableViewCell: TableViewCell {
 
     public func setDivider(rightInset: CGFloat) {
         view?.dividerRightOffset = rightInset
+    }
+
+    var minimumHeight: CGFloat = 0 {
+        didSet {
+            if let constraint = heightConstraint {
+                constraint.constant = minimumHeight
+                layoutIfNeeded()
+                return
+            }
+            heightConstraint = contentView.getHeightConstraint()
+            if let constraint = heightConstraint {
+                constraint.constant = minimumHeight
+                layoutIfNeeded()
+            } else {
+                heightConstraint = NSLayoutConstraint(
+                    item: contentView,
+                    attribute: .height,
+                    relatedBy: .equal,
+                    toItem: nil,
+                    attribute: .notAnAttribute,
+                    multiplier: 1.0,
+                    constant: minimumHeight)
+                heightConstraint?.isActive = true
+            }
+        }
     }
 
     // MARK: - UI

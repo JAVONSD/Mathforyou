@@ -31,9 +31,9 @@ class EmployeesViewController: UIViewController, ViewModelBased, Stepper {
                     return EmployeeCell(style: .default, reuseIdentifier: cellId)
                 }
 
-//                cell.set(imageURL: element.a)
                 cell.set(title: element.employee.fullname)
                 cell.set(subtitle: element.employee.jobPosition)
+                cell.minimumHeight = 72
 
                 let itemsCount = tv.numberOfRows(inSection: indexPath.section)
                 if indexPath.row == itemsCount - 1 {
@@ -44,16 +44,12 @@ class EmployeesViewController: UIViewController, ViewModelBased, Stepper {
 
                 return cell
         },
-            viewForHeaderInSection: { (tv, _, _) in
-                let headerId = App.CellIdentifier.employeeHeaderViewId
-                let someHeader = tv.dequeueReusableHeaderFooterView(withIdentifier: headerId) as? HeaderView
-                guard let header = someHeader else {
-                    return HeaderView(reuseIdentifier: headerId)
-                }
+            viewForHeaderInSection: { (_, _, _) in
+                let someHeader = HeaderView(frame: .zero)
                 let title = NSLocalizedString("employees", comment: "")
-                someHeader?.titleLabel?.font = App.Font.headline
-                someHeader?.titleLabel?.text = title
-                someHeader?.set(insets: .init(
+                someHeader.titleLabel?.font = App.Font.headline
+                someHeader.titleLabel?.text = title
+                someHeader.set(insets: .init(
                     top: 0,
                     left: App.Layout.sideOffset,
                     bottom: App.Layout.itemSpacingSmall,

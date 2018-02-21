@@ -113,51 +113,75 @@ extension BIOfficeViewController: ListAdapterDataSource {
         ]
     }
 
+    private func eventsSection(_ viewModel: EventsViewModel) -> ListSectionController {
+        let section = EventsSectionController(viewModel: viewModel)
+        section.onUnathorizedError = { [weak self] in
+            guard let `self` = self else { return }
+            self.onUnauthorized()
+        }
+        return section
+    }
+
+    private func tasksAndRequestsSection(
+        _ viewModel: TasksAndRequestsViewModel) -> ListSectionController {
+        let section = TasksAndRequestsSectionController(viewModel: viewModel)
+        section.onUnathorizedError = { [weak self] in
+            guard let `self` = self else { return }
+            self.onUnauthorized()
+        }
+        section.didTapOnTaskOrRequest = { index in
+            print("Openning task or request ...")
+        }
+        section.didTapOnTasksAndRequests = { [weak self] in
+            if let `self` = self,
+                let navigationController = self.navigationController as? AppToolbarController {
+                navigationController.step.accept(AppStep.tasksAndRequests)
+            }
+        }
+        return section
+    }
+
+    private func kpiSection(_ viewModel: KPIViewModel) -> ListSectionController {
+        let section = KPISectionController(viewModel: viewModel)
+        section.onUnathorizedError = { [weak self] in
+            guard let `self` = self else { return }
+            self.onUnauthorized()
+        }
+        return section
+    }
+
+    private func sbSection(_ viewModel: SBViewModel) -> ListSectionController {
+        let section = SBSectionController(viewModel: viewModel)
+        section.onUnathorizedError = { [weak self] in
+            guard let `self` = self else { return }
+            self.onUnauthorized()
+        }
+        return section
+    }
+
+    private func idpSection(_ viewModel: IDPViewModel) -> ListSectionController {
+        let section = IDPSectionController(viewModel: viewModel)
+        section.onUnathorizedError = { [weak self] in
+            guard let `self` = self else { return }
+            self.onUnauthorized()
+        }
+        return section
+    }
+
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
-        if let viewModel = object as? EventsViewModel {
-            let section = EventsSectionController(viewModel: viewModel)
-            section.onUnathorizedError = { [weak self] in
-                guard let `self` = self else { return }
-                self.onUnauthorized()
-            }
-            return section
-        } else if let viewModel = object as? TasksAndRequestsViewModel {
-            let section = TasksAndRequestsSectionController(viewModel: viewModel)
-            section.onUnathorizedError = { [weak self] in
-                guard let `self` = self else { return }
-                self.onUnauthorized()
-            }
-            section.didTapOnTaskOrRequest = { index in
-                print("Openning task or request ...")
-            }
-            section.didTapOnTasksAndRequests = { [weak self] in
-                if let `self` = self,
-                    let navigationController = self.navigationController as? AppToolbarController {
-                    navigationController.step.accept(AppStep.tasksAndRequests)
-                }
-            }
-            return section
-        } else if let viewModel = object as? KPIViewModel {
-            let section = KPISectionController(viewModel: viewModel)
-            section.onUnathorizedError = { [weak self] in
-                guard let `self` = self else { return }
-                self.onUnauthorized()
-            }
-            return section
-        } else if let viewModel = object as? SBViewModel {
-            let section = SBSectionController(viewModel: viewModel)
-            section.onUnathorizedError = { [weak self] in
-                guard let `self` = self else { return }
-                self.onUnauthorized()
-            }
-            return section
-        } else if let viewModel = object as? IDPViewModel {
-            let section = IDPSectionController(viewModel: viewModel)
-            section.onUnathorizedError = { [weak self] in
-                guard let `self` = self else { return }
-                self.onUnauthorized()
-            }
-            return section
+        switch object {
+        case let viewModel as EventsViewModel:
+            return eventsSection(viewModel)
+        case let viewModel as TasksAndRequestsViewModel:
+            return tasksAndRequestsSection(viewModel)
+        case let viewModel as KPIViewModel:
+            return kpiSection(viewModel)
+        case let viewModel as SBViewModel:
+            return sbSection(viewModel)
+        case let viewModel as IDPViewModel:
+            return idpSection(viewModel)
+        default:
+            break
         }
 
         return ListSectionController()

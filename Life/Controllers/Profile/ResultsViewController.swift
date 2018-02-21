@@ -66,14 +66,10 @@ class ResultsViewController: UIViewController {
 
             return cell
         },
-        viewForHeaderInSection: { (tv, _, element) in
-            let headerId = App.CellIdentifier.resultsHeaderViewId
-            let someHeader = tv.dequeueReusableHeaderFooterView(withIdentifier: headerId) as? HeaderView
-            guard let header = someHeader else {
-                return HeaderView(reuseIdentifier: headerId)
-            }
+        viewForHeaderInSection: { (_, _, element) in
+            let someHeader = HeaderView(frame: .zero)
             let title = element.model.title
-            someHeader?.titleLabel?.text = title
+            someHeader.titleLabel?.text = title
             return someHeader
         }
     )

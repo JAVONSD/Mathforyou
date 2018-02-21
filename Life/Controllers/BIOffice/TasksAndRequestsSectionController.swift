@@ -79,6 +79,64 @@ class TasksAndRequestsSectionController: ASCollectionSectionController {
 }
 
 extension TasksAndRequestsSectionController: ASSectionController {
+    private func taskCell(
+        _ index: Int,
+        _ viewModel: TasksAndRequestsViewModel,
+        _ task: TaskViewModel) -> () -> ASCellNode {
+        return {
+            let separatorInset = index == 1
+                ? ItemCell.SeparatorInset(
+                    left: App.Layout.itemSpacingMedium,
+                    right: 0)
+                : ItemCell.SeparatorInset(
+                    left: App.Layout.itemSpacingMedium,
+                    right: App.Layout.itemSpacingMedium)
+            let bottomInset: CGFloat = index == viewModel.items.count
+                ? App.Layout.itemSpacingMedium
+                : App.Layout.itemSpacingSmall
+            let corners: UIRectCorner = index == viewModel.items.count
+                ? [UIRectCorner.bottomLeft, UIRectCorner.bottomRight]
+                : []
+            return ItemCell(
+                title: task.task.topic,
+                subtitle: "Secondary",
+                separatorLeftRightInset: separatorInset,
+                bottomInset: bottomInset,
+                separatorHidden: false,
+                corners: corners
+            )
+        }
+    }
+
+    private func requestCell(
+        _ index: Int,
+        _ viewModel: TasksAndRequestsViewModel,
+        _ request: RequestViewModel) -> () -> ASCellNode {
+        return {
+            let separatorInset = index == 1
+                ? ItemCell.SeparatorInset(
+                    left: App.Layout.itemSpacingMedium,
+                    right: 0)
+                : ItemCell.SeparatorInset(
+                    left: App.Layout.itemSpacingMedium,
+                    right: App.Layout.itemSpacingMedium)
+            let bottomInset: CGFloat = index == viewModel.items.count
+                ? App.Layout.itemSpacingMedium
+                : App.Layout.itemSpacingSmall
+            let corners: UIRectCorner = index == viewModel.items.count
+                ? [UIRectCorner.bottomLeft, UIRectCorner.bottomRight]
+                : []
+            return ItemCell(
+                title: request.request.topic,
+                subtitle: "Secondary",
+                separatorLeftRightInset: separatorInset,
+                bottomInset: bottomInset,
+                separatorHidden: false,
+                corners: corners
+            )
+        }
+    }
+
     func nodeBlockForItem(at index: Int) -> ASCellNodeBlock {
         guard index < items.count,
             let viewModel = self.viewModel else {
@@ -88,53 +146,9 @@ extension TasksAndRequestsSectionController: ASSectionController {
         }
 
         if let task = items[index] as? TaskViewModel {
-            return {
-                let separatorInset = index == 1
-                    ? ItemCell.SeparatorInset(
-                        left: App.Layout.itemSpacingMedium,
-                        right: 0)
-                    : ItemCell.SeparatorInset(
-                        left: App.Layout.itemSpacingMedium,
-                        right: App.Layout.itemSpacingMedium)
-                let bottomInset: CGFloat = index == viewModel.items.count
-                    ? App.Layout.itemSpacingMedium
-                    : App.Layout.itemSpacingSmall
-                let corners: UIRectCorner = index == viewModel.items.count
-                    ? [UIRectCorner.bottomLeft, UIRectCorner.bottomRight]
-                    : []
-                return ItemCell(
-                    title: task.task.topic,
-                    subtitle: "Secondary",
-                    separatorLeftRightInset: separatorInset,
-                    bottomInset: bottomInset,
-                    separatorHidden: false,
-                    corners: corners
-                )
-            }
+            return taskCell(index, viewModel, task)
         } else if let request = items[index] as? RequestViewModel {
-            return {
-                let separatorInset = index == 1
-                    ? ItemCell.SeparatorInset(
-                        left: App.Layout.itemSpacingMedium,
-                        right: 0)
-                    : ItemCell.SeparatorInset(
-                        left: App.Layout.itemSpacingMedium,
-                        right: App.Layout.itemSpacingMedium)
-                let bottomInset: CGFloat = index == viewModel.items.count
-                    ? App.Layout.itemSpacingMedium
-                    : App.Layout.itemSpacingSmall
-                let corners: UIRectCorner = index == viewModel.items.count
-                    ? [UIRectCorner.bottomLeft, UIRectCorner.bottomRight]
-                    : []
-                return ItemCell(
-                    title: request.request.topic,
-                    subtitle: "Secondary",
-                    separatorLeftRightInset: separatorInset,
-                    bottomInset: bottomInset,
-                    separatorHidden: false,
-                    corners: corners
-                )
-            }
+            return requestCell(index, viewModel, request)
         }
 
         return {

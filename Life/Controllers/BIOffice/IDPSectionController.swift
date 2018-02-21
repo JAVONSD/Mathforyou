@@ -76,7 +76,7 @@ extension IDPSectionController: ASSectionController {
                 }
         }
 
-        if let _ = items[index] as? IDPViewModel {
+        if (items[index] as? IDPViewModel) != nil {
             return {
                 let separatorInset = index == 1
                     ? ItemCell.SeparatorInset(

@@ -39,11 +39,10 @@ class MyInfoView: UIView {
     private func setupStackView() {
         scrollView = StackedScrollView(direction: .vertical)
         scrollView?.stackView?.spacing = App.Layout.sideOffset
-        scrollView?.stackView?.layoutMargins = UIEdgeInsets(top: App.Layout.sideOffset,
+        scrollView?.insets = UIEdgeInsets(top: App.Layout.sideOffset,
                                                 left: App.Layout.sideOffset,
                                                 bottom: App.Layout.sideOffset,
                                                 right: App.Layout.sideOffset)
-        scrollView?.stackView?.isLayoutMarginsRelativeArrangement = true
 
         guard let scrollView = scrollView else { return }
 

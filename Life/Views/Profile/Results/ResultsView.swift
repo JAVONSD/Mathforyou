@@ -68,10 +68,6 @@ class ResultsView: UIView {
             ImageTextTableViewCell.self,
             forCellReuseIdentifier: App.CellIdentifier.attestationResultsCellId
         )
-        tableView.register(
-            HeaderView.self,
-            forHeaderFooterViewReuseIdentifier: App.CellIdentifier.resultsHeaderViewId
-        )
     }
 
 }

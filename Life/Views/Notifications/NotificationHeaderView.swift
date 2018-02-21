@@ -32,8 +32,7 @@ class NotificationHeaderView: ImageTextView {
             left: App.Layout.sideOffset,
             bottom: 0,
             right: App.Layout.sideOffset)
-        stackView?.stackView?.layoutMargins = insets
-        stackView?.stackView?.isLayoutMarginsRelativeArrangement = true
+        stackView?.insets = insets
 
         dividerView?.isHidden = false
         dividerLeftOffset = App.Layout.sideOffset

@@ -9,12 +9,12 @@
 import UIKit
 import SnapKit
 
-class HeaderView: UITableViewHeaderFooterView {
+class HeaderView: UIView {
 
     private(set) var titleLabel: UILabel?
 
-    override init(reuseIdentifier: String?) {
-        super.init(reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
         setupUI()
     }
@@ -30,10 +30,10 @@ class HeaderView: UITableViewHeaderFooterView {
 
         titleLabel.snp.remakeConstraints { [weak self] (make) in
             guard let `self` = self else { return }
-            make.top.equalTo(self.contentView).inset(insets.top)
-            make.left.equalTo(self.contentView).inset(insets.left)
-            make.bottom.equalTo(self.contentView).inset(insets.bottom)
-            make.right.equalTo(self.contentView).inset(insets.right)
+            make.top.equalTo(self).inset(insets.top)
+            make.left.equalTo(self).inset(insets.left)
+            make.bottom.equalTo(self).inset(insets.bottom)
+            make.right.equalTo(self).inset(insets.right)
         }
     }
 
@@ -41,11 +41,6 @@ class HeaderView: UITableViewHeaderFooterView {
 
     private func setupUI() {
         backgroundColor = .clear
-        contentView.backgroundColor = .clear
-        backgroundView?.backgroundColor = .clear
-        textLabel?.backgroundColor = .clear
-        detailTextLabel?.backgroundColor = .clear
-        backgroundView = nil
 
         titleLabel = UILabel()
         titleLabel?.font = App.Font.subheadAlts
@@ -53,13 +48,13 @@ class HeaderView: UITableViewHeaderFooterView {
 
         guard let titleLabel = titleLabel else { return }
 
-        contentView.addSubview(titleLabel)
+        addSubview(titleLabel)
         titleLabel.snp.makeConstraints { [weak self] (make) in
             guard let `self` = self else { return }
-            make.top.equalTo(self.contentView).inset(App.Layout.itemSpacingSmall)
-            make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
-            make.bottom.equalTo(self.contentView)
-            make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            make.top.equalTo(self).inset(App.Layout.itemSpacingSmall)
+            make.left.equalTo(self).inset(App.Layout.sideOffset)
+            make.bottom.equalTo(self)
+            make.right.equalTo(self).inset(App.Layout.sideOffset)
         }
     }
 
