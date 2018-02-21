@@ -38,7 +38,7 @@ enum AppStep: Step {
 
     case tasksAndRequests
     case tasksAndRequestsDone
-    case createReqeust
+    case createRequest
 
     // MARK: - News
 
@@ -60,6 +60,7 @@ enum AppStep: Step {
     // MARK: - Employees
 
     case employeePicked(withId: String)
+    case employeeDone
 
     // MARK: - Notifications
 

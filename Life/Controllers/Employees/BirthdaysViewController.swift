@@ -12,11 +12,12 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class BirthdaysViewController: UIViewController, ViewModelBased, Stepper {
+class BirthdaysViewController: UIViewController, ViewModelBased {
 
     typealias ViewModelType = BirthdaysViewModel
 
     var viewModel: BirthdaysViewModel!
+    var didSelectBirthdate: ((String) -> Void)?
 
     private var employeesView: EmployeesView!
 
@@ -63,10 +64,6 @@ class BirthdaysViewController: UIViewController, ViewModelBased, Stepper {
         super.viewDidLoad()
 
         setupUI()
-
-        // For debug
-        viewModel = BirthdaysViewModel.sample()
-
         bind()
     }
 
@@ -90,7 +87,9 @@ class BirthdaysViewController: UIViewController, ViewModelBased, Stepper {
                 return (indexPath, dataSource[indexPath])
             }
             .subscribe(onNext: { pair in
-                print("Tapped `\(pair.1)` @ \(pair.0)")
+                if let didSelectBirthdate = self.didSelectBirthdate {
+                    didSelectBirthdate(pair.1.employee.code)
+                }
             })
             .disposed(by: disposeBag)
 

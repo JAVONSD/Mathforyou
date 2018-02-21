@@ -23,6 +23,10 @@
 		C717C677203D135F0070447D /* TasksAndRequetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C717C676203D135F0070447D /* TasksAndRequetsView.swift */; };
 		C717C67B203D2A9A0070447D /* TasksAndRequestsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C717C67A203D2A9A0070447D /* TasksAndRequestsCell.swift */; };
 		C717C67D203D4B1F0070447D /* TasksAndRequestsFABController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C717C67C203D4B1F0070447D /* TasksAndRequestsFABController.swift */; };
+		C717C67F203D89010070447D /* EmployeeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C717C67E203D89010070447D /* EmployeeView.swift */; };
+		C717C681203D892C0070447D /* EmployeeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C717C680203D892C0070447D /* EmployeeHeaderView.swift */; };
+		C717C683203D92D10070447D /* ImageDownloader+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C717C682203D92D10070447D /* ImageDownloader+Extensions.swift */; };
+		C717C685203D94000070447D /* EmployeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C717C684203D94000070447D /* EmployeeViewController.swift */; };
 		C720EC7020368CBA007E4CD4 /* StuffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720EC6F20368CBA007E4CD4 /* StuffViewController.swift */; };
 		C720EC7220368E64007E4CD4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720EC7120368E64007E4CD4 /* SearchView.swift */; };
 		C720EC7620369EA8007E4CD4 /* EmployeeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720EC7520369EA8007E4CD4 /* EmployeeDetailView.swift */; };
@@ -293,6 +297,10 @@
 		C717C676203D135F0070447D /* TasksAndRequetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksAndRequetsView.swift; sourceTree = "<group>"; };
 		C717C67A203D2A9A0070447D /* TasksAndRequestsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksAndRequestsCell.swift; sourceTree = "<group>"; };
 		C717C67C203D4B1F0070447D /* TasksAndRequestsFABController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksAndRequestsFABController.swift; sourceTree = "<group>"; };
+		C717C67E203D89010070447D /* EmployeeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeView.swift; sourceTree = "<group>"; };
+		C717C680203D892C0070447D /* EmployeeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeHeaderView.swift; sourceTree = "<group>"; };
+		C717C682203D92D10070447D /* ImageDownloader+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageDownloader+Extensions.swift"; sourceTree = "<group>"; };
+		C717C684203D94000070447D /* EmployeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeViewController.swift; sourceTree = "<group>"; };
 		C720EC6F20368CBA007E4CD4 /* StuffViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StuffViewController.swift; sourceTree = "<group>"; };
 		C720EC7120368E64007E4CD4 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		C720EC7520369EA8007E4CD4 /* EmployeeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeDetailView.swift; sourceTree = "<group>"; };
@@ -815,6 +823,7 @@
 				C7D832B820356F9B00282891 /* Response+Extensions.swift */,
 				C7D832BA203576B400282891 /* Error+Extensions.swift */,
 				C7D832BC203596AA00282891 /* UIViewController+Extensions.swift */,
+				C717C682203D92D10070447D /* ImageDownloader+Extensions.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1367,6 +1376,7 @@
 				C7D6422C20346F4B001DCA98 /* EmployeesViewController.swift */,
 				C7D832C02035C48700282891 /* BirthdaysViewController.swift */,
 				C7D832C22035C49100282891 /* VacanciesViewController.swift */,
+				C717C684203D94000070447D /* EmployeeViewController.swift */,
 			);
 			path = Employees;
 			sourceTree = "<group>";
@@ -1462,6 +1472,8 @@
 				C7D832CD2035C53600282891 /* EmployeesView.swift */,
 				C720EC7520369EA8007E4CD4 /* EmployeeDetailView.swift */,
 				C720EC772036A0E0007E4CD4 /* EmployeeCell.swift */,
+				C717C67E203D89010070447D /* EmployeeView.swift */,
+				C717C680203D892C0070447D /* EmployeeHeaderView.swift */,
 			);
 			path = Employees;
 			sourceTree = "<group>";
@@ -1943,8 +1955,10 @@
 				C70ECFD3203AC56B00710DB5 /* SuggestionsSectionController.swift in Sources */,
 				C7D832BD203596AA00282891 /* UIViewController+Extensions.swift in Sources */,
 				C79251E0203145E200CDFBBA /* ProfileViewController.swift in Sources */,
+				C717C67F203D89010070447D /* EmployeeView.swift in Sources */,
 				C7D64219203463E0001DCA98 /* UIViewController+Rx.swift in Sources */,
 				C73EB2A42032F9B100429921 /* Optional+Extensions.swift in Sources */,
+				C717C681203D892C0070447D /* EmployeeHeaderView.swift in Sources */,
 				C7F7CB6D203C65AA007B9D1E /* SBViewModel.swift in Sources */,
 				C720EC7020368CBA007E4CD4 /* StuffViewController.swift in Sources */,
 				C7F7CB3F203AF21F007B9D1E /* Employee.swift in Sources */,
@@ -1955,6 +1969,7 @@
 				C76EFBEC20302F8C00FA2BB9 /* PolyMaskTextFieldDelegate.swift in Sources */,
 				C720EC782036A0E0007E4CD4 /* EmployeeCell.swift in Sources */,
 				C7D641F320344B22001DCA98 /* ViewModelBased.swift in Sources */,
+				C717C685203D94000070447D /* EmployeeViewController.swift in Sources */,
 				C7F7CB75203C75B4007B9D1E /* ImageNode.swift in Sources */,
 				C7D641F02034466B001DCA98 /* AppFlow.swift in Sources */,
 				C73EB28B2032F9B100429921 /* Array+Extensions.swift in Sources */,
@@ -2061,6 +2076,7 @@
 				C70ECFDD203ACC2400710DB5 /* Suggestion.swift in Sources */,
 				C7D6421C203463E0001DCA98 /* Rx+Pausable.swift in Sources */,
 				C7F7CB47203B1437007B9D1E /* NewsViewModel.swift in Sources */,
+				C717C683203D92D10070447D /* ImageDownloader+Extensions.swift in Sources */,
 				C717C675203D13450070447D /* TasksAndRequestsViewController.swift in Sources */,
 				C76EFBE320302F8C00FA2BB9 /* State.swift in Sources */,
 				C76EFBF020302F8C00FA2BB9 /* FormatSanitizer.swift in Sources */,

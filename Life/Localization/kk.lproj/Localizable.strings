@@ -73,10 +73,14 @@
 /* Employees */
 
 "employees" = "Сотрудники";
+"employee" = "Сотрудник";
 "all" = "Все";
 "birthdays" = "Дни рождения";
 "vacancies" = "Вакансии";
 "search" = "Поиск";
+"job_position" = "Должность";
+"login_name" = "Логин";
+"chief" = "Руководитель";
 
 /* Lenta */
 

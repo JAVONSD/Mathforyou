@@ -12,11 +12,12 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class VacanciesViewController: UIViewController, ViewModelBased, Stepper {
+class VacanciesViewController: UIViewController, ViewModelBased {
 
     typealias ViewModelType = VacanciesViewModel
 
     var viewModel: VacanciesViewModel!
+    var didSelectVacancy: ((String) -> Void)?
 
     private var employeesView: EmployeesView!
 
@@ -50,7 +51,7 @@ class VacanciesViewController: UIViewController, ViewModelBased, Stepper {
         },
             viewForHeaderInSection: { (_, _, _) in
                 let someHeader = HeaderView(frame: .zero)
-                let title = NSLocalizedString("employees", comment: "")
+                let title = NSLocalizedString("vacancies", comment: "")
                 someHeader.titleLabel?.font = App.Font.headline
                 someHeader.titleLabel?.text = title
                 someHeader.set(insets: .init(
@@ -66,10 +67,6 @@ class VacanciesViewController: UIViewController, ViewModelBased, Stepper {
         super.viewDidLoad()
 
         setupUI()
-
-        // For debug
-        viewModel = VacanciesViewModel.sample()
-
         bind()
     }
 
@@ -93,7 +90,9 @@ class VacanciesViewController: UIViewController, ViewModelBased, Stepper {
                 return (indexPath, dataSource[indexPath])
             }
             .subscribe(onNext: { pair in
-                print("Tapped `\(pair.1)` @ \(pair.0)")
+                if let didSelectVacancy = self.didSelectVacancy {
+                    didSelectVacancy(pair.1.vacancy.id)
+                }
             })
             .disposed(by: disposeBag)
 

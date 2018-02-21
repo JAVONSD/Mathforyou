@@ -13,6 +13,10 @@ class MainMenuFlow: Flow {
 
     private var tasksAndRequestsViewModel = TasksAndRequestsViewModel.sample()
 
+    private var employeesViewModel = EmployeesViewModel.sample()
+    private var birthdaysViewModel = BirthdaysViewModel.sample()
+    private var vacanciesViewModel = VacanciesViewModel.sample()
+
     var root: Presentable {
         return self.rootViewController
     }
@@ -25,6 +29,7 @@ class MainMenuFlow: Flow {
         self.rootViewController = AppToolbarController(rootViewController: self.tabBarController)
     }
 
+    //swiftlint:disable cyclomatic_complexity
     func navigate(to step: Step) -> NextFlowItems {
         guard let step = step as? AppStep else { return NextFlowItems.stepNotHandled }
 
@@ -43,10 +48,15 @@ class MainMenuFlow: Flow {
             return navigationToTasksAndRequests()
         case .tasksAndRequestsDone:
             return navigationFromTasksAndRequests()
+        case .employeePicked(let code):
+            return navigationToEmployee(code)
+        case .employeeDone:
+            return navigationFromEmployee()
         default:
             return NextFlowItems.stepNotHandled
         }
     }
+    //swiftlint:enable cyclomatic_complexity
 
     private func navigateToLoginScreen(isUnathorized: Bool = false) {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
@@ -82,7 +92,20 @@ class MainMenuFlow: Flow {
             self.navigateToLoginScreen(isUnathorized: true)
         }
 
-        let stuffVC = StuffViewController.configuredVC
+        let stuffVC = StuffViewController(
+            employeesViewModel: employeesViewModel,
+            birthdaysViewModel: birthdaysViewModel,
+            vacanciesViewModel: vacanciesViewModel
+        )
+        stuffVC.didSelectEmployee = { code in
+            self.rootViewController.step.accept(AppStep.employeePicked(withId: code))
+        }
+        stuffVC.didSelectBirthdate = { code in
+            self.rootViewController.step.accept(AppStep.employeePicked(withId: code))
+        }
+        stuffVC.didSelectVacancy = { code in
+
+        }
         stuffVC.onUnathorizedError = {
             self.navigateToLoginScreen(isUnathorized: true)
         }
@@ -145,6 +168,27 @@ class MainMenuFlow: Flow {
     }
 
     private func navigationFromTasksAndRequests() -> NextFlowItems {
+        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
+        return NextFlowItems.none
+    }
+
+    private func navigationToEmployee(_ code: String) -> NextFlowItems {
+        guard let viewModel = (employeesViewModel.employees.filter {
+            $0.employee.code == code }).first else {
+            return NextFlowItems.none
+        }
+        let notificationsViewController = EmployeeViewController.instantiate(
+            withViewModel: viewModel
+        )
+        self.rootViewController.present(notificationsViewController, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem:
+            NextFlowItem(
+                nextPresentable: notificationsViewController,
+                nextStepper: notificationsViewController)
+        )
+    }
+
+    private func navigationFromEmployee() -> NextFlowItems {
         self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
         return NextFlowItems.none
     }

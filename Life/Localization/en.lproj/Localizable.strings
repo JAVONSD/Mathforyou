@@ -73,10 +73,14 @@
 /* Employees */
 
 "employees" = "Employees";
+"employee" = "Employee";
 "all" = "All";
 "birthdays" = "Birthdays";
 "vacancies" = "Vacancies";
 "search" = "Search";
+"job_position" = "Position";
+"login_name" = "Login";
+"chief" = "Chief";
 
 /* Lenta */
 

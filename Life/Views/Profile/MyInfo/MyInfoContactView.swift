@@ -98,6 +98,7 @@ class MyInfoContactView: StackedView {
     private func setupOfficialPhoneButton() {
         officialPhoneButton = ImageTextButton(image: #imageLiteral(resourceName: "phone-inactive"),
                                               title: NSLocalizedString("official_phone", comment: ""))
+        officialPhoneButton?.view?.imageView?.tintColor = App.Color.coolGrey
 
         guard let stackView = stackView,
             let officialPhoneButton = officialPhoneButton else {

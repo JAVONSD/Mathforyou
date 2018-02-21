@@ -16,22 +16,24 @@ extension VacanciesViewModel: Mockable {
     typealias T = VacanciesViewModel
 
     static func sample() -> VacanciesViewModel {
-        var employeesViewModel = VacanciesViewModel()
+        var vacanciesViewModel = VacanciesViewModel()
 
-        let vacancy = VacancyViewModel(
-            vacancy: Vacancy(
-                jobPosition: "Начальник Коммерческого Отдела Дивизиона",
-                companyName: "Otau Development Group ТОО",
-                createDate: "2018-01-30T00:00:00",
-                departmentName: "Коммерческий отдел",
-                salary: "Не указана"
-            )
-        )
         for _ in 0..<5 {
-            employeesViewModel.vacancies.append(vacancy)
+            let json = [
+                "id": UUID().uuidString,
+                "jobPosition": "Начальник Коммерческого Отдела Дивизиона",
+                "companyName": "Otau Development Group ТОО",
+                "createDate": "2018-01-30T00:00:00",
+                "departmentName": "Коммерческий отдел",
+                "salary": "Не указана"
+            ]
+            if let vacancy = try? JSONDecoder().decode(Vacancy.self, from: json.toJSONData()) {
+                let vacancyViewModel = VacancyViewModel(vacancy: vacancy)
+                vacanciesViewModel.vacancies.append(vacancyViewModel)
+            }
         }
 
-        return employeesViewModel
+        return vacanciesViewModel
     }
 }
 

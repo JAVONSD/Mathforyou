@@ -46,7 +46,7 @@ extension EmployeesViewModel: Mockable {
     }
 }
 
-class EmployeeViewModel: NSObject, ListDiffable {
+class EmployeeViewModel: NSObject, ViewModel, ListDiffable {
     var employee: Employee
 
     init(employee: Employee) {

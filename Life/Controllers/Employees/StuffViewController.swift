@@ -13,7 +13,41 @@ class StuffViewController: TabsController {
 
     var onUnathorizedError: (() -> Void)?
 
+    var didSelectEmployee: ((String) -> Void)?
+    var didSelectBirthdate: ((String) -> Void)?
+    var didSelectVacancy: ((String) -> Void)?
+
     private var previousShadowHidden = false
+
+    init(employeesViewModel: EmployeesViewModel,
+         birthdaysViewModel: BirthdaysViewModel,
+         vacanciesViewModel: VacanciesViewModel) {
+        let vc1 = EmployeesViewController.instantiate(withViewModel: employeesViewModel)
+        let vc2 = BirthdaysViewController.instantiate(withViewModel: birthdaysViewModel)
+        let vc3 = VacanciesViewController.instantiate(withViewModel: vacanciesViewModel)
+
+        super.init(viewControllers: [vc1, vc2, vc3], selectedIndex: 0)
+
+        vc1.didSelectEmployee = { code in
+            if let didSelectEmployee = self.didSelectEmployee {
+                didSelectEmployee(code)
+            }
+        }
+        vc2.didSelectBirthdate = { code in
+            if let didSelectBirthdate = self.didSelectBirthdate {
+                didSelectBirthdate(code)
+            }
+        }
+        vc3.didSelectVacancy = { code in
+            if let didSelectVacancy = self.didSelectVacancy {
+                didSelectVacancy(code)
+            }
+        }
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -58,17 +92,6 @@ class StuffViewController: TabsController {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
-    }
-
-    // MARK: - Methods
-
-    public static var configuredVC: StuffViewController {
-        let vsc = [
-            EmployeesViewController.instantiate(withViewModel: EmployeesViewModel()),
-            BirthdaysViewController.instantiate(withViewModel: BirthdaysViewModel()),
-            VacanciesViewController.instantiate(withViewModel: VacanciesViewModel())
-        ]
-        return StuffViewController(viewControllers: vsc)
     }
 
 }
