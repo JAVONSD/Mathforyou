@@ -10,8 +10,28 @@ import Foundation
 import IGListKit
 
 class TopQuestionsViewModel: NSObject, ViewModel, ListDiffable {
-    var questions = [TopQuestionItemViewModel]()
+    var questions = QuestionsViewModel()
+    var answers = AnswersViewModel()
     var minimized = true
+
+    var topAnswerAuthors: [AnswerAuthorViewModel] {
+        let answersSortedByLikes = answers.answers.sorted { (ans1, ans2) -> Bool in
+            return ans1.answer.likesQuantity > ans2.answer.likesQuantity
+        }
+
+        return answersSortedByLikes.map({ (answerViewModel) in
+            var data = [String: Any]()
+            data["code"] = answerViewModel.answer.authorCode
+            data["name"] = answerViewModel.answer.authorName
+            data["jobPosition"] = answerViewModel.answer.jobPosition
+            data["answersQuantity"] = answerViewModel.answer.answersQuantity
+            data["likesQuantity"] = answerViewModel.answer.likesQuantity
+            data["viewsQuantity"] = answerViewModel.answer.viewsQuantity
+            data["isLikedByMe"] = answerViewModel.answer.isLikedByMe
+            let author = try? JSONDecoder().decode(AnswerAuthor.self, from: data.toJSONData())
+            return AnswerAuthorViewModel(author: author!)
+        })
+    }
 
     func diffIdentifier() -> NSObjectProtocol {
         return self
@@ -29,36 +49,11 @@ extension TopQuestionsViewModel: Mockable {
     typealias T = TopQuestionsViewModel
 
     static func sample() -> TopQuestionsViewModel {
-        let menuViewModel = TopQuestionsViewModel()
+        let sample = TopQuestionsViewModel()
 
-        for _ in 0..<10 {
-            let json = [
-                "questionText": "What is your name?"
-            ]
-            if let item = try? JSONDecoder().decode(Question.self, from: json.toJSONData()) {
-                menuViewModel.questions.append(TopQuestionItemViewModel(question: item))
-            }
-        }
+        sample.questions = QuestionsViewModel.sample()
+        sample.answers = AnswersViewModel.sample()
 
-        return menuViewModel
-    }
-}
-
-class TopQuestionItemViewModel: NSObject, ViewModel, ListDiffable {
-    var question: Question
-
-    init(question: Question) {
-        self.question = question
-    }
-
-    func diffIdentifier() -> NSObjectProtocol {
-        return self
-    }
-
-    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        if let object = object as? TopQuestionsViewModel {
-            return self == object
-        }
-        return false
+        return sample
     }
 }

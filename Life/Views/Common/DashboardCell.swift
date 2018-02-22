@@ -261,22 +261,8 @@ class DashboardCell: ASCellNode {
     override func didLoad() {
         super.didLoad()
 
-        let modifier = AnyModifier { request in
-            var r = request
-            let token = User.current.token ?? ""
-            r.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-            return r
-        }
-
-        if let url = URL(string: config.image) {
-            ImageDownloader
-                .default
-                .downloadImage(
-                    with: url,
-                    options: [.requestModifier(modifier)],
-                    progressBlock: nil) { (image, _, _, _) in
-                        self.imageNode.image = image
-            }
+        ImageDownloader.download(image: config.image) { (image) in
+            self.imageNode.image = image
         }
 
         toggleNode.view.tintColor = App.Color.slateGrey

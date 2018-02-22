@@ -148,6 +148,17 @@
 		C792635B2038417B00067371 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C792635A2038417B00067371 /* MenuView.swift */; };
 		C7B5FA0420305691003F3D2C /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B5FA0320305691003F3D2C /* ForgotPasswordView.swift */; };
 		C7B5FA0620305D11003F3D2C /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B5FA0520305D11003F3D2C /* ForgotPasswordViewController.swift */; };
+		C7BB5C36203E64E90056BBF9 /* AnswersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C35203E64E90056BBF9 /* AnswersViewModel.swift */; };
+		C7BB5C38203E672F0056BBF9 /* QuestionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C37203E672F0056BBF9 /* QuestionsViewModel.swift */; };
+		C7BB5C3A203E6CEB0056BBF9 /* TopAuthorsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C39203E6CEB0056BBF9 /* TopAuthorsCell.swift */; };
+		C7BB5C3C203E6D160056BBF9 /* TopAnswersCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C3B203E6D150056BBF9 /* TopAnswersCell.swift */; };
+		C7BB5C3E203E6DD80056BBF9 /* QuestionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C3D203E6DD80056BBF9 /* QuestionCell.swift */; };
+		C7BB5C40203E6DE00056BBF9 /* AnswerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C3F203E6DE00056BBF9 /* AnswerCell.swift */; };
+		C7BB5C42203E6E0C0056BBF9 /* TopQuestionsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C41203E6E0C0056BBF9 /* TopQuestionsHeader.swift */; };
+		C7BB5C45203E85DF0056BBF9 /* TopQuestionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C44203E85DF0056BBF9 /* TopQuestionsViewController.swift */; };
+		C7BB5C47203E85EE0056BBF9 /* AuthorsSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C46203E85EE0056BBF9 /* AuthorsSectionController.swift */; };
+		C7BB5C49203E86020056BBF9 /* AnswersSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C48203E86020056BBF9 /* AnswersSectionController.swift */; };
+		C7BB5C4B203E860F0056BBF9 /* QuestionSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C4A203E860F0056BBF9 /* QuestionSectionController.swift */; };
 		C7D6419C20340750001DCA98 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419B20340750001DCA98 /* AuthService.swift */; };
 		C7D6419E20340777001DCA98 /* EmployeesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419D20340777001DCA98 /* EmployeesService.swift */; };
 		C7D641A020340789001DCA98 /* EventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419F20340789001DCA98 /* EventsService.swift */; };
@@ -436,6 +447,17 @@
 		C792635A2038417B00067371 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		C7B5FA0320305691003F3D2C /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		C7B5FA0520305D11003F3D2C /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
+		C7BB5C35203E64E90056BBF9 /* AnswersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswersViewModel.swift; sourceTree = "<group>"; };
+		C7BB5C37203E672F0056BBF9 /* QuestionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsViewModel.swift; sourceTree = "<group>"; };
+		C7BB5C39203E6CEB0056BBF9 /* TopAuthorsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAuthorsCell.swift; sourceTree = "<group>"; };
+		C7BB5C3B203E6D150056BBF9 /* TopAnswersCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAnswersCell.swift; sourceTree = "<group>"; };
+		C7BB5C3D203E6DD80056BBF9 /* QuestionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionCell.swift; sourceTree = "<group>"; };
+		C7BB5C3F203E6DE00056BBF9 /* AnswerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerCell.swift; sourceTree = "<group>"; };
+		C7BB5C41203E6E0C0056BBF9 /* TopQuestionsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopQuestionsHeader.swift; sourceTree = "<group>"; };
+		C7BB5C44203E85DF0056BBF9 /* TopQuestionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopQuestionsViewController.swift; sourceTree = "<group>"; };
+		C7BB5C46203E85EE0056BBF9 /* AuthorsSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorsSectionController.swift; sourceTree = "<group>"; };
+		C7BB5C48203E86020056BBF9 /* AnswersSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswersSectionController.swift; sourceTree = "<group>"; };
+		C7BB5C4A203E860F0056BBF9 /* QuestionSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionSectionController.swift; sourceTree = "<group>"; };
 		C7D6419B20340750001DCA98 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		C7D6419D20340777001DCA98 /* EmployeesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesService.swift; sourceTree = "<group>"; };
 		C7D6419F20340789001DCA98 /* EventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsService.swift; sourceTree = "<group>"; };
@@ -1146,6 +1168,17 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		C7BB5C43203E85D30056BBF9 /* TopQuestions */ = {
+			isa = PBXGroup;
+			children = (
+				C7BB5C44203E85DF0056BBF9 /* TopQuestionsViewController.swift */,
+				C7BB5C46203E85EE0056BBF9 /* AuthorsSectionController.swift */,
+				C7BB5C48203E86020056BBF9 /* AnswersSectionController.swift */,
+				C7BB5C4A203E860F0056BBF9 /* QuestionSectionController.swift */,
+			);
+			path = TopQuestions;
+			sourceTree = "<group>";
+		};
 		C7D641BD20341125001DCA98 /* StubData */ = {
 			isa = PBXGroup;
 			children = (
@@ -1365,6 +1398,7 @@
 			isa = PBXGroup;
 			children = (
 				C7D6423020346F5A001DCA98 /* MenuViewController.swift */,
+				C7BB5C43203E85D30056BBF9 /* TopQuestions */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -1429,6 +1463,8 @@
 			children = (
 				C7D6423F20346FD3001DCA98 /* MenuViewModel.swift */,
 				C70ECFDA203ACAA600710DB5 /* TopQuestionsViewModel.swift */,
+				C7BB5C37203E672F0056BBF9 /* QuestionsViewModel.swift */,
+				C7BB5C35203E64E90056BBF9 /* AnswersViewModel.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -1452,6 +1488,11 @@
 			isa = PBXGroup;
 			children = (
 				C792635A2038417B00067371 /* MenuView.swift */,
+				C7BB5C39203E6CEB0056BBF9 /* TopAuthorsCell.swift */,
+				C7BB5C3B203E6D150056BBF9 /* TopAnswersCell.swift */,
+				C7BB5C3D203E6DD80056BBF9 /* QuestionCell.swift */,
+				C7BB5C3F203E6DE00056BBF9 /* AnswerCell.swift */,
+				C7BB5C41203E6E0C0056BBF9 /* TopQuestionsHeader.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -1881,6 +1922,7 @@
 				C73EB28E2032F9B100429921 /* RxTableViewSectionedAnimatedDataSource.swift in Sources */,
 				C73EB2962032F9B100429921 /* IntegerType+IdentifiableType.swift in Sources */,
 				C76EFBE220302F8C00FA2BB9 /* Next.swift in Sources */,
+				C7BB5C45203E85DF0056BBF9 /* TopQuestionsViewController.swift in Sources */,
 				C792635220382D2D00067371 /* NotificationsViewModel.swift in Sources */,
 				C73EB2A02032F9B100429921 /* Diff.swift in Sources */,
 				C73EB2512032D71B00429921 /* ResultsViewModel.swift in Sources */,
@@ -1925,12 +1967,14 @@
 				C7F7CB4B203B1974007B9D1E /* TasksAndRequestsViewModel.swift in Sources */,
 				C7D832BB203576B400282891 /* Error+Extensions.swift in Sources */,
 				C7D6423C20346FC0001DCA98 /* EmployeesViewModel.swift in Sources */,
+				C7BB5C3C203E6D160056BBF9 /* TopAnswersCell.swift in Sources */,
 				C7D6421A203463E0001DCA98 /* UIWindow+Rx.swift in Sources */,
 				C7F7CB65203C5F24007B9D1E /* SBSectionController.swift in Sources */,
 				C73EB29C2032F9B100429921 /* SectionModelType.swift in Sources */,
 				C7F7CB49203B16FD007B9D1E /* Image.swift in Sources */,
 				C7F7CB5D203C2921007B9D1E /* DateCell.swift in Sources */,
 				C73EB2A22032F9B100429921 /* IdentifiableValue.swift in Sources */,
+				C7BB5C49203E86020056BBF9 /* AnswersSectionController.swift in Sources */,
 				C79251E8203148D300CDFBBA /* BenefitsViewController.swift in Sources */,
 				C70ECFDF203ACD3700710DB5 /* Tag.swift in Sources */,
 				C720EC802036E3C1007E4CD4 /* ASCollectionSectionController.swift in Sources */,
@@ -1940,12 +1984,14 @@
 				C7F7CB55203BD9D4007B9D1E /* QuestionnairesSectionController.swift in Sources */,
 				C7D641DB203418D1001DCA98 /* LoginViewModel.swift in Sources */,
 				C7F7CB35203AE9D3007B9D1E /* Answer.swift in Sources */,
+				C7BB5C42203E6E0C0056BBF9 /* TopQuestionsHeader.swift in Sources */,
 				C7F7CB43203B1179007B9D1E /* News.swift in Sources */,
 				C76EFBF220302F8C00FA2BB9 /* String.swift in Sources */,
 				C7D832B920356F9B00282891 /* Response+Extensions.swift in Sources */,
 				C717C677203D135F0070447D /* TasksAndRequetsView.swift in Sources */,
 				C7D641DF2034190B001DCA98 /* ResetPasswordViewModel.swift in Sources */,
 				C79251FF2031A18B00CDFBBA /* MyInfoMainView.swift in Sources */,
+				C7BB5C38203E672F0056BBF9 /* QuestionsViewModel.swift in Sources */,
 				C7D641BA20340C7E001DCA98 /* String+Extensions.swift in Sources */,
 				C7D832C72035C4FC00282891 /* VacanciesViewModel.swift in Sources */,
 				C7D6421B203463E0001DCA98 /* UIWindow+Presentable.swift in Sources */,
@@ -1969,12 +2015,14 @@
 				C76EFBEC20302F8C00FA2BB9 /* PolyMaskTextFieldDelegate.swift in Sources */,
 				C720EC782036A0E0007E4CD4 /* EmployeeCell.swift in Sources */,
 				C7D641F320344B22001DCA98 /* ViewModelBased.swift in Sources */,
+				C7BB5C4B203E860F0056BBF9 /* QuestionSectionController.swift in Sources */,
 				C717C685203D94000070447D /* EmployeeViewController.swift in Sources */,
 				C7F7CB75203C75B4007B9D1E /* ImageNode.swift in Sources */,
 				C7D641F02034466B001DCA98 /* AppFlow.swift in Sources */,
 				C73EB28B2032F9B100429921 /* Array+Extensions.swift in Sources */,
 				C73EB28C2032F9B100429921 /* AnimationConfiguration.swift in Sources */,
 				C76EFBEF20302F8C00FA2BB9 /* Compiler.swift in Sources */,
+				C7BB5C40203E6DE00056BBF9 /* AnswerCell.swift in Sources */,
 				C7D641A820340878001DCA98 /* NewsService.swift in Sources */,
 				C70ECFE3203ACD4600710DB5 /* Comment.swift in Sources */,
 				C7D6422920346F2D001DCA98 /* BIBoardViewController.swift in Sources */,
@@ -1990,6 +2038,7 @@
 				C73EB2AB2032F9B100429921 /* RxImagePickerDelegateProxy.swift in Sources */,
 				C7D641FB20344F43001DCA98 /* BIBoardFlow.swift in Sources */,
 				C7F7CB6B203C65A1007B9D1E /* KPIViewModel.swift in Sources */,
+				C7BB5C47203E85EE0056BBF9 /* AuthorsSectionController.swift in Sources */,
 				C7F7CB31203AE866007B9D1E /* BIBoardHeaderSectionController.swift in Sources */,
 				C76EFBF120302F8C00FA2BB9 /* NSCharacterSet.swift in Sources */,
 				C7D6420320344F74001DCA98 /* ProfileFlow.swift in Sources */,
@@ -2063,6 +2112,7 @@
 				C79251FD2031A16700CDFBBA /* MyInfoContactView.swift in Sources */,
 				C792634C2037D24F00067371 /* Lenta.swift in Sources */,
 				C73EB2A92032F9B100429921 /* CLLocationManager+Rx.swift in Sources */,
+				C7BB5C36203E64E90056BBF9 /* AnswersViewModel.swift in Sources */,
 				C7D832C12035C48700282891 /* BirthdaysViewController.swift in Sources */,
 				C70ECFDB203ACAA600710DB5 /* TopQuestionsViewModel.swift in Sources */,
 				C7D641DD20341901001DCA98 /* ForgotPasswordViewModel.swift in Sources */,
@@ -2071,7 +2121,9 @@
 				C7D64222203463E0001DCA98 /* Coordinator.swift in Sources */,
 				C7D641E120341A42001DCA98 /* User.swift in Sources */,
 				C70ECFD9203AC8CD00710DB5 /* Vacancy.swift in Sources */,
+				C7BB5C3A203E6CEB0056BBF9 /* TopAuthorsCell.swift in Sources */,
 				C7D641FF20344F58001DCA98 /* EmployeesFlow.swift in Sources */,
+				C7BB5C3E203E6DD80056BBF9 /* QuestionCell.swift in Sources */,
 				C720EC7620369EA8007E4CD4 /* EmployeeDetailView.swift in Sources */,
 				C70ECFDD203ACC2400710DB5 /* Suggestion.swift in Sources */,
 				C7D6421C203463E0001DCA98 /* Rx+Pausable.swift in Sources */,

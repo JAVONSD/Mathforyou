@@ -52,6 +52,8 @@ class MainMenuFlow: Flow {
             return navigationToEmployee(code)
         case .employeeDone:
             return navigationFromEmployee()
+        case .topQuestions:
+            return navigationToTopQuestions()
         default:
             return NextFlowItems.stepNotHandled
         }
@@ -111,6 +113,9 @@ class MainMenuFlow: Flow {
         }
 
         let menuVC = MenuViewController.instantiate(withViewModel: MenuViewModel())
+        menuVC.topQuestionTapped = {
+            self.rootViewController.step.accept(AppStep.topQuestions)
+        }
         menuVC.onUnathorizedError = {
             self.navigateToLoginScreen(isUnathorized: true)
         }
@@ -190,6 +195,12 @@ class MainMenuFlow: Flow {
 
     private func navigationFromEmployee() -> NextFlowItems {
         self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
+        return NextFlowItems.none
+    }
+
+    private func navigationToTopQuestions() -> NextFlowItems {
+        let viewController = TopQuestionsViewController(viewModel: TopQuestionsViewModel.sample())
+        rootViewController.pushViewController(viewController, animated: true)
         return NextFlowItems.none
     }
 

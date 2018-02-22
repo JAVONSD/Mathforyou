@@ -161,23 +161,11 @@ class AppTabBarController: UIViewController, TabBarDelegate {
         profileButton.iconView.layer.masksToBounds = true
         profileButton.addTarget(self, action: #selector(handleProfileButtonTap), for: .touchUpInside)
 
-        let modifier = AnyModifier { request in
-            var r = request
-            let token = User.current.token ?? ""
-            r.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-            return r
-        }
-
         Observable.just(User.current.profile).bind { (profile) in
-            if let url = URL(string: profile?.employeeCode ?? "") {
-                self.profileButton
-                .iconView
-                .kf
-                .setImage(
-                    with: url,
-                    placeholder: nil,
-                    options: [.requestModifier(modifier)])
-            }
+            ImageDownloader.set(
+                image: (profile?.employeeCode ?? ""),
+                to: self.profileButton.iconView
+            )
         }.disposed(by: disposeBag)
     }
 

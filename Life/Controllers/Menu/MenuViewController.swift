@@ -20,6 +20,8 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
 
     var onUnathorizedError: (() -> Void)?
 
+    var topQuestionTapped: (() -> Void)?
+
     private var menuView: MenuView!
 
     private let disposeBag = DisposeBag()
@@ -86,7 +88,11 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
                 return (indexPath, dataSource[indexPath])
             }
             .subscribe(onNext: { pair in
-                print("Tapped `\(pair.1)` @ \(pair.0)")
+                if pair.0.row == 3 {
+                    if let topQuestionTapped = self.topQuestionTapped {
+                        topQuestionTapped()
+                    }
+                }
             })
             .disposed(by: disposeBag)
 

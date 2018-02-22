@@ -99,22 +99,8 @@ class SlideCell: ASCellNode {
     override func didLoad() {
         super.didLoad()
 
-        let modifier = AnyModifier { request in
-            var r = request
-            let token = User.current.token ?? ""
-            r.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-            return r
-        }
-
-        if let url = URL(string: slide.image) {
-            ImageDownloader
-                .default
-                .downloadImage(
-                    with: url,
-                    options: [.requestModifier(modifier)],
-                    progressBlock: nil) { (image, _, _, _) in
-                        self.imageNode.image = image
-            }
+        ImageDownloader.download(image: slide.image) { (image) in
+            self.imageNode.image = image
         }
     }
 

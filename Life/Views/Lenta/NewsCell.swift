@@ -63,6 +63,9 @@ class NewsCell: ASCellNode {
         likesIconNode = ASImageNode()
         likesIconNode.contentMode = .scaleAspectFit
         likesIconNode.image = #imageLiteral(resourceName: "like-inactive")
+        likesIconNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(
+            viewModel.item.isLikedByMe ? App.Color.azure : App.Color.slateGrey
+        )
         backgroundNode.addSubnode(likesIconNode)
 
         likesNode = ASTextNode()
@@ -134,34 +137,12 @@ class NewsCell: ASCellNode {
 
         guard let viewModel = self.viewModel else { return }
 
-        let modifier = AnyModifier { request in
-            var r = request
-            let token = User.current.token ?? ""
-            r.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-            return r
+        ImageDownloader.download(image: viewModel.item.authorAvatar) { (image) in
+            self.authorAvatarNode.image = image
         }
 
-        if let avatarUrl = URL(string: viewModel.item.authorAvatar) {
-            ImageDownloader
-                .default
-                .downloadImage(
-                    with: avatarUrl,
-                    options: [.requestModifier(modifier)],
-                    progressBlock: nil) { (image, _, _, _) in
-                        self.authorAvatarNode.image = image
-                }
-        }
-
-        if !viewModel.item.image.isEmpty,
-            let url = URL(string: viewModel.item.image) {
-            ImageDownloader
-                .default
-                .downloadImage(
-                    with: url,
-                    options: [.requestModifier(modifier)],
-                    progressBlock: nil) { (image, _, _, _) in
-                        self.imageNode?.image = image
-                }
+        ImageDownloader.download(image: viewModel.item.image) { (image) in
+            self.imageNode?.image = image
         }
     }
 

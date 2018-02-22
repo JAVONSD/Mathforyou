@@ -30,7 +30,7 @@ class TopQuestionsSectionController: ASCollectionSectionController {
         var items = [ListDiffable]()
         items.append(DateCell())
         if !viewModel.minimized {
-            items.append(contentsOf: viewModel.questions as [ListDiffable])
+            items.append(contentsOf: viewModel.questions.questions as [ListDiffable])
         }
 
         set(items: items, animated: false, completion: nil)
@@ -84,7 +84,7 @@ extension TopQuestionsSectionController: ASSectionController {
                 items.insert(DateCell(), at: 0)
             }
             if !viewModel.minimized {
-                items.append(contentsOf: viewModel.questions as [ListDiffable])
+                items.append(contentsOf: viewModel.questions.questions as [ListDiffable])
             }
 
             self.set(items: items, animated: false, completion: {

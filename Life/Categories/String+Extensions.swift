@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import DateToolsSwift
 
 public extension String {
 
@@ -38,6 +39,18 @@ public extension String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: date)
+    }
+
+    public func prettyDateOrTimeAgoString(format: String) -> String {
+        let date = self.date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        let result = dateFormatter.string(from: date)
+
+        if date.monthsAgo > 1 {
+            return result
+        }
+        return date.timeAgoSinceNow
     }
 
 }

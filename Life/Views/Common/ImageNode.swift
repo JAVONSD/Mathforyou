@@ -17,16 +17,19 @@ class ImageNode: ASCellNode {
     private(set) var image: String
     private(set) var size: CGSize
 
-    init(image: String, size: CGSize) {
+    init(image: String,
+         size: CGSize,
+         cornerRadius: CGFloat = App.Layout.cornerRadius,
+         backgroundColor: UIColor = App.Color.silver) {
         self.image = image
         self.size = size
 
         super.init()
 
         imageNode = ASNetworkImageNode()
-        imageNode.backgroundColor = App.Color.silver
+        imageNode.backgroundColor = backgroundColor
         imageNode.contentMode = .scaleAspectFill
-        imageNode.cornerRadius = App.Layout.cornerRadius
+        imageNode.cornerRadius = cornerRadius
         imageNode.style.preferredSize = size
         addSubnode(imageNode)
     }
@@ -38,22 +41,8 @@ class ImageNode: ASCellNode {
     override func didLoad() {
         super.didLoad()
 
-        let modifier = AnyModifier { request in
-            var r = request
-            let token = User.current.token ?? ""
-            r.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-            return r
-        }
-
-        if let url = URL(string: image) {
-            ImageDownloader
-                .default
-                .downloadImage(
-                    with: url,
-                    options: [.requestModifier(modifier)],
-                    progressBlock: nil) { (image, _, _, _) in
-                        self.imageNode.image = image
-            }
+        ImageDownloader.download(image: image) { (image) in
+            self.imageNode.image = image
         }
     }
 
