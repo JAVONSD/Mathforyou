@@ -39,10 +39,12 @@ enum AppStep: Step {
     case tasksAndRequests
     case tasksAndRequestsDone
     case createRequest
+    case createRequestDone
 
     // MARK: - News
 
     case createNews
+    case createNewsDone
     case createPost
     case newsPicked(withId: String)
     case newsDone
@@ -51,6 +53,7 @@ enum AppStep: Step {
     // MARK: - Suggestions
 
     case createSuggestion
+    case createSuggestionDone
     case suggestionPicked(withId: String)
     case suggestionDone
 
@@ -60,6 +63,7 @@ enum AppStep: Step {
     case topQuestionPicked(withId: String)
     case topQuestionDone
     case createQuestion
+    case createQuestionDone
 
     // MARK: - Employees
 

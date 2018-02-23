@@ -19,6 +19,8 @@ class TasksAndRequestsFABController: FABMenuController {
     private var hrFABMenuItem: FABMenuItem!
     private var employeeFABMenuItem: FABMenuItem!
 
+    var didTapAddButton: (() -> Void)?
+
     override func prepare() {
         super.prepare()
 
@@ -29,22 +31,38 @@ class TasksAndRequestsFABController: FABMenuController {
 
     @objc
     private func handleItButton() {
+        if let didTapAddButton = didTapAddButton {
+            didTapAddButton()
+        }
 
+        fabMenu.close()
     }
 
     @objc
     private func handleBookkeepingButton() {
+        if let didTapAddButton = didTapAddButton {
+            didTapAddButton()
+        }
 
+        fabMenu.close()
     }
 
     @objc
     private func handleHrButton() {
+        if let didTapAddButton = didTapAddButton {
+            didTapAddButton()
+        }
 
+        fabMenu.close()
     }
 
     @objc
     private func handleEmployeeButton() {
+        if let didTapAddButton = didTapAddButton {
+            didTapAddButton()
+        }
 
+        fabMenu.close()
     }
 
     // MARK: - UI

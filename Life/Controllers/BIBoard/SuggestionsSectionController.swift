@@ -15,6 +15,7 @@ class SuggestionsSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: SuggestionsViewModel?
 
     var onUnathorizedError: (() -> Void)?
+    var didTapAddSuggestion: (() -> Void)?
 
     init(viewModel: SuggestionsViewModel) {
         self.viewModel = viewModel
@@ -129,7 +130,6 @@ extension SuggestionsSectionController: ASSectionController {
             corners: corners,
             minimized: viewModel.minimized,
             didTapAddButton: {
-                print("Did tap button in suggestion section  ...")
         })
 
         let cell = DashboardCell(config: config)
@@ -138,7 +138,9 @@ extension SuggestionsSectionController: ASSectionController {
             self?.toggle()
         }
         cell.didTapAdd = {
-            print("Add pressed ...")
+            if let didTapAddSuggestion = self.didTapAddSuggestion {
+                didTapAddSuggestion()
+            }
         }
         return cell
     }

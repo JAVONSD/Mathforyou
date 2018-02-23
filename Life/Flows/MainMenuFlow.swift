@@ -65,6 +65,22 @@ class MainMenuFlow: Flow {
             return navigationToSuggestion()
         case .suggestionDone:
             return navigationFromSuggestion()
+        case .createNews:
+            return navigationToNewsForm()
+        case .createNewsDone:
+            return navigationFromNewsForm()
+        case .createSuggestion:
+            return navigationToSuggestionForm()
+        case .createSuggestionDone:
+            return navigationFromSuggestionForm()
+        case .createQuestion:
+            return navigationToQuestionForm()
+        case .createQuestionDone:
+            return navigationFromQuestionForm()
+        case .createRequest:
+            return navigationToRequestForm()
+        case .createRequestDone:
+            return navigationFromRequestForm()
         default:
             return NextFlowItems.stepNotHandled
         }
@@ -139,6 +155,9 @@ class MainMenuFlow: Flow {
         let fabController = TasksAndRequestsFABController(
             rootViewController: tasksAndRequestsViewController
         )
+        fabController.didTapAddButton = {
+            tasksAndRequestsViewController.step.accept(AppStep.createRequest)
+        }
         self.rootViewController.present(fabController, animated: true, completion: nil)
         return NextFlowItems.one(flowItem:
             NextFlowItem(
@@ -176,7 +195,11 @@ class MainMenuFlow: Flow {
     private func navigationToTopQuestions() -> NextFlowItems {
         let viewController = TopQuestionsViewController(viewModel: TopQuestionsViewModel.sample())
         rootViewController.pushViewController(viewController, animated: true)
-        return NextFlowItems.none
+        return NextFlowItems.one(flowItem:
+            NextFlowItem(
+                nextPresentable: viewController,
+                nextStepper: viewController)
+        )
     }
 
     private func navigationToNewsDetail() -> NextFlowItems {
@@ -213,6 +236,50 @@ class MainMenuFlow: Flow {
         return NextFlowItems.none
     }
 
+    private func navigationToNewsForm() -> NextFlowItems {
+        let vc = NewsFormViewController()
+        self.rootViewController.present(vc, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc))
+    }
+
+    private func navigationFromNewsForm() -> NextFlowItems {
+        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
+        return NextFlowItems.none
+    }
+
+    private func navigationToSuggestionForm() -> NextFlowItems {
+        let vc = SuggestionFormViewController()
+        self.rootViewController.present(vc, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc))
+    }
+
+    private func navigationFromSuggestionForm() -> NextFlowItems {
+        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
+        return NextFlowItems.none
+    }
+
+    private func navigationToQuestionForm() -> NextFlowItems {
+        let vc = QuestionFormViewController()
+        self.rootViewController.present(vc, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc))
+    }
+
+    private func navigationFromQuestionForm() -> NextFlowItems {
+        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
+        return NextFlowItems.none
+    }
+
+    private func navigationToRequestForm() -> NextFlowItems {
+        let vc = RequestFormViewController()
+        self.rootViewController.visibleViewController?.present(vc, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc))
+    }
+
+    private func navigationFromRequestForm() -> NextFlowItems {
+        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
+        return NextFlowItems.none
+    }
+
     // MARK: - Methods
 
     private func configuredBIBoard() -> BIBoardViewController {
@@ -222,6 +289,9 @@ class MainMenuFlow: Flow {
         }
         biBoardVC.didTapTop7 = { id in
             self.rootViewController.step.accept(AppStep.topQuestionPicked(withId: id))
+        }
+        biBoardVC.didTapAddSuggestion = {
+            self.rootViewController.step.accept(AppStep.createSuggestion)
         }
         return biBoardVC
     }
@@ -234,6 +304,9 @@ class MainMenuFlow: Flow {
         biOfficeVC.onUnathorizedError = {
             self.navigateToLoginScreen(isUnathorized: true)
         }
+        biOfficeVC.didTapAddRequest = {
+            self.rootViewController.step.accept(AppStep.createRequest)
+        }
         return biOfficeVC
     }
 
@@ -244,6 +317,9 @@ class MainMenuFlow: Flow {
         }
         lentaVC.didTapSuggestion = { id in
             self.rootViewController.step.accept(AppStep.suggestionPicked(withId: id))
+        }
+        lentaVC.didTapAddNews = {
+            self.rootViewController.step.accept(AppStep.createNews)
         }
         lentaVC.onUnathorizedError = {
             self.navigateToLoginScreen(isUnathorized: true)

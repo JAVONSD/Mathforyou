@@ -88,6 +88,8 @@
 "news" = "Новости";
 "questionnaires" = "Опросы";
 "suggestions" = "Предложения";
+"new_suggestion" = "Новое предложение";
+"add_news" = "Добавить новость";
 
 /* Notifications */
 
@@ -100,6 +102,10 @@
 "answer_does_not_exist" = "Нет ответов";
 "answers_for_popular_questions" = "Ответы на популярные вопросы";
 "questions_and_answers" = "Вопросы и ответы";
+"add_question" = "Добавить вопрос";
+"ask_question" = "Задать вопрос";
+"topic" = "Тема";
+"question_text" = "Текст вопроса";
 
 /* BI Office */
 
@@ -118,9 +124,21 @@
 "bookkeeping" = "Бухгалтерия";
 "hr_department" = "HR отдел";
 "to_employee" = "Сотруднику";
+"new_request" = "Новая заявка";
+"attach" = "Прикрепить";
+"send" = "Отправить";
+"executor" = "Исполнитель";
+"category" = "Категория";
+"execution_date" = "Срок исполнения";
+"write_text" = "Написать текст";
 
 /* News */
 
 "comments" = "Комментарии";
+"history_event_to_history" = "Знаменательное событие (в историю)";
+"title" = "Заголовок";
+"tags" = "Теги";
+"add_cover" = "Добавить обложку";
+"enter_text" = "Введите текст";
 
 

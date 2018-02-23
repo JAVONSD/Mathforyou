@@ -106,7 +106,7 @@ extension NewsSectionController: ASSectionController {
 
                     if itemsCount == 0 {
                         if let vc = self.viewController as? LentaViewController {
-                            vc.node.reloadData()
+                            vc.collectionNode.reloadData()
                         }
                     }
                 })
@@ -133,7 +133,7 @@ extension NewsSectionController: RefreshingSectionControllerType {
             self.set(items: viewModel.items, animated: true, completion: completion)
 
             if let vc = self.viewController as? LentaViewController {
-                vc.node.reloadData()
+                vc.collectionNode.reloadData()
             }
         }
     }

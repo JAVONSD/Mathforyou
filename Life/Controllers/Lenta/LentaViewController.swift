@@ -12,14 +12,14 @@ import IGListKit
 import Material
 import SnapKit
 
-class LentaViewController: ASViewController<ASCollectionNode> {
+class LentaViewController: ASViewController<ASDisplayNode> {
 
     private var listAdapter: ListAdapter!
-    private var collectionNode: ASCollectionNode {
-        return node
-    }
+    private(set) var collectionNode: ASCollectionNode!
     private lazy var spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     private lazy var refreshCtrl = UIRefreshControl()
+
+    private var addButton: FABButton!
 
     var viewModel: LentaViewModel!
 
@@ -27,12 +27,51 @@ class LentaViewController: ASViewController<ASCollectionNode> {
 
     var didTapNews: ((String) -> Void)?
     var didTapSuggestion: ((String) -> Void)?
+    var didTapAddNews: (() -> Void)?
 
     init() {
-        let layout = UICollectionViewFlowLayout()
-        let node = ASCollectionNode(collectionViewLayout: layout)
-
+        let node = ASDisplayNode()
         super.init(node: node)
+
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        layout.sectionInset = .zero
+        collectionNode = ASCollectionNode(collectionViewLayout: layout)
+        collectionNode.contentInset = .init(
+            top: 0,
+            left: 0,
+            bottom: App.Layout.itemSpacingBig,
+            right: 0
+        )
+        node.addSubnode(collectionNode)
+
+        let addNode = ASDisplayNode { () -> UIView in
+            self.addButton = FABButton(image: Icon.cm.add, tintColor: .white)
+            self.addButton.addTarget(self, action: #selector(self.handleAddButton), for: .touchUpInside)
+            self.addButton.backgroundColor = App.Color.azure
+            self.addButton.snp.makeConstraints { (make) in
+                make.size.equalTo(CGSize(width: 56, height: 56))
+            }
+            return self.addButton
+        }
+        addNode.style.preferredSize = CGSize(width: 56, height: 56)
+        node.addSubnode(addNode)
+
+        node.layoutSpecBlock = { (_, _) in
+            let insetSpec = ASInsetLayoutSpec(insets: .init(
+                top: 0,
+                left: 0,
+                bottom: 30,
+                right: App.Layout.sideOffset), child: addNode)
+            let relativeSpec = ASRelativeLayoutSpec(
+                horizontalPosition: .end,
+                verticalPosition: .end,
+                sizingOption: [],
+                child: insetSpec
+            )
+            return ASOverlayLayoutSpec(child: self.collectionNode, overlay: relativeSpec)
+        }
 
         viewModel = LentaViewModel()
 
@@ -60,6 +99,15 @@ class LentaViewController: ASViewController<ASCollectionNode> {
         refreshCtrl = UIRefreshControl()
         refreshCtrl.addTarget(self, action: #selector(refreshFeed), for: .valueChanged)
         collectionNode.view.addSubview(refreshCtrl)
+    }
+
+    // MARK: - Actions
+
+    @objc
+    private func handleAddButton() {
+        if let didTapAddNews = didTapAddNews {
+            didTapAddNews()
+        }
     }
 
     // MARK: - Methods

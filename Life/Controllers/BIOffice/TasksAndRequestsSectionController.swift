@@ -17,6 +17,7 @@ class TasksAndRequestsSectionController: ASCollectionSectionController {
     var onUnathorizedError: (() -> Void)?
     var didTapOnTasksAndRequests: (() -> Void)?
     var didTapOnTaskOrRequest: ((Int) -> Void)?
+    var didTapAddRequest: (() -> Void)?
 
     init(viewModel: TasksAndRequestsViewModel) {
         self.viewModel = viewModel
@@ -178,7 +179,6 @@ extension TasksAndRequestsSectionController: ASSectionController {
             corners: corners,
             minimized: viewModel.minimized,
             didTapAddButton: {
-                print("Did tap button in suggestion section  ...")
         })
 
         let cell = DashboardCell(config: config)
@@ -187,7 +187,9 @@ extension TasksAndRequestsSectionController: ASSectionController {
             self?.toggle()
         }
         cell.didTapAdd = {
-            print("Add pressed ...")
+            if let didTapAddRequest = self.didTapAddRequest {
+                didTapAddRequest()
+            }
         }
         return cell
     }

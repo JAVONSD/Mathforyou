@@ -173,6 +173,14 @@
 		C7BB5C69203FD4420056BBF9 /* SuggestionHeaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C66203FD4420056BBF9 /* SuggestionHeaderNode.swift */; };
 		C7BB5C6B203FD6730056BBF9 /* SuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C6A203FD6730056BBF9 /* SuggestionViewController.swift */; };
 		C7BB5C6D203FD6810056BBF9 /* SuggestionSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C6C203FD6810056BBF9 /* SuggestionSectionController.swift */; };
+		C7BB5C6F203FE7710056BBF9 /* SuggestionFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C6E203FE7710056BBF9 /* SuggestionFormView.swift */; };
+		C7BB5C71203FE77F0056BBF9 /* NewsFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C70203FE77F0056BBF9 /* NewsFormView.swift */; };
+		C7BB5C73203FE7920056BBF9 /* RequestFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C72203FE7920056BBF9 /* RequestFormView.swift */; };
+		C7BB5C75203FE7A50056BBF9 /* QuestionFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C74203FE7A50056BBF9 /* QuestionFormView.swift */; };
+		C7BB5C77204006F90056BBF9 /* QuestionFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C76204006F90056BBF9 /* QuestionFormViewController.swift */; };
+		C7BB5C79204015B40056BBF9 /* RequestFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C78204015B40056BBF9 /* RequestFormViewController.swift */; };
+		C7BB5C7B20401A870056BBF9 /* SuggestionFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C7A20401A870056BBF9 /* SuggestionFormViewController.swift */; };
+		C7BB5C7D204021190056BBF9 /* NewsFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C7C204021190056BBF9 /* NewsFormViewController.swift */; };
 		C7D6419C20340750001DCA98 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419B20340750001DCA98 /* AuthService.swift */; };
 		C7D6419E20340777001DCA98 /* EmployeesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419D20340777001DCA98 /* EmployeesService.swift */; };
 		C7D641A020340789001DCA98 /* EventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419F20340789001DCA98 /* EventsService.swift */; };
@@ -486,6 +494,14 @@
 		C7BB5C66203FD4420056BBF9 /* SuggestionHeaderNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionHeaderNode.swift; sourceTree = "<group>"; };
 		C7BB5C6A203FD6730056BBF9 /* SuggestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionViewController.swift; sourceTree = "<group>"; };
 		C7BB5C6C203FD6810056BBF9 /* SuggestionSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionSectionController.swift; sourceTree = "<group>"; };
+		C7BB5C6E203FE7710056BBF9 /* SuggestionFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionFormView.swift; sourceTree = "<group>"; };
+		C7BB5C70203FE77F0056BBF9 /* NewsFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFormView.swift; sourceTree = "<group>"; };
+		C7BB5C72203FE7920056BBF9 /* RequestFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFormView.swift; sourceTree = "<group>"; };
+		C7BB5C74203FE7A50056BBF9 /* QuestionFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionFormView.swift; sourceTree = "<group>"; };
+		C7BB5C76204006F90056BBF9 /* QuestionFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionFormViewController.swift; sourceTree = "<group>"; };
+		C7BB5C78204015B40056BBF9 /* RequestFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFormViewController.swift; sourceTree = "<group>"; };
+		C7BB5C7A20401A870056BBF9 /* SuggestionFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionFormViewController.swift; sourceTree = "<group>"; };
+		C7BB5C7C204021190056BBF9 /* NewsFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFormViewController.swift; sourceTree = "<group>"; };
 		C7D6419B20340750001DCA98 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		C7D6419D20340777001DCA98 /* EmployeesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesService.swift; sourceTree = "<group>"; };
 		C7D6419F20340789001DCA98 /* EventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsService.swift; sourceTree = "<group>"; };
@@ -641,6 +657,7 @@
 			children = (
 				C717C676203D135F0070447D /* TasksAndRequetsView.swift */,
 				C717C67A203D2A9A0070447D /* TasksAndRequestsCell.swift */,
+				C7BB5C72203FE7920056BBF9 /* RequestFormView.swift */,
 			);
 			path = TasksAndRequests;
 			sourceTree = "<group>";
@@ -650,6 +667,7 @@
 			children = (
 				C717C67C203D4B1F0070447D /* TasksAndRequestsFABController.swift */,
 				C717C674203D13450070447D /* TasksAndRequestsViewController.swift */,
+				C7BB5C78204015B40056BBF9 /* RequestFormViewController.swift */,
 			);
 			path = TasksAndRequests;
 			sourceTree = "<group>";
@@ -1203,6 +1221,7 @@
 				C7BB5C46203E85EE0056BBF9 /* AuthorsSectionController.swift */,
 				C7BB5C48203E86020056BBF9 /* AnswersSectionController.swift */,
 				C7BB5C4A203E860F0056BBF9 /* QuestionSectionController.swift */,
+				C7BB5C76204006F90056BBF9 /* QuestionFormViewController.swift */,
 			);
 			path = TopQuestions;
 			sourceTree = "<group>";
@@ -1213,6 +1232,7 @@
 				C7BB5C4C203ED3000056BBF9 /* NewsDetailsCell.swift */,
 				C7BB5C54203ED68B0056BBF9 /* NewsHeaderNode.swift */,
 				C7BB5C50203ED31C0056BBF9 /* NewsBodyNode.swift */,
+				C7BB5C70203FE77F0056BBF9 /* NewsFormView.swift */,
 			);
 			path = NewsDetails;
 			sourceTree = "<group>";
@@ -1223,6 +1243,7 @@
 				C7BB5C65203FD4410056BBF9 /* SuggestionDetailsCell.swift */,
 				C7BB5C66203FD4420056BBF9 /* SuggestionHeaderNode.swift */,
 				C7BB5C64203FD4410056BBF9 /* SuggestionBodyNode.swift */,
+				C7BB5C6E203FE7710056BBF9 /* SuggestionFormView.swift */,
 			);
 			path = SuggestionDetails;
 			sourceTree = "<group>";
@@ -1442,8 +1463,10 @@
 				C720EC812036E67D007E4CD4 /* NewsSectionController.swift */,
 				C7BB5C56203EF70B0056BBF9 /* NewsViewController.swift */,
 				C7BB5C58203EF7190056BBF9 /* NewsDetailSectionController.swift */,
+				C7BB5C7C204021190056BBF9 /* NewsFormViewController.swift */,
 				C7BB5C6A203FD6730056BBF9 /* SuggestionViewController.swift */,
 				C7BB5C6C203FD6810056BBF9 /* SuggestionSectionController.swift */,
+				C7BB5C7A20401A870056BBF9 /* SuggestionFormViewController.swift */,
 			);
 			path = Lenta;
 			sourceTree = "<group>";
@@ -1548,6 +1571,7 @@
 				C7BB5C3D203E6DD80056BBF9 /* QuestionCell.swift */,
 				C7BB5C3F203E6DE00056BBF9 /* AnswerCell.swift */,
 				C7BB5C41203E6E0C0056BBF9 /* TopQuestionsHeader.swift */,
+				C7BB5C74203FE7A50056BBF9 /* QuestionFormView.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -1983,6 +2007,7 @@
 				C73EB28E2032F9B100429921 /* RxTableViewSectionedAnimatedDataSource.swift in Sources */,
 				C73EB2962032F9B100429921 /* IntegerType+IdentifiableType.swift in Sources */,
 				C76EFBE220302F8C00FA2BB9 /* Next.swift in Sources */,
+				C7BB5C7D204021190056BBF9 /* NewsFormViewController.swift in Sources */,
 				C7BB5C45203E85DF0056BBF9 /* TopQuestionsViewController.swift in Sources */,
 				C792635220382D2D00067371 /* NotificationsViewModel.swift in Sources */,
 				C73EB2A02032F9B100429921 /* Diff.swift in Sources */,
@@ -2040,11 +2065,13 @@
 				C7BB5C49203E86020056BBF9 /* AnswersSectionController.swift in Sources */,
 				C79251E8203148D300CDFBBA /* BenefitsViewController.swift in Sources */,
 				C70ECFDF203ACD3700710DB5 /* Tag.swift in Sources */,
+				C7BB5C6F203FE7710056BBF9 /* SuggestionFormView.swift in Sources */,
 				C720EC802036E3C1007E4CD4 /* ASCollectionSectionController.swift in Sources */,
 				C7D641AA20340880001DCA98 /* LentaService.swift in Sources */,
 				C73EB2A62032F9B100429921 /* Changeset.swift in Sources */,
 				C73EB2992032F9B100429921 /* TableViewSectionedDataSource.swift in Sources */,
 				C7F7CB55203BD9D4007B9D1E /* QuestionnairesSectionController.swift in Sources */,
+				C7BB5C77204006F90056BBF9 /* QuestionFormViewController.swift in Sources */,
 				C7D641DB203418D1001DCA98 /* LoginViewModel.swift in Sources */,
 				C7F7CB35203AE9D3007B9D1E /* Answer.swift in Sources */,
 				C7BB5C42203E6E0C0056BBF9 /* TopQuestionsHeader.swift in Sources */,
@@ -2068,6 +2095,7 @@
 				C79251E0203145E200CDFBBA /* ProfileViewController.swift in Sources */,
 				C717C67F203D89010070447D /* EmployeeView.swift in Sources */,
 				C7D64219203463E0001DCA98 /* UIViewController+Rx.swift in Sources */,
+				C7BB5C73203FE7920056BBF9 /* RequestFormView.swift in Sources */,
 				C73EB2A42032F9B100429921 /* Optional+Extensions.swift in Sources */,
 				C717C681203D892C0070447D /* EmployeeHeaderView.swift in Sources */,
 				C7F7CB6D203C65AA007B9D1E /* SBViewModel.swift in Sources */,
@@ -2114,12 +2142,15 @@
 				C717C67B203D2A9A0070447D /* TasksAndRequestsCell.swift in Sources */,
 				C70ECFD7203AC77700710DB5 /* QuestionnairesViewModel.swift in Sources */,
 				C7D6423820346FAC001DCA98 /* BIBoardViewModel.swift in Sources */,
+				C7BB5C75203FE7A50056BBF9 /* QuestionFormView.swift in Sources */,
 				C7BB5C4D203ED3000056BBF9 /* NewsDetailsCell.swift in Sources */,
 				C76EFBC620301AE500FA2BB9 /* TextField.swift in Sources */,
 				C70ECFCF203AB51F00710DB5 /* SliderViewModel.swift in Sources */,
 				C7D832BF2035B8EB00282891 /* SizedButton.swift in Sources */,
+				C7BB5C79204015B40056BBF9 /* RequestFormViewController.swift in Sources */,
 				C7D641B4203408E0001DCA98 /* SuggestionsService.swift in Sources */,
 				C76EFB4E202E91F000FA2BB9 /* AppDelegate.swift in Sources */,
+				C7BB5C71203FE77F0056BBF9 /* NewsFormView.swift in Sources */,
 				C7D832C32035C49100282891 /* VacanciesViewController.swift in Sources */,
 				C76EFBC4203008D200FA2BB9 /* Constants.swift in Sources */,
 				C76EFBE720302F8C00FA2BB9 /* OptionalValueState.swift in Sources */,
@@ -2175,6 +2206,7 @@
 				C7F7CB51203B1BC5007B9D1E /* DashboardCell.swift in Sources */,
 				C7F7CB4F203B1A1F007B9D1E /* RequestsViewModel.swift in Sources */,
 				C73EB2932032F9B100429921 /* Deprecated.swift in Sources */,
+				C7BB5C7B20401A870056BBF9 /* SuggestionFormViewController.swift in Sources */,
 				C7F7CB33203AE98A007B9D1E /* Question.swift in Sources */,
 				C7BB5C5D203EFA6A0056BBF9 /* CommentViewModel.swift in Sources */,
 				C76EFBC82030201B00FA2BB9 /* GradientView.swift in Sources */,

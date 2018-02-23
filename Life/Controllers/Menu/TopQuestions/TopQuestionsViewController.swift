@@ -12,13 +12,13 @@ import IGListKit
 import Material
 import SnapKit
 
-class TopQuestionsViewController: ASViewController<ASCollectionNode> {
+class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper {
 
     private var listAdapter: ListAdapter!
-    private var collectionNode: ASCollectionNode {
-        return node
-    }
+    private var collectionNode: ASCollectionNode!
     private lazy var refreshCtrl = UIRefreshControl()
+
+    private var addButton: FABButton!
 
     var viewModel: TopQuestionsViewModel!
 
@@ -27,19 +27,48 @@ class TopQuestionsViewController: ASViewController<ASCollectionNode> {
     init(viewModel: TopQuestionsViewModel) {
         self.viewModel = viewModel
 
+        let node = ASDisplayNode()
+        super.init(node: node)
+
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         layout.sectionInset = .zero
-        let node = ASCollectionNode(collectionViewLayout: layout)
-        node.contentInset = .init(
+        collectionNode = ASCollectionNode(collectionViewLayout: layout)
+        collectionNode.contentInset = .init(
             top: 0,
             left: 0,
             bottom: App.Layout.itemSpacingBig,
             right: 0
         )
+        node.addSubnode(collectionNode)
 
-        super.init(node: node)
+        let addNode = ASDisplayNode { () -> UIView in
+            self.addButton = FABButton(image: Icon.cm.add, tintColor: .white)
+            self.addButton.addTarget(self, action: #selector(self.handleAddButton), for: .touchUpInside)
+            self.addButton.backgroundColor = App.Color.azure
+            self.addButton.snp.makeConstraints { (make) in
+                make.size.equalTo(CGSize(width: 56, height: 56))
+            }
+            return self.addButton
+        }
+        addNode.style.preferredSize = CGSize(width: 56, height: 56)
+        node.addSubnode(addNode)
+
+        node.layoutSpecBlock = { (_, _) in
+            let insetSpec = ASInsetLayoutSpec(insets: .init(
+                top: 0,
+                left: 0,
+                bottom: 30,
+                right: App.Layout.sideOffset), child: addNode)
+            let relativeSpec = ASRelativeLayoutSpec(
+                horizontalPosition: .end,
+                verticalPosition: .end,
+                sizingOption: [],
+                child: insetSpec
+            )
+            return ASOverlayLayoutSpec(child: self.collectionNode, overlay: relativeSpec)
+        }
 
         let updater = ListAdapterUpdater()
         listAdapter = ListAdapter(updater: updater, viewController: self, workingRangeSize: 0)
@@ -60,6 +89,13 @@ class TopQuestionsViewController: ASViewController<ASCollectionNode> {
         refreshCtrl = UIRefreshControl()
         refreshCtrl.addTarget(self, action: #selector(refreshFeed), for: .valueChanged)
         collectionNode.view.addSubview(refreshCtrl)
+    }
+
+    // MARK: - Actions
+
+    @objc
+    private func handleAddButton() {
+        self.step.accept(AppStep.createQuestion)
     }
 
     // MARK: - Methods

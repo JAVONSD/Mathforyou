@@ -23,6 +23,7 @@ class BIOfficeViewController: ASViewController<ASCollectionNode> {
     var viewModel: BIOfficeViewModel!
 
     var onUnathorizedError: (() -> Void)?
+    var didTapAddRequest: (() -> Void)?
 
     init() {
         let layout = UICollectionViewFlowLayout()
@@ -138,6 +139,7 @@ extension BIOfficeViewController: ListAdapterDataSource {
                 navigationController.step.accept(AppStep.tasksAndRequests)
             }
         }
+        section.didTapAddRequest = didTapAddRequest
         return section
     }
 

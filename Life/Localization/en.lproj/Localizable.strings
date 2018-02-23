@@ -88,6 +88,8 @@
 "news" = "News";
 "questionnaires" = "Questionnaires";
 "suggestions" = "Suggestions";
+"new_suggestion" = "New suggestion";
+"add_news" = "Add news";
 
 /* Notifications */
 
@@ -100,6 +102,10 @@
 "answer_does_not_exist" = "No answers";
 "answers_for_popular_questions" = "Answers for popular questions";
 "questions_and_answers" = "Questions and answers";
+"add_question" = "Add question";
+"ask_question" = "Ask question";
+"topic" = "Topic";
+"question_text" = "Question text";
 
 /* BI Office */
 
@@ -118,9 +124,21 @@
 "bookkeeping" = "Bookkeeping";
 "hr_department" = "HR department";
 "to_employee" = "To employee";
+"new_request" = "New request";
+"attach" = "Attach";
+"send" = "Send";
+"executor" = "Executor";
+"category" = "Category";
+"execution_date" = "Execution date";
+"write_text" = "Write text";
 
 /* News */
 
 "comments" = "Comments";
+"history_event_to_history" = "A significant event (in history)";
+"title" = "Title";
+"tags" = "Tags";
+"add_cover" = "Add cover";
+"enter_text" = "Enter text";
 
 

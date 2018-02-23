@@ -14,6 +14,9 @@ target 'Life' do
   # Collection Views
   pod 'IGListKit', '3.0.0'
 
+  # Keyboard Avoiding
+  pod 'IQKeyboardManagerSwift', '~> 5.0'
+
   # Image Caching
   pod 'Kingfisher', '~> 4.0'
 

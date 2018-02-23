@@ -24,6 +24,7 @@ class BIBoardViewController: ASViewController<ASCollectionNode> {
 
     var onUnathorizedError: (() -> Void)?
     var didTapTop7: ((String) -> Void)?
+    var didTapAddSuggestion: (() -> Void)?
 
     init() {
         let layout = UICollectionViewFlowLayout()
@@ -118,6 +119,7 @@ extension BIBoardViewController: ListAdapterDataSource {
                 guard let `self` = self else { return }
                 self.onUnauthorized()
             }
+            section.didTapAddSuggestion = didTapAddSuggestion
             return section
         } else if let viewModel = object as? QuestionnairesViewModel {
             let section = QuestionnairesSectionController(viewModel: viewModel)
