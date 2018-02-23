@@ -49,6 +49,7 @@ class BoardSliderCell: ASCellNode {
         collectionNode = ASCollectionNode(collectionViewLayout: self.layout)
         collectionNode.backgroundColor = .clear
         collectionNode.dataSource = self
+        collectionNode.delegate = self
         addSubnode(collectionNode)
 
         pageNode = ASDisplayNode(viewBlock: { () -> UIView in
@@ -139,5 +140,11 @@ extension BoardSliderCell: ASCollectionDataSource, ASCollectionDelegate {
         if let didSelectSlide = didSelectSlide {
             didSelectSlide(indexPath.item)
         }
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let width = scrollView.frame.size.width
+        let page = (scrollView.contentOffset.x + 0.5 * width) / width
+        self.pageControl.currentPage = max(min(Int(page), slides.count - 1), 0)
     }
 }

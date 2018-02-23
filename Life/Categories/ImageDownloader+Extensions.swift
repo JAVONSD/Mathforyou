@@ -11,7 +11,9 @@ import Kingfisher
 
 extension ImageDownloader {
 
-    static func set(image: String, to imageView: UIImageView?) {
+    static func set(image: String,
+                    isStream: Bool = false,
+                    to imageView: UIImageView?) {
         let modifier = AnyModifier { request in
             var r = request
             let token = User.current.token ?? ""
@@ -19,7 +21,7 @@ extension ImageDownloader {
             return r
         }
 
-        if let url = URL(string: image) {
+        if let url = url(for: image) {
             ImageDownloader
                 .default
                 .downloadImage(
@@ -31,7 +33,9 @@ extension ImageDownloader {
         }
     }
 
-    static func download(image: String, completion: @escaping ((UIImage?) -> Void)) {
+    static func download(image: String,
+                         isStream: Bool = false,
+                         completion: @escaping ((UIImage?) -> Void)) {
         let modifier = AnyModifier { request in
             var r = request
             let token = User.current.token ?? ""
@@ -39,7 +43,7 @@ extension ImageDownloader {
             return r
         }
 
-        if let url = URL(string: image) {
+        if let url = url(for: image) {
             ImageDownloader
                 .default
                 .downloadImage(
@@ -49,6 +53,21 @@ extension ImageDownloader {
                         completion(image)
             }
         }
+    }
+
+    private static func url(for image: String) -> URL? {
+        var url = URL(string: image)
+        if !image.hasPrefix("http") {
+
+            let ratio: CGFloat = 360.0 / 300.0
+            let width = UIScreen.main.bounds.size.width * 2
+            let height = Int(width / ratio)
+
+            let urlParams = "?isMedia=true&width=\(Int(width))&height=\(height)&isAttachment=true"
+            url = URL(string: "http://life.bi-group.org:8090/api/Files/\(image)\(urlParams)")
+        }
+
+        return url
     }
 
 }

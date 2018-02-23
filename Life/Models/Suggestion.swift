@@ -12,6 +12,7 @@ struct Suggestion: Codable {
 
     var id: String
     var title: String
+    var text: String
     var createDate: String
     var imageStreamId: String?
     var authorCode: String
@@ -20,7 +21,7 @@ struct Suggestion: Codable {
     var commentsQuantity: Int
     var likesQuantity: Int
     var dislikesQuantity: Int
-    var userVote: Int
+    var userVote: UserVote
     var viewsQuantity: Int
     var comments: [Comment]
     var secondaryImages: [String]
@@ -31,6 +32,7 @@ struct Suggestion: Codable {
     enum CodingKeys: String, CodingKey {
         case id
         case title
+        case text
         case createDate
         case imageStreamId
         case authorCode
@@ -51,6 +53,7 @@ struct Suggestion: Codable {
 
         self.id = try container.decodeWrapper(key: .id, defaultValue: UUID().uuidString)
         self.title = try container.decodeWrapper(key: .title, defaultValue: "")
+        self.text = try container.decodeWrapper(key: .text, defaultValue: "")
         self.createDate = try container.decodeWrapper(key: .createDate, defaultValue: "")
         self.imageStreamId = try container.decodeWrapper(key: .imageStreamId, defaultValue: "")
         self.authorCode = try container.decodeWrapper(key: .authorCode, defaultValue: "")
@@ -59,7 +62,7 @@ struct Suggestion: Codable {
         self.commentsQuantity = try container.decodeWrapper(key: .commentsQuantity, defaultValue: 0)
         self.likesQuantity = try container.decodeWrapper(key: .likesQuantity, defaultValue: 0)
         self.dislikesQuantity = try container.decodeWrapper(key: .dislikesQuantity, defaultValue: 0)
-        self.userVote = try container.decodeWrapper(key: .userVote, defaultValue: 0)
+        self.userVote = try container.decodeWrapper(key: .userVote, defaultValue: UserVote.default)
         self.viewsQuantity = try container.decodeWrapper(key: .viewsQuantity, defaultValue: 0)
         self.comments = try container.decodeWrapper(key: .comments, defaultValue: [])
         self.secondaryImages = try container.decodeWrapper(key: .secondaryImages, defaultValue: [])
@@ -69,6 +72,7 @@ struct Suggestion: Codable {
     func encode(with aCoder: NSCoder) {
         aCoder.encode(id, forKey: "id")
         aCoder.encode(title, forKey: "title")
+        aCoder.encode(text, forKey: "text")
         aCoder.encode(createDate, forKey: "createDate")
         aCoder.encode(imageStreamId, forKey: "imageStreamId")
         aCoder.encode(authorCode, forKey: "authorCode")

@@ -15,6 +15,7 @@ class TopQuestionsSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: TopQuestionsViewModel?
 
     var onUnathorizedError: (() -> Void)?
+    var didTapTop7: ((String) -> Void)?
 
     init(viewModel: TopQuestionsViewModel) {
         self.viewModel = viewModel
@@ -67,7 +68,10 @@ extension TopQuestionsSectionController: ASSectionController {
                 corners: corners,
                 images: ["", "", "", "", "", ""],
                 didTapOnImage: { index in
-                    print("Selected image at index - \(index)")
+                    print("Tapped image at index - \(index)")
+                    if let didTapTop7 = self.didTapTop7 {
+                        didTapTop7("")
+                    }
                 })
 
             return DashboardGalleryCell(config: config)

@@ -31,13 +31,12 @@ extension SuggestionsViewModel: Mockable {
     static func sample() -> SuggestionsViewModel {
         let sample = SuggestionsViewModel()
 
-        for _ in 0..<2 {
-            let json = [
-                "title": "Test suggestion"
-            ]
-            if let suggestion = try? JSONDecoder().decode(Suggestion.self, from: json.toJSONData()) {
-                let item = SuggestionItemViewModel(suggestion: suggestion)
-                sample.suggestions.append(item)
+        for _ in 0..<3 {
+            if let jsonPath = Bundle.main.path(forResource: "suggestion_details", ofType: "json"),
+                let suggestion = try? JSONDecoder().decode(
+                    Suggestion.self,
+                    from: Data(contentsOf: URL(fileURLWithPath: jsonPath))) {
+                sample.suggestions.append(SuggestionItemViewModel(suggestion: suggestion))
             }
         }
 
@@ -47,6 +46,9 @@ extension SuggestionsViewModel: Mockable {
 
 class SuggestionItemViewModel: NSObject, ListDiffable {
     var suggestion: Suggestion
+
+    var needReloadOnWebViewLoad = true
+    var calculatedWebViewHeight: CGFloat = 0
 
     init(suggestion: Suggestion) {
         self.suggestion = suggestion

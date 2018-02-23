@@ -78,6 +78,7 @@ class DashboardGalleryCell: ASCellNode {
         collectionNode = ASCollectionNode(collectionViewLayout: layout)
         collectionNode.backgroundColor = .clear
         collectionNode.dataSource = self
+        collectionNode.delegate = self
         backgroundNode.addSubnode(collectionNode)
     }
 

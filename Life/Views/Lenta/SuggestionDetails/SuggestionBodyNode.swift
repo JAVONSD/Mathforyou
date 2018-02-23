@@ -1,5 +1,5 @@
 //
-//  NewsBodyNode.swift
+//  SuggestionBodyNode.swift
 //  Life
 //
 //  Created by Shyngys Kassymov on 22.02.2018.
@@ -11,7 +11,7 @@ import AsyncDisplayKit
 import DynamicColor
 import WebKit
 
-class NewsBodyNode: ASDisplayNode {
+class SuggestionBodyNode: ASDisplayNode {
 
     private(set) var authorImageNode: ASNetworkImageNode!
     private(set) var authorNameNode: ASTextNode!
@@ -28,6 +28,9 @@ class NewsBodyNode: ASDisplayNode {
     private(set) var likesImageNode: ASImageNode!
     private(set) var likesNode: ASTextNode!
 
+    private(set) var dislikesImageNode: ASImageNode!
+    private(set) var dislikesNode: ASTextNode!
+
     private(set) var viewsImageNode: ASImageNode!
     private(set) var viewsNode: ASTextNode!
 
@@ -36,17 +39,17 @@ class NewsBodyNode: ASDisplayNode {
     private(set) var commentsNode: ASTextNode!
     private(set) var commentsCountNode: ASTextNode!
 
-    private(set) var news: News
+    private(set) var suggestion: Suggestion
     private(set) var needReloadOnWebViewLoad: Bool
     private(set) var didLoadWebView: ((CGFloat) -> Void)
 
     private(set) var webViewHeight: CGFloat = 0
 
-    init(news: News,
+    init(suggestion: Suggestion,
          needReloadOnWebViewLoad: Bool,
          webViewHeight: CGFloat,
          didLoadWebView: @escaping ((CGFloat) -> Void)) {
-        self.news = news
+        self.suggestion = suggestion
         self.needReloadOnWebViewLoad = needReloadOnWebViewLoad
         self.webViewHeight = webViewHeight
         self.didLoadWebView = didLoadWebView
@@ -59,11 +62,13 @@ class NewsBodyNode: ASDisplayNode {
         addSubnode(authorImageNode)
 
         authorNameNode = ASTextNode()
-        authorNameNode.attributedText = attAuthorName(news.authorName)
+        authorNameNode.attributedText = attAuthorName(suggestion.authorName)
         addSubnode(authorNameNode)
 
         dateNode = ASTextNode()
-        dateNode.attributedText = attDateText(news.createDate.prettyDateString(format: "dd.MM.yyyy HH:mm"))
+        dateNode.attributedText = attDateText(
+            suggestion.createDate.prettyDateString(format: "dd.MM.yyyy HH:mm")
+        )
         addSubnode(dateNode)
 
         separator1Node = ASDisplayNode()
@@ -82,7 +87,7 @@ class NewsBodyNode: ASDisplayNode {
         addSubnode(commentsNode)
 
         commentsCountNode = ASTextNode()
-        commentsCountNode.attributedText = attDetailText("\(news.comments.count)")
+        commentsCountNode.attributedText = attDetailText("\(suggestion.comments.count)")
         addSubnode(commentsCountNode)
     }
 
@@ -114,7 +119,7 @@ class NewsBodyNode: ASDisplayNode {
                 height: 0), configuration: wkWebConfig)
             self.webView.navigationDelegate = self
             self.webView.loadHTMLString(
-                self.news.text.html(font: App.Font.body, textColor: .black),
+                self.suggestion.text.html(font: App.Font.body, textColor: .black),
                 baseURL: nil
             )
             return self.webView
@@ -138,13 +143,24 @@ class NewsBodyNode: ASDisplayNode {
         likesImageNode = ASImageNode()
         likesImageNode.image = #imageLiteral(resourceName: "like-inactive")
         likesImageNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(
-            self.news.isLikedByMe ? App.Color.azure : App.Color.coolGrey
+            self.suggestion.userVote == .liked ? App.Color.azure : App.Color.coolGrey
         )
         addSubnode(likesImageNode)
 
         likesNode = ASTextNode()
-        likesNode.attributedText = attDetailText("\(news.likesQuantity)")
+        likesNode.attributedText = attDetailText("\(suggestion.likesQuantity)")
         addSubnode(likesNode)
+
+        dislikesImageNode = ASImageNode()
+        dislikesImageNode.image = #imageLiteral(resourceName: "dislike-inactive")
+        dislikesImageNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(
+            self.suggestion.userVote == .disliked ? App.Color.azure : App.Color.coolGrey
+        )
+        addSubnode(dislikesImageNode)
+
+        dislikesNode = ASTextNode()
+        dislikesNode.attributedText = attDetailText("\(suggestion.dislikesQuantity)")
+        addSubnode(dislikesNode)
 
         viewsImageNode = ASImageNode()
         viewsImageNode.image = #imageLiteral(resourceName: "view")
@@ -154,7 +170,7 @@ class NewsBodyNode: ASDisplayNode {
         addSubnode(viewsImageNode)
 
         viewsNode = ASTextNode()
-        viewsNode.attributedText = attDetailText("\(news.viewsQuantity)")
+        viewsNode.attributedText = attDetailText("\(suggestion.viewsQuantity)")
         addSubnode(viewsNode)
     }
 
@@ -237,13 +253,23 @@ class NewsBodyNode: ASDisplayNode {
         likesSpec.alignItems = .center
         likesSpec.spacing = App.Layout.itemSpacingSmall
 
+        let dislikesSpec = ASStackLayoutSpec.horizontal()
+        dislikesSpec.children = [dislikesImageNode, dislikesNode]
+        dislikesSpec.alignItems = .center
+        dislikesSpec.spacing = App.Layout.itemSpacingSmall
+
+        let likesDislikesSpec = ASStackLayoutSpec.horizontal()
+        likesDislikesSpec.children = [likesSpec, dislikesSpec]
+        likesDislikesSpec.alignItems = .center
+        likesDislikesSpec.spacing = App.Layout.itemSpacingMedium
+
         let viewsSpec = ASStackLayoutSpec.horizontal()
         viewsSpec.children = [viewsImageNode, viewsNode]
         viewsSpec.alignItems = .center
         viewsSpec.spacing = App.Layout.itemSpacingSmall
 
         let stackSpec = ASStackLayoutSpec.horizontal()
-        stackSpec.children = [likesSpec, viewsSpec]
+        stackSpec.children = [likesDislikesSpec, viewsSpec]
         stackSpec.alignItems = .center
         stackSpec.justifyContent = .spaceBetween
         stackSpec.spacing = App.Layout.itemSpacingMedium
@@ -322,7 +348,7 @@ class NewsBodyNode: ASDisplayNode {
 
 }
 
-extension NewsBodyNode: WKNavigationDelegate {
+extension SuggestionBodyNode: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         spinnerNode.isHidden = true
 
@@ -344,6 +370,7 @@ extension NewsBodyNode: WKNavigationDelegate {
                         )
 
                         self.spinnerNode.style.preferredSize = .zero
+                        self.spinnerNode.removeFromSupernode()
 
                         self.setNeedsLayout()
                         self.layoutIfNeeded()

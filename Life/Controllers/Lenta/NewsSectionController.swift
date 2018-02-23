@@ -21,6 +21,9 @@ class NewsSectionController: ASCollectionSectionController {
     var onUnathorizedError: (() -> Void)?
 
     var didTapNews: ((String) -> Void)?
+    var didTapSuggestion: ((String) -> Void)?
+
+    var didFinishLoad: (() -> Void)?
 
     init(viewModel: LentaViewModel) {
         self.viewModel = viewModel
@@ -47,8 +50,12 @@ class NewsSectionController: ASCollectionSectionController {
 
     override func didSelectItem(at index: Int) {
         if let news = items[index] as? LentaItemViewModel {
-            if let didTapNews = didTapNews {
+            if news.item.entityType.code == .news,
+                let didTapNews = didTapNews {
                 didTapNews(news.item.id)
+            } else if news.item.entityType.code == .suggestion,
+                let didTapSuggestion = didTapSuggestion {
+                didTapSuggestion(news.item.id)
             }
         }
     }
@@ -83,6 +90,10 @@ extension NewsSectionController: ASSectionController {
             self.viewModel?.fetchNextPage({ [weak self] (error) in
                 guard let `self` = self,
                     let viewModel = self.viewModel else { return }
+
+                if let didFinishLoad = self.didFinishLoad {
+                    didFinishLoad()
+                }
 
                 if let moyaError = error as? MoyaError,
                     moyaError.response?.statusCode == 401,

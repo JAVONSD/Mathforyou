@@ -13,8 +13,13 @@ struct ImageSize: Codable {
     var height: Int
 }
 
+struct LentaType: Codable {
+    var name: String
+    var code: EntityType
+}
+
 enum EntityType: Int, Codable {
-    case news = 10, questionnaire = 20, suggestion = 30
+    case news = 10, suggestion = 20, questionnaire = 30
 }
 
 struct Lenta: Decodable {
@@ -36,7 +41,7 @@ struct Lenta: Decodable {
     var isLikedByMe: Bool
     var viewsQuantity: Int
     var isFromSharepoint: Bool
-    var entityType: EntityType
+    var entityType: LentaType
 
     // MARK: - Decodable
 
@@ -59,7 +64,7 @@ struct Lenta: Decodable {
         case isLikedByMe
         case viewsQuantity
         case isFromSharepoint
-        case entityType = "entityType.code"
+        case entityType
     }
 
     init(from decoder: Decoder) throws {
@@ -86,7 +91,10 @@ struct Lenta: Decodable {
         self.isLikedByMe = try container.decodeWrapper(key: .isLikedByMe, defaultValue: false)
         self.viewsQuantity = try container.decodeWrapper(key: .viewsQuantity, defaultValue: 0)
         self.isFromSharepoint = try container.decodeWrapper(key: .isFromSharepoint, defaultValue: false)
-        self.entityType = try container.decodeWrapper(key: .entityType, defaultValue: .news)
+        self.entityType = try container.decodeWrapper(
+            key: .entityType,
+            defaultValue: LentaType(name: "News", code: .news)
+        )
     }
 }
 

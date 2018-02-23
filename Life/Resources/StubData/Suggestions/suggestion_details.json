@@ -1,0 +1,35 @@
+{
+    "id": "e2b9b4e5-29b4-4b48-af6e-8e8def3370fb",
+    "title": "Еще одно предложение",
+    "text": "<p>ывавыавыа</p>",
+    "imageStreamId": "bba8fd0d-ff61-4f14-a779-85432779ad59",
+    "createDate": "2017-12-29T04:11:01.053",
+    "authorCode": "0000-00162",
+    "authorName": "Не найден",
+    "canEdit": false,
+    "commentsQuantity": 1,
+    "likesQuantity": 1,
+    "dislikesQuantity": 0,
+    "userVote": 1,
+    "viewsQuantity": 9,
+    "comments": [
+                 {
+                 "id": "9d8e81e2-e450-4510-b788-054006f15f66",
+                 "authorCode": "00-000485",
+                 "authorName": "Карибекова Сана",
+                 "createDate": "2018-02-06T02:03:18.36",
+                 "text": "выаыав",
+                 "likesQuantity": 0,
+                 "dislikesQuantity": 0,
+                 "userVote": null,
+                 "type": 1
+                 }
+                 ],
+    "secondaryImages": [],
+    "tags": [
+             {
+             "nsiTagId": "40726b7d-8412-438b-8723-4424b2cac59a",
+             "name": "классный тег 2"
+             }
+             ]
+}

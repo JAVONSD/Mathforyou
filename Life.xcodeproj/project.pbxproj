@@ -167,6 +167,12 @@
 		C7BB5C59203EF7190056BBF9 /* NewsDetailSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C58203EF7190056BBF9 /* NewsDetailSectionController.swift */; };
 		C7BB5C5D203EFA6A0056BBF9 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C5C203EFA6A0056BBF9 /* CommentViewModel.swift */; };
 		C7BB5C5F203F00690056BBF9 /* news_details.json in Resources */ = {isa = PBXBuildFile; fileRef = C7BB5C5E203F00690056BBF9 /* news_details.json */; };
+		C7BB5C61203FD2920056BBF9 /* suggestion_details.json in Resources */ = {isa = PBXBuildFile; fileRef = C7BB5C60203FD2920056BBF9 /* suggestion_details.json */; };
+		C7BB5C67203FD4420056BBF9 /* SuggestionBodyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C64203FD4410056BBF9 /* SuggestionBodyNode.swift */; };
+		C7BB5C68203FD4420056BBF9 /* SuggestionDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C65203FD4410056BBF9 /* SuggestionDetailsCell.swift */; };
+		C7BB5C69203FD4420056BBF9 /* SuggestionHeaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C66203FD4420056BBF9 /* SuggestionHeaderNode.swift */; };
+		C7BB5C6B203FD6730056BBF9 /* SuggestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C6A203FD6730056BBF9 /* SuggestionViewController.swift */; };
+		C7BB5C6D203FD6810056BBF9 /* SuggestionSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C6C203FD6810056BBF9 /* SuggestionSectionController.swift */; };
 		C7D6419C20340750001DCA98 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419B20340750001DCA98 /* AuthService.swift */; };
 		C7D6419E20340777001DCA98 /* EmployeesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419D20340777001DCA98 /* EmployeesService.swift */; };
 		C7D641A020340789001DCA98 /* EventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419F20340789001DCA98 /* EventsService.swift */; };
@@ -474,6 +480,12 @@
 		C7BB5C58203EF7190056BBF9 /* NewsDetailSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailSectionController.swift; sourceTree = "<group>"; };
 		C7BB5C5C203EFA6A0056BBF9 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		C7BB5C5E203F00690056BBF9 /* news_details.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = news_details.json; sourceTree = "<group>"; };
+		C7BB5C60203FD2920056BBF9 /* suggestion_details.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = suggestion_details.json; sourceTree = "<group>"; };
+		C7BB5C64203FD4410056BBF9 /* SuggestionBodyNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionBodyNode.swift; sourceTree = "<group>"; };
+		C7BB5C65203FD4410056BBF9 /* SuggestionDetailsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionDetailsCell.swift; sourceTree = "<group>"; };
+		C7BB5C66203FD4420056BBF9 /* SuggestionHeaderNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SuggestionHeaderNode.swift; sourceTree = "<group>"; };
+		C7BB5C6A203FD6730056BBF9 /* SuggestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionViewController.swift; sourceTree = "<group>"; };
+		C7BB5C6C203FD6810056BBF9 /* SuggestionSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionSectionController.swift; sourceTree = "<group>"; };
 		C7D6419B20340750001DCA98 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		C7D6419D20340777001DCA98 /* EmployeesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesService.swift; sourceTree = "<group>"; };
 		C7D6419F20340789001DCA98 /* EventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsService.swift; sourceTree = "<group>"; };
@@ -1195,6 +1207,26 @@
 			path = TopQuestions;
 			sourceTree = "<group>";
 		};
+		C7BB5C62203FD4060056BBF9 /* NewsDetails */ = {
+			isa = PBXGroup;
+			children = (
+				C7BB5C4C203ED3000056BBF9 /* NewsDetailsCell.swift */,
+				C7BB5C54203ED68B0056BBF9 /* NewsHeaderNode.swift */,
+				C7BB5C50203ED31C0056BBF9 /* NewsBodyNode.swift */,
+			);
+			path = NewsDetails;
+			sourceTree = "<group>";
+		};
+		C7BB5C63203FD4150056BBF9 /* SuggestionDetails */ = {
+			isa = PBXGroup;
+			children = (
+				C7BB5C65203FD4410056BBF9 /* SuggestionDetailsCell.swift */,
+				C7BB5C66203FD4420056BBF9 /* SuggestionHeaderNode.swift */,
+				C7BB5C64203FD4410056BBF9 /* SuggestionBodyNode.swift */,
+			);
+			path = SuggestionDetails;
+			sourceTree = "<group>";
+		};
 		C7D641BD20341125001DCA98 /* StubData */ = {
 			isa = PBXGroup;
 			children = (
@@ -1245,6 +1277,7 @@
 		C7D641C1203411B3001DCA98 /* Suggestions */ = {
 			isa = PBXGroup;
 			children = (
+				C7BB5C60203FD2920056BBF9 /* suggestion_details.json */,
 			);
 			path = Suggestions;
 			sourceTree = "<group>";
@@ -1409,6 +1442,8 @@
 				C720EC812036E67D007E4CD4 /* NewsSectionController.swift */,
 				C7BB5C56203EF70B0056BBF9 /* NewsViewController.swift */,
 				C7BB5C58203EF7190056BBF9 /* NewsDetailSectionController.swift */,
+				C7BB5C6A203FD6730056BBF9 /* SuggestionViewController.swift */,
+				C7BB5C6C203FD6810056BBF9 /* SuggestionSectionController.swift */,
 			);
 			path = Lenta;
 			sourceTree = "<group>";
@@ -1523,9 +1558,8 @@
 				C720EC7B2036CD54007E4CD4 /* NewsCell.swift */,
 				C720EC852037093A007E4CD4 /* LentaOverviewCell.swift */,
 				C720EC8720370B03007E4CD4 /* OverviewCell.swift */,
-				C7BB5C4C203ED3000056BBF9 /* NewsDetailsCell.swift */,
-				C7BB5C54203ED68B0056BBF9 /* NewsHeaderNode.swift */,
-				C7BB5C50203ED31C0056BBF9 /* NewsBodyNode.swift */,
+				C7BB5C62203FD4060056BBF9 /* NewsDetails */,
+				C7BB5C63203FD4150056BBF9 /* SuggestionDetails */,
 				C7BB5C52203ED34C0056BBF9 /* NewsCommentCell.swift */,
 			);
 			path = Lenta;
@@ -1699,6 +1733,7 @@
 				C7D641D920341813001DCA98 /* user_profile.json in Resources */,
 				C76EFBB8203008C100FA2BB9 /* Roboto-Italic.ttf in Resources */,
 				C76EFBC0203008C100FA2BB9 /* Roboto-MediumItalic.ttf in Resources */,
+				C7BB5C61203FD2920056BBF9 /* suggestion_details.json in Resources */,
 				C76EFBBD203008C100FA2BB9 /* Roboto-Bold.ttf in Resources */,
 				C76EFB58202E91F000FA2BB9 /* LaunchScreen.storyboard in Resources */,
 				C76EFBBA203008C100FA2BB9 /* Roboto-Black.ttf in Resources */,
@@ -1996,6 +2031,7 @@
 				C7D6423C20346FC0001DCA98 /* EmployeesViewModel.swift in Sources */,
 				C7BB5C3C203E6D160056BBF9 /* TopAnswersCell.swift in Sources */,
 				C7D6421A203463E0001DCA98 /* UIWindow+Rx.swift in Sources */,
+				C7BB5C68203FD4420056BBF9 /* SuggestionDetailsCell.swift in Sources */,
 				C7F7CB65203C5F24007B9D1E /* SBSectionController.swift in Sources */,
 				C73EB29C2032F9B100429921 /* SectionModelType.swift in Sources */,
 				C7F7CB49203B16FD007B9D1E /* Image.swift in Sources */,
@@ -2016,6 +2052,7 @@
 				C76EFBF220302F8C00FA2BB9 /* String.swift in Sources */,
 				C7D832B920356F9B00282891 /* Response+Extensions.swift in Sources */,
 				C717C677203D135F0070447D /* TasksAndRequetsView.swift in Sources */,
+				C7BB5C69203FD4420056BBF9 /* SuggestionHeaderNode.swift in Sources */,
 				C7D641DF2034190B001DCA98 /* ResetPasswordViewModel.swift in Sources */,
 				C79251FF2031A18B00CDFBBA /* MyInfoMainView.swift in Sources */,
 				C7BB5C38203E672F0056BBF9 /* QuestionsViewModel.swift in Sources */,
@@ -2023,6 +2060,7 @@
 				C7D832C72035C4FC00282891 /* VacanciesViewModel.swift in Sources */,
 				C7D6421B203463E0001DCA98 /* UIWindow+Presentable.swift in Sources */,
 				C73EB2B8203323C500429921 /* BenefitsView.swift in Sources */,
+				C7BB5C6B203FD6730056BBF9 /* SuggestionViewController.swift in Sources */,
 				C7D641A020340789001DCA98 /* EventsService.swift in Sources */,
 				C73EB2BC203329D000429921 /* ImageCollectionViewCell.swift in Sources */,
 				C70ECFD3203AC56B00710DB5 /* SuggestionsSectionController.swift in Sources */,
@@ -2096,6 +2134,7 @@
 				C76EFBA42030056000FA2BB9 /* LoginView.swift in Sources */,
 				C7F7CB4D203B19D1007B9D1E /* TasksViewModel.swift in Sources */,
 				C70ECFE1203ACD3D00710DB5 /* Like.swift in Sources */,
+				C7BB5C67203FD4420056BBF9 /* SuggestionBodyNode.swift in Sources */,
 				C7D64218203463E0001DCA98 /* UIViewController+Presentable.swift in Sources */,
 				C7D64220203463E0001DCA98 /* Stepper.swift in Sources */,
 				C7F7CB37203AEAC2007B9D1E /* Questionnaire.swift in Sources */,
@@ -2166,6 +2205,7 @@
 				C76EFBF020302F8C00FA2BB9 /* FormatSanitizer.swift in Sources */,
 				C7F7CB45203B138D007B9D1E /* EventsViewModel.swift in Sources */,
 				C76EFBEB20302F8C00FA2BB9 /* InterfaceBuilderSupport.swift in Sources */,
+				C7BB5C6D203FD6810056BBF9 /* SuggestionSectionController.swift in Sources */,
 				C79251EB2031532E00CDFBBA /* MyInfoView.swift in Sources */,
 				C76EFBE420302F8C00FA2BB9 /* ValueState.swift in Sources */,
 				C7D641F520344C70001DCA98 /* LoginFlow.swift in Sources */,

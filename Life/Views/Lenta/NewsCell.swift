@@ -85,7 +85,7 @@ class NewsCell: ASCellNode {
 
         viewsIconNode = ASImageNode()
         viewsIconNode.contentMode = .scaleAspectFit
-        viewsIconNode.image = viewModel.item.entityType != .questionnaire ? #imageLiteral(resourceName: "view") : #imageLiteral(resourceName: "poll")
+        viewsIconNode.image = viewModel.item.entityType.code != .questionnaire ? #imageLiteral(resourceName: "view") : #imageLiteral(resourceName: "poll")
         backgroundNode.addSubnode(viewsIconNode)
 
         viewsNode = ASTextNode()

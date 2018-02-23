@@ -36,15 +36,15 @@ class OverviewCell: ASCellNode {
 
         var imageColor = UIColor(hexString: "#50e3c2")
         var title = NSLocalizedString("news", comment: "")
-        var count = viewModel.items.filter { $0.item.entityType == .news }.count
+        var count = viewModel.items.filter { $0.item.entityType.code == .news }.count
 
         if entityType == .questionnaire {
             imageColor = UIColor(hexString: "#4a90e2")
-            count = viewModel.items.filter { $0.item.entityType == .questionnaire }.count
+            count = viewModel.items.filter { $0.item.entityType.code == .questionnaire }.count
             title = NSLocalizedString("questionnaires", comment: "")
         } else if entityType == .suggestion {
             imageColor = UIColor(hexString: "#f5a623")
-            count = viewModel.items.filter { $0.item.entityType == .suggestion }.count
+            count = viewModel.items.filter { $0.item.entityType.code == .suggestion }.count
             title = NSLocalizedString("suggestions", comment: "")
         }
 

@@ -52,10 +52,13 @@ enum AppStep: Step {
 
     case createSuggestion
     case suggestionPicked(withId: String)
+    case suggestionDone
 
     // MARK: - Questions
 
     case topQuestions
+    case topQuestionPicked(withId: String)
+    case topQuestionDone
     case createQuestion
 
     // MARK: - Employees

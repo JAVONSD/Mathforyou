@@ -54,15 +54,24 @@ class MainMenuFlow: Flow {
             return navigationFromEmployee()
         case .topQuestions:
             return navigationToTopQuestions()
+        case .topQuestionPicked:
+            // temp
+            return navigationToTopQuestions()
         case .newsPicked:
             return navigationToNewsDetail()
         case .newsDone:
             return navigationFromNewsDetail()
+        case .suggestionPicked:
+            return navigationToSuggestion()
+        case .suggestionDone:
+            return navigationFromSuggestion()
         default:
             return NextFlowItems.stepNotHandled
         }
     }
     //swiftlint:enable cyclomatic_complexity
+
+    // MARK: - Navigation
 
     private func navigateToLoginScreen(isUnathorized: Bool = false) {
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
@@ -80,52 +89,11 @@ class MainMenuFlow: Flow {
     }
 
     private func navigationToMainMenuScreen() -> NextFlowItems {
-        let biBoardVC = BIBoardViewController()
-        biBoardVC.onUnathorizedError = {
-            self.navigateToLoginScreen(isUnathorized: true)
-        }
-
-        let biOfficeVC = BIOfficeViewController()
-        var biOfficeViewModel = BIOfficeViewModel()
-        biOfficeViewModel.tasksAndRequestsViewModel = tasksAndRequestsViewModel
-        biOfficeVC.viewModel = biOfficeViewModel
-        biOfficeVC.onUnathorizedError = {
-            self.navigateToLoginScreen(isUnathorized: true)
-        }
-
-        let lentaVC = LentaViewController()
-        lentaVC.didTapNews = { newsId in
-            self.rootViewController.step.accept(AppStep.newsPicked(withId: newsId))
-        }
-        lentaVC.onUnathorizedError = {
-            self.navigateToLoginScreen(isUnathorized: true)
-        }
-
-        let stuffVC = StuffViewController(
-            employeesViewModel: employeesViewModel,
-            birthdaysViewModel: birthdaysViewModel,
-            vacanciesViewModel: vacanciesViewModel
-        )
-        stuffVC.didSelectEmployee = { code in
-            self.rootViewController.step.accept(AppStep.employeePicked(withId: code))
-        }
-        stuffVC.didSelectBirthdate = { code in
-            self.rootViewController.step.accept(AppStep.employeePicked(withId: code))
-        }
-        stuffVC.didSelectVacancy = { code in
-
-        }
-        stuffVC.onUnathorizedError = {
-            self.navigateToLoginScreen(isUnathorized: true)
-        }
-
-        let menuVC = MenuViewController.instantiate(withViewModel: MenuViewModel())
-        menuVC.topQuestionTapped = {
-            self.rootViewController.step.accept(AppStep.topQuestions)
-        }
-        menuVC.onUnathorizedError = {
-            self.navigateToLoginScreen(isUnathorized: true)
-        }
+        let biBoardVC = configuredBIBoard()
+        let biOfficeVC = configuredBIOffice()
+        let lentaVC = configuredLenta()
+        let stuffVC = configuredStuff()
+        let menuVC = configuredMenu()
 
         tabBarController.viewControllers = [
             biOfficeVC,
@@ -226,6 +194,93 @@ class MainMenuFlow: Flow {
     private func navigationFromNewsDetail() -> NextFlowItems {
         self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
         return NextFlowItems.none
+    }
+
+    private func navigationToSuggestion() -> NextFlowItems {
+        let viewController = SuggestionViewController(
+            viewModel: SuggestionsViewModel.sample().suggestions[0]
+        )
+        self.rootViewController.present(viewController, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem:
+            NextFlowItem(
+                nextPresentable: viewController,
+                nextStepper: viewController)
+        )
+    }
+
+    private func navigationFromSuggestion() -> NextFlowItems {
+        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
+        return NextFlowItems.none
+    }
+
+    // MARK: - Methods
+
+    private func configuredBIBoard() -> BIBoardViewController {
+        let biBoardVC = BIBoardViewController()
+        biBoardVC.onUnathorizedError = {
+            self.navigateToLoginScreen(isUnathorized: true)
+        }
+        biBoardVC.didTapTop7 = { id in
+            self.rootViewController.step.accept(AppStep.topQuestionPicked(withId: id))
+        }
+        return biBoardVC
+    }
+
+    private func configuredBIOffice() -> BIOfficeViewController {
+        let biOfficeVC = BIOfficeViewController()
+        var biOfficeViewModel = BIOfficeViewModel()
+        biOfficeViewModel.tasksAndRequestsViewModel = tasksAndRequestsViewModel
+        biOfficeVC.viewModel = biOfficeViewModel
+        biOfficeVC.onUnathorizedError = {
+            self.navigateToLoginScreen(isUnathorized: true)
+        }
+        return biOfficeVC
+    }
+
+    private func configuredLenta() -> LentaViewController {
+        let lentaVC = LentaViewController()
+        lentaVC.didTapNews = { newsId in
+            self.rootViewController.step.accept(AppStep.newsPicked(withId: newsId))
+        }
+        lentaVC.didTapSuggestion = { id in
+            self.rootViewController.step.accept(AppStep.suggestionPicked(withId: id))
+        }
+        lentaVC.onUnathorizedError = {
+            self.navigateToLoginScreen(isUnathorized: true)
+        }
+        return lentaVC
+    }
+
+    private func configuredStuff() -> StuffViewController {
+        let stuffVC = StuffViewController(
+            employeesViewModel: employeesViewModel,
+            birthdaysViewModel: birthdaysViewModel,
+            vacanciesViewModel: vacanciesViewModel
+        )
+        stuffVC.didSelectEmployee = { code in
+            self.rootViewController.step.accept(AppStep.employeePicked(withId: code))
+        }
+        stuffVC.didSelectBirthdate = { code in
+            self.rootViewController.step.accept(AppStep.employeePicked(withId: code))
+        }
+        stuffVC.didSelectVacancy = { code in
+
+        }
+        stuffVC.onUnathorizedError = {
+            self.navigateToLoginScreen(isUnathorized: true)
+        }
+        return stuffVC
+    }
+
+    private func configuredMenu() -> MenuViewController {
+        let menuVC = MenuViewController.instantiate(withViewModel: MenuViewModel())
+        menuVC.topQuestionTapped = {
+            self.rootViewController.step.accept(AppStep.topQuestions)
+        }
+        menuVC.onUnathorizedError = {
+            self.navigateToLoginScreen(isUnathorized: true)
+        }
+        return menuVC
     }
 
 }
