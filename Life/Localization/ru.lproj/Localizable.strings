@@ -119,4 +119,8 @@
 "hr_department" = "HR отдел";
 "to_employee" = "Сотруднику";
 
+/* News */
+
+"comments" = "Комментарии";
+
 

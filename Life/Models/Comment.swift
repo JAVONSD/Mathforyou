@@ -17,7 +17,7 @@ struct Comment: Codable {
     var text: String
     var likesQuantity: Int
     var dislikesQuantity: Int
-    var userVote: Int
+    var userVote: UserVote
     var type: Int
 
     // MARK: - Decodable
@@ -44,7 +44,7 @@ struct Comment: Codable {
         self.text = try container.decodeWrapper(key: .text, defaultValue: "")
         self.likesQuantity = try container.decodeWrapper(key: .likesQuantity, defaultValue: 0)
         self.dislikesQuantity = try container.decodeWrapper(key: .dislikesQuantity, defaultValue: 0)
-        self.userVote = try container.decodeWrapper(key: .userVote, defaultValue: 0)
+        self.userVote = try container.decodeWrapper(key: .userVote, defaultValue: UserVote.default)
         self.type = try container.decodeWrapper(key: .type, defaultValue: 0)
     }
 

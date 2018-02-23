@@ -54,6 +54,10 @@ class MainMenuFlow: Flow {
             return navigationFromEmployee()
         case .topQuestions:
             return navigationToTopQuestions()
+        case .newsPicked:
+            return navigationToNewsDetail()
+        case .newsDone:
+            return navigationFromNewsDetail()
         default:
             return NextFlowItems.stepNotHandled
         }
@@ -90,6 +94,9 @@ class MainMenuFlow: Flow {
         }
 
         let lentaVC = LentaViewController()
+        lentaVC.didTapNews = { newsId in
+            self.rootViewController.step.accept(AppStep.newsPicked(withId: newsId))
+        }
         lentaVC.onUnathorizedError = {
             self.navigateToLoginScreen(isUnathorized: true)
         }
@@ -201,6 +208,23 @@ class MainMenuFlow: Flow {
     private func navigationToTopQuestions() -> NextFlowItems {
         let viewController = TopQuestionsViewController(viewModel: TopQuestionsViewModel.sample())
         rootViewController.pushViewController(viewController, animated: true)
+        return NextFlowItems.none
+    }
+
+    private func navigationToNewsDetail() -> NextFlowItems {
+        let viewController = NewsViewController(
+            viewModel: NewsViewModel.sample().news[0]
+        )
+        self.rootViewController.present(viewController, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem:
+            NextFlowItem(
+                nextPresentable: viewController,
+                nextStepper: viewController)
+        )
+    }
+
+    private func navigationFromNewsDetail() -> NextFlowItems {
+        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
         return NextFlowItems.none
     }
 

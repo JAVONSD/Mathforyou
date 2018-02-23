@@ -1,0 +1,75 @@
+{
+    "id": "368e0b54-2a1b-4f23-80b8-3e92b99ec94c",
+    "title": "Новая новость",
+    "imageUrl": "http://life.bi-group.org:8090/api/files/b0840e26-82d7-4972-b703-dd2d677df185",
+    "text": "<iframe class=\"ql-video\" frameborder=\"0\" allowfullscreen=\"true\" src=\"https://www.youtube.com/embed/ZfUPFIMdnak?showinfo=0\"></iframe><p>оврпмрам</p>",
+    "rawText": "оврпмрам\r\n",
+    "createDate": "2018-02-09T15:41:16.787",
+    "authorCode": "KPO102505",
+    "authorName": "Жакупова Арайлым",
+    "commentsQuantity": 5,
+    "likesQuantity": 1,
+    "isLikedByMe": true,
+    "viewsQuantity": 43,
+    "isHistoryEvent": false,
+    "isFromSharepoint": false,
+    "comments": [
+                 {
+                 "id": "e59c2d82-69f1-48ad-8482-67bb8861aee2",
+                 "authorCode": "KPO102505",
+                 "authorName": "Жакупова Арайлым",
+                 "createDate": "2018-02-09T15:42:41.43",
+                 "text": "вамам",
+                 "likesQuantity": 1,
+                 "dislikesQuantity": 0,
+                 "vote": 1
+                 },
+                 {
+                 "id": "dfbb7c63-c581-46fa-b23f-836166493b88",
+                 "authorCode": "00-000485",
+                 "authorName": "Тестовый сотрудник (Карибекова Сана)",
+                 "createDate": "2018-02-13T12:32:07.473",
+                 "text": "This is a new test comment baby ;)",
+                 "likesQuantity": 0,
+                 "dislikesQuantity": 0,
+                 "vote": null
+                 },
+                 {
+                 "id": "74e3264c-040e-4540-bd5d-b650b6584d2a",
+                 "authorCode": "BRB000052",
+                 "authorName": "Шиманский Николай",
+                 "createDate": "2018-02-09T16:52:21.49",
+                 "text": "мамав",
+                 "likesQuantity": 0,
+                 "dislikesQuantity": 0,
+                 "vote": null
+                 },
+                 {
+                 "id": "7229daa4-a0cd-49ad-97cd-d6b8bc8cd556",
+                 "authorCode": "BIS000106",
+                 "authorName": "Злобин Владислав",
+                 "createDate": "2018-02-12T10:58:18.987",
+                 "text": "мяу",
+                 "likesQuantity": 1,
+                 "dislikesQuantity": 0,
+                 "vote": null
+                 },
+                 {
+                 "id": "732a03a7-e570-465f-b0ec-fcd029e05100",
+                 "authorCode": "00-000485",
+                 "authorName": "Тестовый сотрудник (Карибекова Сана)",
+                 "createDate": "2018-02-12T02:25:09.673",
+                 "text": "Hey!",
+                 "likesQuantity": 0,
+                 "dislikesQuantity": 0,
+                 "vote": null
+                 }
+                 ],
+    "secondaryImages": [],
+    "tags": [
+             {
+             "nsiTagId": "52b4d6ce-3797-428c-933a-33f20b93ce37",
+             "name": "пр 1"
+             }
+             ]
+}

@@ -13,6 +13,7 @@ import Kingfisher
 class ImageNode: ASCellNode {
 
     private(set) var imageNode: ASNetworkImageNode!
+    private(set) var overlayNode: ASDisplayNode!
 
     private(set) var image: String
     private(set) var size: CGSize
@@ -20,7 +21,8 @@ class ImageNode: ASCellNode {
     init(image: String,
          size: CGSize,
          cornerRadius: CGFloat = App.Layout.cornerRadius,
-         backgroundColor: UIColor = App.Color.silver) {
+         backgroundColor: UIColor = App.Color.silver,
+         overlayColor: UIColor = .clear) {
         self.image = image
         self.size = size
 
@@ -32,9 +34,19 @@ class ImageNode: ASCellNode {
         imageNode.cornerRadius = cornerRadius
         imageNode.style.preferredSize = size
         addSubnode(imageNode)
+
+        overlayNode = ASDisplayNode()
+        overlayNode.backgroundColor = overlayColor
+        overlayNode.cornerRadius = cornerRadius
+        overlayNode.style.preferredSize = size
+        imageNode.addSubnode(overlayNode)
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        imageNode.layoutSpecBlock = { (_, _) in
+            return ASWrapperLayoutSpec(layoutElement: self.overlayNode)
+        }
+
         return ASWrapperLayoutSpec(layoutElement: imageNode)
     }
 

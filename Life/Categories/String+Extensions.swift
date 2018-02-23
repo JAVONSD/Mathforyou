@@ -53,4 +53,14 @@ public extension String {
         return date.timeAgoSinceNow
     }
 
+    public func html(font: UIFont, textColor: UIColor) -> String {
+        print("HTML font family name - \(font.familyName)")
+        return String(format:
+            """
+            <span style=\"font-family: '\(font.familyName)', '-apple-system', 'HelveticaNeue';
+            font-size: \(font.pointSize)\">%@</span>
+            """, self)
+
+    }
+
 }

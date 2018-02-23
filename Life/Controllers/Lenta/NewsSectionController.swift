@@ -20,6 +20,8 @@ class NewsSectionController: ASCollectionSectionController {
 
     var onUnathorizedError: (() -> Void)?
 
+    var didTapNews: ((String) -> Void)?
+
     init(viewModel: LentaViewModel) {
         self.viewModel = viewModel
 
@@ -44,7 +46,11 @@ class NewsSectionController: ASCollectionSectionController {
     }
 
     override func didSelectItem(at index: Int) {
-        print("Selected item at index - \(index)")
+        if let news = items[index] as? LentaItemViewModel {
+            if let didTapNews = didTapNews {
+                didTapNews(news.item.id)
+            }
+        }
     }
 }
 
@@ -100,7 +106,6 @@ extension NewsSectionController: ASSectionController {
     func shouldBatchFetch() -> Bool {
         return viewModel?.canLoadMore ?? false
     }
-
 }
 
 extension NewsSectionController: RefreshingSectionControllerType {

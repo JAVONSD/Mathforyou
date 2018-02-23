@@ -7,3 +7,7 @@
 //
 
 import Foundation
+
+enum UserVote: Int, Codable {
+    case `default` = 0, liked = 1, disliked = -1
+}

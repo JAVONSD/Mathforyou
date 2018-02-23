@@ -159,6 +159,14 @@
 		C7BB5C47203E85EE0056BBF9 /* AuthorsSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C46203E85EE0056BBF9 /* AuthorsSectionController.swift */; };
 		C7BB5C49203E86020056BBF9 /* AnswersSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C48203E86020056BBF9 /* AnswersSectionController.swift */; };
 		C7BB5C4B203E860F0056BBF9 /* QuestionSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C4A203E860F0056BBF9 /* QuestionSectionController.swift */; };
+		C7BB5C4D203ED3000056BBF9 /* NewsDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C4C203ED3000056BBF9 /* NewsDetailsCell.swift */; };
+		C7BB5C51203ED31C0056BBF9 /* NewsBodyNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C50203ED31C0056BBF9 /* NewsBodyNode.swift */; };
+		C7BB5C53203ED34C0056BBF9 /* NewsCommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C52203ED34C0056BBF9 /* NewsCommentCell.swift */; };
+		C7BB5C55203ED68B0056BBF9 /* NewsHeaderNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C54203ED68B0056BBF9 /* NewsHeaderNode.swift */; };
+		C7BB5C57203EF70B0056BBF9 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C56203EF70B0056BBF9 /* NewsViewController.swift */; };
+		C7BB5C59203EF7190056BBF9 /* NewsDetailSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C58203EF7190056BBF9 /* NewsDetailSectionController.swift */; };
+		C7BB5C5D203EFA6A0056BBF9 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C5C203EFA6A0056BBF9 /* CommentViewModel.swift */; };
+		C7BB5C5F203F00690056BBF9 /* news_details.json in Resources */ = {isa = PBXBuildFile; fileRef = C7BB5C5E203F00690056BBF9 /* news_details.json */; };
 		C7D6419C20340750001DCA98 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419B20340750001DCA98 /* AuthService.swift */; };
 		C7D6419E20340777001DCA98 /* EmployeesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419D20340777001DCA98 /* EmployeesService.swift */; };
 		C7D641A020340789001DCA98 /* EventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419F20340789001DCA98 /* EventsService.swift */; };
@@ -458,6 +466,14 @@
 		C7BB5C46203E85EE0056BBF9 /* AuthorsSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorsSectionController.swift; sourceTree = "<group>"; };
 		C7BB5C48203E86020056BBF9 /* AnswersSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswersSectionController.swift; sourceTree = "<group>"; };
 		C7BB5C4A203E860F0056BBF9 /* QuestionSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionSectionController.swift; sourceTree = "<group>"; };
+		C7BB5C4C203ED3000056BBF9 /* NewsDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailsCell.swift; sourceTree = "<group>"; };
+		C7BB5C50203ED31C0056BBF9 /* NewsBodyNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsBodyNode.swift; sourceTree = "<group>"; };
+		C7BB5C52203ED34C0056BBF9 /* NewsCommentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCommentCell.swift; sourceTree = "<group>"; };
+		C7BB5C54203ED68B0056BBF9 /* NewsHeaderNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsHeaderNode.swift; sourceTree = "<group>"; };
+		C7BB5C56203EF70B0056BBF9 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		C7BB5C58203EF7190056BBF9 /* NewsDetailSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsDetailSectionController.swift; sourceTree = "<group>"; };
+		C7BB5C5C203EFA6A0056BBF9 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
+		C7BB5C5E203F00690056BBF9 /* news_details.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = news_details.json; sourceTree = "<group>"; };
 		C7D6419B20340750001DCA98 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		C7D6419D20340777001DCA98 /* EmployeesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesService.swift; sourceTree = "<group>"; };
 		C7D6419F20340789001DCA98 /* EventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsService.swift; sourceTree = "<group>"; };
@@ -1265,6 +1281,7 @@
 		C7D641C6203411B4001DCA98 /* News */ = {
 			isa = PBXGroup;
 			children = (
+				C7BB5C5E203F00690056BBF9 /* news_details.json */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -1390,6 +1407,8 @@
 			children = (
 				C7D6422E20346F53001DCA98 /* LentaViewController.swift */,
 				C720EC812036E67D007E4CD4 /* NewsSectionController.swift */,
+				C7BB5C56203EF70B0056BBF9 /* NewsViewController.swift */,
+				C7BB5C58203EF7190056BBF9 /* NewsDetailSectionController.swift */,
 			);
 			path = Lenta;
 			sourceTree = "<group>";
@@ -1444,6 +1463,7 @@
 			isa = PBXGroup;
 			children = (
 				C7D6423D20346FC9001DCA98 /* LentaViewModel.swift */,
+				C7BB5C5C203EFA6A0056BBF9 /* CommentViewModel.swift */,
 			);
 			path = Lenta;
 			sourceTree = "<group>";
@@ -1503,6 +1523,10 @@
 				C720EC7B2036CD54007E4CD4 /* NewsCell.swift */,
 				C720EC852037093A007E4CD4 /* LentaOverviewCell.swift */,
 				C720EC8720370B03007E4CD4 /* OverviewCell.swift */,
+				C7BB5C4C203ED3000056BBF9 /* NewsDetailsCell.swift */,
+				C7BB5C54203ED68B0056BBF9 /* NewsHeaderNode.swift */,
+				C7BB5C50203ED31C0056BBF9 /* NewsBodyNode.swift */,
+				C7BB5C52203ED34C0056BBF9 /* NewsCommentCell.swift */,
 			);
 			path = Lenta;
 			sourceTree = "<group>";
@@ -1679,6 +1703,7 @@
 				C76EFB58202E91F000FA2BB9 /* LaunchScreen.storyboard in Resources */,
 				C76EFBBA203008C100FA2BB9 /* Roboto-Black.ttf in Resources */,
 				C76EFBB9203008C100FA2BB9 /* Roboto-BlackItalic.ttf in Resources */,
+				C7BB5C5F203F00690056BBF9 /* news_details.json in Resources */,
 				C7D641D1203411D3001DCA98 /* token.json in Resources */,
 				C76EFBBE203008C100FA2BB9 /* Roboto-Thin.ttf in Resources */,
 				C76EFBBF203008C100FA2BB9 /* Roboto-Light.ttf in Resources */,
@@ -1919,6 +1944,7 @@
 				C73EB29E2032F9B100429921 /* IdentifiableType.swift in Sources */,
 				C7D6421D203463E0001DCA98 /* Step.swift in Sources */,
 				C7F7CB63203C5F18007B9D1E /* KPISectionController.swift in Sources */,
+				C7BB5C55203ED68B0056BBF9 /* NewsHeaderNode.swift in Sources */,
 				C73EB28E2032F9B100429921 /* RxTableViewSectionedAnimatedDataSource.swift in Sources */,
 				C73EB2962032F9B100429921 /* IntegerType+IdentifiableType.swift in Sources */,
 				C76EFBE220302F8C00FA2BB9 /* Next.swift in Sources */,
@@ -1932,6 +1958,7 @@
 				C7D641AE2034089F001DCA98 /* QuestionnairesService.swift in Sources */,
 				C73EB2B620331EB900429921 /* BenefitsViewModel.swift in Sources */,
 				C79252072031B43700CDFBBA /* ImageTextTableViewCell.swift in Sources */,
+				C7BB5C53203ED34C0056BBF9 /* NewsCommentCell.swift in Sources */,
 				C76EFBED20302F8C00FA2BB9 /* MaskedTextFieldDelegate.swift in Sources */,
 				C79251F9203184F800CDFBBA /* ImageTextButton.swift in Sources */,
 				C7D6420120344F61001DCA98 /* MenuFlow.swift in Sources */,
@@ -2013,6 +2040,7 @@
 				C7F7CB69203C5F57007B9D1E /* EventsSectionController.swift in Sources */,
 				C70ECFD5203AC76500710DB5 /* SuggestionsViewModel.swift in Sources */,
 				C76EFBEC20302F8C00FA2BB9 /* PolyMaskTextFieldDelegate.swift in Sources */,
+				C7BB5C51203ED31C0056BBF9 /* NewsBodyNode.swift in Sources */,
 				C720EC782036A0E0007E4CD4 /* EmployeeCell.swift in Sources */,
 				C7D641F320344B22001DCA98 /* ViewModelBased.swift in Sources */,
 				C7BB5C4B203E860F0056BBF9 /* QuestionSectionController.swift in Sources */,
@@ -2033,12 +2061,14 @@
 				C7D641A620340869001DCA98 /* IntegrationService.swift in Sources */,
 				C79251F120315CE800CDFBBA /* StackedView.swift in Sources */,
 				C7F7CB3B203AEBD6007B9D1E /* Request.swift in Sources */,
+				C7BB5C57203EF70B0056BBF9 /* NewsViewController.swift in Sources */,
 				C792635B2038417B00067371 /* MenuView.swift in Sources */,
 				C76EFBA92030060400FA2BB9 /* Button.swift in Sources */,
 				C73EB2AB2032F9B100429921 /* RxImagePickerDelegateProxy.swift in Sources */,
 				C7D641FB20344F43001DCA98 /* BIBoardFlow.swift in Sources */,
 				C7F7CB6B203C65A1007B9D1E /* KPIViewModel.swift in Sources */,
 				C7BB5C47203E85EE0056BBF9 /* AuthorsSectionController.swift in Sources */,
+				C7BB5C59203EF7190056BBF9 /* NewsDetailSectionController.swift in Sources */,
 				C7F7CB31203AE866007B9D1E /* BIBoardHeaderSectionController.swift in Sources */,
 				C76EFBF120302F8C00FA2BB9 /* NSCharacterSet.swift in Sources */,
 				C7D6420320344F74001DCA98 /* ProfileFlow.swift in Sources */,
@@ -2046,6 +2076,7 @@
 				C717C67B203D2A9A0070447D /* TasksAndRequestsCell.swift in Sources */,
 				C70ECFD7203AC77700710DB5 /* QuestionnairesViewModel.swift in Sources */,
 				C7D6423820346FAC001DCA98 /* BIBoardViewModel.swift in Sources */,
+				C7BB5C4D203ED3000056BBF9 /* NewsDetailsCell.swift in Sources */,
 				C76EFBC620301AE500FA2BB9 /* TextField.swift in Sources */,
 				C70ECFCF203AB51F00710DB5 /* SliderViewModel.swift in Sources */,
 				C7D832BF2035B8EB00282891 /* SizedButton.swift in Sources */,
@@ -2106,6 +2137,7 @@
 				C7F7CB4F203B1A1F007B9D1E /* RequestsViewModel.swift in Sources */,
 				C73EB2932032F9B100429921 /* Deprecated.swift in Sources */,
 				C7F7CB33203AE98A007B9D1E /* Question.swift in Sources */,
+				C7BB5C5D203EFA6A0056BBF9 /* CommentViewModel.swift in Sources */,
 				C76EFBC82030201B00FA2BB9 /* GradientView.swift in Sources */,
 				C73EB29D2032F9B100429921 /* Utilities.swift in Sources */,
 				C7F7CB73203C7442007B9D1E /* DashboardGalleryCell.swift in Sources */,

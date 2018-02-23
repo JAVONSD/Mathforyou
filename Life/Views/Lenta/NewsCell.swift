@@ -64,7 +64,7 @@ class NewsCell: ASCellNode {
         likesIconNode.contentMode = .scaleAspectFit
         likesIconNode.image = #imageLiteral(resourceName: "like-inactive")
         likesIconNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(
-            viewModel.item.isLikedByMe ? App.Color.azure : App.Color.slateGrey
+            viewModel.item.isLikedByMe ? App.Color.azure : App.Color.coolGrey
         )
         backgroundNode.addSubnode(likesIconNode)
 

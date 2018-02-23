@@ -32,10 +32,10 @@ extension NewsViewModel: Mockable {
         let sample = NewsViewModel()
 
         for _ in 0..<3 {
-            let json = [
-                "title": "День открытых дверей пройдет в ЖК «Милано»"
-            ]
-            if let news = try? JSONDecoder().decode(News.self, from: json.toJSONData()) {
+            if let jsonPath = Bundle.main.path(forResource: "news_details", ofType: "json"),
+                let news = try? JSONDecoder().decode(
+                    News.self,
+                    from: Data(contentsOf: URL(fileURLWithPath: jsonPath))) {
                 sample.news.append(NewsItemViewModel(news: news))
             }
         }
@@ -46,6 +46,9 @@ extension NewsViewModel: Mockable {
 
 class NewsItemViewModel: NSObject, ListDiffable {
     var news: News
+
+    var needReloadOnWebViewLoad = true
+    var calculatedWebViewHeight: CGFloat = 0
 
     init(news: News) {
         self.news = news
