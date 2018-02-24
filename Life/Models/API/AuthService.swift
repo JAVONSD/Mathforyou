@@ -90,7 +90,7 @@ protocol AuthorizedTargetType: TargetType {
 }
 
 extension AuthorizedTargetType {
-    var baseURL: URL { return URL(string: "http://life.bi-group.org:8090/api")! }
+    var baseURL: URL { return URL(string: App.String.apiBaseUrl)! }
 }
 
 struct AuthPlugin: PluginType {

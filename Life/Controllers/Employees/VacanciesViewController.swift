@@ -8,6 +8,7 @@
 
 import UIKit
 import Material
+import Moya
 import RxSwift
 import RxCocoa
 import SnapKit
@@ -16,35 +17,35 @@ class VacanciesViewController: UIViewController, ViewModelBased {
 
     typealias ViewModelType = VacanciesViewModel
 
+    var onUnathorizedError: (() -> Void)?
+
     var viewModel: VacanciesViewModel!
     var didSelectVacancy: ((String) -> Void)?
 
     private var employeesView: EmployeesView!
 
+    private let itemsChangeSubject = PublishSubject<[VacancyViewModel]>()
+
     private let disposeBag = DisposeBag()
     private let dataSource =
         RxTableViewSectionedReloadDataSource<SectionModel<VacanciesViewModel, VacancyViewModel>>(
             configureCell: { (_, tv, indexPath, element) in
-                let cellId = App.CellIdentifier.employeeCellId
+                let cellId = App.CellIdentifier.vacancyCellId
 
-                let someCell = tv.dequeueReusableCell(withIdentifier: cellId) as? EmployeeCell
+                let someCell = tv.dequeueReusableCell(withIdentifier: cellId) as? VacancyCell
                 guard let cell = someCell else {
-                    return EmployeeCell(style: .default, reuseIdentifier: cellId)
+                    return VacancyCell(style: .default, reuseIdentifier: cellId)
                 }
 
-                cell.setImage(hidden: true)
-
-                cell.set(title: element.vacancy.jobPosition)
-                cell.set(subtitle: element.vacancy.companyName)
-                cell.minimumHeight = 72
-
-                cell.setDivider(leftInset: App.Layout.sideOffset)
+                cell.positionLabel.text = element.vacancy.jobPosition
+                cell.companyLabel.text = element.vacancy.companyName
+                cell.salaryLabel.text = element.vacancy.salary
 
                 let itemsCount = tv.numberOfRows(inSection: indexPath.section)
                 if indexPath.row == itemsCount - 1 {
-                    cell.view?.dividerView?.isHidden = true
+                    cell.dividerView.isHidden = true
                 } else {
-                    cell.view?.dividerView?.isHidden = false
+                    cell.dividerView.isHidden = false
                 }
 
                 return cell
@@ -68,6 +69,22 @@ class VacanciesViewController: UIViewController, ViewModelBased {
 
         setupUI()
         bind()
+
+        employeesView.startLoading()
+        viewModel.getVacancies { [weak self] error in
+            guard let `self` = self
+                else { return }
+
+            self.employeesView.stopLoading()
+
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401,
+                let onUnathorizedError = self.onUnathorizedError {
+                onUnathorizedError()
+            } else {
+                self.itemsChangeSubject.onNext(self.viewModel.vacancies)
+            }
+        }
     }
 
     // MARK: - Bind
@@ -77,8 +94,10 @@ class VacanciesViewController: UIViewController, ViewModelBased {
 
         let dataSource = self.dataSource
 
-        let sectionModels = [SectionModel(model: viewModel!, items: viewModel.vacancies)]
-        let items = Observable.just(sectionModels)
+        let observable = itemsChangeSubject.asObservable()
+        let items = observable.concatMap { (items) in
+            return Observable.just([SectionModel(model: self.viewModel!, items: items)])
+        }
 
         items
             .bind(to: tableView.rx.items(dataSource: dataSource))
@@ -103,6 +122,8 @@ class VacanciesViewController: UIViewController, ViewModelBased {
         employeesView.configureViewForHeader = { (tableView, section) in
             return dataSource.tableView(tableView, viewForHeaderInSection: section)
         }
+
+        itemsChangeSubject.onNext(viewModel.vacancies)
     }
 
     // MARK: - UI
@@ -121,6 +142,16 @@ class VacanciesViewController: UIViewController, ViewModelBased {
 
     private func setupEmployeesView() {
         employeesView = EmployeesView(frame: .zero)
+        employeesView.searchView?.didType = { [weak self] text in
+            guard let `self` = self else { return }
+
+            if !text.isEmpty {
+                self.viewModel.filter(with: text)
+                self.itemsChangeSubject.onNext(self.viewModel.filteredVacancies)
+            } else {
+                self.itemsChangeSubject.onNext(self.viewModel.vacancies)
+            }
+        }
         view.addSubview(employeesView)
         employeesView.snp.makeConstraints({ [weak self] (make) in
             guard let `self` = self else { return }

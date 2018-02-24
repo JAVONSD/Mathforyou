@@ -1,0 +1,114 @@
+{
+    "list": [
+             {
+             "code": "BID0000119",
+             "fullname": "Абайдуллин Халим",
+             "firstname": "Халим",
+             "birthDate": "1984-12-10T00:00:00",
+             "jobPosition": "Scrum Мастер",
+             "companyName": "BI-Development ТОО",
+             "departmentName": "Управляющая компания МЖК-Астана",
+             "isBirthdayToday": false,
+             "hasAvatar": false
+             },
+             {
+             "code": "KPO103279",
+             "fullname": "Абаканов Бахытжан",
+             "firstname": "Бахытжан",
+             "birthDate": "1971-05-27T00:00:00",
+             "jobPosition": "Переводчик",
+             "companyName": "BI-Industrial ТОО Филиал BMEI",
+             "departmentName": "Отдел по работе с персоналом",
+             "isBirthdayToday": false,
+             "hasAvatar": false
+             },
+             {
+             "code": "MRT000017",
+             "fullname": "Абат Алмат",
+             "firstname": "Алмат",
+             "birthDate": "1986-04-03T00:00:00",
+             "jobPosition": "Заведующий Хозяйством",
+             "companyName": "Мерке Тумары ТОО",
+             "departmentName": "АХО",
+             "isBirthdayToday": false,
+             "hasAvatar": false
+             },
+             {
+             "code": "KIG000351",
+             "fullname": "Абатова Әсел",
+             "firstname": "Әсел",
+             "birthDate": "1991-12-24T00:00:00",
+             "jobPosition": "Инженер - Сметчик Ведущий",
+             "companyName": "Kaz industrial group ТОО",
+             "departmentName": "ПТО",
+             "isBirthdayToday": false,
+             "hasAvatar": false
+             },
+             {
+             "code": "AVL000295",
+             "fullname": "Абашева Луиза",
+             "firstname": "Луиза",
+             "birthDate": "1984-10-21T00:00:00",
+             "jobPosition": "Менеджер по Внутренним Коммуникациям",
+             "companyName": "BI Road Construction ТОО",
+             "departmentName": "Управление рекламы и PR",
+             "isBirthdayToday": false,
+             "hasAvatar": false
+             },
+             {
+             "code": "AFA000253",
+             "fullname": "Аббасова Нуржамиля",
+             "firstname": "Нуржамиля",
+             "birthDate": "1977-01-01T00:00:00",
+             "jobPosition": "Главный Бухгалтер Сервисной Службы",
+             "companyName": "Luxury Concierge Astana ТОО",
+             "departmentName": "Отдел бухгалтерии",
+             "isBirthdayToday": false,
+             "hasAvatar": true
+             },
+             {
+             "code": "00-001127 ",
+             "fullname": "Абдибеков Бауржан",
+             "firstname": "Бауржан",
+             "birthDate": "1987-06-07T00:00:00",
+             "jobPosition": "Заместитель Главного Бухгалтера Дивизиона",
+             "companyName": "BI Civil Construction ТОО",
+             "departmentName": "Отдел бухгалтерии",
+             "isBirthdayToday": false,
+             "hasAvatar": true
+             },
+             {
+             "code": "PSC001580",
+             "fullname": "Абдибеков Нурумжан",
+             "firstname": "Нурумжан",
+             "birthDate": "1979-05-24T00:00:00",
+             "jobPosition": "Инженер по Оперативному Учету",
+             "companyName": "BI-Industrial ТОО Филиал BMEI",
+             "departmentName": "ПТО",
+             "isBirthdayToday": false,
+             "hasAvatar": false
+             },
+             {
+             "code": "00-001647 ",
+             "fullname": "Абдибекова Салима",
+             "firstname": "Салима",
+             "birthDate": "1993-01-31T00:00:00",
+             "jobPosition": "Юрист",
+             "companyName": "BI Urban Construction",
+             "departmentName": "Проект Алатау",
+             "isBirthdayToday": false,
+             "hasAvatar": true
+             },
+             {
+             "code": "KR01000005",
+             "fullname": "Абдибекова Татьяна",
+             "firstname": "Татьяна",
+             "birthDate": "1959-07-11T00:00:00",
+             "jobPosition": "Главный Бухгалтер Дивизиона",
+             "companyName": "BI-Industrial ТОО",
+             "departmentName": "Отдел бухгалтерии",
+             "isBirthdayToday": false,
+             "hasAvatar": false
+             }
+             ]
+}

@@ -7,6 +7,7 @@ PODS:
   - IGListKit/Default (3.0.0):
     - IGListKit/Diffing
   - IGListKit/Diffing (3.0.0)
+  - IQKeyboardManagerSwift (5.0.7)
   - Kingfisher (4.6.1)
   - Material (2.13.6):
     - Material/Core (= 2.13.6)
@@ -72,6 +73,7 @@ DEPENDENCIES:
   - DateToolsSwift (~> 2.0)
   - DynamicColor (~> 4.0)
   - IGListKit (= 3.0.0)
+  - IQKeyboardManagerSwift (~> 5.0)
   - Kingfisher (~> 4.0)
   - Material (~> 2.0)
   - Moya/RxSwift (~> 11.0)
@@ -91,6 +93,7 @@ SPEC CHECKSUMS:
   DateToolsSwift: bf69bf9056d9e53c5c03f06e51f219b9b8b02f9e
   DynamicColor: c7adcfe871781a2b39877a5774e452ba51b79eb3
   IGListKit: 9eab6856a15fa25ad72018ff9d9eb2178c240fff
+  IQKeyboardManagerSwift: 30fb3a61de1af53a95e02b80fb54ed0a19d5ede5
   Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
   Material: ef704dcc1bced32ab7c91ece2ba734da557e3f36
   Motion: 9f74d115d7f72bb5380a8e3cde2f8a1fc898ac36
@@ -112,6 +115,6 @@ SPEC CHECKSUMS:
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   Yoga: 81670877477311136b1b3f69a6307ce62e1c89cf
 
-PODFILE CHECKSUM: 7545983bb4b5bc5860524c413b992e4c461c79e6
+PODFILE CHECKSUM: 5060d5cbf26b4eb2ea96d3a55746eaa7ea7a2725
 
 COCOAPODS: 1.4.0

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 import RxSwift
 import RxCocoa
 
@@ -45,6 +46,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 withStepper: OneStepper(withSingleStep: AppStep.login)
             )
         }
+
+        IQKeyboardManager.sharedManager().enable = true
 
         return true
     }

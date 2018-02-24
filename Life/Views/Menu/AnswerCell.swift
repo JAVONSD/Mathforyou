@@ -24,10 +24,10 @@ class AnswerCell: ASCellNode {
     private(set) var likesImageNode: ASImageNode!
     private(set) var likesNode: ASTextNode!
 
-    private var image: String
+    private var answer: Answer
 
     init(viewModel: AnswerViewModel) {
-        image = viewModel.answer.authorCode
+        answer = viewModel.answer
 
         super.init()
 
@@ -121,7 +121,7 @@ class AnswerCell: ASCellNode {
     override func didLoad() {
         super.didLoad()
 
-        ImageDownloader.download(image: image) { (image) in
+        ImageDownloader.download(image: "", employeeCode: answer.authorCode) { (image) in
             self.authorImageNode.image = image
         }
     }

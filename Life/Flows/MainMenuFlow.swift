@@ -11,12 +11,6 @@ import Material
 
 class MainMenuFlow: Flow {
 
-    private var tasksAndRequestsViewModel = TasksAndRequestsViewModel.sample()
-
-    private var employeesViewModel = EmployeesViewModel.sample()
-    private var birthdaysViewModel = BirthdaysViewModel.sample()
-    private var vacanciesViewModel = VacanciesViewModel.sample()
-
     var root: Presentable {
         return self.rootViewController
     }
@@ -48,8 +42,8 @@ class MainMenuFlow: Flow {
             return navigationToTasksAndRequests()
         case .tasksAndRequestsDone:
             return navigationFromTasksAndRequests()
-        case .employeePicked(let code):
-            return navigationToEmployee(code)
+        case .employeePicked(let employee):
+            return navigationToEmployee(employee)
         case .employeeDone:
             return navigationFromEmployee()
         case .topQuestions:
@@ -150,7 +144,7 @@ class MainMenuFlow: Flow {
 
     private func navigationToTasksAndRequests() -> NextFlowItems {
         let tasksAndRequestsViewController = TasksAndRequestsViewController.instantiate(
-            withViewModel: tasksAndRequestsViewModel
+            withViewModel: TasksAndRequestsViewModel.sample()
         )
         let fabController = TasksAndRequestsFABController(
             rootViewController: tasksAndRequestsViewController
@@ -171,13 +165,9 @@ class MainMenuFlow: Flow {
         return NextFlowItems.none
     }
 
-    private func navigationToEmployee(_ code: String) -> NextFlowItems {
-        guard let viewModel = (employeesViewModel.employees.filter {
-            $0.employee.code == code }).first else {
-            return NextFlowItems.none
-        }
+    private func navigationToEmployee(_ employee: Employee) -> NextFlowItems {
         let notificationsViewController = EmployeeViewController.instantiate(
-            withViewModel: viewModel
+            withViewModel: EmployeeViewModel(employee: employee)
         )
         self.rootViewController.present(notificationsViewController, animated: true, completion: nil)
         return NextFlowItems.one(flowItem:
@@ -299,7 +289,7 @@ class MainMenuFlow: Flow {
     private func configuredBIOffice() -> BIOfficeViewController {
         let biOfficeVC = BIOfficeViewController()
         var biOfficeViewModel = BIOfficeViewModel()
-        biOfficeViewModel.tasksAndRequestsViewModel = tasksAndRequestsViewModel
+        biOfficeViewModel.tasksAndRequestsViewModel = TasksAndRequestsViewModel()
         biOfficeVC.viewModel = biOfficeViewModel
         biOfficeVC.onUnathorizedError = {
             self.navigateToLoginScreen(isUnathorized: true)
@@ -329,15 +319,15 @@ class MainMenuFlow: Flow {
 
     private func configuredStuff() -> StuffViewController {
         let stuffVC = StuffViewController(
-            employeesViewModel: employeesViewModel,
-            birthdaysViewModel: birthdaysViewModel,
-            vacanciesViewModel: vacanciesViewModel
+            employeesViewModel: EmployeesViewModel(),
+            birthdaysViewModel: BirthdaysViewModel(employees: []),
+            vacanciesViewModel: VacanciesViewModel()
         )
-        stuffVC.didSelectEmployee = { code in
-            self.rootViewController.step.accept(AppStep.employeePicked(withId: code))
+        stuffVC.didSelectEmployee = { employee in
+            self.rootViewController.step.accept(AppStep.employeePicked(employee: employee))
         }
-        stuffVC.didSelectBirthdate = { code in
-            self.rootViewController.step.accept(AppStep.employeePicked(withId: code))
+        stuffVC.didSelectBirthdate = { employee in
+            self.rootViewController.step.accept(AppStep.employeePicked(employee: employee))
         }
         stuffVC.didSelectVacancy = { code in
 

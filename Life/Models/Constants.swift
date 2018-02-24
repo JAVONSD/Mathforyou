@@ -123,6 +123,7 @@ struct App {
         // MARK: - Employees
 
         static let employeeCellId = "employeeCellId"
+        static let vacancyCellId = "vacancyCellId"
 
         // MARK: - Lenta
 
@@ -157,6 +158,21 @@ struct App {
         static let `default` = "error"
         static let login = "Login"
         static let password = "Password"
+    }
+
+    // MARK: - Strings
+
+    struct String {
+        private static let testBaseUrl = "http://life.bi-group.org:8090"
+        private static let prodBaseUrl = "http://life.bi-group.org"
+
+        static var baseUrl: Swift.String {
+            return testBaseUrl
+        }
+
+        static var apiBaseUrl: Swift.String {
+            return testBaseUrl + "/api"
+        }
     }
 
 }

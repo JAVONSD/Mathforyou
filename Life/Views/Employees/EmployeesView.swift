@@ -7,11 +7,17 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
 import Material
 import SnapKit
 
 class EmployeesView: UIView {
 
+    private(set) lazy var spinner = NVActivityIndicatorView(
+        frame: .init(x: 0, y: 0, width: 44, height: 44),
+        type: .circleStrokeSpin,
+        color: App.Color.azure,
+        padding: 0)
     private(set) var tableView: UITableView?
     private(set) var searchView: SearchView?
 
@@ -25,6 +31,18 @@ class EmployeesView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Methods
+
+    public func startLoading() {
+        spinner.isHidden = false
+        spinner.startAnimating()
+    }
+
+    public func stopLoading() {
+        spinner.stopAnimating()
+        spinner.isHidden = true
     }
 
     // MARK: - UI
@@ -90,18 +108,27 @@ class EmployeesView: UIView {
             EmployeeCell.self,
             forCellReuseIdentifier: App.CellIdentifier.employeeCellId
         )
+        tableView.register(
+            VacancyCell.self,
+            forCellReuseIdentifier: App.CellIdentifier.vacancyCellId
+        )
 
         tableView.estimatedRowHeight = 72
         tableView.rowHeight = UITableViewAutomaticDimension
+
+        spinner.isHidden = true
+        tableView.addSubview(spinner)
+        spinner.snp.makeConstraints { (make) in
+            guard let tableView = self.tableView else { return }
+
+            make.size.equalTo(self.spinner.frame.size)
+            make.center.equalTo(tableView)
+        }
     }
 
 }
 
 extension EmployeesView: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 72
-//    }
-
     func tableView(
         _ tableView: UITableView,
         editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {

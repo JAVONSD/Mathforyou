@@ -67,7 +67,7 @@ enum AppStep: Step {
 
     // MARK: - Employees
 
-    case employeePicked(withId: String)
+    case employeePicked(employee: Employee)
     case employeeDone
 
     // MARK: - Notifications

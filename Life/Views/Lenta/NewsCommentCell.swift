@@ -27,11 +27,9 @@ class NewsCommentCell: ASCellNode {
     private(set) var dislikesNode: ASTextNode!
 
     private var comment: Comment
-    private var image: String
 
     init(comment: Comment) {
         self.comment = comment
-        image = comment.authorCode
 
         super.init()
 
@@ -160,7 +158,7 @@ class NewsCommentCell: ASCellNode {
     override func didLoad() {
         super.didLoad()
 
-        ImageDownloader.download(image: image) { (image) in
+        ImageDownloader.download(image: "", employeeCode: comment.authorCode) { (image) in
             self.authorImageNode.image = image
         }
     }

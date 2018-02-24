@@ -25,7 +25,6 @@ enum EntityType: Int, Codable {
 struct Lenta: Decodable {
     var id: String
     var authorCode: String
-    var authorAvatar: String
     var authorName: String
     var createDate: String
     var title: String
@@ -48,7 +47,6 @@ struct Lenta: Decodable {
     enum CodingKeys: String, CodingKey {
         case id
         case authorCode
-        case authorAvatar
         case authorName
         case createDate
         case title
@@ -72,7 +70,6 @@ struct Lenta: Decodable {
 
         self.id = try container.decodeWrapper(key: .id, defaultValue: UUID().uuidString)
         self.authorCode = try container.decodeWrapper(key: .authorCode, defaultValue: "")
-        self.authorAvatar = try container.decodeWrapper(key: .authorAvatar, defaultValue: "")
         self.authorName = try container.decodeWrapper(key: .authorName, defaultValue: "")
         self.createDate = try container.decodeWrapper(key: .createDate, defaultValue: "")
         self.title = try container.decodeWrapper(key: .title, defaultValue: "")

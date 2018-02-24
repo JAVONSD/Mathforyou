@@ -85,3 +85,43 @@ struct Employee: Codable {
     }
 
 }
+
+extension Employee: Persistable {
+    public init(managedObject: EmployeeObject) {
+        code = managedObject.code
+        firstname = managedObject.firstname
+        fullname = managedObject.fullname
+        login = managedObject.login
+        birthDate = managedObject.birthDate
+        jobPosition = managedObject.jobPosition
+        email = managedObject.email
+        company = managedObject.company
+        companyName = managedObject.companyName
+        departmentName = managedObject.departmentName
+        workPhoneNumber = managedObject.workPhoneNumber
+        mobilePhoneNumber = managedObject.mobilePhoneNumber
+        address = managedObject.address
+        isBirthdayToday = managedObject.isBirthdayToday
+        hasAvatar = managedObject.hasAvatar
+    }
+
+    public func managedObject() -> EmployeeObject {
+        let employee = EmployeeObject()
+        employee.code = code
+        employee.firstname = firstname
+        employee.fullname = fullname
+        employee.login = login
+        employee.birthDate = birthDate
+        employee.jobPosition = jobPosition
+        employee.email = email
+        employee.company = company
+        employee.companyName = companyName
+        employee.departmentName = departmentName
+        employee.workPhoneNumber = workPhoneNumber
+        employee.mobilePhoneNumber = mobilePhoneNumber
+        employee.address = address
+        employee.isBirthdayToday = isBirthdayToday
+        employee.hasAvatar = hasAvatar
+        return employee
+    }
+}

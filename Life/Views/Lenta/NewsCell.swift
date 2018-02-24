@@ -137,7 +137,7 @@ class NewsCell: ASCellNode {
 
         guard let viewModel = self.viewModel else { return }
 
-        ImageDownloader.download(image: viewModel.item.authorAvatar) { (image) in
+        ImageDownloader.download(image: "", employeeCode: viewModel.item.authorCode) { (image) in
             self.authorAvatarNode.image = image
         }
 

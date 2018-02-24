@@ -39,49 +39,53 @@ class EmployeeView: UIView {
 
     var image: String = "" {
         didSet {
-            ImageDownloader.set(image: image, to: employeeHeaderView?.imageView)
+            ImageDownloader.set(
+                image: "",
+                employeeCode: image,
+                to: employeeHeaderView?.imageView
+            )
         }
     }
 
     var fullname: String = "" {
         didSet {
-            employeeHeaderView?.titleLabel?.text = fullname
+            employeeHeaderView?.titleLabel?.text = fullname.onEmpty("-")
         }
     }
 
     var position: String = "" {
         didSet {
-            positionView?.titleLabel?.text = position
+            positionView?.subtitleLabel?.text = position.onEmpty("-")
         }
     }
 
     var login: String = "" {
         didSet {
-            loginView?.titleLabel?.text = login
+            loginView?.subtitleLabel?.text = login.onEmpty("-")
         }
     }
 
     var birthdate: String = "" {
         didSet {
-            birthdateView?.titleLabel?.text = birthdate
+            birthdateView?.subtitleLabel?.text = birthdate.onEmpty("-")
         }
     }
 
     var chief: String = "" {
         didSet {
-            chiefView?.titleLabel?.text = chief
+            chiefView?.subtitleLabel?.text = chief.onEmpty("-")
         }
     }
 
     var phone: String = "" {
         didSet {
-            phoneView?.titleLabel?.text = phone
+            phoneView?.subtitleLabel?.text = phone.onEmpty("-")
         }
     }
 
     var email: String = "" {
         didSet {
-            emailView?.titleLabel?.text = email
+            emailView?.subtitleLabel?.text = email.onEmpty("-")
         }
     }
 

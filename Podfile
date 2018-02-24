@@ -45,6 +45,7 @@ target 'Life' do
   # Async Views
   pod 'Texture/IGListKit', '~> 2.0'
   pod 'Texture/PINRemoteImage', '~> 2.0'
+  pod 'Texture/Yoga', '~> 2.0'
 
   # Toast
   pod 'Toast', '~> 4.0.0'

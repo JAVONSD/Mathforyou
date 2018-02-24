@@ -28,11 +28,8 @@ class ImageTextTableViewCell: TableViewCell {
         view?.imageView?.image = image
     }
 
-    public func set(imageURL: String?) {
-        guard let imageURL = imageURL else { return }
-
-        let url = URL(string: imageURL)
-        view?.imageView?.kf.setImage(with: url)
+    public func set(imageURL: String? = nil, employeeCode: String? = nil) {
+        ImageDownloader.set(image: imageURL ?? "", employeeCode: employeeCode, to: view?.imageView)
     }
 
     public func set(imageSize: CGSize) {

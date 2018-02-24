@@ -13,8 +13,8 @@ class StuffViewController: TabsController {
 
     var onUnathorizedError: (() -> Void)?
 
-    var didSelectEmployee: ((String) -> Void)?
-    var didSelectBirthdate: ((String) -> Void)?
+    var didSelectEmployee: ((Employee) -> Void)?
+    var didSelectBirthdate: ((Employee) -> Void)?
     var didSelectVacancy: ((String) -> Void)?
 
     private var previousShadowHidden = false
@@ -23,19 +23,22 @@ class StuffViewController: TabsController {
          birthdaysViewModel: BirthdaysViewModel,
          vacanciesViewModel: VacanciesViewModel) {
         let vc1 = EmployeesViewController.instantiate(withViewModel: employeesViewModel)
+
         let vc2 = BirthdaysViewController.instantiate(withViewModel: birthdaysViewModel)
+        vc2.onUnathorizedError = onUnathorizedError
+
         let vc3 = VacanciesViewController.instantiate(withViewModel: vacanciesViewModel)
 
         super.init(viewControllers: [vc1, vc2, vc3], selectedIndex: 0)
 
-        vc1.didSelectEmployee = { code in
+        vc1.didSelectEmployee = { employee in
             if let didSelectEmployee = self.didSelectEmployee {
-                didSelectEmployee(code)
+                didSelectEmployee(employee)
             }
         }
-        vc2.didSelectBirthdate = { code in
+        vc2.didSelectBirthdate = { employee in
             if let didSelectBirthdate = self.didSelectBirthdate {
-                didSelectBirthdate(code)
+                didSelectBirthdate(employee)
             }
         }
         vc3.didSelectVacancy = { code in

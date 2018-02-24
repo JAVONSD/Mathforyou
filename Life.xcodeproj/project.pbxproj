@@ -78,6 +78,14 @@
 		C73EB2B8203323C500429921 /* BenefitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2B7203323C500429921 /* BenefitsView.swift */; };
 		C73EB2BA203327AA00429921 /* BenefitsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2B9203327AA00429921 /* BenefitsTableViewCell.swift */; };
 		C73EB2BC203329D000429921 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2BB203329D000429921 /* ImageCollectionViewCell.swift */; };
+		C752ACE8204113B100D04E26 /* employees.json in Resources */ = {isa = PBXBuildFile; fileRef = C752ACE7204113B100D04E26 /* employees.json */; };
+		C752ACEA204114BC00D04E26 /* employees_search.json in Resources */ = {isa = PBXBuildFile; fileRef = C752ACE9204114BC00D04E26 /* employees_search.json */; };
+		C752ACEC2041153700D04E26 /* employee_info.json in Resources */ = {isa = PBXBuildFile; fileRef = C752ACEB2041153700D04E26 /* employee_info.json */; };
+		C752ACEE2041159C00D04E26 /* vacancies.json in Resources */ = {isa = PBXBuildFile; fileRef = C752ACED2041159C00D04E26 /* vacancies.json */; };
+		C752ACF0204115F600D04E26 /* birthdays.json in Resources */ = {isa = PBXBuildFile; fileRef = C752ACEF204115F600D04E26 /* birthdays.json */; };
+		C752ACF320411D2B00D04E26 /* EmployeeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C752ACF220411D2B00D04E26 /* EmployeeObject.swift */; };
+		C752ACF520411DD900D04E26 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C752ACF420411DD900D04E26 /* Persistable.swift */; };
+		C752ACF920413ECB00D04E26 /* VacancyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C752ACF820413ECB00D04E26 /* VacancyCell.swift */; };
 		C76EFB4E202E91F000FA2BB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB4D202E91F000FA2BB9 /* AppDelegate.swift */; };
 		C76EFB55202E91F000FA2BB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C76EFB54202E91F000FA2BB9 /* Assets.xcassets */; };
 		C76EFB58202E91F000FA2BB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C76EFB56202E91F000FA2BB9 /* LaunchScreen.storyboard */; };
@@ -387,6 +395,14 @@
 		C73EB2B7203323C500429921 /* BenefitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitsView.swift; sourceTree = "<group>"; };
 		C73EB2B9203327AA00429921 /* BenefitsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitsTableViewCell.swift; sourceTree = "<group>"; };
 		C73EB2BB203329D000429921 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		C752ACE7204113B100D04E26 /* employees.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = employees.json; sourceTree = "<group>"; };
+		C752ACE9204114BC00D04E26 /* employees_search.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = employees_search.json; sourceTree = "<group>"; };
+		C752ACEB2041153700D04E26 /* employee_info.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = employee_info.json; sourceTree = "<group>"; };
+		C752ACED2041159C00D04E26 /* vacancies.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = vacancies.json; sourceTree = "<group>"; };
+		C752ACEF204115F600D04E26 /* birthdays.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = birthdays.json; sourceTree = "<group>"; };
+		C752ACF220411D2B00D04E26 /* EmployeeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeObject.swift; sourceTree = "<group>"; };
+		C752ACF420411DD900D04E26 /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
+		C752ACF820413ECB00D04E26 /* VacancyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacancyCell.swift; sourceTree = "<group>"; };
 		C76EFB4A202E91F000FA2BB9 /* Life.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Life.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C76EFB4D202E91F000FA2BB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C76EFB54202E91F000FA2BB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -811,6 +827,14 @@
 			path = Plans;
 			sourceTree = "<group>";
 		};
+		C752ACF120411D1F00D04E26 /* RealmObjects */ = {
+			isa = PBXGroup;
+			children = (
+				C752ACF220411D2B00D04E26 /* EmployeeObject.swift */,
+			);
+			path = RealmObjects;
+			sourceTree = "<group>";
+		};
 		C76EFB41202E91F000FA2BB9 = {
 			isa = PBXGroup;
 			children = (
@@ -916,6 +940,7 @@
 		C76EFB84202E92BB00FA2BB9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C752ACF120411D1F00D04E26 /* RealmObjects */,
 				C73EB2592032DA2200429921 /* Common */,
 				C7B5FA072030614F003F3D2C /* API */,
 				C76EFBC3203008D100FA2BB9 /* Constants.swift */,
@@ -1371,6 +1396,11 @@
 		C7D641CB203411B5001DCA98 /* Employees */ = {
 			isa = PBXGroup;
 			children = (
+				C752ACE7204113B100D04E26 /* employees.json */,
+				C752ACE9204114BC00D04E26 /* employees_search.json */,
+				C752ACEB2041153700D04E26 /* employee_info.json */,
+				C752ACED2041159C00D04E26 /* vacancies.json */,
+				C752ACEF204115F600D04E26 /* birthdays.json */,
 			);
 			path = Employees;
 			sourceTree = "<group>";
@@ -1411,6 +1441,7 @@
 			isa = PBXGroup;
 			children = (
 				C7D641F220344B22001DCA98 /* ViewModelBased.swift */,
+				C752ACF420411DD900D04E26 /* Persistable.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1597,6 +1628,7 @@
 				C720EC772036A0E0007E4CD4 /* EmployeeCell.swift */,
 				C717C67E203D89010070447D /* EmployeeView.swift */,
 				C717C680203D892C0070447D /* EmployeeHeaderView.swift */,
+				C752ACF820413ECB00D04E26 /* VacancyCell.swift */,
 			);
 			path = Employees;
 			sourceTree = "<group>";
@@ -1748,11 +1780,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				C76EFBBC203008C100FA2BB9 /* Roboto-ThinItalic.ttf in Resources */,
+				C752ACEC2041153700D04E26 /* employee_info.json in Resources */,
 				C7D641D3203411EA001DCA98 /* testtokenauth.json in Resources */,
 				C76EFBBB203008C100FA2BB9 /* Roboto-BoldItalic.ttf in Resources */,
 				C76EFBC2203008C100FA2BB9 /* Roboto-LightItalic.ttf in Resources */,
 				C7D641CF203411C4001DCA98 /* auth.json in Resources */,
 				C76EFBB7203008C100FA2BB9 /* Roboto-Medium.ttf in Resources */,
+				C752ACEE2041159C00D04E26 /* vacancies.json in Resources */,
+				C752ACF0204115F600D04E26 /* birthdays.json in Resources */,
 				C792634A2037CE5900067371 /* lenta.json in Resources */,
 				C7D641D920341813001DCA98 /* user_profile.json in Resources */,
 				C76EFBB8203008C100FA2BB9 /* Roboto-Italic.ttf in Resources */,
@@ -1767,6 +1802,8 @@
 				C76EFBBE203008C100FA2BB9 /* Roboto-Thin.ttf in Resources */,
 				C76EFBBF203008C100FA2BB9 /* Roboto-Light.ttf in Resources */,
 				C76EFB8A202E947800FA2BB9 /* Localizable.strings in Resources */,
+				C752ACE8204113B100D04E26 /* employees.json in Resources */,
+				C752ACEA204114BC00D04E26 /* employees_search.json in Resources */,
 				C76EFBC1203008C100FA2BB9 /* Roboto-Regular.ttf in Resources */,
 				C76EFB55202E91F000FA2BB9 /* Assets.xcassets in Resources */,
 			);
@@ -1927,6 +1964,7 @@
 				"${BUILT_PRODUCTS_DIR}/DateToolsSwift/DateToolsSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicColor/DynamicColor.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
@@ -1953,6 +1991,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateToolsSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicColor.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
@@ -2101,6 +2140,7 @@
 				C7F7CB6D203C65AA007B9D1E /* SBViewModel.swift in Sources */,
 				C720EC7020368CBA007E4CD4 /* StuffViewController.swift in Sources */,
 				C7F7CB3F203AF21F007B9D1E /* Employee.swift in Sources */,
+				C752ACF320411D2B00D04E26 /* EmployeeObject.swift in Sources */,
 				C73EB2AE2033114500429921 /* HeaderView.swift in Sources */,
 				C79251E42031489A00CDFBBA /* ResultsViewController.swift in Sources */,
 				C7F7CB69203C5F57007B9D1E /* EventsSectionController.swift in Sources */,
@@ -2166,6 +2206,7 @@
 				C7F7CB4D203B19D1007B9D1E /* TasksViewModel.swift in Sources */,
 				C70ECFE1203ACD3D00710DB5 /* Like.swift in Sources */,
 				C7BB5C67203FD4420056BBF9 /* SuggestionBodyNode.swift in Sources */,
+				C752ACF920413ECB00D04E26 /* VacancyCell.swift in Sources */,
 				C7D64218203463E0001DCA98 /* UIViewController+Presentable.swift in Sources */,
 				C7D64220203463E0001DCA98 /* Stepper.swift in Sources */,
 				C7F7CB37203AEAC2007B9D1E /* Questionnaire.swift in Sources */,
@@ -2233,6 +2274,7 @@
 				C7F7CB47203B1437007B9D1E /* NewsViewModel.swift in Sources */,
 				C717C683203D92D10070447D /* ImageDownloader+Extensions.swift in Sources */,
 				C717C675203D13450070447D /* TasksAndRequestsViewController.swift in Sources */,
+				C752ACF520411DD900D04E26 /* Persistable.swift in Sources */,
 				C76EFBE320302F8C00FA2BB9 /* State.swift in Sources */,
 				C76EFBF020302F8C00FA2BB9 /* FormatSanitizer.swift in Sources */,
 				C7F7CB45203B138D007B9D1E /* EventsViewModel.swift in Sources */,

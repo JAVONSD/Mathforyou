@@ -1,0 +1,275 @@
+ [
+  {
+  "jobPosition": "Начальник Коммерческого Отдела Дивизиона",
+  "companyName": "Otau Development Group ТОО",
+  "createDate": "2018-01-30T00:00:00",
+  "departmentName": "Коммерческий отдел",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Водитель Легкового Транспорта",
+  "companyName": "Казахдорстрой ТОО",
+  "createDate": "2018-01-22T00:00:00",
+  "departmentName": "ОГМ",
+  "salary": "180000 тг"
+  },
+  {
+  "jobPosition": "юрист /Новая Структура/, (BI Almaty Projects ТОО)",
+  "companyName": "BI Almaty Projects ТОО",
+  "createDate": "2018-01-19T00:00:00",
+  "departmentName": "Новая Структура",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Бухгалтер Ведущий",
+  "companyName": "BI Stroy ТОО",
+  "createDate": "2018-01-18T00:00:00",
+  "departmentName": "Отдел бухгалтерии",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Руководитель проектов Офиса управления проектами",
+  "companyName": "BI Innovation ТОО",
+  "createDate": "2018-01-18T00:00:00",
+  "departmentName": "Офис управления проектами",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Бухгалтер",
+  "companyName": "Туран Сити  ТОО",
+  "createDate": "2017-12-15T00:00:00",
+  "departmentName": "Отдел бухгалтерии",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Программист 1С",
+  "companyName": "BI Innovation ТОО",
+  "createDate": "2017-12-14T00:00:00",
+  "departmentName": "Отдел развития и поддержки КИС 1С",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Администратор Баз Данных",
+  "companyName": "BI Innovation ТОО",
+  "createDate": "2017-12-14T00:00:00",
+  "departmentName": "Отдел Администрирования КИС",
+  "salary": "300000 тг"
+  },
+  {
+  "jobPosition": "Администратор портальных Решений",
+  "companyName": "BI Innovation ТОО",
+  "createDate": "2017-12-13T00:00:00",
+  "departmentName": "Отдел портальных и мобильных решений",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Инженер по Телекоммуникациям",
+  "companyName": "KAZPACO (КАЗПАКО) филиал г.Атырау",
+  "createDate": "2017-12-13T00:00:00",
+  "departmentName": "Отдел инженерного проектирования",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Аналитик",
+  "companyName": "BI Innovation ТОО",
+  "createDate": "2017-12-13T00:00:00",
+  "departmentName": "Отдел аналитики",
+  "salary": "344300 тг"
+  },
+  {
+  "jobPosition": "Переводчик",
+  "companyName": "KAZPACO (КАЗПАКО) филиал г.Атырау",
+  "createDate": "2017-12-08T00:00:00",
+  "departmentName": "Отдел АДМ",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Супервайзер по ГПМ",
+  "companyName": "KAZPACO (КАЗПАКО) филиал г.Атырау",
+  "createDate": "2017-12-08T00:00:00",
+  "departmentName": "Отдел строительства",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Супервайзер по ГПМ",
+  "companyName": "KAZPACO (КАЗПАКО) филиал г.Атырау",
+  "createDate": "2017-12-08T00:00:00",
+  "departmentName": "Отдел строительства",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Старший полевой инженер-строитель",
+  "companyName": "KAZPACO (КАЗПАКО) филиал г.Атырау",
+  "createDate": "2017-12-08T00:00:00",
+  "departmentName": "Отдел строительства",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Администратор СУП",
+  "companyName": "BI Innovation ТОО",
+  "createDate": "2017-12-04T00:00:00",
+  "departmentName": "Отдел Администрирования КИС",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Системный Администратор",
+  "companyName": "BI Innovation ТОО",
+  "createDate": "2017-12-04T00:00:00",
+  "departmentName": "Управление IT-Сервиса",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Инженер по охране окружающей среды",
+  "companyName": "KAZPACO (КАЗПАКО) филиал г.Атырау",
+  "createDate": "2017-12-02T00:00:00",
+  "departmentName": "Отдел по ТБ и ОЗТОС",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Ведущий специалист по ТБ, ОТ и ООС",
+  "companyName": "KAZPACO (КАЗПАКО) филиал г.Атырау",
+  "createDate": "2017-12-02T00:00:00",
+  "departmentName": "Отдел по ТБ и ОЗТОС",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Ведущий специалист по ТБ, ОТ и ООС",
+  "companyName": "KAZPACO (КАЗПАКО) филиал г.Атырау",
+  "createDate": "2017-12-02T00:00:00",
+  "departmentName": "Отдел по ТБ и ОЗТОС",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Координатор Обучения БиОТ",
+  "companyName": "KAZPACO (КАЗПАКО) филиал г.Атырау",
+  "createDate": "2017-12-02T00:00:00",
+  "departmentName": "Отдел по ТБ и ОЗТОС",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Супервайзер по электрике",
+  "companyName": "KAZPACO (КАЗПАКО) филиал г.Атырау",
+  "createDate": "2017-11-29T00:00:00",
+  "departmentName": "Отдел инженерного проектирования",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Старший полевой инженер-электрик",
+  "companyName": "KAZPACO (КАЗПАКО) филиал г.Атырау",
+  "createDate": "2017-11-29T00:00:00",
+  "departmentName": "Отдел строительства",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Инженер по электрике и КИПиА",
+  "companyName": "KAZPACO (КАЗПАКО) филиал г.Атырау",
+  "createDate": "2017-11-29T00:00:00",
+  "departmentName": "Отдел инженерного проектирования",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Менеджер по Трудовым Отношениям",
+  "companyName": "KAZPACO (КАЗПАКО) филиал г.Атырау",
+  "createDate": "2017-11-29T00:00:00",
+  "departmentName": "Отдел по управлению персоналом",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Супервайзер по электрике /Отдел Строительство/, (KAZPACO (КАЗПАКО) филиал г.Атырау)",
+  "companyName": "KAZPACO (КАЗПАКО) филиал г.Атырау",
+  "createDate": "2017-11-29T00:00:00",
+  "departmentName": "Отдел строительства",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Старший полевой инженер-механик",
+  "companyName": "KAZPACO (КАЗПАКО) филиал г.Атырау",
+  "createDate": "2017-11-28T00:00:00",
+  "departmentName": "Отдел строительства",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Специалист по БиОТ",
+  "companyName": "KAZPACO (КАЗПАКО) филиал г.Атырау",
+  "createDate": "2017-11-28T00:00:00",
+  "departmentName": "Отдел по ТБ и ОЗТОС",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "HR Специалист",
+  "companyName": "KAZPACO (КАЗПАКО) филиал г.Атырау",
+  "createDate": "2017-11-28T00:00:00",
+  "departmentName": "Отдел по управлению персоналом",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Инженер по Эксплуатации",
+  "companyName": "Астана ЖилСервис ТОО",
+  "createDate": "2017-11-28T00:00:00",
+  "departmentName": "Отдел инженерных сетей",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Инженер по Эксплуатации",
+  "companyName": "Luxury Concierge Astana ТОО",
+  "createDate": "2017-11-27T00:00:00",
+  "departmentName": "Отдел инженерных сетей",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Менеджер Счастья",
+  "companyName": "Global Build ТОО",
+  "createDate": "2017-11-24T00:00:00",
+  "departmentName": "Отдел Счастья",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Начальник ОИС Дивизиона",
+  "companyName": "Otau Development Group ТОО",
+  "createDate": "2017-11-22T00:00:00",
+  "departmentName": "Отдел инженерных сетей",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "аналитик ДСТ и транспортных средств",
+  "companyName": "BI-Industrial ТОО",
+  "createDate": "2017-11-22T00:00:00",
+  "departmentName": "Управление механизации",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Кассир",
+  "companyName": "BI Service Consolidate ТОО",
+  "createDate": "2017-11-16T00:00:00",
+  "departmentName": "Казначейство",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Менеджер Объекта",
+  "companyName": "Астана ЖилСервис ТОО",
+  "createDate": "2017-11-10T00:00:00",
+  "departmentName": "Служба по работе с клиентами",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Главный Бухгалтер Сервисной Службы /Отдел бухгалтерии/, (BIGhouse ТОО)",
+  "companyName": "BIGhouse ТОО",
+  "createDate": "2017-11-02T00:00:00",
+  "departmentName": "Отдел бухгалтерии",
+  "salary": "50000 тг"
+  },
+  {
+  "jobPosition": "Диспетчер",
+  "companyName": "Luxury Concierge Astana ТОО",
+  "createDate": "2017-11-02T00:00:00",
+  "departmentName": "Технический персонал Сервисной службы",
+  "salary": "Не указана"
+  },
+  {
+  "jobPosition": "Технический Менеджер",
+  "companyName": "Гарант Сервис НС ТОО",
+  "createDate": "2017-11-02T00:00:00",
+  "departmentName": "Сервисное Управление/ОГО",
+  "salary": "Не указана"
+  }
+  ]

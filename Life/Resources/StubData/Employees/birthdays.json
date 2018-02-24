@@ -1,0 +1,34 @@
+[
+ {
+ "code": "KR1001649",
+ "fullname": "Курмашев Искак",
+ "jobPosition": "Прораб",
+ "departmentName": "Офис Дивизиона ПС",
+ "isBirthdayToday": true,
+ "hasAvatar": false
+ },
+ {
+ "code": "AKM0000182",
+ "fullname": "Омаров Асхат",
+ "jobPosition": "Начальник Участка ",
+ "departmentName": "Линия",
+ "isBirthdayToday": true,
+ "hasAvatar": false
+ },
+ {
+ "code": "BIH100603",
+ "fullname": "Рисбеков Дамир",
+ "jobPosition": "Программист 1С",
+ "departmentName": "Отдел развития и поддержки КИС 1С",
+ "isBirthdayToday": true,
+ "hasAvatar": false
+ },
+ {
+ "code": "BUI0000018",
+ "fullname": "Садуахасов Дулат",
+ "jobPosition": "Менеджер Счастья",
+ "departmentName": "Департамент Продаж",
+ "isBirthdayToday": true,
+ "hasAvatar": false
+ }
+ ]

@@ -12,7 +12,7 @@ import Kingfisher
 extension ImageDownloader {
 
     static func set(image: String,
-                    isStream: Bool = false,
+                    employeeCode: String? = nil,
                     to imageView: UIImageView?) {
         let modifier = AnyModifier { request in
             var r = request
@@ -21,7 +21,7 @@ extension ImageDownloader {
             return r
         }
 
-        if let url = url(for: image) {
+        if let url = url(for: image, employeeCode: employeeCode) {
             ImageDownloader
                 .default
                 .downloadImage(
@@ -34,7 +34,7 @@ extension ImageDownloader {
     }
 
     static func download(image: String,
-                         isStream: Bool = false,
+                         employeeCode: String? = nil,
                          completion: @escaping ((UIImage?) -> Void)) {
         let modifier = AnyModifier { request in
             var r = request
@@ -43,7 +43,7 @@ extension ImageDownloader {
             return r
         }
 
-        if let url = url(for: image) {
+        if let url = url(for: image, employeeCode: employeeCode) {
             ImageDownloader
                 .default
                 .downloadImage(
@@ -55,16 +55,19 @@ extension ImageDownloader {
         }
     }
 
-    private static func url(for image: String) -> URL? {
+    private static func url(for image: String, employeeCode: String? = nil) -> URL? {
         var url = URL(string: image)
-        if !image.hasPrefix("http") {
+
+        if let code = employeeCode {
+            url = URL(string: "\(App.String.apiBaseUrl)/employees/\(code)/avatar")
+        } else if !image.hasPrefix("http") {
 
             let ratio: CGFloat = 360.0 / 300.0
             let width = UIScreen.main.bounds.size.width * 2
             let height = Int(width / ratio)
 
             let urlParams = "?isMedia=true&width=\(Int(width))&height=\(height)&isAttachment=true"
-            url = URL(string: "http://life.bi-group.org:8090/api/Files/\(image)\(urlParams)")
+            url = URL(string: "\(App.String.apiBaseUrl)/Files/\(image)\(urlParams)")
         }
 
         return url

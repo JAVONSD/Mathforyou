@@ -63,4 +63,8 @@ public extension String {
 
     }
 
+    public func onEmpty(_ defaultValue: String) -> String {
+        return isEmpty ? defaultValue : self
+    }
+
 }

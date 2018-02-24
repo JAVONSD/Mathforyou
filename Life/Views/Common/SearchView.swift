@@ -39,6 +39,8 @@ class SearchView: UIView, UITextFieldDelegate {
         }
     }
 
+    var didType: ((String) -> Void)?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -47,6 +49,15 @@ class SearchView: UIView, UITextFieldDelegate {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Actions
+
+    @objc
+    private func handleSearchFieldChange(_ searchField: UITextField) {
+        if let text = searchField.text, let didType = didType {
+            didType(text)
+        }
     }
 
     // MARK: - UI
@@ -70,13 +81,19 @@ class SearchView: UIView, UITextFieldDelegate {
             make.size.equalTo(CGSize(width: 16, height: 16))
         }
 
+        searchBar.addTarget(self, action: #selector(handleSearchFieldChange(_:)), for: .editingChanged)
         searchBar.layer.cornerRadius = App.Layout.cornerRadiusSmall
         searchBar.layer.masksToBounds = true
         searchBar.backgroundColor = UIColor(red: 142/255.0, green: 142/255.0, blue: 147/255.0, alpha: 0.12)
         searchBar.placeholder = NSLocalizedString("search", comment: "")
+        searchBar.placeholderAnimation = .hidden
         searchBar.placeholderLabel.font = App.Font.body
         searchBar.placeholderLabel.textColor = App.Color.steel
         searchBar.isDividerHidden = true
+        searchBar.returnKeyType = .search
+        searchBar.autocapitalizationType = .none
+        searchBar.autocorrectionType = .no
+        searchBar.clearButtonMode = .whileEditing
 
         searchBar.leftView = searchImageContainer
         searchBar.leftViewMode = .always

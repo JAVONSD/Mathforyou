@@ -8,6 +8,7 @@
 
 import UIKit
 import Material
+import Moya
 import RxSwift
 import RxCocoa
 import SnapKit
@@ -16,8 +17,12 @@ class EmployeesViewController: UIViewController, ViewModelBased {
 
     typealias ViewModelType = EmployeesViewModel
 
+    var onUnathorizedError: (() -> Void)?
+
     var viewModel: EmployeesViewModel!
-    var didSelectEmployee: ((String) -> Void)?
+    var didSelectEmployee: ((Employee) -> Void)?
+
+    private let itemsChangeSubject = PublishSubject<[EmployeeViewModel]>()
 
     private var employeesView: EmployeesView!
 
@@ -32,6 +37,7 @@ class EmployeesViewController: UIViewController, ViewModelBased {
                     return EmployeeCell(style: .default, reuseIdentifier: cellId)
                 }
 
+                cell.set(employeeCode: element.employee.code)
                 cell.set(title: element.employee.fullname)
                 cell.set(subtitle: element.employee.jobPosition)
                 cell.minimumHeight = 72
@@ -64,6 +70,22 @@ class EmployeesViewController: UIViewController, ViewModelBased {
 
         setupUI()
         bind()
+
+        employeesView.startLoading()
+        viewModel.getEmployees { [weak self] error in
+            guard let `self` = self
+                else { return }
+
+            self.employeesView.stopLoading()
+
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401,
+                let onUnathorizedError = self.onUnathorizedError {
+                onUnathorizedError()
+            } else {
+                self.itemsChangeSubject.onNext(self.viewModel.employees)
+            }
+        }
     }
 
     // MARK: - Bind
@@ -73,8 +95,10 @@ class EmployeesViewController: UIViewController, ViewModelBased {
 
         let dataSource = self.dataSource
 
-        let sectionModels = [SectionModel(model: viewModel!, items: viewModel.employees)]
-        let items = Observable.just(sectionModels)
+        let observable = itemsChangeSubject.asObservable()
+        let items = observable.concatMap { (items) in
+            return Observable.just([SectionModel(model: self.viewModel!, items: items)])
+        }
 
         items
             .bind(to: tableView.rx.items(dataSource: dataSource))
@@ -87,7 +111,7 @@ class EmployeesViewController: UIViewController, ViewModelBased {
             }
             .subscribe(onNext: { pair in
                 if let didSelectEmployee = self.didSelectEmployee {
-                    didSelectEmployee(pair.1.employee.code)
+                    didSelectEmployee(pair.1.employee)
                 }
             })
             .disposed(by: disposeBag)
@@ -99,6 +123,8 @@ class EmployeesViewController: UIViewController, ViewModelBased {
         employeesView.configureViewForHeader = { (tableView, section) in
             return dataSource.tableView(tableView, viewForHeaderInSection: section)
         }
+
+        itemsChangeSubject.onNext(viewModel.employees)
     }
 
     // MARK: - UI
@@ -117,6 +143,16 @@ class EmployeesViewController: UIViewController, ViewModelBased {
 
     private func setupEmployeesView() {
         employeesView = EmployeesView(frame: .zero)
+        employeesView.searchView?.didType = { [weak self] text in
+            guard let `self` = self else { return }
+
+            if !text.isEmpty {
+                self.viewModel.filter(with: text)
+                self.itemsChangeSubject.onNext(self.viewModel.filteredEmployees)
+            } else {
+                self.itemsChangeSubject.onNext(self.viewModel.employees)
+            }
+        }
         view.addSubview(employeesView)
         employeesView.snp.makeConstraints({ [weak self] (make) in
             guard let `self` = self else { return }

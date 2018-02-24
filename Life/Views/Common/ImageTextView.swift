@@ -82,12 +82,18 @@ class ImageTextView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        guard let textStackView = textStackView,
+        guard let stackView = stackView,
             let titleLabel = titleLabel else {
             return
         }
 
-        titleLabel.preferredMaxLayoutWidth = textStackView.frame.size.width
+        var width = bounds.size.width
+        let insets = stackView.insets.left + stackView.insets.right
+        width -= insets
+        let spacing = (stackView.stackView?.spacing ?? 0) * CGFloat(stackView.stackView?.arrangedSubviews.count ?? 0)
+        width -= spacing
+        width -= imageSize.width
+        titleLabel.preferredMaxLayoutWidth = width
     }
 
     // MARK: - UI
@@ -123,7 +129,7 @@ class ImageTextView: UIView {
     private func setupImageView() {
         imageView = UIImageView()
         imageView?.backgroundColor = UIColor(hexString: "#d8d8d8")
-        imageView?.contentMode = .scaleAspectFit
+        imageView?.contentMode = .scaleAspectFill
         imageView?.layer.cornerRadius = App.Layout.cornerRadius
         imageView?.layer.masksToBounds = true
 
