@@ -94,8 +94,8 @@ class VacancyCell: TableViewCell {
         dividerView.backgroundColor = App.Color.coolGrey
         contentView.addSubview(dividerView)
         dividerView.snp.makeConstraints { (make) in
-            make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
-            make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            make.left.equalTo(self.contentView)
+            make.right.equalTo(self.contentView)
             make.bottom.equalTo(self.contentView)
             make.height.equalTo(0.5)
         }
