@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2645CE45D7BDDF7B375C06AD /* Pods_Life.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6099E4209624F63B0227327D /* Pods_Life.framework */; };
+		C7054BB12041767C00A8ED1A /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7054BB02041767B00A8ED1A /* Notification.swift */; };
+		C7054BB32041782300A8ED1A /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = C7054BB22041782300A8ED1A /* notifications.json */; };
 		C70ECFCF203AB51F00710DB5 /* SliderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70ECFCE203AB51F00710DB5 /* SliderViewModel.swift */; };
 		C70ECFD1203AB83800710DB5 /* SlideCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70ECFD0203AB83800710DB5 /* SlideCell.swift */; };
 		C70ECFD3203AC56B00710DB5 /* SuggestionsSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70ECFD2203AC56B00710DB5 /* SuggestionsSectionController.swift */; };
@@ -323,6 +325,8 @@
 		A5856C72266F971904DBA28A /* Pods-Life.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life.release.xcconfig"; path = "Pods/Target Support Files/Pods-Life/Pods-Life.release.xcconfig"; sourceTree = "<group>"; };
 		BB877A7D8C856CDF13C84955 /* Pods-LifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeTests/Pods-LifeTests.release.xcconfig"; sourceTree = "<group>"; };
 		C6832F87B3CF9A6B146EC0E0 /* Pods_LifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C7054BB02041767B00A8ED1A /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		C7054BB22041782300A8ED1A /* notifications.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = notifications.json; sourceTree = "<group>"; };
 		C70ECFCE203AB51F00710DB5 /* SliderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderViewModel.swift; sourceTree = "<group>"; };
 		C70ECFD0203AB83800710DB5 /* SlideCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideCell.swift; sourceTree = "<group>"; };
 		C70ECFD2203AC56B00710DB5 /* SuggestionsSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsSectionController.swift; sourceTree = "<group>"; };
@@ -961,6 +965,7 @@
 				C7F7CB40203B10D3007B9D1E /* Event.swift */,
 				C7F7CB42203B1179007B9D1E /* News.swift */,
 				C7F7CB48203B16FD007B9D1E /* Image.swift */,
+				C7054BB02041767B00A8ED1A /* Notification.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1368,6 +1373,7 @@
 		C7D641C7203411B4001DCA98 /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
+				C7054BB22041782300A8ED1A /* notifications.json */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -1803,6 +1809,7 @@
 				C76EFBBF203008C100FA2BB9 /* Roboto-Light.ttf in Resources */,
 				C76EFB8A202E947800FA2BB9 /* Localizable.strings in Resources */,
 				C752ACE8204113B100D04E26 /* employees.json in Resources */,
+				C7054BB32041782300A8ED1A /* notifications.json in Resources */,
 				C752ACEA204114BC00D04E26 /* employees_search.json in Resources */,
 				C76EFBC1203008C100FA2BB9 /* Roboto-Regular.ttf in Resources */,
 				C76EFB55202E91F000FA2BB9 /* Assets.xcassets in Resources */,
@@ -2293,6 +2300,7 @@
 				C7F7CB5B203C20CD007B9D1E /* RoundedView.swift in Sources */,
 				C73EB2A52032F9B100429921 /* AnimatableSectionModelType+ItemPath.swift in Sources */,
 				C73EB29A2032F9B100429921 /* RxTableViewSectionedReloadDataSource.swift in Sources */,
+				C7054BB12041767C00A8ED1A /* Notification.swift in Sources */,
 				C7F7CB3D203AF089007B9D1E /* Message.swift in Sources */,
 				C792635420382E6B00067371 /* NotificationHeaderView.swift in Sources */,
 				C73EB25B2032DA4300429921 /* Mockable.swift in Sources */,

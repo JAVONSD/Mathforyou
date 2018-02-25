@@ -30,21 +30,11 @@ class EmployeeHeaderView: ImageTextView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        guard let stackView = stackView,
-            let titleLabel = titleLabel else {
-                return
+        guard let titleLabel = titleLabel else {
+            return
         }
 
-        var width = bounds.size.width
-        let insets = stackView.insets.left + stackView.insets.right
-        width -= insets
-        let itemsCount = CGFloat(stackView.stackView?.arrangedSubviews.count ?? 0)
-        let spacing = (stackView.stackView?.spacing ?? 0) * itemsCount
-        width -= spacing
-        width -= imageSize.width
-        width -= 80
-        titleLabel.preferredMaxLayoutWidth = width
-        titleLabel.lineBreakMode = .byWordWrapping
+        titleLabel.preferredMaxLayoutWidth = titleLabel.frame.size.width
     }
 
     // MARK: - UI

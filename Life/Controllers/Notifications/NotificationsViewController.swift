@@ -8,6 +8,7 @@
 
 import UIKit
 import Material
+import Moya
 import RxSwift
 import RxCocoa
 import SnapKit
@@ -16,9 +17,13 @@ class NotificationsViewController: UIViewController, ViewModelBased, Stepper {
 
     typealias ViewModelType = NotificationsViewModel
 
+    var onUnathorizedError: (() -> Void)?
+
     var viewModel: NotificationsViewModel!
 
     private var notificationsView: NotificationView!
+
+    private let itemsChangeSubject = PublishSubject<[NotificationViewModel]>()
 
     private let disposeBag = DisposeBag()
     private let dataSource =
@@ -31,8 +36,9 @@ class NotificationsViewController: UIViewController, ViewModelBased, Stepper {
                     return NotificationCell(style: .default, reuseIdentifier: cellId)
                 }
 
-                cell.set(title: element.title)
-                cell.set(subtitle: element.date)
+                cell.set(title: element.notification.message)
+                cell.set(subtitle: element.notification
+                    .createDate.prettyDateOrTimeAgoString(format: "dd.MM.yyyy HH:mm"))
 
                 let itemsCount = tv.numberOfRows(inSection: indexPath.section)
                 if indexPath.row == itemsCount - 1 {
@@ -42,18 +48,33 @@ class NotificationsViewController: UIViewController, ViewModelBased, Stepper {
                 }
 
                 return cell
-        }
+            },
+            canEditRowAtIndexPath: { (_, _) in
+                return true
+            }
     )
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupUI()
-
-        // For debug
-        viewModel = NotificationsViewModel.sample()
-
         bind()
+
+        notificationsView.startLoading()
+        viewModel.getNotifications { [weak self] error in
+            guard let `self` = self
+                else { return }
+
+            self.notificationsView.stopLoading()
+
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401,
+                let onUnathorizedError = self.onUnathorizedError {
+                onUnathorizedError()
+            } else {
+                self.itemsChangeSubject.onNext(self.viewModel.notifications)
+            }
+        }
     }
 
     // MARK: - Bind
@@ -63,8 +84,10 @@ class NotificationsViewController: UIViewController, ViewModelBased, Stepper {
 
         let dataSource = self.dataSource
 
-        let sectionModels = [SectionModel(model: viewModel!, items: viewModel.notifications)]
-        let items = Observable.just(sectionModels)
+        let observable = itemsChangeSubject.asObservable()
+        let items = observable.concatMap { (items) in
+            return Observable.just([SectionModel(model: self.viewModel!, items: items)])
+        }
 
         items
             .bind(to: tableView.rx.items(dataSource: dataSource))
@@ -81,8 +104,28 @@ class NotificationsViewController: UIViewController, ViewModelBased, Stepper {
             .disposed(by: disposeBag)
 
         tableView.rx
+            .itemDeleted
+            .map { indexPath in
+                return (indexPath, dataSource[indexPath])
+            }
+            .subscribe(onNext: { pair in
+                self.viewModel.readNotification(pair.1.notification.id, completion: { (error) in
+                    self.itemsChangeSubject.onNext(self.viewModel.notifications)
+
+                    if let moyaError = error as? MoyaError,
+                        moyaError.response?.statusCode == 401,
+                        let onUnathorizedError = self.onUnathorizedError {
+                        onUnathorizedError()
+                    }
+                })
+            })
+            .disposed(by: disposeBag)
+
+        tableView.rx
             .setDelegate(notificationsView)
             .disposed(by: disposeBag)
+
+        itemsChangeSubject.onNext(viewModel.notifications)
     }
 
     // MARK: - UI

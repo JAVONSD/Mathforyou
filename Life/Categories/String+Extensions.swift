@@ -41,13 +41,14 @@ public extension String {
         return dateFormatter.string(from: date)
     }
 
-    public func prettyDateOrTimeAgoString(format: String) -> String {
+    public func prettyDateOrTimeAgoString(
+        format: String) -> String {
         let date = self.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         let result = dateFormatter.string(from: date)
 
-        if date.monthsAgo > 1 {
+        if date.daysAgo > 0 {
             return result
         }
         return date.timeAgoSinceNow

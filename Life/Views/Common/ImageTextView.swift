@@ -82,18 +82,11 @@ class ImageTextView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        guard let stackView = stackView,
-            let titleLabel = titleLabel else {
+        guard let titleLabel = titleLabel else {
             return
         }
 
-        var width = bounds.size.width
-        let insets = stackView.insets.left + stackView.insets.right
-        width -= insets
-        let spacing = (stackView.stackView?.spacing ?? 0) * CGFloat(stackView.stackView?.arrangedSubviews.count ?? 0)
-        width -= spacing
-        width -= imageSize.width
-        titleLabel.preferredMaxLayoutWidth = width
+        titleLabel.preferredMaxLayoutWidth = titleLabel.frame.size.width
     }
 
     // MARK: - UI

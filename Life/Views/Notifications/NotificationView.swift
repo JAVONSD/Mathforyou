@@ -7,15 +7,22 @@
 //
 
 import UIKit
-import SnapKit
+import NVActivityIndicatorView
 import Material
+import SnapKit
 
 class NotificationView: UIView {
 
     private(set) var headerView: NotificationHeaderView?
+    private(set) lazy var spinner = NVActivityIndicatorView(
+        frame: .init(x: 0, y: 0, width: 44, height: 44),
+        type: .circleStrokeSpin,
+        color: App.Color.azure,
+        padding: 0)
     private(set) var tableView: UITableView?
 
     var didTapCloseButton: (() -> Void)?
+    var didDeleteCell: ((IndexPath) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,6 +41,18 @@ class NotificationView: UIView {
         if let didTapCloseButton = didTapCloseButton {
             didTapCloseButton()
         }
+    }
+
+    // MARK: - Methods
+
+    public func startLoading() {
+        spinner.isHidden = false
+        spinner.startAnimating()
+    }
+
+    public func stopLoading() {
+        spinner.stopAnimating()
+        spinner.isHidden = true
     }
 
     // MARK: - UI
@@ -97,6 +116,15 @@ class NotificationView: UIView {
             NotificationCell.self,
             forCellReuseIdentifier: App.CellIdentifier.notificationsCellId
         )
+
+        spinner.isHidden = true
+        tableView.addSubview(spinner)
+        spinner.snp.makeConstraints { (make) in
+            guard let tableView = self.tableView else { return }
+
+            make.size.equalTo(self.spinner.frame.size)
+            make.center.equalTo(tableView)
+        }
     }
 
 }
@@ -109,7 +137,7 @@ extension NotificationView: UITableViewDelegate {
     func tableView(
         _ tableView: UITableView,
         editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
-        return .none
+        return .delete
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {

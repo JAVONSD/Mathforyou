@@ -1,0 +1,20 @@
+ [
+  {
+  "id": "63d7c139-db41-4624-9628-a7d49d0aff0a",
+  "message": "Создано предложение",
+  "eventType": 40,
+  "authorCode": "KPO102505",
+  "authorName": "Жакупова Арайлым Биржанкызы",
+  "createDate": "2018-02-14T10:32:03.76",
+  "entityId": "0fd1878c-ef2c-4eb5-9801-6b9d56dca642"
+  },
+  {
+  "id": "c65a2581-7a7d-4cd0-a333-6f512ef6b1a0",
+  "message": "Создано новое задание",
+  "eventType": 10,
+  "authorCode": "00-000485",
+  "authorName": "Карибекова Сана Канатовна",
+  "createDate": "2018-02-13T13:48:51.363",
+  "entityId": "f0deeb40-a0f6-42c1-a9c1-60c169ac1c5c"
+  }
+  ]

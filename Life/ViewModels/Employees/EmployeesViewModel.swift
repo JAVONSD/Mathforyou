@@ -52,9 +52,11 @@ class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
                             options: []
                         )) as? [String: Any],
                         let list = jsonData["list"] as? [[String: Any]] {
+                        //swiftlint:disable force_try
                         let lentaItems = list.map {
                             try! JSONDecoder().decode(Employee.self, from: $0.toJSONData())
                         }
+                        //swiftlint:enable force_try
                         let items = lentaItems.map { EmployeeViewModel(employee: $0) }
                         self.employees = items
                         self.filteredEmployees = items
