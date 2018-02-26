@@ -1,0 +1,74 @@
+{
+    "id": "f0deeb40-a0f6-42c1-a9c1-60c169ac1c5c",
+    "topic": "This is a test topic!",
+    "statusCode": 20,
+    "authorCode": "00-000485",
+    "authorName": "Карибекова Сана",
+    "isAllDay": false,
+    "startDate": null,
+    "endDate": null,
+    "location": null,
+    "description": null,
+    "executorCode": "00-000485",
+    "executorName": "Карибекова Сана",
+    "reminder": null,
+    "type": 10,
+    "approveEntityId": null,
+    "approveEntityType": null,
+    "label": "Приоритет",
+    "participants": [],
+    "messages": [
+                 {
+                 "authorCode": "00-000485",
+                 "authorName": "Карибекова Сана",
+                 "message": "To finish task I need an assistance :(",
+                 "createDate": "2018-02-13T13:52:37.65",
+                 "isFromCurrentUser": true
+                 }
+                 ],
+    "attachments": [],
+    "actions": [
+                {
+                "authorCode": "00-000485",
+                "infoText": "Задание переведено на Выполнено",
+                "createDate": "2018-02-26T19:53:33.03",
+                "authorInitials": "КС",
+                "authorName": "Карибекова Сана"
+                },
+                {
+                "authorCode": "00-000485",
+                "infoText": "Задание переведено на В работе",
+                "createDate": "2018-02-26T19:53:26.21",
+                "authorInitials": "КС",
+                "authorName": "Карибекова Сана"
+                },
+                {
+                "authorCode": "00-000485",
+                "infoText": "Задание переведено на Новое",
+                "createDate": "2018-02-26T19:53:20.287",
+                "authorInitials": "КС",
+                "authorName": "Карибекова Сана"
+                },
+                {
+                "authorCode": "00-000485",
+                "infoText": "Задание переведено на В работе",
+                "createDate": "2018-02-13T13:51:07.14",
+                "authorInitials": "КС",
+                "authorName": "Карибекова Сана"
+                },
+                {
+                "authorCode": "00-000485",
+                "infoText": "Задание переведено на Новое",
+                "createDate": "2018-02-13T13:50:38.93",
+                "authorInitials": "КС",
+                "authorName": "Карибекова Сана"
+                },
+                {
+                "authorCode": "00-000485",
+                "infoText": "Создано новое задание",
+                "createDate": "2018-02-13T13:48:51.36",
+                "authorInitials": "КС",
+                "authorName": "Карибекова Сана"
+                }
+                ]
+}

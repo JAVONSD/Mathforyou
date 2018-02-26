@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 import Material
 import RxSwift
 import RxCocoa
@@ -30,6 +31,12 @@ class MyInfoViewController: UIViewController {
     private func bind() {
         Observable.just(User.current.profile).bind { [weak self] (profile) in
             guard let `self` = self else { return }
+
+            ImageDownloader.set(
+                image: "",
+                employeeCode: (profile?.employeeCode ?? ""),
+                to: self.myInfoView.mainView?.infoView?.imageView
+            )
 
             self.myInfoView.mainView?
                 .infoView?.titleLabel?.text = profile?.fullname

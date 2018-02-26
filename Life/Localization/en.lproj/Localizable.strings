@@ -131,6 +131,14 @@
 "category" = "Category";
 "execution_date" = "Execution date";
 "write_text" = "Write text";
+"task_status_new" = "New";
+"task_status_in_progress" = "In Progress";
+"task_status_executed" = "Executed";
+"task_status_confirmed" = "Confirmed";
+"task_status_approved" = "Approved";
+"task_status_reject" = "Rejected";
+"task_type_execute" = "Execute";
+"task_type_approve" = "Approve";
 
 /* News */
 

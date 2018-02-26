@@ -8,6 +8,8 @@
 
 import Foundation
 import IGListKit
+import Moya
+import RxSwift
 
 class RequestsViewModel: NSObject, ListDiffable {
 
@@ -17,6 +19,102 @@ class RequestsViewModel: NSObject, ListDiffable {
     var requests: [RequestViewModel] {
         return inboxRequests + outboxRequests
     }
+
+    private(set) var loadingInboxRequests = false
+    private(set) var canLoadMoreInboxRequests = true
+
+    private(set) var loadingOutboxRequests = false
+    private(set) var canLoadMoreOutboxRequests = true
+
+    private let disposeBag = DisposeBag()
+
+    private let provider = MoyaProvider<RequestsService>(
+        plugins: [
+            AuthPlugin(tokenClosure: {
+                return User.current.token
+            })
+        ]
+    )
+
+    // MARK: - Methods
+
+    public func getInbox(completion: @escaping ((Error?) -> Void)) {
+        provider
+            .rx
+            .request(.inboxRequests)
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                self.loadingInboxRequests = false
+                self.canLoadMoreInboxRequests = false
+
+                switch response {
+                case .success(let json):
+                    if let requestItems = try? JSONDecoder().decode([Request].self, from: json.data) {
+                        let items = requestItems.map { RequestViewModel(request: $0) }
+                        self.inboxRequests = items
+
+                        completion(nil)
+                    } else {
+                        completion(nil)
+                    }
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    public func getOutbox(completion: @escaping ((Error?) -> Void)) {
+        provider
+            .rx
+            .request(.outboxRequests)
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                self.loadingOutboxRequests = false
+                self.canLoadMoreOutboxRequests = false
+
+                switch response {
+                case .success(let json):
+                    if let requestItems = try? JSONDecoder().decode([Request].self, from: json.data) {
+                        let items = requestItems.map { RequestViewModel(request: $0) }
+                        self.outboxRequests = items
+
+                        completion(nil)
+                    } else {
+                        completion(nil)
+                    }
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    public func createRequest(
+        dueDate: String,
+        description: String,
+        attachments: [URL],
+        completion: @escaping ((Error?) -> Void)) {
+        provider
+            .rx
+            .request(.createRequest(
+                dueDate: dueDate,
+                description: description,
+                attachments: attachments
+                ))
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                switch response {
+                case .success:
+                    completion(nil)
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    // MARK: - ListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {
         return self

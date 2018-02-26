@@ -10,13 +10,19 @@ import UIKit
 import AsyncDisplayKit
 import IGListKit
 import Material
+import NVActivityIndicatorView
 import SnapKit
 
 class LentaViewController: ASViewController<ASDisplayNode> {
 
     private var listAdapter: ListAdapter!
     private(set) var collectionNode: ASCollectionNode!
-    private lazy var spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    private(set) lazy var spinner = NVActivityIndicatorView(
+        frame: .init(x: 0, y: 0, width: 44, height: 44),
+        type: .circleStrokeSpin,
+        color: App.Color.azure,
+        padding: 0)
+//    private(set) lazy var spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     private lazy var refreshCtrl = UIRefreshControl()
 
     private var addButton: FABButton!
@@ -98,7 +104,15 @@ class LentaViewController: ASViewController<ASDisplayNode> {
 
         refreshCtrl = UIRefreshControl()
         refreshCtrl.addTarget(self, action: #selector(refreshFeed), for: .valueChanged)
+        refreshCtrl.tintColor = App.Color.azure
         collectionNode.view.addSubview(refreshCtrl)
+
+        let size: CGFloat = 44
+        spinner.frame = .init(
+            x: 0,
+            y: 0,
+            width: size,
+            height: size)
     }
 
     // MARK: - Actions
@@ -151,6 +165,12 @@ extension LentaViewController: ListAdapterDataSource {
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
+        let size: CGFloat = 44
+        spinner.frame = .init(
+            x: 0,
+            y: 0,
+            width: size,
+            height: size)
         spinner.startAnimating()
         return spinner
     }

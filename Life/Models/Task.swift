@@ -10,6 +10,46 @@ import Foundation
 
 struct Task: Codable {
 
+    enum Status: Int, Codable {
+        case new = 0
+        case inProgress = 10
+        case executed = 20
+        case confirmed = 50
+        case approved = 55
+        case reject = 60
+
+        var name: String {
+            switch self {
+            case .new:
+                return NSLocalizedString("task_status_new", comment: "")
+            case .inProgress:
+                return NSLocalizedString("task_status_in_progress", comment: "")
+            case .executed:
+                return NSLocalizedString("task_status_executed", comment: "")
+            case .confirmed:
+                return NSLocalizedString("task_status_confirmed", comment: "")
+            case .approved:
+                return NSLocalizedString("task_status_approved", comment: "")
+            case .reject:
+                return NSLocalizedString("task_status_reject", comment: "")
+            }
+        }
+    }
+
+    enum TaskType: Int, Codable {
+        case execute = 10
+        case approve = 20
+
+        var name: String {
+            switch self {
+            case .execute:
+                return NSLocalizedString("task_type_execute", comment: "")
+            case .approve:
+                return NSLocalizedString("task_type_approve", comment: "")
+            }
+        }
+    }
+
     var id: String
     var topic: String
     var authorCode: String
@@ -18,13 +58,13 @@ struct Task: Codable {
     var startDate: String?
     var endDate: String?
     var location: String?
-    var statusCode: Int
+    var statusCode: Status
     var isExpired: Bool
     var description: String
     var executorCode: String
     var executorName: String
-    var reminder: String?
-    var type: Int
+    var reminder: Int
+    var type: TaskType
     var approveEntityId: String
     var approveEntityType: String
     var label: String
@@ -71,13 +111,13 @@ struct Task: Codable {
         self.startDate = try container.decodeWrapper(key: .startDate, defaultValue: "")
         self.endDate = try container.decodeWrapper(key: .endDate, defaultValue: "")
         self.location = try container.decodeWrapper(key: .location, defaultValue: "")
-        self.statusCode = try container.decodeWrapper(key: .statusCode, defaultValue: 0)
+        self.statusCode = try container.decodeWrapper(key: .statusCode, defaultValue: Status.new)
         self.isExpired = try container.decodeWrapper(key: .isExpired, defaultValue: false)
         self.description = try container.decodeWrapper(key: .description, defaultValue: "")
         self.executorCode = try container.decodeWrapper(key: .executorCode, defaultValue: "")
         self.executorName = try container.decodeWrapper(key: .executorName, defaultValue: "")
-        self.reminder = try container.decodeWrapper(key: .reminder, defaultValue: "")
-        self.type = try container.decodeWrapper(key: .type, defaultValue: 0)
+        self.reminder = try container.decodeWrapper(key: .reminder, defaultValue: 0)
+        self.type = try container.decodeWrapper(key: .type, defaultValue: TaskType.execute)
         self.approveEntityId = try container.decodeWrapper(key: .approveEntityId, defaultValue: "")
         self.approveEntityType = try container.decodeWrapper(key: .approveEntityType, defaultValue: "")
         self.label = try container.decodeWrapper(key: .label, defaultValue: "")

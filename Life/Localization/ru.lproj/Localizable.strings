@@ -131,6 +131,14 @@
 "category" = "Категория";
 "execution_date" = "Срок исполнения";
 "write_text" = "Написать текст";
+"task_status_new" = "Новое";
+"task_status_in_progress" = "В работе";
+"task_status_executed" = "Выполнено";
+"task_status_confirmed" = "Подтверждено";
+"task_status_approved" = "Согласовано";
+"task_status_reject" = "Отклонено";
+"task_type_execute" = "На исполнение";
+"task_type_approve" = "На согласование";
 
 /* News */
 

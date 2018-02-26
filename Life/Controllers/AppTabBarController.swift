@@ -163,7 +163,8 @@ class AppTabBarController: UIViewController, TabBarDelegate {
 
         Observable.just(User.current.profile).bind { (profile) in
             ImageDownloader.set(
-                image: (profile?.employeeCode ?? ""),
+                image: "",
+                employeeCode: (profile?.employeeCode ?? ""),
                 to: self.profileButton.iconView
             )
         }.disposed(by: disposeBag)

@@ -1,0 +1,38 @@
+ [
+  {
+  "id": "8ae15942-84b1-4999-aa43-900c536a8ae8",
+  "topic": "This is a test topic!",
+  "authorCode": "00-000485",
+  "authorName": "Карибекова Сана Канатовна",
+  "isAllDay": false,
+  "startDate": "2018-02-26T17:59:29.61",
+  "endDate": "2018-02-28T17:59:29.61",
+  "location": "Astana",
+  "statusCode": 0,
+  "isExpired": false
+  },
+  {
+  "id": "98464cc3-5092-4c81-b97a-794e20787906",
+  "topic": "This is a test topic!",
+  "authorCode": "00-000485",
+  "authorName": "Карибекова Сана Канатовна",
+  "isAllDay": false,
+  "startDate": null,
+  "endDate": null,
+  "location": "Astana",
+  "statusCode": 0,
+  "isExpired": false
+  },
+  {
+  "id": "f0deeb40-a0f6-42c1-a9c1-60c169ac1c5c",
+  "topic": "This is a test topic!",
+  "authorCode": "00-000485",
+  "authorName": "Карибекова Сана Канатовна",
+  "isAllDay": false,
+  "startDate": null,
+  "endDate": null,
+  "location": null,
+  "statusCode": 10,
+  "isExpired": false
+  }
+  ]

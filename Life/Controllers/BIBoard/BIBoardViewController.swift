@@ -66,6 +66,7 @@ class BIBoardViewController: ASViewController<ASCollectionNode> {
 
         refreshCtrl = UIRefreshControl()
         refreshCtrl.addTarget(self, action: #selector(refreshFeed), for: .valueChanged)
+        refreshCtrl.tintColor = App.Color.azure
         collectionNode.view.addSubview(refreshCtrl)
     }
 

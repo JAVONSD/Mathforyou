@@ -88,6 +88,10 @@
 		C752ACF320411D2B00D04E26 /* EmployeeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C752ACF220411D2B00D04E26 /* EmployeeObject.swift */; };
 		C752ACF520411DD900D04E26 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C752ACF420411DD900D04E26 /* Persistable.swift */; };
 		C752ACF920413ECB00D04E26 /* VacancyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C752ACF820413ECB00D04E26 /* VacancyCell.swift */; };
+		C756FCF620442D54000130EF /* requests.json in Resources */ = {isa = PBXBuildFile; fileRef = C756FCF520442D54000130EF /* requests.json */; };
+		C756FCF820444A95000130EF /* tasks.json in Resources */ = {isa = PBXBuildFile; fileRef = C756FCF720444A95000130EF /* tasks.json */; };
+		C756FCFA20444AB7000130EF /* task.json in Resources */ = {isa = PBXBuildFile; fileRef = C756FCF920444AB7000130EF /* task.json */; };
+		C756FCFC20445C72000130EF /* message.json in Resources */ = {isa = PBXBuildFile; fileRef = C756FCFB20445C72000130EF /* message.json */; };
 		C761B4B720429AD500467304 /* comment.json in Resources */ = {isa = PBXBuildFile; fileRef = C761B4B620429AD500467304 /* comment.json */; };
 		C761B4B920429D0000467304 /* CommentToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C761B4B820429D0000467304 /* CommentToolbar.swift */; };
 		C76EFB4E202E91F000FA2BB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB4D202E91F000FA2BB9 /* AppDelegate.swift */; };
@@ -409,6 +413,10 @@
 		C752ACF220411D2B00D04E26 /* EmployeeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeObject.swift; sourceTree = "<group>"; };
 		C752ACF420411DD900D04E26 /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		C752ACF820413ECB00D04E26 /* VacancyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacancyCell.swift; sourceTree = "<group>"; };
+		C756FCF520442D54000130EF /* requests.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = requests.json; sourceTree = "<group>"; };
+		C756FCF720444A95000130EF /* tasks.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tasks.json; sourceTree = "<group>"; };
+		C756FCF920444AB7000130EF /* task.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = task.json; sourceTree = "<group>"; };
+		C756FCFB20445C72000130EF /* message.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = message.json; sourceTree = "<group>"; };
 		C761B4B620429AD500467304 /* comment.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = comment.json; sourceTree = "<group>"; };
 		C761B4B820429D0000467304 /* CommentToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentToolbar.swift; sourceTree = "<group>"; };
 		C76EFB4A202E91F000FA2BB9 /* Life.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Life.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1340,6 +1348,9 @@
 		C7D641C2203411B3001DCA98 /* Tasks */ = {
 			isa = PBXGroup;
 			children = (
+				C756FCF720444A95000130EF /* tasks.json */,
+				C756FCF920444AB7000130EF /* task.json */,
+				C756FCFB20445C72000130EF /* message.json */,
 			);
 			path = Tasks;
 			sourceTree = "<group>";
@@ -1427,6 +1438,7 @@
 		C7D641CD203411B5001DCA98 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				C756FCF520442D54000130EF /* requests.json */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -1791,11 +1803,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C756FCF820444A95000130EF /* tasks.json in Resources */,
 				C76EFBBC203008C100FA2BB9 /* Roboto-ThinItalic.ttf in Resources */,
 				C752ACEC2041153700D04E26 /* employee_info.json in Resources */,
 				C7D641D3203411EA001DCA98 /* testtokenauth.json in Resources */,
+				C756FCFA20444AB7000130EF /* task.json in Resources */,
 				C76EFBBB203008C100FA2BB9 /* Roboto-BoldItalic.ttf in Resources */,
 				C76EFBC2203008C100FA2BB9 /* Roboto-LightItalic.ttf in Resources */,
+				C756FCF620442D54000130EF /* requests.json in Resources */,
 				C7D641CF203411C4001DCA98 /* auth.json in Resources */,
 				C76EFBB7203008C100FA2BB9 /* Roboto-Medium.ttf in Resources */,
 				C752ACEE2041159C00D04E26 /* vacancies.json in Resources */,
@@ -1816,6 +1831,7 @@
 				C76EFBBF203008C100FA2BB9 /* Roboto-Light.ttf in Resources */,
 				C76EFB8A202E947800FA2BB9 /* Localizable.strings in Resources */,
 				C752ACE8204113B100D04E26 /* employees.json in Resources */,
+				C756FCFC20445C72000130EF /* message.json in Resources */,
 				C7054BB32041782300A8ED1A /* notifications.json in Resources */,
 				C752ACEA204114BC00D04E26 /* employees_search.json in Resources */,
 				C76EFBC1203008C100FA2BB9 /* Roboto-Regular.ttf in Resources */,
