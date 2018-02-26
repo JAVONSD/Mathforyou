@@ -20,7 +20,8 @@ class NewsDetailsCell: ASCellNode {
          didTapClose: @escaping (() -> Void),
          needReloadOnWebViewLoad: Bool,
          webViewHeight: CGFloat,
-         didLoadWebView: @escaping ((CGFloat) -> Void)) {
+         didLoadWebView: @escaping ((CGFloat) -> Void),
+         didLikeNews: @escaping (() -> Void)) {
         self.news = news
 
         super.init()
@@ -36,6 +37,7 @@ class NewsDetailsCell: ASCellNode {
             webViewHeight: webViewHeight,
             didLoadWebView: didLoadWebView
         )
+        bodyNode.didLikeNews = didLikeNews
         addSubnode(bodyNode)
     }
 

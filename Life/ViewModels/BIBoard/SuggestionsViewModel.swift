@@ -8,6 +8,8 @@
 
 import Foundation
 import IGListKit
+import Moya
+import RxSwift
 
 class SuggestionsViewModel: NSObject, ListDiffable {
     var suggestions = [SuggestionItemViewModel]()
@@ -48,11 +50,141 @@ class SuggestionItemViewModel: NSObject, ListDiffable {
     var suggestion: Suggestion
 
     var needReloadOnWebViewLoad = true
-    var calculatedWebViewHeight: CGFloat = 0
+    var calculatedWebViewHeight: CGFloat = 24
+
+    private(set) var canLoadMore = true
+    private(set) var loading = false
+
+    private let disposeBag = DisposeBag()
+
+    private let provider = MoyaProvider<SuggestionsService>(
+        plugins: [
+            AuthPlugin(tokenClosure: {
+                return User.current.token
+            })
+        ]
+    )
 
     init(suggestion: Suggestion) {
         self.suggestion = suggestion
     }
+
+    init(id: String) {
+        let json = ["id": id]
+        //swiftlint:disable force_try
+        self.suggestion = try! JSONDecoder().decode(Suggestion.self, from: json.toJSONData())
+        //swiftlint:enable force_try
+    }
+
+    // MARK: - Methods
+
+    public func getSuggestion(completion: @escaping ((Error?) -> Void)) {
+        if loading {
+            return
+        }
+
+        loading = true
+
+        provider
+            .rx
+            .request(.suggestion(id: suggestion.id))
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                self.canLoadMore = false
+                self.loading = false
+
+                switch response {
+                case .success(let json):
+                    if let suggestion = try? JSONDecoder().decode(Suggestion.self, from: json.data) {
+                        self.suggestion = suggestion
+
+                        completion(nil)
+                    } else {
+                        completion(nil)
+                    }
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    public func likeSuggestion(vote: UserVote, completion: @escaping ((Error?) -> Void)) {
+        if loading {
+            return
+        }
+
+        loading = true
+
+        provider
+            .rx
+            .request(.likeSuggestion(withId: suggestion.id, voteType: vote))
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                switch response {
+                case .success:
+                    completion(nil)
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    public func addCommentToSuggestion(commentText: String, completion: @escaping ((Error?) -> Void)) {
+        if loading {
+            return
+        }
+
+        loading = true
+
+        provider
+            .rx
+            .request(.addCommentToSuggestion(withId: suggestion.id, commentText: commentText))
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                self.canLoadMore = false
+                self.loading = false
+
+                switch response {
+                case .success(let json):
+                    if let comment = try? JSONDecoder().decode(Comment.self, from: json.data) {
+                        self.suggestion.comments.append(comment)
+
+                        completion(nil)
+                    } else {
+                        completion(nil)
+                    }
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    public func likeComment(id: String, voteType: UserVote, completion: @escaping ((Error?) -> Void)) {
+        if loading {
+            return
+        }
+
+        loading = true
+
+        provider
+            .rx
+            .request(.likeComment(suggestionId: suggestion.id, commentId: id, voteType: voteType))
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                switch response {
+                case .success:
+                    completion(nil)
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    // MARK: - ListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {
         return NSString(string: suggestion.id)

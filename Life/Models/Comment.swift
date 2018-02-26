@@ -17,8 +17,25 @@ struct Comment: Codable {
     var text: String
     var likesQuantity: Int
     var dislikesQuantity: Int
-    var userVote: UserVote
+    var userVote: UserVote?
+    var vote: UserVote?
     var type: Int
+
+    // MARK: - Methods
+
+    func getVote() -> UserVote {
+        if let userVote = userVote {
+            return userVote
+        }
+        return vote ?? .default
+    }
+
+    mutating func set(vote: UserVote) {
+        if userVote != nil {
+            userVote = vote
+        }
+        self.vote = vote
+    }
 
     // MARK: - Decodable
 
@@ -31,6 +48,7 @@ struct Comment: Codable {
         case likesQuantity
         case dislikesQuantity
         case userVote
+        case vote
         case type
     }
 
@@ -44,7 +62,8 @@ struct Comment: Codable {
         self.text = try container.decodeWrapper(key: .text, defaultValue: "")
         self.likesQuantity = try container.decodeWrapper(key: .likesQuantity, defaultValue: 0)
         self.dislikesQuantity = try container.decodeWrapper(key: .dislikesQuantity, defaultValue: 0)
-        self.userVote = try container.decodeWrapper(key: .userVote, defaultValue: UserVote.default)
+        self.userVote = try container.decodeWrapper(key: .userVote, defaultValue: nil)
+        self.vote = try container.decodeWrapper(key: .vote, defaultValue: nil)
         self.type = try container.decodeWrapper(key: .type, defaultValue: 0)
     }
 
@@ -57,6 +76,7 @@ struct Comment: Codable {
         aCoder.encode(likesQuantity, forKey: "likesQuantity")
         aCoder.encode(dislikesQuantity, forKey: "dislikesQuantity")
         aCoder.encode(userVote, forKey: "userVote")
+        aCoder.encode(vote, forKey: "vote")
         aCoder.encode(type, forKey: "type")
     }
 

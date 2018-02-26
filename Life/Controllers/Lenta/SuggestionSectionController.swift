@@ -13,6 +13,7 @@ import Moya
 
 class SuggestionSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: SuggestionItemViewModel?
+    private let commentToolbar = NSString(string: "commentToolbar")
 
     var onUnathorizedError: (() -> Void)?
     private(set) var didTapClose: (() -> Void)
@@ -24,9 +25,7 @@ class SuggestionSectionController: ASCollectionSectionController {
         super.init()
     }
 
-    override func didUpdate(to object: Any) {
-        viewModel = object as? SuggestionItemViewModel
-
+    private func updateContents() {
         if let viewModel = viewModel {
             var items = [ListDiffable]()
 
@@ -35,8 +34,16 @@ class SuggestionSectionController: ASCollectionSectionController {
             let commentsViewModels = viewModel.suggestion.comments.map { CommentViewModel(comment: $0) }
             items.append(contentsOf: commentsViewModels as [ListDiffable])
 
+            items.append(commentToolbar)
+
             set(items: items, animated: false, completion: nil)
         }
+    }
+
+    override func didUpdate(to object: Any) {
+        viewModel = object as? SuggestionItemViewModel
+
+        updateContents()
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
@@ -53,6 +60,37 @@ class SuggestionSectionController: ASCollectionSectionController {
 }
 
 extension SuggestionSectionController: ASSectionController {
+    private func scrollToBottom() {
+        if let vc = self.viewController as? SuggestionViewController {
+            vc.node.scrollToItem(
+                at: IndexPath(item: self.items.count - 1, section: 0),
+                at: .bottom,
+                animated: false
+            )
+        }
+    }
+
+    private func commentCell() -> () -> ASCellNode {
+        return {
+            let cell = CommentToolbar()
+            cell.didTapAdd = { text in
+                guard !text.isEmpty else { return }
+                self.viewModel?.addCommentToSuggestion(
+                    commentText: text,
+                    completion: { _ in
+                        print("Added comment ...")
+
+                        self.updateContents()
+                        self.scrollToBottom()
+                })
+            }
+            cell.didChange = {
+                self.scrollToBottom()
+            }
+            return cell
+        }
+    }
+
     func nodeBlockForItem(at index: Int) -> ASCellNodeBlock {
         guard index < items.count,
             let viewModel = self.viewModel else {
@@ -64,8 +102,18 @@ extension SuggestionSectionController: ASSectionController {
         if let object = items[index] as? CommentViewModel {
             return {
                 let cell = NewsCommentCell(comment: object.comment)
+                cell.didLikeComment = { vote in
+                    self.viewModel?.likeComment(
+                        id: object.comment.id,
+                        voteType: vote,
+                        completion: { _ in
+                            print("User did like comment ...")
+                    })
+                }
                 return cell
             }
+        } else if items[index] is String {
+            return commentCell()
         }
 
         return {
@@ -77,18 +125,51 @@ extension SuggestionSectionController: ASSectionController {
                 didLoadWebView: { height in
                     viewModel.needReloadOnWebViewLoad = false
                     viewModel.calculatedWebViewHeight = height
-            }
+                },
+                didLikeSuggestion: { vote in
+                    viewModel.likeSuggestion(vote: vote, completion: { _ in
+                        print("User liked suggestion")
+                    })
+                }
             )
             return cell
         }
     }
 
     func beginBatchFetch(with context: ASBatchContext) {
-        context.completeBatchFetching(true)
+        DispatchQueue.main.async {
+            self.viewModel?.getSuggestion(completion: { [weak self] (error) in
+                guard let `self` = self,
+                    let viewModel = self.viewModel else { return }
+
+                if let moyaError = error as? MoyaError,
+                    moyaError.response?.statusCode == 401,
+                    let onUnathorizedError = self.onUnathorizedError {
+                    onUnathorizedError()
+                }
+
+                var items = [ListDiffable]()
+
+                items.append(viewModel)
+
+                let commentsViewModels = viewModel.suggestion.comments.map { CommentViewModel(comment: $0) }
+                items.append(contentsOf: commentsViewModels as [ListDiffable])
+
+                items.append(self.commentToolbar)
+
+                self.set(items: items, animated: false, completion: {
+                    self.collectionContext?.performBatch(animated: true, updates: { (context) in
+                        context.reload(in: self, at: IndexSet.init(integer: 0))
+                    }, completion: { (_) in
+                        context.completeBatchFetching(true)
+                    })
+                })
+            })
+        }
     }
 
     func shouldBatchFetch() -> Bool {
-        return false
+        return viewModel?.canLoadMore ?? false
     }
 }
 

@@ -51,12 +51,12 @@ class MainMenuFlow: Flow {
         case .topQuestionPicked:
             // temp
             return navigationToTopQuestions()
-        case .newsPicked:
-            return navigationToNewsDetail()
+        case .newsPicked(let id):
+            return navigationToNewsDetail(id)
         case .newsDone:
             return navigationFromNewsDetail()
-        case .suggestionPicked:
-            return navigationToSuggestion()
+        case .suggestionPicked(let id):
+            return navigationToSuggestion(id)
         case .suggestionDone:
             return navigationFromSuggestion()
         case .createNews:
@@ -192,9 +192,9 @@ class MainMenuFlow: Flow {
         )
     }
 
-    private func navigationToNewsDetail() -> NextFlowItems {
+    private func navigationToNewsDetail(_ id: String) -> NextFlowItems {
         let viewController = NewsViewController(
-            viewModel: NewsViewModel.sample().news[0]
+            viewModel: NewsItemViewModel(id: id)
         )
         self.rootViewController.present(viewController, animated: true, completion: nil)
         return NextFlowItems.one(flowItem:
@@ -209,9 +209,9 @@ class MainMenuFlow: Flow {
         return NextFlowItems.none
     }
 
-    private func navigationToSuggestion() -> NextFlowItems {
+    private func navigationToSuggestion( _ id: String) -> NextFlowItems {
         let viewController = SuggestionViewController(
-            viewModel: SuggestionsViewModel.sample().suggestions[0]
+            viewModel: SuggestionItemViewModel(id: id)
         )
         self.rootViewController.present(viewController, animated: true, completion: nil)
         return NextFlowItems.one(flowItem:

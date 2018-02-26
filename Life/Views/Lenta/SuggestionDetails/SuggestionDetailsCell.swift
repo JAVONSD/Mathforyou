@@ -20,7 +20,8 @@ class SuggestionDetailsCell: ASCellNode {
          didTapClose: @escaping (() -> Void),
          needReloadOnWebViewLoad: Bool,
          webViewHeight: CGFloat,
-         didLoadWebView: @escaping ((CGFloat) -> Void)) {
+         didLoadWebView: @escaping ((CGFloat) -> Void),
+         didLikeSuggestion: @escaping ((UserVote) -> Void)) {
         self.suggestion = suggestion
 
         super.init()
@@ -36,6 +37,7 @@ class SuggestionDetailsCell: ASCellNode {
             webViewHeight: webViewHeight,
             didLoadWebView: didLoadWebView
         )
+        bodyNode.didLikeSuggestion = didLikeSuggestion
         addSubnode(bodyNode)
     }
 

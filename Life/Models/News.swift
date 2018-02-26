@@ -25,7 +25,7 @@ struct News: Codable {
     var isHistoryEvent: Bool
     var isFromSharepoint: Bool
     var comments: [Comment]
-    var secondaryImages: [String]
+    var secondaryImages: [Image]
     var tags: [Tag]
 
     // MARK: - Decodable

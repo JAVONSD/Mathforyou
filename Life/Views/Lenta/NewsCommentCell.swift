@@ -28,6 +28,8 @@ class NewsCommentCell: ASCellNode {
 
     private var comment: Comment
 
+    var didLikeComment: ((UserVote) -> Void)?
+
     init(comment: Comment) {
         self.comment = comment
 
@@ -48,7 +50,8 @@ class NewsCommentCell: ASCellNode {
 
         dateNode = ASTextNode()
         dateNode.attributedText = attDetailText(
-            comment.createDate.prettyDateOrTimeAgoString(format: "dd MMMM yyyy")
+            comment.createDate.prettyDateOrTimeAgoString(format: "dd MMMM yyyy"),
+            textAlignment: .right
         )
         backgroundNode.addSubnode(dateNode)
 
@@ -57,9 +60,14 @@ class NewsCommentCell: ASCellNode {
         backgroundNode.addSubnode(textNode)
 
         likesImageNode = ASImageNode()
+        likesImageNode.addTarget(
+            self,
+            action: #selector(handleLikeButton),
+            forControlEvents: .touchUpInside
+        )
         likesImageNode.image = #imageLiteral(resourceName: "like-inactive")
         likesImageNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(
-            comment.userVote == .liked ? App.Color.azure : App.Color.coolGrey
+            comment.getVote() == .liked ? App.Color.azure : App.Color.coolGrey
         )
         backgroundNode.addSubnode(likesImageNode)
 
@@ -68,9 +76,14 @@ class NewsCommentCell: ASCellNode {
         backgroundNode.addSubnode(likesNode)
 
         dislikesImageNode = ASImageNode()
+        dislikesImageNode.addTarget(
+            self,
+            action: #selector(handleDislikeButton),
+            forControlEvents: .touchUpInside
+        )
         dislikesImageNode.image = #imageLiteral(resourceName: "dislike-inactive")
         dislikesImageNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(
-            comment.userVote == .disliked ? App.Color.azure : App.Color.coolGrey
+            comment.getVote() == .disliked ? App.Color.azure : App.Color.coolGrey
         )
         backgroundNode.addSubnode(dislikesImageNode)
 
@@ -118,7 +131,7 @@ class NewsCommentCell: ASCellNode {
         )
 
         authorNameNode.style.flexShrink = 1.0
-        dateNode.style.flexShrink = 1.0
+        dateNode.style.flexGrow = 1.0
 
         let headerSpec = ASStackLayoutSpec.horizontal()
         headerSpec.children = [authorImageNode, authorNameNode, dateNode]
@@ -163,6 +176,58 @@ class NewsCommentCell: ASCellNode {
         }
     }
 
+    // MARK: - Actions
+
+    @objc
+    private func handleLikeButton() {
+        var vote = UserVote.liked
+        var likesCount = comment.likesQuantity
+        var dislikesCount = comment.dislikesQuantity
+        if comment.getVote() == .liked {
+            vote = .default
+            likesCount -= 1
+        } else if comment.getVote() == .default {
+            likesCount += 1
+        } else if comment.getVote() == .disliked {
+            likesCount += 1
+            dislikesCount -= 1
+        }
+        comment.set(vote: vote)
+        comment.likesQuantity = likesCount
+        comment.dislikesQuantity = dislikesCount
+
+        updateLikeDislikeState()
+
+        if let didLikeComment = didLikeComment {
+            didLikeComment(vote)
+        }
+    }
+
+    @objc
+    private func handleDislikeButton() {
+        var vote = UserVote.disliked
+        var likesCount = comment.likesQuantity
+        var dislikesCount = comment.dislikesQuantity
+        if comment.getVote() == .disliked {
+            vote = .default
+            dislikesCount -= 1
+        } else if comment.getVote() == .default {
+            dislikesCount += 1
+        } else if comment.getVote() == .liked {
+            dislikesCount += 1
+            likesCount -= 1
+        }
+        comment.set(vote: vote)
+        comment.likesQuantity = likesCount
+        comment.dislikesQuantity = dislikesCount
+
+        updateLikeDislikeState()
+
+        if let didLikeComment = didLikeComment {
+            didLikeComment(vote)
+        }
+    }
+
     // MARK: - Methods
 
     private func attAuthorName(_ string: String) -> NSMutableAttributedString {
@@ -175,12 +240,18 @@ class NewsCommentCell: ASCellNode {
         return attText
     }
 
-    private func attDetailText(_ string: String) -> NSMutableAttributedString {
+    private func attDetailText(
+        _ string: String,
+        textAlignment: NSTextAlignment = .left) -> NSMutableAttributedString {
         let attText = NSMutableAttributedString(string: string)
 
         let allRange = NSRange(location: 0, length: attText.length)
         attText.addAttribute(.font, value: App.Font.caption, range: allRange)
         attText.addAttribute(.foregroundColor, value: App.Color.steel, range: allRange)
+
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = textAlignment
+        attText.addAttribute(.paragraphStyle, value: paragraphStyle, range: allRange)
 
         return attText
     }
@@ -193,6 +264,20 @@ class NewsCommentCell: ASCellNode {
         attText.addAttribute(.foregroundColor, value: UIColor.black, range: allRange)
 
         return attText
+    }
+
+    private func updateLikeDislikeState() {
+        likesImageNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(
+            comment.getVote() == .liked ? App.Color.azure : App.Color.coolGrey
+        )
+        likesImageNode.setNeedsDisplay()
+        likesNode.attributedText = attDetailText("\(comment.likesQuantity)")
+
+        dislikesImageNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(
+            comment.getVote() == .disliked ? App.Color.azure : App.Color.coolGrey
+        )
+        dislikesImageNode.setNeedsDisplay()
+        dislikesNode.attributedText = attDetailText("\(comment.dislikesQuantity)")
     }
 
 }

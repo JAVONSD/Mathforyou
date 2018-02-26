@@ -61,12 +61,7 @@ extension AuthService: AuthorizedTargetType {
     }
 
     var headers: [String: String]? {
-        switch self {
-        case .token:
-            return ["Content-type": "application/json"]
-        default:
-            return nil
-        }
+        return nil
     }
 
     var needsAuth: Bool {

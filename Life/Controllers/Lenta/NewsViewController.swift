@@ -29,6 +29,7 @@ class NewsViewController: ASViewController<ASCollectionNode>, Stepper {
         self.viewModel = viewModel
 
         let layout = UICollectionViewFlowLayout()
+        layout.sectionFootersPinToVisibleBounds = true
         let node = ASCollectionNode(collectionViewLayout: layout)
 
         super.init(node: node)

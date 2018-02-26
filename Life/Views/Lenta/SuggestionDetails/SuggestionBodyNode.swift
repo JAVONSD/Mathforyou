@@ -9,6 +9,7 @@
 import UIKit
 import AsyncDisplayKit
 import DynamicColor
+import NVActivityIndicatorView
 import WebKit
 
 class SuggestionBodyNode: ASDisplayNode {
@@ -22,7 +23,11 @@ class SuggestionBodyNode: ASDisplayNode {
     private(set) var webView: WKWebView!
     private(set) var webViewNode: ASDisplayNode!
 
-    private(set) var spinner: UIActivityIndicatorView!
+    private(set) lazy var spinner = NVActivityIndicatorView(
+        frame: .init(x: 0, y: 0, width: 24, height: 24),
+        type: .circleStrokeSpin,
+        color: App.Color.azure,
+        padding: 0)
     private(set) var spinnerNode: ASDisplayNode!
 
     private(set) var likesImageNode: ASImageNode!
@@ -42,6 +47,8 @@ class SuggestionBodyNode: ASDisplayNode {
     private(set) var suggestion: Suggestion
     private(set) var needReloadOnWebViewLoad: Bool
     private(set) var didLoadWebView: ((CGFloat) -> Void)
+
+    var didLikeSuggestion: ((UserVote) -> Void)?
 
     private(set) var webViewHeight: CGFloat = 0
 
@@ -93,30 +100,12 @@ class SuggestionBodyNode: ASDisplayNode {
 
     private func addWebNode() {
         webViewNode = ASDisplayNode(viewBlock: { () -> UIView in
-            //swiftlint:disable line_length
-            let script =
-                """
-                var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);
-                var style = document.createElement('style');style.innerHTML = 'body { -webkit-text-size-adjust: none; }';document.getElementsByTagName('head')[0].appendChild(style);
-                """
-            //swiftlint:enable line_length
-
-            let wkUScript = WKUserScript(
-                source: script,
-                injectionTime: .atDocumentEnd,
-                forMainFrameOnly: true
-            )
-            let wkUController = WKUserContentController()
-            wkUController.addUserScript(wkUScript)
-
-            let wkWebConfig = WKWebViewConfiguration()
-            wkWebConfig.userContentController = wkUController
-
             self.webView = WKWebView(frame: .init(
                 x: 0,
                 y: 0,
                 width: UIScreen.main.bounds.size.width - 2 * App.Layout.sideOffset,
-                height: 0), configuration: wkWebConfig)
+                height: 0)
+            )
             self.webView.navigationDelegate = self
             self.webView.loadHTMLString(
                 self.suggestion.text.html(font: App.Font.body, textColor: .black),
@@ -131,16 +120,20 @@ class SuggestionBodyNode: ASDisplayNode {
         addSubnode(webViewNode)
 
         spinnerNode = ASDisplayNode(viewBlock: { () -> UIView in
-            self.spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
             self.spinner.startAnimating()
             return self.spinner
         })
-        spinnerNode.style.preferredSize = CGSize(width: 24, height: 24)
+        spinnerNode.backgroundColor = .clear
         addSubnode(spinnerNode)
     }
 
     private func addLikesViews() {
         likesImageNode = ASImageNode()
+        likesImageNode.addTarget(
+            self,
+            action: #selector(handleLikeButton),
+            forControlEvents: .touchUpInside
+        )
         likesImageNode.image = #imageLiteral(resourceName: "like-inactive")
         likesImageNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(
             self.suggestion.userVote == .liked ? App.Color.azure : App.Color.coolGrey
@@ -152,6 +145,11 @@ class SuggestionBodyNode: ASDisplayNode {
         addSubnode(likesNode)
 
         dislikesImageNode = ASImageNode()
+        dislikesImageNode.addTarget(
+            self,
+            action: #selector(handleDislikeButton),
+            forControlEvents: .touchUpInside
+        )
         dislikesImageNode.image = #imageLiteral(resourceName: "dislike-inactive")
         dislikesImageNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(
             self.suggestion.userVote == .disliked ? App.Color.azure : App.Color.coolGrey
@@ -195,22 +193,10 @@ class SuggestionBodyNode: ASDisplayNode {
             bottom: 0,
             right: App.Layout.sideOffset), child: separator2Node)
 
-        let spinnerSpec = ASInsetLayoutSpec(insets: .init(
-            top: App.Layout.itemSpacingMedium,
-            left: 0,
-            bottom: 0,
-            right: 0), child: spinnerNode)
-        let spec = ASCenterLayoutSpec(
-            centeringOptions: .X,
-            sizingOptions: [],
-            child: spinnerSpec
-        )
-
         let stackSpec = ASStackLayoutSpec.vertical()
         stackSpec.children = [
             authorSpec(),
             sep1Spec,
-            spec,
             webSpec(),
             likesViewsSpec(),
             sep2Spec,
@@ -240,11 +226,18 @@ class SuggestionBodyNode: ASDisplayNode {
     }
 
     private func webSpec() -> ASLayoutSpec {
-        return ASInsetLayoutSpec(insets: .init(
+        let webSpec = ASInsetLayoutSpec(insets: .init(
             top: App.Layout.sideOffset,
             left: App.Layout.sideOffset,
             bottom:0,
             right: App.Layout.sideOffset), child: webViewNode)
+
+        let spinnerSpec = ASStackLayoutSpec.vertical()
+        spinnerSpec.children = [spinnerNode]
+        spinnerSpec.alignItems = .center
+        spinnerSpec.justifyContent = .center
+
+        return ASOverlayLayoutSpec(child: webSpec, overlay: spinnerSpec)
     }
 
     private func likesViewsSpec() -> ASLayoutSpec {
@@ -292,6 +285,58 @@ class SuggestionBodyNode: ASDisplayNode {
             left: App.Layout.sideOffset,
             bottom: App.Layout.sideOffset,
             right: App.Layout.sideOffset), child: stackSpec)
+    }
+
+    // MARK: - Actions
+
+    @objc
+    private func handleLikeButton() {
+        var vote = UserVote.liked
+        var likesCount = suggestion.likesQuantity
+        var dislikesCount = suggestion.dislikesQuantity
+        if suggestion.userVote == .liked {
+            vote = .default
+            likesCount -= 1
+        } else if suggestion.userVote == .default {
+            likesCount += 1
+        } else if suggestion.userVote == .disliked {
+            likesCount += 1
+            dislikesCount -= 1
+        }
+        suggestion.userVote = vote
+        suggestion.likesQuantity = likesCount
+        suggestion.dislikesQuantity = dislikesCount
+
+        updateLikeDislikeState()
+
+        if let didLikeSuggestion = didLikeSuggestion {
+            didLikeSuggestion(vote)
+        }
+    }
+
+    @objc
+    private func handleDislikeButton() {
+        var vote = UserVote.disliked
+        var likesCount = suggestion.likesQuantity
+        var dislikesCount = suggestion.dislikesQuantity
+        if suggestion.userVote == .disliked {
+            vote = .default
+            dislikesCount -= 1
+        } else if suggestion.userVote == .default {
+            dislikesCount += 1
+        } else if suggestion.userVote == .liked {
+            dislikesCount += 1
+            likesCount -= 1
+        }
+        suggestion.userVote = vote
+        suggestion.likesQuantity = likesCount
+        suggestion.dislikesQuantity = dislikesCount
+
+        updateLikeDislikeState()
+
+        if let didLikeSuggestion = didLikeSuggestion {
+            didLikeSuggestion(vote)
+        }
     }
 
     // MARK: - Methods
@@ -346,11 +391,26 @@ class SuggestionBodyNode: ASDisplayNode {
         return attText
     }
 
+    private func updateLikeDislikeState() {
+        likesImageNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(
+            suggestion.userVote == .liked ? App.Color.azure : App.Color.coolGrey
+        )
+        likesImageNode.setNeedsDisplay()
+        likesNode.attributedText = attDetailText("\(suggestion.likesQuantity)")
+
+        dislikesImageNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(
+            suggestion.userVote == .disliked ? App.Color.azure : App.Color.coolGrey
+        )
+        dislikesImageNode.setNeedsDisplay()
+        dislikesNode.attributedText = attDetailText("\(suggestion.dislikesQuantity)")
+    }
+
 }
 
 extension SuggestionBodyNode: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         spinnerNode.isHidden = true
+        webViewNode.isHidden = false
 
         guard needReloadOnWebViewLoad else {
             return

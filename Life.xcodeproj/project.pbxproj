@@ -88,6 +88,8 @@
 		C752ACF320411D2B00D04E26 /* EmployeeObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C752ACF220411D2B00D04E26 /* EmployeeObject.swift */; };
 		C752ACF520411DD900D04E26 /* Persistable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C752ACF420411DD900D04E26 /* Persistable.swift */; };
 		C752ACF920413ECB00D04E26 /* VacancyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C752ACF820413ECB00D04E26 /* VacancyCell.swift */; };
+		C761B4B720429AD500467304 /* comment.json in Resources */ = {isa = PBXBuildFile; fileRef = C761B4B620429AD500467304 /* comment.json */; };
+		C761B4B920429D0000467304 /* CommentToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C761B4B820429D0000467304 /* CommentToolbar.swift */; };
 		C76EFB4E202E91F000FA2BB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C76EFB4D202E91F000FA2BB9 /* AppDelegate.swift */; };
 		C76EFB55202E91F000FA2BB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C76EFB54202E91F000FA2BB9 /* Assets.xcassets */; };
 		C76EFB58202E91F000FA2BB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C76EFB56202E91F000FA2BB9 /* LaunchScreen.storyboard */; };
@@ -407,6 +409,8 @@
 		C752ACF220411D2B00D04E26 /* EmployeeObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeObject.swift; sourceTree = "<group>"; };
 		C752ACF420411DD900D04E26 /* Persistable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistable.swift; sourceTree = "<group>"; };
 		C752ACF820413ECB00D04E26 /* VacancyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacancyCell.swift; sourceTree = "<group>"; };
+		C761B4B620429AD500467304 /* comment.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = comment.json; sourceTree = "<group>"; };
+		C761B4B820429D0000467304 /* CommentToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentToolbar.swift; sourceTree = "<group>"; };
 		C76EFB4A202E91F000FA2BB9 /* Life.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Life.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C76EFB4D202E91F000FA2BB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C76EFB54202E91F000FA2BB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -1366,6 +1370,7 @@
 			isa = PBXGroup;
 			children = (
 				C7BB5C5E203F00690056BBF9 /* news_details.json */,
+				C761B4B620429AD500467304 /* comment.json */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -1622,6 +1627,7 @@
 				C7BB5C62203FD4060056BBF9 /* NewsDetails */,
 				C7BB5C63203FD4150056BBF9 /* SuggestionDetails */,
 				C7BB5C52203ED34C0056BBF9 /* NewsCommentCell.swift */,
+				C761B4B820429D0000467304 /* CommentToolbar.swift */,
 			);
 			path = Lenta;
 			sourceTree = "<group>";
@@ -1795,6 +1801,7 @@
 				C752ACEE2041159C00D04E26 /* vacancies.json in Resources */,
 				C752ACF0204115F600D04E26 /* birthdays.json in Resources */,
 				C792634A2037CE5900067371 /* lenta.json in Resources */,
+				C761B4B720429AD500467304 /* comment.json in Resources */,
 				C7D641D920341813001DCA98 /* user_profile.json in Resources */,
 				C76EFBB8203008C100FA2BB9 /* Roboto-Italic.ttf in Resources */,
 				C76EFBC0203008C100FA2BB9 /* Roboto-MediumItalic.ttf in Resources */,
@@ -2237,6 +2244,7 @@
 				C7D6421E203463E0001DCA98 /* HasDisposeBag.swift in Sources */,
 				C79251FB2031A14600CDFBBA /* MyInfoDetailedView.swift in Sources */,
 				C7F7CB53203BC39A007B9D1E /* ItemCell.swift in Sources */,
+				C761B4B920429D0000467304 /* CommentToolbar.swift in Sources */,
 				C7F7CB61203C5F07007B9D1E /* TasksAndRequestsSectionController.swift in Sources */,
 				C7D641B2203408D3001DCA98 /* RequestsService.swift in Sources */,
 				C79251F320315DDC00CDFBBA /* ImageTextView.swift in Sources */,

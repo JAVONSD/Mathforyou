@@ -9,6 +9,7 @@
 import UIKit
 import AsyncDisplayKit
 import DynamicColor
+import NVActivityIndicatorView
 import WebKit
 
 class NewsBodyNode: ASDisplayNode {
@@ -22,7 +23,11 @@ class NewsBodyNode: ASDisplayNode {
     private(set) var webView: WKWebView!
     private(set) var webViewNode: ASDisplayNode!
 
-    private(set) var spinner: UIActivityIndicatorView!
+    private(set) lazy var spinner = NVActivityIndicatorView(
+        frame: .init(x: 0, y: 0, width: 24, height: 24),
+        type: .circleStrokeSpin,
+        color: App.Color.azure,
+        padding: 0)
     private(set) var spinnerNode: ASDisplayNode!
 
     private(set) var likesImageNode: ASImageNode!
@@ -39,6 +44,8 @@ class NewsBodyNode: ASDisplayNode {
     private(set) var news: News
     private(set) var needReloadOnWebViewLoad: Bool
     private(set) var didLoadWebView: ((CGFloat) -> Void)
+
+    var didLikeNews: (() -> Void)?
 
     private(set) var webViewHeight: CGFloat = 0
 
@@ -88,30 +95,12 @@ class NewsBodyNode: ASDisplayNode {
 
     private func addWebNode() {
         webViewNode = ASDisplayNode(viewBlock: { () -> UIView in
-            //swiftlint:disable line_length
-            let script =
-                """
-                var meta = document.createElement('meta'); meta.setAttribute('name', 'viewport'); meta.setAttribute('content', 'width=device-width'); document.getElementsByTagName('head')[0].appendChild(meta);
-                var style = document.createElement('style');style.innerHTML = 'body { -webkit-text-size-adjust: none; }';document.getElementsByTagName('head')[0].appendChild(style);
-                """
-            //swiftlint:enable line_length
-
-            let wkUScript = WKUserScript(
-                source: script,
-                injectionTime: .atDocumentEnd,
-                forMainFrameOnly: true
-            )
-            let wkUController = WKUserContentController()
-            wkUController.addUserScript(wkUScript)
-
-            let wkWebConfig = WKWebViewConfiguration()
-            wkWebConfig.userContentController = wkUController
-
             self.webView = WKWebView(frame: .init(
                 x: 0,
                 y: 0,
                 width: UIScreen.main.bounds.size.width - 2 * App.Layout.sideOffset,
-                height: 0), configuration: wkWebConfig)
+                height: 0)
+            )
             self.webView.navigationDelegate = self
             self.webView.loadHTMLString(
                 self.news.text.html(font: App.Font.body, textColor: .black),
@@ -123,19 +112,24 @@ class NewsBodyNode: ASDisplayNode {
             width: UIScreen.main.bounds.size.width - 2 * App.Layout.sideOffset,
             height: webViewHeight
         )
+        webViewNode.isHidden = true
         addSubnode(webViewNode)
 
         spinnerNode = ASDisplayNode(viewBlock: { () -> UIView in
-            self.spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
             self.spinner.startAnimating()
             return self.spinner
         })
-        spinnerNode.style.preferredSize = CGSize(width: 24, height: 24)
+        spinnerNode.backgroundColor = .clear
         addSubnode(spinnerNode)
     }
 
     private func addLikesViews() {
         likesImageNode = ASImageNode()
+        likesImageNode.addTarget(
+            self,
+            action: #selector(handleLikeButton),
+            forControlEvents: .touchUpInside
+        )
         likesImageNode.image = #imageLiteral(resourceName: "like-inactive")
         likesImageNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(
             self.news.isLikedByMe ? App.Color.azure : App.Color.coolGrey
@@ -179,22 +173,10 @@ class NewsBodyNode: ASDisplayNode {
             bottom: 0,
             right: App.Layout.sideOffset), child: separator2Node)
 
-        let spinnerSpec = ASInsetLayoutSpec(insets: .init(
-            top: App.Layout.itemSpacingMedium,
-            left: 0,
-            bottom: 0,
-            right: 0), child: spinnerNode)
-        let spec = ASCenterLayoutSpec(
-            centeringOptions: .X,
-            sizingOptions: [],
-            child: spinnerSpec
-        )
-
         let stackSpec = ASStackLayoutSpec.vertical()
         stackSpec.children = [
             authorSpec(),
             sep1Spec,
-            spec,
             webSpec(),
             likesViewsSpec(),
             sep2Spec,
@@ -224,11 +206,18 @@ class NewsBodyNode: ASDisplayNode {
     }
 
     private func webSpec() -> ASLayoutSpec {
-        return ASInsetLayoutSpec(insets: .init(
+        let webSpec = ASInsetLayoutSpec(insets: .init(
             top: App.Layout.sideOffset,
             left: App.Layout.sideOffset,
             bottom:0,
             right: App.Layout.sideOffset), child: webViewNode)
+
+        let spinnerSpec = ASStackLayoutSpec.vertical()
+        spinnerSpec.children = [spinnerNode]
+        spinnerSpec.alignItems = .center
+        spinnerSpec.justifyContent = .center
+
+        return ASOverlayLayoutSpec(child: webSpec, overlay: spinnerSpec)
     }
 
     private func likesViewsSpec() -> ASLayoutSpec {
@@ -266,6 +255,24 @@ class NewsBodyNode: ASDisplayNode {
             left: App.Layout.sideOffset,
             bottom: App.Layout.sideOffset,
             right: App.Layout.sideOffset), child: stackSpec)
+    }
+
+    // MARK: - Actions
+
+    @objc
+    private func handleLikeButton() {
+        news.isLikedByMe = !news.isLikedByMe
+        news.likesQuantity += news.isLikedByMe ? 1 : -1
+
+        likesImageNode.imageModificationBlock = ASImageNodeTintColorModificationBlock(
+            self.news.isLikedByMe ? App.Color.azure : App.Color.coolGrey
+        )
+        likesImageNode.setNeedsDisplay()
+        likesNode.attributedText = attDetailText("\(news.likesQuantity)")
+
+        if let didLikeNews = didLikeNews {
+            didLikeNews()
+        }
     }
 
     // MARK: - Methods
@@ -325,6 +332,7 @@ class NewsBodyNode: ASDisplayNode {
 extension NewsBodyNode: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         spinnerNode.isHidden = true
+        webViewNode.isHidden = false
 
         guard needReloadOnWebViewLoad else {
             return

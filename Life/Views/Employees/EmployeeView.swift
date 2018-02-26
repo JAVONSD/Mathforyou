@@ -22,10 +22,11 @@ class EmployeeView: UIView {
     private(set) var birthdateView: ImageTextView?
     private(set) var chiefView: ImageTextView?
     private(set) var phoneView: ImageTextView?
-    private(set) var emailView: ImageTextView?
+    private(set) var emailButton: ImageTextButton?
 
     var didTapCloseButton: (() -> Void)?
     var didTapCallButton: (() -> Void)?
+    var didTapEmailButton: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -85,7 +86,7 @@ class EmployeeView: UIView {
 
     var email: String = "" {
         didSet {
-            emailView?.subtitleLabel?.text = email.onEmpty("-")
+            emailButton?.view?.subtitleLabel?.text = email.onEmpty("-")
         }
     }
 
@@ -102,6 +103,13 @@ class EmployeeView: UIView {
     private func handleCallButton() {
         if let didTapCallButton = didTapCallButton {
             didTapCallButton()
+        }
+    }
+
+    @objc
+    private func handleEmailButton() {
+        if let didTapEmailButton = didTapEmailButton {
+            didTapEmailButton()
         }
     }
 
@@ -257,19 +265,22 @@ class EmployeeView: UIView {
     }
 
     private func setupEmail() {
-        emailView = ImageTextView(
+        emailButton = ImageTextButton(
             image: nil,
             title: NSLocalizedString("email", comment: ""),
             subtitle: "ailida@bi-group.org"
         )
 
         guard let scrollView = scrollView,
-            let emailView = emailView else {
+            let emailButton = emailButton,
+            let view = emailButton.view else {
                 return
         }
 
-        setup(view: emailView)
-        scrollView.stackView?.addArrangedSubview(emailView)
+        emailButton.button?.addTarget(self, action: #selector(handleEmailButton), for: .touchUpInside)
+
+        setup(view: view)
+        scrollView.stackView?.addArrangedSubview(emailButton)
     }
 
     private func setup(view: ImageTextView) {

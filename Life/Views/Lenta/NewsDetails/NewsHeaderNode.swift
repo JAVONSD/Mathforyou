@@ -13,6 +13,8 @@ class NewsHeaderNode: ASDisplayNode {
 
     private(set) var collectionNode: ASCollectionNode!
 
+    private(set) var overlayNode: ASDisplayNode!
+
     private(set) var labelContainerNode: ASDisplayNode!
     private(set) var labelNode: ASTextNode!
 
@@ -23,7 +25,11 @@ class NewsHeaderNode: ASDisplayNode {
 
     private(set) var news: News
     private var images: [String] {
-        return news.secondaryImages + [news.imageUrl]
+        var items = news.secondaryImages.map { $0.streamId }
+        if !news.imageUrl.isEmpty {
+            items += [news.imageUrl]
+        }
+        return items
     }
 
     private(set) var didTapClose: (() -> Void)?
@@ -46,25 +52,33 @@ class NewsHeaderNode: ASDisplayNode {
         collectionNode.delegate = self
         addSubnode(collectionNode)
 
+        overlayNode = ASDisplayNode()
+        overlayNode.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        overlayNode.isUserInteractionEnabled = false
+        addSubnode(overlayNode)
+
         labelContainerNode = ASDisplayNode()
         labelContainerNode.backgroundColor = .white
         labelContainerNode.cornerRadius = App.Layout.cornerRadiusSmall / 2
-        collectionNode.addSubnode(labelContainerNode)
+        labelContainerNode.style.flexShrink = 1.0
+        addSubnode(labelContainerNode)
 
         labelNode = ASTextNode()
-        labelNode.attributedText = attLabel("SUBHEAD")
+        labelNode.attributedText = attLabel(news.title)
+        labelNode.style.flexShrink = 1.0
         labelContainerNode.addSubnode(labelNode)
 
         closeNode = ASButtonNode()
         closeNode.addTarget(self, action: #selector(handleCloseButton), forControlEvents: .touchUpInside)
         closeNode.setImage(#imageLiteral(resourceName: "close-circle"), for: .normal)
-        collectionNode.addSubnode(closeNode)
+        addSubnode(closeNode)
 
         pageControlNode = ASDisplayNode(viewBlock: { () -> UIView in
             self.pageControl = UIPageControl(frame: .init(x: 0, y: 0, width: 100, height: 20))
             self.pageControl.backgroundColor = .white
             self.pageControl.numberOfPages = self.images.count
             self.pageControl.currentPage = 0
+            self.pageControl.hidesForSinglePage = true
             self.pageControl.pageIndicatorTintColor = App.Color.slateGrey.withAlphaComponent(0.32)
             self.pageControl.currentPageIndicatorTintColor = App.Color.slateGrey
             return self.pageControl
@@ -92,29 +106,30 @@ class NewsHeaderNode: ASDisplayNode {
                 right: App.Layout.itemSpacingSmall / 2), child: self.labelNode)
         }
 
-        collectionNode.layoutSpecBlock = { (_, _) in
-            let labelSpec = ASInsetLayoutSpec(insets: .init(
-                top: 10,
-                left: 0,
-                bottom: 0,
-                right: 0), child: self.labelContainerNode)
+        let horizStackSpec = ASStackLayoutSpec.horizontal()
+        horizStackSpec.children = [self.labelContainerNode, self.closeNode]
+        horizStackSpec.alignItems = .center
+        horizStackSpec.justifyContent = .spaceBetween
+        horizStackSpec.spacing = App.Layout.sideOffset
+        horizStackSpec.style.flexShrink = 1.0
 
-            let horizStackSpec = ASStackLayoutSpec.horizontal()
-            horizStackSpec.children = [labelSpec, self.closeNode]
-            horizStackSpec.alignItems = .start
-            horizStackSpec.justifyContent = .spaceBetween
+        let vertStackSpec = ASStackLayoutSpec.vertical()
+        vertStackSpec.children = [horizStackSpec]
+        vertStackSpec.justifyContent = .start
+        vertStackSpec.style.flexShrink = 1.0
 
-            return ASInsetLayoutSpec(insets: .init(
-                top: App.Layout.itemSpacingMedium,
-                left: App.Layout.sideOffset,
-                bottom: 0,
-                right: App.Layout.itemSpacingMedium), child: horizStackSpec)
-        }
-        collectionNode.style.alignItems = .start
-        collectionNode.style.alignSelf = .start
+        let insetSpec = ASInsetLayoutSpec(insets: .init(
+            top: App.Layout.itemSpacingMedium,
+            left: App.Layout.sideOffset,
+            bottom: 0,
+            right: App.Layout.itemSpacingMedium), child: vertStackSpec)
+        insetSpec.style.flexShrink = 1.0
+
+        let labelCloseOverlaySpec = ASOverlayLayoutSpec(child: overlayNode, overlay: insetSpec)
+        let overlaySpec = ASOverlayLayoutSpec(child: collectionNode, overlay: labelCloseOverlaySpec)
 
         let stackSpec = ASStackLayoutSpec.vertical()
-        stackSpec.children = [collectionNode, pageControlNode]
+        stackSpec.children = [overlaySpec, pageControlNode]
         return stackSpec
     }
 
@@ -129,7 +144,6 @@ class NewsHeaderNode: ASDisplayNode {
 
     @objc
     private func handleCloseButton() {
-        print("Handle close button ...")
         if let didTapClose = didTapClose {
             didTapClose()
         }
@@ -148,8 +162,13 @@ class NewsHeaderNode: ASDisplayNode {
     }
 
     private func collectionSize() -> CGSize {
-        let ratio: CGFloat = 360.0 / 300.0
         let width = UIScreen.main.bounds.size.width
+
+        if images.isEmpty {
+            return CGSize(width: width, height: 70)
+        }
+
+        let ratio: CGFloat = 360.0 / 300.0
         let height = width / ratio
 
         let size = CGSize(width: width, height: height)
@@ -179,8 +198,7 @@ extension NewsHeaderNode: ASCollectionDataSource {
             return ImageNode(
                 image: image,
                 size: self.collectionSize(),
-                cornerRadius: 0,
-                overlayColor: UIColor.black.withAlphaComponent(0.3)
+                cornerRadius: 0
             )
         }
     }

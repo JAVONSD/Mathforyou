@@ -83,6 +83,11 @@ class EmployeeViewController: UIViewController, ViewModelBased, Stepper {
                 UIApplication.shared.openURL(url)
             }
         }
+        employeeView.didTapEmailButton = {
+            if let url = URL(string: "mailto:\(self.viewModel.employee.email)") {
+                UIApplication.shared.openURL(url)
+            }
+        }
         view.addSubview(employeeView)
         employeeView.snp.makeConstraints({ [weak self] (make) in
             guard let `self` = self else { return }

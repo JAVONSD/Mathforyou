@@ -8,6 +8,8 @@
 
 import Foundation
 import IGListKit
+import Moya
+import RxSwift
 
 class NewsViewModel: NSObject, ListDiffable {
     var news = [NewsItemViewModel]()
@@ -48,11 +50,141 @@ class NewsItemViewModel: NSObject, ListDiffable {
     var news: News
 
     var needReloadOnWebViewLoad = true
-    var calculatedWebViewHeight: CGFloat = 0
+    var calculatedWebViewHeight: CGFloat = 24
+
+    private(set) var canLoadMore = true
+    private(set) var loading = false
+
+    private let disposeBag = DisposeBag()
+
+    private let provider = MoyaProvider<NewsService>(
+        plugins: [
+            AuthPlugin(tokenClosure: {
+                return User.current.token
+            })
+        ]
+    )
 
     init(news: News) {
         self.news = news
     }
+
+    init(id: String) {
+        let json = ["id": id]
+        //swiftlint:disable force_try
+        self.news = try! JSONDecoder().decode(News.self, from: json.toJSONData())
+        //swiftlint:enable force_try
+    }
+
+    // MARK: - Methods
+
+    public func getNews(completion: @escaping ((Error?) -> Void)) {
+        if loading {
+            return
+        }
+
+        loading = true
+
+        provider
+            .rx
+            .request(.news(id: news.id))
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                self.canLoadMore = false
+                self.loading = false
+
+                switch response {
+                case .success(let json):
+                    if let news = try? JSONDecoder().decode(News.self, from: json.data) {
+                        self.news = news
+
+                        completion(nil)
+                    } else {
+                        completion(nil)
+                    }
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    public func likeNews(completion: @escaping ((Error?) -> Void)) {
+        if loading {
+            return
+        }
+
+        loading = true
+
+        provider
+            .rx
+            .request(.likeNews(withId: news.id))
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                switch response {
+                case .success:
+                    completion(nil)
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    public func addCommentToNews(commentText: String, completion: @escaping ((Error?) -> Void)) {
+        if loading {
+            return
+        }
+
+        loading = true
+
+        provider
+            .rx
+            .request(.addCommentToNews(withId: news.id, commentText: commentText))
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                self.canLoadMore = false
+                self.loading = false
+
+                switch response {
+                case .success(let json):
+                    if let comment = try? JSONDecoder().decode(Comment.self, from: json.data) {
+                        self.news.comments.append(comment)
+
+                        completion(nil)
+                    } else {
+                        completion(nil)
+                    }
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    public func likeComment(id: String, voteType: UserVote, completion: @escaping ((Error?) -> Void)) {
+        if loading {
+            return
+        }
+
+        loading = true
+
+        provider
+            .rx
+            .request(.likeComment(newsId: news.id, commentId: id, voteType: voteType))
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                switch response {
+                case .success:
+                    completion(nil)
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    // MARK: - ListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {
         return NSString(string: news.id)

@@ -56,7 +56,7 @@ class SuggestionHeaderNode: ASDisplayNode {
         collectionNode.addSubnode(labelContainerNode)
 
         labelNode = ASTextNode()
-        labelNode.attributedText = attLabel("SUBHEAD")
+        labelNode.attributedText = attLabel(suggestion.title)
         labelContainerNode.addSubnode(labelNode)
 
         closeNode = ASButtonNode()
