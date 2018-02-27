@@ -15,7 +15,7 @@ struct BIOfficeViewModel: ViewModel {
 
     // debug
     var eventsViewModel = EventsViewModel.sample()
-    var tasksAndRequestsViewModel = TasksAndRequestsViewModel()
+    private(set) var tasksAndRequestsViewModel: TasksAndRequestsViewModel
 
     var kpiViewModel = KPIViewModel()
     var sbvViewModel = SBViewModel()
@@ -26,6 +26,10 @@ struct BIOfficeViewModel: ViewModel {
     private let provider = MoyaProvider<UserProfileService>(plugins: [AuthPlugin(tokenClosure: {
         return User.current.token
     })])
+
+    init(tasksAndRequestsViewModel: TasksAndRequestsViewModel) {
+        self.tasksAndRequestsViewModel = tasksAndRequestsViewModel
+    }
 
     // MARK: - Methods
 

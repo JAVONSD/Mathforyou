@@ -13,8 +13,13 @@ import RxSwift
 
 class RequestsViewModel: NSObject, ListDiffable {
 
-    var inboxRequests = [RequestViewModel]()
-    var outboxRequests = [RequestViewModel]()
+    private(set) var inboxRequests = [RequestViewModel]()
+    private(set) var outboxRequests = [RequestViewModel]()
+
+    let inboxRequestsSubject = PublishSubject<[RequestViewModel]>()
+    let outboxRequestsSubject = PublishSubject<[RequestViewModel]>()
+    let allRequestsSubject = PublishSubject<[RequestViewModel]>()
+    let requestCreatedSubject = PublishSubject<Bool>()
 
     var requests: [RequestViewModel] {
         return inboxRequests + outboxRequests
@@ -52,13 +57,17 @@ class RequestsViewModel: NSObject, ListDiffable {
                     if let requestItems = try? JSONDecoder().decode([Request].self, from: json.data) {
                         let items = requestItems.map { RequestViewModel(request: $0) }
                         self.inboxRequests = items
-
                         completion(nil)
+                        self.inboxRequestsSubject.onNext(items)
                     } else {
                         completion(nil)
+                        self.inboxRequestsSubject.onNext(self.inboxRequests)
                     }
+                    self.allRequestsSubject.onNext(self.requests)
                 case .error(let error):
                     completion(error)
+                    self.inboxRequestsSubject.onNext(self.inboxRequests)
+                    self.allRequestsSubject.onNext(self.requests)
                 }
             }
             .disposed(by: disposeBag)
@@ -78,13 +87,17 @@ class RequestsViewModel: NSObject, ListDiffable {
                     if let requestItems = try? JSONDecoder().decode([Request].self, from: json.data) {
                         let items = requestItems.map { RequestViewModel(request: $0) }
                         self.outboxRequests = items
-
                         completion(nil)
+                        self.outboxRequestsSubject.onNext(items)
                     } else {
                         completion(nil)
+                        self.outboxRequestsSubject.onNext(self.outboxRequests)
                     }
+                    self.allRequestsSubject.onNext(self.requests)
                 case .error(let error):
                     completion(error)
+                    self.outboxRequestsSubject.onNext(self.outboxRequests)
+                    self.allRequestsSubject.onNext(self.requests)
                 }
             }
             .disposed(by: disposeBag)
@@ -107,8 +120,12 @@ class RequestsViewModel: NSObject, ListDiffable {
                 switch response {
                 case .success:
                     completion(nil)
+
+                    self.requestCreatedSubject.onNext(true)
                 case .error(let error):
                     completion(error)
+
+                    self.requestCreatedSubject.onNext(false)
                 }
             }
             .disposed(by: disposeBag)

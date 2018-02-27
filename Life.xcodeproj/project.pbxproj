@@ -267,6 +267,7 @@
 		C7D832C72035C4FC00282891 /* VacanciesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D832C62035C4FC00282891 /* VacanciesViewModel.swift */; };
 		C7D832CE2035C53600282891 /* EmployeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D832CD2035C53600282891 /* EmployeesView.swift */; };
 		C7D832D42035C80E00282891 /* MainMenuFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D832D32035C80E00282891 /* MainMenuFlow.swift */; };
+		C7E01E4B2045B68200204956 /* TRTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E01E4A2045B68200204956 /* TRTableViewCell.swift */; };
 		C7F7CB31203AE866007B9D1E /* BIBoardHeaderSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F7CB30203AE866007B9D1E /* BIBoardHeaderSectionController.swift */; };
 		C7F7CB33203AE98A007B9D1E /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F7CB32203AE98A007B9D1E /* Question.swift */; };
 		C7F7CB35203AE9D3007B9D1E /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F7CB34203AE9D3007B9D1E /* Answer.swift */; };
@@ -604,6 +605,7 @@
 		C7D832C62035C4FC00282891 /* VacanciesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacanciesViewModel.swift; sourceTree = "<group>"; };
 		C7D832CD2035C53600282891 /* EmployeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesView.swift; sourceTree = "<group>"; };
 		C7D832D32035C80E00282891 /* MainMenuFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuFlow.swift; sourceTree = "<group>"; };
+		C7E01E4A2045B68200204956 /* TRTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRTableViewCell.swift; sourceTree = "<group>"; };
 		C7F7CB30203AE866007B9D1E /* BIBoardHeaderSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIBoardHeaderSectionController.swift; sourceTree = "<group>"; };
 		C7F7CB32203AE98A007B9D1E /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		C7F7CB34203AE9D3007B9D1E /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
@@ -690,6 +692,7 @@
 				C717C676203D135F0070447D /* TasksAndRequetsView.swift */,
 				C717C67A203D2A9A0070447D /* TasksAndRequestsCell.swift */,
 				C7BB5C72203FE7920056BBF9 /* RequestFormView.swift */,
+				C7E01E4A2045B68200204956 /* TRTableViewCell.swift */,
 			);
 			path = TasksAndRequests;
 			sourceTree = "<group>";
@@ -2238,6 +2241,7 @@
 				C7BB5C67203FD4420056BBF9 /* SuggestionBodyNode.swift in Sources */,
 				C752ACF920413ECB00D04E26 /* VacancyCell.swift in Sources */,
 				C7D64218203463E0001DCA98 /* UIViewController+Presentable.swift in Sources */,
+				C7E01E4B2045B68200204956 /* TRTableViewCell.swift in Sources */,
 				C7D64220203463E0001DCA98 /* Stepper.swift in Sources */,
 				C7F7CB37203AEAC2007B9D1E /* Questionnaire.swift in Sources */,
 				C7D641B6203408E9001DCA98 /* TasksService.swift in Sources */,

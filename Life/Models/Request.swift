@@ -35,11 +35,11 @@ struct Request: Codable {
         case id
         case surname
         case name
-        case taskNumber
-        case registrationDate
+        case taskNumber = "task_number"
+        case registrationDate = "registration_date"
         case dateofdelivery
-        case taskStatus
-        case shortDescription
+        case taskStatus = "task_status"
+        case shortDescription = "short_description"
         case customer
         case comment
         case fullname

@@ -35,6 +35,7 @@ class TasksAndRequestsFABController: FABMenuController {
             didTapAddButton()
         }
 
+        fabMenuWillClose(fabMenu: fabMenu)
         fabMenu.close()
     }
 
@@ -44,6 +45,7 @@ class TasksAndRequestsFABController: FABMenuController {
             didTapAddButton()
         }
 
+        fabMenuWillClose(fabMenu: fabMenu)
         fabMenu.close()
     }
 
@@ -53,6 +55,7 @@ class TasksAndRequestsFABController: FABMenuController {
             didTapAddButton()
         }
 
+        fabMenuWillClose(fabMenu: fabMenu)
         fabMenu.close()
     }
 
@@ -62,6 +65,7 @@ class TasksAndRequestsFABController: FABMenuController {
             didTapAddButton()
         }
 
+        fabMenuWillClose(fabMenu: fabMenu)
         fabMenu.close()
     }
 

@@ -10,9 +10,13 @@ import UIKit
 import AsyncDisplayKit
 import IGListKit
 import Moya
+import RxSwift
 
 class TasksAndRequestsSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: TasksAndRequestsViewModel?
+
+    private let disposeBag = DisposeBag()
+    private var tasksAndRequestsObservable: Observable<[ListDiffable]>
 
     var onUnathorizedError: (() -> Void)?
     var didTapOnTasksAndRequests: (() -> Void)?
@@ -21,24 +25,19 @@ class TasksAndRequestsSectionController: ASCollectionSectionController {
 
     init(viewModel: TasksAndRequestsViewModel) {
         self.viewModel = viewModel
+        tasksAndRequestsObservable = viewModel.tasksAndRequestsSubject.asObservable()
 
         super.init()
+
+        tasksAndRequestsObservable
+            .bind { [weak self] _ in
+                self?.updateContents()
+            }.disposed(by: disposeBag)
     }
 
     override func didUpdate(to object: Any) {
         self.viewModel = object as? TasksAndRequestsViewModel
-
-        guard let viewModel = self.viewModel else {
-            return
-        }
-
-        var items = [ListDiffable]()
-        items.append(DateCell())
-        if !viewModel.minimized {
-            items.append(contentsOf: viewModel.items)
-        }
-
-        set(items: items, animated: false, completion: nil)
+        updateContents()
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
@@ -77,6 +76,20 @@ class TasksAndRequestsSectionController: ASCollectionSectionController {
             set(items: items, animated: false, completion: nil)
         }
     }
+
+    private func updateContents() {
+        guard let viewModel = self.viewModel else {
+            return
+        }
+
+        var items = [ListDiffable]()
+        items.append(DateCell())
+        if !viewModel.minimized {
+            items.append(contentsOf: viewModel.items)
+        }
+
+        set(items: items, animated: false, completion: nil)
+    }
 }
 
 extension TasksAndRequestsSectionController: ASSectionController {
@@ -100,7 +113,7 @@ extension TasksAndRequestsSectionController: ASSectionController {
                 : []
             return ItemCell(
                 title: task.task.topic,
-                subtitle: "Secondary",
+                subtitle: task.task.statusCode.name,
                 separatorLeftRightInset: separatorInset,
                 bottomInset: bottomInset,
                 separatorHidden: false,
@@ -129,7 +142,7 @@ extension TasksAndRequestsSectionController: ASSectionController {
                 : []
             return ItemCell(
                 title: request.request.topic,
-                subtitle: "Secondary",
+                subtitle: request.request.taskStatus,
                 separatorLeftRightInset: separatorInset,
                 bottomInset: bottomInset,
                 separatorHidden: false,
@@ -169,12 +182,12 @@ extension TasksAndRequestsSectionController: ASSectionController {
             image: "",
             title: NSLocalizedString("tasks_and_requests", comment: ""),
             itemColor: App.Color.azure,
-            item1Count: 18,
-            item1Title: "new",
-            item2Count: 20,
-            item2Title: "new",
-            item3Count: 3,
-            item3Title: "new",
+            item1Count: viewModel.items.count,
+            item1Title: NSLocalizedString("total_count_short", comment: ""),
+            item2Count: viewModel.inboxCount,
+            item2Title: NSLocalizedString("inbox_count_short", comment: ""),
+            item3Count: viewModel.outboxCount,
+            item3Title: NSLocalizedString("outbox_count_short", comment: ""),
             showAddButton: true,
             corners: corners,
             minimized: viewModel.minimized,
@@ -183,7 +196,6 @@ extension TasksAndRequestsSectionController: ASSectionController {
 
         let cell = DashboardCell(config: config)
         cell.didTapToggle = { [weak self] in
-            print("Toggle tapped ...")
             self?.toggle()
         }
         cell.didTapAdd = {

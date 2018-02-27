@@ -81,24 +81,24 @@ class DashboardCell: ASCellNode {
 
     fileprivate func addItem2Nodes(_ config: DashboardCell.Config) {
         item2CountNode = ASTextNode()
-        item2CountNode.attributedText = attItemCount("\(config.item1Count)")
+        item2CountNode.attributedText = attItemCount("\(config.item2Count)")
         item2CountNode.maximumNumberOfLines = 1
         backgroundNode.addSubnode(item2CountNode)
 
         item2TitleNode = ASTextNode()
-        item2TitleNode.attributedText = attItemTitle(config.item1Title)
+        item2TitleNode.attributedText = attItemTitle(config.item2Title)
         item2TitleNode.maximumNumberOfLines = 1
         backgroundNode.addSubnode(item2TitleNode)
     }
 
     fileprivate func addItem3Nodes(_ config: DashboardCell.Config) {
         item3CountNode = ASTextNode()
-        item3CountNode.attributedText = attItemCount("\(config.item1Count)")
+        item3CountNode.attributedText = attItemCount("\(config.item3Count)")
         item3CountNode.maximumNumberOfLines = 1
         backgroundNode.addSubnode(item3CountNode)
 
         item3TitleNode = ASTextNode()
-        item3TitleNode.attributedText = attItemTitle(config.item1Title)
+        item3TitleNode.attributedText = attItemTitle(config.item3Title)
         item3TitleNode.maximumNumberOfLines = 1
         backgroundNode.addSubnode(item3TitleNode)
     }

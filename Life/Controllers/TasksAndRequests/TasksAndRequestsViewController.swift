@@ -13,11 +13,9 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class TasksAndRequestsViewController: UIViewController, ViewModelBased, Stepper {
+class TasksAndRequestsViewController: UIViewController, Stepper {
 
-    typealias ViewModelType = TasksAndRequestsViewModel
-
-    var viewModel: TasksAndRequestsViewModel!
+    private(set) weak var viewModel: TasksAndRequestsViewModel?
 
     private var tasksAndRequestsView: TasksAndRequetsView!
 
@@ -29,22 +27,35 @@ class TasksAndRequestsViewController: UIViewController, ViewModelBased, Stepper 
             configureCell: { (_, tv, _, element) in
                 let cellId = App.CellIdentifier.taskOrReqeustCellId
 
-                let someCell = tv.dequeueReusableCell(withIdentifier: cellId) as? TasksAndRequetsCell
+                let someCell = tv.dequeueReusableCell(withIdentifier: cellId) as? TRTableViewCell
                 guard let cell = someCell else {
-                    return TasksAndRequetsCell(style: .default, reuseIdentifier: cellId)
+                    return TRTableViewCell(style: .default, reuseIdentifier: cellId)
                 }
 
                 if let viewModel = element as? TaskViewModel {
-                    cell.set(title: viewModel.task.topic)
-                    cell.set(subtitle: viewModel.task.endDate?.prettyDateString(format: "dd.MM.yyyy HH:mm"))
+                    cell.titleLabel.text = viewModel.task.topic
+
+                    let dateText = viewModel.task.endDate?.prettyDateString(format: "dd.MM.yyyy HH:mm")
+                    cell.subtitleLabel.text = dateText
                 } else if let viewModel = element as? RequestViewModel {
-                    cell.set(title: viewModel.request.topic)
-                    cell.set(subtitle: viewModel.request.endDate.prettyDateString(format: "dd.MM.yyyy HH:mm"))
+                    cell.titleLabel.text = viewModel.request.topic
+
+                    let dateText = viewModel.request.endDate.prettyDateString(format: "dd.MM.yyyy HH:mm")
+                    cell.subtitleLabel.text = dateText
                 }
 
                 return cell
         }
     )
+
+    init(viewModel: TasksAndRequestsViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +67,8 @@ class TasksAndRequestsViewController: UIViewController, ViewModelBased, Stepper 
     // MARK: - Bind
 
     private func bind() {
-        guard let tableView = tasksAndRequestsView.tableView else { return }
+        guard let tableView = tasksAndRequestsView.tableView,
+            let viewModel = viewModel else { return }
 
         let dataSource = self.dataSource
 
@@ -100,8 +112,8 @@ class TasksAndRequestsViewController: UIViewController, ViewModelBased, Stepper 
             self?.step.accept(AppStep.tasksAndRequestsDone)
         }
         tasksAndRequestsView.didTapTabItem = { [weak self] index in
-            self?.viewModel.selectedItemsType = index == 0 ? .inbox : .outbox
-            self?.itemsChangeSubject.onNext(self?.viewModel.currentItems ?? [])
+            self?.viewModel?.selectedItemsType = index == 0 ? .inbox : .outbox
+            self?.itemsChangeSubject.onNext(self?.viewModel?.currentItems ?? [])
         }
         view.addSubview(tasksAndRequestsView)
         tasksAndRequestsView.snp.makeConstraints({ [weak self] (make) in
@@ -111,6 +123,14 @@ class TasksAndRequestsViewController: UIViewController, ViewModelBased, Stepper 
             make.right.equalTo(self.view)
             make.bottom.equalTo(self.view)
         })
+
+        tasksAndRequestsView.setNeedsLayout()
+        tasksAndRequestsView.layoutIfNeeded()
+
+        if let tabBar = tasksAndRequestsView.tabBar {
+            let currentIndex = viewModel?.selectedItemsType == .inbox ? 0 : 1
+            tabBar.select(at: currentIndex, completion: nil)
+        }
     }
 
 }

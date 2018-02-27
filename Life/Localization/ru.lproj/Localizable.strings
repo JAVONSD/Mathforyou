@@ -139,6 +139,9 @@
 "task_status_reject" = "Отклонено";
 "task_type_execute" = "На исполнение";
 "task_type_approve" = "На согласование";
+"total_count_short" = "Все";
+"inbox_count_short" = "Прин.";
+"outbox_count_short" = "Исход.";
 
 /* News */
 

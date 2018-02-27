@@ -152,6 +152,8 @@ class TasksAndRequetsView: UIView, TabBarDelegate {
         )
         tableView.separatorColor = .clear
         tableView.separatorStyle = .none
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 72
 
         addSubview(tableView)
         tableView.snp.makeConstraints { [weak self] (make) in
@@ -163,7 +165,7 @@ class TasksAndRequetsView: UIView, TabBarDelegate {
         }
 
         tableView.register(
-            TasksAndRequetsCell.self,
+            TRTableViewCell.self,
             forCellReuseIdentifier: App.CellIdentifier.taskOrReqeustCellId
         )
     }
@@ -179,10 +181,6 @@ class TasksAndRequetsView: UIView, TabBarDelegate {
 }
 
 extension TasksAndRequetsView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 72
-    }
-
     func tableView(
         _ tableView: UITableView,
         editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {

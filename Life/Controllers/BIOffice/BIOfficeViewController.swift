@@ -10,6 +10,7 @@ import UIKit
 import AsyncDisplayKit
 import IGListKit
 import Material
+import RxSwift
 import SnapKit
 
 class BIOfficeViewController: ASViewController<ASCollectionNode> {
@@ -20,12 +21,15 @@ class BIOfficeViewController: ASViewController<ASCollectionNode> {
     }
     private lazy var refreshCtrl = UIRefreshControl()
 
-    var viewModel: BIOfficeViewModel!
+    private(set) var viewModel: BIOfficeViewModel
+    private let disposeBag = DisposeBag()
 
     var onUnathorizedError: (() -> Void)?
     var didTapAddRequest: (() -> Void)?
 
-    init() {
+    init(viewModel: BIOfficeViewModel) {
+        self.viewModel = viewModel
+
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
@@ -39,8 +43,6 @@ class BIOfficeViewController: ASViewController<ASCollectionNode> {
         )
 
         super.init(node: node)
-
-        viewModel = BIOfficeViewModel()
 
         let updater = ListAdapterUpdater()
         listAdapter = ListAdapter(updater: updater, viewController: self, workingRangeSize: 0)
@@ -67,6 +69,8 @@ class BIOfficeViewController: ASViewController<ASCollectionNode> {
         refreshCtrl.addTarget(self, action: #selector(refreshFeed), for: .valueChanged)
         refreshCtrl.tintColor = App.Color.azure
         collectionNode.view.addSubview(refreshCtrl)
+
+        getData()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -80,6 +84,10 @@ class BIOfficeViewController: ASViewController<ASCollectionNode> {
     }
 
     // MARK: - Methods
+
+    private func getData() {
+        viewModel.tasksAndRequestsViewModel.getAllTasksAndRequests()
+    }
 
     @objc
     private func refreshFeed() {

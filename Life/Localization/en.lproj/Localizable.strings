@@ -139,6 +139,9 @@
 "task_status_reject" = "Rejected";
 "task_type_execute" = "Execute";
 "task_type_approve" = "Approve";
+"total_count_short" = "All";
+"inbox_count_short" = "Inbox";
+"outbox_count_short" = "Outbox";
 
 /* News */
 

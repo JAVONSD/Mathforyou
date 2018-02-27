@@ -164,14 +164,14 @@ struct App {
 
     struct String {
         private static let testBaseUrl = "http://life.bi-group.org:8090"
-        private static let prodBaseUrl = "http://life.bi-group.org"
+        private static let prodBaseUrl = "https://life.bi-group.org"
 
         static var baseUrl: Swift.String {
-            return testBaseUrl
+            return prodBaseUrl
         }
 
         static var apiBaseUrl: Swift.String {
-            return testBaseUrl + "/api"
+            return prodBaseUrl + "/api"
         }
     }
 

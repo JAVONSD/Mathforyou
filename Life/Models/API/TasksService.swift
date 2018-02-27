@@ -35,9 +35,9 @@ extension TasksService: AuthorizedTargetType {
     var path: String {
         switch self {
         case .inboxTasks:
-            return "/Tasks/servicedesk/inbox"
+            return "/Tasks/inbox"
         case .outboxTasks:
-            return "/Tasks/servicedesk/outbox"
+            return "/Tasks/outbox"
         case .createTask:
             return "/Tasks"
         case .updateTask:

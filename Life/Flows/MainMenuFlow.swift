@@ -11,6 +11,8 @@ import Material
 
 class MainMenuFlow: Flow {
 
+    private lazy var tasksAndRequestsViewModel = TasksAndRequestsViewModel()
+
     var root: Presentable {
         return self.rootViewController
     }
@@ -143,8 +145,8 @@ class MainMenuFlow: Flow {
     }
 
     private func navigationToTasksAndRequests() -> NextFlowItems {
-        let tasksAndRequestsViewController = TasksAndRequestsViewController.instantiate(
-            withViewModel: TasksAndRequestsViewModel.sample()
+        let tasksAndRequestsViewController = TasksAndRequestsViewController(
+            viewModel: tasksAndRequestsViewModel
         )
         let fabController = TasksAndRequestsFABController(
             rootViewController: tasksAndRequestsViewController
@@ -287,10 +289,12 @@ class MainMenuFlow: Flow {
     }
 
     private func configuredBIOffice() -> BIOfficeViewController {
-        let biOfficeVC = BIOfficeViewController()
-        var biOfficeViewModel = BIOfficeViewModel()
-        biOfficeViewModel.tasksAndRequestsViewModel = TasksAndRequestsViewModel()
-        biOfficeVC.viewModel = biOfficeViewModel
+        let biOfficeViewModel = BIOfficeViewModel(
+            tasksAndRequestsViewModel: tasksAndRequestsViewModel
+        )
+        let biOfficeVC = BIOfficeViewController(
+            viewModel: biOfficeViewModel
+        )
         biOfficeVC.onUnathorizedError = {
             self.navigateToLoginScreen(isUnathorized: true)
         }

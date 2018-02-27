@@ -13,8 +13,13 @@ import RxSwift
 
 class TasksViewModel: NSObject, ListDiffable {
 
-    var inboxTasks = [TaskViewModel]()
-    var outboxTasks = [TaskViewModel]()
+    private(set) var inboxTasks = [TaskViewModel]()
+    private(set) var outboxTasks = [TaskViewModel]()
+
+    let inboxTasksSubject = PublishSubject<[TaskViewModel]>()
+    let outboxTasksSubject = PublishSubject<[TaskViewModel]>()
+    let allTasksSubject = PublishSubject<[TaskViewModel]>()
+    let taskUpdatedOrCreatedSubject = PublishSubject<TaskViewModel>()
 
     var tasks: [TaskViewModel] {
         return inboxTasks + outboxTasks
@@ -49,13 +54,17 @@ class TasksViewModel: NSObject, ListDiffable {
                     if let taskItems = try? JSONDecoder().decode([Task].self, from: json.data) {
                         let items = taskItems.map { TaskViewModel(task: $0) }
                         self.inboxTasks = items
-
                         completion(nil)
+                        self.inboxTasksSubject.onNext(items)
                     } else {
                         completion(nil)
+                        self.inboxTasksSubject.onNext(self.inboxTasks)
                     }
+                    self.allTasksSubject.onNext(self.tasks)
                 case .error(let error):
                     completion(error)
+                    self.inboxTasksSubject.onNext(self.inboxTasks)
+                    self.allTasksSubject.onNext(self.tasks)
                 }
             }
             .disposed(by: disposeBag)
@@ -75,13 +84,17 @@ class TasksViewModel: NSObject, ListDiffable {
                     if let taskItems = try? JSONDecoder().decode([Task].self, from: json.data) {
                         let items = taskItems.map { TaskViewModel(task: $0) }
                         self.outboxTasks = items
-
                         completion(nil)
+                        self.outboxTasksSubject.onNext(items)
                     } else {
                         completion(nil)
+                        self.outboxTasksSubject.onNext(self.outboxTasks)
                     }
+                    self.allTasksSubject.onNext(self.tasks)
                 case .error(let error):
                     completion(error)
+                    self.outboxTasksSubject.onNext(self.outboxTasks)
+                    self.allTasksSubject.onNext(self.tasks)
                 }
             }
             .disposed(by: disposeBag)
@@ -121,6 +134,10 @@ class TasksViewModel: NSObject, ListDiffable {
                 case .success(let json):
                     if let task = try? JSONDecoder().decode(Task.self, from: json.data) {
                         completion(task, nil)
+
+                        self.taskUpdatedOrCreatedSubject.onNext(
+                            TaskViewModel(task: task)
+                        )
                     } else {
                         completion(nil, nil)
                     }
@@ -143,6 +160,10 @@ class TasksViewModel: NSObject, ListDiffable {
                 case .success(let json):
                     if let task = try? JSONDecoder().decode(Task.self, from: json.data) {
                         completion(task, nil)
+
+                        self.taskUpdatedOrCreatedSubject.onNext(
+                            TaskViewModel(task: task)
+                        )
                     } else {
                         completion(nil, nil)
                     }
