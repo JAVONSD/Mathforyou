@@ -19,6 +19,7 @@ class BirthdaysViewModel: NSObject, ViewModel {
     private(set) var canLoadMore = true
 
     private let disposeBag = DisposeBag()
+    let itemsChangeSubject = PublishSubject<[EmployeeViewModel]>()
 
     private let provider = MoyaProvider<EmployeesService>(
         plugins: [
@@ -54,59 +55,72 @@ class BirthdaysViewModel: NSObject, ViewModel {
                     } else {
                         completion(nil)
                     }
+                    self.itemsChangeSubject.onNext(self.employees)
                 case .error(let error):
                     completion(error)
+                    self.itemsChangeSubject.onNext(self.employees)
                 }
             }
             .disposed(by: disposeBag)
     }
 
     public func filter(with text: String) {
-        let text = text.lowercased()
+        if text.isEmpty {
+            itemsChangeSubject.onNext(employees)
+            return
+        }
 
-        filteredEmployees = employees.filter({ (employeeViewModel) -> Bool in
-            var include = false
-            include = include
-                || employeeViewModel.employee.fullname.lowercased().contains(text)
-            if !include {
-                include = include
-                    || employeeViewModel.employee.firstname.lowercased().contains(text)
-            }
-            if !include {
-                include = include
-                    || employeeViewModel.employee.login.lowercased().contains(text)
-            }
-            if !include {
-                include = include
-                    || employeeViewModel.employee.jobPosition.lowercased().contains(text)
-            }
-            if !include {
-                include = include
-                    || employeeViewModel.employee.company.lowercased().contains(text)
-            }
-            if !include {
-                include = include
-                    || employeeViewModel.employee.companyName.lowercased().contains(text)
-            }
-            if !include {
-                include = include
-                    || employeeViewModel.employee.departmentName.lowercased().contains(text)
-            }
-            if !include {
-                include = include
-                    || employeeViewModel.employee.address.lowercased().contains(text)
-            }
-            if !include {
-                include = include
-                    || employeeViewModel.employee.workPhoneNumber.lowercased().contains(text)
-            }
-            if !include {
-                include = include
-                    || employeeViewModel.employee.mobilePhoneNumber.lowercased().contains(text)
-            }
+        DispatchQueue.global().async {
+            let text = text.lowercased()
 
-            return include
-        })
+            self.filteredEmployees = self.employees.filter({ (employeeViewModel) -> Bool in
+                var include = false
+                include = include
+                    || employeeViewModel.employee.fullname.lowercased().contains(text)
+                if !include {
+                    include = include
+                        || employeeViewModel.employee.firstname.lowercased().contains(text)
+                }
+                if !include {
+                    include = include
+                        || employeeViewModel.employee.login.lowercased().contains(text)
+                }
+                if !include {
+                    include = include
+                        || employeeViewModel.employee.jobPosition.lowercased().contains(text)
+                }
+                if !include {
+                    include = include
+                        || employeeViewModel.employee.company.lowercased().contains(text)
+                }
+                if !include {
+                    include = include
+                        || employeeViewModel.employee.companyName.lowercased().contains(text)
+                }
+                if !include {
+                    include = include
+                        || employeeViewModel.employee.departmentName.lowercased().contains(text)
+                }
+                if !include {
+                    include = include
+                        || employeeViewModel.employee.address.lowercased().contains(text)
+                }
+                if !include {
+                    include = include
+                        || employeeViewModel.employee.workPhoneNumber.lowercased().contains(text)
+                }
+                if !include {
+                    include = include
+                        || employeeViewModel.employee.mobilePhoneNumber.lowercased().contains(text)
+                }
+
+                return include
+            })
+
+            DispatchQueue.main.async {
+                self.itemsChangeSubject.onNext(self.filteredEmployees)
+            }
+        }
     }
 
 }

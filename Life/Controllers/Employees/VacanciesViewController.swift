@@ -24,8 +24,6 @@ class VacanciesViewController: UIViewController, ViewModelBased {
 
     private var employeesView: EmployeesView!
 
-    private let itemsChangeSubject = PublishSubject<[VacancyViewModel]>()
-
     private let disposeBag = DisposeBag()
     private let dataSource =
         RxTableViewSectionedReloadDataSource<SectionModel<VacanciesViewModel, VacancyViewModel>>(
@@ -81,8 +79,6 @@ class VacanciesViewController: UIViewController, ViewModelBased {
                 moyaError.response?.statusCode == 401,
                 let onUnathorizedError = self.onUnathorizedError {
                 onUnathorizedError()
-            } else {
-                self.itemsChangeSubject.onNext(self.viewModel.vacancies)
             }
         }
     }
@@ -94,7 +90,7 @@ class VacanciesViewController: UIViewController, ViewModelBased {
 
         let dataSource = self.dataSource
 
-        let observable = itemsChangeSubject.asObservable()
+        let observable = viewModel.itemsChangeSubject.asObservable()
         let items = observable.concatMap { (items) in
             return Observable.just([SectionModel(model: self.viewModel!, items: items)])
         }
@@ -122,8 +118,6 @@ class VacanciesViewController: UIViewController, ViewModelBased {
         employeesView.configureViewForHeader = { (tableView, section) in
             return dataSource.tableView(tableView, viewForHeaderInSection: section)
         }
-
-        itemsChangeSubject.onNext(viewModel.vacancies)
     }
 
     // MARK: - UI
@@ -144,13 +138,7 @@ class VacanciesViewController: UIViewController, ViewModelBased {
         employeesView = EmployeesView(frame: .zero)
         employeesView.searchView?.didType = { [weak self] text in
             guard let `self` = self else { return }
-
-            if !text.isEmpty {
-                self.viewModel.filter(with: text)
-                self.itemsChangeSubject.onNext(self.viewModel.filteredVacancies)
-            } else {
-                self.itemsChangeSubject.onNext(self.viewModel.vacancies)
-            }
+            self.viewModel.filter(with: text)
         }
         view.addSubview(employeesView)
         employeesView.snp.makeConstraints({ [weak self] (make) in

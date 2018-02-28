@@ -18,6 +18,7 @@ class VacanciesViewModel: NSObject, ViewModel {
     private(set) var canLoadMore = true
 
     private let disposeBag = DisposeBag()
+    let itemsChangeSubject = PublishSubject<[VacancyViewModel]>()
 
     private let provider = MoyaProvider<EmployeesService>(
         plugins: [
@@ -54,35 +55,48 @@ class VacanciesViewModel: NSObject, ViewModel {
                     } else {
                         completion(nil)
                     }
+                    self.itemsChangeSubject.onNext(self.vacancies)
                 case .error(let error):
                     completion(error)
+                    self.itemsChangeSubject.onNext(self.vacancies)
                 }
             }
             .disposed(by: disposeBag)
     }
 
     public func filter(with text: String) {
-        let text = text.lowercased()
+        if text.isEmpty {
+            itemsChangeSubject.onNext(vacancies)
+            return
+        }
 
-        filteredVacancies = vacancies.filter({ (vacancyViewModel) -> Bool in
-            var include = false
-            include = include
-                || vacancyViewModel.vacancy.jobPosition.lowercased().contains(text)
-            if !include {
-                include = include
-                    || vacancyViewModel.vacancy.companyName.lowercased().contains(text)
-            }
-            if !include {
-                include = include
-                    || vacancyViewModel.vacancy.departmentName.lowercased().contains(text)
-            }
-            if !include {
-                include = include
-                    || vacancyViewModel.vacancy.salary.lowercased().contains(text)
-            }
+        DispatchQueue.global().async {
+            let text = text.lowercased()
 
-            return include
-        })
+            self.filteredVacancies = self.vacancies.filter({ (vacancyViewModel) -> Bool in
+                var include = false
+                include = include
+                    || vacancyViewModel.vacancy.jobPosition.lowercased().contains(text)
+                if !include {
+                    include = include
+                        || vacancyViewModel.vacancy.companyName.lowercased().contains(text)
+                }
+                if !include {
+                    include = include
+                        || vacancyViewModel.vacancy.departmentName.lowercased().contains(text)
+                }
+                if !include {
+                    include = include
+                        || vacancyViewModel.vacancy.salary.lowercased().contains(text)
+                }
+
+                return include
+            })
+
+            DispatchQueue.main.async {
+                self.itemsChangeSubject.onNext(self.filteredVacancies)
+            }
+        }
     }
 }
 

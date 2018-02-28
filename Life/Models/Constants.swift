@@ -163,15 +163,26 @@ struct App {
     // MARK: - Strings
 
     struct String {
-        private static let testBaseUrl = "http://life.bi-group.org:8090"
+        private static let devBaseUrl = "http://life.bi-group.org:8090"
         private static let prodBaseUrl = "https://life.bi-group.org"
 
         static var baseUrl: Swift.String {
-            return prodBaseUrl
+            return Environment.current == .production ? prodBaseUrl : devBaseUrl
         }
 
         static var apiBaseUrl: Swift.String {
-            return prodBaseUrl + "/api"
+            return baseUrl + "/api"
+        }
+    }
+
+    // MARK: - Environment
+
+    enum Environment {
+        case development
+        case production
+
+        static var current: Environment {
+            return .production
         }
     }
 

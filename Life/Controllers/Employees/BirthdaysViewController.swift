@@ -22,8 +22,6 @@ class BirthdaysViewController: UIViewController, ViewModelBased {
     var viewModel: BirthdaysViewModel!
     var didSelectBirthdate: ((Employee) -> Void)?
 
-    private let itemsChangeSubject = PublishSubject<[EmployeeViewModel]>()
-
     private var employeesView: EmployeesView!
 
     private let disposeBag = DisposeBag()
@@ -82,8 +80,6 @@ class BirthdaysViewController: UIViewController, ViewModelBased {
                 moyaError.response?.statusCode == 401,
                 let onUnathorizedError = self.onUnathorizedError {
                 onUnathorizedError()
-            } else {
-                self.itemsChangeSubject.onNext(self.viewModel.employees)
             }
         }
     }
@@ -95,7 +91,7 @@ class BirthdaysViewController: UIViewController, ViewModelBased {
 
         let dataSource = self.dataSource
 
-        let observable = itemsChangeSubject.asObservable()
+        let observable = viewModel.itemsChangeSubject.asObservable()
         let items = observable.concatMap { (items) in
             return Observable.just([SectionModel(model: self.viewModel!, items: items)])
         }
@@ -123,8 +119,6 @@ class BirthdaysViewController: UIViewController, ViewModelBased {
         employeesView.configureViewForHeader = { (tableView, section) in
             return dataSource.tableView(tableView, viewForHeaderInSection: section)
         }
-
-        itemsChangeSubject.onNext(viewModel.employees)
     }
 
     // MARK: - UI
@@ -145,13 +139,7 @@ class BirthdaysViewController: UIViewController, ViewModelBased {
         employeesView = EmployeesView(frame: .zero)
         employeesView.searchView?.didType = { [weak self] text in
             guard let `self` = self else { return }
-
-            if !text.isEmpty {
-                self.viewModel.filter(with: text)
-                self.itemsChangeSubject.onNext(self.viewModel.filteredEmployees)
-            } else {
-                self.itemsChangeSubject.onNext(self.viewModel.employees)
-            }
+            self.viewModel.filter(with: text)
         }
         view.addSubview(employeesView)
         employeesView.snp.makeConstraints({ [weak self] (make) in
