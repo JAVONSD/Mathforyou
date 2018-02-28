@@ -1,0 +1,172 @@
+ [
+  {
+  "id": "0fd1878c-ef2c-4eb5-9801-6b9d56dca642",
+  "title": "Тестовое предложение",
+  "createDate": "2018-02-12T13:01:24.433",
+  "imageStreamId": "bdb23b72-ebaf-4c0b-8bfe-8dcf447960f6",
+  "likesQuantity": 1,
+  "dislikesQuantity": 1,
+  "userVote": 1,
+  "authorCode": "KPO102505",
+  "authorName": "Жакупова Арайлым",
+  "commentsQuantity": 1,
+  "viewsQuantity": 7,
+  "imageSize": {
+  "width": 1912,
+  "height": 1093
+  }
+  },
+  {
+  "id": "736a0f07-2871-417f-b4a0-aa2d2ad4a645",
+  "title": "fghgfh",
+  "createDate": "2018-01-28T20:47:15.69",
+  "imageStreamId": "8a074f7f-13f9-4b67-a808-dce219124632",
+  "likesQuantity": 0,
+  "dislikesQuantity": 1,
+  "userVote": -1,
+  "authorCode": "0000-00162",
+  "authorName": "Не найден",
+  "commentsQuantity": 0,
+  "viewsQuantity": 6,
+  "imageSize": {
+  "width": 128,
+  "height": 128
+  }
+  },
+  {
+  "id": "75cc97de-b88b-4a4d-8c35-8606a68662b2",
+  "title": "fgfgh",
+  "createDate": "2018-01-28T20:42:20.02",
+  "imageStreamId": "22f77330-42e7-4956-a705-bf3f644659c2",
+  "likesQuantity": 0,
+  "dislikesQuantity": 1,
+  "userVote": 0,
+  "authorCode": "0000-00162",
+  "authorName": "Не найден",
+  "commentsQuantity": 1,
+  "viewsQuantity": 19,
+  "imageSize": {
+  "width": 512,
+  "height": 512
+  }
+  },
+  {
+  "id": "e453301b-cb4f-4961-9bf8-dbcfb9de3697",
+  "title": "undefined",
+  "createDate": "2018-01-08T08:46:54.83",
+  "imageStreamId": null,
+  "likesQuantity": 1,
+  "dislikesQuantity": 0,
+  "userVote": 0,
+  "authorCode": "0000-00162",
+  "authorName": "Не найден",
+  "commentsQuantity": 0,
+  "viewsQuantity": 4,
+  "imageSize": {
+  "width": 2,
+  "height": 1
+  }
+  },
+  {
+  "id": "079d1c6f-1112-480d-bcf1-4c8038027a42",
+  "title": "bbbbbbbbb",
+  "createDate": "2017-12-29T04:20:13.89",
+  "imageStreamId": "9084950e-a537-48e4-9f6b-a66ebd031545",
+  "likesQuantity": 1,
+  "dislikesQuantity": 0,
+  "userVote": 0,
+  "authorCode": "0000-00162",
+  "authorName": "Не найден",
+  "commentsQuantity": 2,
+  "viewsQuantity": 13,
+  "imageSize": {
+  "width": 512,
+  "height": 512
+  }
+  },
+  {
+  "id": "6d31e9b2-b1cb-4873-ac04-37edadd75eae",
+  "title": "aaaaaaa123456",
+  "createDate": "2017-12-29T04:20:01.137",
+  "imageStreamId": "3af15f2a-3358-4af6-bd63-dc5626640996",
+  "likesQuantity": 1,
+  "dislikesQuantity": 0,
+  "userVote": 1,
+  "authorCode": "0000-00162",
+  "authorName": "Не найден",
+  "commentsQuantity": 2,
+  "viewsQuantity": 24,
+  "imageSize": {
+  "width": 512,
+  "height": 512
+  }
+  },
+  {
+  "id": "ac48b99e-c792-4fd9-a11a-62cf9b9d3bff",
+  "title": "cccccccc",
+  "createDate": "2017-12-29T04:19:45.54",
+  "imageStreamId": "b31c600d-3c7d-4460-bdaf-4b5bbe3e60d4",
+  "likesQuantity": 1,
+  "dislikesQuantity": 0,
+  "userVote": 1,
+  "authorCode": "0000-00162",
+  "authorName": "Не найден",
+  "commentsQuantity": 3,
+  "viewsQuantity": 25,
+  "imageSize": {
+  "width": 128,
+  "height": 128
+  }
+  },
+  {
+  "id": "e2b9b4e5-29b4-4b48-af6e-8e8def3370fb",
+  "title": "Еще одно предложение",
+  "createDate": "2017-12-29T04:11:01.053",
+  "imageStreamId": "bba8fd0d-ff61-4f14-a779-85432779ad59",
+  "likesQuantity": 1,
+  "dislikesQuantity": 0,
+  "userVote": 1,
+  "authorCode": "0000-00162",
+  "authorName": "Не найден",
+  "commentsQuantity": 1,
+  "viewsQuantity": 10,
+  "imageSize": {
+  "width": 48,
+  "height": 48
+  }
+  },
+  {
+  "id": "1c9ab739-aa2d-4ba8-82bd-1f27c2a1d305",
+  "title": "Заголовок",
+  "createDate": "2017-12-29T04:08:17.133",
+  "imageStreamId": null,
+  "likesQuantity": 1,
+  "dislikesQuantity": 0,
+  "userVote": 1,
+  "authorCode": "0000-00162",
+  "authorName": "Не найден",
+  "commentsQuantity": 2,
+  "viewsQuantity": 13,
+  "imageSize": {
+  "width": 2,
+  "height": 1
+  }
+  },
+  {
+  "id": "127b2262-c346-42a5-98aa-38cc002af4ac",
+  "title": "Мое предложение",
+  "createDate": "2017-12-29T03:27:38.407",
+  "imageStreamId": "8f719fde-3faf-4581-9ab1-bfcc7ff08a59",
+  "likesQuantity": 1,
+  "dislikesQuantity": 1,
+  "userVote": -1,
+  "authorCode": "0000-00162",
+  "authorName": "Не найден",
+  "commentsQuantity": 1,
+  "viewsQuantity": 53,
+  "imageSize": {
+  "width": 50,
+  "height": 50
+  }
+  }
+  ]

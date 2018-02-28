@@ -1,0 +1,26 @@
+{
+    "name": "аав",
+    "authorCode": "KPO102505",
+    "authorName": "Жакупова Арайлым",
+    "createDate": "2018-02-09T15:55:57.207",
+    "questions": [
+                  {
+                  "questionText": "вопрсо",
+                  "variants": [
+                               {
+                               "variantText": "в",
+                               "percentage": 33
+                               },
+                               {
+                               "variantText": "в",
+                               "percentage": 33
+                               }
+                               ],
+                  "commentVariant": {
+                  "variantText": "Другое (в комментарии)",
+                  "percentage": 33
+                  },
+                  "totalVotes": 3
+                  }
+                  ]
+}

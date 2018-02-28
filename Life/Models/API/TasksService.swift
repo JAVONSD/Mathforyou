@@ -82,10 +82,7 @@ extension TasksService: AuthorizedTargetType {
             addStringData(executorCode, "ExecutorCode", &data)
             addStringData(topic, "Topic", &data)
             addStringData(description, "Description", &data)
-
-            let isAllDayStr = isAllDay ? "true" : "false"
-            addStringData(isAllDayStr, "IsAllDay", &data)
-
+            addStringData(String(isAllDay), "IsAllDay", &data)
             addStringData(location, "Location", &data)
             addStringData(startDateTime, "StartDateTime", &data)
             addStringData(endDateTime, "EndDateTime", &data)
@@ -97,10 +94,7 @@ extension TasksService: AuthorizedTargetType {
             }
 
             for attachment in attachments {
-                let attachmentsData = MultipartFormData(
-                    provider: .file(attachment),
-                    name: "Attachments"
-                )
+                let attachmentsData = attachment.multipartFormData("Attachments")
                 data.append(attachmentsData)
             }
 
@@ -145,10 +139,7 @@ extension TasksService: AuthorizedTargetType {
         _ data: String,
         _ name: String,
         _ formData: inout [MultipartFormData]) {
-        let dueDateData = MultipartFormData(
-            provider: .data(data.utf8Encoded),
-            name: name
-        )
+        let dueDateData = data.multipartFormData(name)
         formData.append(dueDateData)
     }
 

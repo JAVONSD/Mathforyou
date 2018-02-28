@@ -1,0 +1,132 @@
+ [
+  {
+  "id": "3027c95a-befd-494f-b7ba-d013b2bd4273",
+  "title": "прт",
+  "createDate": "2018-02-26T20:24:48.407",
+  "authorCode": "KPO102505",
+  "authorName": "Жакупова Арайлым Биржанкызы",
+  "imageStreamId": "58828063-7bc4-48a3-b3e2-d542173f708b",
+  "questionsQuantity": 1,
+  "imageSize": {
+  "width": 2880,
+  "height": 1800
+  }
+  },
+  {
+  "id": "fd4c2083-f768-478a-ac38-0825f7465713",
+  "title": "Пойдешь на хоккей",
+  "createDate": "2018-02-26T20:22:41.31",
+  "authorCode": "KPO102505",
+  "authorName": "Жакупова Арайлым Биржанкызы",
+  "imageStreamId": "400f7747-5ad9-4c54-af99-e0da7c5df258",
+  "questionsQuantity": 1,
+  "imageSize": {
+  "width": 1920,
+  "height": 1092
+  }
+  },
+  {
+  "id": "7fe0c378-b59f-42a4-8e75-3c757ed95f71",
+  "title": "Пойдешь на хоккей?",
+  "createDate": "2018-02-26T20:21:12.047",
+  "authorCode": "KPO102505",
+  "authorName": "Жакупова Арайлым Биржанкызы",
+  "imageStreamId": "72a402ff-4405-4e7c-81f9-eac08dc96c31",
+  "questionsQuantity": 1,
+  "imageSize": {
+  "width": 1912,
+  "height": 1093
+  }
+  },
+  {
+  "id": "8119f662-4b63-48c7-8f36-c25f1cad7211",
+  "title": "Новый опрос",
+  "createDate": "2018-02-26T10:27:49.647",
+  "authorCode": "KPO102505",
+  "authorName": "Жакупова Арайлым Биржанкызы",
+  "imageStreamId": "90d69b01-89fd-4a07-acc2-e6abc09424c1",
+  "questionsQuantity": 2,
+  "imageSize": {
+  "width": 800,
+  "height": 532
+  }
+  },
+  {
+  "id": "62ee0e86-3131-41c3-906e-f96c54c686c8",
+  "title": "аав",
+  "createDate": "2018-02-09T15:55:57.207",
+  "authorCode": "KPO102505",
+  "authorName": "Жакупова Арайлым Биржанкызы",
+  "imageStreamId": null,
+  "questionsQuantity": 1,
+  "imageSize": {
+  "width": 2,
+  "height": 1
+  }
+  },
+  {
+  "id": "72775f29-0ea5-4cbf-a262-14f525ab0e41",
+  "title": "новый опрос",
+  "createDate": "2018-02-06T15:22:32.643",
+  "authorCode": "KPO102505",
+  "authorName": "Жакупова Арайлым Биржанкызы",
+  "imageStreamId": "b9ed86c1-c0a1-47a0-9139-deb27aa5f9eb",
+  "questionsQuantity": 2,
+  "imageSize": {
+  "width": 335,
+  "height": 329
+  }
+  },
+  {
+  "id": "e02d18ad-16cf-4bed-a51f-5c07f137d7b6",
+  "title": "hjgjhgj",
+  "createDate": "2018-01-19T21:42:36.02",
+  "authorCode": "0000-00162",
+  "authorName": "Не найден",
+  "imageStreamId": "39d9010b-09a4-437f-937b-41e8f6e89756",
+  "questionsQuantity": 1,
+  "imageSize": {
+  "width": 512,
+  "height": 512
+  }
+  },
+  {
+  "id": "cfbffd04-088c-4a07-a793-5e5462400d01",
+  "title": "Опрос 1",
+  "createDate": "2018-01-19T16:52:53.903",
+  "authorCode": "0000-00162",
+  "authorName": "Не найден",
+  "imageStreamId": null,
+  "questionsQuantity": 2,
+  "imageSize": {
+  "width": 2,
+  "height": 1
+  }
+  },
+  {
+  "id": "939bea31-9f18-4d46-85e7-9701e8b43ae9",
+  "title": "fghgfh",
+  "createDate": "2018-01-17T16:10:09.003",
+  "authorCode": "0000-00162",
+  "authorName": "Не найден",
+  "imageStreamId": "d2f3145f-f067-481b-bfd4-05006c5f0a53",
+  "questionsQuantity": 1,
+  "imageSize": {
+  "width": 256,
+  "height": 256
+  }
+  },
+  {
+  "id": "dcfb490f-4007-4365-84a0-4d8443f7fe29",
+  "title": "апрапр",
+  "createDate": "2018-01-17T16:07:04.533",
+  "authorCode": "0000-00162",
+  "authorName": "Не найден",
+  "imageStreamId": "2ad3e270-5214-4931-969c-2b7cf89e253f",
+  "questionsQuantity": 1,
+  "imageSize": {
+  "width": 256,
+  "height": 256
+  }
+  }
+  ]

@@ -80,6 +80,24 @@
 		C73EB2B8203323C500429921 /* BenefitsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2B7203323C500429921 /* BenefitsView.swift */; };
 		C73EB2BA203327AA00429921 /* BenefitsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2B9203327AA00429921 /* BenefitsTableViewCell.swift */; };
 		C73EB2BC203329D000429921 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2BB203329D000429921 /* ImageCollectionViewCell.swift */; };
+		C74FCE6D2046499800E9C6BA /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74FCE6C2046499800E9C6BA /* Date+Extensions.swift */; };
+		C74FCE6F20464A6100E9C6BA /* history.json in Resources */ = {isa = PBXBuildFile; fileRef = C74FCE6E20464A6100E9C6BA /* history.json */; };
+		C74FCE7120464B9200E9C6BA /* mine.json in Resources */ = {isa = PBXBuildFile; fileRef = C74FCE7020464B9200E9C6BA /* mine.json */; };
+		C74FCE7320464BBB00E9C6BA /* company.json in Resources */ = {isa = PBXBuildFile; fileRef = C74FCE7220464BBB00E9C6BA /* company.json */; };
+		C74FCE7520464D0400E9C6BA /* news.json in Resources */ = {isa = PBXBuildFile; fileRef = C74FCE7420464D0400E9C6BA /* news.json */; };
+		C74FCE7720464FD500E9C6BA /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74FCE7620464FD500E9C6BA /* URL+Extensions.swift */; };
+		C74FCE792046565A00E9C6BA /* suggestions.json in Resources */ = {isa = PBXBuildFile; fileRef = C74FCE782046565A00E9C6BA /* suggestions.json */; };
+		C74FCE7B20465D3100E9C6BA /* questionnaires.json in Resources */ = {isa = PBXBuildFile; fileRef = C74FCE7A20465D3100E9C6BA /* questionnaires.json */; };
+		C74FCE7D20465D6100E9C6BA /* questionnaire.json in Resources */ = {isa = PBXBuildFile; fileRef = C74FCE7C20465D6100E9C6BA /* questionnaire.json */; };
+		C74FCE7F20465E1500E9C6BA /* QuestionnaireQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74FCE7E20465E1500E9C6BA /* QuestionnaireQuestion.swift */; };
+		C74FCE8120465FED00E9C6BA /* QuestionnaireStatistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = C74FCE8020465FED00E9C6BA /* QuestionnaireStatistics.swift */; };
+		C74FCE83204661DF00E9C6BA /* questionnaire_statistics.json in Resources */ = {isa = PBXBuildFile; fileRef = C74FCE82204661DF00E9C6BA /* questionnaire_statistics.json */; };
+		C74FCE8520466E7C00E9C6BA /* top_questions.json in Resources */ = {isa = PBXBuildFile; fileRef = C74FCE8420466E7C00E9C6BA /* top_questions.json */; };
+		C74FCE8720466EB400E9C6BA /* top_question.json in Resources */ = {isa = PBXBuildFile; fileRef = C74FCE8620466EB400E9C6BA /* top_question.json */; };
+		C74FCE8920466ED800E9C6BA /* top_question_answers.json in Resources */ = {isa = PBXBuildFile; fileRef = C74FCE8820466ED800E9C6BA /* top_question_answers.json */; };
+		C74FCE8B20466F1B00E9C6BA /* top_question_video_answers.json in Resources */ = {isa = PBXBuildFile; fileRef = C74FCE8A20466F1B00E9C6BA /* top_question_video_answers.json */; };
+		C74FCE8D20466F4E00E9C6BA /* top_question_answer.json in Resources */ = {isa = PBXBuildFile; fileRef = C74FCE8C20466F4E00E9C6BA /* top_question_answer.json */; };
+		C74FCE8F20466FA100E9C6BA /* top_question_video_answer.json in Resources */ = {isa = PBXBuildFile; fileRef = C74FCE8E20466FA100E9C6BA /* top_question_video_answer.json */; };
 		C752ACE8204113B100D04E26 /* employees.json in Resources */ = {isa = PBXBuildFile; fileRef = C752ACE7204113B100D04E26 /* employees.json */; };
 		C752ACEA204114BC00D04E26 /* employees_search.json in Resources */ = {isa = PBXBuildFile; fileRef = C752ACE9204114BC00D04E26 /* employees_search.json */; };
 		C752ACEC2041153700D04E26 /* employee_info.json in Resources */ = {isa = PBXBuildFile; fileRef = C752ACEB2041153700D04E26 /* employee_info.json */; };
@@ -406,6 +424,24 @@
 		C73EB2B7203323C500429921 /* BenefitsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitsView.swift; sourceTree = "<group>"; };
 		C73EB2B9203327AA00429921 /* BenefitsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BenefitsTableViewCell.swift; sourceTree = "<group>"; };
 		C73EB2BB203329D000429921 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		C74FCE6C2046499800E9C6BA /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		C74FCE6E20464A6100E9C6BA /* history.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = history.json; sourceTree = "<group>"; };
+		C74FCE7020464B9200E9C6BA /* mine.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = mine.json; sourceTree = "<group>"; };
+		C74FCE7220464BBB00E9C6BA /* company.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = company.json; sourceTree = "<group>"; };
+		C74FCE7420464D0400E9C6BA /* news.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = news.json; sourceTree = "<group>"; };
+		C74FCE7620464FD500E9C6BA /* URL+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
+		C74FCE782046565A00E9C6BA /* suggestions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = suggestions.json; sourceTree = "<group>"; };
+		C74FCE7A20465D3100E9C6BA /* questionnaires.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = questionnaires.json; sourceTree = "<group>"; };
+		C74FCE7C20465D6100E9C6BA /* questionnaire.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = questionnaire.json; sourceTree = "<group>"; };
+		C74FCE7E20465E1500E9C6BA /* QuestionnaireQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireQuestion.swift; sourceTree = "<group>"; };
+		C74FCE8020465FED00E9C6BA /* QuestionnaireStatistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireStatistics.swift; sourceTree = "<group>"; };
+		C74FCE82204661DF00E9C6BA /* questionnaire_statistics.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = questionnaire_statistics.json; sourceTree = "<group>"; };
+		C74FCE8420466E7C00E9C6BA /* top_questions.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = top_questions.json; sourceTree = "<group>"; };
+		C74FCE8620466EB400E9C6BA /* top_question.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = top_question.json; sourceTree = "<group>"; };
+		C74FCE8820466ED800E9C6BA /* top_question_answers.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = top_question_answers.json; sourceTree = "<group>"; };
+		C74FCE8A20466F1B00E9C6BA /* top_question_video_answers.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = top_question_video_answers.json; sourceTree = "<group>"; };
+		C74FCE8C20466F4E00E9C6BA /* top_question_answer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = top_question_answer.json; sourceTree = "<group>"; };
+		C74FCE8E20466FA100E9C6BA /* top_question_video_answer.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = top_question_video_answer.json; sourceTree = "<group>"; };
 		C752ACE7204113B100D04E26 /* employees.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = employees.json; sourceTree = "<group>"; };
 		C752ACE9204114BC00D04E26 /* employees_search.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = employees_search.json; sourceTree = "<group>"; };
 		C752ACEB2041153700D04E26 /* employee_info.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = employee_info.json; sourceTree = "<group>"; };
@@ -935,6 +971,8 @@
 				C7D832BA203576B400282891 /* Error+Extensions.swift */,
 				C7D832BC203596AA00282891 /* UIViewController+Extensions.swift */,
 				C717C682203D92D10070447D /* ImageDownloader+Extensions.swift */,
+				C74FCE6C2046499800E9C6BA /* Date+Extensions.swift */,
+				C74FCE7620464FD500E9C6BA /* URL+Extensions.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -973,6 +1011,8 @@
 				C7F7CB32203AE98A007B9D1E /* Question.swift */,
 				C7F7CB34203AE9D3007B9D1E /* Answer.swift */,
 				C7F7CB36203AEAC2007B9D1E /* Questionnaire.swift */,
+				C74FCE7E20465E1500E9C6BA /* QuestionnaireQuestion.swift */,
+				C74FCE8020465FED00E9C6BA /* QuestionnaireStatistics.swift */,
 				C7F7CB38203AEBCE007B9D1E /* Task.swift */,
 				C7F7CB3A203AEBD6007B9D1E /* Request.swift */,
 				C7F7CB3C203AF089007B9D1E /* Message.swift */,
@@ -1344,6 +1384,7 @@
 			isa = PBXGroup;
 			children = (
 				C7BB5C60203FD2920056BBF9 /* suggestion_details.json */,
+				C74FCE782046565A00E9C6BA /* suggestions.json */,
 			);
 			path = Suggestions;
 			sourceTree = "<group>";
@@ -1369,6 +1410,9 @@
 		C7D641C4203411B4001DCA98 /* Events */ = {
 			isa = PBXGroup;
 			children = (
+				C74FCE6E20464A6100E9C6BA /* history.json */,
+				C74FCE7020464B9200E9C6BA /* mine.json */,
+				C74FCE7220464BBB00E9C6BA /* company.json */,
 			);
 			path = Events;
 			sourceTree = "<group>";
@@ -1385,6 +1429,7 @@
 			children = (
 				C7BB5C5E203F00690056BBF9 /* news_details.json */,
 				C761B4B620429AD500467304 /* comment.json */,
+				C74FCE7420464D0400E9C6BA /* news.json */,
 			);
 			path = News;
 			sourceTree = "<group>";
@@ -1400,6 +1445,9 @@
 		C7D641C8203411B4001DCA98 /* Questionnaires */ = {
 			isa = PBXGroup;
 			children = (
+				C74FCE7A20465D3100E9C6BA /* questionnaires.json */,
+				C74FCE7C20465D6100E9C6BA /* questionnaire.json */,
+				C74FCE82204661DF00E9C6BA /* questionnaire_statistics.json */,
 			);
 			path = Questionnaires;
 			sourceTree = "<group>";
@@ -1414,6 +1462,12 @@
 		C7D641CA203411B4001DCA98 /* TopQuestions */ = {
 			isa = PBXGroup;
 			children = (
+				C74FCE8420466E7C00E9C6BA /* top_questions.json */,
+				C74FCE8620466EB400E9C6BA /* top_question.json */,
+				C74FCE8820466ED800E9C6BA /* top_question_answers.json */,
+				C74FCE8C20466F4E00E9C6BA /* top_question_answer.json */,
+				C74FCE8A20466F1B00E9C6BA /* top_question_video_answers.json */,
+				C74FCE8E20466FA100E9C6BA /* top_question_video_answer.json */,
 			);
 			path = TopQuestions;
 			sourceTree = "<group>";
@@ -1808,10 +1862,15 @@
 			files = (
 				C756FCF820444A95000130EF /* tasks.json in Resources */,
 				C76EFBBC203008C100FA2BB9 /* Roboto-ThinItalic.ttf in Resources */,
+				C74FCE7B20465D3100E9C6BA /* questionnaires.json in Resources */,
 				C752ACEC2041153700D04E26 /* employee_info.json in Resources */,
+				C74FCE792046565A00E9C6BA /* suggestions.json in Resources */,
+				C74FCE8D20466F4E00E9C6BA /* top_question_answer.json in Resources */,
 				C7D641D3203411EA001DCA98 /* testtokenauth.json in Resources */,
+				C74FCE7120464B9200E9C6BA /* mine.json in Resources */,
 				C756FCFA20444AB7000130EF /* task.json in Resources */,
 				C76EFBBB203008C100FA2BB9 /* Roboto-BoldItalic.ttf in Resources */,
+				C74FCE7320464BBB00E9C6BA /* company.json in Resources */,
 				C76EFBC2203008C100FA2BB9 /* Roboto-LightItalic.ttf in Resources */,
 				C756FCF620442D54000130EF /* requests.json in Resources */,
 				C7D641CF203411C4001DCA98 /* auth.json in Resources */,
@@ -1822,12 +1881,19 @@
 				C761B4B720429AD500467304 /* comment.json in Resources */,
 				C7D641D920341813001DCA98 /* user_profile.json in Resources */,
 				C76EFBB8203008C100FA2BB9 /* Roboto-Italic.ttf in Resources */,
+				C74FCE6F20464A6100E9C6BA /* history.json in Resources */,
+				C74FCE8520466E7C00E9C6BA /* top_questions.json in Resources */,
 				C76EFBC0203008C100FA2BB9 /* Roboto-MediumItalic.ttf in Resources */,
+				C74FCE8B20466F1B00E9C6BA /* top_question_video_answers.json in Resources */,
 				C7BB5C61203FD2920056BBF9 /* suggestion_details.json in Resources */,
 				C76EFBBD203008C100FA2BB9 /* Roboto-Bold.ttf in Resources */,
+				C74FCE8720466EB400E9C6BA /* top_question.json in Resources */,
 				C76EFB58202E91F000FA2BB9 /* LaunchScreen.storyboard in Resources */,
+				C74FCE8F20466FA100E9C6BA /* top_question_video_answer.json in Resources */,
+				C74FCE7D20465D6100E9C6BA /* questionnaire.json in Resources */,
 				C76EFBBA203008C100FA2BB9 /* Roboto-Black.ttf in Resources */,
 				C76EFBB9203008C100FA2BB9 /* Roboto-BlackItalic.ttf in Resources */,
+				C74FCE83204661DF00E9C6BA /* questionnaire_statistics.json in Resources */,
 				C7BB5C5F203F00690056BBF9 /* news_details.json in Resources */,
 				C7D641D1203411D3001DCA98 /* token.json in Resources */,
 				C76EFBBE203008C100FA2BB9 /* Roboto-Thin.ttf in Resources */,
@@ -1836,7 +1902,9 @@
 				C752ACE8204113B100D04E26 /* employees.json in Resources */,
 				C756FCFC20445C72000130EF /* message.json in Resources */,
 				C7054BB32041782300A8ED1A /* notifications.json in Resources */,
+				C74FCE7520464D0400E9C6BA /* news.json in Resources */,
 				C752ACEA204114BC00D04E26 /* employees_search.json in Resources */,
+				C74FCE8920466ED800E9C6BA /* top_question_answers.json in Resources */,
 				C76EFBC1203008C100FA2BB9 /* Roboto-Regular.ttf in Resources */,
 				C76EFB55202E91F000FA2BB9 /* Assets.xcassets in Resources */,
 			);
@@ -2217,6 +2285,8 @@
 				C7D6423820346FAC001DCA98 /* BIBoardViewModel.swift in Sources */,
 				C7BB5C75203FE7A50056BBF9 /* QuestionFormView.swift in Sources */,
 				C7BB5C4D203ED3000056BBF9 /* NewsDetailsCell.swift in Sources */,
+				C74FCE7720464FD500E9C6BA /* URL+Extensions.swift in Sources */,
+				C74FCE7F20465E1500E9C6BA /* QuestionnaireQuestion.swift in Sources */,
 				C76EFBC620301AE500FA2BB9 /* TextField.swift in Sources */,
 				C70ECFCF203AB51F00710DB5 /* SliderViewModel.swift in Sources */,
 				C7D832BF2035B8EB00282891 /* SizedButton.swift in Sources */,
@@ -2256,6 +2326,7 @@
 				C7D6424020346FD3001DCA98 /* MenuViewModel.swift in Sources */,
 				C720EC7220368E64007E4CD4 /* SearchView.swift in Sources */,
 				C76EFBE520302F8C00FA2BB9 /* EOLState.swift in Sources */,
+				C74FCE8120465FED00E9C6BA /* QuestionnaireStatistics.swift in Sources */,
 				C7D641B8203408FD001DCA98 /* TopQuestionsService.swift in Sources */,
 				C7D6422D20346F4B001DCA98 /* EmployeesViewController.swift in Sources */,
 				C76EFBCB203027EB00FA2BB9 /* LoginViewController.swift in Sources */,
@@ -2299,6 +2370,7 @@
 				C7D64217203463E0001DCA98 /* Presentable.swift in Sources */,
 				C7D64222203463E0001DCA98 /* Coordinator.swift in Sources */,
 				C7D641E120341A42001DCA98 /* User.swift in Sources */,
+				C74FCE6D2046499800E9C6BA /* Date+Extensions.swift in Sources */,
 				C70ECFD9203AC8CD00710DB5 /* Vacancy.swift in Sources */,
 				C7BB5C3A203E6CEB0056BBF9 /* TopAuthorsCell.swift in Sources */,
 				C7D641FF20344F58001DCA98 /* EmployeesFlow.swift in Sources */,

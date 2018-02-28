@@ -1,0 +1,122 @@
+ [
+  {
+  "id": "92153ff4-2599-4ad7-a2a8-f50c5f99a88d",
+  "title": "всыс",
+  "createDate": "2018-02-26T20:10:51.05",
+  "text": "прмсориачм\r\n\r\nывмывмвмвам\r\nымввамвам\r\nвамвамвам\r\n",
+  "imageUrl": "http://life.bi-group.org:8090/api/files/c336103e-98b5-4922-80e7-3079b1e4a33b",
+  "tags": [
+           {
+           "nsiTagId": "40726b7d-8412-438b-8723-4424b2cac59a",
+           "name": "классный тег 2"
+           }
+           ]
+  },
+  {
+  "id": "92e499c9-8232-4724-9b38-f6ad3a907bf8",
+  "title": "Test News With Updated Title",
+  "createDate": "2018-02-13T12:43:07.99",
+  "text": "This is a raw text!",
+  "imageUrl": "",
+  "tags": [
+           {
+           "nsiTagId": "65c33c0a-e54c-4a36-a801-83e6e5e494fa",
+           "name": "test"
+           }
+           ]
+  },
+  {
+  "id": "368e0b54-2a1b-4f23-80b8-3e92b99ec94c",
+  "title": "Новая новость",
+  "createDate": "2018-02-09T15:41:16.787",
+  "text": "оврпмрам\r\n",
+  "imageUrl": "http://life.bi-group.org:8090/api/files/b0840e26-82d7-4972-b703-dd2d677df185",
+  "tags": [
+           {
+           "nsiTagId": "52b4d6ce-3797-428c-933a-33f20b93ce37",
+           "name": "пр 1"
+           }
+           ]
+  },
+  {
+  "id": "84c78ea7-0a6b-4ede-8c27-76d0012dc982",
+  "title": "Вертикальная картинка",
+  "createDate": "2018-02-09T10:48:59.73",
+  "text": "undefined 123\r\n",
+  "imageUrl": "http://life.bi-group.org:8090/api/files/1ed14347-28ce-4793-8fce-68e7fa183958",
+  "tags": [
+           {
+           "nsiTagId": "5d158d8e-eba5-45db-a57a-40a1fea8bad6",
+           "name": "ТОП"
+           }
+           ]
+  },
+  {
+  "id": "a72b7af9-afa9-4448-b7ba-e918ddd28a5f",
+  "title": "Новость 07,02,2018",
+  "createDate": "2018-02-07T08:45:14.71",
+  "text": "Сдача ключей нового ЖК. \r\n",
+  "imageUrl": "http://life.bi-group.org:8090/api/files/71446f92-ae4f-48e9-83d9-b103a926fb10",
+  "tags": [
+           {
+           "nsiTagId": "c5edbdd0-4cb2-4857-a0f6-9a7f0f1a620e",
+           "name": "сдача_жк"
+           }
+           ]
+  },
+  {
+  "id": "62125951-471c-4eb1-9bdf-4b152f377cdc",
+  "title": "ньюс ньюс",
+  "createDate": "2018-02-05T18:21:49.957",
+  "text": "undefined\r\n",
+  "imageUrl": "http://life.bi-group.org:8090/api/files/85ccadac-afe7-47d7-b495-636c90a542e6",
+  "tags": [
+           {
+           "nsiTagId": "40726b7d-8412-438b-8723-4424b2cac59a",
+           "name": "классный тег 2"
+           }
+           ]
+  },
+  {
+  "id": "89c7c53c-13da-4eb8-9c9d-b3ee8de1cf10",
+  "title": "\\новость 2",
+  "createDate": "2018-02-05T16:33:04.39",
+  "text": "undefined",
+  "imageUrl": "http://life.bi-group.org:8090/api/files/781aa4b1-334e-44fe-af3d-647db018b6fb",
+  "tags": [
+           {
+           "nsiTagId": "52b4d6ce-3797-428c-933a-33f20b93ce37",
+           "name": "пр 1"
+           }
+           ]
+  },
+  {
+  "id": "2ecfa54c-1e18-49cd-8ec5-8aa3c5604538",
+  "title": "Новая новость",
+  "createDate": "2018-02-05T16:26:43.8",
+  "text": "авапрапрараер\r\n\r\nаерипрпрп\r\n",
+  "imageUrl": "http://life.bi-group.org:8090/api/files/a12f84b7-2f21-4273-9491-520a5745ce3b",
+  "tags": [
+           {
+           "nsiTagId": "40726b7d-8412-438b-8723-4424b2cac59a",
+           "name": "классный тег 2"
+           }
+           ]
+  },
+  {
+  "id": "e169e3ed-6154-40a1-a965-0f33b63d1da9",
+  "title": "​  В Алматы открыл свои двери первый Додзё-центр",
+  "createDate": "2018-02-05T12:50:45",
+  "text": "В минувшие выходные на базе алматинского офиса BI ...",
+  "imageUrl": "https://bi-portal.bi-group.org/news/Lists/Photos/P80203-123711.jpg",
+  "tags": []
+  },
+  {
+  "id": "64eb62ad-84e0-44d7-ba34-893950adaa4a",
+  "title": "Астанада сантехниктерді... оқытатын орталық ашылды!",
+  "createDate": "2018-02-05T10:15:26",
+  "text": "​Әдетте, жастар кәсіпкер, банкир, полиция қызметке...",
+  "imageUrl": "https://bi-portal.bi-group.org/news/Lists/Photos/DSC_0155_cd8811cf563a494cb7bab5958d077749.JPG",
+  "tags": []
+  }
+  ]

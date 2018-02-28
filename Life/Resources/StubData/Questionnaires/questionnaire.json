@@ -1,0 +1,38 @@
+{
+    "id": "62ee0e86-3131-41c3-906e-f96c54c686c8",
+    "title": "аав",
+    "createDate": "2018-02-09T15:55:57.207",
+    "imageStreamId": null,
+    "authorCode": "KPO102505",
+    "authorName": "Жакупова Арайлым Биржанкызы",
+    "secondaryImages": [
+                        {
+                        "streamId": "c53c85d1-7f9d-446c-bcf1-b672482e0484",
+                        "filename": "20170727_093137.jpg"
+                        }
+                        ],
+    "questions": [
+                  {
+                  "id": "e2d0eb58-908b-4f59-89bc-5280e00dc0ea",
+                  "text": "вопрсо",
+                  "minAnswersQuantity": 1,
+                  "maxAnswersQuantity": 1,
+                  "variants": [
+                               {
+                               "id": "ebca6ce5-a32f-4f49-823d-d2df261330bc",
+                               "text": "в"
+                               },
+                               {
+                               "id": "44572101-f73c-4d41-acbe-d85f299fbd57",
+                               "text": "в"
+                               }
+                               ],
+                  "userAnswer": [
+                                 "ebca6ce5-a32f-4f49-823d-d2df261330bc"
+                                 ],
+                  "userComment": "Another sample answer!",
+                  "canComment": true,
+                  "totalAnswers": 1
+                  }
+                  ]
+}

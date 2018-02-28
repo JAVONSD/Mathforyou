@@ -10,16 +10,40 @@ import Foundation
 import Moya
 
 enum NewsService {
+    case topNews(top: Int)
     case news(id: String)
     case likeNews(withId: String)
     case addCommentToNews(withId: String, commentText: String)
     case likeComment(newsId: String, commentId: String, voteType: UserVote)
+    case createNews(
+        mainImage: URL,
+        secondaryImages: [URL],
+        title: String,
+        text: String,
+        rawText: String,
+        isHistoryEvent: Bool,
+        tags: [String]
+    )
+    case updateNews(
+        id: String,
+        mainImage: URL,
+        secondaryImages: [URL],
+        title: String,
+        text: String,
+        rawText: String,
+        isHistoryEvent: Bool,
+        tags: [String]
+    )
+    case popularNews
+    case newsWithDetails(rows: Int, offset: Int)
 }
 
 extension NewsService: AuthorizedTargetType {
 
     var path: String {
         switch self {
+        case .topNews, .createNews, .updateNews:
+            return "/News"
         case .news(let id):
             return "/News/\(id)"
         case .likeNews(let id):
@@ -28,36 +52,111 @@ extension NewsService: AuthorizedTargetType {
             return "/News/\(id)/comments"
         case .likeComment(let newsId, let commentId, let voteType):
             return "/News/\(newsId)/comments/\(commentId)/like/\(voteType.rawValue)"
+        case .popularNews:
+            return "/News/popular"
+        case .newsWithDetails:
+            return "/News/withdetails"
         }
     }
 
     var method: Moya.Method {
         switch self {
-        case .news:
+        case .news, .topNews, .popularNews, .newsWithDetails:
             return .get
-        case .addCommentToNews:
+        case .addCommentToNews, .createNews:
             return .post
-        case .likeNews, .likeComment:
+        case .likeNews, .likeComment, .updateNews:
             return .put
         }
     }
 
     var task: Moya.Task {
         switch self {
-        case .news, .likeNews, .likeComment:
+        case .news, .likeNews, .likeComment, .popularNews:
             return .requestPlain
         case .addCommentToNews(_, let commentText):
             return .requestParameters(
                 parameters: ["commentText": commentText],
                 encoding: JSONEncoding.default
             )
+        case .topNews(let top):
+            return .requestParameters(
+                parameters: ["top": top],
+                encoding: URLEncoding.default
+            )
+        case .createNews(
+            let mainImage,
+            let secondaryImages,
+            let title,
+            let text,
+            let rawText,
+            let isHistoryEvent,
+            let tags):
+            var data = [MultipartFormData]()
+
+            let mainImage = mainImage.multipartFormData("MainImage")
+            data.append(mainImage)
+
+            for secondaryImage in secondaryImages {
+                let secondaryImageData = secondaryImage.multipartFormData("SecondaryImages")
+                data.append(secondaryImageData)
+            }
+
+            data.append(title.multipartFormData("Title"))
+            data.append(text.multipartFormData("Text"))
+            data.append(rawText.multipartFormData("RawText"))
+            data.append(String(isHistoryEvent).multipartFormData("IsHistoryEvent"))
+
+            for tag in tags {
+                data.append(tag.multipartFormData("Tags"))
+            }
+
+            return .uploadMultipart(data)
+        case .updateNews(
+            let id,
+            let mainImage,
+            let secondaryImages,
+            let title,
+            let text,
+            let rawText,
+            let isHistoryEvent,
+            let tags):
+            var data = [MultipartFormData]()
+
+            data.append(id.multipartFormData("NewsId"))
+
+            let mainImage = mainImage.multipartFormData("MainImage")
+            data.append(mainImage)
+
+            for secondaryImage in secondaryImages {
+                let secondaryImageData = secondaryImage.multipartFormData("SecondaryImages")
+                data.append(secondaryImageData)
+            }
+
+            data.append(title.multipartFormData("Title"))
+            data.append(text.multipartFormData("Text"))
+            data.append(rawText.multipartFormData("RawText"))
+            data.append(String(isHistoryEvent).multipartFormData("IsHistoryEvent"))
+
+            for tag in tags {
+                data.append(tag.multipartFormData("Tags"))
+            }
+
+            return .uploadMultipart(data)
+        case .newsWithDetails(let rows, let offset):
+            return .requestParameters(
+                parameters: ["rows": rows, "offset": offset],
+                encoding: URLEncoding.default
+            )
         }
     }
 
     var sampleData: Data {
         switch self {
-        case .news:
+        case .news, .createNews, .updateNews:
             return Bundle.main.stubJSONWith(name: "news_details")
+        case .topNews, .popularNews, .newsWithDetails:
+            return Bundle.main.stubJSONWith(name: "news")
         case .likeNews, .likeComment:
             return [:].toJSONData()
         case .addCommentToNews:

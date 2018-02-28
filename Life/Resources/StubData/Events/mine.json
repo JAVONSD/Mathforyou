@@ -1,0 +1,30 @@
+ [
+  {
+  "id": {
+  "uniqueId": "AQMkADczYjRhNmE2LWYxMmMtNDNhMC1iNGVkLWRhZjY1M2Y1ZWM1YQBGAAADN+V93zXl1EO0YmgoQcG2VwcAyDlYdCnHsky0EfOrMkYpQAAAAgENAAAAyDlYdCnHsky0EfOrMkYpQAAAAhT+AAAA",
+  "changeKey": "DwAAABYAAADIOVh0KceyTLQR86syRilAAAAAACwS"
+  },
+  "title": "Test event",
+  "allDay": false,
+  "startDate": "2018-02-08T08:00:00+06:00",
+  "endDate": "2018-02-08T10:30:00+06:00",
+  "location": "my location",
+  "participants": "Test BI Life",
+  "desc": "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\"><meta name=\"Generator\" content=\"Microsoft Exchange Server\"><!-- converted from rtf --></head><body><font face=\"Calibri\" size=\"2\"><span ><div>&nbsp;</div><div>&nbsp;</div></span></font></body></html>",
+  "organizer": "Test BI Life"
+  },
+  {
+  "id": {
+  "uniqueId": "AQMkADczYjRhNmE2LWYxMmMtNDNhMC1iNGVkLWRhZjY1M2Y1ZWM1YQBGAAADN+V93zXl1EO0YmgoQcG2VwcAyDlYdCnHsky0EfOrMkYpQAAAAgENAAAAyDlYdCnHsky0EfOrMkYpQAAAAhT9AAAA",
+  "changeKey": "DwAAABQAAACb4Lv6Dio7QpXd1p3pR9W4AAAEQA=="
+  },
+  "title": "test event from bi life",
+  "allDay": true,
+  "startDate": "2018-02-12T00:00:00+06:00",
+  "endDate": "2018-02-13T00:00:00+06:00",
+  "location": null,
+  "participants": null,
+  "desc": "",
+  "organizer": "Test BI Life"
+  }
+  ]

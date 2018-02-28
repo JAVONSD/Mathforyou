@@ -1,0 +1,199 @@
+{
+    "events": [
+               {
+               "media": {
+               "url": "http://life.bi-group.org:8090/api/files/e5e8a5f8-90e4-4c06-b5a8-6bfb71a8f6fb"
+               },
+               "start_date": {
+               "month": 12,
+               "year": 2017
+               },
+               "text": {
+               "headline": "<a href='/news/0d989197-824d-49c5-859f-7953aab17dac'>News from client</a>",
+               "text": "<p><img src=\"data:image/png;base64,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\" width=\"216\" height=\"216\"> Custom body</p><p><br></p><iframe class=\"ql-video\" allowfullscreen=\"true\" src=\"https://www.youtube.com/embed/1gDbpWC_9pE?showinfo=0\" frameborder=\"0\"></iframe><p><br></p>"
+               }
+               },
+               {
+               "media": {
+               "url": "http://life.bi-group.org:8090/api/files/b5302511-80fe-4294-9b39-dc0406035e19"
+               },
+               "start_date": {
+               "month": 12,
+               "year": 2017
+               },
+               "text": {
+               "headline": "<a href='/news/c01ca4bd-a65e-4a1d-9f27-bb9e5d526ed4'>Title</a>",
+               "text": "вапвапвапва\r\nвапавпп\r\nвимтимтимти\r\nимтимтимииииииииииии\r\n"
+               }
+               },
+               {
+               "media": {
+               "url": "http://life.bi-group.org:8090/api/files/"
+               },
+               "start_date": {
+               "month": 5,
+               "year": 2005
+               },
+               "text": {
+               "headline": "Наращиваются производственные мощности, BI Group ведет проектные и строительные работы на 17 объектах. Начинается строительство коммерческой недвижимости.\r\n",
+               "text": "Объемы строительства значительно возрастают. Ведутся проектные и строительные работы по 17 объектам. Помимо строительства жилых комплексов компания начинает успешно возводить административные и офисные здания. Доля предложений BI Group составляет 12% от общего объема на рынке недвижимости Астаны."
+               }
+               },
+               {
+               "media": {
+               "url": "http://life.bi-group.org:8090/api/files/7b38dbf7-75d9-e711-80e2-00155d670307"
+               },
+               "start_date": {
+               "month": 1,
+               "year": 1995
+               },
+               "text": {
+               "headline": "Основание компании. Регистрируется предприятие ТОО «АзТЭК».",
+               "text": "Выпускники Акмолинского Инженерно-строительного института Айдын Рахимбаев, Бауыржан Исабаев и Асхат Омаров основали и зарегистрировали компанию, специализирующуюся на трейдинге зерна, круп, муки и топлива – ТОО «АзТЭК». Это год основания BI Group. С тех пор ежегодно в первые выходные июня празднуется день рождения компании."
+               }
+               },
+               {
+               "media": {
+               "url": "http://life.bi-group.org:8090/api/files/"
+               },
+               "start_date": {
+               "month": 1,
+               "year": 2001
+               },
+               "text": {
+               "headline": "Создается ТОО «BI Group» — головное предприятие, будущий крупнейший строительный холдинг",
+               "text": "Сворачиваются работы по трейдингу продуктов питания и топлива. Головное предприятие разросшейся строительной группы реорганизовано в BI Group - будущий крупнейший в стране строительный холдинг."
+               }
+               },
+               {
+               "media": {
+               "url": "http://life.bi-group.org:8090/api/files/"
+               },
+               "start_date": {
+               "month": 5,
+               "year": 2007
+               },
+               "text": {
+               "headline": "Общая площадь построенной недвижимости уже превышает 600 тысяч кв. м. Объем предложений компании составляет 18% от общего объема на рынке недвижимости Астаны",
+               "text": "Построено более 20 жилых комплексов, общая площадь которых превысила 600 тысяч кв. м. Идут строительные работы одновременно на 20 объектах. Объем предложений компании составил 18% от общего объема на рынке недвижимости Астаны. АО BI Group реорганизуется в холдинг, в структуре которого действуют строительный, производственно-промышленный, инвестиционный и девелопмент дивизионы."
+               }
+               },
+               {
+               "media": {
+               "url": "http://life.bi-group.org:8090/api/files/da3e0113-c235-4f3a-8ee9-a259696bb2b9"
+               },
+               "start_date": {
+               "month": 12,
+               "year": 2017
+               },
+               "text": {
+               "headline": "<a href='/news/7f2393a3-8fad-405c-92fe-f90465cf5dce'>My new news 8</a>",
+               "text": "<p>good news</p>"
+               }
+               },
+               {
+               "media": {
+               "url": "http://life.bi-group.org:8090/api/files/"
+               },
+               "start_date": {
+               "month": 1,
+               "year": 2003
+               },
+               "text": {
+               "headline": "Завершается строительство первых трех жилых объектов. Количество сотрудников компании превышает 1000 человек.",
+               "text": "Завершается строительство первых трех жилых объектов. Количество сотрудников компании превышает 1000 человек. "
+               }
+               },
+               {
+               "media": {
+               "url": "http://life.bi-group.org:8090/api/files/85ccadac-afe7-47d7-b495-636c90a542e6"
+               },
+               "start_date": {
+               "month": 2,
+               "year": 2018
+               },
+               "text": {
+               "headline": "<a href='/news/62125951-471c-4eb1-9bdf-4b152f377cdc'>ньюс ньюс</a>",
+               "text": "undefined"
+               }
+               },
+               {
+               "media": {
+               "url": "http://life.bi-group.org:8090/api/files/"
+               },
+               "start_date": {
+               "month": 5,
+               "year": 2008
+               },
+               "text": {
+               "headline": "Снижение в 2008-2009-м годах уровня доходов населения и мировой финансовый кризис временно приостановили активное развитие компании.\r\n",
+               "text": "Это было нелегкое время, когда подсокращались штаты, консервировались мощности. Проекты тех лет были разными – от прокладки арычных каналов в Кызылординской области до строительства объектов в сложных климатических условиях Ханты-Мансийска (Россия)."
+               }
+               },
+               {
+               "media": {
+               "url": "http://life.bi-group.org:8090/api/files/cc5b6737-ff79-4067-a9cf-31ce087978b8"
+               },
+               "start_date": {
+               "month": 1,
+               "year": 2018
+               },
+               "text": {
+               "headline": "<a href='/news/ed14fa47-244b-4810-8b1b-deb66521dbf8'>Новая новость</a>",
+               "text": "птртпрт \r\n"
+               }
+               },
+               {
+               "media": {
+               "url": "http://life.bi-group.org:8090/api/files/1ed14347-28ce-4793-8fce-68e7fa183958"
+               },
+               "start_date": {
+               "month": 2,
+               "year": 2018
+               },
+               "text": {
+               "headline": "<a href='/news/84c78ea7-0a6b-4ede-8c27-76d0012dc982'>Вертикальная картинка</a>",
+               "text": "undefined"
+               }
+               },
+               {
+               "media": {
+               "url": "http://life.bi-group.org:8090/api/files/ef924acc-8f33-48b0-b102-586084f41363"
+               },
+               "start_date": {
+               "month": 12,
+               "year": 2017
+               },
+               "text": {
+               "headline": "<a href='/news/9e94a036-0480-4973-b8a5-5ad7428b2a1b'>Еще одна новость</a>",
+               "text": "<p>выавыа</p><p>вапавпавп</p><p><img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACAElEQVRIie2Sv2oUURTGf98QZEi5WAQJPsBsMRcLy7yArKOgIilEC0ufRUREggQRJIoiS5D0KUVkmRuceYCwhK0sJYXks5jZ7GaTjX9SpMnXzJ1z7/n+HA5c4Lyh8SHGqgMKwHaeZwf/QxZjlYBWgJ08z34AJABlWXVAfaAPvnUGwzdtNoGPMdYdAMVYX7b9SWKlDfTT9uMQuhv/wlyW9Sr4lcRiU9E2cFcx1u+A+zPv920/An0I4fRxlWWdSNwB3gDpuG6DxPvE5ikwmulLJa1Lx4RPgO8Br8HpVA2Jke1nSQjZV+AGMJxpXASvx1g/nEcdY/WgJV9sXBswoCHQC6H7ZaGNM5AogC1gqWkXQGr7ZVnWvyRv5Hn3YGosqzZr0mQsEoBHQAEMABYAQsgABjHWt8F90FLrBEkpsNZyvG2JVoE1yelk0w1oBBR5ng0ORWdjl2V1DbQpsWwbNbawvQ88aQT0fDJzteTsgoo8z8ppvoVZAUmDJqK3miSHN6nEi/bn0rQ3W3uSC+AI+YkJxoixum7Tl3Tl6I2nXQPs2SpCyL6dxDNXoBUJNpuSrk7GNS2gXaCX59nOPI7kNAFbpaSe7eHEy+F3aLsHzCX/Y4IxyrIKkj4Dy+M9tylCmGzLmQRakawVScBFnndPdT7GsS2a60SqgV4joO9/23eB88dvAc/KEQnxM04AAAAASUVORK5CYII=\"></p><p>ааааааааааааа</p>"
+               }
+               },
+               {
+               "media": {
+               "url": "http://life.bi-group.org:8090/api/files/54a79dff-75d9-e711-80e2-00155d670307"
+               },
+               "start_date": {
+               "month": 1,
+               "year": 1998
+               },
+               "text": {
+               "headline": "Начинаются строительные работы в г. Астана",
+               "text": "\t\r\nВ связи с переносом столицы в Акмолу, принимается решение о создании перспективного строительного подразделения — ТОО «АБК-Курылыс». Основатели BI Group начали строительство первого объекта – оздоровительного комплекса «Тамаша», работали на его строительстве самостоятельно."
+               }
+               },
+               {
+               "media": {
+               "url": "http://life.bi-group.org:8090/api/files/a5f2fa87-e1f9-45b7-a748-28960c99250e"
+               },
+               "start_date": {
+               "month": 1,
+               "year": 2018
+               },
+               "text": {
+               "headline": "<a href='/news/47740a9a-32dc-4f46-8e82-74cebd96f265'>цвцвцвцвц</a>",
+               "text": "цвцвцвм\r\nысысвсыс\r\n\r\n"
+               }
+               }
+               ]
+}

@@ -1,0 +1,62 @@
+[
+ {
+ "id": "fecd3eea-08c1-4163-a552-004376f836ec",
+ "title": "Объезд Дивизионом ИЖС-Астана объекта ЖК BI-City",
+ "allDay": false,
+ "startDate": "2016-12-02T05:00:00",
+ "endDate": "2016-12-02T06:00:00",
+ "location": "",
+ "desc": "",
+ "organizer": "Ошаганова Махаббат",
+ "isLongEvent": false,
+ "color": "#d1d1d6"
+ },
+ {
+ "id": "08ce8115-33de-447c-bae0-00761414a6ee",
+ "title": "Встречи по IDP",
+ "allDay": false,
+ "startDate": "2017-07-17T00:00:00",
+ "endDate": "2017-07-20T23:59:00",
+ "location": "",
+ "desc": "",
+ "organizer": "Абильмажинова Самал",
+ "isLongEvent": true,
+ "color": "#d1d1d6"
+ },
+ {
+ "id": "2b759b9b-f3c0-4d3d-858c-01787b61215d",
+ "title": "Посещение Дивизионом ИЖС проекта Зеленый квартал",
+ "allDay": false,
+ "startDate": "2016-05-26T09:00:00",
+ "endDate": "2016-05-26T10:00:00",
+ "location": "",
+ "desc": "<div></div>",
+ "organizer": "Ошаганова Махаббат",
+ "isLongEvent": false,
+ "color": "#108aeb"
+ },
+ {
+ "id": "76213fdc-0e2f-41d7-9354-0220b2424e75",
+ "title": "Расширенное заседание Совета Бизнес Партнеров",
+ "allDay": false,
+ "startDate": "2016-09-14T10:00:00",
+ "endDate": "2016-09-14T12:30:00",
+ "location": "",
+ "desc": "заседание, совещание, презентация",
+ "organizer": "Жусиева Айнура",
+ "isLongEvent": false,
+ "color": "#d1d1d6"
+ },
+ {
+ "id": "0d7f09ec-e454-4bda-b801-044ae3273e96",
+ "title": "Комиссионный обход на Зеленый Квартал блоки B8, B9, B10, B12, B13",
+ "allDay": false,
+ "startDate": "2017-05-15T05:00:00",
+ "endDate": "2017-05-15T14:00:00",
+ "location": "",
+ "desc": "Комиссионный обход (рабочая комиссия) объекта Зеленый Квартал",
+ "organizer": "Ермуханбетов Саят",
+ "isLongEvent": false,
+ "color": "#e91e63"
+ }
+ ]

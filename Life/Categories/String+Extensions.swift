@@ -8,6 +8,7 @@
 
 import Foundation
 import DateToolsSwift
+import Moya
 
 public extension String {
 
@@ -32,6 +33,14 @@ public extension String {
         }
 
         return date ?? Date()
+    }
+
+    public func multipartFormData(_ name: String) -> MultipartFormData {
+        let data = MultipartFormData(
+            provider: .data(self.utf8Encoded),
+            name: name
+        )
+        return data
     }
 
     public func prettyDateString(format: String) -> String {

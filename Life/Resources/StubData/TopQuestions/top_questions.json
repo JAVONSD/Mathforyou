@@ -1,0 +1,200 @@
+ [
+  {
+  "id": "fab0f64c-f660-4d68-9c81-b1c8ed96908e",
+  "createDate": "2018-02-26T12:11:37.29",
+  "text": "Мой тестовый вопрос",
+  "authorCode": "00-000485",
+  "authorName": "Карибекова Сана",
+  "likesQuantity": 1,
+  "isLikedByMe": true,
+  "canAnswer": true,
+  "answers": [
+              {
+              "id": "934ff6c9-59ea-4722-acfd-f37414acf55f",
+              "createDate": "2018-02-27T09:26:58.64",
+              "authorCode": "BIH000002",
+              "authorName": "Не найден",
+              "text": null,
+              "videoStreamId": "cb097968-bd47-42df-9e39-49e0fe6b81a5",
+              "likesQuantity": 1,
+              "isLikedByMe": true
+              },
+              {
+              "id": "3bcea3c8-a5fd-49ce-b068-3b46cd1adba2",
+              "createDate": "2018-02-27T09:25:47.197",
+              "authorCode": "BIH000002",
+              "authorName": "Не найден",
+              "text": null,
+              "videoStreamId": "c6c5a4b4-7d45-48ab-b580-926f5bbde5e9",
+              "likesQuantity": 0,
+              "isLikedByMe": false
+              },
+              {
+              "id": "081d8cf4-0a99-4905-8f96-478317d30122",
+              "createDate": "2018-02-27T09:24:39.173",
+              "authorCode": "BIH000002",
+              "authorName": "Не найден",
+              "text": null,
+              "videoStreamId": "5ce02858-03ea-47ad-b886-0a02e64b909b",
+              "likesQuantity": 1,
+              "isLikedByMe": true
+              },
+              {
+              "id": "2343aa08-8412-4092-9d20-677a99329dc1",
+              "createDate": "2018-02-27T00:48:48.083",
+              "authorCode": "BIH000002",
+              "authorName": "Не найден",
+              "text": null,
+              "videoStreamId": "e5f31cff-267e-4d0a-9c45-c999de9cc73d",
+              "likesQuantity": 1,
+              "isLikedByMe": true
+              },
+              {
+              "id": "0d413f9d-0dfe-4d17-9335-3276ac52b65e",
+              "createDate": "2018-02-27T00:13:23.02",
+              "authorCode": "BIH000002",
+              "authorName": "Не найден",
+              "text": null,
+              "videoStreamId": "9c54f155-4963-4780-b804-cce8fbd143dd",
+              "likesQuantity": 1,
+              "isLikedByMe": true
+              },
+              {
+              "id": "f5035efc-0786-4643-9a3c-414d3fc5f1d0",
+              "createDate": "2018-02-27T00:12:12.1",
+              "authorCode": "BIH000002",
+              "authorName": "Не найден",
+              "text": null,
+              "videoStreamId": "fdc1704f-2a32-411e-a96b-a42f2f147d7b",
+              "likesQuantity": 1,
+              "isLikedByMe": true
+              },
+              {
+              "id": "837c4016-a295-41fc-9912-671a0d9897bc",
+              "createDate": "2018-02-27T00:11:02.257",
+              "authorCode": "BIH000002",
+              "authorName": "Не найден",
+              "text": null,
+              "videoStreamId": "f7178ea1-14f0-4393-ae5f-847ad887e444",
+              "likesQuantity": 0,
+              "isLikedByMe": false
+              },
+              {
+              "id": "fa903141-44b5-4dd3-8d65-f3d2cec4fbcf",
+              "createDate": "2018-02-27T00:09:34.243",
+              "authorCode": "BIH000002",
+              "authorName": "Не найден",
+              "text": null,
+              "videoStreamId": "f8e59a7c-07d6-4ec1-ac38-64297009ce23",
+              "likesQuantity": 0,
+              "isLikedByMe": false
+              },
+              {
+              "id": "e3540315-e1fb-40e6-84ce-f8dc940a4a2c",
+              "createDate": "2018-02-26T23:56:12.22",
+              "authorCode": "BIH000002",
+              "authorName": "Не найден",
+              "text": null,
+              "videoStreamId": "75ad43ac-8085-4848-87cf-ad85c84bb9a8",
+              "likesQuantity": 0,
+              "isLikedByMe": false
+              },
+              {
+              "id": "6c05f9ca-83b5-47ff-b941-d5e158a0d406",
+              "createDate": "2018-02-26T18:42:52.25",
+              "authorCode": "KPO102505",
+              "authorName": "Жакупова Арайлым",
+              "text": null,
+              "videoStreamId": "5303e0c2-ffce-4872-8e8a-f6ddd8d7ceee",
+              "likesQuantity": 0,
+              "isLikedByMe": false
+              },
+              {
+              "id": "7f2ea256-c832-4e13-846e-22c6984cd8ca",
+              "createDate": "2018-02-26T18:19:48.757",
+              "authorCode": "00-000485",
+              "authorName": "Карибекова Сана",
+              "text": null,
+              "videoStreamId": "1d20b712-4511-487d-8732-273d451a6111",
+              "likesQuantity": 0,
+              "isLikedByMe": false
+              },
+              {
+              "id": "16a262a5-14c1-4b89-b627-c46ca11fc923",
+              "createDate": "2018-02-26T16:34:57.97",
+              "authorCode": "00-000485",
+              "authorName": "Карибекова Сана",
+              "text": null,
+              "videoStreamId": "c62269a7-c2cb-499f-bd4e-e88b074244ad",
+              "likesQuantity": 0,
+              "isLikedByMe": false
+              },
+              {
+              "id": "6dbbfdcb-904f-4712-8363-4e9cdaa8b410",
+              "createDate": "2018-02-26T15:37:22.063",
+              "authorCode": "00-000485",
+              "authorName": "Карибекова Сана",
+              "text": null,
+              "videoStreamId": "a113c2cf-908b-4655-82d1-b393a515b67b",
+              "likesQuantity": 0,
+              "isLikedByMe": false
+              },
+              {
+              "id": "8a13f3ee-e702-4f03-bccc-09476f71b78f",
+              "createDate": "2018-02-26T14:19:06.11",
+              "authorCode": "KPO102505",
+              "authorName": "Жакупова Арайлым",
+              "text": null,
+              "videoStreamId": "470a4cc1-ab09-48b9-b641-631268f48486",
+              "likesQuantity": 0,
+              "isLikedByMe": false
+              },
+              {
+              "id": "c8c80365-8ed1-4b4d-a0cf-f4768b06e6de",
+              "createDate": "2018-02-26T13:09:10.37",
+              "authorCode": "00-000485",
+              "authorName": "Карибекова Сана",
+              "text": null,
+              "videoStreamId": "3b98835e-9364-419d-b11d-4d60e43d2469",
+              "likesQuantity": 0,
+              "isLikedByMe": false
+              },
+              {
+              "id": "23c1e79f-6fc6-422b-abed-71c2913c84f1",
+              "createDate": "2018-02-26T12:25:11.543",
+              "authorCode": "00-000485",
+              "authorName": "Карибекова Сана",
+              "text": null,
+              "videoStreamId": "b932cdc5-6c9c-4c04-abe3-41bf50728c79",
+              "likesQuantity": 0,
+              "isLikedByMe": false
+              },
+              {
+              "id": "b2749510-2caa-4bc2-94d6-5df5a257bc84",
+              "createDate": "2018-02-26T12:22:56.077",
+              "authorCode": "00-000485",
+              "authorName": "Карибекова Сана",
+              "text": null,
+              "videoStreamId": "3222158b-e559-4d43-9ae5-05fb524f5394",
+              "likesQuantity": 0,
+              "isLikedByMe": false
+              },
+              {
+              "id": "f3193adf-9a50-4ad2-9567-8f83397d7fe0",
+              "createDate": "2018-02-26T12:13:31.92",
+              "authorCode": "00-000485",
+              "authorName": "Карибекова Сана",
+              "text": null,
+              "videoStreamId": "d04c11cf-557d-4a7e-862b-a88877a1966a",
+              "likesQuantity": 0,
+              "isLikedByMe": false
+              }
+              ],
+  "tags": [
+           {
+           "nsiTagId": "d42093da-4ac2-4c9d-8518-31b16dcb2ddc",
+           "name": "мой тэг"
+           }
+           ]
+  }
+  ]
