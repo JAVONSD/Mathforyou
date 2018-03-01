@@ -13,13 +13,11 @@ import RxCocoa
 
 struct BIOfficeViewModel: ViewModel {
 
-    // debug
-    var eventsViewModel = EventsViewModel.sample()
+    private(set) var eventsViewModel = EventsViewModel()
     private(set) var tasksAndRequestsViewModel: TasksAndRequestsViewModel
-
-    var kpiViewModel = KPIViewModel()
-    var sbvViewModel = SBViewModel()
-    var idpViewModel = IDPViewModel()
+    private(set) var kpiViewModel = KPIViewModel()
+    private(set) var sbvViewModel = SBViewModel()
+    private(set) var idpViewModel = IDPViewModel()
 
     private var disposeBag = DisposeBag()
 

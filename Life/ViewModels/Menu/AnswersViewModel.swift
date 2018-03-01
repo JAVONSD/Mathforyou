@@ -8,10 +8,76 @@
 
 import Foundation
 import IGListKit
+import Moya
+import RxSwift
 
 class AnswersViewModel: NSObject, ViewModel, ListDiffable {
-    var answers = [AnswerViewModel]()
+    private(set) var answers = [AnswerViewModel]()
+    private(set) var videoAnswers = [AnswerViewModel]()
     var minimized = true
+
+    private let disposeBag = DisposeBag()
+
+    let answersSubject = PublishSubject<[AnswerViewModel]>()
+    let videoAnswersSubject = PublishSubject<[AnswerViewModel]>()
+
+    private let provider = MoyaProvider<TopQuestionsService>(
+        plugins: [
+            AuthPlugin(tokenClosure: {
+                return User.current.token
+            })
+        ]
+    )
+
+    // MARK: - Methods
+
+    public func getAnswers(completion: @escaping ((Error?) -> Void)) {
+        provider
+            .rx
+            .request(.answers)
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                switch response {
+                case .success(let json):
+                    if let answers = try? JSONDecoder().decode([Answer].self, from: json.data) {
+                        self.answers = answers.map { AnswerViewModel(answer: $0) }
+
+                        completion(nil)
+                    } else {
+                        completion(nil)
+                    }
+                    self.answersSubject.onNext(self.answers)
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    public func getVideoAnswers(completion: @escaping ((Error?) -> Void)) {
+        provider
+            .rx
+            .request(.videoAnswers)
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                switch response {
+                case .success(let json):
+                    if let answers = try? JSONDecoder().decode([Answer].self, from: json.data) {
+                        self.videoAnswers = answers.map { AnswerViewModel(answer: $0) }
+
+                        completion(nil)
+                    } else {
+                        completion(nil)
+                    }
+                    self.videoAnswersSubject.onNext(self.videoAnswers)
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    // MARK: - ListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {
         return self

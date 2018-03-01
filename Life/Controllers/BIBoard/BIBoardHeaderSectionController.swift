@@ -10,24 +10,37 @@ import UIKit
 import AsyncDisplayKit
 import IGListKit
 import Moya
+import RxSwift
+import RxCocoa
 
 class BIBoardHeaderSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: NewsViewModel?
+    let disposeBag = DisposeBag()
 
     var onUnathorizedError: (() -> Void)?
+    var didSelectNews: ((String) -> Void)?
+
+    var sectionTimestamp: NSString {
+        return NSString(string: UUID().uuidString)
+    }
+
+    private var loading = BehaviorRelay(value: false)
 
     init(viewModel: NewsViewModel) {
         self.viewModel = viewModel
 
         super.init()
+
+        viewModel.loadingTop3.bind(to: loading).disposed(by: disposeBag)
+        viewModel.top3NewsObservable.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.set(items: [self.sectionTimestamp], animated: false, completion: nil)
+        }).disposed(by: disposeBag)
     }
 
     override func didUpdate(to object: Any) {
         viewModel = object as? NewsViewModel
-
-        guard let viewModel = self.viewModel else { return }
-
-        set(items: [viewModel], animated: false, completion: nil)
+        set(items: [sectionTimestamp], animated: false, completion: nil)
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
@@ -39,47 +52,52 @@ class BIBoardHeaderSectionController: ASCollectionSectionController {
     }
 
     override func didSelectItem(at index: Int) {
-        print("Selected item at index - \(index)")
     }
 }
 
 extension BIBoardHeaderSectionController: ASSectionController {
     func nodeBlockForItem(at index: Int) -> ASCellNodeBlock {
-        guard index < items.count,
-            let viewModel = items[index] as? NewsViewModel else {
-                return {
-                    return ASCellNode()
-                }
+        guard let viewModel = viewModel else {
+            return {
+                return ASCellNode()
+            }
         }
 
         return {
-            let slides = viewModel.news.map {
-                //swiftlint:disable line_length
+            let slides = viewModel.top3News.map { (viewModel) -> SliderViewModel in
+                var image = viewModel.news.imageStreamId ?? ""
+                if image.isEmpty {
+                    image = viewModel.news.imageUrl
+                }
                 return SliderViewModel(
-                    title: $0.news.title,
+                    title: viewModel.news.title,
                     label: NSLocalizedString("news", comment: "").uppercased(),
-                    image: "https://images.pexels.com/photos/60006/spring-tree-flowers-meadow-60006.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb"
+                    image: image
                 )
-                //swiftlint:enable line_length
             }
-            return BoardSliderCell(slides: slides, height: 200)
+
+            let cell = BoardSliderCell(
+                slides: slides,
+                height: 200,
+                hideSpinner: !self.loading.value
+            )
+            cell.didSelectSlide = { index in
+                if let didSelectNews = self.didSelectNews {
+                    didSelectNews(viewModel.top3News[index].news.id)
+                }
+            }
+
+            return cell
         }
     }
 
     func beginBatchFetch(with context: ASBatchContext) {
-        DispatchQueue.main.async { [weak self] in
-            guard let `self` = self,
-                let viewModel = self.viewModel else { return }
-            self.set(items: [viewModel], animated: false, completion: {
-                context.completeBatchFetching(true)
-            })
-        }
+        context.completeBatchFetching(true)
     }
 
     func shouldBatchFetch() -> Bool {
         return false
     }
-
 }
 
 extension BIBoardHeaderSectionController: RefreshingSectionControllerType {

@@ -13,13 +13,11 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class BirthdaysViewController: UIViewController, ViewModelBased {
-
-    typealias ViewModelType = BirthdaysViewModel
+class BirthdaysViewController: UIViewController {
 
     var onUnathorizedError: (() -> Void)?
 
-    var viewModel: BirthdaysViewModel!
+    weak var viewModel: BirthdaysViewModel?
     var didSelectBirthdate: ((Employee) -> Void)?
 
     private var employeesView: EmployeesView!
@@ -63,6 +61,16 @@ class BirthdaysViewController: UIViewController, ViewModelBased {
         }
     )
 
+    init(viewModel: BirthdaysViewModel) {
+        self.viewModel = viewModel
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -70,7 +78,7 @@ class BirthdaysViewController: UIViewController, ViewModelBased {
         bind()
 
         employeesView.startLoading()
-        viewModel.getBirthdays { [weak self] error in
+        viewModel?.getBirthdays { [weak self] error in
             guard let `self` = self
                 else { return }
 
@@ -87,12 +95,12 @@ class BirthdaysViewController: UIViewController, ViewModelBased {
     // MARK: - Bind
 
     private func bind() {
-        guard let tableView = employeesView.tableView else { return }
+        guard let tableView = employeesView.tableView,
+            let viewModel = viewModel else { return }
 
         let dataSource = self.dataSource
 
-        let observable = viewModel.itemsChangeSubject.asObservable()
-        let items = observable.concatMap { (items) in
+        let items = viewModel.employeesToShow.concatMap { (items) in
             return Observable.just([SectionModel(model: self.viewModel!, items: items)])
         }
 
@@ -139,7 +147,7 @@ class BirthdaysViewController: UIViewController, ViewModelBased {
         employeesView = EmployeesView(frame: .zero)
         employeesView.searchView?.didType = { [weak self] text in
             guard let `self` = self else { return }
-            self.viewModel.filter(with: text)
+            self.viewModel?.filter(with: text)
         }
         view.addSubview(employeesView)
         employeesView.snp.makeConstraints({ [weak self] (make) in

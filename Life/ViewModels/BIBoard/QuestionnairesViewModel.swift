@@ -8,10 +8,76 @@
 
 import Foundation
 import IGListKit
+import Moya
+import RxSwift
 
 class QuestionnairesViewModel: NSObject, ListDiffable {
     var questionnaires = [QuestionnaireViewModel]()
+    var popularQuestionnaires = [QuestionnaireViewModel]()
     var minimized = true
+
+    private let disposeBag = DisposeBag()
+
+    let questionnairesSubject = PublishSubject<[QuestionnaireViewModel]>()
+    let popularQuestionnairesSubject = PublishSubject<[QuestionnaireViewModel]>()
+
+    private let provider = MoyaProvider<QuestionnairesService>(
+        plugins: [
+            AuthPlugin(tokenClosure: {
+                return User.current.token
+            })
+        ]
+    )
+
+    // MARK: - Methods
+
+    public func getSuggestions(completion: @escaping ((Error?) -> Void)) {
+        provider
+            .rx
+            .request(.questionnaires)
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                switch response {
+                case .success(let json):
+                    if let questionnaires = try? JSONDecoder().decode([Questionnaire].self, from: json.data) {
+                        self.questionnaires = questionnaires.map { QuestionnaireViewModel(questionnaire: $0) }
+
+                        completion(nil)
+                    } else {
+                        completion(nil)
+                    }
+                    self.questionnairesSubject.onNext(self.questionnaires)
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    public func getPopularSuggestions(completion: @escaping ((Error?) -> Void)) {
+        provider
+            .rx
+            .request(.popularQuestionnaires)
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                switch response {
+                case .success(let json):
+                    if let questionnaires = try? JSONDecoder().decode([Questionnaire].self, from: json.data) {
+                        self.popularQuestionnaires = questionnaires.map { QuestionnaireViewModel(questionnaire: $0) }
+
+                        completion(nil)
+                    } else {
+                        completion(nil)
+                    }
+                    self.popularQuestionnairesSubject.onNext(self.popularQuestionnaires)
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    // MARK: - ListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {
         return self

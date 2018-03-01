@@ -12,8 +12,98 @@ import Moya
 import RxSwift
 
 class NewsViewModel: NSObject, ListDiffable {
-    var news = [NewsItemViewModel]()
+    private(set) var news = [NewsItemViewModel]()
+    private(set) var popularNews = [NewsItemViewModel]()
+    private(set) var top3News = [NewsItemViewModel]()
     var minimized = true
+
+    private let disposeBag = DisposeBag()
+
+    private let popularNewsSubject = PublishSubject<[NewsItemViewModel]>()
+    var popularNewsObservable: Observable<[NewsItemViewModel]> { return popularNewsSubject.asObservable() }
+
+    private let top3NewsSubject = PublishSubject<[NewsItemViewModel]>()
+    var top3NewsObservable: Observable<[NewsItemViewModel]> { return top3NewsSubject.asObservable() }
+
+    private let loadingPopularSubject = PublishSubject<Bool>()
+    var loadingPopular: Observable<Bool> { return loadingPopularSubject.asObservable() }
+
+    private let loadingTop3Subject = PublishSubject<Bool>()
+    var loadingTop3: Observable<Bool> { return loadingTop3Subject.asObservable() }
+
+    private let provider = MoyaProvider<NewsService>(
+        plugins: [
+            AuthPlugin(tokenClosure: {
+                return User.current.token
+            })
+        ]
+    )
+
+    // MARK: - Methods
+
+    public func getPopularNews(completion: @escaping ((Error?) -> Void)) {
+        loadingPopularSubject.onNext(true)
+        provider
+            .rx
+            .request(.popularNews)
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                self.loadingPopularSubject.onNext(false)
+                switch response {
+                case .success(let json):
+                    if let news = try? JSONDecoder().decode([News].self, from: json.data) {
+                        self.popularNews = news.map { NewsItemViewModel(news: $0) }
+
+                        completion(nil)
+                    } else {
+                        completion(nil)
+                    }
+                    self.popularNewsSubject.onNext(self.popularNews)
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    public func getTop3News(completion: @escaping ((Error?) -> Void)) {
+        loadingTop3Subject.onNext(true)
+        provider
+            .rx
+            .request(.topNews(top: 10))
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                self.loadingTop3Subject.onNext(false)
+                switch response {
+                case .success(let json):
+                    if let news = try? JSONDecoder().decode([News].self, from: json.data) {
+                        let news = news.map { NewsItemViewModel(news: $0) }
+                        let newsWithImage = news.filter { viewModel in
+                            var image = viewModel.news.imageStreamId ?? ""
+                            if image.isEmpty {
+                                image = viewModel.news.imageUrl
+                            }
+                            return !image.isEmpty
+                        }
+
+                        self.top3News = []
+                        for i in 0..<min(3, newsWithImage.count) {
+                            self.top3News.append(newsWithImage[i])
+                        }
+
+                        completion(nil)
+                    } else {
+                        completion(nil)
+                    }
+                    self.top3NewsSubject.onNext(self.top3News)
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    // MARK: - ListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {
         return self

@@ -12,8 +12,72 @@ import Moya
 import RxSwift
 
 class SuggestionsViewModel: NSObject, ListDiffable {
-    var suggestions = [SuggestionItemViewModel]()
+    private(set) var suggestions = [SuggestionItemViewModel]()
+    private(set) var popularSuggestions = [SuggestionItemViewModel]()
     var minimized = true
+
+    private let disposeBag = DisposeBag()
+
+    let suggestionsSubject = PublishSubject<[SuggestionItemViewModel]>()
+    let popularSuggestionsSubject = PublishSubject<[SuggestionItemViewModel]>()
+
+    private let provider = MoyaProvider<SuggestionsService>(
+        plugins: [
+            AuthPlugin(tokenClosure: {
+                return User.current.token
+            })
+        ]
+    )
+
+    // MARK: - Methods
+
+    public func getSuggestions(completion: @escaping ((Error?) -> Void)) {
+        provider
+            .rx
+            .request(.suggestions)
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                switch response {
+                case .success(let json):
+                    if let suggestions = try? JSONDecoder().decode([Suggestion].self, from: json.data) {
+                        self.suggestions = suggestions.map { SuggestionItemViewModel(suggestion: $0) }
+
+                        completion(nil)
+                    } else {
+                        completion(nil)
+                    }
+                    self.suggestionsSubject.onNext(self.suggestions)
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    public func getPopularSuggestions(completion: @escaping ((Error?) -> Void)) {
+        provider
+            .rx
+            .request(.popularSuggestions)
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                switch response {
+                case .success(let json):
+                    if let suggestions = try? JSONDecoder().decode([Suggestion].self, from: json.data) {
+                        self.popularSuggestions = suggestions.map { SuggestionItemViewModel(suggestion: $0) }
+
+                        completion(nil)
+                    } else {
+                        completion(nil)
+                    }
+                    self.popularSuggestionsSubject.onNext(self.popularSuggestions)
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    // MARK: - ListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {
         return self

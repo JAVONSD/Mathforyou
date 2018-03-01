@@ -7,11 +7,59 @@
 //
 
 import Foundation
+import DateToolsSwift
 import IGListKit
+import Moya
+import RxSwift
 
 class EventsViewModel: NSObject, ListDiffable {
-    var events = [EventItemViewModel]()
+    private(set) var events = [EventItemViewModel]()
     var minimized = true
+
+    let disposeBag = DisposeBag()
+
+    private let eventsSubject = PublishSubject<[EventItemViewModel]>()
+    var eventsObservable: Observable<[EventItemViewModel]> { return eventsSubject.asObservable() }
+
+    private let loadingSubject = PublishSubject<Bool>()
+    var loading: Observable<Bool> { return loadingSubject.asObservable() }
+
+    private let provider = MoyaProvider<EventsService>(
+        plugins: [
+            AuthPlugin(tokenClosure: {
+                return User.current.token
+            })
+        ]
+    )
+
+    // MARK: - Methods
+
+    public func getMine(completion: @escaping ((Error?) -> Void)) {
+        loadingSubject.onNext(true)
+        provider
+            .rx
+            .request(.mine(start: 1.months.earlier, end: 1.months.later))
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                self.loadingSubject.onNext(false)
+                switch response {
+                case .success(let json):
+                    if let eventItems = try? JSONDecoder().decode([Event].self, from: json.data) {
+                        let items = eventItems.map { EventItemViewModel(event: $0) }
+                        self.events = items
+                        completion(nil)
+                    } else {
+                        completion(nil)
+                    }
+                    self.eventsSubject.onNext(self.events)
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    // MARK: - ListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {
         return self

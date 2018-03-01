@@ -8,12 +8,23 @@
 
 import UIKit
 import AsyncDisplayKit
+import NVActivityIndicatorView
+import RxSwift
 
 class BoardSliderCell: ASCellNode {
+
+    let disposeBag = DisposeBag()
 
     private(set) var collectionNode: ASCollectionNode!
     private(set) var pageNode: ASDisplayNode!
     private(set) var pageControl: UIPageControl!
+
+    private(set) var spinnerNode: ASDisplayNode!
+    private(set) lazy var spinner = NVActivityIndicatorView(
+        frame: .init(x: 0, y: 0, width: 44, height: 44),
+        type: .circleStrokeSpin,
+        color: App.Color.azure,
+        padding: 0)
 
     private(set) var slides: [SliderViewModel]
     private(set) var height: CGFloat
@@ -28,7 +39,8 @@ class BoardSliderCell: ASCellNode {
     init(slides: [SliderViewModel],
          height: CGFloat,
          layout: UICollectionViewFlowLayout? = nil,
-         slidesCornerRadius: CGFloat = 0) {
+         slidesCornerRadius: CGFloat = 0,
+         hideSpinner: Bool = true) {
         self.slides = slides
         self.height = height
         self.slidesCornerRadius = slidesCornerRadius
@@ -68,6 +80,17 @@ class BoardSliderCell: ASCellNode {
             height: pageControlHeight
         )
         addSubnode(pageNode)
+
+        spinnerNode = ASDisplayNode(viewBlock: { () -> UIView in
+            if !hideSpinner {
+                self.spinner.startAnimating()
+            }
+            return self.spinner
+        })
+        spinnerNode.backgroundColor = .clear
+        spinnerNode.style.preferredSize = CGSize(width: 44, height: 44)
+        spinnerNode.isHidden = hideSpinner
+        addSubnode(spinnerNode)
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -88,7 +111,12 @@ class BoardSliderCell: ASCellNode {
             height: height
         )
 
-        return verticalStack
+        let spinnerSpec = ASStackLayoutSpec.vertical()
+        spinnerSpec.children = [spinnerNode]
+        spinnerSpec.alignItems = .center
+        spinnerSpec.justifyContent = .center
+
+        return ASOverlayLayoutSpec(child: verticalStack, overlay: spinnerSpec)
     }
 
     override func didLoad() {

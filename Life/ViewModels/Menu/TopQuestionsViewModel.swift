@@ -33,6 +33,8 @@ class TopQuestionsViewModel: NSObject, ViewModel, ListDiffable {
         })
     }
 
+    // MARK: - ListDiffable
+
     func diffIdentifier() -> NSObjectProtocol {
         return self
     }

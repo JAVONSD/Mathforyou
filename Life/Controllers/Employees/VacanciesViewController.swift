@@ -13,13 +13,11 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class VacanciesViewController: UIViewController, ViewModelBased {
-
-    typealias ViewModelType = VacanciesViewModel
+class VacanciesViewController: UIViewController {
 
     var onUnathorizedError: (() -> Void)?
 
-    var viewModel: VacanciesViewModel!
+    weak var viewModel: VacanciesViewModel?
     var didSelectVacancy: ((String) -> Void)?
 
     private var employeesView: EmployeesView!
@@ -62,6 +60,15 @@ class VacanciesViewController: UIViewController, ViewModelBased {
         }
     )
 
+    init(viewModel: VacanciesViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -69,7 +76,7 @@ class VacanciesViewController: UIViewController, ViewModelBased {
         bind()
 
         employeesView.startLoading()
-        viewModel.getVacancies { [weak self] error in
+        viewModel?.getVacancies { [weak self] error in
             guard let `self` = self
                 else { return }
 
@@ -86,7 +93,8 @@ class VacanciesViewController: UIViewController, ViewModelBased {
     // MARK: - Bind
 
     private func bind() {
-        guard let tableView = employeesView.tableView else { return }
+        guard let tableView = employeesView.tableView,
+            let viewModel = viewModel else { return }
 
         let dataSource = self.dataSource
 
@@ -138,7 +146,7 @@ class VacanciesViewController: UIViewController, ViewModelBased {
         employeesView = EmployeesView(frame: .zero)
         employeesView.searchView?.didType = { [weak self] text in
             guard let `self` = self else { return }
-            self.viewModel.filter(with: text)
+            self.viewModel?.filter(with: text)
         }
         view.addSubview(employeesView)
         employeesView.snp.makeConstraints({ [weak self] (make) in

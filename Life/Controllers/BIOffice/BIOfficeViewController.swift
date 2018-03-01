@@ -10,6 +10,7 @@ import UIKit
 import AsyncDisplayKit
 import IGListKit
 import Material
+import Moya
 import RxSwift
 import SnapKit
 
@@ -70,6 +71,7 @@ class BIOfficeViewController: ASViewController<ASCollectionNode> {
         refreshCtrl.tintColor = App.Color.azure
         collectionNode.view.addSubview(refreshCtrl)
 
+        setupBindings()
         getData()
     }
 
@@ -86,7 +88,21 @@ class BIOfficeViewController: ASViewController<ASCollectionNode> {
     // MARK: - Methods
 
     private func getData() {
+        viewModel.eventsViewModel.getMine { error in
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401,
+                let onUnathorizedError = self.onUnathorizedError {
+                onUnathorizedError()
+            }
+        }
         viewModel.tasksAndRequestsViewModel.getAllTasksAndRequests()
+    }
+
+    private func setupBindings() {
+        viewModel.eventsViewModel.eventsObservable.subscribe(onNext: { [weak self] items in
+            print("Number of items - \(items.count)")
+            self?.collectionNode.reloadSections(IndexSet(integer: 0))
+        }).disposed(by: disposeBag)
     }
 
     @objc

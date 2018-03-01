@@ -9,17 +9,21 @@
 import Foundation
 import Moya
 import RxSwift
+import RxCocoa
 
 class BirthdaysViewModel: NSObject, ViewModel {
 
-    private(set) var employees = [EmployeeViewModel]()
-    private(set) var filteredEmployees = [EmployeeViewModel]()
+    private var employees = [EmployeeViewModel]()
 
-    private(set) var loading = false
-    private(set) var canLoadMore = true
+    private let loadingSubject = PublishSubject<Bool>()
+    var loading: Observable<Bool> { return loadingSubject.asObservable() }
 
     private let disposeBag = DisposeBag()
-    let itemsChangeSubject = PublishSubject<[EmployeeViewModel]>()
+
+    private let employeesToShowSubject = PublishSubject<[EmployeeViewModel]>()
+    var employeesToShow: Observable<[EmployeeViewModel]> { return employeesToShowSubject.asObservable() }
+
+    let filterText = BehaviorRelay(value: "")
 
     private let provider = MoyaProvider<EmployeesService>(
         plugins: [
@@ -29,36 +33,35 @@ class BirthdaysViewModel: NSObject, ViewModel {
         ]
     )
 
-    init(employees: [EmployeeViewModel]) {
+    convenience init(employees: [EmployeeViewModel]) {
+        self.init()
         self.employees = employees
     }
 
     // MARK: - Methods
 
     public func getBirthdays(completion: @escaping ((Error?) -> Void)) {
+        loadingSubject.onNext(true)
         provider
             .rx
             .request(.birthdays)
             .filterSuccessfulStatusCodes()
             .subscribe { response in
-                self.loading = false
-                self.canLoadMore = false
-
+                self.loadingSubject.onNext(false)
                 switch response {
                 case .success(let json):
                     if let lentaItems = try? JSONDecoder().decode([Employee].self, from: json.data) {
                         let items = lentaItems.map { EmployeeViewModel(employee: $0) }
                         self.employees = items
-                        self.filteredEmployees = items
 
                         completion(nil)
                     } else {
                         completion(nil)
                     }
-                    self.itemsChangeSubject.onNext(self.employees)
+                    self.employeesToShowSubject.onNext(self.employees)
                 case .error(let error):
                     completion(error)
-                    self.itemsChangeSubject.onNext(self.employees)
+                    self.employeesToShowSubject.onNext(self.employees)
                 }
             }
             .disposed(by: disposeBag)
@@ -66,14 +69,13 @@ class BirthdaysViewModel: NSObject, ViewModel {
 
     public func filter(with text: String) {
         if text.isEmpty {
-            itemsChangeSubject.onNext(employees)
+            employeesToShowSubject.onNext(employees)
             return
         }
 
         DispatchQueue.global().async {
             let text = text.lowercased()
-
-            self.filteredEmployees = self.employees.filter({ (employeeViewModel) -> Bool in
+            let filteredEmployees = self.employees.filter({ (employeeViewModel) -> Bool in
                 var include = false
                 include = include
                     || employeeViewModel.employee.fullname.lowercased().contains(text)
@@ -118,7 +120,7 @@ class BirthdaysViewModel: NSObject, ViewModel {
             })
 
             DispatchQueue.main.async {
-                self.itemsChangeSubject.onNext(self.filteredEmployees)
+                self.employeesToShowSubject.onNext(filteredEmployees)
             }
         }
     }

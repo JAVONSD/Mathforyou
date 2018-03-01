@@ -85,19 +85,12 @@ extension EventsSectionController: ASSectionController {
     }
 
     func beginBatchFetch(with context: ASBatchContext) {
-        DispatchQueue.main.async { [weak self] in
-            guard let `self` = self,
-                let viewModel = self.viewModel else { return }
-            self.set(items: [viewModel], animated: false, completion: {
-                context.completeBatchFetching(true)
-            })
-        }
+        context.completeBatchFetching(true)
     }
 
     func shouldBatchFetch() -> Bool {
         return false
     }
-
 }
 
 extension EventsSectionController: RefreshingSectionControllerType {

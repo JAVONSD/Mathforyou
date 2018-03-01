@@ -14,7 +14,6 @@ import RxSwift
 class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
     private(set) var employees = [EmployeeViewModel]()
     private(set) var filteredEmployees = [EmployeeViewModel]()
-    var minimized = true
 
     private(set) var loading = false
     private(set) var canLoadMore = true

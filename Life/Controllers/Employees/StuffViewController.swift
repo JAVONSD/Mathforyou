@@ -19,15 +19,13 @@ class StuffViewController: TabsController {
 
     private var previousShadowHidden = false
 
-    init(employeesViewModel: EmployeesViewModel,
-         birthdaysViewModel: BirthdaysViewModel,
-         vacanciesViewModel: VacanciesViewModel) {
-        let vc1 = EmployeesViewController.instantiate(withViewModel: employeesViewModel)
+    init(stuffViewModel: StuffViewModel) {
+        let vc1 = EmployeesViewController(viewModel: stuffViewModel.employeesViewModel)
 
-        let vc2 = BirthdaysViewController.instantiate(withViewModel: birthdaysViewModel)
+        let vc2 = BirthdaysViewController(viewModel: stuffViewModel.birthdaysViewModel)
         vc2.onUnathorizedError = onUnathorizedError
 
-        let vc3 = VacanciesViewController.instantiate(withViewModel: vacanciesViewModel)
+        let vc3 = VacanciesViewController(viewModel: stuffViewModel.vacanciesViewModel)
 
         super.init(viewControllers: [vc1, vc2, vc3], selectedIndex: 0)
 

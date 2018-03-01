@@ -13,13 +13,11 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class EmployeesViewController: UIViewController, ViewModelBased {
-
-    typealias ViewModelType = EmployeesViewModel
+class EmployeesViewController: UIViewController {
 
     var onUnathorizedError: (() -> Void)?
 
-    var viewModel: EmployeesViewModel!
+    weak var viewModel: EmployeesViewModel?
     var didSelectEmployee: ((Employee) -> Void)?
 
     private var employeesView: EmployeesView!
@@ -63,6 +61,16 @@ class EmployeesViewController: UIViewController, ViewModelBased {
         }
     )
 
+    init(viewModel: EmployeesViewModel) {
+        self.viewModel = viewModel
+
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -70,7 +78,7 @@ class EmployeesViewController: UIViewController, ViewModelBased {
         bind()
 
         employeesView.startLoading()
-        viewModel.getEmployees { [weak self] error in
+        viewModel?.getEmployees { [weak self] error in
             guard let `self` = self
                 else { return }
 
@@ -87,7 +95,8 @@ class EmployeesViewController: UIViewController, ViewModelBased {
     // MARK: - Bind
 
     private func bind() {
-        guard let tableView = employeesView.tableView else { return }
+        guard let tableView = employeesView.tableView,
+            let viewModel = viewModel else { return }
 
         let dataSource = self.dataSource
 
@@ -139,7 +148,7 @@ class EmployeesViewController: UIViewController, ViewModelBased {
         employeesView = EmployeesView(frame: .zero)
         employeesView.searchView?.didType = { [weak self] text in
             guard let `self` = self else { return }
-            self.viewModel.filter(with: text)
+            self.viewModel?.filter(with: text)
         }
         view.addSubview(employeesView)
         employeesView.snp.makeConstraints({ [weak self] (make) in

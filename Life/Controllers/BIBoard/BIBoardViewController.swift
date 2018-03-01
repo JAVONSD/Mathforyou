@@ -10,6 +10,8 @@ import UIKit
 import AsyncDisplayKit
 import IGListKit
 import Material
+import Moya
+import RxSwift
 import SnapKit
 
 class BIBoardViewController: ASViewController<ASCollectionNode> {
@@ -22,9 +24,12 @@ class BIBoardViewController: ASViewController<ASCollectionNode> {
 
     var viewModel: BIBoardViewModel!
 
+    let disposeBag = DisposeBag()
+
     var onUnathorizedError: (() -> Void)?
     var didTapTop7: ((String) -> Void)?
     var didTapAddSuggestion: (() -> Void)?
+    var didSelectNews: ((String) -> Void)?
 
     init() {
         let layout = UICollectionViewFlowLayout()
@@ -68,9 +73,20 @@ class BIBoardViewController: ASViewController<ASCollectionNode> {
         refreshCtrl.addTarget(self, action: #selector(refreshFeed), for: .valueChanged)
         refreshCtrl.tintColor = App.Color.azure
         collectionNode.view.addSubview(refreshCtrl)
+
+        getData()
     }
 
     // MARK: - Methods
+
+    private func getData() {
+        viewModel.newsViewModel.getTop3News { [weak self] error in
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401 {
+                self?.onUnauthorized()
+            }
+        }
+    }
 
     @objc
     private func refreshFeed() {
@@ -101,7 +117,7 @@ extension BIBoardViewController: ListAdapterDataSource {
             viewModel.newsViewModel,
             viewModel.suggestionsViewModel,
             viewModel.questionnairesViewModel,
-            viewModel.employeesViewModel,
+            viewModel.stuffViewModel,
             viewModel.topQuestionsViewModel
         ]
     }
@@ -113,6 +129,7 @@ extension BIBoardViewController: ListAdapterDataSource {
                 guard let `self` = self else { return }
                 self.onUnauthorized()
             }
+            section.didSelectNews = didSelectNews
             return section
         } else if let viewModel = object as? SuggestionsViewModel {
             let section = SuggestionsSectionController(viewModel: viewModel)
@@ -129,7 +146,7 @@ extension BIBoardViewController: ListAdapterDataSource {
                 self.onUnauthorized()
             }
             return section
-        } else if let viewModel = object as? EmployeesViewModel {
+        } else if let viewModel = object as? StuffViewModel {
             let section = EmployeesSectionController(viewModel: viewModel)
             section.onUnathorizedError = { [weak self] in
                 guard let `self` = self else { return }

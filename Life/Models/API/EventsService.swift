@@ -40,16 +40,17 @@ extension EventsService: AuthorizedTargetType {
     var task: Moya.Task {
         switch self {
         case .history,
-             .company:
+             .company,
+             .mine:
             return .requestPlain
-        case let .mine(start, end):
-            return .requestParameters(
-                parameters: [
-                    "start": start.serverDate,
-                    "end": end.serverDate
-                ],
-                encoding: URLEncoding.default
-            )
+//        case let .mine(start, end):
+//            return .requestParameters(
+//                parameters: [
+//                    "start": start.serverDate,
+//                    "end": end.serverDate
+//                ],
+//                encoding: URLEncoding.default
+//            )
         }
     }
 

@@ -12,6 +12,7 @@ import Material
 class MainMenuFlow: Flow {
 
     private lazy var tasksAndRequestsViewModel = TasksAndRequestsViewModel()
+    private lazy var stuffViewModel = StuffViewModel()
 
     var root: Presentable {
         return self.rootViewController
@@ -285,6 +286,9 @@ class MainMenuFlow: Flow {
         biBoardVC.didTapAddSuggestion = {
             self.rootViewController.step.accept(AppStep.createSuggestion)
         }
+        biBoardVC.didSelectNews = { newsId in
+            self.rootViewController.step.accept(AppStep.newsPicked(withId: newsId))
+        }
         return biBoardVC
     }
 
@@ -322,11 +326,7 @@ class MainMenuFlow: Flow {
     }
 
     private func configuredStuff() -> StuffViewController {
-        let stuffVC = StuffViewController(
-            employeesViewModel: EmployeesViewModel(),
-            birthdaysViewModel: BirthdaysViewModel(employees: []),
-            vacanciesViewModel: VacanciesViewModel()
-        )
+        let stuffVC = StuffViewController(stuffViewModel: stuffViewModel)
         stuffVC.didSelectEmployee = { employee in
             self.rootViewController.step.accept(AppStep.employeePicked(employee: employee))
         }

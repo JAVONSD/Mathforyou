@@ -8,10 +8,51 @@
 
 import Foundation
 import IGListKit
+import Moya
+import RxSwift
 
 class QuestionsViewModel: NSObject, ViewModel, ListDiffable {
-    var questions = [QuestionItemViewModel]()
+    private(set) var questions = [QuestionItemViewModel]()
     var minimized = true
+
+    private let disposeBag = DisposeBag()
+
+    let questionsSubject = PublishSubject<[QuestionItemViewModel]>()
+
+    private let provider = MoyaProvider<TopQuestionsService>(
+        plugins: [
+            AuthPlugin(tokenClosure: {
+                return User.current.token
+            })
+        ]
+    )
+
+    // MARK: - Methods
+
+    public func getQuestions(completion: @escaping ((Error?) -> Void)) {
+        provider
+            .rx
+            .request(.topQuestions)
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                switch response {
+                case .success(let json):
+                    if let questions = try? JSONDecoder().decode([Question].self, from: json.data) {
+                        self.questions = questions.map { QuestionItemViewModel(question: $0) }
+
+                        completion(nil)
+                    } else {
+                        completion(nil)
+                    }
+                    self.questionsSubject.onNext(self.questions)
+                case .error(let error):
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    // MARK: - ListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {
         return self

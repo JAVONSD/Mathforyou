@@ -124,6 +124,7 @@ class SuggestionBodyNode: ASDisplayNode {
             return self.spinner
         })
         spinnerNode.backgroundColor = .clear
+        spinnerNode.style.preferredSize = CGSize(width: 24, height: 24)
         addSubnode(spinnerNode)
     }
 

@@ -13,19 +13,10 @@ import RxCocoa
 
 struct BIBoardViewModel: ViewModel {
 
-    // debug
-    var newsViewModel = NewsViewModel.sample()
-    var suggestionsViewModel = SuggestionsViewModel.sample()
-    var questionnairesViewModel = QuestionnairesViewModel.sample()
-    var employeesViewModel = EmployeesViewModel.sample()
-    var topQuestionsViewModel = TopQuestionsViewModel.sample()
-
-    private var disposeBag = DisposeBag()
-
-    private let provider = MoyaProvider<UserProfileService>(plugins: [AuthPlugin(tokenClosure: {
-        return User.current.token
-    })])
-
-    // MARK: - Methods
+    private(set) var newsViewModel = NewsViewModel()
+    private(set) var suggestionsViewModel = SuggestionsViewModel()
+    private(set) var questionnairesViewModel = QuestionnairesViewModel()
+    private(set) var stuffViewModel = StuffViewModel()
+    private(set) var topQuestionsViewModel = TopQuestionsViewModel()
 
 }

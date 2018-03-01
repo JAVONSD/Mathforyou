@@ -27,7 +27,7 @@ class NewsHeaderNode: ASDisplayNode {
     private var images: [String] {
         var items = news.secondaryImages.map { $0.streamId }
         if !news.imageUrl.isEmpty {
-            items += [news.imageUrl]
+            items.insert(news.imageUrl, at: 0)
         }
         return items
     }

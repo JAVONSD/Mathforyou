@@ -12,18 +12,18 @@ import IGListKit
 import Moya
 
 class EmployeesSectionController: ASCollectionSectionController {
-    private(set) weak var viewModel: EmployeesViewModel?
+    private(set) weak var viewModel: StuffViewModel?
 
     var onUnathorizedError: (() -> Void)?
 
-    init(viewModel: EmployeesViewModel) {
+    init(viewModel: StuffViewModel) {
         self.viewModel = viewModel
 
         super.init()
     }
 
     override func didUpdate(to object: Any) {
-        self.viewModel = object as? EmployeesViewModel
+        self.viewModel = object as? StuffViewModel
 
         guard let viewModel = self.viewModel else {
             return
@@ -32,7 +32,7 @@ class EmployeesSectionController: ASCollectionSectionController {
         var items = [ListDiffable]()
         items.append(DateCell())
         if !viewModel.minimized {
-            items.append(contentsOf: viewModel.employees as [ListDiffable])
+            items.append(contentsOf: viewModel.allItems)
         }
 
         set(items: items, animated: false, completion: nil)
@@ -53,13 +53,13 @@ class EmployeesSectionController: ASCollectionSectionController {
 
     private func toggle() {
         if let viewModel = self.viewModel,
-            !viewModel.employees.isEmpty {
+            !viewModel.allItems.isEmpty {
             viewModel.minimized = !viewModel.minimized
 
             var items = [ListDiffable]()
             items.append(DateCell())
             if !viewModel.minimized {
-                items.append(contentsOf: viewModel.employees as [ListDiffable])
+                items.append(contentsOf: viewModel.allItems)
             }
 
             set(items: items, animated: false, completion: nil)
@@ -68,7 +68,7 @@ class EmployeesSectionController: ASCollectionSectionController {
 }
 
 extension EmployeesSectionController: ASSectionController {
-    private func dashboardCell(_ viewModel: EmployeesViewModel) -> () -> ASCellNode {
+    private func dashboardCell(_ viewModel: StuffViewModel) -> () -> ASCellNode {
         return {
             let corners = viewModel.minimized
                 ? UIRectCorner.allCorners
@@ -119,10 +119,10 @@ extension EmployeesSectionController: ASSectionController {
                     : ItemCell.SeparatorInset(
                         left: App.Layout.itemSpacingMedium,
                         right: App.Layout.itemSpacingMedium)
-                let bottomInset: CGFloat = index == viewModel.employees.count
+                let bottomInset: CGFloat = index == viewModel.allItems.count
                     ? App.Layout.itemSpacingMedium
                     : App.Layout.itemSpacingSmall
-                let corners: UIRectCorner = index == viewModel.employees.count
+                let corners: UIRectCorner = index == viewModel.allItems.count
                     ? [UIRectCorner.bottomLeft, UIRectCorner.bottomRight]
                     : []
                 return ItemCell(
@@ -149,7 +149,7 @@ extension EmployeesSectionController: ASSectionController {
                 items.insert(DateCell(), at: 0)
             }
             if !viewModel.minimized {
-                items.append(contentsOf: viewModel.employees as [ListDiffable])
+                items.append(contentsOf: viewModel.allItems)
             }
 
             self.set(items: items, animated: false, completion: {

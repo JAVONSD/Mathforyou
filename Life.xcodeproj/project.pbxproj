@@ -285,6 +285,7 @@
 		C7D832C72035C4FC00282891 /* VacanciesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D832C62035C4FC00282891 /* VacanciesViewModel.swift */; };
 		C7D832CE2035C53600282891 /* EmployeesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D832CD2035C53600282891 /* EmployeesView.swift */; };
 		C7D832D42035C80E00282891 /* MainMenuFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D832D32035C80E00282891 /* MainMenuFlow.swift */; };
+		C7DE698E20479FB800E028BC /* StuffViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DE698D20479FB800E028BC /* StuffViewModel.swift */; };
 		C7E01E4B2045B68200204956 /* TRTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E01E4A2045B68200204956 /* TRTableViewCell.swift */; };
 		C7F7CB31203AE866007B9D1E /* BIBoardHeaderSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F7CB30203AE866007B9D1E /* BIBoardHeaderSectionController.swift */; };
 		C7F7CB33203AE98A007B9D1E /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F7CB32203AE98A007B9D1E /* Question.swift */; };
@@ -641,6 +642,7 @@
 		C7D832C62035C4FC00282891 /* VacanciesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacanciesViewModel.swift; sourceTree = "<group>"; };
 		C7D832CD2035C53600282891 /* EmployeesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesView.swift; sourceTree = "<group>"; };
 		C7D832D32035C80E00282891 /* MainMenuFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuFlow.swift; sourceTree = "<group>"; };
+		C7DE698D20479FB800E028BC /* StuffViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StuffViewModel.swift; sourceTree = "<group>"; };
 		C7E01E4A2045B68200204956 /* TRTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRTableViewCell.swift; sourceTree = "<group>"; };
 		C7F7CB30203AE866007B9D1E /* BIBoardHeaderSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIBoardHeaderSectionController.swift; sourceTree = "<group>"; };
 		C7F7CB32203AE98A007B9D1E /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
@@ -1640,6 +1642,7 @@
 		C7D6423420346F9C001DCA98 /* Employees */ = {
 			isa = PBXGroup;
 			children = (
+				C7DE698D20479FB800E028BC /* StuffViewModel.swift */,
 				C7D6423B20346FC0001DCA98 /* EmployeesViewModel.swift */,
 				C7D832C42035C4ED00282891 /* BirthdaysViewModel.swift */,
 				C7D832C62035C4FC00282891 /* VacanciesViewModel.swift */,
@@ -2297,6 +2300,7 @@
 				C7D832C32035C49100282891 /* VacanciesViewController.swift in Sources */,
 				C76EFBC4203008D200FA2BB9 /* Constants.swift in Sources */,
 				C76EFBE720302F8C00FA2BB9 /* OptionalValueState.swift in Sources */,
+				C7DE698E20479FB800E028BC /* StuffViewModel.swift in Sources */,
 				C7D6423120346F5A001DCA98 /* MenuViewController.swift in Sources */,
 				C76EFBE920302F8C00FA2BB9 /* CaretString.swift in Sources */,
 				C73EB28D2032F9B100429921 /* FloatingPointType+IdentifiableType.swift in Sources */,
