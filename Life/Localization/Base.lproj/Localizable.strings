@@ -116,6 +116,11 @@
 "calend" = "Calend";
 "today" = "Today";
 
+/* BI Board */
+
+"birthdays_count_short" = "Birthdays";
+"vacancies_count_short" = "Vacancies";
+
 /* Tasks and Requests */
 
 "inbox" = "Inbox";
@@ -142,6 +147,7 @@
 "total_count_short" = "All";
 "inbox_count_short" = "Inbox";
 "outbox_count_short" = "Outbox";
+"popular_count_short" = "Popular";
 
 /* News */
 

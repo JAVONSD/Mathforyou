@@ -17,14 +17,17 @@ class ImageNode: ASCellNode {
 
     private(set) var image: String
     private(set) var size: CGSize
+    private(set) var imageIsAvatar: Bool
 
     init(image: String,
          size: CGSize,
          cornerRadius: CGFloat = App.Layout.cornerRadius,
          backgroundColor: UIColor = App.Color.silver,
-         overlayColor: UIColor = .clear) {
+         overlayColor: UIColor = .clear,
+         imageIsAvatar: Bool = false) {
         self.image = image
         self.size = size
+        self.imageIsAvatar = imageIsAvatar
 
         super.init()
 
@@ -53,8 +56,14 @@ class ImageNode: ASCellNode {
     override func didLoad() {
         super.didLoad()
 
-        ImageDownloader.download(image: image) { (image) in
-            self.imageNode.image = image
+        if imageIsAvatar {
+            ImageDownloader.download(image: "", employeeCode: image, completion: { image in
+                self.imageNode.image = image
+            })
+        } else {
+            ImageDownloader.download(image: image) { (image) in
+                self.imageNode.image = image
+            }
         }
     }
 

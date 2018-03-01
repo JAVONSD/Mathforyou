@@ -22,16 +22,21 @@ class BIBoardViewController: ASViewController<ASCollectionNode> {
     }
     private lazy var refreshCtrl = UIRefreshControl()
 
-    var viewModel: BIBoardViewModel!
+    var viewModel: BIBoardViewModel
 
     let disposeBag = DisposeBag()
 
     var onUnathorizedError: (() -> Void)?
     var didTapTop7: ((String) -> Void)?
+    var didTapAtSuggestion: ((String) -> Void)?
     var didTapAddSuggestion: (() -> Void)?
     var didSelectNews: ((String) -> Void)?
+    var didSelectStuff: (() -> Void)?
+    var didSelectEmployee: ((Employee) -> Void)?
 
-    init() {
+    init(viewModel: BIBoardViewModel) {
+        self.viewModel = viewModel
+
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
@@ -45,8 +50,6 @@ class BIBoardViewController: ASViewController<ASCollectionNode> {
         )
 
         super.init(node: node)
-
-        viewModel = BIBoardViewModel()
 
         let updater = ListAdapterUpdater()
         listAdapter = ListAdapter(updater: updater, viewController: self, workingRangeSize: 0)
@@ -74,30 +77,59 @@ class BIBoardViewController: ASViewController<ASCollectionNode> {
         refreshCtrl.tintColor = App.Color.azure
         collectionNode.view.addSubview(refreshCtrl)
 
-        getData()
+        refreshFeed()
     }
 
     // MARK: - Methods
 
-    private func getData() {
-        viewModel.newsViewModel.getTop3News { [weak self] error in
-            if let moyaError = error as? MoyaError,
-                moyaError.response?.statusCode == 401 {
-                self?.onUnauthorized()
-            }
-        }
-    }
-
     @objc
     private func refreshFeed() {
-        guard let secCtrl = listAdapter
-            .sectionController(for: viewModel.suggestionsViewModel) as? RefreshingSectionControllerType else {
-                return
+        let newsCtrl = listAdapter.sectionController(
+            for: viewModel.newsViewModel
+            ) as? RefreshingSectionControllerType
+        newsCtrl?.refreshContent {
+            if self.refreshCtrl.isRefreshing {
+                self.refreshCtrl.endRefreshing()
+            }
         }
 
-        secCtrl.refreshContent {
-            self.refreshCtrl.endRefreshing()
+        let suggestionsCtrl =  listAdapter.sectionController(
+            for: viewModel.suggestionsViewModel
+            ) as? RefreshingSectionControllerType
+        suggestionsCtrl?.refreshContent(with: {
+            if self.refreshCtrl.isRefreshing {
+                self.refreshCtrl.endRefreshing()
+            }
+        })
+
+        let questionnairesCtrl =  listAdapter.sectionController(
+            for: viewModel.questionnairesViewModel
+            ) as? RefreshingSectionControllerType
+        questionnairesCtrl?.refreshContent(with: {
+            if self.refreshCtrl.isRefreshing {
+                self.refreshCtrl.endRefreshing()
+            }
+        })
+
+        if let stuffViewModel = viewModel.stuffViewModel {
+            let stuffCtrl =  listAdapter.sectionController(
+                for: stuffViewModel
+                ) as? RefreshingSectionControllerType
+            stuffCtrl?.refreshContent(with: {
+                if self.refreshCtrl.isRefreshing {
+                    self.refreshCtrl.endRefreshing()
+                }
+            })
         }
+
+        let topQuestionsCtrl =  listAdapter.sectionController(
+            for: viewModel.topQuestionsViewModel
+            ) as? RefreshingSectionControllerType
+        topQuestionsCtrl?.refreshContent(with: {
+            if self.refreshCtrl.isRefreshing {
+                self.refreshCtrl.endRefreshing()
+            }
+        })
     }
 
     private func onUnauthorized() {
@@ -113,13 +145,18 @@ class BIBoardViewController: ASViewController<ASCollectionNode> {
 
 extension BIBoardViewController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return [
+        var items = [
             viewModel.newsViewModel,
             viewModel.suggestionsViewModel,
-            viewModel.questionnairesViewModel,
-            viewModel.stuffViewModel,
-            viewModel.topQuestionsViewModel
-        ]
+            viewModel.questionnairesViewModel
+        ] as [ListDiffable]
+
+        if let stuffViewModel = viewModel.stuffViewModel {
+            items.append(stuffViewModel)
+        }
+        items.append(viewModel.topQuestionsViewModel)
+
+        return items
     }
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
@@ -137,6 +174,7 @@ extension BIBoardViewController: ListAdapterDataSource {
                 guard let `self` = self else { return }
                 self.onUnauthorized()
             }
+            section.didTapAtSuggestion = didTapAtSuggestion
             section.didTapAddSuggestion = didTapAddSuggestion
             return section
         } else if let viewModel = object as? QuestionnairesViewModel {
@@ -152,6 +190,8 @@ extension BIBoardViewController: ListAdapterDataSource {
                 guard let `self` = self else { return }
                 self.onUnauthorized()
             }
+            section.didSelectStuff = didSelectStuff
+            section.didSelectEmployee = didSelectEmployee
             return section
         } else if let viewModel = object as? TopQuestionsViewModel {
             let section = TopQuestionsSectionController(viewModel: viewModel)

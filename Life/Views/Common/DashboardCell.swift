@@ -74,7 +74,7 @@ class DashboardCell: ASCellNode {
         backgroundNode.addSubnode(item1CountNode)
 
         item1TitleNode = ASTextNode()
-        item1TitleNode.attributedText = attItemTitle(config.item1Title)
+        item1TitleNode.attributedText = attItemTitle(config.item1Title.lowercased())
         item1TitleNode.maximumNumberOfLines = 1
         backgroundNode.addSubnode(item1TitleNode)
     }
@@ -86,7 +86,7 @@ class DashboardCell: ASCellNode {
         backgroundNode.addSubnode(item2CountNode)
 
         item2TitleNode = ASTextNode()
-        item2TitleNode.attributedText = attItemTitle(config.item2Title)
+        item2TitleNode.attributedText = attItemTitle(config.item2Title.lowercased())
         item2TitleNode.maximumNumberOfLines = 1
         backgroundNode.addSubnode(item2TitleNode)
     }
@@ -98,7 +98,7 @@ class DashboardCell: ASCellNode {
         backgroundNode.addSubnode(item3CountNode)
 
         item3TitleNode = ASTextNode()
-        item3TitleNode.attributedText = attItemTitle(config.item3Title)
+        item3TitleNode.attributedText = attItemTitle(config.item3Title.lowercased())
         item3TitleNode.maximumNumberOfLines = 1
         backgroundNode.addSubnode(item3TitleNode)
     }
@@ -162,16 +162,18 @@ class DashboardCell: ASCellNode {
 
         addItemsAndSeparators(config)
 
-        addNode = ASButtonNode()
-        addNode.addTarget(self, action: #selector(handleAddButton), forControlEvents: .touchUpInside)
-        addNode.setImage(#imageLiteral(resourceName: "button-flat"), for: .normal)
-        let addSize = App.Layout.sideOffset + App.Layout.itemSpacingMedium * 2
-        addNode.style.preferredSize = CGSize(
-            width: addSize,
-            height: addSize
-        )
-        addNode.cornerRadius = addSize / 2
-        backgroundNode.addSubnode(addNode)
+        if config.showAddButton {
+            addNode = ASButtonNode()
+            addNode.addTarget(self, action: #selector(handleAddButton), forControlEvents: .touchUpInside)
+            addNode.setImage(#imageLiteral(resourceName: "button-flat"), for: .normal)
+            let addSize = App.Layout.sideOffset + App.Layout.itemSpacingMedium * 2
+            addNode.style.preferredSize = CGSize(
+                width: addSize,
+                height: addSize
+            )
+            addNode.cornerRadius = addSize / 2
+            backgroundNode.addSubnode(addNode)
+        }
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -209,16 +211,20 @@ class DashboardCell: ASCellNode {
         leftStackSpec.children = [imageTitleInsetSpec, itemsSpec()]
         leftStackSpec.style.flexGrow = 1.0
 
-        let rightInsetSpec = ASInsetLayoutSpec(insets: .init(
-            top: App.Layout.itemSpacingMedium,
-            left: 1,
-            bottom: 0,
-            right: 1), child: addNode)
-
         let horizontalStackSpec = ASStackLayoutSpec.horizontal()
-        horizontalStackSpec.children = [leftStackSpec, rightInsetSpec]
         horizontalStackSpec.alignContent = .spaceBetween
         horizontalStackSpec.style.flexGrow = 1.0
+
+        if config.showAddButton {
+            let rightInsetSpec = ASInsetLayoutSpec(insets: .init(
+                top: App.Layout.itemSpacingMedium,
+                left: 1,
+                bottom: 0,
+                right: 1), child: addNode)
+            horizontalStackSpec.children = [leftStackSpec, rightInsetSpec]
+        } else {
+            horizontalStackSpec.children = [leftStackSpec]
+        }
 
         return horizontalStackSpec
     }

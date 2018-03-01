@@ -18,8 +18,29 @@ class SuggestionsViewModel: NSObject, ListDiffable {
 
     private let disposeBag = DisposeBag()
 
-    let suggestionsSubject = PublishSubject<[SuggestionItemViewModel]>()
-    let popularSuggestionsSubject = PublishSubject<[SuggestionItemViewModel]>()
+    private let loadingSuggestionsSubject = PublishSubject<Bool>()
+    var loadingSuggestions: Observable<Bool> {
+        return loadingSuggestionsSubject.asObservable()
+    }
+    private let suggestionsSubject = PublishSubject<[SuggestionItemViewModel]>()
+    var suggsetionsObservable: Observable<[SuggestionItemViewModel]> {
+        return suggestionsSubject.asObservable()
+    }
+
+    private let loadingPopularSuggestionsSubject = PublishSubject<Bool>()
+    var loadingPopularSuggestions: Observable<Bool> {
+        return loadingPopularSuggestionsSubject.asObservable()
+    }
+    private let popularSuggestionsSubject = PublishSubject<[SuggestionItemViewModel]>()
+    var popularSuggestionsObservable: Observable<[SuggestionItemViewModel]> {
+        return popularSuggestionsSubject.asObservable()
+    }
+
+    var loadingAllSuggestions: Observable<Bool> {
+        return Observable
+            .zip(loadingSuggestions, loadingPopularSuggestions)
+            .map { (load1, load2) in return load1 && load2 }
+    }
 
     private let provider = MoyaProvider<SuggestionsService>(
         plugins: [
@@ -32,11 +53,13 @@ class SuggestionsViewModel: NSObject, ListDiffable {
     // MARK: - Methods
 
     public func getSuggestions(completion: @escaping ((Error?) -> Void)) {
+        loadingSuggestionsSubject.onNext(true)
         provider
             .rx
             .request(.suggestions)
             .filterSuccessfulStatusCodes()
             .subscribe { response in
+                self.loadingSuggestionsSubject.onNext(false)
                 switch response {
                 case .success(let json):
                     if let suggestions = try? JSONDecoder().decode([Suggestion].self, from: json.data) {
@@ -55,11 +78,13 @@ class SuggestionsViewModel: NSObject, ListDiffable {
     }
 
     public func getPopularSuggestions(completion: @escaping ((Error?) -> Void)) {
+        loadingPopularSuggestionsSubject.onNext(true)
         provider
             .rx
             .request(.popularSuggestions)
             .filterSuccessfulStatusCodes()
             .subscribe { response in
+                self.loadingPopularSuggestionsSubject.onNext(false)
                 switch response {
                 case .success(let json):
                     if let suggestions = try? JSONDecoder().decode([Suggestion].self, from: json.data) {

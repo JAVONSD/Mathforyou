@@ -155,7 +155,8 @@ extension DashboardGalleryCell: ASCollectionDataSource, ASCollectionDelegate {
         return {
             return ImageNode(
                 image: self.config.images[indexPath.item],
-                size: CGSize(width: 56, height: 56)
+                size: CGSize(width: 56, height: 56),
+                imageIsAvatar: true
             )
         }
     }

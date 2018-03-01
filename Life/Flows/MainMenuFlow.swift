@@ -276,18 +276,29 @@ class MainMenuFlow: Flow {
     // MARK: - Methods
 
     private func configuredBIBoard() -> BIBoardViewController {
-        let biBoardVC = BIBoardViewController()
+        let biBoardViewModel = BIBoardViewModel(stuffViewModel: stuffViewModel)
+
+        let biBoardVC = BIBoardViewController(viewModel: biBoardViewModel)
         biBoardVC.onUnathorizedError = {
             self.navigateToLoginScreen(isUnathorized: true)
         }
         biBoardVC.didTapTop7 = { id in
             self.rootViewController.step.accept(AppStep.topQuestionPicked(withId: id))
         }
+        biBoardVC.didTapAtSuggestion = { id in
+            self.rootViewController.step.accept(AppStep.suggestionPicked(withId: id))
+        }
         biBoardVC.didTapAddSuggestion = {
             self.rootViewController.step.accept(AppStep.createSuggestion)
         }
         biBoardVC.didSelectNews = { newsId in
             self.rootViewController.step.accept(AppStep.newsPicked(withId: newsId))
+        }
+        biBoardVC.didSelectStuff = {
+            self.tabBarController.move(to: 3, animate: true)
+        }
+        biBoardVC.didSelectEmployee = { employee in
+            self.rootViewController.step.accept(AppStep.employeePicked(employee: employee))
         }
         return biBoardVC
     }

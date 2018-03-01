@@ -15,6 +15,8 @@ class EmployeesSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: StuffViewModel?
 
     var onUnathorizedError: (() -> Void)?
+    var didSelectStuff: (() -> Void)?
+    var didSelectEmployee: ((Employee) -> Void)?
 
     init(viewModel: StuffViewModel) {
         self.viewModel = viewModel
@@ -24,7 +26,10 @@ class EmployeesSectionController: ASCollectionSectionController {
 
     override func didUpdate(to object: Any) {
         self.viewModel = object as? StuffViewModel
+        updateContents()
+    }
 
+    private func updateContents() {
         guard let viewModel = self.viewModel else {
             return
         }
@@ -32,7 +37,7 @@ class EmployeesSectionController: ASCollectionSectionController {
         var items = [ListDiffable]()
         items.append(DateCell())
         if !viewModel.minimized {
-            items.append(contentsOf: viewModel.allItems)
+            items.append(contentsOf: viewModel.birthdaysViewModel.employees as [ListDiffable])
         }
 
         set(items: items, animated: false, completion: nil)
@@ -47,22 +52,21 @@ class EmployeesSectionController: ASCollectionSectionController {
     }
 
     override func didSelectItem(at index: Int) {
+        if index == 0, let didSelectStuff = didSelectStuff {
+            didSelectStuff()
+        } else if let viewModel = viewModel,
+            let didSelectEmployee = didSelectEmployee {
+            didSelectEmployee(viewModel.birthdaysViewModel.employees[index - 1].employee)
+        }
     }
 
     // MARK: - Methods
 
     private func toggle() {
         if let viewModel = self.viewModel,
-            !viewModel.allItems.isEmpty {
+            !viewModel.birthdaysViewModel.employees.isEmpty {
             viewModel.minimized = !viewModel.minimized
-
-            var items = [ListDiffable]()
-            items.append(DateCell())
-            if !viewModel.minimized {
-                items.append(contentsOf: viewModel.allItems)
-            }
-
-            set(items: items, animated: false, completion: nil)
+            updateContents()
         }
     }
 }
@@ -77,13 +81,13 @@ extension EmployeesSectionController: ASSectionController {
                 image: "",
                 title: NSLocalizedString("employees", comment: ""),
                 itemColor: .black,
-                item1Count: 18,
-                item1Title: "new",
-                item2Count: 20,
-                item2Title: "new",
-                item3Count: 3,
-                item3Title: "new",
-                showAddButton: true,
+                item1Count: viewModel.employeesViewModel.employees.count,
+                item1Title: NSLocalizedString("total_count_short", comment: ""),
+                item2Count: viewModel.birthdaysViewModel.employees.count,
+                item2Title: NSLocalizedString("birthdays_count_short", comment: ""),
+                item3Count: viewModel.vacanciesViewModel.vacancies.count,
+                item3Title: NSLocalizedString("vacancies_count_short", comment: ""),
+                showAddButton: false,
                 corners: corners,
                 minimized: viewModel.minimized,
                 didTapAddButton: {
@@ -92,11 +96,7 @@ extension EmployeesSectionController: ASSectionController {
 
             let cell = DashboardCell(config: config)
             cell.didTapToggle = { [weak self] in
-                print("Toggle tapped ...")
                 self?.toggle()
-            }
-            cell.didTapAdd = {
-                print("Add pressed ...")
             }
             return cell
         }
@@ -119,15 +119,15 @@ extension EmployeesSectionController: ASSectionController {
                     : ItemCell.SeparatorInset(
                         left: App.Layout.itemSpacingMedium,
                         right: App.Layout.itemSpacingMedium)
-                let bottomInset: CGFloat = index == viewModel.allItems.count
+                let bottomInset: CGFloat = index == viewModel.birthdaysViewModel.employees.count
                     ? App.Layout.itemSpacingMedium
                     : App.Layout.itemSpacingSmall
-                let corners: UIRectCorner = index == viewModel.allItems.count
+                let corners: UIRectCorner = index == viewModel.birthdaysViewModel.employees.count
                     ? [UIRectCorner.bottomLeft, UIRectCorner.bottomRight]
                     : []
                 return ItemCell(
                     title: employee.employee.fullname,
-                    subtitle: "Secondary",
+                    subtitle: employee.employee.jobPosition,
                     separatorLeftRightInset: separatorInset,
                     bottomInset: bottomInset,
                     separatorHidden: false,
@@ -166,8 +166,38 @@ extension EmployeesSectionController: ASSectionController {
 
 extension EmployeesSectionController: RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?) {
-        if let completion = completion {
-            completion()
+        viewModel?.employeesViewModel.getEmployees { [weak self] error in
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401,
+                let onUnathorizedError = self?.onUnathorizedError {
+                onUnathorizedError()
+            }
+            self?.updateContents()
+            if let completion = completion {
+                completion()
+            }
+        }
+        viewModel?.birthdaysViewModel.getBirthdays { [weak self] error in
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401,
+                let onUnathorizedError = self?.onUnathorizedError {
+                onUnathorizedError()
+            }
+            self?.updateContents()
+            if let completion = completion {
+                completion()
+            }
+        }
+        viewModel?.vacanciesViewModel.getVacancies { [weak self] error in
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401,
+                let onUnathorizedError = self?.onUnathorizedError {
+                onUnathorizedError()
+            }
+            self?.updateContents()
+            if let completion = completion {
+                completion()
+            }
         }
     }
 }

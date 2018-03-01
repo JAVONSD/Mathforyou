@@ -24,7 +24,10 @@ class QuestionnairesSectionController: ASCollectionSectionController {
 
     override func didUpdate(to object: Any) {
         self.viewModel = object as? QuestionnairesViewModel
+        updateContents()
+    }
 
+    private func updateContents() {
         guard let viewModel = self.viewModel else {
             return
         }
@@ -32,7 +35,7 @@ class QuestionnairesSectionController: ASCollectionSectionController {
         var items = [ListDiffable]()
         items.append(DateCell())
         if !viewModel.minimized {
-            items.append(contentsOf: viewModel.questionnaires as [ListDiffable])
+            items.append(contentsOf: viewModel.popularQuestionnaires as [ListDiffable])
         }
 
         set(items: items, animated: false, completion: nil)
@@ -53,16 +56,9 @@ class QuestionnairesSectionController: ASCollectionSectionController {
 
     private func toggle() {
         if let viewModel = self.viewModel,
-            !viewModel.questionnaires.isEmpty {
+            !viewModel.popularQuestionnaires.isEmpty {
             viewModel.minimized = !viewModel.minimized
-
-            var items = [ListDiffable]()
-            items.append(DateCell())
-            if !viewModel.minimized {
-                items.append(contentsOf: viewModel.questionnaires as [ListDiffable])
-            }
-
-            set(items: items, animated: false, completion: nil)
+            updateContents()
         }
     }
 }
@@ -85,15 +81,15 @@ extension QuestionnairesSectionController: ASSectionController {
                     : ItemCell.SeparatorInset(
                         left: App.Layout.itemSpacingMedium,
                         right: App.Layout.itemSpacingMedium)
-                let bottomInset: CGFloat = index == viewModel.questionnaires.count
+                let bottomInset: CGFloat = index == viewModel.popularQuestionnaires.count
                     ? App.Layout.itemSpacingMedium
                     : App.Layout.itemSpacingSmall
-                let corners: UIRectCorner = index == viewModel.questionnaires.count
+                let corners: UIRectCorner = index == viewModel.popularQuestionnaires.count
                     ? [UIRectCorner.bottomLeft, UIRectCorner.bottomRight]
                     : []
                 return ItemCell(
                     title: quesionnaire.questionnaire.title,
-                    subtitle: "Secondary",
+                    subtitle: quesionnaire.questionnaire.createDate.prettyDateOrTimeAgoString(),
                     separatorLeftRightInset: separatorInset,
                     bottomInset: bottomInset,
                     separatorHidden: false,
@@ -115,13 +111,13 @@ extension QuestionnairesSectionController: ASSectionController {
             image: "",
             title: NSLocalizedString("questionnaires", comment: ""),
             itemColor: .black,
-            item1Count: 18,
-            item1Title: "new",
-            item2Count: 20,
-            item2Title: "new",
-            item3Count: 3,
-            item3Title: "new",
-            showAddButton: true,
+            item1Count: viewModel.questionnaires.count,
+            item1Title: NSLocalizedString("total_count_short", comment: ""),
+            item2Count: viewModel.questionnaires.count,
+            item2Title: NSLocalizedString("total_count_short", comment: ""),
+            item3Count: viewModel.popularQuestionnaires.count,
+            item3Title: NSLocalizedString("popular_count_short", comment: ""),
+            showAddButton: false,
             corners: corners,
             minimized: viewModel.minimized,
             didTapAddButton: {
@@ -130,11 +126,9 @@ extension QuestionnairesSectionController: ASSectionController {
 
         let cell = DashboardCell(config: config)
         cell.didTapToggle = { [weak self] in
-            print("Toggle tapped ...")
             self?.toggle()
         }
         cell.didTapAdd = {
-            print("Add pressed ...")
         }
         return cell
     }
@@ -166,8 +160,27 @@ extension QuestionnairesSectionController: ASSectionController {
 
 extension QuestionnairesSectionController: RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?) {
-        if let completion = completion {
-            completion()
+        viewModel?.getQuestionnaires { [weak self] error in
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401,
+                let onUnathorizedError = self?.onUnathorizedError {
+                onUnathorizedError()
+            }
+            self?.updateContents()
+            if let completion = completion {
+                completion()
+            }
+        }
+        viewModel?.getPopularQuestionnaires { [weak self] error in
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401,
+                let onUnathorizedError = self?.onUnathorizedError {
+                onUnathorizedError()
+            }
+            self?.updateContents()
+            if let completion = completion {
+                completion()
+            }
         }
     }
 }

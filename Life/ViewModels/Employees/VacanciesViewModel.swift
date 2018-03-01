@@ -15,7 +15,7 @@ class VacanciesViewModel: NSObject, ViewModel {
     private(set) var filteredVacancies = [VacancyViewModel]()
 
     private(set) var loading = false
-    private(set) var canLoadMore = true
+    private(set) var didLoadVacancies = false
 
     private let disposeBag = DisposeBag()
     let itemsChangeSubject = PublishSubject<[VacancyViewModel]>()
@@ -36,13 +36,21 @@ class VacanciesViewModel: NSObject, ViewModel {
     // MARK: - Methods
 
     public func getVacancies(completion: @escaping ((Error?) -> Void)) {
+        if loading || didLoadVacancies {
+            completion(nil)
+            if !loading {
+                self.itemsChangeSubject.onNext(self.vacancies)
+            }
+            return
+        }
+        loading = true
+
         provider
             .rx
             .request(.vacancies)
             .filterSuccessfulStatusCodes()
             .subscribe { response in
                 self.loading = false
-                self.canLoadMore = false
 
                 switch response {
                 case .success(let json):
@@ -50,6 +58,7 @@ class VacanciesViewModel: NSObject, ViewModel {
                         let items = lentaItems.map { VacancyViewModel(vacancy: $0) }
                         self.vacancies = items
                         self.filteredVacancies = items
+                        self.didLoadVacancies = true
 
                         completion(nil)
                     } else {

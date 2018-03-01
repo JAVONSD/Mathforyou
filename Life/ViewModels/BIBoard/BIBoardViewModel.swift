@@ -11,12 +11,16 @@ import Moya
 import RxSwift
 import RxCocoa
 
-struct BIBoardViewModel: ViewModel {
+class BIBoardViewModel: NSObject, ViewModel {
 
     private(set) var newsViewModel = NewsViewModel()
     private(set) var suggestionsViewModel = SuggestionsViewModel()
     private(set) var questionnairesViewModel = QuestionnairesViewModel()
-    private(set) var stuffViewModel = StuffViewModel()
+    private(set) weak var stuffViewModel: StuffViewModel?
     private(set) var topQuestionsViewModel = TopQuestionsViewModel()
+
+    init(stuffViewModel: StuffViewModel) {
+        self.stuffViewModel = stuffViewModel
+    }
 
 }

@@ -43,7 +43,7 @@ public extension String {
         return data
     }
 
-    public func prettyDateString(format: String) -> String {
+    public func prettyDateString(format: String = "dd.MM.yyyy HH:mm") -> String {
         let date = self.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
@@ -51,7 +51,7 @@ public extension String {
     }
 
     public func prettyDateOrTimeAgoString(
-        format: String) -> String {
+        format: String = "dd.MM.yyyy HH:mm") -> String {
         let date = self.date
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format

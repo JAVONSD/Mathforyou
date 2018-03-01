@@ -35,13 +35,20 @@ class TasksAndRequestsViewController: UIViewController, Stepper {
                 if let viewModel = element as? TaskViewModel {
                     cell.titleLabel.text = viewModel.task.topic
 
-                    let dateText = viewModel.task.endDate?.prettyDateString(format: "dd.MM.yyyy HH:mm")
-                    cell.subtitleLabel.text = dateText
+                    var detailText = viewModel.task.statusCode.name
+                    if let date = viewModel.task.endDate {
+                        let fmtDate = date.prettyDateString()
+                        detailText += "\n\(fmtDate)"
+                    }
+                    cell.subtitleLabel.text = detailText
                 } else if let viewModel = element as? RequestViewModel {
                     cell.titleLabel.text = viewModel.request.topic
 
-                    let dateText = viewModel.request.endDate.prettyDateString(format: "dd.MM.yyyy HH:mm")
-                    cell.subtitleLabel.text = dateText
+                    var detailText = viewModel.request.statusCode.name
+                    let date = viewModel.request.endDate
+                    let fmtDate = date.prettyDateString()
+                    detailText += "\n\(fmtDate)"
+                    cell.subtitleLabel.text = detailText
                 }
 
                 return cell

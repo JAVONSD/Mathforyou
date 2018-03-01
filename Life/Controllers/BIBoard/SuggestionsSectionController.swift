@@ -10,11 +10,13 @@ import UIKit
 import AsyncDisplayKit
 import IGListKit
 import Moya
+import RxSwift
 
 class SuggestionsSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: SuggestionsViewModel?
 
     var onUnathorizedError: (() -> Void)?
+    var didTapAtSuggestion: ((String) -> Void)?
     var didTapAddSuggestion: (() -> Void)?
 
     init(viewModel: SuggestionsViewModel) {
@@ -25,7 +27,10 @@ class SuggestionsSectionController: ASCollectionSectionController {
 
     override func didUpdate(to object: Any) {
         self.viewModel = object as? SuggestionsViewModel
+        updateContents()
+    }
 
+    private func updateContents() {
         guard let viewModel = self.viewModel else {
             return
         }
@@ -33,7 +38,7 @@ class SuggestionsSectionController: ASCollectionSectionController {
         var items = [ListDiffable]()
         items.append(DateCell())
         if !viewModel.minimized {
-            items.append(contentsOf: viewModel.suggestions as [ListDiffable])
+            items.append(contentsOf: viewModel.popularSuggestions as [ListDiffable])
         }
 
         set(items: items, animated: false, completion: nil)
@@ -48,22 +53,19 @@ class SuggestionsSectionController: ASCollectionSectionController {
     }
 
     override func didSelectItem(at index: Int) {
+        if let viewModel = viewModel,
+            let didTapAtSuggestion = didTapAtSuggestion, index > 0 {
+            didTapAtSuggestion(viewModel.suggestions[index - 1].suggestion.id)
+        }
     }
 
     // MARK: - Methods
 
     private func toggle() {
         if let viewModel = self.viewModel,
-            !viewModel.suggestions.isEmpty {
+            !viewModel.popularSuggestions.isEmpty {
             viewModel.minimized = !viewModel.minimized
-
-            var items = [ListDiffable]()
-            items.append(DateCell())
-            if !viewModel.minimized {
-                items.append(contentsOf: viewModel.suggestions as [ListDiffable])
-            }
-
-            set(items: items, animated: false, completion: nil)
+            updateContents()
         }
     }
 }
@@ -86,15 +88,15 @@ extension SuggestionsSectionController: ASSectionController {
                     : ItemCell.SeparatorInset(
                         left: App.Layout.itemSpacingMedium,
                         right: App.Layout.itemSpacingMedium)
-                let bottomInset: CGFloat = index == viewModel.suggestions.count
+                let bottomInset: CGFloat = index == viewModel.popularSuggestions.count
                     ? App.Layout.itemSpacingMedium
                     : App.Layout.itemSpacingSmall
-                let corners: UIRectCorner = index == viewModel.suggestions.count
+                let corners: UIRectCorner = index == viewModel.popularSuggestions.count
                     ? [UIRectCorner.bottomLeft, UIRectCorner.bottomRight]
                     : []
                 return ItemCell(
                     title: suggestion.suggestion.title,
-                    subtitle: "Secondary",
+                    subtitle: suggestion.suggestion.createDate.prettyDateOrTimeAgoString(),
                     separatorLeftRightInset: separatorInset,
                     bottomInset: bottomInset,
                     separatorHidden: false,
@@ -120,12 +122,12 @@ extension SuggestionsSectionController: ASSectionController {
             image: "",
             title: NSLocalizedString("suggestions", comment: ""),
             itemColor: .black,
-            item1Count: 18,
-            item1Title: "new",
-            item2Count: 20,
-            item2Title: "new",
-            item3Count: 3,
-            item3Title: "new",
+            item1Count: viewModel.suggestions.count,
+            item1Title: NSLocalizedString("total_count_short", comment: ""),
+            item2Count: viewModel.suggestions.count,
+            item2Title: NSLocalizedString("total_count_short", comment: ""),
+            item3Count: viewModel.popularSuggestions.count,
+            item3Title: NSLocalizedString("popular_count_short", comment: ""),
             showAddButton: true,
             corners: corners,
             minimized: viewModel.minimized,
@@ -134,7 +136,6 @@ extension SuggestionsSectionController: ASSectionController {
 
         let cell = DashboardCell(config: config)
         cell.didTapToggle = { [weak self] in
-            print("Toggle tapped ...")
             self?.toggle()
         }
         cell.didTapAdd = {
@@ -146,34 +147,37 @@ extension SuggestionsSectionController: ASSectionController {
     }
 
     func beginBatchFetch(with context: ASBatchContext) {
-        DispatchQueue.main.async { [weak self] in
-            guard let `self` = self,
-                let viewModel = self.viewModel else { return }
-
-            var items = [ListDiffable]()
-            if self.items.isEmpty {
-                items.insert(DateCell(), at: 0)
-            }
-            if !viewModel.minimized {
-                items.append(contentsOf: viewModel.suggestions as [ListDiffable])
-            }
-
-            self.set(items: items, animated: false, completion: {
-                context.completeBatchFetching(true)
-            })
-        }
+        context.completeBatchFetching(true)
     }
 
     func shouldBatchFetch() -> Bool {
         return false
     }
-
 }
 
 extension SuggestionsSectionController: RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?) {
-        if let completion = completion {
-            completion()
+        viewModel?.getSuggestions { [weak self] error in
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401,
+                let onUnathorizedError = self?.onUnathorizedError {
+                onUnathorizedError()
+            }
+            self?.updateContents()
+            if let completion = completion {
+                completion()
+            }
+        }
+        viewModel?.getPopularSuggestions { [weak self] error in
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401,
+                let onUnathorizedError = self?.onUnathorizedError {
+                onUnathorizedError()
+            }
+            self?.updateContents()
+            if let completion = completion {
+                completion()
+            }
         }
     }
 }

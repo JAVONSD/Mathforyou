@@ -13,10 +13,13 @@ import RxCocoa
 
 class BirthdaysViewModel: NSObject, ViewModel {
 
-    private var employees = [EmployeeViewModel]()
+    private(set) var employees = [EmployeeViewModel]()
 
     private let loadingSubject = PublishSubject<Bool>()
     var loading: Observable<Bool> { return loadingSubject.asObservable() }
+
+    private(set) var loadingBirthdays = false
+    private(set) var didLoadBirthdays = false
 
     private let disposeBag = DisposeBag()
 
@@ -41,18 +44,30 @@ class BirthdaysViewModel: NSObject, ViewModel {
     // MARK: - Methods
 
     public func getBirthdays(completion: @escaping ((Error?) -> Void)) {
+        if loadingBirthdays || didLoadBirthdays {
+            completion(nil)
+            if !loadingBirthdays {
+                self.employeesToShowSubject.onNext(self.employees)
+            }
+            return
+        }
+        loadingBirthdays = true
         loadingSubject.onNext(true)
+
         provider
             .rx
             .request(.birthdays)
             .filterSuccessfulStatusCodes()
             .subscribe { response in
+                self.loadingBirthdays = false
                 self.loadingSubject.onNext(false)
+
                 switch response {
                 case .success(let json):
                     if let lentaItems = try? JSONDecoder().decode([Employee].self, from: json.data) {
                         let items = lentaItems.map { EmployeeViewModel(employee: $0) }
                         self.employees = items
+                        self.didLoadBirthdays = true
 
                         completion(nil)
                     } else {

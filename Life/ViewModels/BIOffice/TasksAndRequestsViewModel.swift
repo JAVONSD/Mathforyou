@@ -38,9 +38,17 @@ class TasksAndRequestsViewModel: NSObject, ViewModel, ListDiffable {
 
     var currentItems: [ListDiffable] {
         if selectedItemsType == .outbox {
-            return (tasks.outboxTasks as [ListDiffable]) + (requests.outboxRequests as [ListDiffable])
+            return outboxItems
         }
+        return inboxItems
+    }
+
+    var inboxItems: [ListDiffable] {
         return (tasks.inboxTasks as [ListDiffable]) + (requests.inboxRequests as [ListDiffable])
+    }
+
+    var outboxItems: [ListDiffable] {
+        return (tasks.outboxTasks as [ListDiffable]) + (requests.outboxRequests as [ListDiffable])
     }
 
     var inboxCount: Int {

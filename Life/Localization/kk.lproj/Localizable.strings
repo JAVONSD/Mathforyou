@@ -116,6 +116,11 @@
 "calend" = "Календ";
 "today" = "Сегодня";
 
+/* BI Board */
+
+"birthdays_count_short" = "Дни рожд.";
+"vacancies_count_short" = "Вакан.";
+
 /* Tasks and Requests */
 
 "inbox" = "Входящие";
@@ -142,6 +147,7 @@
 "total_count_short" = "Все";
 "inbox_count_short" = "Прин.";
 "outbox_count_short" = "Исход.";
+"popular_count_short" = "Попул.";
 
 /* News */
 

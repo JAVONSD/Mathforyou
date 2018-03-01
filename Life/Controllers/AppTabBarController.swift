@@ -99,7 +99,11 @@ class AppTabBarController: UIViewController, TabBarDelegate {
         vc.removeFromParentViewController()
     }
 
-    private func move(to: Int) {
+    public func move(to: Int, animate: Bool = false) {
+        if animate {
+            tabBar.select(at: to)
+        }
+
         if currentTabIndex == to ||
             currentTabIndex >= viewControllers.count ||
             to >= viewControllers.count {

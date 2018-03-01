@@ -102,8 +102,15 @@ extension BIBoardHeaderSectionController: ASSectionController {
 
 extension BIBoardHeaderSectionController: RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?) {
-        if let completion = completion {
-            completion()
+        viewModel?.getTop3News { [weak self] error in
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401,
+                let onUnathorizedError = self?.onUnathorizedError {
+                onUnathorizedError()
+            }
+            if let completion = completion {
+                completion()
+            }
         }
     }
 }

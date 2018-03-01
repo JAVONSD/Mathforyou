@@ -66,14 +66,7 @@ class TasksAndRequestsSectionController: ASCollectionSectionController {
         if let viewModel = self.viewModel,
             !viewModel.items.isEmpty {
             viewModel.minimized = !viewModel.minimized
-
-            var items = [ListDiffable]()
-            items.append(DateCell())
-            if !viewModel.minimized {
-                items.append(contentsOf: viewModel.items)
-            }
-
-            set(items: items, animated: false, completion: nil)
+            updateContents()
         }
     }
 
@@ -85,7 +78,7 @@ class TasksAndRequestsSectionController: ASCollectionSectionController {
         var items = [ListDiffable]()
         items.append(DateCell())
         if !viewModel.minimized {
-            items.append(contentsOf: viewModel.items)
+            items.append(contentsOf: viewModel.inboxItems)
         }
 
         set(items: items, animated: false, completion: nil)
@@ -105,15 +98,20 @@ extension TasksAndRequestsSectionController: ASSectionController {
                 : ItemCell.SeparatorInset(
                     left: App.Layout.itemSpacingMedium,
                     right: App.Layout.itemSpacingMedium)
-            let bottomInset: CGFloat = index == viewModel.items.count
+            let bottomInset: CGFloat = index == viewModel.inboxItems.count
                 ? App.Layout.itemSpacingMedium
                 : App.Layout.itemSpacingSmall
-            let corners: UIRectCorner = index == viewModel.items.count
+            let corners: UIRectCorner = index == viewModel.inboxItems.count
                 ? [UIRectCorner.bottomLeft, UIRectCorner.bottomRight]
                 : []
+            var detailText = task.task.statusCode.name
+            if let date = task.task.endDate {
+                let fmtDate = date.prettyDateString(format: "dd.MM.yyyy HH:mm")
+                detailText += "\n\(fmtDate)"
+            }
             return ItemCell(
                 title: task.task.topic,
-                subtitle: task.task.statusCode.name,
+                subtitle: detailText,
                 separatorLeftRightInset: separatorInset,
                 bottomInset: bottomInset,
                 separatorHidden: false,

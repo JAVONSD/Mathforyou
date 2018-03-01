@@ -17,6 +17,7 @@ class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
 
     private(set) var loading = false
     private(set) var canLoadMore = true
+    private(set) var didLoadEmployees = false
 
     private let disposeBag = DisposeBag()
 
@@ -39,6 +40,15 @@ class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
     // MARK: - Methods
 
     public func getEmployees(completion: @escaping ((Error?) -> Void)) {
+        if loading || didLoadEmployees {
+            completion(nil)
+            if !loading {
+                self.itemsChangeSubject.onNext(self.employees)
+            }
+            return
+        }
+        loading = true
+
         provider
             .rx
             .request(.employees)
@@ -62,6 +72,7 @@ class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
                         let items = lentaItems.map { EmployeeViewModel(employee: $0) }
                         self.employees = items
                         self.filteredEmployees = items
+                        self.didLoadEmployees = true
 
                         completion(nil)
                     } else {

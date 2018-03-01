@@ -25,14 +25,12 @@ class TopQuestionsSectionController: ASCollectionSectionController {
 
     override func didUpdate(to object: Any) {
         self.viewModel = object as? TopQuestionsViewModel
+        updateContents()
+    }
 
-        guard let viewModel = self.viewModel else { return }
-
+    private func updateContents() {
         var items = [ListDiffable]()
         items.append(DateCell())
-        if !viewModel.minimized {
-            items.append(contentsOf: viewModel.questions.questions as [ListDiffable])
-        }
 
         set(items: items, animated: false, completion: nil)
     }
@@ -59,6 +57,8 @@ extension TopQuestionsSectionController: ASSectionController {
         }
 
         return {
+            let images = viewModel.questions.questions.map { $0.question.authorCode }
+
             let corners = viewModel.minimized
                 ? UIRectCorner.allCorners
                 : [UIRectCorner.topLeft, UIRectCorner.topRight]
@@ -66,7 +66,7 @@ extension TopQuestionsSectionController: ASSectionController {
                 image: "",
                 title: NSLocalizedString("questions", comment: ""),
                 corners: corners,
-                images: ["", "", "", "", "", ""],
+                images: images,
                 didTapOnImage: { index in
                     print("Tapped image at index - \(index)")
                     if let didTapTop7 = self.didTapTop7 {
@@ -105,8 +105,16 @@ extension TopQuestionsSectionController: ASSectionController {
 
 extension TopQuestionsSectionController: RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?) {
-        if let completion = completion {
-            completion()
+        viewModel?.questions.getQuestions { [weak self] error in
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401,
+                let onUnathorizedError = self?.onUnathorizedError {
+                onUnathorizedError()
+            }
+            self?.updateContents()
+            if let completion = completion {
+                completion()
+            }
         }
     }
 }

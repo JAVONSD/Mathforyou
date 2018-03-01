@@ -10,6 +10,32 @@ import Foundation
 
 struct Request: Codable {
 
+    enum Status: Int, Codable {
+        case new = 0
+        case inProgress = 10
+        case executed = 20
+        case confirmed = 50
+        case approved = 55
+        case reject = 60
+
+        var name: String {
+            switch self {
+            case .new:
+                return NSLocalizedString("task_status_new", comment: "")
+            case .inProgress:
+                return NSLocalizedString("task_status_in_progress", comment: "")
+            case .executed:
+                return NSLocalizedString("task_status_executed", comment: "")
+            case .confirmed:
+                return NSLocalizedString("task_status_confirmed", comment: "")
+            case .approved:
+                return NSLocalizedString("task_status_approved", comment: "")
+            case .reject:
+                return NSLocalizedString("task_status_reject", comment: "")
+            }
+        }
+    }
+
     var id: String
     var surname: String
     var name: String
@@ -27,7 +53,7 @@ struct Request: Codable {
     var isExpired: Bool
     var isRequest: Bool
     var endDate: String
-    var statusCode: Int
+    var statusCode: Status
 
     // MARK: - Decodable
 
@@ -72,7 +98,7 @@ struct Request: Codable {
         self.isExpired = try container.decodeWrapper(key: .isExpired, defaultValue: false)
         self.isRequest = try container.decodeWrapper(key: .isRequest, defaultValue: false)
         self.endDate = try container.decodeWrapper(key: .endDate, defaultValue: "")
-        self.statusCode = try container.decodeWrapper(key: .statusCode, defaultValue: 0)
+        self.statusCode = try container.decodeWrapper(key: .statusCode, defaultValue: Status.new)
     }
 
     func encode(with aCoder: NSCoder) {

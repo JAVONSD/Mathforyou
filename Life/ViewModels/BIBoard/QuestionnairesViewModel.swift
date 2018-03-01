@@ -31,7 +31,7 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
 
     // MARK: - Methods
 
-    public func getSuggestions(completion: @escaping ((Error?) -> Void)) {
+    public func getQuestionnaires(completion: @escaping ((Error?) -> Void)) {
         provider
             .rx
             .request(.questionnaires)
@@ -54,7 +54,7 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
             .disposed(by: disposeBag)
     }
 
-    public func getPopularSuggestions(completion: @escaping ((Error?) -> Void)) {
+    public func getPopularQuestionnaires(completion: @escaping ((Error?) -> Void)) {
         provider
             .rx
             .request(.popularQuestionnaires)
@@ -63,7 +63,9 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
                 switch response {
                 case .success(let json):
                     if let questionnaires = try? JSONDecoder().decode([Questionnaire].self, from: json.data) {
-                        self.popularQuestionnaires = questionnaires.map { QuestionnaireViewModel(questionnaire: $0) }
+                        self.popularQuestionnaires = questionnaires.map {
+                            QuestionnaireViewModel(questionnaire: $0)
+                        }
 
                         completion(nil)
                     } else {

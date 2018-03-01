@@ -27,9 +27,9 @@ class EventsSectionController: ASCollectionSectionController {
     override func didUpdate(to object: Any) {
         viewModel = object as? EventsViewModel
 
-        guard let viewModel = self.viewModel else { return }
-
-        set(items: [viewModel], animated: false, completion: nil)
+        // do nothing because API not ready
+//        guard let viewModel = self.viewModel else { return }
+//        set(items: [viewModel], animated: false, completion: nil)
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
