@@ -10,9 +10,16 @@ import UIKit
 import AsyncDisplayKit
 import IGListKit
 import Moya
+import RxSwift
 
 class AuthorsSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: TopQuestionsViewModel?
+
+    var sectionTimestamp: NSString {
+        return NSString(string: UUID().uuidString)
+    }
+
+    let disposeBag = DisposeBag()
 
     var onUnathorizedError: (() -> Void)?
 
@@ -20,15 +27,23 @@ class AuthorsSectionController: ASCollectionSectionController {
         self.viewModel = viewModel
 
         super.init()
+
+        viewModel.answers.answersSubject.subscribe(onNext: { [weak self] _ in
+            self?.updateContents()
+        }).disposed(by: disposeBag)
+        viewModel.answers.videoAnswersSubject.subscribe(onNext: { [weak self] _ in
+            self?.updateContents()
+        }).disposed(by: disposeBag)
     }
 
     override func didUpdate(to object: Any) {
         viewModel = object as? TopQuestionsViewModel
+        updateContents()
+    }
 
-        if let viewModel = viewModel {
-            let items = [viewModel]
-            set(items: items, animated: false, completion: nil)
-        }
+    private func updateContents() {
+        let items = [sectionTimestamp]
+        set(items: items, animated: false, completion: nil)
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
@@ -45,11 +60,10 @@ class AuthorsSectionController: ASCollectionSectionController {
 
 extension AuthorsSectionController: ASSectionController {
     func nodeBlockForItem(at index: Int) -> ASCellNodeBlock {
-        guard index < items.count,
-            let viewModel = self.viewModel else {
-                return {
-                    return ASCellNode()
-                }
+        guard  let viewModel = self.viewModel else {
+            return {
+                return ASCellNode()
+            }
         }
 
         return {
@@ -68,8 +82,6 @@ extension AuthorsSectionController: ASSectionController {
 
 extension AuthorsSectionController: RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?) {
-        if let completion = completion {
-            completion()
-        }
+        updateContents()
     }
 }

@@ -154,7 +154,9 @@ extension BIBoardViewController: ListAdapterDataSource {
         if let stuffViewModel = viewModel.stuffViewModel {
             items.append(stuffViewModel)
         }
-        items.append(viewModel.topQuestionsViewModel)
+        if let topQuestionsViewModel = viewModel.topQuestionsViewModel {
+            items.append(topQuestionsViewModel)
+        }
 
         return items
     }

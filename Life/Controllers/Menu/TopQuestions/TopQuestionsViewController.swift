@@ -8,6 +8,8 @@
 
 import UIKit
 import AsyncDisplayKit
+import AVFoundation
+import AVKit
 import IGListKit
 import Material
 import SnapKit
@@ -20,7 +22,7 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper {
 
     private var addButton: FABButton!
 
-    var viewModel: TopQuestionsViewModel!
+    private weak var viewModel: TopQuestionsViewModel?
 
     var onUnathorizedError: (() -> Void)?
 
@@ -90,6 +92,8 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper {
         refreshCtrl.addTarget(self, action: #selector(refreshFeed), for: .valueChanged)
         refreshCtrl.tintColor = App.Color.azure
         collectionNode.view.addSubview(refreshCtrl)
+
+        refreshFeed()
     }
 
     // MARK: - Actions
@@ -103,12 +107,28 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper {
 
     @objc
     private func refreshFeed() {
-        guard let secCtrl = listAdapter
-            .sectionController(for: viewModel.topAnswerAuthors) as? RefreshingSectionControllerType else {
-                return
+        guard let viewModel = viewModel else {
+            return
         }
 
-        secCtrl.refreshContent {
+        let secCtrl = listAdapter.sectionController(
+            for: viewModel
+        ) as? RefreshingSectionControllerType
+        secCtrl?.refreshContent {
+            self.refreshCtrl.endRefreshing()
+        }
+
+        let answersCtrl = listAdapter.sectionController(
+            for: viewModel.answers
+            ) as? RefreshingSectionControllerType
+        answersCtrl?.refreshContent {
+            self.refreshCtrl.endRefreshing()
+        }
+
+        let questionsCtrl = listAdapter.sectionController(
+            for: viewModel.questions
+            ) as? RefreshingSectionControllerType
+        questionsCtrl?.refreshContent {
             self.refreshCtrl.endRefreshing()
         }
     }
@@ -126,6 +146,9 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper {
 
 extension TopQuestionsViewController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
+        guard let viewModel = viewModel else {
+            return []
+        }
         return [
             viewModel,
             viewModel.answers,
@@ -147,6 +170,27 @@ extension TopQuestionsViewController: ListAdapterDataSource {
         section.onUnathorizedError = { [weak self] in
             guard let `self` = self else { return }
             self.onUnauthorized()
+        }
+        section.didSelectVideo = { video in
+            let token = User.current.token ?? ""
+            let headers = ["Authorization": "Bearer \(token)"]
+
+            if let url = URL(string: "\(App.String.apiBaseUrl)/Files/\(video)") {
+                let asset = AVURLAsset(
+                    url: url,
+                    options: [
+                        "AVURLAssetHTTPHeaderFieldsKey": headers
+                    ]
+                )
+
+                let playerItem = AVPlayerItem(asset: asset)
+                let player = AVPlayer(playerItem: playerItem)
+                let playerViewController = AVPlayerViewController()
+                playerViewController.player = player
+                self.present(playerViewController, animated: true) {
+                    playerViewController.player!.play()
+                }
+            }
         }
         return section
     }

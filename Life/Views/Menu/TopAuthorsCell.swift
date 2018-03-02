@@ -208,7 +208,7 @@ extension TopAuthorsCell: ASCollectionDataSource {
             }
             let size = CGSize(width: 72, height: 72)
             let image = viewModel.topAnswerAuthors[indexPath.item].author.code
-            return ImageNode(image: image, size: size, backgroundColor: .white)
+            return ImageNode(image: image, size: size, backgroundColor: .white, imageIsAvatar: true)
         }
     }
 }

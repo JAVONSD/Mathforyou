@@ -26,7 +26,10 @@ class QuestionSectionController: ASCollectionSectionController {
 
     override func didUpdate(to object: Any) {
         viewModel = object as? QuestionsViewModel
+        updateContents()
+    }
 
+    private func updateContents() {
         var items = [ListDiffable]()
 
         if let viewModel = viewModel {
@@ -89,8 +92,16 @@ extension QuestionSectionController: ASSectionController {
 
 extension QuestionSectionController: RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?) {
-        if let completion = completion {
-            completion()
+        viewModel?.getQuestions { [weak self] error in
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401,
+                let onUnathorizedError = self?.onUnathorizedError {
+                onUnathorizedError()
+            }
+            self?.updateContents()
+            if let completion = completion {
+                completion()
+            }
         }
     }
 }

@@ -17,10 +17,12 @@ class BIBoardViewModel: NSObject, ViewModel {
     private(set) var suggestionsViewModel = SuggestionsViewModel()
     private(set) var questionnairesViewModel = QuestionnairesViewModel()
     private(set) weak var stuffViewModel: StuffViewModel?
-    private(set) var topQuestionsViewModel = TopQuestionsViewModel()
+    private(set) weak var topQuestionsViewModel: TopQuestionsViewModel?
 
-    init(stuffViewModel: StuffViewModel) {
+    init(stuffViewModel: StuffViewModel,
+         topQuestionsViewModel: TopQuestionsViewModel) {
         self.stuffViewModel = stuffViewModel
+        self.topQuestionsViewModel = topQuestionsViewModel
     }
 
 }

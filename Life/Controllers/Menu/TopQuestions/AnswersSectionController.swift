@@ -14,7 +14,12 @@ import Moya
 class AnswersSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: AnswersViewModel?
 
+    var sectionTimestamp: NSString {
+        return NSString(string: UUID().uuidString)
+    }
+
     var onUnathorizedError: (() -> Void)?
+    var didSelectVideo: ((String) -> Void)?
 
     init(viewModel: AnswersViewModel) {
         self.viewModel = viewModel
@@ -26,11 +31,12 @@ class AnswersSectionController: ASCollectionSectionController {
 
     override func didUpdate(to object: Any) {
         viewModel = object as? AnswersViewModel
+        updateContents()
+    }
 
-        if let viewModel = viewModel {
-            let items = [viewModel]
-            set(items: items, animated: false, completion: nil)
-        }
+    private func updateContents() {
+        let items = [sectionTimestamp]
+        set(items: items, animated: false, completion: nil)
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
@@ -47,15 +53,16 @@ class AnswersSectionController: ASCollectionSectionController {
 
 extension AnswersSectionController: ASSectionController {
     func nodeBlockForItem(at index: Int) -> ASCellNodeBlock {
-        guard index < items.count,
-            let viewModel = self.viewModel else {
-                return {
-                    return ASCellNode()
-                }
+        guard let viewModel = self.viewModel else {
+            return {
+                return ASCellNode()
+            }
         }
 
         return {
-            return TopAnswersCell(viewModel: viewModel)
+            let cell = TopAnswersCell(viewModel: viewModel)
+            cell.didSelectVideo = self.didSelectVideo
+            return cell
         }
     }
 
@@ -70,8 +77,16 @@ extension AnswersSectionController: ASSectionController {
 
 extension AnswersSectionController: RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?) {
-        if let completion = completion {
-            completion()
+        viewModel?.getVideoAnswers { [weak self] error in
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401,
+                let onUnathorizedError = self?.onUnathorizedError {
+                onUnathorizedError()
+            }
+            self?.updateContents()
+            if let completion = completion {
+                completion()
+            }
         }
     }
 }

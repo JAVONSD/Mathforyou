@@ -18,8 +18,15 @@ class TopQuestionsViewModel: NSObject, ViewModel, ListDiffable {
         let answersSortedByLikes = answers.answers.sorted { (ans1, ans2) -> Bool in
             return ans1.answer.likesQuantity > ans2.answer.likesQuantity
         }
+        let videoAnswersSortedByLikes = answers.videoAnswers.sorted { (ans1, ans2) -> Bool in
+            return ans1.answer.likesQuantity > ans2.answer.likesQuantity
+        }
+        var allAnswers = answersSortedByLikes + videoAnswersSortedByLikes
+        allAnswers.sort { (ans1, ans2) -> Bool in
+            return ans1.answer.likesQuantity > ans2.answer.likesQuantity
+        }
 
-        return answersSortedByLikes.map({ (answerViewModel) in
+        return allAnswers.map({ (answerViewModel) in
             var data = [String: Any]()
             data["code"] = answerViewModel.answer.authorCode
             data["name"] = answerViewModel.answer.authorName

@@ -14,7 +14,7 @@ class TopAnswersCell: ASCellNode {
     private(set) var collectionNode: ASCollectionNode!
 
     private(set) weak var viewModel: AnswersViewModel?
-    var didSelectItem: ((Int) -> Void)?
+    var didSelectVideo: ((String) -> Void)?
 
     init(viewModel: AnswersViewModel) {
         self.viewModel = viewModel
@@ -55,7 +55,7 @@ extension TopAnswersCell: ASCollectionDataSource {
     }
 
     func collectionNode(_ collectionNode: ASCollectionNode, numberOfItemsInSection section: Int) -> Int {
-        return viewModel?.answers.count ?? 0
+        return viewModel?.videoAnswers.count ?? 0
     }
 
     func collectionNode(
@@ -72,16 +72,20 @@ extension TopAnswersCell: ASCollectionDataSource {
                 size = CGSize(width: 192, height: 134)
             }
 
-            let image = viewModel.answers[indexPath.item].answer.videoStreamId
-            return ImageNode(image: image, size: size, cornerRadius: App.Layout.cornerRadiusSmall)
+            let video = viewModel.videoAnswers[indexPath.item].answer.videoStreamId
+            return VideoNode(video: video, size: size, cornerRadius: App.Layout.cornerRadiusSmall)
         }
     }
 }
 
 extension TopAnswersCell: ASCollectionDelegate {
     func collectionNode(_ collectionNode: ASCollectionNode, didSelectItemAt indexPath: IndexPath) {
-        if let didSelectItem = didSelectItem {
-            didSelectItem(indexPath.item)
+        guard let viewModel = self.viewModel,
+            let didSelectVideo = didSelectVideo else {
+            return
         }
+
+        let video = viewModel.videoAnswers[indexPath.item].answer.videoStreamId
+        didSelectVideo(video)
     }
 }

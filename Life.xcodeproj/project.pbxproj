@@ -215,6 +215,7 @@
 		C7BB5C79204015B40056BBF9 /* RequestFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C78204015B40056BBF9 /* RequestFormViewController.swift */; };
 		C7BB5C7B20401A870056BBF9 /* SuggestionFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C7A20401A870056BBF9 /* SuggestionFormViewController.swift */; };
 		C7BB5C7D204021190056BBF9 /* NewsFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C7C204021190056BBF9 /* NewsFormViewController.swift */; };
+		C7D111B220497BE3008F92FA /* VideoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D111B120497BE3008F92FA /* VideoNode.swift */; };
 		C7D6419C20340750001DCA98 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419B20340750001DCA98 /* AuthService.swift */; };
 		C7D6419E20340777001DCA98 /* EmployeesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419D20340777001DCA98 /* EmployeesService.swift */; };
 		C7D641A020340789001DCA98 /* EventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419F20340789001DCA98 /* EventsService.swift */; };
@@ -572,6 +573,7 @@
 		C7BB5C78204015B40056BBF9 /* RequestFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFormViewController.swift; sourceTree = "<group>"; };
 		C7BB5C7A20401A870056BBF9 /* SuggestionFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionFormViewController.swift; sourceTree = "<group>"; };
 		C7BB5C7C204021190056BBF9 /* NewsFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFormViewController.swift; sourceTree = "<group>"; };
+		C7D111B120497BE3008F92FA /* VideoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoNode.swift; sourceTree = "<group>"; };
 		C7D6419B20340750001DCA98 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		C7D6419D20340777001DCA98 /* EmployeesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesService.swift; sourceTree = "<group>"; };
 		C7D6419F20340789001DCA98 /* EventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsService.swift; sourceTree = "<group>"; };
@@ -1105,6 +1107,7 @@
 				C7F7CB5C203C2921007B9D1E /* DateCell.swift */,
 				C7F7CB5E203C2E2B007B9D1E /* RoundedNode.swift */,
 				C7F7CB74203C75B4007B9D1E /* ImageNode.swift */,
+				C7D111B120497BE3008F92FA /* VideoNode.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2342,6 +2345,7 @@
 				C761B4B920429D0000467304 /* CommentToolbar.swift in Sources */,
 				C7F7CB61203C5F07007B9D1E /* TasksAndRequestsSectionController.swift in Sources */,
 				C7D641B2203408D3001DCA98 /* RequestsService.swift in Sources */,
+				C7D111B220497BE3008F92FA /* VideoNode.swift in Sources */,
 				C79251F320315DDC00CDFBBA /* ImageTextView.swift in Sources */,
 				C7D641FD20344F4A001DCA98 /* LentaFlow.swift in Sources */,
 				C720EC7A2036CC0E007E4CD4 /* BoardSliderCell.swift in Sources */,

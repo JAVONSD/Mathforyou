@@ -13,6 +13,7 @@ class MainMenuFlow: Flow {
 
     private lazy var tasksAndRequestsViewModel = TasksAndRequestsViewModel()
     private lazy var stuffViewModel = StuffViewModel()
+    private lazy var topQuestionsViewModel = TopQuestionsViewModel()
 
     var root: Presentable {
         return self.rootViewController
@@ -186,7 +187,7 @@ class MainMenuFlow: Flow {
     }
 
     private func navigationToTopQuestions() -> NextFlowItems {
-        let viewController = TopQuestionsViewController(viewModel: TopQuestionsViewModel.sample())
+        let viewController = TopQuestionsViewController(viewModel: topQuestionsViewModel)
         rootViewController.pushViewController(viewController, animated: true)
         return NextFlowItems.one(flowItem:
             NextFlowItem(
@@ -276,7 +277,10 @@ class MainMenuFlow: Flow {
     // MARK: - Methods
 
     private func configuredBIBoard() -> BIBoardViewController {
-        let biBoardViewModel = BIBoardViewModel(stuffViewModel: stuffViewModel)
+        let biBoardViewModel = BIBoardViewModel(
+            stuffViewModel: stuffViewModel,
+            topQuestionsViewModel: topQuestionsViewModel
+        )
 
         let biBoardVC = BIBoardViewController(viewModel: biBoardViewModel)
         biBoardVC.onUnathorizedError = {
