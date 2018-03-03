@@ -1,0 +1,162 @@
+ [
+  {
+  "name": "Клиенты",
+  "href": "https://portal.bi-group.org/",
+  "type": "Портал",
+  "iconStreamId": "1a640c8e-cf10-e811-80e2-00155d670307",
+  "iconSize": {
+  "width": 144,
+  "height": 78
+  }
+  },
+  {
+  "name": "Партнеры",
+  "href": "https://cabinet.bi-group.org/ru/Account/Login",
+  "type": "Портал",
+  "iconStreamId": "18640c8e-cf10-e811-80e2-00155d670307",
+  "iconSize": {
+  "width": 144,
+  "height": 78
+  }
+  },
+  {
+  "name": "Старый портал",
+  "href": "https://bi-portal.bi-group.org/_layouts/15/start.aspx#/",
+  "type": "Система",
+  "iconStreamId": "80a27846-d210-e811-80e2-00155d670307",
+  "iconSize": {
+  "width": 96,
+  "height": 96
+  }
+  },
+  {
+  "name": "Технадзор",
+  "href": "https://bi-portal.bi-group.org/sites/Tehnadzor/SitePages/Home.aspx",
+  "type": "Портал",
+  "iconStreamId": "80a27846-d210-e811-80e2-00155d670307",
+  "iconSize": {
+  "width": 96,
+  "height": 96
+  }
+  },
+  {
+  "name": "СЭБ",
+  "href": "https://bi-portal.bi-group.org/sites/Tehnadzor/SitePages/Home.aspx",
+  "type": "Портал",
+  "iconStreamId": "80a27846-d210-e811-80e2-00155d670307",
+  "iconSize": {
+  "width": 96,
+  "height": 96
+  }
+  },
+  {
+  "name": "Чек листы СВА",
+  "href": "https://bi-portal.bi-group.org/sites/Tehnadzor/SitePages/Home.aspx",
+  "type": "Портал",
+  "iconStreamId": "80a27846-d210-e811-80e2-00155d670307",
+  "iconSize": {
+  "width": 96,
+  "height": 96
+  }
+  },
+  {
+  "name": "Корпоративный универ",
+  "href": "https://bi-portal.bi-group.org/ku/default.aspx",
+  "type": "Портал",
+  "iconStreamId": "36d686ce-1410-e811-80e2-00155d670307",
+  "iconSize": {
+  "width": 1247,
+  "height": 879
+  }
+  },
+  {
+  "name": "Жулдызай",
+  "href": "https://bi-portal.bi-group.org/zhuldyzai/default.aspx",
+  "type": "Портал",
+  "iconStreamId": "a0d375f7-1410-e811-80e2-00155d670307",
+  "iconSize": {
+  "width": 4603,
+  "height": 2292
+  }
+  },
+  {
+  "name": "Система Тестирования",
+  "href": "https://bi-portal.bi-group.org/TestSystem/default.aspx",
+  "type": "Портал",
+  "iconStreamId": "80a27846-d210-e811-80e2-00155d670307",
+  "iconSize": {
+  "width": 96,
+  "height": 96
+  }
+  },
+  {
+  "name": "Панель руководителя К2",
+  "href": "http://projectk2.bi-group.org/",
+  "type": "Портал",
+  "iconStreamId": "3377243f-7c11-e811-80e2-00155d670307",
+  "iconSize": {
+  "width": 100,
+  "height": 100
+  }
+  },
+  {
+  "name": "Sales",
+  "href": "http://Sales.bi-group.org",
+  "type": "Портал",
+  "iconStreamId": null,
+  "iconSize": {
+  "width": 2,
+  "height": 1
+  }
+  },
+  {
+  "name": "BI Wiki",
+  "href": "http://wiki.bi-group.kz/index.php/%D0%93%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%B8%D1%86%D0%B0",
+  "type": "Портал",
+  "iconStreamId": null,
+  "iconSize": {
+  "width": 2,
+  "height": 1
+  }
+  },
+  {
+  "name": "LEAN",
+  "href": "https://bi-portal.bi-group.org/LEAN/SitePages/Lean-Digits.aspx",
+  "type": "Портал",
+  "iconStreamId": "7c7ac172-4511-e811-80e2-00155d670307",
+  "iconSize": {
+  "width": 1850,
+  "height": 809
+  }
+  },
+  {
+  "name": "BI Marathon",
+  "href": "http://bi-marathon.kz/",
+  "type": "Портал",
+  "iconStreamId": "b19bdf59-4b11-e811-80e2-00155d670307",
+  "iconSize": {
+  "width": 69,
+  "height": 96
+  }
+  },
+  {
+  "name": "Панель руководителя",
+  "href": "http://dashboard.bi-group.org/qlikview/FormLogin.htm",
+  "type": "Портал",
+  "iconStreamId": "7fae046f-1410-e811-80e2-00155d670307",
+  "iconSize": {
+  "width": 1200,
+  "height": 630
+  }
+  },
+  {
+  "name": "КХД",
+  "href": "https://cloud.bi-group.org/SitePages/%D0%94%D0%BE%D0%BC%D0%B0%D1%88%D0%BD%D1%8F%D1%8F.aspx",
+  "type": "Портал",
+  "iconStreamId": "80a27846-d210-e811-80e2-00155d670307",
+  "iconSize": {
+  "width": 96,
+  "height": 96
+  }
+  }
+  ]

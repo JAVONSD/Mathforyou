@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 import Material
 import RxSwift
 import RxCocoa
@@ -20,6 +21,7 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
 
     var onUnathorizedError: (() -> Void)?
 
+    var profileTapped: (() -> Void)?
     var topQuestionTapped: (() -> Void)?
 
     private var menuView: MenuView!
@@ -35,22 +37,22 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
                     return EmployeeCell(style: .default, reuseIdentifier: cellId)
                 }
 
-                cell.set(imageURL: element.image)
-                cell.set(title: element.title)
-                cell.set(subtitle: element.subtitle)
+                cell.titleLabel.text = element.title
+                cell.subtitleLabel.text = element.subtitle
 
-                cell.view?.imageView?.backgroundColor = App.Color.paleGreyTwo
-                cell.set(imageSize: CGSize(width: 24, height: 24))
-                cell.set(imageRadius: App.Layout.cornerRadiusSmall)
-                cell.setDivider(leftInset: 70)
+                cell.employeeImageView.layer.cornerRadius = App.Layout.cornerRadiusSmall
+                cell.employeeImageView.backgroundColor = App.Color.paleGreyTwo
+                cell.imageSize = CGSize(width: 24, height: 24)
+                cell.employeeImageView.set(image: element.image, employeeCode: nil)
 
-                cell.detailView.label.isHidden = true
+                cell.separatorLeftOffset = 70
+                cell.accessoryButton.isHidden = true
 
                 let itemsCount = tv.numberOfRows(inSection: indexPath.section)
                 if indexPath.row == itemsCount - 1 {
-                    cell.view?.dividerView?.isHidden = true
+                    cell.separatorView.isHidden = true
                 } else {
-                    cell.view?.dividerView?.isHidden = false
+                    cell.separatorView.isHidden = false
                 }
 
                 return cell
@@ -116,6 +118,12 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
             guard let `self` = self else { return }
             make.edges.equalTo(self.view)
         })
+
+        menuView.headerButton.rx.tap.asDriver().throttle(0.5).drive(onNext: {
+            if let profileTapped = self.profileTapped {
+                profileTapped()
+            }
+        }).disposed(by: disposeBag)
     }
 
 }

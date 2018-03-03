@@ -62,7 +62,7 @@ enum AppStep: Step {
     case topQuestions
     case topQuestionPicked(withId: String)
     case topQuestionDone
-    case createQuestion
+    case createQuestion(didAddQuestion: ((Question) -> Void))
     case createQuestionDone
 
     // MARK: - Employees

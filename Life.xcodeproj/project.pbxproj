@@ -180,6 +180,12 @@
 		C79263562038318E00067371 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79263552038318E00067371 /* NotificationCell.swift */; };
 		C79263592038374500067371 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79263582038374500067371 /* NotificationsViewController.swift */; };
 		C792635B2038417B00067371 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C792635A2038417B00067371 /* MenuView.swift */; };
+		C7A241A6204A4DFD00994840 /* QuestionFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A241A5204A4DFD00994840 /* QuestionFormViewModel.swift */; };
+		C7A241A8204A506200994840 /* tags.json in Resources */ = {isa = PBXBuildFile; fileRef = C7A241A7204A506200994840 /* tags.json */; };
+		C7A241AA204A508600994840 /* systems.json in Resources */ = {isa = PBXBuildFile; fileRef = C7A241A9204A508600994840 /* systems.json */; };
+		C7A241AC204A50A200994840 /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A241AB204A50A200994840 /* System.swift */; };
+		C7A241AE204AB60C00994840 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A241AD204AB60C00994840 /* UIImageView+Extensions.swift */; };
+		C7A241B0204AB9C700994840 /* MenuHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A241AF204AB9C700994840 /* MenuHeaderButton.swift */; };
 		C7B5FA0420305691003F3D2C /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B5FA0320305691003F3D2C /* ForgotPasswordView.swift */; };
 		C7B5FA0620305D11003F3D2C /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B5FA0520305D11003F3D2C /* ForgotPasswordViewController.swift */; };
 		C7BB5C36203E64E90056BBF9 /* AnswersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C35203E64E90056BBF9 /* AnswersViewModel.swift */; };
@@ -215,7 +221,6 @@
 		C7BB5C79204015B40056BBF9 /* RequestFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C78204015B40056BBF9 /* RequestFormViewController.swift */; };
 		C7BB5C7B20401A870056BBF9 /* SuggestionFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C7A20401A870056BBF9 /* SuggestionFormViewController.swift */; };
 		C7BB5C7D204021190056BBF9 /* NewsFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C7C204021190056BBF9 /* NewsFormViewController.swift */; };
-		C7D111B220497BE3008F92FA /* VideoNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D111B120497BE3008F92FA /* VideoNode.swift */; };
 		C7D6419C20340750001DCA98 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419B20340750001DCA98 /* AuthService.swift */; };
 		C7D6419E20340777001DCA98 /* EmployeesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419D20340777001DCA98 /* EmployeesService.swift */; };
 		C7D641A020340789001DCA98 /* EventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419F20340789001DCA98 /* EventsService.swift */; };
@@ -538,6 +543,12 @@
 		C79263552038318E00067371 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		C79263582038374500067371 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		C792635A2038417B00067371 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		C7A241A5204A4DFD00994840 /* QuestionFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionFormViewModel.swift; sourceTree = "<group>"; };
+		C7A241A7204A506200994840 /* tags.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = tags.json; sourceTree = "<group>"; };
+		C7A241A9204A508600994840 /* systems.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = systems.json; sourceTree = "<group>"; };
+		C7A241AB204A50A200994840 /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
+		C7A241AD204AB60C00994840 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
+		C7A241AF204AB9C700994840 /* MenuHeaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderButton.swift; sourceTree = "<group>"; };
 		C7B5FA0320305691003F3D2C /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		C7B5FA0520305D11003F3D2C /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		C7BB5C35203E64E90056BBF9 /* AnswersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswersViewModel.swift; sourceTree = "<group>"; };
@@ -573,7 +584,6 @@
 		C7BB5C78204015B40056BBF9 /* RequestFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFormViewController.swift; sourceTree = "<group>"; };
 		C7BB5C7A20401A870056BBF9 /* SuggestionFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionFormViewController.swift; sourceTree = "<group>"; };
 		C7BB5C7C204021190056BBF9 /* NewsFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFormViewController.swift; sourceTree = "<group>"; };
-		C7D111B120497BE3008F92FA /* VideoNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoNode.swift; sourceTree = "<group>"; };
 		C7D6419B20340750001DCA98 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		C7D6419D20340777001DCA98 /* EmployeesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesService.swift; sourceTree = "<group>"; };
 		C7D6419F20340789001DCA98 /* EventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsService.swift; sourceTree = "<group>"; };
@@ -977,6 +987,7 @@
 				C717C682203D92D10070447D /* ImageDownloader+Extensions.swift */,
 				C74FCE6C2046499800E9C6BA /* Date+Extensions.swift */,
 				C74FCE7620464FD500E9C6BA /* URL+Extensions.swift */,
+				C7A241AD204AB60C00994840 /* UIImageView+Extensions.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1025,6 +1036,7 @@
 				C7F7CB42203B1179007B9D1E /* News.swift */,
 				C7F7CB48203B16FD007B9D1E /* Image.swift */,
 				C7054BB02041767B00A8ED1A /* Notification.swift */,
+				C7A241AB204A50A200994840 /* System.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1107,7 +1119,6 @@
 				C7F7CB5C203C2921007B9D1E /* DateCell.swift */,
 				C7F7CB5E203C2E2B007B9D1E /* RoundedNode.swift */,
 				C7F7CB74203C75B4007B9D1E /* ImageNode.swift */,
-				C7D111B120497BE3008F92FA /* VideoNode.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1381,6 +1392,8 @@
 		C7D641C0203411B3001DCA98 /* References */ = {
 			isa = PBXGroup;
 			children = (
+				C7A241A7204A506200994840 /* tags.json */,
+				C7A241A9204A508600994840 /* systems.json */,
 			);
 			path = References;
 			sourceTree = "<group>";
@@ -1660,6 +1673,7 @@
 				C70ECFDA203ACAA600710DB5 /* TopQuestionsViewModel.swift */,
 				C7BB5C37203E672F0056BBF9 /* QuestionsViewModel.swift */,
 				C7BB5C35203E64E90056BBF9 /* AnswersViewModel.swift */,
+				C7A241A5204A4DFD00994840 /* QuestionFormViewModel.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -1689,6 +1703,7 @@
 				C7BB5C3F203E6DE00056BBF9 /* AnswerCell.swift */,
 				C7BB5C41203E6E0C0056BBF9 /* TopQuestionsHeader.swift */,
 				C7BB5C74203FE7A50056BBF9 /* QuestionFormView.swift */,
+				C7A241AF204AB9C700994840 /* MenuHeaderButton.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -1898,7 +1913,9 @@
 				C74FCE8F20466FA100E9C6BA /* top_question_video_answer.json in Resources */,
 				C74FCE7D20465D6100E9C6BA /* questionnaire.json in Resources */,
 				C76EFBBA203008C100FA2BB9 /* Roboto-Black.ttf in Resources */,
+				C7A241A8204A506200994840 /* tags.json in Resources */,
 				C76EFBB9203008C100FA2BB9 /* Roboto-BlackItalic.ttf in Resources */,
+				C7A241AA204A508600994840 /* systems.json in Resources */,
 				C74FCE83204661DF00E9C6BA /* questionnaire_statistics.json in Resources */,
 				C7BB5C5F203F00690056BBF9 /* news_details.json in Resources */,
 				C7D641D1203411D3001DCA98 /* token.json in Resources */,
@@ -2088,6 +2105,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/TTGTagCollectionView/TTGTagCollectionView.framework",
 				"${BUILT_PRODUCTS_DIR}/Texture/AsyncDisplayKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast/Toast.framework",
 				"${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework",
@@ -2115,6 +2133,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTGTagCollectionView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AsyncDisplayKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
@@ -2168,11 +2187,13 @@
 				C76EFBED20302F8C00FA2BB9 /* MaskedTextFieldDelegate.swift in Sources */,
 				C79251F9203184F800CDFBBA /* ImageTextButton.swift in Sources */,
 				C7D6420120344F61001DCA98 /* MenuFlow.swift in Sources */,
+				C7A241AE204AB60C00994840 /* UIImageView+Extensions.swift in Sources */,
 				C79251EF2031569B00CDFBBA /* StackedScrollView.swift in Sources */,
 				C73EB29F2032F9B100429921 /* SectionModel.swift in Sources */,
 				C7D832D42035C80E00282891 /* MainMenuFlow.swift in Sources */,
 				C7D641F920344F3B001DCA98 /* BIOfficeFlow.swift in Sources */,
 				C720EC862037093A007E4CD4 /* LentaOverviewCell.swift in Sources */,
+				C7A241A6204A4DFD00994840 /* QuestionFormViewModel.swift in Sources */,
 				C7F7CB39203AEBCE007B9D1E /* Task.swift in Sources */,
 				C7D6423A20346FB7001DCA98 /* BIOfficeViewModel.swift in Sources */,
 				C73EB28F2032F9B100429921 /* RxCollectionViewSectionedReloadDataSource.swift in Sources */,
@@ -2288,6 +2309,7 @@
 				C7D641A42034085C001DCA98 /* GalleryService.swift in Sources */,
 				C717C67B203D2A9A0070447D /* TasksAndRequestsCell.swift in Sources */,
 				C70ECFD7203AC77700710DB5 /* QuestionnairesViewModel.swift in Sources */,
+				C7A241B0204AB9C700994840 /* MenuHeaderButton.swift in Sources */,
 				C7D6423820346FAC001DCA98 /* BIBoardViewModel.swift in Sources */,
 				C7BB5C75203FE7A50056BBF9 /* QuestionFormView.swift in Sources */,
 				C7BB5C4D203ED3000056BBF9 /* NewsDetailsCell.swift in Sources */,
@@ -2325,6 +2347,7 @@
 				C7D6423E20346FC9001DCA98 /* LentaViewModel.swift in Sources */,
 				C73EB2B020331DCC00429921 /* PlansView.swift in Sources */,
 				C7D641EE20344664001DCA98 /* AppStep.swift in Sources */,
+				C7A241AC204A50A200994840 /* System.swift in Sources */,
 				C7F7CB57203BD9E5007B9D1E /* EmployeesSectionController.swift in Sources */,
 				C79251E22031487C00CDFBBA /* MyInfoViewController.swift in Sources */,
 				C7F7CB67203C5F2E007B9D1E /* IDPSectionController.swift in Sources */,
@@ -2345,7 +2368,6 @@
 				C761B4B920429D0000467304 /* CommentToolbar.swift in Sources */,
 				C7F7CB61203C5F07007B9D1E /* TasksAndRequestsSectionController.swift in Sources */,
 				C7D641B2203408D3001DCA98 /* RequestsService.swift in Sources */,
-				C7D111B220497BE3008F92FA /* VideoNode.swift in Sources */,
 				C79251F320315DDC00CDFBBA /* ImageTextView.swift in Sources */,
 				C7D641FD20344F4A001DCA98 /* LentaFlow.swift in Sources */,
 				C720EC7A2036CC0E007E4CD4 /* BoardSliderCell.swift in Sources */,

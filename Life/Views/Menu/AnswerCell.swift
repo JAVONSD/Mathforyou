@@ -21,7 +21,7 @@ class AnswerCell: ASCellNode {
     private(set) var dateNode: ASTextNode!
 
     private(set) var textNode: ASTextNode!
-    private(set) var videoNode: ASVideoNode!
+    private(set) var imageNode: ASImageNode!
 
     private(set) var likesImageNode: ASImageNode!
     private(set) var likesNode: ASTextNode!
@@ -59,14 +59,10 @@ class AnswerCell: ASCellNode {
             textNode.attributedText = attText(viewModel.answer.text)
             backgroundNode.addSubnode(textNode)
         } else {
-            videoNode = ASVideoNode()
-            videoNode.cornerRadius = App.Layout.cornerRadiusSmall
-            videoNode.shouldAutoplay = false
-            videoNode.shouldAutorepeat = false
-            videoNode.muted = true
-            videoNode.isUserInteractionEnabled = false
-            videoNode.gravity = "AVLayerVideoGravityResizeAspectFill"
-            backgroundNode.addSubnode(videoNode)
+            imageNode = ASImageNode()
+            imageNode.cornerRadius = App.Layout.cornerRadiusSmall
+            imageNode.contentMode = .scaleAspectFill
+            backgroundNode.addSubnode(imageNode)
         }
 
         likesImageNode = ASImageNode()
@@ -118,7 +114,7 @@ class AnswerCell: ASCellNode {
         likesSpec.spacing = App.Layout.itemSpacingSmall / 2
         likesSpec.alignItems = .center
 
-        let contentNode = !answer.videoStreamId.isEmpty ? videoNode : textNode
+        let contentNode = !answer.videoStreamId.isEmpty ? imageNode : textNode
         if !answer.videoStreamId.isEmpty {
             let ratio: CGFloat = 192.0 / 134.0
             let width = constrainedSize.max.width - 2 * (App.Layout.itemSpacingSmall + App.Layout.sideOffset)
@@ -147,16 +143,9 @@ class AnswerCell: ASCellNode {
         }
 
         if !answer.videoStreamId.isEmpty {
-            let token = User.current.token ?? ""
-            let headers = ["Authorization": "Bearer \(token)"]
-
-            if let url = URL(string: "\(App.String.apiBaseUrl)/Files/\(answer.videoStreamId)") {
-                videoNode.asset = AVURLAsset(
-                    url: url,
-                    options: [
-                        "AVURLAssetHTTPHeaderFieldsKey": headers
-                    ]
-                )
+            DispatchQueue.global().async { [weak self] in
+                guard let `self` = self else { return }
+                self.imageNode.image = ImageDownloader.createThumbnailOfVideo(from: self.answer.videoStreamId)
             }
         }
     }

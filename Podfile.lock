@@ -67,6 +67,7 @@ PODS:
     - Texture/Core
     - Yoga (= 1.6.0)
   - Toast (4.0.0)
+  - TTGTagCollectionView (1.8.2)
   - Yoga (1.6.0)
 
 DEPENDENCIES:
@@ -87,6 +88,7 @@ DEPENDENCIES:
   - Texture/PINRemoteImage (~> 2.0)
   - Texture/Yoga (~> 2.0)
   - Toast (~> 4.0.0)
+  - TTGTagCollectionView (~> 1.0)
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
@@ -113,8 +115,9 @@ SPEC CHECKSUMS:
   SwiftLint: 2aa21b96c8d13396a051bc1cb659d2ce1e0075b0
   Texture: 7249074582daf75e524e59df5428b66b8e8db0e4
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
+  TTGTagCollectionView: 20cf236b538ea9a17d1f0538968148c8d304414a
   Yoga: 81670877477311136b1b3f69a6307ce62e1c89cf
 
-PODFILE CHECKSUM: 5060d5cbf26b4eb2ea96d3a55746eaa7ea7a2725
+PODFILE CHECKSUM: 41ee97ba05de3ce0e6c0eaad6f7dbd0f3f76cd5a
 
 COCOAPODS: 1.4.0

@@ -30,6 +30,29 @@ class QuestionSectionController: ASCollectionSectionController {
         updateContents()
     }
 
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
+        return ASIGListSectionControllerMethods.cellForItem(at: index, sectionController: self)
+    }
+
+    override func sizeForItem(at index: Int) -> CGSize {
+        return ASIGListSectionControllerMethods.sizeForItem(at: index)
+    }
+
+    override func didSelectItem(at index: Int) {
+        if let answer = items[index] as? AnswerViewModel,
+            !answer.answer.videoStreamId.isEmpty,
+            let didSelectVideo = didSelectVideo {
+            didSelectVideo(answer.answer.videoStreamId)
+        }
+    }
+
+    // MARK: - Methods
+
+    public func add(question: Question) {
+        viewModel?.add(question: question)
+        updateContents()
+    }
+
     private func updateContents() {
         var items = [ListDiffable]()
 
@@ -47,21 +70,6 @@ class QuestionSectionController: ASCollectionSectionController {
         set(items: items, animated: false, completion: nil)
     }
 
-    override func cellForItem(at index: Int) -> UICollectionViewCell {
-        return ASIGListSectionControllerMethods.cellForItem(at: index, sectionController: self)
-    }
-
-    override func sizeForItem(at index: Int) -> CGSize {
-        return ASIGListSectionControllerMethods.sizeForItem(at: index)
-    }
-
-    override func didSelectItem(at index: Int) {
-        if let answer = items[index] as? AnswerViewModel,
-            !answer.answer.videoStreamId.isEmpty,
-            let didSelectVideo = didSelectVideo {
-            didSelectVideo(answer.answer.videoStreamId)
-        }
-    }
 }
 
 extension QuestionSectionController: ASSectionController {

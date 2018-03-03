@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 import Material
 import Moya
 import RxSwift
@@ -33,16 +34,15 @@ class EmployeesViewController: UIViewController {
                     return EmployeeCell(style: .default, reuseIdentifier: cellId)
                 }
 
-                cell.set(employeeCode: element.employee.code)
-                cell.set(title: element.employee.fullname)
-                cell.set(subtitle: element.employee.jobPosition)
-                cell.minimumHeight = 72
+                cell.titleLabel.text = element.employee.fullname
+                cell.subtitleLabel.text = element.employee.jobPosition
+                cell.employeeImageView.set(image: "", employeeCode: element.employee.code)
 
                 let itemsCount = tv.numberOfRows(inSection: indexPath.section)
                 if indexPath.row == itemsCount - 1 {
-                    cell.view?.dividerView?.isHidden = true
+                    cell.separatorView.isHidden = true
                 } else {
-                    cell.view?.dividerView?.isHidden = false
+                    cell.separatorView.isHidden = false
                 }
 
                 return cell

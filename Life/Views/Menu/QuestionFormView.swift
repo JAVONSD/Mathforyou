@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 import Material
 import SnapKit
+import TTGTagCollectionView
 
-class QuestionFormView: UIView, UITextFieldDelegate {
+class QuestionFormView: UIView {
 
     private(set) lazy var headerView = NotificationHeaderView(
         image: nil,
@@ -19,14 +21,18 @@ class QuestionFormView: UIView, UITextFieldDelegate {
     )
     private(set) lazy var scrollView = UIScrollView()
     private(set) lazy var contentView = UIView()
-    private(set) lazy var titleField = TextField(frame: .zero)
     private(set) lazy var textField = TextView(frame: .zero)
+    private(set) lazy var tagsField = TextField(frame: .zero)
+    private(set) lazy var tagsCollectionView = TTGTextTagCollectionView(frame: .zero)
+    private(set) lazy var isAnonymousButton = FlatButton(
+        title: NSLocalizedString("is_anonymous", comment: ""),
+        titleColor: App.Color.steel
+    )
     private(set) lazy var addButton = Button(
         title: NSLocalizedString("ask_question", comment: "").uppercased()
     )
 
-    var didTapCloseButton: (() -> Void)?
-    var didTapAddButton: (() -> Void)?
+    var didDeleteTag: ((String) -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,22 +44,6 @@ class QuestionFormView: UIView, UITextFieldDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // MARK: - Actions
-
-    @objc
-    private func handleCloseButton() {
-        if let didTapCloseButton = didTapCloseButton {
-            didTapCloseButton()
-        }
-    }
-
-    @objc
-    private func handleAddButton() {
-        if let didTapAddButton = didTapAddButton {
-            didTapAddButton()
-        }
-    }
-
     // MARK: - UI
 
     private func setupUI() {
@@ -63,7 +53,6 @@ class QuestionFormView: UIView, UITextFieldDelegate {
 
     private func setupHeaderView() {
         headerView.backgroundColor = .white
-        headerView.closeButton?.addTarget(self, action: #selector(handleCloseButton), for: .touchUpInside)
         addSubview(headerView)
         headerView.snp.makeConstraints { (make) in
             make.top.equalTo(self)
@@ -94,22 +83,11 @@ class QuestionFormView: UIView, UITextFieldDelegate {
             make.width.equalTo(self.scrollView)
         }
 
-        setupTitleField()
         setupTextView()
+        setupTagsField()
+        setupTagsCollectionView()
+        setupIsAnonymousButton()
         setupAddButton()
-    }
-
-    private func setupTitleField() {
-        titleField.delegate = self
-        titleField.placeholder = NSLocalizedString("topic", comment: "")
-        contentView.addSubview(titleField)
-        titleField.snp.makeConstraints { (make) in
-            make.top
-                .equalTo(self.contentView)
-                .inset(App.Layout.sideOffset)
-            make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
-            make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
-        }
     }
 
     private func setupTextView() {
@@ -127,29 +105,103 @@ class QuestionFormView: UIView, UITextFieldDelegate {
         )
         contentView.addSubview(textField)
         textField.snp.makeConstraints { (make) in
-            make.top.equalTo(self.titleField.snp.bottom).offset(App.Layout.itemSpacingMedium)
+            make.top
+                .equalTo(self.contentView)
+                .inset(App.Layout.itemSpacingMedium)
             make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.height.equalTo(144)
         }
     }
 
+    private func setupTagsField() {
+        let detailView = UIImageView(frame: .init(x: 0, y: 0, width: 24, height: 8))
+        detailView.contentMode = .scaleAspectFit
+        detailView.tintColor = App.Color.silver
+        detailView.image = #imageLiteral(resourceName: "expand_arrow")
+
+        tagsField.placeholder = NSLocalizedString("tags", comment: "")
+        tagsField.rightView = detailView
+        tagsField.rightViewMode = .always
+        contentView.addSubview(tagsField)
+        tagsField.snp.makeConstraints { (make) in
+            make.top
+                .equalTo(self.textField.snp.bottom)
+                .offset(App.Layout.sideOffset)
+            make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
+        }
+    }
+
+    private func setupTagsCollectionView() {
+        tagsCollectionView.delegate = self
+        tagsCollectionView.showsVerticalScrollIndicator = false
+        tagsCollectionView.horizontalSpacing = 6.0
+        tagsCollectionView.verticalSpacing = 8.0
+        contentView.addSubview(tagsCollectionView)
+
+        let config = tagsCollectionView.defaultConfig
+        config?.tagTextFont = App.Font.body
+        config?.tagTextColor = .white
+        config?.tagSelectedTextColor = .white
+        config?.tagBackgroundColor = App.Color.azure
+        config?.tagSelectedBackgroundColor = App.Color.azure
+        config?.tagBorderColor = .clear
+        config?.tagSelectedBorderColor = .clear
+        config?.tagBorderWidth = 0
+        config?.tagSelectedBorderWidth = 0
+        config?.tagShadowColor = .clear
+        config?.tagShadowOffset = .zero
+        config?.tagShadowOpacity = 0
+        config?.tagShadowRadius = 0
+        config?.tagCornerRadius = App.Layout.cornerRadiusSmall / 2
+
+        tagsCollectionView.snp.makeConstraints { (make) in
+            make.top
+                .equalTo(self.tagsField.snp.bottom)
+                .offset(App.Layout.itemSpacingSmall)
+            make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
+        }
+    }
+
+    private func setupIsAnonymousButton() {
+        isAnonymousButton.setImage(#imageLiteral(resourceName: "checkbox_empty"), for: .normal)
+        isAnonymousButton.setImage(#imageLiteral(resourceName: "checkbox_tick"), for: .selected)
+        isAnonymousButton.setImage(#imageLiteral(resourceName: "checkbox_tick"), for: .highlighted)
+        isAnonymousButton.tintColor = App.Color.coolGrey
+        isAnonymousButton.titleEdgeInsets = .init(top: 0, left: 4, bottom: 0, right: 0)
+        isAnonymousButton.titleLabel?.font = App.Font.caption
+        isAnonymousButton.titleLabel?.textColor = App.Color.steel
+        isAnonymousButton.contentHorizontalAlignment = .left
+        contentView.addSubview(isAnonymousButton)
+        isAnonymousButton.snp.makeConstraints { (make) in
+            make.top.equalTo(self.tagsCollectionView.snp.bottom).offset(App.Layout.itemSpacingMedium)
+            make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
+        }
+    }
+
     private func setupAddButton() {
-        addButton.addTarget(self, action: #selector(handleAddButton), for: .touchUpInside)
         contentView.addSubview(addButton)
         addButton.snp.makeConstraints { (make) in
-            make.top.equalTo(self.textField.snp.bottom).offset(App.Layout.sideOffset)
+            make.top.equalTo(self.isAnonymousButton.snp.bottom).offset(App.Layout.itemSpacingMedium)
             make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.bottom.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
         }
     }
 
-    // MARK: - UITextFieldDelegate
+}
 
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+extension QuestionFormView: TTGTextTagCollectionViewDelegate {
+    //swiftlint:disable line_length
+    func textTagCollectionView(_ textTagCollectionView: TTGTextTagCollectionView!, didTapTag tagText: String!, at index: UInt, selected: Bool) {
+        textTagCollectionView.removeTag(at: index)
+
+        if let didDeleteTag = didDeleteTag {
+            didDeleteTag(tagText)
+        }
     }
-
+    //swiftlint:enable line_length
 }

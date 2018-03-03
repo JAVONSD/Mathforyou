@@ -52,6 +52,10 @@ class QuestionsViewModel: NSObject, ViewModel, ListDiffable {
             .disposed(by: disposeBag)
     }
 
+    public func add(question: Question) {
+        questions.insert(QuestionItemViewModel(question: question), at: 0)
+    }
+
     // MARK: - ListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {

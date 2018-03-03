@@ -50,6 +50,9 @@ target 'Life' do
   # Toast
   pod 'Toast', '~> 4.0.0'
 
+  # Tags
+  pod 'TTGTagCollectionView', '~> 1.0'
+
   target 'LifeTests' do
     inherit! :search_paths
   end

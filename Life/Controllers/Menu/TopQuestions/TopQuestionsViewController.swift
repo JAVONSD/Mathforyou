@@ -100,7 +100,14 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper {
 
     @objc
     private func handleAddButton() {
-        self.step.accept(AppStep.createQuestion)
+        self.step.accept(AppStep.createQuestion(didAddQuestion: { [weak self] question in
+            guard let `self` = self,
+                let viewModel = self.viewModel else { return }
+            let questionsSC = self.listAdapter.sectionController(
+                for: viewModel.questions
+            ) as? QuestionSectionController
+            questionsSC?.add(question: question)
+        }))
     }
 
     // MARK: - Methods

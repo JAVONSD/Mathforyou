@@ -1,8 +1,8 @@
 //
-//  EmployeeCell.swift
+//  MenuHeaderButton.swift
 //  Life
 //
-//  Created by Shyngys Kassymov on 16.02.2018.
+//  Created by Shyngys Kassymov on 03.03.2018.
 //  Copyright © 2018 Shyngys Kassymov. All rights reserved.
 //
 
@@ -10,21 +10,21 @@ import UIKit
 import Material
 import SnapKit
 
-class EmployeeCell: TableViewCell {
+class MenuHeaderButton: FlatButton {
 
     private(set) lazy var employeeImageView = UIImageView()
     private(set) lazy var textContainerView = UIView()
-    private(set) lazy var titleLabel = UILabel()
+    private(set) lazy var textLabel = UILabel()
     private(set) lazy var subtitleLabel = UILabel()
     private(set) lazy var accessoryButton = UIButton()
     private(set) lazy var disclosureImageView = UIImageView()
     private(set) lazy var separatorView = UIView()
 
-    var imageSize: CGSize = CGSize(width: 40, height: 40) {
+    var imageSize: CGSize = CGSize(width: 56, height: 56) {
         didSet {
             employeeImageView.snp.remakeConstraints { (make) in
-                make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
-                make.centerY.equalTo(self.contentView)
+                make.left.equalTo(self).inset(App.Layout.sideOffset)
+                make.centerY.equalTo(self)
                 make.size.equalTo(imageSize)
             }
         }
@@ -33,9 +33,9 @@ class EmployeeCell: TableViewCell {
     var separatorLeftOffset: CGFloat = 80 {
         didSet {
             separatorView.snp.remakeConstraints { (make) in
-                make.left.equalTo(self.contentView).inset(separatorLeftOffset)
-                make.bottom.equalTo(self.contentView)
-                make.right.equalTo(self.contentView).inset(separatorRightOffset)
+                make.left.equalTo(self).inset(separatorLeftOffset)
+                make.bottom.equalTo(self)
+                make.right.equalTo(self).inset(separatorRightOffset)
                 make.height.equalTo(0.5)
             }
         }
@@ -43,9 +43,9 @@ class EmployeeCell: TableViewCell {
     var separatorRightOffset: CGFloat = 0 {
         didSet {
             separatorView.snp.remakeConstraints { (make) in
-                make.left.equalTo(self.contentView).inset(separatorLeftOffset)
-                make.bottom.equalTo(self.contentView)
-                make.right.equalTo(self.contentView).inset(separatorRightOffset)
+                make.left.equalTo(self).inset(separatorLeftOffset)
+                make.bottom.equalTo(self)
+                make.right.equalTo(self).inset(separatorRightOffset)
                 make.height.equalTo(0.5)
             }
         }
@@ -60,7 +60,7 @@ class EmployeeCell: TableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        titleLabel.preferredMaxLayoutWidth = titleLabel.frame.size.width
+        textLabel.preferredMaxLayoutWidth = textLabel.frame.size.width
         subtitleLabel.preferredMaxLayoutWidth = subtitleLabel.frame.size.width
     }
 
@@ -68,14 +68,11 @@ class EmployeeCell: TableViewCell {
 
     private func setupUI() {
         backgroundColor = .clear
-        backgroundView = nil
-        contentView.backgroundColor = .clear
 
         setupEmployeeImageView()
         setupTextContainerView()
         setupAccessoryButton()
         setupDisclosureImageView()
-        setupSeparatorView()
     }
 
     private func setupEmployeeImageView() {
@@ -84,20 +81,21 @@ class EmployeeCell: TableViewCell {
         employeeImageView.layer.masksToBounds = true
         employeeImageView.backgroundColor = UIColor(hexString: "#d8d8d8")
         employeeImageView.contentMode = .scaleAspectFill
-        contentView.addSubview(employeeImageView)
+        addSubview(employeeImageView)
         employeeImageView.snp.makeConstraints { (make) in
-            make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
-            make.centerY.equalTo(self.contentView)
-            make.size.equalTo(CGSize(width: 40, height: 40))
+            make.left.equalTo(self).inset(App.Layout.sideOffset)
+            make.centerY.equalTo(self)
+            make.size.equalTo(CGSize(width: 56, height: 56))
         }
     }
 
     private func setupTextContainerView() {
-        contentView.addSubview(textContainerView)
+        textContainerView.isUserInteractionEnabled = false
+        addSubview(textContainerView)
         textContainerView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.contentView).inset(19)
+            make.top.equalTo(self).inset(32)
             make.left.equalTo(self.employeeImageView.snp.right).offset(App.Layout.itemSpacingMedium)
-            make.bottom.equalTo(self.contentView).inset(19)
+            make.bottom.equalTo(self).inset(30)
         }
 
         setupTitleLabel()
@@ -105,12 +103,12 @@ class EmployeeCell: TableViewCell {
     }
 
     private func setupTitleLabel() {
-        titleLabel.font = App.Font.body
-        titleLabel.textColor = UIColor.black
-        titleLabel.lineBreakMode = .byWordWrapping
-        titleLabel.numberOfLines = 0
-        textContainerView.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { (make) in
+        textLabel.font = App.Font.headline
+        textLabel.textColor = UIColor.black
+        textLabel.lineBreakMode = .byWordWrapping
+        textLabel.numberOfLines = 0
+        textContainerView.addSubview(textLabel)
+        textLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self.textContainerView)
             make.left.equalTo(self.textContainerView)
             make.right.equalTo(self.textContainerView)
@@ -124,7 +122,7 @@ class EmployeeCell: TableViewCell {
         subtitleLabel.numberOfLines = 0
         textContainerView.addSubview(subtitleLabel)
         subtitleLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.titleLabel.snp.bottom)
+            make.top.equalTo(self.textLabel.snp.bottom).offset(4)
             make.left.equalTo(self.textContainerView)
             make.right.equalTo(self.textContainerView)
             make.bottom.equalTo(self.textContainerView)
@@ -135,10 +133,11 @@ class EmployeeCell: TableViewCell {
         accessoryButton.backgroundColor = App.Color.paleGreyTwo
         accessoryButton.layer.cornerRadius = App.Layout.cornerRadiusSmall
         accessoryButton.layer.masksToBounds = true
-        contentView.addSubview(accessoryButton)
+        accessoryButton.isHidden = true
+        addSubview(accessoryButton)
         accessoryButton.snp.makeConstraints { (make) in
             make.left.equalTo(self.textContainerView.snp.right).offset(13)
-            make.centerY.equalTo(self.contentView)
+            make.centerY.equalTo(self)
             make.size.equalTo(CGSize(width: 22, height: 22))
         }
     }
@@ -147,23 +146,12 @@ class EmployeeCell: TableViewCell {
         disclosureImageView.contentMode = .scaleAspectFit
         disclosureImageView.image = #imageLiteral(resourceName: "chevron_right")
         disclosureImageView.tintColor = App.Color.silver
-        contentView.addSubview(disclosureImageView)
+        addSubview(disclosureImageView)
         disclosureImageView.snp.makeConstraints { (make) in
             make.left.equalTo(self.accessoryButton.snp.right).offset(App.Layout.itemSpacingSmall)
-            make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
-            make.centerY.equalTo(self.contentView)
+            make.right.equalTo(self).inset(App.Layout.sideOffset)
+            make.centerY.equalTo(self)
             make.size.equalTo(CGSize(width: 18, height: 18))
-        }
-    }
-
-    private func setupSeparatorView() {
-        separatorView.backgroundColor = App.Color.coolGrey
-        contentView.addSubview(separatorView)
-        separatorView.snp.makeConstraints { (make) in
-            make.left.equalTo(self.contentView).inset(80)
-            make.bottom.equalTo(self.contentView)
-            make.right.equalTo(self.contentView)
-            make.height.equalTo(0.5)
         }
     }
 

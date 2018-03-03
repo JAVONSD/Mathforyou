@@ -71,8 +71,8 @@ class MainMenuFlow: Flow {
             return navigationToSuggestionForm()
         case .createSuggestionDone:
             return navigationFromSuggestionForm()
-        case .createQuestion:
-            return navigationToQuestionForm()
+        case .createQuestion(let didAddQuestion):
+            return navigationToQuestionForm(didAddQuestion: didAddQuestion)
         case .createQuestionDone:
             return navigationFromQuestionForm()
         case .createRequest:
@@ -252,8 +252,9 @@ class MainMenuFlow: Flow {
         return NextFlowItems.none
     }
 
-    private func navigationToQuestionForm() -> NextFlowItems {
+    private func navigationToQuestionForm(didAddQuestion: @escaping ((Question) -> Void)) -> NextFlowItems {
         let vc = QuestionFormViewController()
+        vc.didAddQuestion = didAddQuestion
         self.rootViewController.present(vc, animated: true, completion: nil)
         return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc))
     }
@@ -359,6 +360,9 @@ class MainMenuFlow: Flow {
 
     private func configuredMenu() -> MenuViewController {
         let menuVC = MenuViewController.instantiate(withViewModel: MenuViewModel())
+        menuVC.profileTapped = {
+            self.rootViewController.step.accept(AppStep.profile)
+        }
         menuVC.topQuestionTapped = {
             self.rootViewController.step.accept(AppStep.topQuestions)
         }

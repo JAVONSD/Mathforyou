@@ -18,16 +18,19 @@ class ImageNode: ASCellNode {
     private(set) var image: String
     private(set) var size: CGSize
     private(set) var imageIsAvatar: Bool
+    private(set) var isVideo: Bool
 
     init(image: String,
          size: CGSize,
          cornerRadius: CGFloat = App.Layout.cornerRadius,
          backgroundColor: UIColor = App.Color.silver,
          overlayColor: UIColor = .clear,
-         imageIsAvatar: Bool = false) {
+         imageIsAvatar: Bool = false,
+         isVideo: Bool = false) {
         self.image = image
         self.size = size
         self.imageIsAvatar = imageIsAvatar
+        self.isVideo = isVideo
 
         super.init()
 
@@ -56,7 +59,13 @@ class ImageNode: ASCellNode {
     override func didLoad() {
         super.didLoad()
 
-        if imageIsAvatar {
+        if isVideo {
+            DispatchQueue.global().async { [weak self] in
+                guard let `self` = self else { return }
+                let image = ImageDownloader.createThumbnailOfVideo(from: self.image)
+                self.imageNode.image = image
+            }
+        } else if imageIsAvatar {
             ImageDownloader.download(image: "", employeeCode: image, completion: { image in
                 self.imageNode.image = image
             })

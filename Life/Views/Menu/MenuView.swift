@@ -13,7 +13,7 @@ import SnapKit
 
 class MenuView: UIView {
 
-    private(set) var headerButton: ImageTextButton?
+    private(set) lazy var headerButton = MenuHeaderButton()
     private(set) var tableView: UITableView?
 
     var configureViewForHeader: ((UITableView, Int) -> UIView?)?
@@ -36,44 +36,21 @@ class MenuView: UIView {
     }
 
     private func setupHeaderButton() {
-        headerButton = ImageTextButton(
-            image: nil,
-            title: "User Name",
-            subtitle: "Personal"
-        )
-        headerButton?.view?.imageSize = CGSize(width: 56, height: 56)
-        headerButton?.view?.imageView?.backgroundColor = UIColor(hexString: "#d8d8d8")
-        headerButton?.view?.stackView?.insets = .init(
-            top: App.Layout.sideOffset,
-            left: App.Layout.sideOffset,
-            bottom: App.Layout.sideOffset,
-            right: 0
-        )
-        headerButton?.view?.stackView?.stackView?.spacing = App.Layout.itemSpacingMedium
-        headerButton?.view?.textStackView?.stackView?.spacing = App.Layout.itemSpacingSmall / 2
-        headerButton?.view?.titleLabel?.font = App.Font.headline
-        headerButton?.view?.subtitleLabel?.font = App.Font.caption
-
-        let detailView = EmployeeDetailView(frame: .zero)
-        detailView.label.isHidden = true
-        headerButton?.view?.stackView?.stackView?.addArrangedSubview(detailView)
-
-        guard let headerButton = headerButton else { return }
-
+        headerButton.employeeImageView.set(image: "", employeeCode: User.current.employeeCode)
+        headerButton.textLabel.text = User.current.profile?.fullname
+        headerButton.subtitleLabel.text = User.current.profile?.jobPosition
         addSubview(headerButton)
         headerButton.snp.makeConstraints { (make) in
             make.top.equalTo(self)
             make.left.equalTo(self)
             make.right.equalTo(self)
-            make.height.equalTo(104)
         }
     }
 
     private func setupTableView() {
         tableView = UITableView(frame: .zero, style: .plain)
 
-        guard let headerButton = headerButton,
-            let tableView = tableView else { return }
+        guard let tableView = tableView else { return }
 
         tableView.tableHeaderView = UIView(frame: .init(
             x: 0,
