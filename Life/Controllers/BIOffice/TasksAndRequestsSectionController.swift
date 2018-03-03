@@ -205,22 +205,7 @@ extension TasksAndRequestsSectionController: ASSectionController {
     }
 
     func beginBatchFetch(with context: ASBatchContext) {
-        DispatchQueue.main.async { [weak self] in
-            guard let `self` = self,
-                let viewModel = self.viewModel else { return }
-
-            var items = [ListDiffable]()
-            if self.items.isEmpty {
-                items.insert(DateCell(), at: 0)
-            }
-            if !viewModel.minimized {
-                items.append(contentsOf: viewModel.items)
-            }
-
-            self.set(items: items, animated: false, completion: {
-                context.completeBatchFetching(true)
-            })
-        }
+        context.completeBatchFetching(true)
     }
 
     func shouldBatchFetch() -> Bool {
@@ -231,8 +216,19 @@ extension TasksAndRequestsSectionController: ASSectionController {
 
 extension TasksAndRequestsSectionController: RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?) {
-        if let completion = completion {
-            completion()
-        }
+        viewModel?.getAllTasksAndRequests()
+        viewModel?.isLoadingSubject.subscribe(onNext: { [weak self] isLoading in
+            self?.updateContents()
+            if !isLoading, let completion = completion {
+                completion()
+            }
+        }).disposed(by: disposeBag)
+        viewModel?.errorSubject.subscribe(onNext: { [weak self] error in
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401,
+                let onUnathorizedError = self?.onUnathorizedError {
+                onUnathorizedError()
+            }
+        }).disposed(by: disposeBag)
     }
 }

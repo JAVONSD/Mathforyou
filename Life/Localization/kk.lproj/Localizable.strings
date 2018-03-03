@@ -134,6 +134,8 @@
 "bookkeeping" = "Бухгалтерия";
 "hr_department" = "HR отдел";
 "to_employee" = "Сотруднику";
+"corporate_university" = "Корпоративный университет";
+"legal_department" = "Юридический отдел";
 "new_request" = "Новая заявка";
 "attach" = "Прикрепить";
 "send" = "Отправить";

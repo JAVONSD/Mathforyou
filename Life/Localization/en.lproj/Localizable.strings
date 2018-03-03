@@ -134,6 +134,8 @@
 "bookkeeping" = "Bookkeeping";
 "hr_department" = "HR department";
 "to_employee" = "To employee";
+"corporate_university" = "Corporate university";
+"legal_department" = "Legal department";
 "new_request" = "New request";
 "attach" = "Attach";
 "send" = "Send";

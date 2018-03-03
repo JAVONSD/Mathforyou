@@ -53,6 +53,9 @@ target 'Life' do
   # Tags
   pod 'TTGTagCollectionView', '~> 1.0'
 
+  # Suggestion
+  pod 'UITextField_AutoSuggestion', '~> 0.0'
+
   target 'LifeTests' do
     inherit! :search_paths
   end

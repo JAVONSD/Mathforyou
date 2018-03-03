@@ -125,6 +125,7 @@ class RequestFormView: UIView, UITextFieldDelegate {
         executorField.placeholder = NSLocalizedString("executor", comment: "")
         executorField.rightView = detailView
         executorField.rightViewMode = .always
+        executorField.setAsPicker(with: ["Service Desk"], setText: true)
         contentView.addSubview(executorField)
         executorField.snp.makeConstraints { (make) in
             make.top.equalTo(self.contentView).inset(App.Layout.sideOffset)
@@ -154,6 +155,7 @@ class RequestFormView: UIView, UITextFieldDelegate {
     private func setupEndDateField() {
         endDateField.delegate = self
         endDateField.placeholder = NSLocalizedString("execution_date", comment: "")
+        endDateField.setAsDatePicker()
         contentView.addSubview(endDateField)
         endDateField.snp.makeConstraints { (make) in
             make.top.equalTo(self.categoryField.snp.bottom).offset(App.Layout.sideOffset)

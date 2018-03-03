@@ -13,11 +13,10 @@ import SnapKit
 class TextField: ErrorTextField {
 
     private(set) lazy var pickerView = UIPickerView()
-
     private(set) var items = [String]()
 
-    var didTapSelect: ((Int) -> Void)?
-    var didTapAdd: ((String) -> Void)?
+    private(set) lazy var datePicker = UIDatePicker()
+    private(set) lazy var dateFormatter = DateFormatter()
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -37,6 +36,8 @@ class TextField: ErrorTextField {
         detailVerticalOffset = 2
 
         textColor = .black
+
+        dateFormatter.dateFormat = "dd.MM.yyyy HH:mm"
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -46,38 +47,8 @@ class TextField: ErrorTextField {
     // MARK: - Actions
 
     @objc
-    private func handleFieldTypeToggle() {
-        text = nil
-        if inputView != nil {
-            setAsNormal()
-        } else {
-            setAsPicker(with: items)
-        }
-        addOrUpdateToggleToolbar()
-        reloadInputViews()
-    }
-
-    @objc
-    private func createTag() {
-        if let didTapAdd = didTapAdd,
-            text != nil && !text!.isEmpty {
-            didTapAdd(text!)
-        }
-
-        text = nil
-    }
-
-    @objc
-    private func selectTag() {
-        if let didTapSelect = didTapSelect {
-            didTapSelect(pickerView.selectedRow(inComponent: 0))
-        }
-    }
-
-    @objc
-    private func done() {
-        text = nil
-        resignFirstResponder()
+    private func handleDatePickerChange(_ datePicker: UIDatePicker) {
+        text = dateFormatter.string(from: datePicker.date)
     }
 
     // MARK: - Methods
@@ -92,65 +63,10 @@ class TextField: ErrorTextField {
         textColor = .white
     }
 
-    public func addOrUpdateToggleToolbar() {
-        let toolbar = UIToolbar(frame: .init(
-            x: 0,
-            y: 0,
-            width: UIScreen.main.bounds.size.width,
-            height: 44)
-        )
-        toolbar.barStyle = .default
-        toolbar.tintColor = .black
-
-        var items = [UIBarButtonItem]()
-
-        let flexibleItem = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-
-        if inputView != nil {
-            let toggleItem = UIBarButtonItem(
-                title: NSLocalizedString("new_tag", comment: ""),
-                style: .plain,
-                target: self,
-                action: #selector(handleFieldTypeToggle))
-            items.append(toggleItem)
-
-            items.append(flexibleItem)
-
-            let doneItem = UIBarButtonItem(
-                title: NSLocalizedString("select_tag", comment: ""),
-                style: .plain,
-                target: self,
-                action: #selector(selectTag))
-            items.append(doneItem)
-        } else {
-            let toggleItem = UIBarButtonItem(
-                title: NSLocalizedString("tag_list", comment: ""),
-                style: .plain,
-                target: self,
-                action: #selector(handleFieldTypeToggle))
-            items.append(toggleItem)
-
-            items.append(flexibleItem)
-
-            let doneItem = UIBarButtonItem(
-                title: NSLocalizedString("create_tag", comment: ""),
-                style: .plain,
-                target: self,
-                action: #selector(createTag))
-            items.append(doneItem)
-        }
-
-        let doneItem = UIBarButtonItem(
-            barButtonSystemItem: .done,
-            target: self,
-            action: #selector(done))
-        items.append(doneItem)
-
-        toolbar.items = items
-        inputAccessoryView = toolbar
-    }
-
-    public func setAsPicker(with items: [String], setText: Bool = true) {
+    public func setAsPicker(
+        with items: [String],
+        setText: Bool = true,
+        selectedIdx: Int = 0) {
         self.items = items
 
         pickerView.backgroundColor = .white
@@ -159,12 +75,27 @@ class TextField: ErrorTextField {
         inputView = pickerView
 
         if setText {
-            let selectedIdx = pickerView.selectedRow(inComponent: 0)
             if items.count > selectedIdx {
                 text = items[selectedIdx]
             } else {
                 text = items.first
             }
+        }
+    }
+
+    public func setAsDatePicker(
+        includeTime: Bool = true,
+        initialDate: Date = Date(),
+        setText: Bool = true) {
+        datePicker.backgroundColor = .white
+        datePicker.date = initialDate
+        datePicker.datePickerMode = includeTime ? .dateAndTime : .date
+        datePicker.addTarget(self, action: #selector(handleDatePickerChange(_:)), for: .valueChanged)
+        inputView = datePicker
+
+        if setText {
+            let date = datePicker.date
+            text = dateFormatter.string(from: date)
         }
     }
 
@@ -185,7 +116,8 @@ extension TextField: UIPickerViewDataSource {
 }
 
 extension TextField: UIPickerViewDelegate {
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+    func pickerView(_ pickerView: UIPickerView,
+                    titleForRow row: Int, forComponent component: Int) -> String? {
         return items[row]
     }
 

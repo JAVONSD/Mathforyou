@@ -26,7 +26,7 @@ class BIOfficeViewController: ASViewController<ASCollectionNode> {
     private let disposeBag = DisposeBag()
 
     var onUnathorizedError: (() -> Void)?
-    var didTapAddRequest: (() -> Void)?
+    var didTapAddRequest: ((@escaping (() -> Void)) -> Void)?
 
     init(viewModel: BIOfficeViewModel) {
         self.viewModel = viewModel
@@ -71,8 +71,7 @@ class BIOfficeViewController: ASViewController<ASCollectionNode> {
         refreshCtrl.tintColor = App.Color.azure
         collectionNode.view.addSubview(refreshCtrl)
 
-        setupBindings()
-        getData()
+        refreshFeed()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -87,32 +86,11 @@ class BIOfficeViewController: ASViewController<ASCollectionNode> {
 
     // MARK: - Methods
 
-    private func getData() {
-        viewModel.eventsViewModel.getMine { error in
-            if let moyaError = error as? MoyaError,
-                moyaError.response?.statusCode == 401,
-                let onUnathorizedError = self.onUnathorizedError {
-                onUnathorizedError()
-            }
-        }
-        viewModel.tasksAndRequestsViewModel.getAllTasksAndRequests()
-    }
-
-    private func setupBindings() {
-        viewModel.eventsViewModel.eventsObservable.subscribe(onNext: { [weak self] items in
-            print("Number of items - \(items.count)")
-            self?.collectionNode.reloadSections(IndexSet(integer: 0))
-        }).disposed(by: disposeBag)
-    }
-
     @objc
     private func refreshFeed() {
-        guard let secCtrl = listAdapter
-            .sectionController(for: viewModel.eventsViewModel) as? RefreshingSectionControllerType else {
-                return
-        }
-
-        secCtrl.refreshContent {
+        let tasksAndRequestsSC = listAdapter.sectionController(
+            for: viewModel.tasksAndRequestsViewModel) as? RefreshingSectionControllerType
+        tasksAndRequestsSC?.refreshContent {
             self.refreshCtrl.endRefreshing()
         }
     }
@@ -164,7 +142,13 @@ extension BIOfficeViewController: ListAdapterDataSource {
                 navigationController.step.accept(AppStep.tasksAndRequests)
             }
         }
-        section.didTapAddRequest = didTapAddRequest
+        section.didTapAddRequest = { [weak self] in
+            if let didTapAddRequest = self?.didTapAddRequest {
+                didTapAddRequest({ [weak self] in
+                    self?.refreshFeed()
+                })
+            }
+        }
         return section
     }
 

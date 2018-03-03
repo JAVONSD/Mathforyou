@@ -33,6 +33,7 @@ class QuestionFormView: UIView {
     )
 
     var didDeleteTag: ((String) -> Void)?
+    var didTapAddTag: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,6 +43,15 @@ class QuestionFormView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Actions
+
+    @objc
+    private func handleAddTagButton() {
+        if let didTapAddTag = didTapAddTag {
+            didTapAddTag()
+        }
     }
 
     // MARK: - UI
@@ -123,6 +133,12 @@ class QuestionFormView: UIView {
         tagsField.placeholder = NSLocalizedString("tags", comment: "")
         tagsField.rightView = detailView
         tagsField.rightViewMode = .always
+        tagsField.addRightButtonOnKeyboardWithText(
+            NSLocalizedString("create_tag", comment: ""),
+            target: self,
+            action: #selector(handleAddTagButton)
+        )
+        tagsField.keyboardToolbar.tintColor = .black
         contentView.addSubview(tagsField)
         tagsField.snp.makeConstraints { (make) in
             make.top

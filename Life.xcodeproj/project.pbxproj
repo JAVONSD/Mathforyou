@@ -186,6 +186,7 @@
 		C7A241AC204A50A200994840 /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A241AB204A50A200994840 /* System.swift */; };
 		C7A241AE204AB60C00994840 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A241AD204AB60C00994840 /* UIImageView+Extensions.swift */; };
 		C7A241B0204AB9C700994840 /* MenuHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A241AF204AB9C700994840 /* MenuHeaderButton.swift */; };
+		C7A241B2204AF28300994840 /* RequestFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A241B1204AF28300994840 /* RequestFormViewModel.swift */; };
 		C7B5FA0420305691003F3D2C /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B5FA0320305691003F3D2C /* ForgotPasswordView.swift */; };
 		C7B5FA0620305D11003F3D2C /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B5FA0520305D11003F3D2C /* ForgotPasswordViewController.swift */; };
 		C7BB5C36203E64E90056BBF9 /* AnswersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C35203E64E90056BBF9 /* AnswersViewModel.swift */; };
@@ -549,6 +550,7 @@
 		C7A241AB204A50A200994840 /* System.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		C7A241AD204AB60C00994840 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		C7A241AF204AB9C700994840 /* MenuHeaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderButton.swift; sourceTree = "<group>"; };
+		C7A241B1204AF28300994840 /* RequestFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFormViewModel.swift; sourceTree = "<group>"; };
 		C7B5FA0320305691003F3D2C /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		C7B5FA0520305D11003F3D2C /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		C7BB5C35203E64E90056BBF9 /* AnswersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswersViewModel.swift; sourceTree = "<group>"; };
@@ -1685,6 +1687,7 @@
 				C7F7CB4A203B1974007B9D1E /* TasksAndRequestsViewModel.swift */,
 				C7F7CB4C203B19D1007B9D1E /* TasksViewModel.swift */,
 				C7F7CB4E203B1A1F007B9D1E /* RequestsViewModel.swift */,
+				C7A241B1204AF28300994840 /* RequestFormViewModel.swift */,
 				C7F7CB44203B138D007B9D1E /* EventsViewModel.swift */,
 				C7F7CB6A203C65A1007B9D1E /* KPIViewModel.swift */,
 				C7F7CB6C203C65AA007B9D1E /* SBViewModel.swift */,
@@ -2108,6 +2111,7 @@
 				"${BUILT_PRODUCTS_DIR}/TTGTagCollectionView/TTGTagCollectionView.framework",
 				"${BUILT_PRODUCTS_DIR}/Texture/AsyncDisplayKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Toast/Toast.framework",
+				"${BUILT_PRODUCTS_DIR}/UITextField_AutoSuggestion/UITextField_AutoSuggestion.framework",
 				"${BUILT_PRODUCTS_DIR}/Yoga/yoga.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -2136,6 +2140,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTGTagCollectionView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AsyncDisplayKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UITextField_AutoSuggestion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/yoga.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2393,6 +2398,7 @@
 				C792634C2037D24F00067371 /* Lenta.swift in Sources */,
 				C73EB2A92032F9B100429921 /* CLLocationManager+Rx.swift in Sources */,
 				C7BB5C36203E64E90056BBF9 /* AnswersViewModel.swift in Sources */,
+				C7A241B2204AF28300994840 /* RequestFormViewModel.swift in Sources */,
 				C7D832C12035C48700282891 /* BirthdaysViewController.swift in Sources */,
 				C70ECFDB203ACAA600710DB5 /* TopQuestionsViewModel.swift in Sources */,
 				C7D641DD20341901001DCA98 /* ForgotPasswordViewModel.swift in Sources */,

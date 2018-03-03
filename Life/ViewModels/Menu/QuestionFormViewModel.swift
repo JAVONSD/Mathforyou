@@ -26,6 +26,7 @@ class QuestionFormViewModel: NSObject, ViewModel {
 
     let isLoadingTagsSubject = BehaviorSubject<Bool>(value: false)
     let tagsSubject = BehaviorSubject<[Tag]>(value: [])
+    let filteredTagsSubject = BehaviorSubject<[Tag]>(value: [])
 
     private let topQuestionsProvider = MoyaProvider<TopQuestionsService>(
         plugins: [

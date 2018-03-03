@@ -19,6 +19,9 @@ class TasksAndRequestsViewModel: NSObject, ViewModel, ListDiffable {
     let tasksAndRequestsSubject = PublishSubject<[ListDiffable]>()
     private var tasksAndRequestsObservable: Observable<[ListDiffable]>?
 
+    let isLoadingSubject = PublishSubject<Bool>()
+    let errorSubject = PublishSubject<Error>()
+
     var onUnathorizedError: (() -> Void)?
 
     var minimized = true
@@ -82,6 +85,7 @@ class TasksAndRequestsViewModel: NSObject, ViewModel, ListDiffable {
             }
         tasksAndRequestsObservable?
             .bind { (items) in
+                self.isLoadingSubject.onNext(false)
                 self.tasksAndRequestsSubject.onNext(items)
             }.disposed(by: disposeBag)
     }
@@ -91,36 +95,33 @@ class TasksAndRequestsViewModel: NSObject, ViewModel, ListDiffable {
     public func getAllTasksAndRequests() {
         bind()
 
+        isLoadingSubject.onNext(true)
+
+        getAllTasks()
+        getAllRequests()
+    }
+
+    public func getAllTasks() {
         tasks.getInbox { error in
-            if let moyaError = error as? MoyaError,
-                moyaError.response?.statusCode == 401,
-                let onUnathorizedError = self.onUnathorizedError {
-                onUnathorizedError()
-            }
+            guard let error = error else { return }
+            self.errorSubject.onNext(error)
         }
 
         tasks.getOutbox { error in
-            if let moyaError = error as? MoyaError,
-                moyaError.response?.statusCode == 401,
-                let onUnathorizedError = self.onUnathorizedError {
-                onUnathorizedError()
-            }
+            guard let error = error else { return }
+            self.errorSubject.onNext(error)
         }
+    }
 
+    public func getAllRequests() {
         requests.getInbox { error in
-            if let moyaError = error as? MoyaError,
-                moyaError.response?.statusCode == 401,
-                let onUnathorizedError = self.onUnathorizedError {
-                onUnathorizedError()
-            }
+            guard let error = error else { return }
+            self.errorSubject.onNext(error)
         }
 
         requests.getOutbox { error in
-            if let moyaError = error as? MoyaError,
-                moyaError.response?.statusCode == 401,
-                let onUnathorizedError = self.onUnathorizedError {
-                onUnathorizedError()
-            }
+            guard let error = error else { return }
+            self.errorSubject.onNext(error)
         }
     }
 

@@ -8,18 +8,16 @@
 
 import UIKit
 import Material
+import RxSwift
+import RxCocoa
 import SnapKit
 
 class TasksAndRequestsFABController: FABMenuController {
 
     private var fabButton: FABButton!
 
-    private var itFABMenuItem: FABMenuItem!
-    private var bookkeepingFABMenuItem: FABMenuItem!
-    private var hrFABMenuItem: FABMenuItem!
-    private var employeeFABMenuItem: FABMenuItem!
-
-    var didTapAddButton: (() -> Void)?
+    let disposeBag = DisposeBag()
+    var didTapAddButton: ((Request.Category, @escaping (() -> Void)) -> Void)?
 
     override func prepare() {
         super.prepare()
@@ -29,40 +27,13 @@ class TasksAndRequestsFABController: FABMenuController {
 
     // MARK: - Actions
 
-    @objc
-    private func handleItButton() {
+    private func handleFABMenuItem(category: Request.Category) {
         if let didTapAddButton = didTapAddButton {
-            didTapAddButton()
-        }
-
-        fabMenuWillClose(fabMenu: fabMenu)
-        fabMenu.close()
-    }
-
-    @objc
-    private func handleBookkeepingButton() {
-        if let didTapAddButton = didTapAddButton {
-            didTapAddButton()
-        }
-
-        fabMenuWillClose(fabMenu: fabMenu)
-        fabMenu.close()
-    }
-
-    @objc
-    private func handleHrButton() {
-        if let didTapAddButton = didTapAddButton {
-            didTapAddButton()
-        }
-
-        fabMenuWillClose(fabMenu: fabMenu)
-        fabMenu.close()
-    }
-
-    @objc
-    private func handleEmployeeButton() {
-        if let didTapAddButton = didTapAddButton {
-            didTapAddButton()
+            didTapAddButton(category) { [weak self] in
+                if let vc = self?.childViewControllers.first as? TasksAndRequestsViewController {
+                    vc.viewModel?.getAllRequests()
+                }
+            }
         }
 
         fabMenuWillClose(fabMenu: fabMenu)
@@ -72,11 +43,6 @@ class TasksAndRequestsFABController: FABMenuController {
     // MARK: - UI
 
     private func setupFabButton() {
-        setupItFABMenuItem()
-        setupBookkeepingFABMenuItem()
-        setupHrFABMenuItem()
-        setupEmployeeFABMenuItem()
-
         fabButton = FABButton(image: Icon.cm.add, tintColor: .white)
         fabButton.pulseColor = .white
         fabButton.backgroundColor = App.Color.azure
@@ -86,13 +52,9 @@ class TasksAndRequestsFABController: FABMenuController {
             width: App.Layout.itemSpacingMedium * 2,
             height: App.Layout.itemSpacingMedium * 2
         )
-        fabMenu.fabMenuItems = [
-            itFABMenuItem,
-            bookkeepingFABMenuItem,
-            hrFABMenuItem,
-            employeeFABMenuItem
-        ].reversed()
         fabMenuBacking = .fade
+
+        setupFABMenuItems()
 
         fabMenu.snp.makeConstraints { (make) in
             make.bottom.equalTo(self.view).inset(App.Layout.sideOffset)
@@ -101,59 +63,31 @@ class TasksAndRequestsFABController: FABMenuController {
         }
     }
 
-    private func setupItFABMenuItem() {
-        itFABMenuItem = FABMenuItem()
-        itFABMenuItem.title = NSLocalizedString("it_department", comment: "")
-        itFABMenuItem.titleLabel.backgroundColor = .clear
-        itFABMenuItem.titleLabel.font = App.Font.body
-        itFABMenuItem.titleLabel.textColor = .black
-        itFABMenuItem.fabButton.image = Icon.cm.add
-        itFABMenuItem.fabButton.tintColor = .white
-        itFABMenuItem.fabButton.pulseColor = .white
-        itFABMenuItem.fabButton.backgroundColor = App.Color.azure
-        itFABMenuItem.fabButton.addTarget(
-            self, action: #selector(handleItButton), for: .touchUpInside)
+    private func setupFABMenuItems() {
+        let categories = Request.Category.all
+        var menuItems = [FABMenuItem]()
+        for category in categories {
+            let menuItem = setupFABMenuItem(category: category)
+            menuItems.append(menuItem)
+        }
+        fabMenu.fabMenuItems = menuItems.reversed()
     }
 
-    private func setupBookkeepingFABMenuItem() {
-        bookkeepingFABMenuItem = FABMenuItem()
-        bookkeepingFABMenuItem.title = NSLocalizedString("bookkeeping", comment: "")
-        bookkeepingFABMenuItem.titleLabel.backgroundColor = .clear
-        bookkeepingFABMenuItem.titleLabel.font = App.Font.body
-        bookkeepingFABMenuItem.titleLabel.textColor = .black
-        bookkeepingFABMenuItem.fabButton.image = Icon.cm.add
-        bookkeepingFABMenuItem.fabButton.tintColor = .white
-        bookkeepingFABMenuItem.fabButton.pulseColor = .white
-        bookkeepingFABMenuItem.fabButton.backgroundColor = App.Color.azure
-        bookkeepingFABMenuItem.fabButton.addTarget(
-            self, action: #selector(handleBookkeepingButton), for: .touchUpInside)
-    }
+    private func setupFABMenuItem(category: Request.Category) -> FABMenuItem {
+        let menuItem = FABMenuItem()
+        menuItem.title = category.name
+        menuItem.titleLabel.backgroundColor = .clear
+        menuItem.titleLabel.font = App.Font.body
+        menuItem.titleLabel.textColor = .black
+        menuItem.fabButton.image = Icon.cm.add
+        menuItem.fabButton.tintColor = .white
+        menuItem.fabButton.pulseColor = .white
+        menuItem.fabButton.backgroundColor = App.Color.azure
+        menuItem.fabButton.rx.tap.asDriver().throttle(0.5).drive(onNext: { [weak self] in
+            self?.handleFABMenuItem(category: category)
+        }).disposed(by: disposeBag)
 
-    private func setupHrFABMenuItem() {
-        hrFABMenuItem = FABMenuItem()
-        hrFABMenuItem.title = NSLocalizedString("hr_department", comment: "")
-        hrFABMenuItem.titleLabel.backgroundColor = .clear
-        hrFABMenuItem.titleLabel.font = App.Font.body
-        hrFABMenuItem.titleLabel.textColor = .black
-        hrFABMenuItem.fabButton.image = Icon.cm.add
-        hrFABMenuItem.fabButton.tintColor = .white
-        hrFABMenuItem.fabButton.pulseColor = .white
-        hrFABMenuItem.fabButton.backgroundColor = App.Color.azure
-        hrFABMenuItem.fabButton.addTarget(self, action: #selector(handleHrButton), for: .touchUpInside)
-    }
-
-    private func setupEmployeeFABMenuItem() {
-        employeeFABMenuItem = FABMenuItem()
-        employeeFABMenuItem.title = NSLocalizedString("to_employee", comment: "")
-        employeeFABMenuItem.titleLabel.backgroundColor = .clear
-        employeeFABMenuItem.titleLabel.font = App.Font.body
-        employeeFABMenuItem.titleLabel.textColor = .black
-        employeeFABMenuItem.fabButton.image = Icon.cm.add
-        employeeFABMenuItem.fabButton.tintColor = .white
-        employeeFABMenuItem.fabButton.pulseColor = .white
-        employeeFABMenuItem.fabButton.backgroundColor = App.Color.azure
-        employeeFABMenuItem.fabButton.addTarget(
-            self, action: #selector(handleBookkeepingButton), for: .touchUpInside)
+        return menuItem
     }
 
     // MARK: - FABMenuDelegate

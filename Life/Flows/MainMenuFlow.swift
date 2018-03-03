@@ -75,8 +75,8 @@ class MainMenuFlow: Flow {
             return navigationToQuestionForm(didAddQuestion: didAddQuestion)
         case .createQuestionDone:
             return navigationFromQuestionForm()
-        case .createRequest:
-            return navigationToRequestForm()
+        case .createRequest(let category, let didCreateRequest):
+            return navigationToRequestForm(category: category, didCreateRequest: didCreateRequest)
         case .createRequestDone:
             return navigationFromRequestForm()
         default:
@@ -153,8 +153,10 @@ class MainMenuFlow: Flow {
         let fabController = TasksAndRequestsFABController(
             rootViewController: tasksAndRequestsViewController
         )
-        fabController.didTapAddButton = {
-            tasksAndRequestsViewController.step.accept(AppStep.createRequest)
+        fabController.didTapAddButton = { (category: Request.Category, didCreateRequest: @escaping (() -> Void)) in
+            tasksAndRequestsViewController.step.accept(
+                AppStep.createRequest(category: category, didCreateRequest: didCreateRequest)
+            )
         }
         self.rootViewController.present(fabController, animated: true, completion: nil)
         return NextFlowItems.one(flowItem:
@@ -264,8 +266,11 @@ class MainMenuFlow: Flow {
         return NextFlowItems.none
     }
 
-    private func navigationToRequestForm() -> NextFlowItems {
-        let vc = RequestFormViewController()
+    private func navigationToRequestForm(
+        category: Request.Category, didCreateRequest: @escaping (() -> Void)) -> NextFlowItems {
+        let viewModel = RequestFormViewModel(category: category)
+        let vc = RequestFormViewController(viewModel: viewModel)
+        vc.didCreateRequest = didCreateRequest
         self.rootViewController.visibleViewController?.present(vc, animated: true, completion: nil)
         return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc))
     }
@@ -318,8 +323,13 @@ class MainMenuFlow: Flow {
         biOfficeVC.onUnathorizedError = {
             self.navigateToLoginScreen(isUnathorized: true)
         }
-        biOfficeVC.didTapAddRequest = {
-            self.rootViewController.step.accept(AppStep.createRequest)
+        biOfficeVC.didTapAddRequest = { didCreateRequest in
+            self.rootViewController.step.accept(
+                AppStep.createRequest(
+                    category: .it,
+                    didCreateRequest: didCreateRequest
+                )
+            )
         }
         return biOfficeVC
     }

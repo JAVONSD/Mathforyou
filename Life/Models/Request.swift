@@ -36,6 +36,39 @@ struct Request: Codable {
         }
     }
 
+    enum Category: Int, Codable {
+        case it
+        case hr
+        case legal
+        case bookkeeping
+        case corporateUniversity
+
+        var name: String {
+            switch self {
+            case .it:
+                return NSLocalizedString("it_department", comment: "")
+            case .hr:
+                return NSLocalizedString("hr_department", comment: "")
+            case .legal:
+                return NSLocalizedString("legal_department", comment: "")
+            case .bookkeeping:
+                return NSLocalizedString("bookkeeping", comment: "")
+            case .corporateUniversity:
+                return NSLocalizedString("corporate_university", comment: "")
+            }
+        }
+
+        static var all: [Category] {
+            var items = [Category]()
+            items.append(Category.it)
+            items.append(Category.hr)
+            items.append(Category.legal)
+            items.append(Category.bookkeeping)
+            items.append(Category.corporateUniversity)
+            return items
+        }
+    }
+
     var id: String
     var surname: String
     var name: String

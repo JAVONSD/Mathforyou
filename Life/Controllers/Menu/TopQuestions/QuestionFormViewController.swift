@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 import SnapKit
+import UITextField_AutoSuggestion
 
 class QuestionFormViewController: UIViewController, Stepper {
 
@@ -30,11 +31,20 @@ class QuestionFormViewController: UIViewController, Stepper {
     // MARK: - Methods
 
     private func loadTags() {
+        viewModel.isLoadingTagsSubject.subscribe(onNext: { [weak self] isLoadingTags in
+            guard let `self` = self else { return }
+            if self.questionFormView.tagsField.isFirstResponder {
+                self.questionFormView.tagsField.setLoading(isLoadingTags)
+            }
+        }).disposed(by: disposeBag)
         viewModel.getTags()
         viewModel.tagsSubject.subscribe(onNext: { [weak self] tags in
             guard let `self` = self else { return }
-            self.questionFormView.tagsField.setAsPicker(with: tags.map { $0.name }, setText: false)
-            self.questionFormView.tagsField.addOrUpdateToggleToolbar()
+//            self.questionFormView.tagsField.setAsPicker(with: tags.map { $0.name }, setText: false)
+//            self.questionFormView.tagsField.addOrUpdateToggleToolbar()
+            if let tableView = self.questionFormView.tagsField.tableView {
+                tableView.reloadData()
+            }
         })
         .disposed(by: disposeBag)
     }
@@ -99,18 +109,6 @@ class QuestionFormViewController: UIViewController, Stepper {
     }
 
     private func bindTags() {
-        questionFormView.tagsField.didTapAdd = { [weak self] text in
-            self?.viewModel.userAddedTags.insert(text)
-            self?.questionFormView.tagsCollectionView.addTag(text)
-        }
-        questionFormView.tagsField.didTapSelect = { [weak self] tagIdx in
-            guard let `self` = self else { return }
-            let tags = (try? self.viewModel.tagsSubject.value()) ?? []
-            if tags.count > tagIdx {
-                self.viewModel.userTags.insert(tags[tagIdx])
-                self.questionFormView.tagsCollectionView.addTag(tags[tagIdx].name)
-            }
-        }
         questionFormView.didDeleteTag = { [weak self] tagText in
             guard let `self` = self else { return }
             self.viewModel.userTags = self.viewModel.userTags.filter({ tag -> Bool in
@@ -118,6 +116,18 @@ class QuestionFormViewController: UIViewController, Stepper {
             })
             self.viewModel.userAddedTags.remove(tagText)
         }
+        questionFormView.didTapAddTag = { [weak self] in
+            if let text = self?.questionFormView.tagsField.text,
+                !text.isEmpty {
+                self?.viewModel.userAddedTags.insert(text)
+                self?.questionFormView.tagsCollectionView.addTag(text)
+                self?.questionFormView.tagsField.text = nil
+                self?.questionFormView.tagsField.insertText("")
+            }
+        }
+
+        questionFormView.tagsField.autoSuggestionDataSource = self
+        questionFormView.tagsField.observeChanges()
     }
 
     private func bindAddButton() {
@@ -151,3 +161,43 @@ class QuestionFormViewController: UIViewController, Stepper {
     }
 
 }
+
+//swiftlint:disable line_length
+extension QuestionFormViewController: UITextFieldAutoSuggestionDataSource {
+    func autoSuggestionField(_ field: UITextField!, tableView: UITableView!, cellForRowAt indexPath: IndexPath!, forText text: String!) -> UITableViewCell! {
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: App.CellIdentifier.suggestionCellId)
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: App.CellIdentifier.suggestionCellId, for: indexPath)
+        if let tags = try? viewModel.filteredTagsSubject.value(), tags.count > indexPath.row {
+            cell.textLabel?.text = tags[indexPath.row].name
+        }
+        return cell
+    }
+
+    func autoSuggestionField(_ field: UITextField!, tableView: UITableView!, numberOfRowsInSection section: Int, forText text: String!) -> Int {
+        if let tags = try? viewModel.filteredTagsSubject.value() {
+            return tags.count
+        }
+        return 0
+    }
+
+    func autoSuggestionField(_ field: UITextField!, tableView: UITableView!, didSelectRowAt indexPath: IndexPath!, forText text: String!) {
+        let tags = (try? self.viewModel.filteredTagsSubject.value()) ?? []
+        if tags.count > indexPath.row {
+            viewModel.userTags.insert(tags[indexPath.row])
+            questionFormView.tagsCollectionView.addTag(tags[indexPath.row].name)
+            questionFormView.tagsField.text = nil
+        }
+    }
+
+    func autoSuggestionField(_ field: UITextField!, textChanged text: String!) {
+        if let tags = try? viewModel.tagsSubject.value() {
+            let filteredTags = tags.filter({ tag -> Bool in
+                return tag.name.lowercased().contains(text.lowercased())
+            })
+            viewModel.filteredTagsSubject.onNext(filteredTags)
+            questionFormView.tagsField.reloadContents()
+        }
+    }
+}
+//swiftlint:enable line_length
