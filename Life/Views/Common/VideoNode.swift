@@ -35,6 +35,7 @@ class VideoNode: ASCellNode {
         videoNode.shouldAutorepeat = false
         videoNode.muted = true
         videoNode.isUserInteractionEnabled = false
+        videoNode.gravity = "AVLayerVideoGravityResizeAspectFill"
         addSubnode(videoNode)
     }
 

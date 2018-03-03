@@ -15,6 +15,7 @@ class QuestionSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: QuestionsViewModel?
 
     var onUnathorizedError: (() -> Void)?
+    var didSelectVideo: ((String) -> Void)?
 
     init(viewModel: QuestionsViewModel) {
         self.viewModel = viewModel
@@ -55,6 +56,11 @@ class QuestionSectionController: ASCollectionSectionController {
     }
 
     override func didSelectItem(at index: Int) {
+        if let answer = items[index] as? AnswerViewModel,
+            !answer.answer.videoStreamId.isEmpty,
+            let didSelectVideo = didSelectVideo {
+            didSelectVideo(answer.answer.videoStreamId)
+        }
     }
 }
 

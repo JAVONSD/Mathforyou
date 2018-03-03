@@ -10,6 +10,7 @@ import UIKit
 import AsyncDisplayKit
 import DynamicColor
 import Kingfisher
+import AVFoundation
 
 class AnswerCell: ASCellNode {
 
@@ -20,6 +21,7 @@ class AnswerCell: ASCellNode {
     private(set) var dateNode: ASTextNode!
 
     private(set) var textNode: ASTextNode!
+    private(set) var videoNode: ASVideoNode!
 
     private(set) var likesImageNode: ASImageNode!
     private(set) var likesNode: ASTextNode!
@@ -52,9 +54,20 @@ class AnswerCell: ASCellNode {
         )
         backgroundNode.addSubnode(dateNode)
 
-        textNode = ASTextNode()
-        textNode.attributedText = attText(viewModel.answer.text)
-        backgroundNode.addSubnode(textNode)
+        if answer.videoStreamId.isEmpty {
+            textNode = ASTextNode()
+            textNode.attributedText = attText(viewModel.answer.text)
+            backgroundNode.addSubnode(textNode)
+        } else {
+            videoNode = ASVideoNode()
+            videoNode.cornerRadius = App.Layout.cornerRadiusSmall
+            videoNode.shouldAutoplay = false
+            videoNode.shouldAutorepeat = false
+            videoNode.muted = true
+            videoNode.isUserInteractionEnabled = false
+            videoNode.gravity = "AVLayerVideoGravityResizeAspectFill"
+            backgroundNode.addSubnode(videoNode)
+        }
 
         likesImageNode = ASImageNode()
         likesImageNode.image = #imageLiteral(resourceName: "like-inactive")
@@ -70,7 +83,7 @@ class AnswerCell: ASCellNode {
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         backgroundNode.layoutSpecBlock = { (_, _) in
-            return self.backgroundSpec()
+            return self.backgroundSpec(constrainedSize)
         }
         backgroundNode.style.minWidth = ASDimension(unit: .points, value: constrainedSize.max.width)
         backgroundNode.style.maxWidth = ASDimension(unit: .points, value: constrainedSize.max.width)
@@ -84,7 +97,7 @@ class AnswerCell: ASCellNode {
         return insetSpec
     }
 
-    private func backgroundSpec() -> ASLayoutSpec {
+    private func backgroundSpec(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
         authorImageNode.style.preferredSize = CGSize(
             width: App.Layout.itemSpacingMedium,
             height: App.Layout.itemSpacingMedium
@@ -105,8 +118,16 @@ class AnswerCell: ASCellNode {
         likesSpec.spacing = App.Layout.itemSpacingSmall / 2
         likesSpec.alignItems = .center
 
+        let contentNode = !answer.videoStreamId.isEmpty ? videoNode : textNode
+        if !answer.videoStreamId.isEmpty {
+            let ratio: CGFloat = 192.0 / 134.0
+            let width = constrainedSize.max.width - 2 * (App.Layout.itemSpacingSmall + App.Layout.sideOffset)
+            let height = width / ratio
+            contentNode.style.preferredSize = CGSize(width: width, height: height)
+        }
+
         let stackSpec = ASStackLayoutSpec.vertical()
-        stackSpec.children = [headerSpec, textNode, likesSpec]
+        stackSpec.children = [headerSpec, contentNode, likesSpec]
         stackSpec.spacing = App.Layout.itemSpacingSmall
 
         let insetSpec = ASInsetLayoutSpec(insets: .init(
@@ -123,6 +144,20 @@ class AnswerCell: ASCellNode {
 
         ImageDownloader.download(image: "", employeeCode: answer.authorCode) { (image) in
             self.authorImageNode.image = image
+        }
+
+        if !answer.videoStreamId.isEmpty {
+            let token = User.current.token ?? ""
+            let headers = ["Authorization": "Bearer \(token)"]
+
+            if let url = URL(string: "\(App.String.apiBaseUrl)/Files/\(answer.videoStreamId)") {
+                videoNode.asset = AVURLAsset(
+                    url: url,
+                    options: [
+                        "AVURLAssetHTTPHeaderFieldsKey": headers
+                    ]
+                )
+            }
         }
     }
 

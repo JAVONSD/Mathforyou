@@ -142,6 +142,28 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper {
         }
     }
 
+    private func play(video: String) {
+        let token = User.current.token ?? ""
+        let headers = ["Authorization": "Bearer \(token)"]
+
+        if let url = URL(string: "\(App.String.apiBaseUrl)/Files/\(video)") {
+            let asset = AVURLAsset(
+                url: url,
+                options: [
+                    "AVURLAssetHTTPHeaderFieldsKey": headers
+                ]
+            )
+
+            let playerItem = AVPlayerItem(asset: asset)
+            let player = AVPlayer(playerItem: playerItem)
+            let playerViewController = AVPlayerViewController()
+            playerViewController.player = player
+            self.present(playerViewController, animated: true) {
+                playerViewController.player!.play()
+            }
+        }
+    }
+
 }
 
 extension TopQuestionsViewController: ListAdapterDataSource {
@@ -171,26 +193,8 @@ extension TopQuestionsViewController: ListAdapterDataSource {
             guard let `self` = self else { return }
             self.onUnauthorized()
         }
-        section.didSelectVideo = { video in
-            let token = User.current.token ?? ""
-            let headers = ["Authorization": "Bearer \(token)"]
-
-            if let url = URL(string: "\(App.String.apiBaseUrl)/Files/\(video)") {
-                let asset = AVURLAsset(
-                    url: url,
-                    options: [
-                        "AVURLAssetHTTPHeaderFieldsKey": headers
-                    ]
-                )
-
-                let playerItem = AVPlayerItem(asset: asset)
-                let player = AVPlayer(playerItem: playerItem)
-                let playerViewController = AVPlayerViewController()
-                playerViewController.player = player
-                self.present(playerViewController, animated: true) {
-                    playerViewController.player!.play()
-                }
-            }
+        section.didSelectVideo = { [weak self] video in
+            self?.play(video: video)
         }
         return section
     }
@@ -200,6 +204,9 @@ extension TopQuestionsViewController: ListAdapterDataSource {
         section.onUnathorizedError = { [weak self] in
             guard let `self` = self else { return }
             self.onUnauthorized()
+        }
+        section.didSelectVideo = { [weak self] video in
+            self?.play(video: video)
         }
         return section
     }
