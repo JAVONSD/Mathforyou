@@ -7,16 +7,98 @@
 //
 
 import UIKit
+import IQMediaPickerController
+import RxSwift
+import RxCocoa
 import SnapKit
+import UITextField_AutoSuggestion
 
 class NewsFormViewController: UIViewController, Stepper {
 
     private(set) lazy var newsFormView = NewsFormView(frame: .zero)
 
+    private let viewModel = NewsFormViewModel()
+
+    private var selectedImage: UIImage?
+    var didAddNews: ((News, ImageSize) -> Void)?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupUI()
+        loadTags()
+    }
+
+    // MARK: - Methods
+
+    private func loadTags() {
+        viewModel.isLoadingTagsSubject.subscribe(onNext: { [weak self] isLoadingTags in
+            guard let `self` = self else { return }
+            if self.newsFormView.tagsField.isFirstResponder {
+                self.newsFormView.tagsField.setLoading(isLoadingTags)
+            }
+        }).disposed(by: disposeBag)
+        viewModel.getTags()
+        viewModel.tagsSubject.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            if let tableView = self.newsFormView.tagsField.tableView {
+                tableView.reloadData()
+            }
+        })
+            .disposed(by: disposeBag)
+    }
+
+    private func pickCoverImage() {
+        let alert = UIAlertController(
+            title: NSLocalizedString("choose_option", comment: ""),
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+        alert.popoverPresentationController?.sourceView = view
+
+        let captureAction = UIAlertAction(
+            title: NSLocalizedString("capture_photo", comment: ""),
+            style: .default) { [weak self] _ in
+                self?.pickCoverImage(fromLibrary: false)
+            }
+        alert.addAction(captureAction)
+        let libraryAction = UIAlertAction(
+            title: NSLocalizedString("pick_from_gallery", comment: ""),
+            style: .default) { [weak self] _ in
+                self?.pickCoverImage(fromLibrary: true)
+            }
+        alert.addAction(libraryAction)
+        let cancelAction = UIAlertAction(
+            title: NSLocalizedString("cancel", comment: ""),
+            style: .default,
+            handler: nil)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true, completion: nil)
+    }
+
+    private func pickCoverImage(fromLibrary: Bool) {
+        let vc = IQMediaPickerController()
+        vc.allowsPickingMultipleItems = false
+        vc.delegate = self
+        vc.mediaTypes = [
+            NSNumber(value: IQMediaPickerControllerMediaType.photo.rawValue)
+        ]
+        vc.sourceType = fromLibrary ? .library : .cameraMicrophone
+        present(vc, animated: true, completion: nil)
+    }
+
+    private func pickAttachments() {
+        let fileExplorer = FileExplorerViewController()
+        fileExplorer.canChooseFiles = true
+        fileExplorer.allowsMultipleSelection = true
+        fileExplorer.delegate = self
+        fileExplorer.fileFilters = [
+            Filter.extension("png"),
+            Filter.extension("jpg"),
+            Filter.extension("jpeg")
+        ]
+        self.present(fileExplorer, animated: true, completion: nil)
     }
 
     // MARK: - UI
@@ -31,17 +113,11 @@ class NewsFormViewController: UIViewController, Stepper {
         newsFormView.didTapCloseButton = {
             self.step.accept(AppStep.createNewsDone)
         }
-        newsFormView.didTapCoverImageButton = {
-            print("Adding cover image ...")
+        newsFormView.didTapCoverImageButton = { [weak self] in
+            self?.pickCoverImage()
         }
-        newsFormView.didTapAttachmentButton = {
-            print("Adding attachments ...")
-        }
-        newsFormView.didTapMakeAsHistoryButton = {
-            print("Toggling history field of this news ...")
-        }
-        newsFormView.didTapSendButton = {
-            print("Sending new request ...")
+        newsFormView.didTapAttachmentButton = { [weak self] in
+            self?.pickAttachments()
         }
         view.addSubview(newsFormView)
         newsFormView.snp.makeConstraints { (make) in
@@ -50,6 +126,185 @@ class NewsFormViewController: UIViewController, Stepper {
             make.bottom.equalTo(self.view)
             make.right.equalTo(self.view)
         }
+
+        bindTitleField()
+        bindTextView()
+        bindTags()
+        bindMakeAsHistoryButton()
+        bindSendButton()
+    }
+
+    private func bindTitleField() {
+        newsFormView.textField
+            .rx
+            .text
+            .orEmpty
+            .bind(to: viewModel.titleSubject)
+            .disposed(by: disposeBag)
+    }
+
+    private func bindTextView() {
+        newsFormView.textField
+            .rx
+            .text
+            .orEmpty
+            .bind(to: viewModel.textSubject)
+            .disposed(by: disposeBag)
+    }
+
+    private func bindMakeAsHistoryButton() {
+        newsFormView.makeAsHistoryButton
+            .rx
+            .tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                let makeAsHistoryButton = self?.newsFormView.makeAsHistoryButton
+                let isHistoryEvent = makeAsHistoryButton?.isSelected ?? false
+                makeAsHistoryButton?.isSelected = !isHistoryEvent
+                makeAsHistoryButton?.tintColor = !isHistoryEvent ? App.Color.azure : App.Color.coolGrey
+                self?.viewModel.isHistoryEvent.onNext(!isHistoryEvent)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    private func bindTags() {
+        newsFormView.didDeleteTag = { [weak self] tagText in
+            guard let `self` = self else { return }
+            self.viewModel.userTags = self.viewModel.userTags.filter({ tag -> Bool in
+                return tag.name != tagText
+            })
+            self.viewModel.userAddedTags.remove(tagText)
+        }
+        newsFormView.didTapAddTag = { [weak self] in
+            if let text = self?.newsFormView.tagsField.text,
+                !text.isEmpty {
+                self?.viewModel.userAddedTags.insert(text)
+                self?.newsFormView.tagsCollectionView.addTag(text)
+                self?.newsFormView.tagsField.text = nil
+                self?.newsFormView.tagsField.insertText("")
+            }
+        }
+
+        newsFormView.tagsField.autoSuggestionDataSource = self
+        newsFormView.tagsField.observeChanges()
+    }
+
+    private func bindSendButton() {
+        newsFormView.sendButton
+            .rx
+            .tap
+            .throttle(0.5, scheduler: MainScheduler.instance)
+            .withLatestFrom(viewModel.isLoadingSubject)
+            .filter { !$0 }
+            .subscribe(onNext: { [weak self] _ in
+                self?.view.endEditing(true)
+                self?.viewModel.createNews()
+            })
+            .disposed(by: disposeBag)
+        viewModel.isLoadingSubject.skip(1).subscribe(onNext: { [weak self] isLoading in
+            self?.newsFormView.sendButton.buttonState = isLoading ? .loading : .normal
+        }).disposed(by: disposeBag)
+        viewModel.newsCreatedSubject.subscribe(onNext: {[weak self] news in
+            if let didAddNews = self?.didAddNews {
+                var imageSize = ImageSize.init(width: 0, height: 0)
+                if let image = self?.selectedImage {
+                    imageSize = ImageSize.init(
+                        width: Int(image.size.width),
+                        height: Int(image.size.height)
+                    )
+                }
+                didAddNews(news, imageSize)
+            }
+            self?.step.accept(AppStep.createNewsDone)
+        }).disposed(by: disposeBag)
+        viewModel.errorSubject.subscribe(onNext: {[weak self] error in
+            let errorMessages = error.parseMessages()
+            if let key = errorMessages.keys.first,
+                let message = errorMessages[key] {
+                self?.showToast(message)
+            }
+        }).disposed(by: disposeBag)
     }
 
 }
+
+//swiftlint:disable line_length
+extension NewsFormViewController: IQMediaPickerControllerDelegate, UINavigationControllerDelegate {
+    func mediaPickerController(_ controller: IQMediaPickerController, didFinishMediaWithInfo info: [AnyHashable : Any]) {
+        if let key = info.keys.first as? String,
+            let dicts = info[key] as? [[String: Any]],
+            let dict = dicts.first,
+            let image = dict[IQMediaImage] as? UIImage {
+            selectedImage = image
+
+            let tempDir = NSTemporaryDirectory()
+            let tempDirPath = URL(fileURLWithPath: tempDir)
+            let imageName = UUID().uuidString
+            let imagePath = tempDirPath.appendingPathComponent("\(imageName).jpg")
+            if FileManager.default.fileExists(atPath: imagePath.path) {
+                try? FileManager.default.removeItem(at: imagePath)
+            }
+            let imageData = UIImageJPEGRepresentation(image, 1.0)
+            do {
+                try imageData?.write(to: imagePath)
+                viewModel.coverImage = imagePath
+            } catch {
+                print("Failed to write image at path \(imagePath)")
+            }
+        }
+    }
+
+    func mediaPickerControllerDidCancel(_ controller: IQMediaPickerController) {
+        print("Media pick cancelled ...")
+    }
+}
+
+extension NewsFormViewController: FileExplorerViewControllerDelegate {
+    func fileExplorerViewControllerDidFinish(_ controller: FileExplorerViewController) {
+        print("File explorer did finish ...")
+    }
+
+    func fileExplorerViewController(_ controller: FileExplorerViewController, didChooseURLs urls: [URL]) {
+        print("Attached files with urls - \(urls)")
+        viewModel.attachments = urls
+    }
+}
+
+extension NewsFormViewController: UITextFieldAutoSuggestionDataSource {
+    func autoSuggestionField(_ field: UITextField!, tableView: UITableView!, cellForRowAt indexPath: IndexPath!, forText text: String!) -> UITableViewCell! {
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: App.CellIdentifier.suggestionCellId)
+
+        let cell = tableView.dequeueReusableCell(withIdentifier: App.CellIdentifier.suggestionCellId, for: indexPath)
+        if let tags = try? viewModel.filteredTagsSubject.value(), tags.count > indexPath.row {
+            cell.textLabel?.text = tags[indexPath.row].name
+        }
+        return cell
+    }
+
+    func autoSuggestionField(_ field: UITextField!, tableView: UITableView!, numberOfRowsInSection section: Int, forText text: String!) -> Int {
+        if let tags = try? viewModel.filteredTagsSubject.value() {
+            return tags.count
+        }
+        return 0
+    }
+
+    func autoSuggestionField(_ field: UITextField!, tableView: UITableView!, didSelectRowAt indexPath: IndexPath!, forText text: String!) {
+        let tags = (try? self.viewModel.filteredTagsSubject.value()) ?? []
+        if tags.count > indexPath.row {
+            viewModel.userTags.insert(tags[indexPath.row])
+            newsFormView.tagsCollectionView.addTag(tags[indexPath.row].name)
+            newsFormView.tagsField.text = nil
+        }
+    }
+
+    func autoSuggestionField(_ field: UITextField!, textChanged text: String!) {
+        if let tags = try? viewModel.tagsSubject.value() {
+            let filteredTags = tags.filter({ tag -> Bool in
+                return tag.name.lowercased().contains(text.lowercased())
+            })
+            viewModel.filteredTagsSubject.onNext(filteredTags)
+            newsFormView.tagsField.reloadContents()
+        }
+    }
+}
+//swiftlint:enable line_length

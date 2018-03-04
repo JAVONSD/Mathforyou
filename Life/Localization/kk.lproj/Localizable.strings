@@ -164,5 +164,9 @@
 "tags" = "Теги";
 "add_cover" = "Добавить обложку";
 "enter_text" = "Введите текст";
+"choose_option" = "Выберите действие";
+"capture_photo" = "Сделать снимок";
+"pick_from_gallery" = "Выбрать из галереи";
+"cancel" = "Отмена";
 
 

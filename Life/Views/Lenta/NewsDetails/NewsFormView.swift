@@ -9,8 +9,9 @@
 import UIKit
 import Material
 import SnapKit
+import TTGTagCollectionView
 
-class NewsFormView: UIView, UITextFieldDelegate {
+class NewsFormView: UIView {
 
     private(set) lazy var headerView = NotificationHeaderView(
         image: nil,
@@ -27,6 +28,7 @@ class NewsFormView: UIView, UITextFieldDelegate {
     private(set) lazy var titleField = TextField(frame: .zero)
     private(set) lazy var textField = TextView(frame: .zero)
     private(set) lazy var tagsField = TextField(frame: .zero)
+    private(set) lazy var tagsCollectionView = TTGTextTagCollectionView(frame: .zero)
     private(set) lazy var makeAsHistoryButton = FlatButton(
         title: NSLocalizedString("history_event_to_history", comment: ""),
         titleColor: App.Color.steel
@@ -38,8 +40,9 @@ class NewsFormView: UIView, UITextFieldDelegate {
     var didTapCloseButton: (() -> Void)?
     var didTapCoverImageButton: (() -> Void)?
     var didTapAttachmentButton: (() -> Void)?
-    var didTapMakeAsHistoryButton: (() -> Void)?
     var didTapSendButton: (() -> Void)?
+    var didDeleteTag: ((String) -> Void)?
+    var didTapAddTag: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -75,20 +78,18 @@ class NewsFormView: UIView, UITextFieldDelegate {
     }
 
     @objc
-    private func handleMakeAsHistoryButton() {
-        let selected = !makeAsHistoryButton.isSelected
-        makeAsHistoryButton.isSelected = selected
-        makeAsHistoryButton.tintColor = selected ? App.Color.azure : App.Color.coolGrey
-
-        if let didTapMakeAsHistoryButton = didTapMakeAsHistoryButton {
-            didTapMakeAsHistoryButton()
-        }
-    }
-
-    @objc
     private func handleSendButton() {
         if let didTapSendButton = didTapSendButton {
             didTapSendButton()
+        }
+    }
+
+    // MARK: - Actions
+
+    @objc
+    private func handleAddTagButton() {
+        if let didTapAddTag = didTapAddTag {
+            didTapAddTag()
         }
     }
 
@@ -136,6 +137,7 @@ class NewsFormView: UIView, UITextFieldDelegate {
         setupTitleField()
         setupTextField()
         setupTagsField()
+        setupTagsCollectionView()
         setupMakeAsHistoryButton()
         setupSendButton()
     }
@@ -178,7 +180,6 @@ class NewsFormView: UIView, UITextFieldDelegate {
     }
 
     private func setupTitleField() {
-        titleField.delegate = self
         titleField.placeholder = NSLocalizedString("title", comment: "")
         contentView.addSubview(titleField)
         titleField.snp.makeConstraints { (make) in
@@ -211,11 +212,48 @@ class NewsFormView: UIView, UITextFieldDelegate {
     }
 
     private func setupTagsField() {
-        tagsField.delegate = self
+        tagsField.addRightButtonOnKeyboardWithText(
+            NSLocalizedString("create_tag", comment: ""),
+            target: self,
+            action: #selector(handleAddTagButton)
+        )
+        tagsField.keyboardToolbar.tintColor = .black
         tagsField.placeholder = NSLocalizedString("tags", comment: "")
         contentView.addSubview(tagsField)
         tagsField.snp.makeConstraints { (make) in
             make.top.equalTo(self.textField.snp.bottom).offset(App.Layout.sideOffset)
+            make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
+        }
+    }
+
+    private func setupTagsCollectionView() {
+        tagsCollectionView.delegate = self
+        tagsCollectionView.showsVerticalScrollIndicator = false
+        tagsCollectionView.horizontalSpacing = 6.0
+        tagsCollectionView.verticalSpacing = 8.0
+        contentView.addSubview(tagsCollectionView)
+
+        let config = tagsCollectionView.defaultConfig
+        config?.tagTextFont = App.Font.body
+        config?.tagTextColor = .white
+        config?.tagSelectedTextColor = .white
+        config?.tagBackgroundColor = App.Color.azure
+        config?.tagSelectedBackgroundColor = App.Color.azure
+        config?.tagBorderColor = .clear
+        config?.tagSelectedBorderColor = .clear
+        config?.tagBorderWidth = 0
+        config?.tagSelectedBorderWidth = 0
+        config?.tagShadowColor = .clear
+        config?.tagShadowOffset = .zero
+        config?.tagShadowOpacity = 0
+        config?.tagShadowRadius = 0
+        config?.tagCornerRadius = App.Layout.cornerRadiusSmall / 2
+
+        tagsCollectionView.snp.makeConstraints { (make) in
+            make.top
+                .equalTo(self.tagsField.snp.bottom)
+                .offset(App.Layout.itemSpacingSmall)
             make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
         }
@@ -230,10 +268,9 @@ class NewsFormView: UIView, UITextFieldDelegate {
         makeAsHistoryButton.titleLabel?.font = App.Font.caption
         makeAsHistoryButton.titleLabel?.textColor = App.Color.steel
         makeAsHistoryButton.contentHorizontalAlignment = .left
-        makeAsHistoryButton.addTarget(self, action: #selector(handleMakeAsHistoryButton), for: .touchUpInside)
         contentView.addSubview(makeAsHistoryButton)
         makeAsHistoryButton.snp.makeConstraints { (make) in
-            make.top.equalTo(self.tagsField.snp.bottom).offset(App.Layout.itemSpacingSmall)
+            make.top.equalTo(self.tagsCollectionView.snp.bottom).offset(App.Layout.itemSpacingSmall)
             make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.height.equalTo(40)
@@ -251,11 +288,16 @@ class NewsFormView: UIView, UITextFieldDelegate {
         }
     }
 
-    // MARK: - UITextFieldDelegate
+}
 
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+extension NewsFormView: TTGTextTagCollectionViewDelegate {
+    //swiftlint:disable line_length
+    func textTagCollectionView(_ textTagCollectionView: TTGTextTagCollectionView!, didTapTag tagText: String!, at index: UInt, selected: Bool) {
+        textTagCollectionView.removeTag(at: index)
+
+        if let didDeleteTag = didDeleteTag {
+            didDeleteTag(tagText)
+        }
     }
-
+    //swiftlint:enable line_length
 }

@@ -63,8 +63,8 @@ class MainMenuFlow: Flow {
             return navigationToSuggestion(id)
         case .suggestionDone:
             return navigationFromSuggestion()
-        case .createNews:
-            return navigationToNewsForm()
+        case .createNews(let completion):
+            return navigationToNewsForm(completion: completion)
         case .createNewsDone:
             return navigationFromNewsForm()
         case .createSuggestion:
@@ -153,11 +153,13 @@ class MainMenuFlow: Flow {
         let fabController = TasksAndRequestsFABController(
             rootViewController: tasksAndRequestsViewController
         )
+        //swiftlint:disable line_length
         fabController.didTapAddButton = { (category: Request.Category, didCreateRequest: @escaping (() -> Void)) in
             tasksAndRequestsViewController.step.accept(
                 AppStep.createRequest(category: category, didCreateRequest: didCreateRequest)
             )
         }
+        //swiftlint:enable line_length
         self.rootViewController.present(fabController, animated: true, completion: nil)
         return NextFlowItems.one(flowItem:
             NextFlowItem(
@@ -232,8 +234,9 @@ class MainMenuFlow: Flow {
         return NextFlowItems.none
     }
 
-    private func navigationToNewsForm() -> NextFlowItems {
+    private func navigationToNewsForm(completion: @escaping ((News, ImageSize) -> Void)) -> NextFlowItems {
         let vc = NewsFormViewController()
+        vc.didAddNews = completion
         self.rootViewController.present(vc, animated: true, completion: nil)
         return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc))
     }
@@ -342,8 +345,8 @@ class MainMenuFlow: Flow {
         lentaVC.didTapSuggestion = { id in
             self.rootViewController.step.accept(AppStep.suggestionPicked(withId: id))
         }
-        lentaVC.didTapAddNews = {
-            self.rootViewController.step.accept(AppStep.createNews)
+        lentaVC.didTapAddNews = { (completion: @escaping ((News, ImageSize) -> Void)) in
+            self.rootViewController.step.accept(AppStep.createNews(completion: completion))
         }
         lentaVC.onUnathorizedError = {
             self.navigateToLoginScreen(isUnathorized: true)

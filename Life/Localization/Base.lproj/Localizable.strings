@@ -164,5 +164,9 @@
 "tags" = "Tags";
 "add_cover" = "Add cover";
 "enter_text" = "Enter text";
+"choose_option" = "Choose option";
+"capture_photo" = "Capture photo";
+"pick_from_gallery" = "Pick from gallery";
+"cancel" = "Cancel";
 
 

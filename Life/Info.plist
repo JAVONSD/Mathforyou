@@ -84,5 +84,15 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Камера используется для снятия фото или видео в новости, предложения и др. разделов. </string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>Медиа библиотека используется для выбора файлов в новости, предложения и др. разделов. </string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Микрофон используется для записи видео файлов со звуком.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Мы сохраняем снятые камерой или записаной микрофоном файлы в вашу галерею.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Фото галерея используется для выбора файлов в новости, предложения и др. разделов. </string>
 </dict>
 </plist>

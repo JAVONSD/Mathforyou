@@ -38,10 +38,8 @@ class QuestionFormViewController: UIViewController, Stepper {
             }
         }).disposed(by: disposeBag)
         viewModel.getTags()
-        viewModel.tagsSubject.subscribe(onNext: { [weak self] tags in
+        viewModel.tagsSubject.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
-//            self.questionFormView.tagsField.setAsPicker(with: tags.map { $0.name }, setText: false)
-//            self.questionFormView.tagsField.addOrUpdateToggleToolbar()
             if let tableView = self.questionFormView.tagsField.tableView {
                 tableView.reloadData()
             }

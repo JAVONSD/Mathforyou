@@ -43,7 +43,7 @@ enum AppStep: Step {
 
     // MARK: - News
 
-    case createNews
+    case createNews(completion: ((News, ImageSize) -> Void))
     case createNewsDone
     case createPost
     case newsPicked(withId: String)

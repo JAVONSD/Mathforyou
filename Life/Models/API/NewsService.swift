@@ -16,7 +16,7 @@ enum NewsService {
     case addCommentToNews(withId: String, commentText: String)
     case likeComment(newsId: String, commentId: String, voteType: UserVote)
     case createNews(
-        mainImage: URL,
+        mainImage: URL?,
         secondaryImages: [URL],
         title: String,
         text: String,
@@ -26,7 +26,7 @@ enum NewsService {
     )
     case updateNews(
         id: String,
-        mainImage: URL,
+        mainImage: URL?,
         secondaryImages: [URL],
         title: String,
         text: String,
@@ -94,8 +94,10 @@ extension NewsService: AuthorizedTargetType {
             let tags):
             var data = [MultipartFormData]()
 
-            let mainImage = mainImage.multipartFormData("MainImage")
-            data.append(mainImage)
+            if let mainImage = mainImage {
+                let mainImageData = mainImage.multipartFormData("MainImage")
+                data.append(mainImageData)
+            }
 
             for secondaryImage in secondaryImages {
                 let secondaryImageData = secondaryImage.multipartFormData("SecondaryImages")
@@ -125,8 +127,10 @@ extension NewsService: AuthorizedTargetType {
 
             data.append(id.multipartFormData("NewsId"))
 
-            let mainImage = mainImage.multipartFormData("MainImage")
-            data.append(mainImage)
+            if let mainImage = mainImage {
+                let mainImage = mainImage.multipartFormData("MainImage")
+                data.append(mainImage)
+            }
 
             for secondaryImage in secondaryImages {
                 let secondaryImageData = secondaryImage.multipartFormData("SecondaryImages")

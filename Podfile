@@ -11,11 +11,16 @@ target 'Life' do
   # Date tools
   pod 'DateToolsSwift', '~> 2.0'
 
+  # File Browser
+
   # Collection Views
   pod 'IGListKit', '3.0.0'
 
   # Keyboard Avoiding
   pod 'IQKeyboardManagerSwift', '~> 5.0'
+
+  # Media Picker
+  pod 'IQMediaPickerController', '~> 1.0'
 
   # Image Caching
   pod 'Kingfisher', '~> 4.0'

@@ -42,6 +42,29 @@ struct Lenta: Decodable {
     var isFromSharepoint: Bool
     var entityType: LentaType
 
+    init(news: News, authorIsCurrent: Bool = true) {
+        self.id = news.id
+        self.authorCode = authorIsCurrent ? User.current.employeeCode : news.authorCode
+        self.authorName = authorIsCurrent
+            ? (User.current.profile?.fullname ?? news.authorName)
+            : news.authorName
+        self.createDate = news.createDate
+        self.title = news.title
+        self.description = ""
+        self.image = news.imageUrl
+        self.imageStreamId = news.imageStreamId
+        self.imageSize = .init(width: 200, height: 200)
+        self.questionsQuantity = 0
+        self.commentsQuantity = 0
+        self.likesQuantity = 0
+        self.dislikesQuantity = 0
+        self.userVote = 0
+        self.isLikedByMe = false
+        self.viewsQuantity = 0
+        self.isFromSharepoint = false
+        self.entityType = .init(name: "News", code: .news)
+    }
+
     // MARK: - Decodable
 
     enum CodingKeys: String, CodingKey {

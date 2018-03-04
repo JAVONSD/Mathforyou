@@ -125,14 +125,7 @@ class QuestionFormView: UIView {
     }
 
     private func setupTagsField() {
-        let detailView = UIImageView(frame: .init(x: 0, y: 0, width: 24, height: 8))
-        detailView.contentMode = .scaleAspectFit
-        detailView.tintColor = App.Color.silver
-        detailView.image = #imageLiteral(resourceName: "expand_arrow")
-
         tagsField.placeholder = NSLocalizedString("tags", comment: "")
-        tagsField.rightView = detailView
-        tagsField.rightViewMode = .always
         tagsField.addRightButtonOnKeyboardWithText(
             NSLocalizedString("create_tag", comment: ""),
             target: self,

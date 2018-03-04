@@ -35,9 +35,7 @@ class NewsSectionController: ASCollectionSectionController {
 
     override func didUpdate(to object: Any) {
         viewModel = object as? LentaViewModel
-        let items = (viewModel?.items ?? []) as [ListDiffable]
-
-        set(items: items, animated: false, completion: nil)
+        updateContents()
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
@@ -58,6 +56,11 @@ class NewsSectionController: ASCollectionSectionController {
                 didTapSuggestion(news.item.id)
             }
         }
+    }
+
+    public func updateContents() {
+        let items = (viewModel?.items ?? []) as [ListDiffable]
+        set(items: items, animated: false, completion: nil)
     }
 }
 

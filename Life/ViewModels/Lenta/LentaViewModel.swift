@@ -114,6 +114,10 @@ class LentaViewModel: NSObject {
             }
             .disposed(by: disposeBag)
     }
+
+    public func add(item: Lenta) {
+        items.insert(LentaItemViewModel(lenta: item), at: 0)
+    }
 }
 
 extension LentaViewModel: ListDiffable {

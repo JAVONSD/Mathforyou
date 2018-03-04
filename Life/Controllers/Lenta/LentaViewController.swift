@@ -17,11 +17,6 @@ class LentaViewController: ASViewController<ASDisplayNode> {
 
     private var listAdapter: ListAdapter!
     private(set) var collectionNode: ASCollectionNode!
-//    private(set) lazy var spinner = NVActivityIndicatorView(
-//        frame: .init(x: 0, y: 0, width: 44, height: 44),
-//        type: .circleStrokeSpin,
-//        color: App.Color.azure,
-//        padding: 0)
     private(set) lazy var spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     private lazy var refreshCtrl = UIRefreshControl()
 
@@ -33,7 +28,7 @@ class LentaViewController: ASViewController<ASDisplayNode> {
 
     var didTapNews: ((String) -> Void)?
     var didTapSuggestion: ((String) -> Void)?
-    var didTapAddNews: (() -> Void)?
+    var didTapAddNews: ((@escaping ((News, ImageSize) -> Void)) -> Void)?
 
     init() {
         let node = ASDisplayNode()
@@ -113,7 +108,16 @@ class LentaViewController: ASViewController<ASDisplayNode> {
     @objc
     private func handleAddButton() {
         if let didTapAddNews = didTapAddNews {
-            didTapAddNews()
+            didTapAddNews { [weak self] (news, imageSize) in
+                guard let `self` = self else { return }
+
+                var lentaItem = Lenta(news: news)
+                lentaItem.imageSize = imageSize
+                self.viewModel.add(item: lentaItem)
+
+                let newsSC = self.listAdapter.sectionController(for: self.viewModel) as? NewsSectionController
+                newsSC?.updateContents()
+            }
         }
     }
 
