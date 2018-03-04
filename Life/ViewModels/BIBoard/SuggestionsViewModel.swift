@@ -102,6 +102,10 @@ class SuggestionsViewModel: NSObject, ListDiffable {
             .disposed(by: disposeBag)
     }
 
+    public func add(suggestion: Suggestion) {
+        suggestions.insert(SuggestionItemViewModel(suggestion: suggestion), at: 0)
+    }
+
     // MARK: - ListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {

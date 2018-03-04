@@ -67,8 +67,8 @@ class MainMenuFlow: Flow {
             return navigationToNewsForm(completion: completion)
         case .createNewsDone:
             return navigationFromNewsForm()
-        case .createSuggestion:
-            return navigationToSuggestionForm()
+        case .createSuggestion(let completion):
+            return navigationToSuggestionForm(completion: completion)
         case .createSuggestionDone:
             return navigationFromSuggestionForm()
         case .createQuestion(let didAddQuestion):
@@ -246,8 +246,9 @@ class MainMenuFlow: Flow {
         return NextFlowItems.none
     }
 
-    private func navigationToSuggestionForm() -> NextFlowItems {
+    private func navigationToSuggestionForm(completion: @escaping ((Suggestion, ImageSize) -> Void)) -> NextFlowItems {
         let vc = SuggestionFormViewController()
+        vc.didAddSuggestion = completion
         self.rootViewController.present(vc, animated: true, completion: nil)
         return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc))
     }
@@ -301,8 +302,8 @@ class MainMenuFlow: Flow {
         biBoardVC.didTapAtSuggestion = { id in
             self.rootViewController.step.accept(AppStep.suggestionPicked(withId: id))
         }
-        biBoardVC.didTapAddSuggestion = {
-            self.rootViewController.step.accept(AppStep.createSuggestion)
+        biBoardVC.didTapAddSuggestion = { (completion: @escaping ((Suggestion, ImageSize) -> Void)) in
+            self.rootViewController.step.accept(AppStep.createSuggestion(completion: completion))
         }
         biBoardVC.didSelectNews = { newsId in
             self.rootViewController.step.accept(AppStep.newsPicked(withId: newsId))
@@ -347,6 +348,9 @@ class MainMenuFlow: Flow {
         }
         lentaVC.didTapAddNews = { (completion: @escaping ((News, ImageSize) -> Void)) in
             self.rootViewController.step.accept(AppStep.createNews(completion: completion))
+        }
+        lentaVC.didTapAddSuggestion = { (completion: @escaping ((Suggestion, ImageSize) -> Void)) in
+            self.rootViewController.step.accept(AppStep.createSuggestion(completion: completion))
         }
         lentaVC.onUnathorizedError = {
             self.navigateToLoginScreen(isUnathorized: true)

@@ -1,5 +1,5 @@
 //
-//  NewsFormViewModel.swift
+//  SuggestionFormViewModel.swift
 //  Life
 //
 //  Created by Shyngys Kassymov on 04.03.2018.
@@ -11,13 +11,13 @@ import Moya
 import RxSwift
 import RxCocoa
 
-class NewsFormViewModel: NSObject {
+class SuggestionFormViewModel: NSObject {
 
     let disposeBag = DisposeBag()
 
     let isLoadingSubject = BehaviorSubject<Bool>(value: false)
     let errorSubject = PublishSubject<Error>()
-    let newsCreatedSubject = PublishSubject<News>()
+    let suggestionCreatedSubject = PublishSubject<Suggestion>()
 
     var coverImage: URL?
     var attachments = [URL]()
@@ -31,9 +31,7 @@ class NewsFormViewModel: NSObject {
     let tagsSubject = BehaviorSubject<[Tag]>(value: [])
     let filteredTagsSubject = BehaviorSubject<[Tag]>(value: [])
 
-    let isHistoryEvent = BehaviorSubject<Bool>(value: false)
-
-    private let newsProvider = MoyaProvider<NewsService>(
+    private let suggestionsProvider = MoyaProvider<SuggestionsService>(
         plugins: [
             AuthPlugin(tokenClosure: {
                 return User.current.token
@@ -51,25 +49,22 @@ class NewsFormViewModel: NSObject {
 
     // MARK: - Methods
 
-    public func createNews() {
+    public func createSuggestion() {
         guard let title = try? titleSubject.value(),
-            let text = try? textSubject.value(),
-            let isHistoryEvent = try? isHistoryEvent.value() else {
+            let text = try? textSubject.value() else {
                 return
         }
 
         let tags = userTags.map { $0.getId() } + userAddedTags
 
         isLoadingSubject.onNext(true)
-        newsProvider
+        suggestionsProvider
             .rx
-            .request(.createNews(
+            .request(.createSuggestion(
                 mainImage: coverImage,
                 secondaryImages: attachments,
                 title: title,
                 text: text,
-                rawText: text,
-                isHistoryEvent: isHistoryEvent,
                 tags: tags)
             )
             .filterSuccessfulStatusCodes()
@@ -77,8 +72,8 @@ class NewsFormViewModel: NSObject {
                 self.isLoadingSubject.onNext(false)
                 switch response {
                 case .success(let json):
-                    if let news = try? JSONDecoder().decode(News.self, from: json.data) {
-                        self.newsCreatedSubject.onNext(news)
+                    if let suggestion = try? JSONDecoder().decode(Suggestion.self, from: json.data) {
+                        self.suggestionCreatedSubject.onNext(suggestion)
                     }
                 case .error(let error):
                     self.errorSubject.onNext(error)

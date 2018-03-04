@@ -29,7 +29,7 @@ class BIBoardViewController: ASViewController<ASCollectionNode> {
     var onUnathorizedError: (() -> Void)?
     var didTapTop7: ((String) -> Void)?
     var didTapAtSuggestion: ((String) -> Void)?
-    var didTapAddSuggestion: (() -> Void)?
+    var didTapAddSuggestion: ((@escaping ((Suggestion, ImageSize) -> Void)) -> Void)?
     var didSelectNews: ((String) -> Void)?
     var didSelectStuff: (() -> Void)?
     var didSelectEmployee: ((Employee) -> Void)?
@@ -177,7 +177,20 @@ extension BIBoardViewController: ListAdapterDataSource {
                 self.onUnauthorized()
             }
             section.didTapAtSuggestion = didTapAtSuggestion
-            section.didTapAddSuggestion = didTapAddSuggestion
+            section.didTapAddSuggestion = {
+                if let didTapAddSuggestion = self.didTapAddSuggestion {
+                    didTapAddSuggestion { [weak self] (suggestion, _) in
+                        guard let `self` = self else { return }
+
+                        self.viewModel.suggestionsViewModel.add(suggestion: suggestion)
+
+                        let suggestionsCtrl = self.listAdapter.sectionController(
+                            for: self.viewModel.suggestionsViewModel
+                            ) as? SuggestionsSectionController
+                        suggestionsCtrl?.updateContents()
+                    }
+                }
+            }
             return section
         } else if let viewModel = object as? QuestionnairesViewModel {
             let section = QuestionnairesSectionController(viewModel: viewModel)

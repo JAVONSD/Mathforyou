@@ -9,6 +9,7 @@
 import UIKit
 import Material
 import SnapKit
+import TTGTagCollectionView
 
 class SuggestionFormView: UIView, UITextFieldDelegate {
 
@@ -19,8 +20,15 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
     )
     private(set) lazy var scrollView = UIScrollView()
     private(set) lazy var contentView = UIView()
+    private(set) lazy var coverImageButton = FlatButton(
+        title: NSLocalizedString("add_cover", comment: ""),
+        titleColor: App.Color.steel
+    )
+    private(set) lazy var attachmentButton = FlatButton()
     private(set) lazy var topicField = TextField(frame: .zero)
     private(set) lazy var textField = TextView(frame: .zero)
+    private(set) lazy var tagsField = TextField(frame: .zero)
+    private(set) lazy var tagsCollectionView = TTGTextTagCollectionView(frame: .zero)
     private(set) lazy var addAttachmentButton = FlatButton(
         title: NSLocalizedString("attach", comment: ""),
         titleColor: UIColor.black
@@ -30,8 +38,11 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
     )
 
     var didTapCloseButton: (() -> Void)?
+    var didTapCoverImageButton: (() -> Void)?
     var didTapAttachmentButton: (() -> Void)?
     var didTapSendButton: (() -> Void)?
+    var didDeleteTag: ((String) -> Void)?
+    var didTapAddTag: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,6 +64,13 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
     }
 
     @objc
+    private func handleCoverImageButton() {
+        if let didTapCoverImageButton = didTapCoverImageButton {
+            didTapCoverImageButton()
+        }
+    }
+
+    @objc
     private func handleAttachmentButton() {
         if let didTapAttachmentButton = didTapAttachmentButton {
             didTapAttachmentButton()
@@ -63,6 +81,13 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
     private func handleSendButton() {
         if let didTapSendButton = didTapSendButton {
             didTapSendButton()
+        }
+    }
+
+    @objc
+    private func handleAddTagButton() {
+        if let didTapAddTag = didTapAddTag {
+            didTapAddTag()
         }
     }
 
@@ -105,18 +130,58 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
             make.width.equalTo(self.scrollView)
         }
 
+        setupCoverImageButton()
+        setupAttachmentButton()
         setupTopicField()
         setupTextField()
-        setupAddAttachmentButton()
+        setupTagsField()
+        setupTagsCollectionView()
         setupSendButton()
+    }
+
+    private func setupCoverImageButton() {
+        coverImageButton.image = Icon.cm.image
+        coverImageButton.tintColor = App.Color.coolGrey
+        coverImageButton.titleEdgeInsets = .init(top: 0, left: 8, bottom: 0, right: 0)
+        coverImageButton.titleLabel?.font = App.Font.caption
+        coverImageButton.titleLabel?.textColor = App.Color.steel
+        coverImageButton.layer.cornerRadius = App.Layout.cornerRadius
+        coverImageButton.layer.masksToBounds = true
+        coverImageButton.layer.borderColor = App.Color.coolGrey.cgColor
+        coverImageButton.layer.borderWidth = 0.5
+        coverImageButton.addTarget(self, action: #selector(handleCoverImageButton), for: .touchUpInside)
+        contentView.addSubview(coverImageButton)
+        coverImageButton.snp.makeConstraints { (make) in
+            make.top.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            make.height.equalTo(72)
+        }
+    }
+
+    private func setupAttachmentButton() {
+        attachmentButton.image = #imageLiteral(resourceName: "attach")
+        attachmentButton.tintColor = App.Color.coolGrey
+        attachmentButton.addTarget(self, action: #selector(handleAttachmentButton), for: .touchUpInside)
+        attachmentButton.layer.cornerRadius = App.Layout.cornerRadius
+        attachmentButton.layer.masksToBounds = true
+        attachmentButton.layer.borderColor = App.Color.coolGrey.cgColor
+        attachmentButton.layer.borderWidth = 0.5
+        contentView.addSubview(attachmentButton)
+        attachmentButton.snp.makeConstraints { (make) in
+            make.top.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            make.left.equalTo(self.coverImageButton.snp.right).offset(App.Layout.itemSpacingSmall)
+            make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            make.height.equalTo(72)
+            make.width.equalTo(72)
+        }
     }
 
     private func setupTopicField() {
         topicField.delegate = self
-        topicField.placeholder = NSLocalizedString("topic", comment: "")
+        topicField.placeholder = NSLocalizedString("title", comment: "")
         contentView.addSubview(topicField)
         topicField.snp.makeConstraints { (make) in
-            make.top.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            make.top.equalTo(self.coverImageButton.snp.bottom).offset(App.Layout.sideOffset)
             make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
         }
@@ -144,20 +209,51 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
         }
     }
 
-    private func setupAddAttachmentButton() {
-        addAttachmentButton.image = #imageLiteral(resourceName: "attach")
-        addAttachmentButton.tintColor = App.Color.steel
-        addAttachmentButton.titleEdgeInsets = .init(top: 0, left: 4, bottom: 0, right: 0)
-        addAttachmentButton.titleLabel?.font = App.Font.subheadAlts
-        addAttachmentButton.titleLabel?.textColor = .black
-        addAttachmentButton.contentHorizontalAlignment = .left
-        addAttachmentButton.addTarget(self, action: #selector(handleAttachmentButton), for: .touchUpInside)
-        contentView.addSubview(addAttachmentButton)
-        addAttachmentButton.snp.makeConstraints { (make) in
-            make.top.equalTo(self.textField.snp.bottom).offset(App.Layout.itemSpacingSmall)
+    private func setupTagsField() {
+        tagsField.addRightButtonOnKeyboardWithText(
+            NSLocalizedString("create_tag", comment: ""),
+            target: self,
+            action: #selector(handleAddTagButton)
+        )
+        tagsField.keyboardToolbar.tintColor = .black
+        tagsField.placeholder = NSLocalizedString("tags", comment: "")
+        contentView.addSubview(tagsField)
+        tagsField.snp.makeConstraints { (make) in
+            make.top.equalTo(self.textField.snp.bottom).offset(App.Layout.sideOffset)
             make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
-            make.height.equalTo(40)
+        }
+    }
+
+    private func setupTagsCollectionView() {
+        tagsCollectionView.delegate = self
+        tagsCollectionView.showsVerticalScrollIndicator = false
+        tagsCollectionView.horizontalSpacing = 6.0
+        tagsCollectionView.verticalSpacing = 8.0
+        contentView.addSubview(tagsCollectionView)
+
+        let config = tagsCollectionView.defaultConfig
+        config?.tagTextFont = App.Font.body
+        config?.tagTextColor = .white
+        config?.tagSelectedTextColor = .white
+        config?.tagBackgroundColor = App.Color.azure
+        config?.tagSelectedBackgroundColor = App.Color.azure
+        config?.tagBorderColor = .clear
+        config?.tagSelectedBorderColor = .clear
+        config?.tagBorderWidth = 0
+        config?.tagSelectedBorderWidth = 0
+        config?.tagShadowColor = .clear
+        config?.tagShadowOffset = .zero
+        config?.tagShadowOpacity = 0
+        config?.tagShadowRadius = 0
+        config?.tagCornerRadius = App.Layout.cornerRadiusSmall / 2
+
+        tagsCollectionView.snp.makeConstraints { (make) in
+            make.top
+                .equalTo(self.tagsField.snp.bottom)
+                .offset(App.Layout.itemSpacingSmall)
+            make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
         }
     }
 
@@ -165,7 +261,7 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
         sendButton.addTarget(self, action: #selector(handleSendButton), for: .touchUpInside)
         contentView.addSubview(sendButton)
         sendButton.snp.makeConstraints { (make) in
-            make.top.equalTo(self.addAttachmentButton.snp.bottom).offset(App.Layout.itemSpacingMedium)
+            make.top.equalTo(self.tagsCollectionView.snp.bottom).offset(App.Layout.itemSpacingMedium)
             make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.bottom.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
@@ -179,4 +275,16 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
         return true
     }
 
+}
+
+extension SuggestionFormView: TTGTextTagCollectionViewDelegate {
+    //swiftlint:disable line_length
+    func textTagCollectionView(_ textTagCollectionView: TTGTextTagCollectionView!, didTapTag tagText: String!, at index: UInt, selected: Bool) {
+        textTagCollectionView.removeTag(at: index)
+
+        if let didDeleteTag = didDeleteTag {
+            didDeleteTag(tagText)
+        }
+    }
+    //swiftlint:enable line_length
 }

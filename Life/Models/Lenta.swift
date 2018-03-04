@@ -65,6 +65,29 @@ struct Lenta: Decodable {
         self.entityType = .init(name: "News", code: .news)
     }
 
+    init(suggestion: Suggestion, authorIsCurrent: Bool = true) {
+        self.id = suggestion.id
+        self.authorCode = authorIsCurrent ? User.current.employeeCode : suggestion.authorCode
+        self.authorName = authorIsCurrent
+            ? (User.current.profile?.fullname ?? suggestion.authorName)
+            : suggestion.authorName
+        self.createDate = suggestion.createDate
+        self.title = suggestion.title
+        self.description = ""
+        self.image = suggestion.imageStreamId ?? ""
+        self.imageStreamId = suggestion.imageStreamId
+        self.imageSize = .init(width: 200, height: 200)
+        self.questionsQuantity = 0
+        self.commentsQuantity = 0
+        self.likesQuantity = 0
+        self.dislikesQuantity = 0
+        self.userVote = 0
+        self.isLikedByMe = false
+        self.viewsQuantity = 0
+        self.isFromSharepoint = false
+        self.entityType = .init(name: "Suggestion", code: .suggestion)
+    }
+
     // MARK: - Decodable
 
     enum CodingKeys: String, CodingKey {

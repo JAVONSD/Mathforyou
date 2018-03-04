@@ -16,7 +16,7 @@ enum SuggestionsService {
     case likeComment(suggestionId: String, commentId: String, voteType: UserVote)
     case suggestions
     case createSuggestion(
-        mainImage: URL,
+        mainImage: URL?,
         secondaryImages: [URL],
         title: String,
         text: String,
@@ -24,7 +24,7 @@ enum SuggestionsService {
     )
     case updateSuggestion(
         id: String,
-        mainImage: URL,
+        mainImage: URL?,
         secondaryImages: [URL],
         title: String,
         text: String,
@@ -88,8 +88,10 @@ extension SuggestionsService: AuthorizedTargetType {
             let tags):
             var data = [MultipartFormData]()
 
-            let mainImage = mainImage.multipartFormData("MainImage")
-            data.append(mainImage)
+            if let mainImage = mainImage {
+                let mainImageData = mainImage.multipartFormData("MainImage")
+                data.append(mainImageData)
+            }
 
             for secondaryImage in secondaryImages {
                 let secondaryImageData = secondaryImage.multipartFormData("SecondaryImages")
@@ -115,8 +117,10 @@ extension SuggestionsService: AuthorizedTargetType {
 
             data.append(id.multipartFormData("NewsId"))
 
-            let mainImage = mainImage.multipartFormData("MainImage")
-            data.append(mainImage)
+            if let mainImage = mainImage {
+                let mainImageData = mainImage.multipartFormData("MainImage")
+                data.append(mainImageData)
+            }
 
             for secondaryImage in secondaryImages {
                 let secondaryImageData = secondaryImage.multipartFormData("SecondaryImages")

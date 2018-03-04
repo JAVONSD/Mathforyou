@@ -30,7 +30,7 @@ class SuggestionsSectionController: ASCollectionSectionController {
         updateContents()
     }
 
-    private func updateContents() {
+    public func updateContents() {
         guard let viewModel = self.viewModel else {
             return
         }

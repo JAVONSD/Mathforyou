@@ -84,8 +84,6 @@ class NewsFormView: UIView {
         }
     }
 
-    // MARK: - Actions
-
     @objc
     private func handleAddTagButton() {
         if let didTapAddTag = didTapAddTag {

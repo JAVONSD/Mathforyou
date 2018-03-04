@@ -52,7 +52,7 @@ enum AppStep: Step {
 
     // MARK: - Suggestions
 
-    case createSuggestion
+    case createSuggestion(completion: ((Suggestion, ImageSize) -> Void))
     case createSuggestionDone
     case suggestionPicked(withId: String)
     case suggestionDone
