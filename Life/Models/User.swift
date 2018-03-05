@@ -251,8 +251,8 @@ struct MedicalExamination: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
-        self.last = try container.decodeWrapper(key: .last, defaultValue: "")
-        self.next = try container.decodeWrapper(key: .next, defaultValue: "")
+        self.last = try container.decodeWrapper(key: .last, defaultValue: nil)
+        self.next = try container.decodeWrapper(key: .next, defaultValue: nil)
     }
 
     func encode(with aCoder: NSCoder) {

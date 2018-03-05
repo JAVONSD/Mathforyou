@@ -70,6 +70,13 @@ class MyInfoViewController: UIViewController {
                 .workExperienceView?.subtitleLabel?.text = profile?.totalExperience
             self.myInfoView.detailedView?
                 .corporateExperienceView?.subtitleLabel?.text = profile?.corporateExperience
+
+            self.myInfoView.detailedView?
+                .lastMedicalView?.subtitleLabel?.text = profile?.medicalExamination.last
+                ?? NSLocalizedString("no_data", comment: "")
+            self.myInfoView.detailedView?
+                .nextMedicalView?.subtitleLabel?.text = profile?.medicalExamination.next
+                ?? NSLocalizedString("no_data", comment: "")
         }.disposed(by: disposeBag)
     }
 

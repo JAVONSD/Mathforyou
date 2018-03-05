@@ -61,6 +61,10 @@
 "fitness" = "Фитнес";
 "accommodation" = "Жилье";
 "bi_club" = "BI Club";
+"medical_examination" = "Медосмотр";
+"last_visit" = "Последнее прохождение";
+"nearest_visit" = "Ближайшее";
+"no_data" = "Нет данных";
 
 /* Errors */
 

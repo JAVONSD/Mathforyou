@@ -24,6 +24,10 @@ class MyInfoDetailedView: StackedView {
     private(set) var workExperienceView: ImageTextView?
     private(set) var corporateExperienceView: ImageTextView?
 
+    private(set) var medicalInfoView: ImageTextView?
+    private(set) var lastMedicalView: ImageTextView?
+    private(set) var nextMedicalView: ImageTextView?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -39,6 +43,7 @@ class MyInfoDetailedView: StackedView {
     private func setupUI() {
         setupPersonalAndFamilyInfoView()
         setupWorkInfoView()
+        setupMedicalInfoView()
     }
 
     private func setupPersonalAndFamilyInfoView() {
@@ -182,6 +187,7 @@ class MyInfoDetailedView: StackedView {
         workInfoView.textStackView?.insets = insets
         workInfoView.textStackView?.stackView?.distribution = .fill
         workInfoView.titleLabel?.font = App.Font.subheadAlts
+        workInfoView.dividerView?.isHidden = false
 
         stackView.addArrangedSubview(workInfoView)
 
@@ -217,6 +223,60 @@ class MyInfoDetailedView: StackedView {
 
         setup(subview: corporateExperienceView)
         stackView.addArrangedSubview(corporateExperienceView)
+    }
+
+    private func setupMedicalInfoView() {
+        medicalInfoView = ImageTextView(title: NSLocalizedString("medical_examination", comment: ""))
+        medicalInfoView?.accessibilityIdentifier = "_S_O_M_E__L_A_B_E_L__11_"
+
+        guard let stackView = stackView,
+            let medicalInfoView = medicalInfoView else {
+                return
+        }
+
+        medicalInfoView.imageView?.isHidden = true
+        let insets = UIEdgeInsets(top: App.Layout.itemSpacingSmall,
+                                  left: 0,
+                                  bottom: App.Layout.itemSpacingSmall,
+                                  right: 0)
+        medicalInfoView.textStackView?.insets = insets
+        medicalInfoView.textStackView?.stackView?.distribution = .fill
+        medicalInfoView.titleLabel?.font = App.Font.subheadAlts
+
+        stackView.addArrangedSubview(medicalInfoView)
+
+        guard let wStackView = medicalInfoView.textStackView?.stackView else {
+            return
+        }
+
+        setupLastMedicalView(stackView: wStackView)
+        setupNextMedicalView(stackView: wStackView)
+    }
+
+    private func setupLastMedicalView(stackView: UIStackView) {
+        lastMedicalView = ImageTextView(
+            title: NSLocalizedString("last_visit", comment: ""),
+            subtitle: NSLocalizedString("no_data", comment: "")
+        )
+        lastMedicalView?.accessibilityIdentifier = "_S_O_M_E__L_A_B_E_L__12_"
+
+        guard let lastMedicalView = lastMedicalView else { return }
+
+        setup(subview: lastMedicalView)
+        stackView.addArrangedSubview(lastMedicalView)
+    }
+
+    private func setupNextMedicalView(stackView: UIStackView) {
+        nextMedicalView = ImageTextView(
+            title: NSLocalizedString("nearest_visit", comment: ""),
+            subtitle: NSLocalizedString("no_data", comment: "")
+        )
+        nextMedicalView?.accessibilityIdentifier = "_S_O_M_E__L_A_B_E_L__13_"
+
+        guard let nextMedicalView = nextMedicalView else { return }
+
+        setup(subview: nextMedicalView)
+        stackView.addArrangedSubview(nextMedicalView)
     }
 
     private func setup(subview: ImageTextView) {

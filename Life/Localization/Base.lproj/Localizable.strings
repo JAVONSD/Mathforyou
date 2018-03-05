@@ -61,6 +61,10 @@
 "fitness" = "Fitness";
 "accommodation" = "Accommodation";
 "bi_club" = "BI Club";
+"medical_examination" = "Medical examination";
+"last_visit" = "Last visit";
+"nearest_visit" = "Nearest visit";
+"no_data" = "No data";
 
 /* Errors */
 
