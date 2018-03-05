@@ -55,6 +55,9 @@ class Button: RaisedButton {
         pulseColor = .white
         backgroundColor = App.Color.azure
 
+        shadowColor = App.Color.black12
+        depth = Depth(offset: Offset.init(horizontal: 0, vertical: 8), opacity: 1, radius: 12)
+
         layer.cornerRadius = App.Layout.cornerRadius
         titleLabel?.font = App.Font.button
 

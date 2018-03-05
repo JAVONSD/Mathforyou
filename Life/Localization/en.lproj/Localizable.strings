@@ -90,6 +90,8 @@
 "suggestions" = "Suggestions";
 "new_suggestion" = "New suggestion";
 "add_news" = "Add news";
+"news_single" = "News";
+"suggestion" = "Suggestion";
 
 /* Notifications */
 

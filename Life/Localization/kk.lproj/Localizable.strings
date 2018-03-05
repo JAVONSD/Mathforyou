@@ -90,6 +90,8 @@
 "suggestions" = "Предложения";
 "new_suggestion" = "Новое предложение";
 "add_news" = "Добавить новость";
+"news_single" = "Новость";
+"suggestion" = "Предложение";
 
 /* Notifications */
 

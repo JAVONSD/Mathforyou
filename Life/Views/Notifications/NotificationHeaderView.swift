@@ -31,7 +31,7 @@ class NotificationHeaderView: ImageTextView {
             top: 0,
             left: App.Layout.sideOffset,
             bottom: 0,
-            right: App.Layout.sideOffset)
+            right: 0)
         stackView?.insets = insets
 
         dividerView?.isHidden = false
@@ -47,9 +47,9 @@ class NotificationHeaderView: ImageTextView {
         closeButton?.image = #imageLiteral(resourceName: "close-circle-dark")
         closeButton?.contentMode = .scaleAspectFit
         closeButton?.imageView?.contentMode = .scaleAspectFit
-        closeButton?.imageEdgeInsets = .init(top: 0, left: 46, bottom: 0, right: 0)
+        closeButton?.imageEdgeInsets = .init(top: 0, left: 24, bottom: 0, right: 24)
         closeButton?.snp.makeConstraints { (make) in
-            make.size.equalTo(CGSize(width: 66, height: 66))
+            make.size.equalTo(CGSize(width: 68, height: 50))
         }
 
         guard let closeButton = closeButton else { return }

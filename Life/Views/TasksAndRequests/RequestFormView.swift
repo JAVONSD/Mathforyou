@@ -187,7 +187,7 @@ class RequestFormView: UIView, UITextFieldDelegate {
     }
 
     private func setupAddAttachmentButton() {
-        addAttachmentButton.image = #imageLiteral(resourceName: "attach")
+        addAttachmentButton.image = #imageLiteral(resourceName: "attach-file")
         addAttachmentButton.tintColor = App.Color.steel
         addAttachmentButton.titleEdgeInsets = .init(top: 0, left: 4, bottom: 0, right: 0)
         addAttachmentButton.titleLabel?.font = App.Font.subheadAlts

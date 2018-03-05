@@ -64,7 +64,7 @@ class NewsHeaderNode: ASDisplayNode {
         addSubnode(labelContainerNode)
 
         labelNode = ASTextNode()
-        labelNode.attributedText = attLabel(news.title)
+        labelNode.attributedText = attLabel(NSLocalizedString("news_single", comment: "").uppercased())
         labelNode.style.flexShrink = 1.0
         labelContainerNode.addSubnode(labelNode)
 

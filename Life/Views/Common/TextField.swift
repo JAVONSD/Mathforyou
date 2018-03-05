@@ -21,6 +21,8 @@ class TextField: ErrorTextField {
     override init(frame: CGRect) {
         super.init(frame: .zero)
 
+        delegate = self
+
         dividerColor = App.Color.coolGrey
         dividerActiveColor = App.Color.azure
 
@@ -123,5 +125,17 @@ extension TextField: UIPickerViewDelegate {
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         text = items[row]
+    }
+}
+
+extension TextField: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let textFieldText = textField.text, !textFieldText.isEmpty {
+            tintColor = placeholderActiveColor
+            placeholderLabel.textColor = placeholderActiveColor
+        } else {
+            tintColor = placeholderNormalColor
+            placeholderLabel.textColor = placeholderNormalColor
+        }
     }
 }

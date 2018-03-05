@@ -53,6 +53,8 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate {
             self.fabButton = FABButton(image: Icon.cm.add, tintColor: .white)
             self.fabButton.pulseColor = .white
             self.fabButton.backgroundColor = App.Color.azure
+            self.fabButton.shadowColor = App.Color.black12
+            self.fabButton.depth = Depth(offset: Offset.init(horizontal: 0, vertical: 12), opacity: 1, radius: 12)
 
             self.fabMenu = FABMenu()
             self.fabMenu.delegate = self

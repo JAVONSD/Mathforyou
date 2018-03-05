@@ -56,7 +56,7 @@ class SuggestionHeaderNode: ASDisplayNode {
         collectionNode.addSubnode(labelContainerNode)
 
         labelNode = ASTextNode()
-        labelNode.attributedText = attLabel(suggestion.title)
+        labelNode.attributedText = attLabel(NSLocalizedString("suggestion", comment: "").uppercased())
         labelContainerNode.addSubnode(labelNode)
 
         closeNode = ASButtonNode()

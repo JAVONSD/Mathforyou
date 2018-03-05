@@ -140,7 +140,7 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
     }
 
     private func setupCoverImageButton() {
-        coverImageButton.image = Icon.cm.image
+        coverImageButton.image = #imageLiteral(resourceName: "ic-insert-photo")
         coverImageButton.tintColor = App.Color.coolGrey
         coverImageButton.titleEdgeInsets = .init(top: 0, left: 8, bottom: 0, right: 0)
         coverImageButton.titleLabel?.font = App.Font.caption
@@ -159,7 +159,7 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
     }
 
     private func setupAttachmentButton() {
-        attachmentButton.image = #imageLiteral(resourceName: "attach")
+        attachmentButton.image = #imageLiteral(resourceName: "attach-file")
         attachmentButton.tintColor = App.Color.coolGrey
         attachmentButton.addTarget(self, action: #selector(handleAttachmentButton), for: .touchUpInside)
         attachmentButton.layer.cornerRadius = App.Layout.cornerRadius

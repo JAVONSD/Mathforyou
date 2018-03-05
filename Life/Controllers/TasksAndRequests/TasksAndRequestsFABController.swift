@@ -46,6 +46,8 @@ class TasksAndRequestsFABController: FABMenuController {
         fabButton = FABButton(image: Icon.cm.add, tintColor: .white)
         fabButton.pulseColor = .white
         fabButton.backgroundColor = App.Color.azure
+        fabButton.shadowColor = App.Color.black12
+        fabButton.depth = Depth(offset: Offset.init(horizontal: 0, vertical: 12), opacity: 1, radius: 12)
 
         fabMenu.fabButton = fabButton
         fabMenu.fabMenuItemSize = CGSize(

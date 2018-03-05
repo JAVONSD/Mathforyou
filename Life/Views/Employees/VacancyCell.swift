@@ -68,7 +68,7 @@ class VacancyCell: TableViewCell {
         companyLabel.textColor = App.Color.steel
         contentView.addSubview(companyLabel)
         companyLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.positionLabel.snp.bottom)
+            make.top.equalTo(self.positionLabel.snp.bottom).offset(App.Layout.itemSpacingSmall / 2)
             make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.bottom.equalTo(self.contentView).inset(19)
         }
@@ -82,7 +82,7 @@ class VacancyCell: TableViewCell {
         salaryLabel.textColor = App.Color.steel
         contentView.addSubview(salaryLabel)
         salaryLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.positionLabel.snp.bottom)
+            make.top.equalTo(self.positionLabel.snp.bottom).offset(App.Layout.itemSpacingSmall / 2)
             make.left.equalTo(self.companyLabel.snp.right).offset(App.Layout.itemSpacingSmall)
             make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.bottom.equalTo(self.contentView).inset(19)
