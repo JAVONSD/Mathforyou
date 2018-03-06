@@ -9,13 +9,7 @@
 import Foundation
 import Material
 
-class StuffViewController: TabsController {
-
-    var onUnathorizedError: (() -> Void)?
-
-    var didSelectEmployee: ((Employee) -> Void)?
-    var didSelectBirthdate: ((Employee) -> Void)?
-    var didSelectVacancy: ((String) -> Void)?
+class StuffViewController: TabsController, Stepper {
 
     private var previousShadowHidden = false
 
@@ -23,26 +17,28 @@ class StuffViewController: TabsController {
         let vc1 = EmployeesViewController(viewModel: stuffViewModel.employeesViewModel)
 
         let vc2 = BirthdaysViewController(viewModel: stuffViewModel.birthdaysViewModel)
-        vc2.onUnathorizedError = onUnathorizedError
 
         let vc3 = VacanciesViewController(viewModel: stuffViewModel.vacanciesViewModel)
 
         super.init(viewControllers: [vc1, vc2, vc3], selectedIndex: 0)
 
-        vc1.didSelectEmployee = { employee in
-            if let didSelectEmployee = self.didSelectEmployee {
-                didSelectEmployee(employee)
-            }
+        vc1.onUnathorizedError = { [weak self] in
+            self?.step.accept(AppStep.unauthorized)
         }
-        vc2.didSelectBirthdate = { employee in
-            if let didSelectBirthdate = self.didSelectBirthdate {
-                didSelectBirthdate(employee)
-            }
+        vc1.didSelectEmployee = { [weak self] employee in
+            self?.step.accept(AppStep.employeePicked(employee: employee))
+        }
+        vc2.onUnathorizedError = { [weak self] in
+            self?.step.accept(AppStep.unauthorized)
+        }
+        vc2.didSelectBirthdate = { [weak self] employee in
+            self?.step.accept(AppStep.employeePicked(employee: employee))
+        }
+        vc3.onUnathorizedError = { [weak self] in
+            self?.step.accept(AppStep.unauthorized)
         }
         vc3.didSelectVacancy = { code in
-            if let didSelectVacancy = self.didSelectVacancy {
-                didSelectVacancy(code)
-            }
+            print("Vacancy picked with code - \(code)")
         }
     }
 

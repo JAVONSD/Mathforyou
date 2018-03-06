@@ -48,7 +48,7 @@ struct Tag: Codable, Hashable {
 
     var hashValue: Int { return nsiTagId.hashValue }
 
-    static func ==(lhs: Tag, rhs: Tag) -> Bool {
+    static func == (lhs: Tag, rhs: Tag) -> Bool {
         return lhs.nsiTagId == rhs.nsiTagId
     }
 

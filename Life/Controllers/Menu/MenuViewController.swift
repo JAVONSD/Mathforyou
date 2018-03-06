@@ -19,11 +19,6 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
 
     var viewModel: MenuViewModel!
 
-    var onUnathorizedError: (() -> Void)?
-
-    var profileTapped: (() -> Void)?
-    var topQuestionTapped: (() -> Void)?
-
     private var menuView: MenuView!
 
     private let disposeBag = DisposeBag()
@@ -89,11 +84,9 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
             .map { indexPath in
                 return (indexPath, dataSource[indexPath])
             }
-            .subscribe(onNext: { pair in
+            .subscribe(onNext: { [weak self] pair in
                 if pair.0.row == 3 {
-                    if let topQuestionTapped = self.topQuestionTapped {
-                        topQuestionTapped()
-                    }
+                    self?.step.accept(AppStep.topQuestions)
                 }
             })
             .disposed(by: disposeBag)
@@ -119,10 +112,8 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
             make.edges.equalTo(self.view)
         })
 
-        menuView.headerButton.rx.tap.asDriver().throttle(0.5).drive(onNext: {
-            if let profileTapped = self.profileTapped {
-                profileTapped()
-            }
+        menuView.headerButton.rx.tap.asDriver().throttle(0.5).drive(onNext: { [weak self] in
+            self?.step.accept(AppStep.profile)
         }).disposed(by: disposeBag)
     }
 

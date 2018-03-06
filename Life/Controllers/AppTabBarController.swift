@@ -13,14 +13,10 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class AppTabBarController: UIViewController, TabBarDelegate {
+class AppTabBarController: UIViewController, TabBarDelegate, Stepper {
 
     private(set) lazy var containerView = UIView(frame: .zero)
     private(set) lazy var tabBar = TabBar(frame: .zero)
-
-    private var biGroupButton: SizedButton!
-    private var notificationsButton: IconButton!
-    private var profileButton: SizedButton!
 
     private let disposeBag = DisposeBag()
 
@@ -63,22 +59,6 @@ class AppTabBarController: UIViewController, TabBarDelegate {
 
         guard currentTabIndex < viewControllers.count else { return }
         viewControllers[currentTabIndex].endAppearanceTransition()
-    }
-
-    // MARK: - Actions
-
-    @objc
-    private func handleNotificationsButtonTap() {
-        if let navigationControler = self.navigationController as? AppToolbarController {
-            navigationControler.step.accept(AppStep.notifications)
-        }
-    }
-
-    @objc
-    private func handleProfileButtonTap() {
-        if let navigationControler = self.navigationController as? AppToolbarController {
-            navigationControler.step.accept(AppStep.profile)
-        }
     }
 
     // MARK: - Methods
@@ -124,54 +104,9 @@ class AppTabBarController: UIViewController, TabBarDelegate {
     private func setupUI() {
         view.backgroundColor = App.Color.whiteSmoke
 
-        setupToolbar()
         setupTabBar()
         setupContainerView()
         setupInitialVC()
-    }
-
-    private func setupToolbar() {
-        setupBiGroupButton()
-        setupNotificationsButotn()
-        setupProfileButton()
-
-        navigationItem.leftViews = [biGroupButton]
-        navigationItem.rightViews = [notificationsButton, profileButton]
-    }
-
-    private func setupBiGroupButton() {
-        biGroupButton = SizedButton(image: #imageLiteral(resourceName: "bi"), size: .init(width: 43, height: 22))
-        biGroupButton.contentMode = .scaleAspectFit
-        biGroupButton.imageView?.contentMode = .scaleAspectFit
-        biGroupButton.pulseColor = App.Color.azure
-    }
-
-    private func setupNotificationsButotn() {
-        notificationsButton = IconButton(image: #imageLiteral(resourceName: "ic-notification"))
-        notificationsButton.pulseColor = App.Color.azure
-
-        notificationsButton.addTarget(
-            self,
-            action: #selector(handleNotificationsButtonTap),
-            for: .touchUpInside
-        )
-    }
-
-    private func setupProfileButton() {
-        profileButton = SizedButton(image: nil, size: .init(width: 24, height: 24))
-        profileButton.iconView.backgroundColor = App.Color.coolGrey
-        profileButton.pulseColor = App.Color.azure
-        profileButton.iconView.layer.cornerRadius = 12
-        profileButton.iconView.layer.masksToBounds = true
-        profileButton.addTarget(self, action: #selector(handleProfileButtonTap), for: .touchUpInside)
-
-        Observable.just(User.current.profile).bind { (profile) in
-            ImageDownloader.set(
-                image: "",
-                employeeCode: (profile?.employeeCode ?? ""),
-                to: self.profileButton.iconView
-            )
-        }.disposed(by: disposeBag)
     }
 
     private func setupTabBar() {
@@ -228,6 +163,7 @@ class AppTabBarController: UIViewController, TabBarDelegate {
     private func setupContainerView() {
         containerView.backgroundColor = .clear
         view.addSubview(containerView)
+        view.sendSubview(toBack: containerView)
         containerView.snp.makeConstraints { [weak self] (make) in
             guard let `self` = self else { return }
             make.top.equalTo(self.topLayoutGuide.snp.bottom)

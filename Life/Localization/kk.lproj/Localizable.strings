@@ -161,6 +161,19 @@
 "inbox_count_short" = "Прин.";
 "outbox_count_short" = "Исход.";
 "popular_count_short" = "Попул.";
+"new_task" = "Новая задача";
+"all_day" = "Весь день";
+"reminder" = "Напоминание";
+"five_minutes" = "5 минут";
+"ten_minutes" = "10 минут";
+"fifteen_minutes" = "15 минут";
+"thirty_minutes" = "30 минут";
+"one_hour" = "1 час";
+"start_date" = "Начало";
+"end_date" = "Конец";
+"select_executor" = "Выбрать исполнителя";
+"add_participants" = "Добавить участников";
+"task_type" = "Тип задачи";
 
 /* News */
 

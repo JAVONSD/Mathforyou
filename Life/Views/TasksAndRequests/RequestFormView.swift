@@ -10,7 +10,7 @@ import UIKit
 import Material
 import SnapKit
 
-class RequestFormView: UIView, UITextFieldDelegate {
+class RequestFormView: UIView {
 
     private(set) lazy var headerView = NotificationHeaderView(
         image: nil,
@@ -121,7 +121,6 @@ class RequestFormView: UIView, UITextFieldDelegate {
         detailView.tintColor = App.Color.silver
         detailView.image = #imageLiteral(resourceName: "expand_arrow")
 
-        executorField.delegate = self
         executorField.placeholder = NSLocalizedString("executor", comment: "")
         executorField.rightView = detailView
         executorField.rightViewMode = .always
@@ -140,7 +139,6 @@ class RequestFormView: UIView, UITextFieldDelegate {
         detailView.tintColor = App.Color.silver
         detailView.image = #imageLiteral(resourceName: "expand_arrow")
 
-        categoryField.delegate = self
         categoryField.placeholder = NSLocalizedString("category", comment: "")
         categoryField.rightView = detailView
         categoryField.rightViewMode = .always
@@ -153,7 +151,6 @@ class RequestFormView: UIView, UITextFieldDelegate {
     }
 
     private func setupEndDateField() {
-        endDateField.delegate = self
         endDateField.placeholder = NSLocalizedString("execution_date", comment: "")
         endDateField.setAsDatePicker()
         contentView.addSubview(endDateField)
@@ -212,13 +209,6 @@ class RequestFormView: UIView, UITextFieldDelegate {
             make.bottom.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
         }
-    }
-
-    // MARK: - UITextFieldDelegate
-
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
     }
 
 }

@@ -54,8 +54,7 @@ class AppFlow: Flow {
     }
 
     private func navigationToMainMenuScreen () -> NextFlowItems {
-        let tabBar = AppTabBarController()
-        let mainMenuFlow = MainMenuFlow(tabBarController: tabBar)
+        let mainMenuFlow = MainMenuFlow()
 
         Flows.whenReady(
             flow1: mainMenuFlow) { nav1 in

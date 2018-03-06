@@ -14,7 +14,7 @@ import Moya
 import RxSwift
 import SnapKit
 
-class BIBoardViewController: ASViewController<ASCollectionNode> {
+class BIBoardViewController: ASViewController<ASCollectionNode>, Stepper {
 
     private var listAdapter: ListAdapter!
     private var collectionNode: ASCollectionNode {
@@ -25,14 +25,6 @@ class BIBoardViewController: ASViewController<ASCollectionNode> {
     var viewModel: BIBoardViewModel
 
     let disposeBag = DisposeBag()
-
-    var onUnathorizedError: (() -> Void)?
-    var didTapTop7: ((String) -> Void)?
-    var didTapAtSuggestion: ((String) -> Void)?
-    var didTapAddSuggestion: ((@escaping ((Suggestion, ImageSize) -> Void)) -> Void)?
-    var didSelectNews: ((String) -> Void)?
-    var didSelectStuff: (() -> Void)?
-    var didSelectEmployee: ((Employee) -> Void)?
 
     init(viewModel: BIBoardViewModel) {
         self.viewModel = viewModel
@@ -111,16 +103,14 @@ class BIBoardViewController: ASViewController<ASCollectionNode> {
             }
         })
 
-        if let stuffViewModel = viewModel.stuffViewModel {
-            let stuffCtrl =  listAdapter.sectionController(
-                for: stuffViewModel
-                ) as? RefreshingSectionControllerType
-            stuffCtrl?.refreshContent(with: {
-                if self.refreshCtrl.isRefreshing {
-                    self.refreshCtrl.endRefreshing()
-                }
-            })
-        }
+        let stuffCtrl =  listAdapter.sectionController(
+            for: viewModel.stuffViewModel
+            ) as? RefreshingSectionControllerType
+        stuffCtrl?.refreshContent(with: {
+            if self.refreshCtrl.isRefreshing {
+                self.refreshCtrl.endRefreshing()
+            }
+        })
 
         let topQuestionsCtrl =  listAdapter.sectionController(
             for: viewModel.topQuestionsViewModel
@@ -135,9 +125,7 @@ class BIBoardViewController: ASViewController<ASCollectionNode> {
     private func onUnauthorized() {
         DispatchQueue.main.async {
             User.current.logout()
-            if let onUnathorizedError = self.onUnathorizedError {
-                onUnathorizedError()
-            }
+
         }
     }
 
@@ -145,18 +133,13 @@ class BIBoardViewController: ASViewController<ASCollectionNode> {
 
 extension BIBoardViewController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        var items = [
+        let items = [
             viewModel.newsViewModel,
             viewModel.suggestionsViewModel,
-            viewModel.questionnairesViewModel
+            viewModel.questionnairesViewModel,
+            viewModel.stuffViewModel,
+            viewModel.topQuestionsViewModel
         ] as [ListDiffable]
-
-        if let stuffViewModel = viewModel.stuffViewModel {
-            items.append(stuffViewModel)
-        }
-        if let topQuestionsViewModel = viewModel.topQuestionsViewModel {
-            items.append(topQuestionsViewModel)
-        }
 
         return items
     }
@@ -168,7 +151,9 @@ extension BIBoardViewController: ListAdapterDataSource {
                 guard let `self` = self else { return }
                 self.onUnauthorized()
             }
-            section.didSelectNews = didSelectNews
+            section.didSelectNews = { [weak self] id in
+                self?.step.accept(AppStep.newsPicked(withId: id))
+            }
             return section
         } else if let viewModel = object as? SuggestionsViewModel {
             let section = SuggestionsSectionController(viewModel: viewModel)
@@ -176,20 +161,20 @@ extension BIBoardViewController: ListAdapterDataSource {
                 guard let `self` = self else { return }
                 self.onUnauthorized()
             }
-            section.didTapAtSuggestion = didTapAtSuggestion
-            section.didTapAddSuggestion = {
-                if let didTapAddSuggestion = self.didTapAddSuggestion {
-                    didTapAddSuggestion { [weak self] (suggestion, _) in
-                        guard let `self` = self else { return }
+            section.didTapAtSuggestion = { [weak self] id in
+                self?.step.accept(AppStep.suggestionPicked(withId: id))
+            }
+            section.didTapAddSuggestion = { [weak self] in
+                self?.step.accept(AppStep.createSuggestion(completion: { [weak self] (suggestion, _) in
+                    guard let `self` = self else { return }
 
-                        self.viewModel.suggestionsViewModel.add(suggestion: suggestion)
+                    self.viewModel.suggestionsViewModel.add(suggestion: suggestion)
 
-                        let suggestionsCtrl = self.listAdapter.sectionController(
-                            for: self.viewModel.suggestionsViewModel
-                            ) as? SuggestionsSectionController
-                        suggestionsCtrl?.updateContents()
-                    }
-                }
+                    let suggestionsCtrl = self.listAdapter.sectionController(
+                        for: self.viewModel.suggestionsViewModel
+                        ) as? SuggestionsSectionController
+                    suggestionsCtrl?.updateContents()
+                }))
             }
             return section
         } else if let viewModel = object as? QuestionnairesViewModel {
@@ -205,8 +190,12 @@ extension BIBoardViewController: ListAdapterDataSource {
                 guard let `self` = self else { return }
                 self.onUnauthorized()
             }
-            section.didSelectStuff = didSelectStuff
-            section.didSelectEmployee = didSelectEmployee
+            section.didSelectStuff = {
+                print("Show stuff ...")
+            }
+            section.didSelectEmployee = { [weak self] employee in
+                self?.step.accept(AppStep.employeePicked(employee: employee))
+            }
             return section
         } else if let viewModel = object as? TopQuestionsViewModel {
             let section = TopQuestionsSectionController(viewModel: viewModel)
@@ -214,7 +203,9 @@ extension BIBoardViewController: ListAdapterDataSource {
                 guard let `self` = self else { return }
                 self.onUnauthorized()
             }
-            section.didTapTop7 = didTapTop7
+            section.didTapTop7 = { [weak self] id in
+                self?.step.accept(AppStep.topQuestionPicked(withId: id))
+            }
             return section
         }
 

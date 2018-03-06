@@ -53,7 +53,8 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper {
                 make.size.equalTo(CGSize(width: 56, height: 56))
             }
             self.addButton.shadowColor = App.Color.black12
-            self.addButton.depth = Depth(offset: Offset.init(horizontal: 0, vertical: 12), opacity: 1, radius: 12)
+            self.addButton.depth = Depth(
+                offset: Offset.init(horizontal: 0, vertical: 12), opacity: 1, radius: 12)
             return self.addButton
         }
         addNode.style.preferredSize = CGSize(width: 56, height: 56)

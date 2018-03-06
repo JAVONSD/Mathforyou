@@ -13,7 +13,7 @@ import Material
 import NVActivityIndicatorView
 import SnapKit
 
-class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate {
+class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Stepper {
 
     private var listAdapter: ListAdapter!
     private(set) var collectionNode: ASCollectionNode!
@@ -24,13 +24,6 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate {
     private var fabMenu: FABMenu!
 
     var viewModel: LentaViewModel!
-
-    var onUnathorizedError: (() -> Void)?
-
-    var didTapNews: ((String) -> Void)?
-    var didTapSuggestion: ((String) -> Void)?
-    var didTapAddNews: ((@escaping ((News, ImageSize) -> Void)) -> Void)?
-    var didTapAddSuggestion: ((@escaping ((Suggestion, ImageSize) -> Void)) -> Void)?
 
     init() {
         let node = ASDisplayNode()
@@ -50,23 +43,7 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate {
         node.addSubnode(collectionNode)
 
         let addNode = ASDisplayNode { () -> UIView in
-            self.fabButton = FABButton(image: Icon.cm.add, tintColor: .white)
-            self.fabButton.pulseColor = .white
-            self.fabButton.backgroundColor = App.Color.azure
-            self.fabButton.shadowColor = App.Color.black12
-            self.fabButton.depth = Depth(offset: Offset.init(horizontal: 0, vertical: 12), opacity: 1, radius: 12)
-
-            self.fabMenu = FABMenu()
-            self.fabMenu.delegate = self
-            self.fabMenu.fabButton = self.fabButton
-            self.fabMenu.fabMenuItemSize = CGSize(
-                width: App.Layout.itemSpacingMedium * 2,
-                height: App.Layout.itemSpacingMedium * 2
-            )
-            self.setupFABMenuItems()
-            self.fabMenu.snp.makeConstraints { (make) in
-                make.size.equalTo(CGSize(width: 56, height: 56))
-            }
+            self.setupFABButton()
             return self.fabMenu
         }
         addNode.backgroundColor = .clear
@@ -117,24 +94,6 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate {
         collectionNode.view.addSubview(refreshCtrl)
     }
 
-    // MARK: - Actions
-
-    @objc
-    private func handleAddButton() {
-        if let didTapAddNews = didTapAddNews {
-            didTapAddNews { [weak self] (news, imageSize) in
-                guard let `self` = self else { return }
-
-                var lentaItem = Lenta(news: news)
-                lentaItem.imageSize = imageSize
-                self.viewModel.add(item: lentaItem)
-
-                let newsSC = self.listAdapter.sectionController(for: self.viewModel) as? NewsSectionController
-                newsSC?.updateContents()
-            }
-        }
-    }
-
     // MARK: - Methods
 
     @objc
@@ -149,38 +108,59 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate {
         }
     }
 
+    private func setupFABButton() {
+        self.fabButton = FABButton(image: Icon.cm.add, tintColor: .white)
+        self.fabButton.pulseColor = .white
+        self.fabButton.backgroundColor = App.Color.azure
+        self.fabButton.shadowColor = App.Color.black12
+        self.fabButton.depth = Depth(offset: Offset.init(horizontal: 0, vertical: 12), opacity: 1, radius: 12)
+
+        self.fabMenu = FABMenu()
+        self.fabMenu.delegate = self
+        self.fabMenu.fabButton = self.fabButton
+        self.fabMenu.fabMenuItemSize = CGSize(
+            width: App.Layout.itemSpacingMedium * 2,
+            height: App.Layout.itemSpacingMedium * 2
+        )
+        self.setupFABMenuItems()
+        self.fabMenu.snp.makeConstraints { (make) in
+            make.size.equalTo(CGSize(width: 56, height: 56))
+        }
+    }
+
     private func setupFABMenuItems() {
         let addNewsItem = setupFABMenuItem(
             title: NSLocalizedString("add_news", comment: ""),
             onTap: { [weak self] in
-            if let didTapAddNews = self?.didTapAddNews {
-                didTapAddNews { [weak self] (news, imageSize) in
+                self?.step.accept(AppStep.createNews(completion: { [weak self] (news, imageSize) in
                     guard let `self` = self else { return }
 
                     var lentaItem = Lenta(news: news)
                     lentaItem.imageSize = imageSize
                     self.viewModel.add(item: lentaItem)
 
-                    let newsSC = self.listAdapter.sectionController(for: self.viewModel) as? NewsSectionController
+                    let newsSC = self.listAdapter.sectionController(
+                        for: self.viewModel) as? NewsSectionController
                     newsSC?.updateContents()
-                }
-            }
+                }))
         })
         let addSuggestionItem = setupFABMenuItem(
             title: NSLocalizedString("new_suggestion", comment: ""),
             onTap: { [weak self] in
-            if let didTapAddSuggestion = self?.didTapAddSuggestion {
-                didTapAddSuggestion { [weak self] (suggestion, imageSize) in
-                    guard let `self` = self else { return }
+                self?.step.accept(
+                    AppStep.createSuggestion(completion: { [weak self] (suggestion, imageSize) in
+                        guard let `self` = self else { return }
 
-                    var lentaItem = Lenta(suggestion: suggestion)
-                    lentaItem.imageSize = imageSize
-                    self.viewModel.add(item: lentaItem)
+                        var lentaItem = Lenta(suggestion: suggestion)
+                        lentaItem.imageSize = imageSize
+                        self.viewModel.add(item: lentaItem)
 
-                    let newsSC = self.listAdapter.sectionController(for: self.viewModel) as? NewsSectionController
-                    newsSC?.updateContents()
-                }
-            }
+                        let newsSC = self.listAdapter.sectionController(
+                            for: self.viewModel) as? NewsSectionController
+                        newsSC?.updateContents()
+                        }
+                    )
+                )
         })
 
         fabMenu.fabMenuItems = [addNewsItem, addSuggestionItem].reversed()
@@ -233,15 +213,17 @@ extension LentaViewController: ListAdapterDataSource {
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         let section = NewsSectionController(viewModel: viewModel)
-        section.didTapNews = didTapNews
-        section.didTapSuggestion = didTapSuggestion
+        section.didTapNews = { [weak self] id in
+            self?.step.accept(AppStep.newsPicked(withId: id))
+        }
+        section.didTapSuggestion = { [weak self] id in
+            self?.step.accept(AppStep.suggestionPicked(withId: id))
+        }
         section.onUnathorizedError = { [weak self] in
             guard let `self` = self else { return }
             DispatchQueue.main.async {
                 User.current.logout()
-                if let onUnathorizedError = self.onUnathorizedError {
-                    onUnathorizedError()
-                }
+                self.step.accept(AppStep.unauthorized)
             }
         }
         section.didFinishLoad = {

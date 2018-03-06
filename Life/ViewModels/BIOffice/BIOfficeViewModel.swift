@@ -14,7 +14,7 @@ import RxCocoa
 struct BIOfficeViewModel: ViewModel {
 
     private(set) var eventsViewModel = EventsViewModel()
-    private(set) var tasksAndRequestsViewModel: TasksAndRequestsViewModel
+    private(set) unowned var tasksAndRequestsViewModel: TasksAndRequestsViewModel
     private(set) var kpiViewModel = KPIViewModel()
     private(set) var sbvViewModel = SBViewModel()
     private(set) var idpViewModel = IDPViewModel()

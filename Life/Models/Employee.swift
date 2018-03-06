@@ -125,3 +125,13 @@ extension Employee: Persistable {
         return employee
     }
 }
+
+extension Employee: Hashable {
+    var hashValue: Int {
+        return code.hashValue
+    }
+
+    static func == (lhs: Employee, rhs: Employee) -> Bool {
+        return lhs.code == rhs.code
+    }
+}

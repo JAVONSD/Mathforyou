@@ -7,11 +7,18 @@
 //
 
 import UIKit
+import Kingfisher
 import Material
+import RxSwift
+import RxCocoa
 
 class AppToolbarController: NavigationController, Stepper {
 
     private(set) var shadowHidden = true
+    let disposeBag = DisposeBag()
+
+    var didTapNotifications: (() -> Void)?
+    var didTapProfile: (() -> Void)?
 
     open override func prepare() {
         super.prepare()
@@ -22,6 +29,22 @@ class AppToolbarController: NavigationController, Stepper {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
+    }
+
+    // MARK: - Actions
+
+    @objc
+    private func handleNotificationsTap() {
+        if let didTapNotifications = didTapNotifications {
+            didTapNotifications()
+        }
+    }
+
+    @objc
+    private func handleProfileTap() {
+        if let didTapProfile = didTapProfile {
+            didTapProfile()
+        }
     }
 
     // MARK: - Methods
@@ -60,6 +83,50 @@ class AppToolbarController: NavigationController, Stepper {
         }
 
         setShadow(hidden: false)
+    }
+
+    // MARK: - Toolbar
+
+    public func setupToolbarButtons(for viewController: UIViewController) {
+        let biGroupButton = setupBiGroupButton()
+        let notificationsButton = setupNotificationsButton()
+        let profileButton = setupProfileButton()
+
+        viewController.navigationItem.leftViews = [biGroupButton]
+        viewController.navigationItem.rightViews = [notificationsButton, profileButton]
+    }
+
+    private func setupBiGroupButton() -> SizedButton {
+        let biGroupButton = SizedButton(image: #imageLiteral(resourceName: "bi"), size: .init(width: 43, height: 22))
+        biGroupButton.contentMode = .scaleAspectFit
+        biGroupButton.imageView?.contentMode = .scaleAspectFit
+        biGroupButton.pulseColor = App.Color.azure
+        return biGroupButton
+    }
+
+    private func setupNotificationsButton() -> IconButton {
+        let notificationsButton = IconButton(image: #imageLiteral(resourceName: "ic-notification"))
+        notificationsButton.addTarget(self, action: #selector(handleNotificationsTap), for: .touchUpInside)
+        notificationsButton.pulseColor = App.Color.azure
+        return notificationsButton
+    }
+
+    private func setupProfileButton() -> SizedButton {
+        let profileButton = SizedButton(image: nil, size: .init(width: 24, height: 24))
+        profileButton.addTarget(self, action: #selector(handleProfileTap), for: .touchUpInside)
+        profileButton.iconView.backgroundColor = App.Color.coolGrey
+        profileButton.pulseColor = App.Color.azure
+        profileButton.iconView.layer.cornerRadius = 12
+        profileButton.iconView.layer.masksToBounds = true
+
+        Observable.just(User.current.profile).bind { (profile) in
+            ImageDownloader.set(
+                image: "",
+                employeeCode: (profile?.employeeCode ?? ""),
+                to: profileButton.iconView
+            )
+            }.disposed(by: disposeBag)
+        return profileButton
     }
 
 }

@@ -38,45 +38,7 @@ class MyInfoViewController: UIViewController {
                 to: self.myInfoView.mainView?.infoView?.imageView
             )
 
-            self.myInfoView.mainView?
-                .infoView?.titleLabel?.text = profile?.fullname
-            self.myInfoView.mainView?
-                .infoView?.subtitleLabel?.text = profile?.jobPosition
-
-            self.myInfoView.contactView?
-                .divisionButton?.view?.titleLabel?.text = profile?.company
-            self.myInfoView.contactView?
-                .cellPhoneButton?.view?.titleLabel?.text = profile?.mobilePhoneNumber
-            self.myInfoView.contactView?
-                .emailButton?.view?.titleLabel?.text = profile?.email
-            self.myInfoView.contactView?
-                .officialPhoneButton?.view?.titleLabel?.text = profile?.workPhoneNumber
-
-            self.myInfoView.detailedView?
-                .iinView?.subtitleLabel?.text = profile?.iin
-            self.myInfoView.detailedView?
-                .familyStatusView?.subtitleLabel?.text = profile?.familyStatus
-            self.myInfoView.detailedView?
-                .childrenCountView?.subtitleLabel?.text = profile?.childrenQuantity
-            self.myInfoView.detailedView?
-                .birthdateView?.subtitleLabel?.text = profile?.birthDate
-                    .prettyDateString(format: "dd MMMM yyyy")
-            self.myInfoView.detailedView?
-                .genderView?.subtitleLabel?.text = profile?.gender
-            self.myInfoView.detailedView?
-                .clothingSizeView?.subtitleLabel?.text = profile?.clothingSize
-
-            self.myInfoView.detailedView?
-                .workExperienceView?.subtitleLabel?.text = profile?.totalExperience
-            self.myInfoView.detailedView?
-                .corporateExperienceView?.subtitleLabel?.text = profile?.corporateExperience
-
-            self.myInfoView.detailedView?
-                .lastMedicalView?.subtitleLabel?.text = profile?.medicalExamination.last
-                ?? NSLocalizedString("no_data", comment: "")
-            self.myInfoView.detailedView?
-                .nextMedicalView?.subtitleLabel?.text = profile?.medicalExamination.next
-                ?? NSLocalizedString("no_data", comment: "")
+            self.updateUI(with: profile)
         }.disposed(by: disposeBag)
     }
 
@@ -101,6 +63,48 @@ class MyInfoViewController: UIViewController {
             guard let `self` = self else { return }
             make.edges.equalTo(self.view)
         })
+    }
+
+    private func updateUI(with profile: UserProfile?) {
+        self.myInfoView.mainView?
+            .infoView?.titleLabel?.text = profile?.fullname
+        self.myInfoView.mainView?
+            .infoView?.subtitleLabel?.text = profile?.jobPosition
+
+        self.myInfoView.contactView?
+            .divisionButton?.view?.titleLabel?.text = profile?.company
+        self.myInfoView.contactView?
+            .cellPhoneButton?.view?.titleLabel?.text = profile?.mobilePhoneNumber
+        self.myInfoView.contactView?
+            .emailButton?.view?.titleLabel?.text = profile?.email
+        self.myInfoView.contactView?
+            .officialPhoneButton?.view?.titleLabel?.text = profile?.workPhoneNumber
+
+        self.myInfoView.detailedView?
+            .iinView?.subtitleLabel?.text = profile?.iin
+        self.myInfoView.detailedView?
+            .familyStatusView?.subtitleLabel?.text = profile?.familyStatus
+        self.myInfoView.detailedView?
+            .childrenCountView?.subtitleLabel?.text = profile?.childrenQuantity
+        self.myInfoView.detailedView?
+            .birthdateView?.subtitleLabel?.text = profile?.birthDate
+                .prettyDateString(format: "dd MMMM yyyy")
+        self.myInfoView.detailedView?
+            .genderView?.subtitleLabel?.text = profile?.gender
+        self.myInfoView.detailedView?
+            .clothingSizeView?.subtitleLabel?.text = profile?.clothingSize
+
+        self.myInfoView.detailedView?
+            .workExperienceView?.subtitleLabel?.text = profile?.totalExperience
+        self.myInfoView.detailedView?
+            .corporateExperienceView?.subtitleLabel?.text = profile?.corporateExperience
+
+        self.myInfoView.detailedView?
+            .lastMedicalView?.subtitleLabel?.text = profile?.medicalExamination.last
+            ?? NSLocalizedString("no_data", comment: "")
+        self.myInfoView.detailedView?
+            .nextMedicalView?.subtitleLabel?.text = profile?.medicalExamination.next
+            ?? NSLocalizedString("no_data", comment: "")
     }
 
 }

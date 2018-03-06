@@ -18,26 +18,12 @@ class TasksAndRequestsFABController: FABMenuController {
 
     let disposeBag = DisposeBag()
     var didTapAddButton: ((Request.Category, @escaping (() -> Void)) -> Void)?
+    var didTapAddTaskButton: ((@escaping (() -> Void)) -> Void)?
 
     override func prepare() {
         super.prepare()
 
         setupFabButton()
-    }
-
-    // MARK: - Actions
-
-    private func handleFABMenuItem(category: Request.Category) {
-        if let didTapAddButton = didTapAddButton {
-            didTapAddButton(category) { [weak self] in
-                if let vc = self?.childViewControllers.first as? TasksAndRequestsViewController {
-                    vc.viewModel?.getAllRequests()
-                }
-            }
-        }
-
-        fabMenuWillClose(fabMenu: fabMenu)
-        fabMenu.close()
     }
 
     // MARK: - UI
@@ -66,18 +52,57 @@ class TasksAndRequestsFABController: FABMenuController {
     }
 
     private func setupFABMenuItems() {
+        let taskItem = setupFABMenuItem(
+            title: NSLocalizedString("new_task", comment: ""),
+            onTap: { [weak self] in
+                if let didTapAddTaskButton = self?.didTapAddTaskButton {
+                    didTapAddTaskButton({ [weak self] in
+                        if let vc = self?.childViewControllers.first as? TasksAndRequestsViewController {
+                            vc.viewModel?.getAllTasks()
+                        }
+                    })
+                }
+            }
+        )
+        let requestItem = setupFABMenuItem(
+            title: NSLocalizedString("new_request", comment: ""),
+            shouldClose: false,
+            onTap: { [weak self] in
+                if let fabMenu = self?.fabMenu {
+                    self?.setupRequestsFABMenuItems()
+                    fabMenu.open()
+                }
+            }
+        )
+        fabMenu.fabMenuItems = [taskItem, requestItem].reversed()
+        fabMenu.layoutSubviews()
+    }
+
+    private func setupRequestsFABMenuItems() {
         let categories = Request.Category.all
         var menuItems = [FABMenuItem]()
         for category in categories {
-            let menuItem = setupFABMenuItem(category: category)
+            let menuItem = setupFABMenuItem(title: category.name, onTap: { [weak self] in
+                if let didTapAddButton = self?.didTapAddButton {
+                    didTapAddButton(category) { [weak self] in
+                        if let vc = self?.childViewControllers.first as? TasksAndRequestsViewController {
+                            vc.viewModel?.getAllRequests()
+                        }
+                    }
+                }
+            })
             menuItems.append(menuItem)
         }
         fabMenu.fabMenuItems = menuItems.reversed()
+        fabMenu.layoutSubviews()
     }
 
-    private func setupFABMenuItem(category: Request.Category) -> FABMenuItem {
+    private func setupFABMenuItem(
+        title: String,
+        shouldClose: Bool = true,
+        onTap: @escaping (() -> Void)) -> FABMenuItem {
         let menuItem = FABMenuItem()
-        menuItem.title = category.name
+        menuItem.title = title
         menuItem.titleLabel.backgroundColor = .clear
         menuItem.titleLabel.font = App.Font.body
         menuItem.titleLabel.textColor = .black
@@ -86,7 +111,11 @@ class TasksAndRequestsFABController: FABMenuController {
         menuItem.fabButton.pulseColor = .white
         menuItem.fabButton.backgroundColor = App.Color.azure
         menuItem.fabButton.rx.tap.asDriver().throttle(0.5).drive(onNext: { [weak self] in
-            self?.handleFABMenuItem(category: category)
+            onTap()
+
+            if shouldClose {
+                self?.fabMenu.close(isTriggeredByUserInteraction: true)
+            }
         }).disposed(by: disposeBag)
 
         return menuItem
@@ -104,6 +133,11 @@ class TasksAndRequestsFABController: FABMenuController {
         fabButton.backgroundColor = App.Color.azure
         fabButton.image = Icon.cm.add
         fabButton.tintColor = UIColor.white
+    }
+
+    func fabMenuDidClose(fabMenu: FABMenu) {
+        setupFABMenuItems()
+        isUserInteractionEnabled = true
     }
 
 }

@@ -14,7 +14,7 @@ import Moya
 import RxSwift
 import SnapKit
 
-class BIOfficeViewController: ASViewController<ASCollectionNode> {
+class BIOfficeViewController: ASViewController<ASCollectionNode>, Stepper {
 
     private var listAdapter: ListAdapter!
     private var collectionNode: ASCollectionNode {
@@ -24,9 +24,6 @@ class BIOfficeViewController: ASViewController<ASCollectionNode> {
 
     private(set) var viewModel: BIOfficeViewModel
     private let disposeBag = DisposeBag()
-
-    var onUnathorizedError: (() -> Void)?
-    var didTapAddRequest: ((@escaping (() -> Void)) -> Void)?
 
     init(viewModel: BIOfficeViewModel) {
         self.viewModel = viewModel
@@ -77,10 +74,8 @@ class BIOfficeViewController: ASViewController<ASCollectionNode> {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        viewModel.syncUserProfile {
-            if let onUnathorizedError = self.onUnathorizedError {
-                onUnathorizedError()
-            }
+        viewModel.syncUserProfile { [weak self] in
+            self?.onUnauthorized()
         }
     }
 
@@ -96,11 +91,9 @@ class BIOfficeViewController: ASViewController<ASCollectionNode> {
     }
 
     private func onUnauthorized() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
             User.current.logout()
-            if let onUnathorizedError = self.onUnathorizedError {
-                onUnathorizedError()
-            }
+            self?.step.accept(AppStep.unauthorized)
         }
     }
 
@@ -137,17 +130,12 @@ extension BIOfficeViewController: ListAdapterDataSource {
             print("Openning task or request ...")
         }
         section.didTapOnTasksAndRequests = { [weak self] in
-            if let `self` = self,
-                let navigationController = self.navigationController as? AppToolbarController {
-                navigationController.step.accept(AppStep.tasksAndRequests)
-            }
+            self?.step.accept(AppStep.tasksAndRequests)
         }
         section.didTapAddRequest = { [weak self] in
-            if let didTapAddRequest = self?.didTapAddRequest {
-                didTapAddRequest({ [weak self] in
-                    self?.refreshFeed()
-                })
-            }
+            self?.step.accept(AppStep.createRequest(category: .it, didCreateRequest: { [weak self] in
+                self?.refreshFeed()
+            }))
         }
         return section
     }

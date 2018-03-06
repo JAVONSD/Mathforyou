@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FileProvider
 import RxSwift
 import RxCocoa
 import SnapKit
@@ -33,6 +34,21 @@ class RequestFormViewController: UIViewController, Stepper {
         super.viewDidLoad()
 
         setupUI()
+    }
+
+    // MARK: - Methods
+
+    private func pickAttachments() {
+        let fileExplorer = FileExplorerViewController()
+        fileExplorer.canChooseFiles = true
+        fileExplorer.allowsMultipleSelection = true
+        fileExplorer.delegate = self
+        fileExplorer.fileFilters = [
+            Filter.extension("png"),
+            Filter.extension("jpg"),
+            Filter.extension("jpeg")
+        ]
+        self.present(fileExplorer, animated: true, completion: nil)
     }
 
     // MARK: - UI
@@ -71,6 +87,7 @@ class RequestFormViewController: UIViewController, Stepper {
 
         bindTextField()
         bindEndDateField()
+        bindAttachmentButton()
         bindSendButton()
         bindOnRequestFinish()
     }
@@ -115,6 +132,12 @@ class RequestFormViewController: UIViewController, Stepper {
             .disposed(by: disposeBag)
     }
 
+    private func bindAttachmentButton() {
+        requestFormView.addAttachmentButton.rx.tap.asDriver().throttle(0.5).drive(onNext: { [weak self] in
+            self?.pickAttachments()
+        })
+    }
+
     private func bindSendButton() {
         viewModel.requestCreateIsPendingSubject.subscribe(onNext: { [weak self] isPending in
             guard let `self` = self else { return }
@@ -122,4 +145,15 @@ class RequestFormViewController: UIViewController, Stepper {
         }).disposed(by: disposeBag)
     }
 
+}
+
+extension RequestFormViewController: FileExplorerViewControllerDelegate {
+    func fileExplorerViewControllerDidFinish(_ controller: FileExplorerViewController) {
+        print("File explorer did finish ...")
+    }
+
+    func fileExplorerViewController(_ controller: FileExplorerViewController, didChooseURLs urls: [URL]) {
+        print("Attached files with urls - \(urls)")
+        viewModel.attachments.onNext(urls)
+    }
 }

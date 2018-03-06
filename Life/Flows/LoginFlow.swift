@@ -27,8 +27,6 @@ class LoginFlow: Flow {
         switch step {
         case .login:
             return navigateToLoginScreen()
-        case .unauthorized:
-            return navigateToLoginScreen(isUnauthorized: true)
         case .forgotPassword(let login):
             return navigateToForgotPasswordScreen(login)
         case .forgotPasswordCancel:
@@ -36,9 +34,6 @@ class LoginFlow: Flow {
             return NextFlowItems.none
         case .resetPassword:
             return navigateToResetPasswordScreen()
-        case .mainMenu:
-            navigationToMainMenuScreen()
-            return NextFlowItems.none
         default:
             return NextFlowItems.stepNotHandled
         }
@@ -71,15 +66,6 @@ class LoginFlow: Flow {
         let viewController = ResetPasswordViewController.instantiate(withViewModel: ResetPasswordViewModel())
         self.rootViewController.pushViewController(viewController, animated: true)
         return NextFlowItems.none
-    }
-
-    private func navigationToMainMenuScreen() {
-        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            appDelegate.coordinator.coordinate(
-                flow: appDelegate.appFlow,
-                withStepper: OneStepper(withSingleStep: AppStep.mainMenu)
-            )
-        }
     }
 
 }

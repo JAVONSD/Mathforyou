@@ -14,9 +14,9 @@ class EmployeesFlow: Flow {
         return self.rootViewController
     }
 
-    private var rootViewController: UIViewController
+    private var rootViewController: StuffViewController
 
-    init(viewController: UIViewController) {
+    init(viewController: StuffViewController) {
         rootViewController = viewController
     }
 
@@ -25,10 +25,36 @@ class EmployeesFlow: Flow {
 
         switch step {
         case .employees:
-            return NextFlowItems.none
+            return NextFlowItems.one(
+                flowItem: NextFlowItem(
+                    nextPresentable: rootViewController,
+                    nextStepper: rootViewController
+                )
+            )
+        case .employeePicked(let employee):
+            return navigationToEmployee(employee)
+        case .employeeDone:
+            return navigationFromEmployee()
         default:
             return NextFlowItems.stepNotHandled
         }
+    }
+
+    private func navigationToEmployee(_ employee: Employee) -> NextFlowItems {
+        let notificationsViewController = EmployeeViewController.instantiate(
+            withViewModel: EmployeeViewModel(employee: employee)
+        )
+        self.rootViewController.present(notificationsViewController, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem:
+            NextFlowItem(
+                nextPresentable: notificationsViewController,
+                nextStepper: notificationsViewController)
+        )
+    }
+
+    private func navigationFromEmployee() -> NextFlowItems {
+        self.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
+        return NextFlowItems.none
     }
 
 }

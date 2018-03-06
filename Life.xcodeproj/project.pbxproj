@@ -21,6 +21,11 @@
 		C70ECFDF203ACD3700710DB5 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70ECFDE203ACD3700710DB5 /* Tag.swift */; };
 		C70ECFE1203ACD3D00710DB5 /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70ECFE0203ACD3D00710DB5 /* Like.swift */; };
 		C70ECFE3203ACD4600710DB5 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70ECFE2203ACD4600710DB5 /* Comment.swift */; };
+		C716D7FD204D82BC00C80912 /* TaskFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C716D7FC204D82BC00C80912 /* TaskFormView.swift */; };
+		C716D7FF204D8C9E00C80912 /* TaskFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C716D7FE204D8C9D00C80912 /* TaskFormViewController.swift */; };
+		C716D801204D925B00C80912 /* TasksAndRequestsFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C716D800204D925B00C80912 /* TasksAndRequestsFlow.swift */; };
+		C716D803204D9D1500C80912 /* TopQuestionsFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C716D802204D9D1500C80912 /* TopQuestionsFlow.swift */; };
+		C716D805204E502900C80912 /* TaskFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C716D804204E502900C80912 /* TaskFormViewModel.swift */; };
 		C717C675203D13450070447D /* TasksAndRequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C717C674203D13450070447D /* TasksAndRequestsViewController.swift */; };
 		C717C677203D135F0070447D /* TasksAndRequetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C717C676203D135F0070447D /* TasksAndRequetsView.swift */; };
 		C717C67B203D2A9A0070447D /* TasksAndRequestsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C717C67A203D2A9A0070447D /* TasksAndRequestsCell.swift */; };
@@ -411,6 +416,11 @@
 		C70ECFDE203ACD3700710DB5 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		C70ECFE0203ACD3D00710DB5 /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
 		C70ECFE2203ACD4600710DB5 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		C716D7FC204D82BC00C80912 /* TaskFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormView.swift; sourceTree = "<group>"; };
+		C716D7FE204D8C9D00C80912 /* TaskFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormViewController.swift; sourceTree = "<group>"; };
+		C716D800204D925B00C80912 /* TasksAndRequestsFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksAndRequestsFlow.swift; sourceTree = "<group>"; };
+		C716D802204D9D1500C80912 /* TopQuestionsFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopQuestionsFlow.swift; sourceTree = "<group>"; };
+		C716D804204E502900C80912 /* TaskFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFormViewModel.swift; sourceTree = "<group>"; };
 		C717C674203D13450070447D /* TasksAndRequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksAndRequestsViewController.swift; sourceTree = "<group>"; };
 		C717C676203D135F0070447D /* TasksAndRequetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksAndRequetsView.swift; sourceTree = "<group>"; };
 		C717C67A203D2A9A0070447D /* TasksAndRequestsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksAndRequestsCell.swift; sourceTree = "<group>"; };
@@ -825,6 +835,7 @@
 				C717C676203D135F0070447D /* TasksAndRequetsView.swift */,
 				C717C67A203D2A9A0070447D /* TasksAndRequestsCell.swift */,
 				C7BB5C72203FE7920056BBF9 /* RequestFormView.swift */,
+				C716D7FC204D82BC00C80912 /* TaskFormView.swift */,
 				C7E01E4A2045B68200204956 /* TRTableViewCell.swift */,
 			);
 			path = TasksAndRequests;
@@ -836,6 +847,7 @@
 				C717C67C203D4B1F0070447D /* TasksAndRequestsFABController.swift */,
 				C717C674203D13450070447D /* TasksAndRequestsViewController.swift */,
 				C7BB5C78204015B40056BBF9 /* RequestFormViewController.swift */,
+				C716D7FE204D8C9D00C80912 /* TaskFormViewController.swift */,
 			);
 			path = TasksAndRequests;
 			sourceTree = "<group>";
@@ -1129,10 +1141,10 @@
 			children = (
 				C717C679203D13850070447D /* TasksAndRequests */,
 				C79263572038373900067371 /* Notifications */,
-				C7D6422320346EF3001DCA98 /* BIBoard */,
 				C7D6422720346EF4001DCA98 /* BIOffice */,
-				C7D6422620346EF4001DCA98 /* Employees */,
+				C7D6422320346EF3001DCA98 /* BIBoard */,
 				C7D6422420346EF4001DCA98 /* Lenta */,
+				C7D6422620346EF4001DCA98 /* Employees */,
 				C7D6422520346EF4001DCA98 /* Menu */,
 				C79251DE203145D500CDFBBA /* Profile */,
 				C76EFBC9203027DD00FA2BB9 /* Login */,
@@ -1664,10 +1676,12 @@
 				C7D832D32035C80E00282891 /* MainMenuFlow.swift */,
 				C7D641F420344C70001DCA98 /* LoginFlow.swift */,
 				C7D641F820344F3B001DCA98 /* BIOfficeFlow.swift */,
+				C716D800204D925B00C80912 /* TasksAndRequestsFlow.swift */,
 				C7D641FA20344F43001DCA98 /* BIBoardFlow.swift */,
 				C7D641FC20344F4A001DCA98 /* LentaFlow.swift */,
 				C7D641FE20344F58001DCA98 /* EmployeesFlow.swift */,
 				C7D6420020344F61001DCA98 /* MenuFlow.swift */,
+				C716D802204D9D1500C80912 /* TopQuestionsFlow.swift */,
 				C7D6420220344F74001DCA98 /* ProfileFlow.swift */,
 			);
 			path = Flows;
@@ -1824,6 +1838,7 @@
 				C7D6423920346FB7001DCA98 /* BIOfficeViewModel.swift */,
 				C7F7CB4A203B1974007B9D1E /* TasksAndRequestsViewModel.swift */,
 				C7F7CB4C203B19D1007B9D1E /* TasksViewModel.swift */,
+				C716D804204E502900C80912 /* TaskFormViewModel.swift */,
 				C7F7CB4E203B1A1F007B9D1E /* RequestsViewModel.swift */,
 				C7A241B1204AF28300994840 /* RequestFormViewModel.swift */,
 				C7F7CB44203B138D007B9D1E /* EventsViewModel.swift */,
@@ -2388,6 +2403,7 @@
 				C73EB2A22032F9B100429921 /* IdentifiableValue.swift in Sources */,
 				C7BB5C49203E86020056BBF9 /* AnswersSectionController.swift in Sources */,
 				C79251E8203148D300CDFBBA /* BenefitsViewController.swift in Sources */,
+				C716D805204E502900C80912 /* TaskFormViewModel.swift in Sources */,
 				C70ECFDF203ACD3700710DB5 /* Tag.swift in Sources */,
 				C7BB5C6F203FE7710056BBF9 /* SuggestionFormView.swift in Sources */,
 				C720EC802036E3C1007E4CD4 /* ASCollectionSectionController.swift in Sources */,
@@ -2540,6 +2556,7 @@
 				C7AB6F81204BE8F500328E17 /* UIBezierPath+Extension.swift in Sources */,
 				C7AB6F65204BE8F500328E17 /* UIView+Extension.swift in Sources */,
 				C7D641AC2034088A001DCA98 /* NotificationsService.swift in Sources */,
+				C716D7FF204D8C9E00C80912 /* TaskFormViewController.swift in Sources */,
 				C7D6421E203463E0001DCA98 /* HasDisposeBag.swift in Sources */,
 				C79251FB2031A14600CDFBBA /* MyInfoDetailedView.swift in Sources */,
 				C7F7CB53203BC39A007B9D1E /* ItemCell.swift in Sources */,
@@ -2556,6 +2573,7 @@
 				C792634F20382CF700067371 /* NotificationView.swift in Sources */,
 				C7F7CB59203BD9FC007B9D1E /* TopQuestionsSectionController.swift in Sources */,
 				C73EB2B420331EAF00429921 /* PlansViewModel.swift in Sources */,
+				C716D801204D925B00C80912 /* TasksAndRequestsFlow.swift in Sources */,
 				C76EFBEA20302F8C00FA2BB9 /* Mask.swift in Sources */,
 				C7AB6F70204BE8F500328E17 /* UknownFileTypeViewController.swift in Sources */,
 				C73EB2942032F9B100429921 /* CollectionViewSectionedDataSource.swift in Sources */,
@@ -2566,6 +2584,7 @@
 				C73EB2932032F9B100429921 /* Deprecated.swift in Sources */,
 				C7BB5C7B20401A870056BBF9 /* SuggestionFormViewController.swift in Sources */,
 				C7F7CB33203AE98A007B9D1E /* Question.swift in Sources */,
+				C716D7FD204D82BC00C80912 /* TaskFormView.swift in Sources */,
 				C7BB5C5D203EFA6A0056BBF9 /* CommentViewModel.swift in Sources */,
 				C76EFBC82030201B00FA2BB9 /* GradientView.swift in Sources */,
 				C7AB6F7A204BE8F500328E17 /* DirectoryItemPresentationCoordinator.swift in Sources */,
@@ -2580,6 +2599,7 @@
 				C7D832C12035C48700282891 /* BirthdaysViewController.swift in Sources */,
 				C70ECFDB203ACAA600710DB5 /* TopQuestionsViewModel.swift in Sources */,
 				C7D641DD20341901001DCA98 /* ForgotPasswordViewModel.swift in Sources */,
+				C716D803204D9D1500C80912 /* TopQuestionsFlow.swift in Sources */,
 				C7AB6F71204BE8F500328E17 /* ImageAssets.swift in Sources */,
 				C79263562038318E00067371 /* NotificationCell.swift in Sources */,
 				C7AB6F62204BE8F500328E17 /* UIAlertController+Extension.swift in Sources */,

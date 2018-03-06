@@ -73,7 +73,12 @@ extension TopAnswersCell: ASCollectionDataSource {
             }
 
             let video = viewModel.videoAnswers[indexPath.item].answer.videoStreamId
-            return ImageNode(image: video, size: size, cornerRadius: App.Layout.cornerRadiusSmall, isVideo: true)
+            return ImageNode(
+                image: video,
+                size: size,
+                cornerRadius: App.Layout.cornerRadiusSmall,
+                isVideo: true
+            )
         }
     }
 }

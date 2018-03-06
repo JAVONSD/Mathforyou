@@ -116,7 +116,7 @@ class TasksAndRequestsViewController: UIViewController, Stepper {
     private func setupTaskAndRequestsView() {
         tasksAndRequestsView = TasksAndRequetsView(frame: .zero)
         tasksAndRequestsView.didTapCloseButton = { [weak self] in
-            self?.step.accept(AppStep.tasksAndRequestsDone)
+            self?.viewModel?.step.accept(AppStep.tasksAndRequestsDone)
         }
         tasksAndRequestsView.didTapTabItem = { [weak self] index in
             self?.viewModel?.selectedItemsType = index == 0 ? .inbox : .outbox

@@ -9,7 +9,7 @@
 import UIKit
 import Material
 
-class ProfileViewController: TabsController {
+class ProfileViewController: TabsController, Stepper {
 
     var onUnathorizedError: (() -> Void)?
 

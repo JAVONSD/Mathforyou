@@ -48,6 +48,46 @@ struct Task: Codable {
                 return NSLocalizedString("task_type_approve", comment: "")
             }
         }
+
+        static func all() -> [TaskType] {
+            var items = [TaskType]()
+            items.append(.execute)
+            items.append(.approve)
+            return items
+        }
+    }
+
+    enum Reminder: Int {
+        case fiveMins = 5
+        case tenMins = 10
+        case fifteenMins = 15
+        case thirtyMins = 30
+        case oneHour = 60
+
+        var name: String {
+            switch self {
+            case .fiveMins:
+                return NSLocalizedString("five_minutes", comment: "")
+            case .tenMins:
+                return NSLocalizedString("ten_minutes", comment: "")
+            case .fifteenMins:
+                return NSLocalizedString("fifteen_minutes", comment: "")
+            case .thirtyMins:
+                return NSLocalizedString("thirty_minutes", comment: "")
+            case .oneHour:
+                return NSLocalizedString("one_hour", comment: "")
+            }
+        }
+
+        static func all() -> [Reminder] {
+            var items = [Reminder]()
+            items.append(.fiveMins)
+            items.append(.tenMins)
+            items.append(.fifteenMins)
+            items.append(.thirtyMins)
+            items.append(.oneHour)
+            return items
+        }
     }
 
     var id: String

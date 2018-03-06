@@ -65,6 +65,19 @@
 "last_visit" = "Last visit";
 "nearest_visit" = "Nearest visit";
 "no_data" = "No data";
+"new_task" = "New task";
+"all_day" = "All day";
+"reminder" = "Reminder";
+"five_minutes" = "5 minutes";
+"ten_minutes" = "10 minutes";
+"fifteen_minutes" = "15 minutes";
+"thirty_minutes" = "30 minutes";
+"one_hour" = "1 hour";
+"start_date" = "Start date";
+"end_date" = "End date";
+"select_executor" = "Select executor";
+"add_participants" = "Add participants";
+"task_type" = "Task type";
 
 /* Errors */
 

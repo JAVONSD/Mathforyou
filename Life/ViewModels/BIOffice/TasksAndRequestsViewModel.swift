@@ -151,3 +151,13 @@ extension TasksAndRequestsViewModel: Mockable {
         return sample
     }
 }
+
+extension TasksAndRequestsViewModel: Stepper {
+    public func createNewRequest(category: Request.Category, didCreateRequest: @escaping (() -> Void)) {
+        self.step.accept(AppStep.createRequest(category: category, didCreateRequest: didCreateRequest))
+    }
+
+    public func createNewTask(didCreateTask: @escaping (() -> Void)) {
+        self.step.accept(AppStep.createTask(didCreateTask: didCreateTask))
+    }
+}

@@ -16,8 +16,8 @@ class BIBoardViewModel: NSObject, ViewModel {
     private(set) var newsViewModel = NewsViewModel()
     private(set) var suggestionsViewModel = SuggestionsViewModel()
     private(set) var questionnairesViewModel = QuestionnairesViewModel()
-    private(set) weak var stuffViewModel: StuffViewModel?
-    private(set) weak var topQuestionsViewModel: TopQuestionsViewModel?
+    private(set) unowned var stuffViewModel: StuffViewModel
+    private(set) unowned var topQuestionsViewModel: TopQuestionsViewModel
 
     init(stuffViewModel: StuffViewModel,
          topQuestionsViewModel: TopQuestionsViewModel) {

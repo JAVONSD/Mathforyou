@@ -40,6 +40,8 @@ enum AppStep: Step {
     case tasksAndRequestsDone
     case createRequest(category: Request.Category, didCreateRequest: (() -> Void))
     case createRequestDone
+    case createTask(didCreateTask: (() -> Void))
+    case createTaskDone
 
     // MARK: - News
 
