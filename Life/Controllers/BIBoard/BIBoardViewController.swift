@@ -144,69 +144,89 @@ extension BIBoardViewController: ListAdapterDataSource {
         return items
     }
 
+    private func header(_ viewModel: NewsViewModel) -> ListSectionController {
+        let section = BIBoardHeaderSectionController(viewModel: viewModel)
+        section.onUnathorizedError = { [weak self] in
+            guard let `self` = self else { return }
+            self.onUnauthorized()
+        }
+        section.didSelectNews = { [weak self] id in
+            self?.step.accept(AppStep.newsPicked(withId: id))
+        }
+        return section
+    }
+
+    private func suggestions(_ viewModel: SuggestionsViewModel) -> ListSectionController {
+        let section = SuggestionsSectionController(viewModel: viewModel)
+        section.onUnathorizedError = { [weak self] in
+            guard let `self` = self else { return }
+            self.onUnauthorized()
+        }
+        section.didTapAtSuggestion = { [weak self] id in
+            self?.step.accept(AppStep.suggestionPicked(withId: id))
+        }
+        section.didTapAddSuggestion = { [weak self] in
+            self?.step.accept(AppStep.createSuggestion(completion: { [weak self] (suggestion, _) in
+                guard let `self` = self else { return }
+
+                self.viewModel.suggestionsViewModel.add(suggestion: suggestion)
+
+                let suggestionsCtrl = self.listAdapter.sectionController(
+                    for: self.viewModel.suggestionsViewModel
+                    ) as? SuggestionsSectionController
+                suggestionsCtrl?.updateContents()
+            }))
+        }
+        return section
+    }
+
+    private func questionnaires(_ viewModel: QuestionnairesViewModel) -> ListSectionController {
+        let section = QuestionnairesSectionController(viewModel: viewModel)
+        section.onUnathorizedError = { [weak self] in
+            guard let `self` = self else { return }
+            self.onUnauthorized()
+        }
+        return section
+    }
+
+    private func employees(_ viewModel: StuffViewModel) -> ListSectionController {
+        let section = EmployeesSectionController(viewModel: viewModel)
+        section.onUnathorizedError = { [weak self] in
+            guard let `self` = self else { return }
+            self.onUnauthorized()
+        }
+        section.didSelectStuff = {
+            print("Show stuff ...")
+        }
+        section.didSelectEmployee = { [weak self] employee in
+            self?.step.accept(AppStep.employeePicked(employee: employee))
+        }
+        return section
+    }
+
+    private func topQuestions(_ viewModel: TopQuestionsViewModel) -> ListSectionController {
+        let section = TopQuestionsSectionController(viewModel: viewModel)
+        section.onUnathorizedError = { [weak self] in
+            guard let `self` = self else { return }
+            self.onUnauthorized()
+        }
+        section.didTapTop7 = { [weak self] id in
+            self?.step.accept(AppStep.topQuestionPicked(withId: id))
+        }
+        return section
+    }
+
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         if let viewModel = object as? NewsViewModel {
-            let section = BIBoardHeaderSectionController(viewModel: viewModel)
-            section.onUnathorizedError = { [weak self] in
-                guard let `self` = self else { return }
-                self.onUnauthorized()
-            }
-            section.didSelectNews = { [weak self] id in
-                self?.step.accept(AppStep.newsPicked(withId: id))
-            }
-            return section
+            return header(viewModel)
         } else if let viewModel = object as? SuggestionsViewModel {
-            let section = SuggestionsSectionController(viewModel: viewModel)
-            section.onUnathorizedError = { [weak self] in
-                guard let `self` = self else { return }
-                self.onUnauthorized()
-            }
-            section.didTapAtSuggestion = { [weak self] id in
-                self?.step.accept(AppStep.suggestionPicked(withId: id))
-            }
-            section.didTapAddSuggestion = { [weak self] in
-                self?.step.accept(AppStep.createSuggestion(completion: { [weak self] (suggestion, _) in
-                    guard let `self` = self else { return }
-
-                    self.viewModel.suggestionsViewModel.add(suggestion: suggestion)
-
-                    let suggestionsCtrl = self.listAdapter.sectionController(
-                        for: self.viewModel.suggestionsViewModel
-                        ) as? SuggestionsSectionController
-                    suggestionsCtrl?.updateContents()
-                }))
-            }
-            return section
+            return suggestions(viewModel)
         } else if let viewModel = object as? QuestionnairesViewModel {
-            let section = QuestionnairesSectionController(viewModel: viewModel)
-            section.onUnathorizedError = { [weak self] in
-                guard let `self` = self else { return }
-                self.onUnauthorized()
-            }
-            return section
+            return questionnaires(viewModel)
         } else if let viewModel = object as? StuffViewModel {
-            let section = EmployeesSectionController(viewModel: viewModel)
-            section.onUnathorizedError = { [weak self] in
-                guard let `self` = self else { return }
-                self.onUnauthorized()
-            }
-            section.didSelectStuff = {
-                print("Show stuff ...")
-            }
-            section.didSelectEmployee = { [weak self] employee in
-                self?.step.accept(AppStep.employeePicked(employee: employee))
-            }
-            return section
+            return employees(viewModel)
         } else if let viewModel = object as? TopQuestionsViewModel {
-            let section = TopQuestionsSectionController(viewModel: viewModel)
-            section.onUnathorizedError = { [weak self] in
-                guard let `self` = self else { return }
-                self.onUnauthorized()
-            }
-            section.didTapTop7 = { [weak self] id in
-                self?.step.accept(AppStep.topQuestionPicked(withId: id))
-            }
-            return section
+            return topQuestions(viewModel)
         }
 
         return ListSectionController()

@@ -71,7 +71,7 @@ extension BIBoardHeaderSectionController: ASSectionController {
                 }
                 return SliderViewModel(
                     title: viewModel.news.title,
-                    label: NSLocalizedString("news", comment: "").uppercased(),
+                    label: NSLocalizedString("news_single", comment: "").uppercased(),
                     image: image
                 )
             }

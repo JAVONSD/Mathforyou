@@ -38,6 +38,7 @@ class BIBoardFlow: Flow {
         }
     }
 
+    //swiftlint:disable cyclomatic_complexity
     func navigate(to step: Step) -> NextFlowItems {
         guard let step = step as? AppStep else { return NextFlowItems.stepNotHandled }
 
@@ -80,6 +81,7 @@ class BIBoardFlow: Flow {
             return NextFlowItems.stepNotHandled
         }
     }
+    //swiftlint:enable cyclomatic_complexity
 
     private func navigationToProfileScreen() -> NextFlowItems {
         let viewController = ProfileViewController.configuredVC

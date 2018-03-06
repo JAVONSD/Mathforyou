@@ -41,32 +41,14 @@ class NewsHeaderNode: ASDisplayNode {
 
         super.init()
 
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-        layout.sectionInset = .zero
-        collectionNode = ASCollectionNode(collectionViewLayout: layout)
-        collectionNode.backgroundColor = .clear
-        collectionNode.dataSource = self
-        collectionNode.delegate = self
-        addSubnode(collectionNode)
+        setupCollectionNode()
 
         overlayNode = ASDisplayNode()
         overlayNode.backgroundColor = UIColor.black.withAlphaComponent(0.3)
         overlayNode.isUserInteractionEnabled = false
         addSubnode(overlayNode)
 
-        labelContainerNode = ASDisplayNode()
-        labelContainerNode.backgroundColor = .white
-        labelContainerNode.cornerRadius = App.Layout.cornerRadiusSmall / 2
-        labelContainerNode.style.flexShrink = 1.0
-        addSubnode(labelContainerNode)
-
-        labelNode = ASTextNode()
-        labelNode.attributedText = attLabel(NSLocalizedString("news_single", comment: "").uppercased())
-        labelNode.style.flexShrink = 1.0
-        labelContainerNode.addSubnode(labelNode)
+        setupLabels()
 
         closeNode = ASButtonNode()
         closeNode.addTarget(self, action: #selector(handleCloseButton), forControlEvents: .touchUpInside)
@@ -85,6 +67,32 @@ class NewsHeaderNode: ASDisplayNode {
         })
         pageControlNode.backgroundColor = .white
         addSubnode(pageControlNode)
+    }
+
+    private func setupLabels() {
+        labelContainerNode = ASDisplayNode()
+        labelContainerNode.backgroundColor = .white
+        labelContainerNode.cornerRadius = App.Layout.cornerRadiusSmall / 2
+        labelContainerNode.style.flexShrink = 1.0
+        addSubnode(labelContainerNode)
+
+        labelNode = ASTextNode()
+        labelNode.attributedText = attLabel(NSLocalizedString("news_single", comment: "").uppercased())
+        labelNode.style.flexShrink = 1.0
+        labelContainerNode.addSubnode(labelNode)
+    }
+
+    private func setupCollectionNode() {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        layout.sectionInset = .zero
+        collectionNode = ASCollectionNode(collectionViewLayout: layout)
+        collectionNode.backgroundColor = .clear
+        collectionNode.dataSource = self
+        collectionNode.delegate = self
+        addSubnode(collectionNode)
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {

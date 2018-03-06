@@ -26,12 +26,7 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper {
 
     var onUnathorizedError: (() -> Void)?
 
-    init(viewModel: TopQuestionsViewModel) {
-        self.viewModel = viewModel
-
-        let node = ASDisplayNode()
-        super.init(node: node)
-
+    private func addCollectionNode(_ node: ASDisplayNode) {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
@@ -44,7 +39,9 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper {
             right: 0
         )
         node.addSubnode(collectionNode)
+    }
 
+    private func addButtonNode(_ node: ASDisplayNode) -> ASDisplayNode {
         let addNode = ASDisplayNode { () -> UIView in
             self.addButton = FABButton(image: Icon.cm.add, tintColor: .white)
             self.addButton.addTarget(self, action: #selector(self.handleAddButton), for: .touchUpInside)
@@ -59,6 +56,17 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper {
         }
         addNode.style.preferredSize = CGSize(width: 56, height: 56)
         node.addSubnode(addNode)
+        return addNode
+    }
+
+    init(viewModel: TopQuestionsViewModel) {
+        self.viewModel = viewModel
+
+        let node = ASDisplayNode()
+        super.init(node: node)
+
+        addCollectionNode(node)
+        let addNode = addButtonNode(node)
 
         node.layoutSpecBlock = { (_, _) in
             let insetSpec = ASInsetLayoutSpec(insets: .init(

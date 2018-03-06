@@ -59,6 +59,10 @@ class NewsCommentCell: ASCellNode {
         textNode.attributedText = attText(comment.text)
         backgroundNode.addSubnode(textNode)
 
+        setupLikesNodes(comment)
+    }
+
+    private func setupLikesNodes(_ comment: Comment) {
         likesImageNode = ASImageNode()
         likesImageNode.addTarget(
             self,

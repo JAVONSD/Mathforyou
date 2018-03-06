@@ -41,6 +41,7 @@ class MainMenuFlow: Flow {
 
     // MARK: - Navigation
 
+    //swiftlint:disable function_body_length
     private func navigationToMainMenuScreen() -> NextFlowItems {
         let biOfficeVC = configuredBIOffice()
         let biOfficeFlow = BIOfficeFlow(
@@ -108,6 +109,7 @@ class MainMenuFlow: Flow {
 
         return NextFlowItems.multiple(flowItems: flowItems)
     }
+    //swiftlint:enable function_body_length
 
     // MARK: - Methods
 

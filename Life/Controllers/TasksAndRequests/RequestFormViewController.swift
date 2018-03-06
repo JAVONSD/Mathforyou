@@ -135,7 +135,7 @@ class RequestFormViewController: UIViewController, Stepper {
     private func bindAttachmentButton() {
         requestFormView.addAttachmentButton.rx.tap.asDriver().throttle(0.5).drive(onNext: { [weak self] in
             self?.pickAttachments()
-        })
+        }).disposed(by: disposeBag)
     }
 
     private func bindSendButton() {
