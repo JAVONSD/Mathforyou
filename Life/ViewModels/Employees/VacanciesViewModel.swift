@@ -9,12 +9,13 @@
 import Foundation
 import Moya
 import RxSwift
+import RxCocoa
 
 class VacanciesViewModel: NSObject, ViewModel {
     private(set) var vacancies = [VacancyViewModel]()
     private(set) var filteredVacancies = [VacancyViewModel]()
 
-    private(set) var loading = false
+    private(set) var loading = BehaviorRelay<Bool>(value: false)
     private(set) var didLoadVacancies = false
 
     private let disposeBag = DisposeBag()
@@ -36,41 +37,88 @@ class VacanciesViewModel: NSObject, ViewModel {
     // MARK: - Methods
 
     public func getVacancies(completion: @escaping ((Error?) -> Void)) {
-        if loading || didLoadVacancies {
+        returnFromCache()
+
+        if loading.value || didLoadVacancies {
             completion(nil)
-            if !loading {
+            if !loading.value {
                 self.itemsChangeSubject.onNext(self.vacancies)
             }
             return
         }
-        loading = true
+        loading.accept(true)
 
         provider
             .rx
             .request(.vacancies)
             .filterSuccessfulStatusCodes()
             .subscribe { response in
-                self.loading = false
+                self.loading.accept(false)
 
                 switch response {
                 case .success(let json):
-                    if let lentaItems = try? JSONDecoder().decode([Vacancy].self, from: json.data) {
-                        let items = lentaItems.map { VacancyViewModel(vacancy: $0) }
+                    if let vacancyItems = try? JSONDecoder().decode([Vacancy].self, from: json.data) {
+                        let items = vacancyItems.map { VacancyViewModel(vacancy: $0) }
                         self.vacancies = items
                         self.filteredVacancies = items
                         self.didLoadVacancies = true
 
                         completion(nil)
+                        self.itemsChangeSubject.onNext(self.vacancies)
+                        print("returning from network ...")
+
+                        self.updateCache(vacancyItems)
                     } else {
                         completion(nil)
+                        self.itemsChangeSubject.onNext(self.vacancies)
                     }
-                    self.itemsChangeSubject.onNext(self.vacancies)
                 case .error(let error):
                     completion(error)
                     self.itemsChangeSubject.onNext(self.vacancies)
                 }
             }
             .disposed(by: disposeBag)
+    }
+
+    private func returnFromCache() {
+        DispatchQueue.global().async {
+            do {
+                let realm = try App.Realms.default()
+                let vacancyObjects = realm.objects(VacancyObject.self)
+                if !vacancyObjects.isEmpty {
+                    let vacancies = Array(vacancyObjects).map { Vacancy(managedObject: $0) }
+                    let vacancyViewModels = vacancies.map { VacancyViewModel(vacancy: $0) }
+
+                    self.vacancies = vacancyViewModels
+                    self.filteredVacancies = vacancyViewModels
+
+                    self.loading.accept(false)
+
+                    DispatchQueue.main.async {
+                        self.itemsChangeSubject.onNext(vacancyViewModels)
+                        print("returning from cache ...")
+                    }
+                }
+            } catch {
+                print("Failed to access the Realm database")
+            }
+        }
+    }
+
+    private func updateCache(_ vacancyItems: [Vacancy]) {
+        DispatchQueue.global().async {
+            do {
+                let realm = try App.Realms.default()
+                realm.beginWrite()
+                realm.delete(realm.objects(VacancyObject.self))
+                for vacancy in vacancyItems {
+                    realm.add(vacancy.managedObject())
+                }
+                try realm.commitWrite()
+            } catch {
+                print("Failed to access the Realm database")
+            }
+        }
     }
 
     public func filter(with text: String) {

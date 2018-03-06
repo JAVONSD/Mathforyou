@@ -49,3 +49,25 @@ struct Vacancy: Codable {
     }
 
 }
+
+extension Vacancy: Persistable {
+    init(managedObject: VacancyObject) {
+        id = managedObject.id
+        jobPosition = managedObject.jobPosition
+        companyName = managedObject.companyName
+        createDate = managedObject.createDate
+        departmentName = managedObject.departmentName
+        salary = managedObject.salary
+    }
+
+    func managedObject() -> VacancyObject {
+        let object = VacancyObject()
+        object.id = id
+        object.jobPosition = jobPosition
+        object.companyName = companyName
+        object.createDate = createDate
+        object.departmentName = departmentName
+        object.salary = salary
+        return object
+    }
+}

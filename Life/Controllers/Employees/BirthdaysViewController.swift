@@ -77,12 +77,9 @@ class BirthdaysViewController: UIViewController {
         setupUI()
         bind()
 
-        employeesView.startLoading()
         viewModel?.getBirthdays { [weak self] error in
             guard let `self` = self
                 else { return }
-
-            self.employeesView.stopLoading()
 
             if let moyaError = error as? MoyaError,
                 moyaError.response?.statusCode == 401,
@@ -90,6 +87,13 @@ class BirthdaysViewController: UIViewController {
                 onUnathorizedError()
             }
         }
+        viewModel?.loadingBirthdays.asDriver().drive(onNext: { [weak self] loading in
+            if loading {
+                self?.employeesView.startLoading()
+            } else {
+                self?.employeesView.stopLoading()
+            }
+        }).disposed(by: disposeBag)
     }
 
     // MARK: - Bind

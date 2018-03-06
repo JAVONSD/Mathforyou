@@ -8,6 +8,7 @@
 
 import UIKit
 import DynamicColor
+import RealmSwift
 
 struct App {
 
@@ -187,6 +188,49 @@ struct App {
 
         static var current: Environment {
             return .production
+        }
+    }
+
+    // MARK: - Realms & Configs
+
+    struct RealmConfig {
+        private static let docs = FileManager.default.urls(
+            for: .documentDirectory, in: .userDomainMask).first!
+
+        static var `default`: Realm.Configuration {
+            return Realm.Configuration(
+                fileURL: docs.appendingPathComponent("Default.realm"),
+                schemaVersion: 1,
+                migrationBlock: { (_, _) in
+                })
+        }
+
+        static var birthdays: Realm.Configuration {
+            return Realm.Configuration(
+                fileURL: docs.appendingPathComponent("Birthdays.realm"),
+                schemaVersion: 1,
+                migrationBlock: { (_, _) in
+            })
+        }
+    }
+
+    struct Realms {
+        static func `default`() throws -> Realm {
+            do {
+                let realm = try Realm(configuration: RealmConfig.default)
+                return realm
+            } catch {
+                fatalError("Failed to initialize realm with configurations - \(RealmConfig.default)")
+            }
+        }
+
+        static func birthdays() throws -> Realm {
+            do {
+                let realm = try Realm(configuration: RealmConfig.birthdays)
+                return realm
+            } catch {
+                fatalError("Failed to initialize realm with configurations - \(RealmConfig.birthdays)")
+            }
         }
     }
 

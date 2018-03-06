@@ -25,6 +25,8 @@ struct Employee: Codable {
     var address: String
     var isBirthdayToday: Bool
     var hasAvatar: Bool
+    var administrativeChiefName: String?
+    var functionalChiefName: String?
 
     // MARK: - Decodable
 
@@ -44,6 +46,8 @@ struct Employee: Codable {
         case address
         case isBirthdayToday
         case hasAvatar
+        case administrativeChiefName
+        case functionalChiefName
     }
 
     init(from decoder: Decoder) throws {
@@ -64,6 +68,10 @@ struct Employee: Codable {
         self.address = try container.decodeWrapper(key: .address, defaultValue: "")
         self.isBirthdayToday = try container.decodeWrapper(key: .isBirthdayToday, defaultValue: false)
         self.hasAvatar = try container.decodeWrapper(key: .hasAvatar, defaultValue: false)
+        self.administrativeChiefName = try container.decodeWrapper(
+            key: .administrativeChiefName, defaultValue: nil)
+        self.functionalChiefName = try container.decodeWrapper(
+            key: .functionalChiefName, defaultValue: nil)
     }
 
     func encode(with aCoder: NSCoder) {
@@ -82,6 +90,8 @@ struct Employee: Codable {
         aCoder.encode(address, forKey: "address")
         aCoder.encode(isBirthdayToday, forKey: "isBirthdayToday")
         aCoder.encode(hasAvatar, forKey: "hasAvatar")
+        aCoder.encode(administrativeChiefName, forKey: "administrativeChiefName")
+        aCoder.encode(functionalChiefName, forKey: "functionalChiefName")
     }
 
 }
@@ -103,6 +113,8 @@ extension Employee: Persistable {
         address = managedObject.address
         isBirthdayToday = managedObject.isBirthdayToday
         hasAvatar = managedObject.hasAvatar
+        administrativeChiefName = managedObject.administrativeChiefName
+        functionalChiefName = managedObject.functionalChiefName
     }
 
     public func managedObject() -> EmployeeObject {
@@ -122,6 +134,8 @@ extension Employee: Persistable {
         employee.address = address
         employee.isBirthdayToday = isBirthdayToday
         employee.hasAvatar = hasAvatar
+        employee.administrativeChiefName = administrativeChiefName
+        employee.functionalChiefName = functionalChiefName
         return employee
     }
 }

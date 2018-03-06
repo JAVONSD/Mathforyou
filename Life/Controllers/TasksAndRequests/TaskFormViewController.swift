@@ -184,14 +184,14 @@ class TaskFormViewController: UIViewController, Stepper {
             self?.taskFormView.participantsField.reloadContents()
             if self?.taskFormView.participantsField.isFirstResponder ?? false {
                 self?.taskFormView.participantsField.setLoading(
-                    self?.viewModel.employeesViewModel.loading ?? false
+                    self?.viewModel.employeesViewModel.loading.value ?? false
                 )
             }
 
             self?.taskFormView.executorField.reloadContents()
             if self?.taskFormView.executorField.isFirstResponder ?? false {
                 self?.taskFormView.executorField.setLoading(
-                    self?.viewModel.employeesViewModel.loading ?? false
+                    self?.viewModel.employeesViewModel.loading.value ?? false
                 )
             }
         }).disposed(by: disposeBag)

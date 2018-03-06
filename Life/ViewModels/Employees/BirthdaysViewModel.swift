@@ -18,7 +18,7 @@ class BirthdaysViewModel: NSObject, ViewModel {
     private let loadingSubject = PublishSubject<Bool>()
     var loading: Observable<Bool> { return loadingSubject.asObservable() }
 
-    private(set) var loadingBirthdays = false
+    private(set) var loadingBirthdays = BehaviorRelay<Bool>(value: false)
     private(set) var didLoadBirthdays = false
 
     private let disposeBag = DisposeBag()
@@ -44,14 +44,16 @@ class BirthdaysViewModel: NSObject, ViewModel {
     // MARK: - Methods
 
     public func getBirthdays(completion: @escaping ((Error?) -> Void)) {
-        if loadingBirthdays || didLoadBirthdays {
+        returnFromCache()
+
+        if loadingBirthdays.value || didLoadBirthdays {
             completion(nil)
-            if !loadingBirthdays {
+            if !loadingBirthdays.value {
                 self.employeesToShowSubject.onNext(self.employees)
             }
             return
         }
-        loadingBirthdays = true
+        loadingBirthdays.accept(true)
         loadingSubject.onNext(true)
 
         provider
@@ -59,27 +61,76 @@ class BirthdaysViewModel: NSObject, ViewModel {
             .request(.birthdays)
             .filterSuccessfulStatusCodes()
             .subscribe { response in
-                self.loadingBirthdays = false
+                self.loadingBirthdays.accept(false)
                 self.loadingSubject.onNext(false)
 
                 switch response {
                 case .success(let json):
-                    if let lentaItems = try? JSONDecoder().decode([Employee].self, from: json.data) {
-                        let items = lentaItems.map { EmployeeViewModel(employee: $0) }
+                    if let employeeItems = try? JSONDecoder().decode([Employee].self, from: json.data) {
+                        let items = employeeItems.map { EmployeeViewModel(employee: $0) }
                         self.employees = items
                         self.didLoadBirthdays = true
 
                         completion(nil)
+                        self.employeesToShowSubject.onNext(self.employees)
+
+                        self.updateCache(employeeItems)
                     } else {
                         completion(nil)
+                        self.employeesToShowSubject.onNext(self.employees)
                     }
-                    self.employeesToShowSubject.onNext(self.employees)
                 case .error(let error):
                     completion(error)
                     self.employeesToShowSubject.onNext(self.employees)
                 }
             }
             .disposed(by: disposeBag)
+    }
+
+    private func returnFromCache() {
+        DispatchQueue.global().async {
+            do {
+                let realm = try App.Realms.birthdays()
+                let employeeObjects = realm.objects(EmployeeObject.self)
+                if !employeeObjects.isEmpty {
+                    let employees = Array(employeeObjects).map { Employee(managedObject: $0) }
+                    let employeeViewModels = employees.map { EmployeeViewModel(employee: $0) }
+
+                    self.employees = employeeViewModels
+
+                    self.loadingBirthdays.accept(false)
+
+                    DispatchQueue.main.async {
+                        self.employeesToShowSubject.onNext(employeeViewModels)
+                    }
+                }
+            } catch {
+                print("Failed to access the Realm database")
+            }
+        }
+    }
+
+    private func updateCache(_ employeeItems: [Employee]) {
+        DispatchQueue.global().async {
+            do {
+                let realm = try App.Realms.birthdays()
+                realm.beginWrite()
+                for employee in employeeItems {
+                    realm.add(employee.managedObject(), update: true)
+                }
+                for employee in realm.objects(EmployeeObject.self) {
+                    if !employeeItems.contains(Employee(managedObject: employee)),
+                        let employeeObject = realm.object(
+                            ofType: EmployeeObject.self,
+                            forPrimaryKey: employee.code) {
+                        realm.delete(employeeObject)
+                    }
+                }
+                try realm.commitWrite()
+            } catch {
+                print("Failed to access the Realm database")
+            }
+        }
     }
 
     public func filter(with text: String) {

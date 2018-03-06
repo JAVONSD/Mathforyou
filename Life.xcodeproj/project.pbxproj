@@ -34,6 +34,7 @@
 		C717C681203D892C0070447D /* EmployeeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C717C680203D892C0070447D /* EmployeeHeaderView.swift */; };
 		C717C683203D92D10070447D /* ImageDownloader+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C717C682203D92D10070447D /* ImageDownloader+Extensions.swift */; };
 		C717C685203D94000070447D /* EmployeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C717C684203D94000070447D /* EmployeeViewController.swift */; };
+		C720AC89204EFB3000767473 /* VacancyObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720AC88204EFB3000767473 /* VacancyObject.swift */; };
 		C720EC7020368CBA007E4CD4 /* StuffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720EC6F20368CBA007E4CD4 /* StuffViewController.swift */; };
 		C720EC7220368E64007E4CD4 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720EC7120368E64007E4CD4 /* SearchView.swift */; };
 		C720EC7620369EA8007E4CD4 /* EmployeeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720EC7520369EA8007E4CD4 /* EmployeeDetailView.swift */; };
@@ -429,6 +430,7 @@
 		C717C680203D892C0070447D /* EmployeeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeHeaderView.swift; sourceTree = "<group>"; };
 		C717C682203D92D10070447D /* ImageDownloader+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageDownloader+Extensions.swift"; sourceTree = "<group>"; };
 		C717C684203D94000070447D /* EmployeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeViewController.swift; sourceTree = "<group>"; };
+		C720AC88204EFB3000767473 /* VacancyObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacancyObject.swift; sourceTree = "<group>"; };
 		C720EC6F20368CBA007E4CD4 /* StuffViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StuffViewController.swift; sourceTree = "<group>"; };
 		C720EC7120368E64007E4CD4 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
 		C720EC7520369EA8007E4CD4 /* EmployeeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeDetailView.swift; sourceTree = "<group>"; };
@@ -995,6 +997,7 @@
 			isa = PBXGroup;
 			children = (
 				C752ACF220411D2B00D04E26 /* EmployeeObject.swift */,
+				C720AC88204EFB3000767473 /* VacancyObject.swift */,
 			);
 			path = RealmObjects;
 			sourceTree = "<group>";
@@ -2620,6 +2623,7 @@
 				C752ACF520411DD900D04E26 /* Persistable.swift in Sources */,
 				C76EFBE320302F8C00FA2BB9 /* State.swift in Sources */,
 				C76EFBF020302F8C00FA2BB9 /* FormatSanitizer.swift in Sources */,
+				C720AC89204EFB3000767473 /* VacancyObject.swift in Sources */,
 				C7F7CB45203B138D007B9D1E /* EventsViewModel.swift in Sources */,
 				C76EFBEB20302F8C00FA2BB9 /* InterfaceBuilderSupport.swift in Sources */,
 				C7BB5C6D203FD6810056BBF9 /* SuggestionSectionController.swift in Sources */,

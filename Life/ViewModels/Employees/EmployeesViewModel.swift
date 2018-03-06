@@ -9,13 +9,15 @@
 import Foundation
 import IGListKit
 import Moya
+import RealmSwift
 import RxSwift
+import RxCocoa
 
 class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
     private(set) var employees = [EmployeeViewModel]()
     private(set) var filteredEmployees = [EmployeeViewModel]()
 
-    private(set) var loading = false
+    private(set) var loading = BehaviorRelay<Bool>(value: false)
     private(set) var canLoadMore = true
     private(set) var didLoadEmployees = false
 
@@ -40,21 +42,23 @@ class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
     // MARK: - Methods
 
     public func getEmployees(completion: @escaping ((Error?) -> Void)) {
-        if loading || didLoadEmployees {
+        returnFromCache()
+
+        if loading.value || didLoadEmployees {
             completion(nil)
-            if !loading {
+            if !loading.value {
                 self.itemsChangeSubject.onNext(self.employees)
             }
             return
         }
-        loading = true
+        loading.accept(true)
 
         provider
             .rx
             .request(.employees)
             .filterSuccessfulStatusCodes()
             .subscribe { response in
-                self.loading = false
+                self.loading.accept(false)
                 self.canLoadMore = false
 
                 switch response {
@@ -65,26 +69,76 @@ class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
                         )) as? [String: Any],
                         let list = jsonData["list"] as? [[String: Any]] {
                         //swiftlint:disable force_try
-                        let lentaItems = list.map {
+                        let employeeItems = list.map {
                             try! JSONDecoder().decode(Employee.self, from: $0.toJSONData())
                         }
                         //swiftlint:enable force_try
-                        let items = lentaItems.map { EmployeeViewModel(employee: $0) }
+                        let items = employeeItems.map { EmployeeViewModel(employee: $0) }
                         self.employees = items
                         self.filteredEmployees = items
                         self.didLoadEmployees = true
 
                         completion(nil)
+                        self.itemsChangeSubject.onNext(self.employees)
+
+                        self.updateCache(employeeItems)
                     } else {
                         completion(nil)
+                        self.itemsChangeSubject.onNext(self.employees)
                     }
-                    self.itemsChangeSubject.onNext(self.employees)
                 case .error(let error):
                     completion(error)
                     self.itemsChangeSubject.onNext(self.employees)
                 }
             }
             .disposed(by: disposeBag)
+    }
+
+    private func returnFromCache() {
+        DispatchQueue.global().async {
+            do {
+                let realm = try App.Realms.default()
+                let employeeObjects = realm.objects(EmployeeObject.self)
+                if !employeeObjects.isEmpty {
+                    let employees = Array(employeeObjects).map { Employee(managedObject: $0) }
+                    let employeeViewModels = employees.map { EmployeeViewModel(employee: $0) }
+
+                    self.employees = employeeViewModels
+                    self.filteredEmployees = employeeViewModels
+
+                    self.loading.accept(false)
+
+                    DispatchQueue.main.async {
+                        self.itemsChangeSubject.onNext(employeeViewModels)
+                    }
+                }
+            } catch {
+                print("Failed to access the Realm database")
+            }
+        }
+    }
+
+    private func updateCache(_ employeeItems: [Employee]) {
+        DispatchQueue.global().async {
+            do {
+                let realm = try App.Realms.default()
+                realm.beginWrite()
+                for employee in employeeItems {
+                    realm.add(employee.managedObject(), update: true)
+                }
+                for employee in realm.objects(EmployeeObject.self) {
+                    if !employeeItems.contains(Employee(managedObject: employee)),
+                        let employeeObject = realm.object(
+                            ofType: EmployeeObject.self,
+                            forPrimaryKey: employee.code) {
+                        realm.delete(employeeObject)
+                    }
+                }
+                try realm.commitWrite()
+            } catch {
+                print("Failed to access the Realm database")
+            }
+        }
     }
 
     public func filter(with text: String) {

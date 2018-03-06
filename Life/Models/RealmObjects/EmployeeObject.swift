@@ -25,6 +25,8 @@ final class EmployeeObject: Object {
     @objc dynamic var address: String = ""
     @objc dynamic var isBirthdayToday: Bool = false
     @objc dynamic var hasAvatar: Bool = false
+    @objc dynamic var administrativeChiefName: String? = nil
+    @objc dynamic var functionalChiefName: String? = nil
 
     override static func primaryKey() -> String? {
         return "code"
