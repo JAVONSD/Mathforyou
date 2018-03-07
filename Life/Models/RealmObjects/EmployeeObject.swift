@@ -31,4 +31,29 @@ final class EmployeeObject: Object {
     override static func primaryKey() -> String? {
         return "code"
     }
+
+    // MARK: - Methods
+
+    public func update(with employee: Employee) {
+        firstname = employee.firstname.onEmpty(firstname)
+        fullname = employee.fullname.onEmpty(fullname)
+        login = employee.login.onEmpty(login)
+        birthDate = employee.birthDate.onEmpty(birthDate)
+        jobPosition = employee.jobPosition.onEmpty(jobPosition)
+        email = employee.email.onEmpty(email)
+        company = employee.company.onEmpty(company)
+        companyName = employee.companyName.onEmpty(companyName)
+        departmentName = employee.departmentName.onEmpty(departmentName)
+        workPhoneNumber = employee.workPhoneNumber.onEmpty(workPhoneNumber)
+        mobilePhoneNumber = employee.mobilePhoneNumber.onEmpty(mobilePhoneNumber)
+        address = employee.address.onEmpty(address)
+        isBirthdayToday = employee.isBirthdayToday
+        hasAvatar = employee.hasAvatar
+        if employee.administrativeChiefName != nil {
+            administrativeChiefName = employee.administrativeChiefName
+        }
+        if employee.functionalChiefName != nil {
+            functionalChiefName = employee.functionalChiefName
+        }
+    }
 }

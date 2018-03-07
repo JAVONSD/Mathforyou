@@ -85,6 +85,8 @@
 "job_position" = "Должность";
 "login_name" = "Логин";
 "chief" = "Руководитель";
+"administrative_chief" = "Административный руководитель";
+"functional_chief" = "Функциональный руководитель";
 
 /* Lenta */
 

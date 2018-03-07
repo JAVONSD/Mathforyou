@@ -18,9 +18,9 @@ class EmployeeView: UIView {
     private(set) var scrollView: StackedScrollView?
 
     private(set) var positionView: ImageTextView?
-    private(set) var loginView: ImageTextView?
+    private(set) var administrativeChiefView: ImageTextView?
+    private(set) var functionalChiefView: ImageTextView?
     private(set) var birthdateView: ImageTextView?
-    private(set) var chiefView: ImageTextView?
     private(set) var phoneView: ImageTextView?
     private(set) var emailButton: ImageTextButton?
 
@@ -50,43 +50,50 @@ class EmployeeView: UIView {
 
     var fullname: String = "" {
         didSet {
-            employeeHeaderView?.titleLabel?.text = fullname.onEmpty("-")
+            employeeHeaderView?.titleLabel?.text = fullname.onEmpty(
+                NSLocalizedString("no_data", comment: ""))
         }
     }
 
     var position: String = "" {
         didSet {
-            positionView?.subtitleLabel?.text = position.onEmpty("-")
-        }
-    }
-
-    var login: String = "" {
-        didSet {
-            loginView?.subtitleLabel?.text = login.onEmpty("-")
+            positionView?.subtitleLabel?.text = position.onEmpty(
+                NSLocalizedString("no_data", comment: ""))
         }
     }
 
     var birthdate: String = "" {
         didSet {
-            birthdateView?.subtitleLabel?.text = birthdate.onEmpty("-")
+            birthdateView?.subtitleLabel?.text = birthdate.onEmpty(
+                NSLocalizedString("no_data", comment: ""))
         }
     }
 
-    var chief: String = "" {
+    var administrativeChief: String = "" {
         didSet {
-            chiefView?.subtitleLabel?.text = chief.onEmpty("-")
+            administrativeChiefView?.subtitleLabel?.text = administrativeChief.onEmpty(
+                NSLocalizedString("no_data", comment: ""))
+        }
+    }
+
+    var functionalChief: String = "" {
+        didSet {
+            functionalChiefView?.subtitleLabel?.text = functionalChief.onEmpty(
+                NSLocalizedString("no_data", comment: ""))
         }
     }
 
     var phone: String = "" {
         didSet {
-            phoneView?.subtitleLabel?.text = phone.onEmpty("-")
+            phoneView?.subtitleLabel?.text = phone.onEmpty(
+                NSLocalizedString("no_data", comment: ""))
         }
     }
 
     var email: String = "" {
         didSet {
-            emailButton?.view?.subtitleLabel?.text = email.onEmpty("-")
+            emailButton?.view?.subtitleLabel?.text = email.onEmpty(
+                NSLocalizedString("no_data", comment: ""))
         }
     }
 
@@ -177,9 +184,9 @@ class EmployeeView: UIView {
         }
 
         setupPosition()
-        setupLogin()
         setupBirthdate()
-        setupChief()
+        setupAdministrativeChief()
+        setupFunctionalChief()
         setupPhone()
         setupEmail()
     }
@@ -188,7 +195,7 @@ class EmployeeView: UIView {
         positionView = ImageTextView(
             image: nil,
             title: NSLocalizedString("job_position", comment: ""),
-            subtitle: "Главный бухгалтер Сервисной службы"
+            subtitle: "-"
         )
 
         guard let scrollView = scrollView,
@@ -200,27 +207,11 @@ class EmployeeView: UIView {
         scrollView.stackView?.addArrangedSubview(positionView)
     }
 
-    private func setupLogin() {
-        loginView = ImageTextView(
-            image: nil,
-            title: NSLocalizedString("login_name", comment: ""),
-            subtitle: "family.a"
-        )
-
-        guard let scrollView = scrollView,
-            let loginView = loginView else {
-                return
-        }
-
-        setup(view: loginView)
-        scrollView.stackView?.addArrangedSubview(loginView)
-    }
-
     private func setupBirthdate() {
         birthdateView = ImageTextView(
             image: nil,
             title: NSLocalizedString("birthdate", comment: ""),
-            subtitle: "13 декабря 1989"
+            subtitle: "-"
         )
 
         guard let scrollView = scrollView,
@@ -232,15 +223,31 @@ class EmployeeView: UIView {
         scrollView.stackView?.addArrangedSubview(birthdateView)
     }
 
-    private func setupChief() {
-        chiefView = ImageTextView(
+    private func setupAdministrativeChief() {
+        administrativeChiefView = ImageTextView(
             image: nil,
-            title: NSLocalizedString("chief", comment: ""),
-            subtitle: "Нугманова Айлида Рашидовна"
+            title: NSLocalizedString("administrative_chief", comment: ""),
+            subtitle: "-"
         )
 
         guard let scrollView = scrollView,
-            let chiefView = chiefView else {
+            let chiefView = administrativeChiefView else {
+                return
+        }
+
+        setup(view: chiefView)
+        scrollView.stackView?.addArrangedSubview(chiefView)
+    }
+
+    private func setupFunctionalChief() {
+        functionalChiefView = ImageTextView(
+            image: nil,
+            title: NSLocalizedString("functional_chief", comment: ""),
+            subtitle: "-"
+        )
+
+        guard let scrollView = scrollView,
+            let chiefView = functionalChiefView else {
                 return
         }
 
@@ -252,7 +259,7 @@ class EmployeeView: UIView {
         phoneView = ImageTextView(
             image: nil,
             title: NSLocalizedString("phone", comment: ""),
-            subtitle: "+7 771 777 77 77"
+            subtitle: "-"
         )
 
         guard let scrollView = scrollView,
@@ -268,7 +275,7 @@ class EmployeeView: UIView {
         emailButton = ImageTextButton(
             image: nil,
             title: NSLocalizedString("email", comment: ""),
-            subtitle: "ailida@bi-group.org"
+            subtitle: "-"
         )
 
         guard let scrollView = scrollView,

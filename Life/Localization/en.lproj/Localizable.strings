@@ -98,6 +98,8 @@
 "job_position" = "Position";
 "login_name" = "Login";
 "chief" = "Chief";
+"administrative_chief" = "Administrative chief";
+"functional_chief" = "Functional chief";
 
 /* Lenta */
 

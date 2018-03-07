@@ -124,7 +124,12 @@ class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
                 let realm = try App.Realms.default()
                 realm.beginWrite()
                 for employee in employeeItems {
-                    realm.add(employee.managedObject(), update: true)
+                    if let employeeObject = realm.object(
+                        ofType: EmployeeObject.self, forPrimaryKey: employee.code) {
+                        employeeObject.update(with: employee)
+                    } else {
+                        realm.add(employee.managedObject(), update: true)
+                    }
                 }
                 for employee in realm.objects(EmployeeObject.self) {
                     if !employeeItems.contains(Employee(managedObject: employee)),
@@ -236,6 +241,8 @@ extension EmployeesViewModel: Mockable {
 
 class EmployeeViewModel: NSObject, ViewModel, ListDiffable {
     private(set) var employee: Employee
+    let employeeVariable = BehaviorRelay<Employee>(
+        value: Employee(managedObject: EmployeeObject()))
 
     private let disposeBag = DisposeBag()
 
@@ -249,11 +256,14 @@ class EmployeeViewModel: NSObject, ViewModel, ListDiffable {
 
     init(employee: Employee) {
         self.employee = employee
+        employeeVariable.accept(employee)
     }
 
     // MARK: - Methods
 
     public func getEmployeeInfo(completion: @escaping ((Error?) -> Void)) {
+        returnFromCache()
+
         provider
             .rx
             .request(.employeeInfo(code: employee.code))
@@ -270,8 +280,13 @@ class EmployeeViewModel: NSObject, ViewModel, ListDiffable {
                         self.employee.mobilePhoneNumber = employee.mobilePhoneNumber
                         self.employee.address = employee.address
                         self.employee.isBirthdayToday = employee.isBirthdayToday
+                        self.employee.administrativeChiefName = employee.administrativeChiefName
+                        self.employee.functionalChiefName = employee.functionalChiefName
+                        self.employeeVariable.accept(self.employee)
 
                         completion(nil)
+
+                        self.updateCache(employee)
                     } else {
                         completion(nil)
                     }
@@ -280,6 +295,49 @@ class EmployeeViewModel: NSObject, ViewModel, ListDiffable {
                 }
             }
             .disposed(by: disposeBag)
+    }
+
+    private func returnFromCache() {
+        DispatchQueue.global().async {
+            do {
+                let realm = try App.Realms.default()
+                let employeeObject = realm.object(
+                    ofType: EmployeeObject.self, forPrimaryKey: self.employee.code)
+                if let employeeObject = employeeObject {
+                    let employee = Employee(managedObject: employeeObject)
+                    DispatchQueue.main.async {
+                        self.employee.login = employee.login
+                        self.employee.jobPosition = employee.jobPosition
+                        self.employee.company = employee.company
+                        self.employee.email = employee.email
+                        self.employee.workPhoneNumber = employee.workPhoneNumber
+                        self.employee.mobilePhoneNumber = employee.mobilePhoneNumber
+                        self.employee.address = employee.address
+                        self.employee.isBirthdayToday = employee.isBirthdayToday
+                        self.employee.administrativeChiefName = employee.administrativeChiefName
+                        self.employee.functionalChiefName = employee.functionalChiefName
+                        self.employeeVariable.accept(self.employee)
+                    }
+                }
+            } catch {
+                print("Failed to access the Realm database")
+            }
+        }
+    }
+
+    private func updateCache(_ employee: Employee) {
+        DispatchQueue.global().async {
+            do {
+                let realm = try App.Realms.default()
+                realm.beginWrite()
+                let object = employee.managedObject()
+                object.code = self.employee.code
+                realm.add(object, update: true)
+                try realm.commitWrite()
+            } catch {
+                print("Failed to access the Realm database")
+            }
+        }
     }
 
     // MARK: - ListDiffable
