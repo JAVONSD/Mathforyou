@@ -123,9 +123,9 @@ class BIBoardViewController: ASViewController<ASCollectionNode>, Stepper {
     }
 
     private func onUnauthorized() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
             User.current.logout()
-
+            self?.step.accept(AppStep.unauthorized)
         }
     }
 

@@ -41,6 +41,7 @@ class BIOfficeFlow: Flow {
         }
     }
 
+    //swiftlint:disable cyclomatic_complexity
     func navigate(to step: Step) -> NextFlowItems {
         guard let step = step as? AppStep else { return NextFlowItems.stepNotHandled }
 
@@ -64,10 +65,15 @@ class BIOfficeFlow: Flow {
             return navigationToRequestForm(category: category, didCreateRequest: didCreateRequest)
         case .createRequestDone:
             return navigationFromRequestForm()
+        case .createTask(let didCreateTask):
+            return navigationToTaskForm(didCreateTask: didCreateTask)
+        case .createTaskDone:
+            return navigationFromTaskForm()
         default:
             return NextFlowItems.stepNotHandled
         }
     }
+    //swiftlint:enable cyclomatic_complexity
 
     private func navigationToProfileScreen() -> NextFlowItems {
         let viewController = ProfileViewController.configuredVC
@@ -122,6 +128,19 @@ class BIOfficeFlow: Flow {
     }
 
     private func navigationFromRequestForm() -> NextFlowItems {
+        self.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
+        return NextFlowItems.none
+    }
+
+    private func navigationToTaskForm(didCreateTask: @escaping (() -> Void)) -> NextFlowItems {
+        let viewModel = TaskFormViewModel(employeesViewModel: employeesViewModel)
+        let vc = TaskFormViewController(viewModel: viewModel)
+        vc.didCreateTask = didCreateTask
+        self.rootViewController.present(vc, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc))
+    }
+
+    private func navigationFromTaskForm() -> NextFlowItems {
         self.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
         return NextFlowItems.none
     }

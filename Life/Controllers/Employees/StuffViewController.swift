@@ -23,18 +23,21 @@ class StuffViewController: TabsController, Stepper {
         super.init(viewControllers: [vc1, vc2, vc3], selectedIndex: 0)
 
         vc1.onUnathorizedError = { [weak self] in
+            User.current.logout()
             self?.step.accept(AppStep.unauthorized)
         }
         vc1.didSelectEmployee = { [weak self] employee in
             self?.step.accept(AppStep.employeePicked(employee: employee))
         }
         vc2.onUnathorizedError = { [weak self] in
+            User.current.logout()
             self?.step.accept(AppStep.unauthorized)
         }
         vc2.didSelectBirthdate = { [weak self] employee in
             self?.step.accept(AppStep.employeePicked(employee: employee))
         }
         vc3.onUnathorizedError = { [weak self] in
+            User.current.logout()
             self?.step.accept(AppStep.unauthorized)
         }
         vc3.didSelectVacancy = { code in

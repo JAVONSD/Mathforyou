@@ -70,7 +70,7 @@ class NewsFormViewController: UIViewController, Stepper {
         alert.addAction(libraryAction)
         let cancelAction = UIAlertAction(
             title: NSLocalizedString("cancel", comment: ""),
-            style: .default,
+            style: .cancel,
             handler: nil)
         alert.addAction(cancelAction)
 

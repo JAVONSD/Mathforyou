@@ -133,9 +133,43 @@ extension BIOfficeViewController: ListAdapterDataSource {
             self?.step.accept(AppStep.tasksAndRequests)
         }
         section.didTapAddRequest = { [weak self] in
-            self?.step.accept(AppStep.createRequest(category: .it, didCreateRequest: { [weak self] in
-                self?.refreshFeed()
-            }))
+            let alert = UIAlertController(
+                title: NSLocalizedString("choose_option", comment: ""),
+                message: nil,
+                preferredStyle: .actionSheet)
+            alert.popoverPresentationController?.sourceView = self?.view
+
+            let taskAction = UIAlertAction(
+                title: NSLocalizedString("new_task", comment: ""),
+                style: .default, handler: { [weak self] _ in
+                    self?.step.accept(
+                        AppStep.createTask(didCreateTask: { [weak self] in
+                            self?.refreshFeed()
+                        })
+                    )
+                }
+            )
+            alert.addAction(taskAction)
+
+            let requestAction = UIAlertAction(
+                title: NSLocalizedString("new_request", comment: ""),
+                style: .default, handler: { [weak self] _ in
+                    self?.step.accept(
+                        AppStep.createRequest(category: .it, didCreateRequest: { [weak self] in
+                            self?.refreshFeed()
+                        })
+                    )
+                }
+            )
+            alert.addAction(requestAction)
+
+            let cancelAction = UIAlertAction(
+                title: NSLocalizedString("cancel", comment: ""),
+                style: .cancel,
+                handler: nil)
+            alert.addAction(cancelAction)
+
+            self?.present(alert, animated: true, completion: nil)
         }
         return section
     }

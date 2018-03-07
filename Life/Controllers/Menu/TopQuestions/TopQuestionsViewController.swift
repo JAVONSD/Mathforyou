@@ -152,11 +152,9 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper {
     }
 
     private func onUnauthorized() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
             User.current.logout()
-            if let onUnathorizedError = self.onUnathorizedError {
-                onUnathorizedError()
-            }
+            self?.step.accept(AppStep.unauthorized)
         }
     }
 
