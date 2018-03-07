@@ -188,6 +188,7 @@ class MyInfoDetailedView: StackedView {
         workInfoView.textStackView?.stackView?.distribution = .fill
         workInfoView.titleLabel?.font = App.Font.subheadAlts
         workInfoView.dividerView?.isHidden = false
+        workInfoView.dividerLeftOffset = 0
 
         stackView.addArrangedSubview(workInfoView)
 

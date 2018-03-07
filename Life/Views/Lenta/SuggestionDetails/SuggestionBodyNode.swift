@@ -417,28 +417,42 @@ extension SuggestionBodyNode: WKNavigationDelegate {
             return
         }
 
-        webView.evaluateJavaScript(
-            "document.readyState", completionHandler: { (complete, _) in
-            if complete != nil {
-                self.webView.evaluateJavaScript(
-                    "document.body.scrollHeight", completionHandler: { (height, _) in
-                        let height = height as? CGFloat ?? 0
-                        print("web view height is \(height)")
-                        self.webViewHeight = height
-                        self.webViewNode.style.preferredSize = CGSize(
-                            width: UIScreen.main.bounds.size.width - 2 * App.Layout.sideOffset,
-                            height: height
-                        )
+        self.webView.evaluateJavaScript(
+            """
+            var B = document.body,
+                H = document.documentElement,
+                height
 
-                        self.spinnerNode.style.preferredSize = .zero
-                        self.spinnerNode.removeFromSupernode()
-
-                        self.setNeedsLayout()
-                        self.layoutIfNeeded()
-
-                        self.didLoadWebView(height)
-                })
+            if (typeof document.height !== 'undefined') {
+                height = document.height // For webkit browsers
+            } else {
+                height = Math.max(
+                    B.scrollHeight,
+                    B.offsetHeight,
+                    H.clientHeight,
+                    H.scrollHeight,
+                    H.offsetHeight
+                );
             }
+            height;
+            """,
+            completionHandler: { (height, _) in
+                let height = height as? CGFloat ?? 0
+                self.webViewHeight = height
+                self.webViewNode.style.preferredSize = CGSize(
+                    width: UIScreen.main.bounds.size.width - 2 * App.Layout.sideOffset,
+                    height: height
+                )
+
+                self.spinnerNode.style.preferredSize = .zero
+                self.spinnerNode.removeFromSupernode()
+
+                self.setNeedsLayout()
+                self.layoutIfNeeded()
+
+                if height > 24 {
+                    self.didLoadWebView(height)
+                }
         })
     }
 }

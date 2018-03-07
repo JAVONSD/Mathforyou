@@ -174,7 +174,9 @@ class AppTabBarController: UIViewController, TabBarDelegate, Stepper {
     }
 
     private func setupInitialVC() {
+        currentTabIndex = viewControllers.count / 2
         if currentTabIndex < viewControllers.count {
+            tabBar.select(at: currentTabIndex)
             addChild(viewControllers[currentTabIndex])
         }
     }

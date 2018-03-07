@@ -1,0 +1,70 @@
+[09:35:08]: [32m------------------------------[0m
+[09:35:08]: [32m--- Step: register_devices ---[0m
+[09:35:08]: [32m------------------------------[0m
+[09:35:08]: [31mYou passed invalid parameters to 'register_devices'.[0m
+[09:35:08]: [31mCheck out the error below and available options by running `fastlane action register_devices`[0m
+
+#######################################################################
+# fastlane 2.84.0 is available. You are on 2.81.0.
+# You should use the latest version.
+# Please update using `bundle update fastlane`.
+#######################################################################
+
+[32m2.84.0 Workaround for broken Transporter API[0m
+* Add workaround for iTC transporter outage (#11965) via Felix Krause
+* Shellscape java_home ENV var in Crashlytics helper (#11964) via Joshua Liebowitz
+* Move plugin scores cache file to the docs repo (#11927) via Iulian Onofrei
+* match/sigh/sync_code_signing: Improving documentation on profile templates. (#11548) via Luke Wakeford
+* Some actions failed if true is passed as one of their params (#11935) via Sergii Ovcharenko
+* Update remaining tests after merge (#11941) via Felix Krause
+* Add possibility to use a specific proxy (#11938) via José Rodrigues
+* Update fastlane UI handler to support FastlaneCI rendering (#11857) via Felix Krause
+
+[32m2.83.0 Remove metrics, improved docs and more[0m
+* Disable all metrics collection for fastlane (#11914) via Joshua Liebowitz
+* YES/NO auto convert fix (#11923) via Sergii Ovcharenko
+* Ensure the correct formatting of the fastlane tools (#11921) via Iulian Onofrei
+* Add plugin scores caching (#11924) via Iulian Onofrei
+* Improve actions default values formatting (#11919) via Iulian Onofrei
+* Cache groups by app_id (#11911) via Joshua Liebowitz
+* Add @minuscorp and @AndrewMcBurney to fastlane team (#11908) via Felix Krause
+* rubocop can't handle our contributor scale (#11932) via Felix Krause
+
+[32m2.82.0 Many changes, hard to summarize[0m
+* Add support for 10 screenshots on iTunes Connect (#11906) via Felix Krause
+* Add option to disable any kind of formatting on the output (#11882) via Pedro Piñera Buendía
+* Spaceship: support getting and setting pricing of recurring subscriptions. (#11627) via Ben Yohay
+* add DEVELOPMENT_TEAM to build configuration file (#11852) via Stanislav Shakirov
+* Remove superfluous default value mentions from the ConfigItem description (#11900) via Iulian Onofrei
+* Update capture_ios_screenshots.md (#11894) via Nico du Plessis
+* Fix entitlements merging when resigning with use_app_entitlements option (#11346) via fʗɑρ
+* Fix syntax errors for import_from_git sample code (#11899) via Iulian Onofrei
+* Disable more tests on Windows (temporarily) (#11897) via Jan Piotrowski
+* Fix actions default values (#11898) via Iulian Onofrei
+* Setting keychain path to decode provisioning profiles (#11889) via Bruno Guidolim
+* [snapshot] Fixes failure on physical device due to snapshot() (#11300) via Christian Steffens
+* Deliver docs: Update reference to age rating template (#11325) via Max Ott
+* Added whitespace after URL in error message (#11874) via Vadiem Janssens
+* FastLane android init: clean before build/deploy (#11873) via Sébastien Lorber
+* Enable RuboCop for template files (#11763) via Iulian Onofrei
+* Ensure the correct formatting of the fastlane tools (#11868) via Iulian Onofrei
+* Use correct spelling of icloud service (#11861) via Marius Rackwitz
+* Add default values for actions documentation (#10596) via Iulian Onofrei
+* Extend ErbTemplateHelper with trim_mode parameter (#11144) via Alexander Chapliuk
+* Update code of conduct to use HTTPs (#11862) via Felix Krause
+* Update commander-fastlane (#11848) via Kohki Miki
+* Added new 'approved" state to testflight build when build shouldnt be sent to review (#11849) via alexs555
+* Allow the usage of a postfix for the add_git_tag action (#11794) via Dunya Kirkali
+* `update_app_identifier` resolves SRCROOT on build_settings (#11836) via Kohki Miki
+* Support Other Gem Server on PluginManager (#11835) via Kohki Miki
+* Mapping dSYM files with BCSymbolMaps (#11843) via Bruno Guidolim
+* [snapshot] fix "Quick start" list indentation and structure (#11840) via Jan Piotrowski
+* Extract testing instructions in their own Testing.md file (#11837) via Jan Piotrowski
+* Fastlane.swift: Fix getPushCertificate type (#11845) via Joshua Liebowitz
+* Fix getting certificate info in match/utils.rb (#11838) via Kirill Khaidukov
+* Fix RuboCop warnings caused by renamed namespaces (#11833) via Iulian Onofrei
+* Remove parentheses from desc and lane calls (#11832) via Iulian Onofrei
+
+[32mTo see all new releases, open https://github.com/fastlane/fastlane/releases[0m
+
+[32mPlease update using `bundle update fastlane`[0m
