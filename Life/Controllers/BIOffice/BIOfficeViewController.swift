@@ -71,14 +71,6 @@ class BIOfficeViewController: ASViewController<ASCollectionNode>, Stepper {
         refreshFeed()
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        viewModel.syncUserProfile { [weak self] in
-            self?.onUnauthorized()
-        }
-    }
-
     // MARK: - Methods
 
     @objc

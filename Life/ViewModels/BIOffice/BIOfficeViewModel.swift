@@ -19,38 +19,8 @@ struct BIOfficeViewModel: ViewModel {
     private(set) var sbvViewModel = SBViewModel()
     private(set) var idpViewModel = IDPViewModel()
 
-    private var disposeBag = DisposeBag()
-
-    private let provider = MoyaProvider<UserProfileService>(plugins: [AuthPlugin(tokenClosure: {
-        return User.current.token
-    })])
-
     init(tasksAndRequestsViewModel: TasksAndRequestsViewModel) {
         self.tasksAndRequestsViewModel = tasksAndRequestsViewModel
-    }
-
-    // MARK: - Methods
-
-    public func syncUserProfile(onUnauthorizedError: @escaping (() -> Void)) {
-        provider
-            .rx
-            .request(.userProfile)
-            .filterSuccessfulStatusCodes()
-            .subscribe { response in
-                switch response {
-                case .success(let json):
-                    if let profile = try? JSONDecoder().decode(UserProfile.self, from: json.data) {
-                        User.current.profile = profile
-                        User.current.save()
-                    }
-                case .error(let error):
-                    if let moyaError = error as? MoyaError,
-                        moyaError.response?.statusCode == 401 {
-                        onUnauthorizedError()
-                    }
-                }
-            }
-            .disposed(by: disposeBag)
     }
 
 }

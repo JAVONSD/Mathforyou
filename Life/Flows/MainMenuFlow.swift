@@ -34,6 +34,9 @@ class MainMenuFlow: Flow {
         switch step {
         case .mainMenu:
             return navigationToMainMenuScreen()
+        case .unauthorized:
+            onUnauthorized()
+            return .stepNotHandled
         default:
             return NextFlowItems.stepNotHandled
         }
@@ -110,6 +113,16 @@ class MainMenuFlow: Flow {
         return NextFlowItems.multiple(flowItems: flowItems)
     }
     //swiftlint:enable function_body_length
+
+    private func onUnauthorized() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        appDelegate.coordinator.coordinate(
+            flow: appDelegate.appFlow,
+            withStepper: OneStepper(withSingleStep: AppStep.unauthorized)
+        )
+    }
 
     // MARK: - Methods
 

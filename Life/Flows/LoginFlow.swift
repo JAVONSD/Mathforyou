@@ -27,6 +27,8 @@ class LoginFlow: Flow {
         switch step {
         case .login:
             return navigateToLoginScreen()
+        case .unauthorized:
+            return navigateToLoginScreen(isUnauthorized: true)
         case .forgotPassword(let login):
             return navigateToForgotPasswordScreen(login)
         case .forgotPasswordCancel:

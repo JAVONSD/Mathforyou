@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 struct User: Codable {
 
@@ -17,6 +19,8 @@ struct User: Codable {
     //swiftlint:disable redundant_optional_initialization
     var profile: UserProfile? = nil
     //swiftlint:enable redundant_optional_initialization
+
+    let updated = BehaviorRelay<UserProfile?>(value: nil)
 
     init(token: String?, login: String, employeeCode: String) {
         self.token = token
@@ -73,6 +77,8 @@ struct User: Codable {
         UserDefaults.standard.set(login, forKey: App.Key.userLogin)
         UserDefaults.standard.set(employeeCode, forKey: App.Key.userEmployeeCode)
         UserDefaults.standard.synchronize()
+
+        updated.accept(profile)
     }
 
     public func logout() {

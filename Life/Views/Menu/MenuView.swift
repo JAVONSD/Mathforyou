@@ -9,6 +9,8 @@
 import UIKit
 import DynamicColor
 import Material
+import RxSwift
+import RxCocoa
 import SnapKit
 
 class MenuView: UIView {
@@ -17,6 +19,8 @@ class MenuView: UIView {
     private(set) var tableView: UITableView?
 
     var configureViewForHeader: ((UITableView, Int) -> UIView?)?
+
+    let disposeBag = DisposeBag()
 
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -37,14 +41,17 @@ class MenuView: UIView {
 
     private func setupHeaderButton() {
         headerButton.employeeImageView.set(image: "", employeeCode: User.current.employeeCode)
-        headerButton.textLabel.text = User.current.profile?.fullname
-        headerButton.subtitleLabel.text = User.current.profile?.jobPosition
         addSubview(headerButton)
         headerButton.snp.makeConstraints { (make) in
             make.top.equalTo(self)
             make.left.equalTo(self)
             make.right.equalTo(self)
         }
+
+        User.current.updated.asDriver().drive(onNext: { [weak self] profile in
+            self?.headerButton.textLabel.text = User.current.profile?.fullname
+            self?.headerButton.subtitleLabel.text = User.current.profile?.jobPosition
+        }).disposed(by: disposeBag)
     }
 
     private func setupTableView() {

@@ -29,7 +29,7 @@ class MyInfoViewController: UIViewController {
     // MARK: - Bind
 
     private func bind() {
-        Observable.just(User.current.profile).bind { [weak self] (profile) in
+        User.current.updated.asDriver().drive(onNext: { [weak self] profile in
             guard let `self` = self else { return }
 
             ImageDownloader.set(
@@ -39,7 +39,7 @@ class MyInfoViewController: UIViewController {
             )
 
             self.updateUI(with: profile)
-        }.disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
     }
 
     // MARK: - UI

@@ -119,13 +119,13 @@ class AppToolbarController: NavigationController, Stepper {
         profileButton.iconView.layer.cornerRadius = 12
         profileButton.iconView.layer.masksToBounds = true
 
-        Observable.just(User.current.profile).bind { (profile) in
+        User.current.updated.asDriver().drive(onNext: { profile in
             ImageDownloader.set(
                 image: "",
                 employeeCode: (profile?.employeeCode ?? ""),
                 to: profileButton.iconView
             )
-            }.disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         return profileButton
     }
 
