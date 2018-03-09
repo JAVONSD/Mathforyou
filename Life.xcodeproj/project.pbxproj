@@ -45,6 +45,11 @@
 		C720EC822036E67E007E4CD4 /* NewsSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720EC812036E67D007E4CD4 /* NewsSectionController.swift */; };
 		C720EC862037093A007E4CD4 /* LentaOverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720EC852037093A007E4CD4 /* LentaOverviewCell.swift */; };
 		C720EC8820370B03007E4CD4 /* OverviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C720EC8720370B03007E4CD4 /* OverviewCell.swift */; };
+		C73103312050386F00E21672 /* AnswerFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73103302050386F00E21672 /* AnswerFormView.swift */; };
+		C7310333205038A800E21672 /* AnswerFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7310332205038A800E21672 /* AnswerFooterView.swift */; };
+		C7310335205038B200E21672 /* VideoAnswerFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7310334205038B200E21672 /* VideoAnswerFooterView.swift */; };
+		C731033720503D1000E21672 /* CheckboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C731033620503D1000E21672 /* CheckboxCell.swift */; };
+		C73103392050405600E21672 /* AnswerFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73103382050405600E21672 /* AnswerFormViewController.swift */; };
 		C73997B0203A7A8F00C3981A /* SliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73997AF203A7A8F00C3981A /* SliderCell.swift */; };
 		C73EB2512032D71B00429921 /* ResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2502032D71B00429921 /* ResultsViewModel.swift */; };
 		C73EB25B2032DA4300429921 /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB25A2032DA4300429921 /* Mockable.swift */; };
@@ -441,6 +446,11 @@
 		C720EC812036E67D007E4CD4 /* NewsSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSectionController.swift; sourceTree = "<group>"; };
 		C720EC852037093A007E4CD4 /* LentaOverviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LentaOverviewCell.swift; sourceTree = "<group>"; };
 		C720EC8720370B03007E4CD4 /* OverviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverviewCell.swift; sourceTree = "<group>"; };
+		C73103302050386F00E21672 /* AnswerFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerFormView.swift; sourceTree = "<group>"; };
+		C7310332205038A800E21672 /* AnswerFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerFooterView.swift; sourceTree = "<group>"; };
+		C7310334205038B200E21672 /* VideoAnswerFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAnswerFooterView.swift; sourceTree = "<group>"; };
+		C731033620503D1000E21672 /* CheckboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxCell.swift; sourceTree = "<group>"; };
+		C73103382050405600E21672 /* AnswerFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerFormViewController.swift; sourceTree = "<group>"; };
 		C73997AF203A7A8F00C3981A /* SliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderCell.swift; sourceTree = "<group>"; };
 		C73EB2502032D71B00429921 /* ResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewModel.swift; sourceTree = "<group>"; };
 		C73EB25A2032DA4300429921 /* Mockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mockable.swift; sourceTree = "<group>"; };
@@ -1218,6 +1228,7 @@
 				C7F7CB5C203C2921007B9D1E /* DateCell.swift */,
 				C7F7CB5E203C2E2B007B9D1E /* RoundedNode.swift */,
 				C7F7CB74203C75B4007B9D1E /* ImageNode.swift */,
+				C731033620503D1000E21672 /* CheckboxCell.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1476,6 +1487,7 @@
 				C7BB5C48203E86020056BBF9 /* AnswersSectionController.swift */,
 				C7BB5C4A203E860F0056BBF9 /* QuestionSectionController.swift */,
 				C7BB5C76204006F90056BBF9 /* QuestionFormViewController.swift */,
+				C73103382050405600E21672 /* AnswerFormViewController.swift */,
 			);
 			path = TopQuestions;
 			sourceTree = "<group>";
@@ -1863,6 +1875,9 @@
 				C7BB5C41203E6E0C0056BBF9 /* TopQuestionsHeader.swift */,
 				C7BB5C74203FE7A50056BBF9 /* QuestionFormView.swift */,
 				C7A241AF204AB9C700994840 /* MenuHeaderButton.swift */,
+				C73103302050386F00E21672 /* AnswerFormView.swift */,
+				C7310332205038A800E21672 /* AnswerFooterView.swift */,
+				C7310334205038B200E21672 /* VideoAnswerFooterView.swift */,
 			);
 			path = Menu;
 			sourceTree = "<group>";
@@ -2367,6 +2382,7 @@
 				C7F7CB39203AEBCE007B9D1E /* Task.swift in Sources */,
 				C7D6423A20346FB7001DCA98 /* BIOfficeViewModel.swift in Sources */,
 				C7AB6F76204BE8F500328E17 /* ThumbnailGenerator.swift in Sources */,
+				C73103312050386F00E21672 /* AnswerFormView.swift in Sources */,
 				C73EB28F2032F9B100429921 /* RxCollectionViewSectionedReloadDataSource.swift in Sources */,
 				C7F7CB6F203C65B4007B9D1E /* IDPViewModel.swift in Sources */,
 				C76EFBF6203032B600FA2BB9 /* ResetPasswordViewController.swift in Sources */,
@@ -2520,6 +2536,7 @@
 				C7AB6F85204BE8F500328E17 /* Configuration.swift in Sources */,
 				C717C67D203D4B1F0070447D /* TasksAndRequestsFABController.swift in Sources */,
 				C73EB2912032F9B100429921 /* String+IdentifiableType.swift in Sources */,
+				C73103392050405600E21672 /* AnswerFormViewController.swift in Sources */,
 				C76EFBE620302F8C00FA2BB9 /* FixedState.swift in Sources */,
 				C73997B0203A7A8F00C3981A /* SliderCell.swift in Sources */,
 				C76EFBA42030056000FA2BB9 /* LoginView.swift in Sources */,
@@ -2535,6 +2552,7 @@
 				C7D6423E20346FC9001DCA98 /* LentaViewModel.swift in Sources */,
 				C73EB2B020331DCC00429921 /* PlansView.swift in Sources */,
 				C7D641EE20344664001DCA98 /* AppStep.swift in Sources */,
+				C7310335205038B200E21672 /* VideoAnswerFooterView.swift in Sources */,
 				C7A241AC204A50A200994840 /* System.swift in Sources */,
 				C7AB6F78204BE8F500328E17 /* FileSpecificationProvider.swift in Sources */,
 				C7AB6F89204BE9D600328E17 /* NewsFormViewModel.swift in Sources */,
@@ -2543,6 +2561,7 @@
 				C7F7CB67203C5F2E007B9D1E /* IDPSectionController.swift in Sources */,
 				C720EC7C2036CD54007E4CD4 /* NewsCell.swift in Sources */,
 				C7B5FA0620305D11003F3D2C /* ForgotPasswordViewController.swift in Sources */,
+				C731033720503D1000E21672 /* CheckboxCell.swift in Sources */,
 				C7AB6F7F204BE8F500328E17 /* Errors.swift in Sources */,
 				C7AB6F68204BE8F500328E17 /* ItemPresentationCoordinator.swift in Sources */,
 				C7D6424020346FD3001DCA98 /* MenuViewModel.swift in Sources */,
@@ -2619,6 +2638,7 @@
 				C7D6421C203463E0001DCA98 /* Rx+Pausable.swift in Sources */,
 				C7F7CB47203B1437007B9D1E /* NewsViewModel.swift in Sources */,
 				C717C683203D92D10070447D /* ImageDownloader+Extensions.swift in Sources */,
+				C7310333205038A800E21672 /* AnswerFooterView.swift in Sources */,
 				C717C675203D13450070447D /* TasksAndRequestsViewController.swift in Sources */,
 				C752ACF520411DD900D04E26 /* Persistable.swift in Sources */,
 				C76EFBE320302F8C00FA2BB9 /* State.swift in Sources */,

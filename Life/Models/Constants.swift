@@ -145,6 +145,7 @@ struct App {
         // MARK: - Common
 
         static let suggestionCellId = "suggestionCellId"
+        static let checkboxCellId = "checkboxCellId"
 
     }
 

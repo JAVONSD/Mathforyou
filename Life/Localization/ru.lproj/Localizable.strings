@@ -127,6 +127,7 @@
 "select_tag" = "Выбрать Тег";
 "tag_list" = "Лист Тегов";
 "create_tag" = "Создать Тег";
+"write_answer" = "Напишите ответ";
 
 /* BI Office */
 
