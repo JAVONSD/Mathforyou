@@ -14,15 +14,16 @@ import IGListKit
 import Material
 import SnapKit
 
-class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper {
+class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper, FABMenuDelegate {
 
     private var listAdapter: ListAdapter!
     private var collectionNode: ASCollectionNode!
     private lazy var refreshCtrl = UIRefreshControl()
 
-    private var addButton: FABButton!
+    private var fabButton: FABButton!
+    private var fabMenu: FABMenu!
 
-    private weak var viewModel: TopQuestionsViewModel?
+    private unowned var viewModel: TopQuestionsViewModel
 
     var onUnathorizedError: (() -> Void)?
 
@@ -41,24 +42,6 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper {
         node.addSubnode(collectionNode)
     }
 
-    private func addButtonNode(_ node: ASDisplayNode) -> ASDisplayNode {
-        let addNode = ASDisplayNode { () -> UIView in
-            self.addButton = FABButton(image: Icon.cm.add, tintColor: .white)
-            self.addButton.addTarget(self, action: #selector(self.handleAddButton), for: .touchUpInside)
-            self.addButton.backgroundColor = App.Color.azure
-            self.addButton.snp.makeConstraints { (make) in
-                make.size.equalTo(CGSize(width: 56, height: 56))
-            }
-            self.addButton.shadowColor = App.Color.black12
-            self.addButton.depth = Depth(
-                offset: Offset.init(horizontal: 0, vertical: 12), opacity: 1, radius: 12)
-            return self.addButton
-        }
-        addNode.style.preferredSize = CGSize(width: 56, height: 56)
-        node.addSubnode(addNode)
-        return addNode
-    }
-
     init(viewModel: TopQuestionsViewModel) {
         self.viewModel = viewModel
 
@@ -66,7 +49,14 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper {
         super.init(node: node)
 
         addCollectionNode(node)
-        let addNode = addButtonNode(node)
+
+        let addNode = ASDisplayNode { () -> UIView in
+            self.setupFABButton()
+            return self.fabMenu
+        }
+        addNode.backgroundColor = .clear
+        addNode.style.preferredSize = CGSize(width: 56, height: 56)
+        node.addSubnode(addNode)
 
         node.layoutSpecBlock = { (_, _) in
             let insetSpec = ASInsetLayoutSpec(insets: .init(
@@ -107,28 +97,10 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper {
         refreshFeed()
     }
 
-    // MARK: - Actions
-
-    @objc
-    private func handleAddButton() {
-        self.step.accept(AppStep.createQuestion(didAddQuestion: { [weak self] question in
-            guard let `self` = self,
-                let viewModel = self.viewModel else { return }
-            let questionsSC = self.listAdapter.sectionController(
-                for: viewModel.questions
-            ) as? QuestionSectionController
-            questionsSC?.add(question: question)
-        }))
-    }
-
     // MARK: - Methods
 
     @objc
     private func refreshFeed() {
-        guard let viewModel = viewModel else {
-            return
-        }
-
         let secCtrl = listAdapter.sectionController(
             for: viewModel
         ) as? RefreshingSectionControllerType
@@ -180,13 +152,121 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper {
         }
     }
 
+    // MARK: - UI
+
+
+
+    private func setupFABButton() {
+        self.fabButton = FABButton(image: Icon.cm.add, tintColor: .white)
+        self.fabButton.pulseColor = .white
+        self.fabButton.backgroundColor = App.Color.azure
+        self.fabButton.shadowColor = App.Color.black12
+        self.fabButton.depth = Depth(offset: Offset.init(horizontal: 0, vertical: 12), opacity: 1, radius: 12)
+
+        self.fabMenu = FABMenu()
+        self.fabMenu.delegate = self
+        self.fabMenu.fabButton = self.fabButton
+        self.fabMenu.fabMenuItemSize = CGSize(
+            width: App.Layout.itemSpacingMedium * 2,
+            height: App.Layout.itemSpacingMedium * 2
+        )
+        self.setupFABMenuItems()
+        self.fabMenu.snp.makeConstraints { (make) in
+            make.size.equalTo(CGSize(width: 56, height: 56))
+        }
+    }
+
+    private func setupFABMenuItems() {
+        let addQuestionItem = setupFABMenuItem(
+            title: NSLocalizedString("add_question", comment: ""),
+            onTap: { [weak self] in
+                self?.step.accept(AppStep.createQuestion(didAddQuestion: { [weak self] question in
+                    guard let `self` = self else { return }
+                    let questionsSC = self.listAdapter.sectionController(
+                        for: self.viewModel.questions
+                        ) as? QuestionSectionController
+                    questionsSC?.add(question: question)
+                }))
+        })
+        let addAnswerItem = setupFABMenuItem(
+            title: NSLocalizedString("add_answer", comment: ""),
+            onTap: { [weak self] in
+                guard let `self` = self else { return }
+                self.step.accept(AppStep.createAnswer(
+                    questions: self.viewModel.questions.questions.map { $0.question },
+                    isVideo: false,
+                    didCreateAnswer: { [weak self] (answer, ids) in
+                        guard let `self` = self else { return }
+                        let questionsSC = self.listAdapter.sectionController(
+                            for: self.viewModel.questions
+                            ) as? QuestionSectionController
+                        questionsSC?.add(answer: answer, to: ids)
+                    })
+                )
+        })
+        let addVideoAnswerItem = setupFABMenuItem(
+            title: NSLocalizedString("add_video_answer", comment: ""),
+            onTap: { [weak self] in
+                guard let `self` = self else { return }
+                self.step.accept(AppStep.createAnswer(
+                    questions: self.viewModel.questions.questions.map { $0.question },
+                    isVideo: true,
+                    didCreateAnswer: { [weak self] (answer, ids) in
+                        guard let `self` = self else { return }
+                        let questionsSC = self.listAdapter.sectionController(
+                            for: self.viewModel.questions
+                            ) as? QuestionSectionController
+                        questionsSC?.add(answer: answer, to: ids)
+                        self.refreshFeed()
+                    })
+                )
+        })
+
+        fabMenu.fabMenuItems = [addQuestionItem, addAnswerItem, addVideoAnswerItem].reversed()
+    }
+
+    private func setupFABMenuItem(title: String, onTap: @escaping (() -> Void)) -> FABMenuItem {
+        let menuItem = FABMenuItem()
+        menuItem.title = title
+        menuItem.titleLabel.backgroundColor = .clear
+        menuItem.titleLabel.font = App.Font.body
+        menuItem.titleLabel.textColor = .black
+        menuItem.fabButton.image = Icon.cm.add
+        menuItem.fabButton.tintColor = .white
+        menuItem.fabButton.pulseColor = .white
+        menuItem.fabButton.backgroundColor = App.Color.azure
+        menuItem.fabButton.rx.tap.asDriver().throttle(0.5).drive(onNext: {
+            onTap()
+
+            self.fabMenuWillClose(fabMenu: self.fabMenu)
+            self.fabMenu.close()
+        }).disposed(by: disposeBag)
+
+        return menuItem
+    }
+
+    // MARK: - FABMenuDelegate
+
+    func fabMenuWillOpen(fabMenu: FABMenu) {
+        collectionNode.alpha = 0.15
+
+        fabButton.backgroundColor = App.Color.paleGreyTwo
+        fabButton.image = Icon.cm.close
+        fabButton.tintColor = App.Color.coolGrey
+    }
+
+    func fabMenuWillClose(fabMenu: FABMenu) {
+        collectionNode.alpha = 1
+
+        fabButton.backgroundColor = App.Color.azure
+        fabButton.image = Icon.cm.add
+        fabButton.tintColor = UIColor.white
+    }
+
 }
 
 extension TopQuestionsViewController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        guard let viewModel = viewModel else {
-            return []
-        }
         return [
             viewModel,
             viewModel.answers,

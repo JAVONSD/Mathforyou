@@ -135,7 +135,7 @@ class NewsFormViewController: UIViewController, Stepper {
     }
 
     private func bindTitleField() {
-        newsFormView.textField
+        newsFormView.titleField
             .rx
             .text
             .orEmpty

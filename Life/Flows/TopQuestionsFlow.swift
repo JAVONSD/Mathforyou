@@ -16,8 +16,11 @@ class TopQuestionsFlow: Flow {
 
     private var rootViewController: TopQuestionsViewController
 
-    init(viewController: TopQuestionsViewController) {
+    private unowned var topQuestionsViewModel: TopQuestionsViewModel
+
+    init(viewController: TopQuestionsViewController, topQuestionsViewModel: TopQuestionsViewModel) {
         rootViewController = viewController
+        self.topQuestionsViewModel = topQuestionsViewModel
     }
 
     func navigate(to step: Step) -> NextFlowItems {
@@ -30,6 +33,14 @@ class TopQuestionsFlow: Flow {
             return navigationFromQuestionForm()
         case .topQuestionPicked:
             return NextFlowItems.none
+        case .createAnswer(let questions, let isVideo, let didCreateAnswer):
+            return navigationToAnswerForm(
+                questions: questions,
+                isVideo: isVideo,
+                didCreateAnswer: didCreateAnswer
+            )
+        case .createAnswerDone:
+            return navigationFromAnswerForm()
         default:
             return NextFlowItems.stepNotHandled
         }
@@ -51,6 +62,22 @@ class TopQuestionsFlow: Flow {
     }
 
     private func navigationFromQuestionForm() -> NextFlowItems {
+        self.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
+        return NextFlowItems.none
+    }
+
+    private func navigationToAnswerForm(
+        questions: [Question],
+        isVideo: Bool,
+        didCreateAnswer: @escaping ((Answer, [String]) -> Void)) -> NextFlowItems {
+        let viewModel = AnswerFormViewModel(questions: questions, isVideo: isVideo)
+        let vc = AnswerFormViewController(viewModel: viewModel)
+        vc.didCreateAnswer = didCreateAnswer
+        self.rootViewController.present(vc, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc))
+    }
+
+    private func navigationFromAnswerForm() -> NextFlowItems {
         self.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
         return NextFlowItems.none
     }

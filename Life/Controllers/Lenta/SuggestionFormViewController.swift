@@ -134,7 +134,7 @@ class SuggestionFormViewController: UIViewController, Stepper {
     }
 
     private func bindTitleField() {
-        suggestionFormView.textField
+        suggestionFormView.topicField
             .rx
             .text
             .orEmpty

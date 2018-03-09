@@ -128,6 +128,9 @@
 "tag_list" = "Лист Тегов";
 "create_tag" = "Создать Тег";
 "write_answer" = "Напишите ответ";
+"add_answer" = "Добавить ответ";
+"add_video_answer" = "Добавить видео-ответ";
+"choose_question_to_answer" = "Отметьте вопросы на которые вы ответили";
 
 /* BI Office */
 
@@ -188,6 +191,7 @@
 "enter_text" = "Введите текст";
 "choose_option" = "Выберите действие";
 "capture_photo" = "Сделать снимок";
+"capture_video" = "Записать видео";
 "pick_from_gallery" = "Выбрать из галереи";
 "cancel" = "Отмена";
 

@@ -67,3 +67,13 @@ struct Question: Codable {
         aCoder.encode(isLikedByMe, forKey: "isLikedByMe")
     }
 }
+
+extension Question: Hashable {
+    var hashValue: Int {
+        return id.hashValue
+    }
+
+    static func ==(lhs: Question, rhs: Question) -> Bool {
+        return lhs.id == rhs.id
+    }
+}

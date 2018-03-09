@@ -23,7 +23,7 @@ enum TopQuestionsService {
         answerText: String
     )
     case addVideoAnswer(
-        id: String,
+        ids: [String],
         videoFile: URL
     )
     case delete(id: String)
@@ -84,10 +84,12 @@ extension TopQuestionsService: AuthorizedTargetType {
                 ],
                 encoding: JSONEncoding.default
             )
-        case .addVideoAnswer(let id, let videoFile):
+        case .addVideoAnswer(let ids, let videoFile):
             var data = [MultipartFormData]()
 
-            data.append(id.multipartFormData("QuestionIds"))
+            for id in ids {
+                data.append(id.multipartFormData("QuestionIds"))
+            }
             data.append(videoFile.multipartFormData("VideoFile"))
 
             return .uploadMultipart(data)

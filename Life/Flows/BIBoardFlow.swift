@@ -113,7 +113,7 @@ class BIBoardFlow: Flow {
 
     private func navigationToTopQuestions() -> NextFlowItems {
         let viewController = TopQuestionsViewController(viewModel: topQuestionsViewModel)
-        let flow = TopQuestionsFlow(viewController: viewController)
+        let flow = TopQuestionsFlow(viewController: viewController, topQuestionsViewModel: topQuestionsViewModel)
         rootViewController.pushViewController(viewController, animated: true)
 
         return NextFlowItems.one(flowItem: NextFlowItem(

@@ -47,7 +47,7 @@ class VideoAnswerFooterView: UIView {
         chooseVideoButton.layer.masksToBounds = true
         chooseVideoButton.layer.borderColor = App.Color.coolGrey.cgColor
         chooseVideoButton.layer.borderWidth = 0.5
-        contentView.addSubview(chooseVideoButton)
+        addSubview(chooseVideoButton)
         chooseVideoButton.snp.makeConstraints { (make) in
             make.top.equalTo(self).inset(App.Layout.sideOffset)
             make.left.equalTo(self).inset(App.Layout.sideOffset)

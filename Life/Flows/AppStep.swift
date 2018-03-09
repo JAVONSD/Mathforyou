@@ -66,6 +66,11 @@ enum AppStep: Step {
     case topQuestionDone
     case createQuestion(didAddQuestion: ((Question) -> Void))
     case createQuestionDone
+    case createAnswer(
+        questions: [Question],
+        isVideo: Bool,
+        didCreateAnswer: ((Answer, [String]) -> Void))
+    case createAnswerDone
 
     // MARK: - Employees
 

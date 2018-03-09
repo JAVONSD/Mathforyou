@@ -120,6 +120,9 @@
 "tag_list" = "Tag List";
 "create_tag" = "Create Tag";
 "write_answer" = "Write answer";
+"add_answer" = "Add answer";
+"add_video_answer" = "Add video answer";
+"choose_question_to_answer" = "Choose question you want to answer";
 
 /* BI Office */
 
@@ -188,6 +191,7 @@
 "enter_text" = "Enter text";
 "choose_option" = "Choose option";
 "capture_photo" = "Capture photo";
+"capture_video" = "Capture video";
 "pick_from_gallery" = "Pick from gallery";
 "cancel" = "Cancel";
 

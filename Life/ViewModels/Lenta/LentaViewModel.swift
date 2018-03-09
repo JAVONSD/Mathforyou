@@ -76,7 +76,6 @@ class LentaViewModel: NSObject {
 
         if reset {
             offset = 0
-            items = []
         }
 
         provider
@@ -95,7 +94,11 @@ class LentaViewModel: NSObject {
                 case .success(let json):
                     if let lentaItems = try? JSONDecoder().decode([Lenta].self, from: json.data) {
                         let items = lentaItems.map { LentaItemViewModel(lenta: $0) }
-                        self.items.append(contentsOf: items)
+                        if !reset {
+                            self.items.append(contentsOf: items)
+                        } else {
+                            self.items = items
+                        }
 
                         self.canLoadMore = items.count >= self.rows
                         if self.canLoadMore {

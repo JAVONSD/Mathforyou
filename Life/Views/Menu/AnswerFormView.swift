@@ -11,6 +11,11 @@ import SnapKit
 
 class AnswerFormView: UIView {
 
+    private(set) lazy var headerView = NotificationHeaderView(
+        image: nil,
+        title: NSLocalizedString("add_answer", comment: ""),
+        subtitle: nil
+    )
     private(set) lazy var tableView = UITableView(frame: .zero, style: .plain)
     private(set) lazy var answerView = AnswerFooterView()
     private(set) lazy var videoAnswerView = VideoAnswerFooterView()
@@ -32,8 +37,22 @@ class AnswerFormView: UIView {
     // MARK: - UI
 
     private func setupUI() {
+        setupHeaderView()
         setupTableView()
         setupFooterView()
+    }
+
+    private func setupHeaderView() {
+        headerView.backgroundColor = .white
+        headerView.titleLabel?.text = isVideo
+            ? NSLocalizedString("add_video_answer", comment: "")
+            : NSLocalizedString("add_answer", comment: "")
+        addSubview(headerView)
+        headerView.snp.makeConstraints { (make) in
+            make.top.equalTo(self)
+            make.left.equalTo(self)
+            make.right.equalTo(self)
+        }
     }
 
     private func setupTableView() {
@@ -53,7 +72,10 @@ class AnswerFormView: UIView {
 
         addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
-            make.edges.equalTo(self)
+            make.top.equalTo(self.headerView.snp.bottom)
+            make.left.equalTo(self)
+            make.bottom.equalTo(self)
+            make.right.equalTo(self)
         }
 
         tableView.register(
@@ -64,9 +86,9 @@ class AnswerFormView: UIView {
 
     private func setupFooterView() {
         if isVideo {
-            tableView.setAndLayoutTableHeaderView(header: videoAnswerView)
+            tableView.setAndLayoutTableHeaderView(footer: videoAnswerView)
         } else {
-            tableView.setAndLayoutTableHeaderView(header: answerView)
+            tableView.setAndLayoutTableHeaderView(footer: answerView)
         }
     }
 
@@ -80,7 +102,7 @@ extension AnswerFormView: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.001
+        return 30
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -88,7 +110,21 @@ extension AnswerFormView: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView(frame: .init(x: 0, y: 0, width: 1, height: 0.001))
+        let view = UIView(frame: .init(x: 0, y: 0, width: tableView.frame.size.width, height: 30))
+        view.backgroundColor = .white
+
+        let label = UILabel()
+        label.font = App.Font.bodyAlts
+        label.textColor = .black
+        label.text = NSLocalizedString("choose_question_to_answer", comment: "")
+        view.addSubview(label)
+        label.snp.makeConstraints { (make) in
+            make.left.equalTo(view).inset(App.Layout.sideOffset)
+            make.right.equalTo(view).inset(App.Layout.sideOffset)
+            make.centerY.equalTo(view)
+        }
+
+        return view
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -97,11 +133,11 @@ extension AnswerFormView: UITableViewDelegate {
 }
 
 extension UITableView {
-    func setAndLayoutTableHeaderView(header: UIView) {
-        self.tableHeaderView = header
-        header.setNeedsLayout()
-        header.layoutIfNeeded()
-        header.frame.size = header.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-        self.tableHeaderView = header
+    func setAndLayoutTableHeaderView(footer: UIView) {
+        self.tableFooterView = footer
+        footer.setNeedsLayout()
+        footer.layoutIfNeeded()
+        footer.frame.size = footer.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        self.tableFooterView = footer
     }
 }

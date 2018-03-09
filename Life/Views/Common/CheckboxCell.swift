@@ -26,6 +26,13 @@ class CheckboxCell: TableViewCell {
         titleLabel.preferredMaxLayoutWidth = titleLabel.frame.size.width
     }
 
+    // MARK: - Mark
+
+    public func set(selected: Bool) {
+        checkboxButton.tintColor = selected ? App.Color.azure : App.Color.coolGrey
+        checkboxButton.isSelected = selected
+    }
+
     // MARK: - UI
 
     private func setupUI() {
@@ -53,9 +60,9 @@ class CheckboxCell: TableViewCell {
         titleLabel.textColor = .black
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.contentView).offset(App.Layout.itemSpacingSmall)
+            make.top.equalTo(self.contentView).inset(App.Layout.itemSpacingMedium)
             make.left.equalTo(self.checkboxButton.snp.right).offset(App.Layout.itemSpacingMedium)
-            make.bottom.equalTo(self.contentView).offset(App.Layout.itemSpacingSmall)
+            make.bottom.equalTo(self.contentView).inset(App.Layout.itemSpacingMedium)
             make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
         }
     }

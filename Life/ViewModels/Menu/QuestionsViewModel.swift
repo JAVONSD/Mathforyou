@@ -56,6 +56,12 @@ class QuestionsViewModel: NSObject, ViewModel, ListDiffable {
         questions.insert(QuestionItemViewModel(question: question), at: 0)
     }
 
+    public func add(answer: Answer, to questions: [String]) {
+        for question in self.questions where questions.contains(question.question.id) {
+            question.question.answers.append(answer)
+        }
+    }
+
     // MARK: - ListDiffable
 
     func diffIdentifier() -> NSObjectProtocol {

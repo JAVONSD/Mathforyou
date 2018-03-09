@@ -53,6 +53,11 @@ class QuestionSectionController: ASCollectionSectionController {
         updateContents()
     }
 
+    public func add(answer: Answer, to questions: [String]) {
+        viewModel?.add(answer: answer, to: questions)
+        updateContents()
+    }
+
     private func updateContents() {
         var items = [ListDiffable]()
 
