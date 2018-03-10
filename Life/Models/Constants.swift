@@ -188,7 +188,7 @@ struct App {
         case production
 
         static var current: Environment {
-            return .development
+            return .production
         }
     }
 

@@ -92,7 +92,8 @@ extension NewsSectionController: ASSectionController {
 
             self.viewModel?.fetchNextPage({ [weak self] (error) in
                 guard let `self` = self,
-                    let viewModel = self.viewModel else { return }
+                    let viewModel = self.viewModel,
+                    !viewModel.loading else { return }
 
                 if let didFinishLoad = self.didFinishLoad {
                     didFinishLoad()

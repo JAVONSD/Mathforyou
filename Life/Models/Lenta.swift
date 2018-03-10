@@ -22,7 +22,7 @@ enum EntityType: Int, Codable {
     case news = 10, suggestion = 20, questionnaire = 30
 }
 
-struct Lenta: Decodable {
+struct Lenta: Decodable, Hashable {
     var id: String
     var authorCode: String
     var authorName: String
@@ -139,7 +139,100 @@ struct Lenta: Decodable {
             defaultValue: LentaType(name: "News", code: .news)
         )
     }
+
+    // MARK: - Hashable
+
+    var hashValue: Int {
+        return id.hashValue
+    }
+
+    static func == (lhs: Lenta, rhs: Lenta) -> Bool {
+        return rhs.id == lhs.id
+    }
 }
+
+// MARK: - Persistable
+
+extension Lenta: Persistable {
+    init(managedObject: LentaObject) {
+        id = managedObject.id
+        authorCode = managedObject.authorCode
+        authorName = managedObject.authorName
+        createDate = managedObject.createDate
+        title = managedObject.title
+        description = managedObject.descriptionText
+        image = managedObject.image
+        imageStreamId = managedObject.imageStreamId
+
+        let imageSize = managedObject.imageSize ?? ImageSizeObject()
+        self.imageSize = ImageSize(managedObject: imageSize)
+
+        questionsQuantity = managedObject.questionsQuantity
+        commentsQuantity = managedObject.commentsQuantity
+        likesQuantity = managedObject.likesQuantity
+        dislikesQuantity = managedObject.dislikesQuantity
+        userVote = managedObject.userVote
+        isLikedByMe = managedObject.isLikedByMe
+        viewsQuantity = managedObject.viewsQuantity
+        isFromSharepoint = managedObject.isFromSharepoint
+
+        let entityType = managedObject.entityType ?? LentaTypeObject()
+        self.entityType = LentaType(managedObject: entityType)
+    }
+
+    func managedObject() -> LentaObject {
+        let object = LentaObject()
+        object.id = id
+        object.authorCode = authorCode
+        object.authorName = authorName
+        object.createDate = createDate
+        object.title = title
+        object.descriptionText = description
+        object.image = image
+        object.imageStreamId = imageStreamId
+        object.imageSize = imageSize.managedObject()
+        object.questionsQuantity = questionsQuantity
+        object.commentsQuantity = commentsQuantity
+        object.likesQuantity = likesQuantity
+        object.dislikesQuantity = dislikesQuantity
+        object.userVote = userVote
+        object.isLikedByMe = isLikedByMe
+        object.viewsQuantity = viewsQuantity
+        object.isFromSharepoint = isFromSharepoint
+        object.entityType = entityType.managedObject()
+        return object
+    }
+}
+
+extension ImageSize: Persistable {
+    init(managedObject: ImageSizeObject) {
+        width = managedObject.width
+        height = managedObject.height
+    }
+
+    func managedObject() -> ImageSizeObject {
+        let object = ImageSizeObject()
+        object.width = width
+        object.height = height
+        return object
+    }
+}
+
+extension LentaType: Persistable {
+    init(managedObject: LentaTypeObject) {
+        name = managedObject.name
+        code = EntityType(rawValue: managedObject.code) ?? .news
+    }
+
+    func managedObject() -> LentaTypeObject {
+        let object = LentaTypeObject()
+        object.name = name
+        object.code = code.rawValue
+        return object
+    }
+}
+
+// MARK: - KeyedDecodingContainer
 
 extension KeyedDecodingContainer {
     func decodeWrapper<T>(key: K, defaultValue: T) throws -> T

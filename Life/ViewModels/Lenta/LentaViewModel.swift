@@ -43,6 +43,7 @@ class LentaViewModel: NSObject {
     private let rows = 10
     private(set) var canLoadMore = true
     private(set) var loading = false
+    private var usingCached = false
 
     private var disposeBag = DisposeBag()
 
@@ -77,6 +78,9 @@ class LentaViewModel: NSObject {
         if reset {
             offset = 0
         }
+        if items.isEmpty && !self.usingCached {
+            returnLentaFromCache(completion: completion)
+        }
 
         provider
             .rx
@@ -94,10 +98,11 @@ class LentaViewModel: NSObject {
                 case .success(let json):
                     if let lentaItems = try? JSONDecoder().decode([Lenta].self, from: json.data) {
                         let items = lentaItems.map { LentaItemViewModel(lenta: $0) }
-                        if !reset {
+                        if !reset && !self.usingCached {
                             self.items.append(contentsOf: items)
                         } else {
                             self.items = items
+                            self.usingCached = false
                         }
 
                         self.canLoadMore = items.count >= self.rows
@@ -106,6 +111,10 @@ class LentaViewModel: NSObject {
                         }
 
                         completion(nil)
+
+                        if self.items.count <= self.rows {
+                            self.updateLentaCache(lentaItems)
+                        }
                     } else {
                         self.canLoadMore = false
                         completion(nil)
@@ -120,6 +129,47 @@ class LentaViewModel: NSObject {
 
     public func add(item: Lenta) {
         items.insert(LentaItemViewModel(lenta: item), at: 0)
+    }
+
+    private func returnLentaFromCache(completion: @escaping ((Error?) -> Void)) {
+        DispatchQueue.global().async {
+            do {
+                let realm = try App.Realms.default()
+                let cachedLentaObjects = realm.objects(LentaObject.self)
+
+                let cachedLentaItems = Array(cachedLentaObjects).map { Lenta(managedObject: $0) }
+                let items = cachedLentaItems.map { LentaItemViewModel(lenta: $0) }
+
+                if !items.isEmpty {
+                    self.loading = false
+                }
+
+                self.usingCached = true
+                self.items = items
+
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+            } catch let error as NSError {
+                print("Failed to access the Realm database with error - \(error.localizedDescription)")
+            }
+        }
+    }
+
+    private func updateLentaCache(_ lentaItems: [Lenta]) {
+        DispatchQueue.global().async {
+            do {
+                let realm = try App.Realms.default()
+                realm.beginWrite()
+                realm.delete(realm.objects(LentaObject.self))
+                for lentaItem in lentaItems {
+                    realm.add(lentaItem.managedObject(), update: true)
+                }
+                try realm.commitWrite()
+            } catch {
+                print("Failed to access the Realm database")
+            }
+        }
     }
 }
 

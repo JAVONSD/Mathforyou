@@ -212,6 +212,7 @@
 		C7A2746D2053DCBC0026B549 /* CommentObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A2746C2053DCBC0026B549 /* CommentObject.swift */; };
 		C7A2746F2053DDF90026B549 /* NewsObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A2746E2053DDF90026B549 /* NewsObject.swift */; };
 		C7A274712053DF6B0026B549 /* SuggestionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A274702053DF6B0026B549 /* SuggestionObject.swift */; };
+		C7A274732053E63E0026B549 /* LentaObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A274722053E63E0026B549 /* LentaObject.swift */; };
 		C7AB6F61204BE8F500328E17 /* CheckmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB6F39204BE8F400328E17 /* CheckmarkButton.swift */; };
 		C7AB6F62204BE8F500328E17 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB6F3A204BE8F400328E17 /* UIAlertController+Extension.swift */; };
 		C7AB6F63204BE8F500328E17 /* FileItemPresentationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB6F3B204BE8F400328E17 /* FileItemPresentationCoordinator.swift */; };
@@ -642,6 +643,7 @@
 		C7A2746C2053DCBC0026B549 /* CommentObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentObject.swift; sourceTree = "<group>"; };
 		C7A2746E2053DDF90026B549 /* NewsObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsObject.swift; sourceTree = "<group>"; };
 		C7A274702053DF6B0026B549 /* SuggestionObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionObject.swift; sourceTree = "<group>"; };
+		C7A274722053E63E0026B549 /* LentaObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LentaObject.swift; sourceTree = "<group>"; };
 		C7AB6F38204BE8F400328E17 /* FileExplorer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileExplorer.h; sourceTree = "<group>"; };
 		C7AB6F39204BE8F400328E17 /* CheckmarkButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckmarkButton.swift; sourceTree = "<group>"; };
 		C7AB6F3A204BE8F400328E17 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
@@ -1051,6 +1053,7 @@
 				C7A2746C2053DCBC0026B549 /* CommentObject.swift */,
 				C7A2746E2053DDF90026B549 /* NewsObject.swift */,
 				C7A274702053DF6B0026B549 /* SuggestionObject.swift */,
+				C7A274722053E63E0026B549 /* LentaObject.swift */,
 			);
 			path = RealmObjects;
 			sourceTree = "<group>";
@@ -2536,6 +2539,7 @@
 				C720EC782036A0E0007E4CD4 /* EmployeeCell.swift in Sources */,
 				C7D641F320344B22001DCA98 /* ViewModelBased.swift in Sources */,
 				C7BB5C4B203E860F0056BBF9 /* QuestionSectionController.swift in Sources */,
+				C7A274732053E63E0026B549 /* LentaObject.swift in Sources */,
 				C717C685203D94000070447D /* EmployeeViewController.swift in Sources */,
 				C7AB6F82204BE8F500328E17 /* ActionsViewController.swift in Sources */,
 				C7F7CB75203C75B4007B9D1E /* ImageNode.swift in Sources */,
