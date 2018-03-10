@@ -237,6 +237,20 @@ struct App {
                 schemaVersion: schemaVersion,
                 migrationBlock: migrationBlock)
         }
+
+        static var popularNews: Realm.Configuration {
+            return Realm.Configuration(
+                fileURL: docs.appendingPathComponent("PopularNews.realm"),
+                schemaVersion: schemaVersion,
+                migrationBlock: migrationBlock)
+        }
+
+        static var popularSuggestions: Realm.Configuration {
+            return Realm.Configuration(
+                fileURL: docs.appendingPathComponent("PopularSuggestions.realm"),
+                schemaVersion: schemaVersion,
+                migrationBlock: migrationBlock)
+        }
     }
 
     struct Realms {
@@ -287,6 +301,28 @@ struct App {
             } catch {
                 fatalError(
                     "Failed to initialize realm with configurations - \(RealmConfig.popularQuestionnaires)"
+                )
+            }
+        }
+
+        static func popularNews() throws -> Realm {
+            do {
+                let realm = try Realm(configuration: RealmConfig.popularNews)
+                return realm
+            } catch {
+                fatalError(
+                    "Failed to initialize realm with configurations - \(RealmConfig.popularNews)"
+                )
+            }
+        }
+
+        static func popularSuggestions() throws -> Realm {
+            do {
+                let realm = try Realm(configuration: RealmConfig.popularSuggestions)
+                return realm
+            } catch {
+                fatalError(
+                    "Failed to initialize realm with configurations - \(RealmConfig.popularSuggestions)"
                 )
             }
         }

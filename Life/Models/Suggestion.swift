@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Suggestion: Codable {
+struct Suggestion: Codable, Hashable {
 
     var id: String
     var title: String
@@ -24,7 +24,7 @@ struct Suggestion: Codable {
     var userVote: UserVote
     var viewsQuantity: Int
     var comments: [Comment]
-    var secondaryImages: [String]
+    var secondaryImages: [Image]
     var tags: [Tag]
 
     // MARK: - Decodable
@@ -88,4 +88,58 @@ struct Suggestion: Codable {
         aCoder.encode(tags, forKey: "tags")
     }
 
+    // MARK: - Hashable
+
+    var hashValue: Int {
+        return id.hashValue
+    }
+
+    static func == (lhs: Suggestion, rhs: Suggestion) -> Bool {
+        return rhs.id == lhs.id
+    }
+
+}
+
+// MARK: - Persistable
+
+extension Suggestion: Persistable {
+    init(managedObject: SuggestionObject) {
+        id = managedObject.id
+        title = managedObject.title
+        text = managedObject.text
+        createDate = managedObject.createDate
+        imageStreamId = managedObject.imageStreamId
+        authorCode = managedObject.authorCode
+        authorName = managedObject.authorName
+        commentsQuantity = managedObject.commentsQuantity
+        likesQuantity = managedObject.likesQuantity
+        dislikesQuantity = managedObject.dislikesQuantity
+        canEdit = managedObject.canEdit
+        viewsQuantity = managedObject.viewsQuantity
+        userVote = UserVote(rawValue: managedObject.userVote) ?? .default
+        comments = managedObject.comments.map { Comment(managedObject: $0) }
+        secondaryImages = managedObject.secondaryImages.map { Image(managedObject: $0) }
+        tags = managedObject.tags.map { Tag(managedObject: $0) }
+    }
+
+    func managedObject() -> SuggestionObject {
+        let object = SuggestionObject()
+        object.id = id
+        object.title = title
+        object.text = text
+        object.createDate = createDate
+        object.imageStreamId = imageStreamId
+        object.authorCode = authorCode
+        object.authorName = authorName
+        object.commentsQuantity = commentsQuantity
+        object.likesQuantity = likesQuantity
+        object.dislikesQuantity = dislikesQuantity
+        object.canEdit = canEdit
+        object.viewsQuantity = viewsQuantity
+        object.userVote = userVote.rawValue
+        object.comments.append(objectsIn: comments.map { $0.managedObject() })
+        object.secondaryImages.append(objectsIn: secondaryImages.map { $0.managedObject() })
+        object.tags.append(objectsIn: tags.map { $0.managedObject() })
+        return object
+    }
 }

@@ -54,6 +54,9 @@ class SuggestionsViewModel: NSObject, ListDiffable {
 
     public func getSuggestions(completion: @escaping ((Error?) -> Void)) {
         loadingSuggestionsSubject.onNext(true)
+
+        returnSuggestionsFromCache(completion: completion, isPopular: false)
+
         provider
             .rx
             .request(.suggestions)
@@ -66,6 +69,8 @@ class SuggestionsViewModel: NSObject, ListDiffable {
                         self.suggestions = suggestions.map { SuggestionItemViewModel(suggestion: $0) }
 
                         completion(nil)
+
+                        self.updateSuggestionsCache(suggestions, isPopular: false)
                     } else {
                         completion(nil)
                     }
@@ -79,6 +84,9 @@ class SuggestionsViewModel: NSObject, ListDiffable {
 
     public func getPopularSuggestions(completion: @escaping ((Error?) -> Void)) {
         loadingPopularSuggestionsSubject.onNext(true)
+
+        returnSuggestionsFromCache(completion: completion, isPopular: true)
+
         provider
             .rx
             .request(.popularSuggestions)
@@ -91,6 +99,8 @@ class SuggestionsViewModel: NSObject, ListDiffable {
                         self.popularSuggestions = suggestions.map { SuggestionItemViewModel(suggestion: $0) }
 
                         completion(nil)
+
+                        self.updateSuggestionsCache(suggestions, isPopular: true)
                     } else {
                         completion(nil)
                     }
@@ -104,6 +114,65 @@ class SuggestionsViewModel: NSObject, ListDiffable {
 
     public func add(suggestion: Suggestion) {
         suggestions.insert(SuggestionItemViewModel(suggestion: suggestion), at: 0)
+    }
+
+    private func returnSuggestionsFromCache(completion: @escaping ((Error?) -> Void), isPopular: Bool) {
+        DispatchQueue.global().async {
+            do {
+                let realm = isPopular
+                    ? try App.Realms.popularSuggestions()
+                    : try App.Realms.default()
+                let cachedSuggestionObjects = realm.objects(SuggestionObject.self)
+
+                let cachedSuggestions = Array(cachedSuggestionObjects).map { Suggestion(managedObject: $0) }
+                let items = cachedSuggestions.map { SuggestionItemViewModel(suggestion: $0) }
+
+                if isPopular {
+                    self.loadingPopularSuggestionsSubject.onNext(false)
+                    self.popularSuggestions = items
+                } else {
+                    self.loadingSuggestionsSubject.onNext(false)
+                    self.suggestions = items
+                }
+
+                DispatchQueue.main.async {
+                    completion(nil)
+
+                    if isPopular {
+                        self.popularSuggestionsSubject.onNext(items)
+                    } else {
+                        self.suggestionsSubject.onNext(items)
+                    }
+                }
+            } catch let error as NSError {
+                print("Failed to access the Realm database with error - \(error.localizedDescription)")
+            }
+        }
+    }
+
+    private func updateSuggestionsCache(_ suggestionItems: [Suggestion], isPopular: Bool) {
+        DispatchQueue.global().async {
+            do {
+                let realm = isPopular
+                    ? try App.Realms.popularSuggestions()
+                    : try App.Realms.default()
+                realm.beginWrite()
+                for suggestion in suggestionItems {
+                    realm.add(suggestion.managedObject(), update: true)
+                }
+                for suggestionObject in realm.objects(SuggestionObject.self).reversed() {
+                    if !suggestionItems.contains(Suggestion(managedObject: suggestionObject)),
+                        let suggestionObjectToDelete = realm.object(
+                            ofType: SuggestionObject.self,
+                            forPrimaryKey: suggestionObject.id) {
+                        realm.delete(suggestionObjectToDelete)
+                    }
+                }
+                try realm.commitWrite()
+            } catch {
+                print("Failed to access the Realm database")
+            }
+        }
     }
 
     // MARK: - ListDiffable

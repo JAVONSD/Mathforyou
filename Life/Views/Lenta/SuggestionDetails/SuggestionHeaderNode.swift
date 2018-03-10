@@ -23,7 +23,7 @@ class SuggestionHeaderNode: ASDisplayNode {
 
     private(set) var suggestion: Suggestion
     private var images: [String] {
-        var res = suggestion.secondaryImages
+        var res = suggestion.secondaryImages.map { $0.streamId }
         if let image = suggestion.imageStreamId {
             res.insert(image, at: 0)
         }

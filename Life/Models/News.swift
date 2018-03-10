@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct News: Codable {
+struct News: Codable, Hashable {
 
     var id: String
     var title: String
@@ -92,4 +92,60 @@ struct News: Codable {
         aCoder.encode(tags, forKey: "tags")
     }
 
+    // MARK: - Hashable
+
+    var hashValue: Int {
+        return id.hashValue
+    }
+
+    static func == (lhs: News, rhs: News) -> Bool {
+        return rhs.id == lhs.id
+    }
+
+}
+
+// MARK: - Persistable
+
+extension News: Persistable {
+    init(managedObject: NewsObject) {
+        id = managedObject.id
+        title = managedObject.title
+        text = managedObject.text
+        createDate = managedObject.createDate
+        imageStreamId = managedObject.imageStreamId
+        imageUrl = managedObject.imageUrl
+        authorCode = managedObject.authorCode
+        authorName = managedObject.authorName
+        commentsQuantity = managedObject.commentsQuantity
+        likesQuantity = managedObject.likesQuantity
+        isLikedByMe = managedObject.isLikedByMe
+        viewsQuantity = managedObject.viewsQuantity
+        isHistoryEvent = managedObject.isHistoryEvent
+        isFromSharepoint = managedObject.isFromSharepoint
+        comments = managedObject.comments.map { Comment(managedObject: $0) }
+        secondaryImages = managedObject.secondaryImages.map { Image(managedObject: $0) }
+        tags = managedObject.tags.map { Tag(managedObject: $0) }
+    }
+
+    func managedObject() -> NewsObject {
+        let object = NewsObject()
+        object.id = id
+        object.title = title
+        object.text = text
+        object.createDate = createDate
+        object.imageStreamId = imageStreamId
+        object.imageUrl = imageUrl
+        object.authorCode = authorCode
+        object.authorName = authorName
+        object.commentsQuantity = commentsQuantity
+        object.likesQuantity = likesQuantity
+        object.isLikedByMe = isLikedByMe
+        object.viewsQuantity = viewsQuantity
+        object.isHistoryEvent = isHistoryEvent
+        object.isFromSharepoint = isFromSharepoint
+        object.comments.append(objectsIn: comments.map { $0.managedObject() })
+        object.secondaryImages.append(objectsIn: secondaryImages.map { $0.managedObject() })
+        object.tags.append(objectsIn: tags.map { $0.managedObject() })
+        return object
+    }
 }

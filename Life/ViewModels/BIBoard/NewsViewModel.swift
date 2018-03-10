@@ -43,6 +43,9 @@ class NewsViewModel: NSObject, ListDiffable {
 
     public func getPopularNews(completion: @escaping ((Error?) -> Void)) {
         loadingPopularSubject.onNext(true)
+
+        returnNewsFromCache(completion: completion, isPopular: true)
+
         provider
             .rx
             .request(.popularNews)
@@ -55,6 +58,8 @@ class NewsViewModel: NSObject, ListDiffable {
                         self.popularNews = news.map { NewsItemViewModel(news: $0) }
 
                         completion(nil)
+
+                        self.updateNewsCache(news, isPopular: true)
                     } else {
                         completion(nil)
                     }
@@ -68,6 +73,9 @@ class NewsViewModel: NSObject, ListDiffable {
 
     public func getTop3News(completion: @escaping ((Error?) -> Void)) {
         loadingTop3Subject.onNext(true)
+
+        returnNewsFromCache(completion: completion, isPopular: false)
+
         provider
             .rx
             .request(.topNews(top: 10))
@@ -92,6 +100,8 @@ class NewsViewModel: NSObject, ListDiffable {
                         }
 
                         completion(nil)
+
+                        self.updateNewsCache(self.top3News.map { $0.news }, isPopular: false)
                     } else {
                         completion(nil)
                     }
@@ -101,6 +111,65 @@ class NewsViewModel: NSObject, ListDiffable {
                 }
             }
             .disposed(by: disposeBag)
+    }
+
+    private func returnNewsFromCache(completion: @escaping ((Error?) -> Void), isPopular: Bool) {
+        DispatchQueue.global().async {
+            do {
+                let realm = isPopular
+                    ? try App.Realms.popularNews()
+                    : try App.Realms.default()
+                let cachedNewsObjects = realm.objects(NewsObject.self)
+
+                let cachedNews = Array(cachedNewsObjects).map { News(managedObject: $0) }
+                let items = cachedNews.map { NewsItemViewModel(news: $0) }
+
+                if isPopular {
+                    self.loadingPopularSubject.onNext(false)
+                    self.popularNews = items
+                } else {
+                    self.loadingTop3Subject.onNext(false)
+                    self.top3News = items
+                }
+
+                DispatchQueue.main.async {
+                    completion(nil)
+
+                    if isPopular {
+                        self.popularNewsSubject.onNext(items)
+                    } else {
+                        self.top3NewsSubject.onNext(items)
+                    }
+                }
+            } catch let error as NSError {
+                print("Failed to access the Realm database with error - \(error.localizedDescription)")
+            }
+        }
+    }
+
+    private func updateNewsCache(_ newsItems: [News], isPopular: Bool) {
+        DispatchQueue.global().async {
+            do {
+                let realm = isPopular
+                    ? try App.Realms.popularNews()
+                    : try App.Realms.default()
+                realm.beginWrite()
+                for news in newsItems {
+                    realm.add(news.managedObject(), update: true)
+                }
+                for newsObject in realm.objects(NewsObject.self).reversed() {
+                    if !newsItems.contains(News(managedObject: newsObject)),
+                        let newsObjectToDelete = realm.object(
+                            ofType: NewsObject.self,
+                            forPrimaryKey: newsObject.id) {
+                        realm.delete(newsObjectToDelete)
+                    }
+                }
+                try realm.commitWrite()
+            } catch {
+                print("Failed to access the Realm database")
+            }
+        }
     }
 
     // MARK: - ListDiffable

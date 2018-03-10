@@ -81,3 +81,40 @@ struct Comment: Codable {
     }
 
 }
+
+// MARK: - Persistable
+
+extension Comment: Persistable {
+    init(managedObject: CommentObject) {
+        id = managedObject.id
+        authorCode = managedObject.authorCode
+        authorName = managedObject.authorName
+        createDate = managedObject.createDate
+        text = managedObject.text
+        likesQuantity = managedObject.likesQuantity
+        dislikesQuantity = managedObject.dislikesQuantity
+
+        let userVote = managedObject.userVote.value ?? 0
+        self.userVote = UserVote(rawValue: userVote) ?? .default
+
+        let vote = managedObject.vote.value ?? 0
+        self.vote = UserVote(rawValue: vote) ?? .default
+
+        type = managedObject.type
+    }
+
+    func managedObject() -> CommentObject {
+        let object = CommentObject()
+        object.id = id
+        object.authorCode = authorCode
+        object.authorName = authorName
+        object.createDate = createDate
+        object.text = text
+        object.likesQuantity = likesQuantity
+        object.dislikesQuantity = dislikesQuantity
+        object.userVote.value = userVote?.rawValue
+        object.vote.value = vote?.rawValue
+        object.type = type
+        return object
+    }
+}
