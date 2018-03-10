@@ -154,8 +154,6 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper, FABM
 
     // MARK: - UI
 
-
-
     private func setupFABButton() {
         self.fabButton = FABButton(image: Icon.cm.add, tintColor: .white)
         self.fabButton.pulseColor = .white

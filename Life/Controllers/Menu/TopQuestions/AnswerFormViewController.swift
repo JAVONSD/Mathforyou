@@ -236,7 +236,7 @@ class AnswerFormViewController: UIViewController, Stepper {
                 "authorCode": User.current.employeeCode,
                 "authorName": User.current.profile?.fullname ?? "",
                 "jobPosition": User.current.profile?.jobPosition ?? "",
-                "createDate": Date().serverDate,
+                "createDate": Date().serverDate
             ]
 
             if let didCreateAnswer = self?.didCreateAnswer,

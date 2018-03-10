@@ -73,7 +73,7 @@ extension Question: Hashable {
         return id.hashValue
     }
 
-    static func ==(lhs: Question, rhs: Question) -> Bool {
+    static func == (lhs: Question, rhs: Question) -> Bool {
         return lhs.id == rhs.id
     }
 }

@@ -202,6 +202,8 @@
 		C7A27458205383930026B549 /* TaskActionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A27457205383930026B549 /* TaskActionObject.swift */; };
 		C7A2745A205383CC0026B549 /* TaskObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A27459205383CC0026B549 /* TaskObject.swift */; };
 		C7A2745C2053894C0026B549 /* RequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A2745B2053894C0026B549 /* RequestObject.swift */; };
+		C7A2745E20539A840026B549 /* TagObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A2745D20539A840026B549 /* TagObject.swift */; };
+		C7A2746120539B1E0026B549 /* TagsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A2746020539B1E0026B549 /* TagsProvider.swift */; };
 		C7AB6F61204BE8F500328E17 /* CheckmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB6F39204BE8F400328E17 /* CheckmarkButton.swift */; };
 		C7AB6F62204BE8F500328E17 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB6F3A204BE8F400328E17 /* UIAlertController+Extension.swift */; };
 		C7AB6F63204BE8F500328E17 /* FileItemPresentationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB6F3B204BE8F400328E17 /* FileItemPresentationCoordinator.swift */; };
@@ -622,6 +624,8 @@
 		C7A27457205383930026B549 /* TaskActionObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskActionObject.swift; sourceTree = "<group>"; };
 		C7A27459205383CC0026B549 /* TaskObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskObject.swift; sourceTree = "<group>"; };
 		C7A2745B2053894C0026B549 /* RequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestObject.swift; sourceTree = "<group>"; };
+		C7A2745D20539A840026B549 /* TagObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagObject.swift; sourceTree = "<group>"; };
+		C7A2746020539B1E0026B549 /* TagsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsProvider.swift; sourceTree = "<group>"; };
 		C7AB6F38204BE8F400328E17 /* FileExplorer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileExplorer.h; sourceTree = "<group>"; };
 		C7AB6F39204BE8F400328E17 /* CheckmarkButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckmarkButton.swift; sourceTree = "<group>"; };
 		C7AB6F3A204BE8F400328E17 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
@@ -1022,6 +1026,7 @@
 				C7A27457205383930026B549 /* TaskActionObject.swift */,
 				C7A27459205383CC0026B549 /* TaskObject.swift */,
 				C7A2745B2053894C0026B549 /* RequestObject.swift */,
+				C7A2745D20539A840026B549 /* TagObject.swift */,
 			);
 			path = RealmObjects;
 			sourceTree = "<group>";
@@ -1134,6 +1139,7 @@
 		C76EFB84202E92BB00FA2BB9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C7A2745F20539B0F0026B549 /* Providers */,
 				C752ACF120411D1F00D04E26 /* RealmObjects */,
 				C73EB2592032DA2200429921 /* Common */,
 				C7B5FA072030614F003F3D2C /* API */,
@@ -1415,6 +1421,14 @@
 				C79263582038374500067371 /* NotificationsViewController.swift */,
 			);
 			path = Notifications;
+			sourceTree = "<group>";
+		};
+		C7A2745F20539B0F0026B549 /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				C7A2746020539B1E0026B549 /* TagsProvider.swift */,
+			);
+			path = Providers;
 			sourceTree = "<group>";
 		};
 		C7AB6F37204BE8F400328E17 /* FileExplorer */ = {
@@ -2406,6 +2420,7 @@
 				C7D64215203463E0001DCA98 /* Flow.swift in Sources */,
 				C70ECFD1203AB83800710DB5 /* SlideCell.swift in Sources */,
 				C7AB6F72204BE8F500328E17 /* FileService.swift in Sources */,
+				C7A2745E20539A840026B549 /* TagObject.swift in Sources */,
 				C7D832CE2035C53600282891 /* EmployeesView.swift in Sources */,
 				C73EB2A12032F9B100429921 /* AnimatableSectionModel.swift in Sources */,
 				C79251E6203148AF00CDFBBA /* PlansViewController.swift in Sources */,
@@ -2633,6 +2648,7 @@
 				C7F7CB73203C7442007B9D1E /* DashboardGalleryCell.swift in Sources */,
 				C79251FD2031A16700CDFBBA /* MyInfoContactView.swift in Sources */,
 				C792634C2037D24F00067371 /* Lenta.swift in Sources */,
+				C7A2746120539B1E0026B549 /* TagsProvider.swift in Sources */,
 				C73EB2A92032F9B100429921 /* CLLocationManager+Rx.swift in Sources */,
 				C7BB5C36203E64E90056BBF9 /* AnswersViewModel.swift in Sources */,
 				C7A241B2204AF28300994840 /* RequestFormViewModel.swift in Sources */,

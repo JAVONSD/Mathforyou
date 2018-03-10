@@ -27,19 +27,18 @@ class SuggestionFormViewModel: NSObject {
 
     var userTags = Set<Tag>()
     var userAddedTags = Set<String>()
-    let isLoadingTagsSubject = BehaviorSubject<Bool>(value: false)
-    let tagsSubject = BehaviorSubject<[Tag]>(value: [])
-    let filteredTagsSubject = BehaviorSubject<[Tag]>(value: [])
+    var isLoadingTagsSubject: Observable<Bool> {
+        return TagsProvider.isLoadingTagsSubject.asObservable()
+    }
+    var tags: [Tag] {
+        return TagsProvider.tagsSubject.value
+    }
+    var tagsSubject: Observable<[Tag]> {
+        return TagsProvider.tagsSubject.asObservable()
+    }
+    var filteredTags = [Tag]()
 
     private let suggestionsProvider = MoyaProvider<SuggestionsService>(
-        plugins: [
-            AuthPlugin(tokenClosure: {
-                return User.current.token
-            })
-        ]
-    )
-
-    private let referencesProvider = MoyaProvider<ReferencesService>(
         plugins: [
             AuthPlugin(tokenClosure: {
                 return User.current.token
@@ -83,22 +82,6 @@ class SuggestionFormViewModel: NSObject {
     }
 
     public func getTags() {
-        isLoadingTagsSubject.onNext(true)
-        referencesProvider
-            .rx
-            .request(.tags)
-            .filterSuccessfulStatusCodes()
-            .subscribe { response in
-                self.isLoadingTagsSubject.onNext(false)
-                switch response {
-                case .success(let json):
-                    if let tags = try? JSONDecoder().decode([Tag].self, from: json.data) {
-                        self.tagsSubject.onNext(tags)
-                    }
-                case .error:
-                    print("Error to load tags")
-                }
-            }
-            .disposed(by: disposeBag)
+        TagsProvider.getTags()
     }
 }

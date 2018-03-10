@@ -53,3 +53,21 @@ struct Tag: Codable, Hashable {
     }
 
 }
+
+// MARK: - Persistable
+
+extension Tag: Persistable {
+    init(managedObject: TagObject) {
+        id = managedObject.id
+        nsiTagId = managedObject.nsiTagId
+        name = managedObject.name
+    }
+
+    func managedObject() -> TagObject {
+        let object = TagObject()
+        object.id = id
+        object.nsiTagId = nsiTagId
+        object.name = name
+        return object
+    }
+}

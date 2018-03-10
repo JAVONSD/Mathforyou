@@ -259,21 +259,19 @@ extension SuggestionFormViewController: UITextFieldAutoSuggestionDataSource {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: App.CellIdentifier.suggestionCellId)
 
         let cell = tableView.dequeueReusableCell(withIdentifier: App.CellIdentifier.suggestionCellId, for: indexPath)
-        if let tags = try? viewModel.filteredTagsSubject.value(), tags.count > indexPath.row {
+        let tags = viewModel.filteredTags
+        if tags.count > indexPath.row {
             cell.textLabel?.text = tags[indexPath.row].name
         }
         return cell
     }
 
     func autoSuggestionField(_ field: UITextField!, tableView: UITableView!, numberOfRowsInSection section: Int, forText text: String!) -> Int {
-        if let tags = try? viewModel.filteredTagsSubject.value() {
-            return tags.count
-        }
-        return 0
+        return viewModel.filteredTags.count
     }
 
     func autoSuggestionField(_ field: UITextField!, tableView: UITableView!, didSelectRowAt indexPath: IndexPath!, forText text: String!) {
-        let tags = (try? self.viewModel.filteredTagsSubject.value()) ?? []
+        let tags = viewModel.filteredTags
         if tags.count > indexPath.row {
             viewModel.userTags.insert(tags[indexPath.row])
             suggestionFormView.tagsCollectionView.addTag(tags[indexPath.row].name)
@@ -282,13 +280,12 @@ extension SuggestionFormViewController: UITextFieldAutoSuggestionDataSource {
     }
 
     func autoSuggestionField(_ field: UITextField!, textChanged text: String!) {
-        if let tags = try? viewModel.tagsSubject.value() {
-            let filteredTags = tags.filter({ tag -> Bool in
-                return tag.name.lowercased().contains(text.lowercased())
-            })
-            viewModel.filteredTagsSubject.onNext(filteredTags)
-            suggestionFormView.tagsField.reloadContents()
-        }
+        let tags = viewModel.tags
+        let filteredTags = tags.filter({ tag -> Bool in
+            return tag.name.lowercased().contains(text.lowercased())
+        })
+        viewModel.filteredTags = filteredTags
+        suggestionFormView.tagsField.reloadContents()
     }
 }
 //swiftlint:enable line_length
