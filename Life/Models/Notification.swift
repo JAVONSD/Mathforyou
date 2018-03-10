@@ -8,9 +8,9 @@
 
 import Foundation
 
-struct Notification: Codable {
+struct Notification: Codable, Hashable {
 
-    enum `Type`: Int, Codable {
+    enum NotificationType: Int, Codable {
         case onTaskCreated = 10
         case onQuestionnaireCreated = 20
         case onTaskStatusChanged = 30
@@ -21,9 +21,46 @@ struct Notification: Codable {
 
     var id = UUID().uuidString
     var message = ""
-    var eventType = Type.onTaskCreated
+    var eventType = NotificationType.onTaskCreated
     var authorCode = ""
     var authorName = ""
     var createDate = ""
     var entityId = ""
+
+    // MARK: - Hashable
+
+    var hashValue: Int {
+        return id.hashValue
+    }
+
+    static func == (lhs: Notification, rhs: Notification) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+}
+
+// MARK: - Persistable
+
+extension Notification: Persistable {
+    init(managedObject: NotificationObject) {
+        id = managedObject.id
+        message = managedObject.message
+        eventType = NotificationType(rawValue: managedObject.eventType) ?? .onTaskCreated
+        authorCode = managedObject.authorCode
+        authorName = managedObject.authorName
+        createDate = managedObject.createDate
+        entityId = managedObject.entityId
+    }
+
+    func managedObject() -> NotificationObject {
+        let object = NotificationObject()
+        object.id = id
+        object.message = message
+        object.eventType = eventType.rawValue
+        object.authorCode = authorCode
+        object.authorName = authorName
+        object.createDate = createDate
+        object.entityId = entityId
+        return object
+    }
 }

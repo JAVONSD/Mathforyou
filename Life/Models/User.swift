@@ -53,6 +53,7 @@ struct User: Codable {
             if let profileData = UserDefaults.standard.data(forKey: App.Key.userProfile),
                 let profile = try? PropertyListDecoder().decode(UserProfile.self, from: profileData) {
                 _current?.profile = profile
+                _current?.updated.accept(profile)
             }
 
             return _current!

@@ -204,6 +204,7 @@
 		C7A2745C2053894C0026B549 /* RequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A2745B2053894C0026B549 /* RequestObject.swift */; };
 		C7A2745E20539A840026B549 /* TagObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A2745D20539A840026B549 /* TagObject.swift */; };
 		C7A2746120539B1E0026B549 /* TagsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A2746020539B1E0026B549 /* TagsProvider.swift */; };
+		C7A274632053C5ED0026B549 /* NotificationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A274622053C5ED0026B549 /* NotificationObject.swift */; };
 		C7AB6F61204BE8F500328E17 /* CheckmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB6F39204BE8F400328E17 /* CheckmarkButton.swift */; };
 		C7AB6F62204BE8F500328E17 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB6F3A204BE8F400328E17 /* UIAlertController+Extension.swift */; };
 		C7AB6F63204BE8F500328E17 /* FileItemPresentationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB6F3B204BE8F400328E17 /* FileItemPresentationCoordinator.swift */; };
@@ -626,6 +627,7 @@
 		C7A2745B2053894C0026B549 /* RequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestObject.swift; sourceTree = "<group>"; };
 		C7A2745D20539A840026B549 /* TagObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagObject.swift; sourceTree = "<group>"; };
 		C7A2746020539B1E0026B549 /* TagsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsProvider.swift; sourceTree = "<group>"; };
+		C7A274622053C5ED0026B549 /* NotificationObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationObject.swift; sourceTree = "<group>"; };
 		C7AB6F38204BE8F400328E17 /* FileExplorer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileExplorer.h; sourceTree = "<group>"; };
 		C7AB6F39204BE8F400328E17 /* CheckmarkButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckmarkButton.swift; sourceTree = "<group>"; };
 		C7AB6F3A204BE8F400328E17 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
@@ -1027,6 +1029,7 @@
 				C7A27459205383CC0026B549 /* TaskObject.swift */,
 				C7A2745B2053894C0026B549 /* RequestObject.swift */,
 				C7A2745D20539A840026B549 /* TagObject.swift */,
+				C7A274622053C5ED0026B549 /* NotificationObject.swift */,
 			);
 			path = RealmObjects;
 			sourceTree = "<group>";
@@ -2610,6 +2613,7 @@
 				C7AB6F7B204BE8F500328E17 /* UICollectionView+Extension.swift in Sources */,
 				C7AB6F81204BE8F500328E17 /* UIBezierPath+Extension.swift in Sources */,
 				C7AB6F65204BE8F500328E17 /* UIView+Extension.swift in Sources */,
+				C7A274632053C5ED0026B549 /* NotificationObject.swift in Sources */,
 				C7D641AC2034088A001DCA98 /* NotificationsService.swift in Sources */,
 				C716D7FF204D8C9E00C80912 /* TaskFormViewController.swift in Sources */,
 				C7D6421E203463E0001DCA98 /* HasDisposeBag.swift in Sources */,

@@ -8,6 +8,7 @@
 
 import Foundation
 import Moya
+import RealmSwift
 import RxSwift
 
 class NotificationsViewModel: NSObject, ViewModel {
@@ -31,6 +32,8 @@ class NotificationsViewModel: NSObject, ViewModel {
     // MARK: - Methods
 
     public func getNotifications(completion: @escaping ((Error?) -> Void)) {
+        returnNotificationsFromCache(completion: completion)
+
         provider
             .rx
             .request(.notifications)
@@ -43,6 +46,8 @@ class NotificationsViewModel: NSObject, ViewModel {
                         self.notifications = notifications.map { NotificationViewModel(notification: $0) }
 
                         completion(nil)
+
+                        self.updateNotificationsCache(notifications)
                     } else {
                         completion(nil)
                     }
@@ -64,11 +69,73 @@ class NotificationsViewModel: NSObject, ViewModel {
                 switch response {
                 case .success:
                     completion(nil)
+
+                    self.deleteNotificationFromCache(id)
                 case .error(let error):
                     completion(error)
                 }
             }
             .disposed(by: disposeBag)
+    }
+
+    private func returnNotificationsFromCache(completion: @escaping ((Error?) -> Void)) {
+        DispatchQueue.global().async {
+            do {
+                let realm = try App.Realms.default()
+                let cachedTaskObjects = realm.objects(NotificationObject.self)
+
+                let cachedTasks = Array(cachedTaskObjects).map { Notification(managedObject: $0) }
+                let items =  cachedTasks.map { NotificationViewModel(notification: $0) }
+
+                self.notifications = items
+
+                DispatchQueue.main.async {
+                    completion(nil)
+                }
+            } catch let error as NSError {
+                print("Failed to access the Realm database with error - \(error.localizedDescription)")
+            }
+        }
+    }
+
+    private func updateNotificationsCache(_ notificationItems: [Notification]) {
+        DispatchQueue.global().async {
+            do {
+                let realm = try App.Realms.default()
+                realm.beginWrite()
+                for notification in notificationItems {
+                    realm.add(notification.managedObject(), update: true)
+                }
+                for notificationObject in realm.objects(NotificationObject.self).reversed() {
+                    if !notificationItems.contains(Notification(managedObject: notificationObject)),
+                        let notificationObjectToDelete = realm.object(
+                            ofType: NotificationObject.self,
+                            forPrimaryKey: notificationObject.id) {
+                        realm.delete(notificationObjectToDelete)
+                    }
+                }
+                try realm.commitWrite()
+            } catch {
+                print("Failed to access the Realm database")
+            }
+        }
+    }
+
+    private func deleteNotificationFromCache(_ id: String) {
+        DispatchQueue.global().async {
+            do {
+                let realm = try App.Realms.default()
+                realm.beginWrite()
+                if let notificationObjectToDelete = realm.object(
+                    ofType: NotificationObject.self,
+                    forPrimaryKey: id) {
+                    realm.delete(notificationObjectToDelete)
+                }
+                try realm.commitWrite()
+            } catch {
+                print("Failed to access the Realm database")
+            }
+        }
     }
 }
 
