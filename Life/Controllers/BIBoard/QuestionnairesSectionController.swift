@@ -35,7 +35,7 @@ class QuestionnairesSectionController: ASCollectionSectionController {
         var items = [ListDiffable]()
         items.append(DateCell())
         if !viewModel.minimized {
-            items.append(contentsOf: viewModel.popularQuestionnaires as [ListDiffable])
+            items.append(contentsOf: viewModel.questionnaires as [ListDiffable])
         }
 
         set(items: items, animated: false, completion: nil)
@@ -81,10 +81,10 @@ extension QuestionnairesSectionController: ASSectionController {
                     : ItemCell.SeparatorInset(
                         left: App.Layout.itemSpacingMedium,
                         right: App.Layout.itemSpacingMedium)
-                let bottomInset: CGFloat = index == viewModel.popularQuestionnaires.count
+                let bottomInset: CGFloat = index == viewModel.questionnaires.count
                     ? App.Layout.itemSpacingMedium
                     : App.Layout.itemSpacingSmall
-                let corners: UIRectCorner = index == viewModel.popularQuestionnaires.count
+                let corners: UIRectCorner = index == viewModel.questionnaires.count
                     ? [UIRectCorner.bottomLeft, UIRectCorner.bottomRight]
                     : []
                 return ItemCell(

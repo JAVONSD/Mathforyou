@@ -51,8 +51,50 @@ struct QuestionnaireQuestion: Codable {
 }
 
 struct QuestionnaireVariant: Codable {
-
     var id: String
     var text: String
+}
 
+// MARK: - Persistable
+
+extension QuestionnaireQuestion: Persistable {
+    init(managedObject: QuestionnaireQuestionObject) {
+        id = managedObject.id
+        text = managedObject.text
+        minAnswersQuantity = managedObject.minAnswersQuantity
+        maxAnswersQuantity = managedObject.maxAnswersQuantity
+        variants = managedObject.variants.map { QuestionnaireVariant(managedObject: $0) }
+        userAnswer = managedObject.userAnswer.map { $0 }
+        userComment = managedObject.userComment
+        canComment = managedObject.canComment
+        totalAnswers = managedObject.totalAnswers
+    }
+
+    func managedObject() -> QuestionnaireQuestionObject {
+        let object = QuestionnaireQuestionObject()
+        object.id = id
+        object.text = text
+        object.minAnswersQuantity = minAnswersQuantity
+        object.maxAnswersQuantity = maxAnswersQuantity
+        object.variants.append(objectsIn: variants.map { $0.managedObject() })
+        object.userAnswer.append(objectsIn: userAnswer.map { $0 })
+        object.userComment = userComment
+        object.canComment = canComment
+        object.totalAnswers = totalAnswers
+        return object
+    }
+}
+
+extension QuestionnaireVariant: Persistable {
+    init(managedObject: QuestionnaireVariantObject) {
+        id = managedObject.id
+        text = managedObject.text
+    }
+
+    func managedObject() -> QuestionnaireVariantObject {
+        let object = QuestionnaireVariantObject()
+        object.id = id
+        object.text = text
+        return object
+    }
 }

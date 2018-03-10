@@ -85,7 +85,7 @@ class NotificationsViewModel: NSObject, ViewModel {
                 let cachedTaskObjects = realm.objects(NotificationObject.self)
 
                 let cachedTasks = Array(cachedTaskObjects).map { Notification(managedObject: $0) }
-                let items =  cachedTasks.map { NotificationViewModel(notification: $0) }
+                let items = cachedTasks.map { NotificationViewModel(notification: $0) }
 
                 self.notifications = items
 

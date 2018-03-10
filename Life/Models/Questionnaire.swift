@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Questionnaire: Codable {
+struct Questionnaire: Codable, Hashable {
 
     var id: String
     var title: String
@@ -75,4 +75,50 @@ struct Questionnaire: Codable {
         aCoder.encode(answeredEmployeeQuantity, forKey: "answeredEmployeeQuantity")
     }
 
+    // MARK: - Hashable
+
+    var hashValue: Int {
+        return id.hashValue
+    }
+
+    static func == (lhs: Questionnaire, rhs: Questionnaire) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+}
+
+// MARK: - Persistable
+
+extension Questionnaire: Persistable {
+    init(managedObject: QuestionnaireObject) {
+        id = managedObject.id
+        title = managedObject.title
+        description = managedObject.descriptionText
+        createDate = managedObject.createDate
+        imageStreamId = managedObject.imageStreamId
+        authorCode = managedObject.authorCode
+        authorName = managedObject.authorName
+        secondaryImages = managedObject.secondaryImages.map { Image(managedObject: $0) }
+        questions = managedObject.questions.map { QuestionnaireQuestion(managedObject: $0) }
+        questionsQuantity = managedObject.questionsQuantity
+        isAnonymous = managedObject.isAnonymous
+        answeredEmployeeQuantity = managedObject.answeredEmployeeQuantity
+    }
+
+    func managedObject() -> QuestionnaireObject {
+        let object = QuestionnaireObject()
+        object.id = id
+        object.title = title
+        object.descriptionText = description
+        object.createDate = createDate
+        object.imageStreamId = imageStreamId
+        object.authorCode = authorCode
+        object.authorName = authorName
+        object.secondaryImages.append(objectsIn: secondaryImages.map { $0.managedObject() })
+        object.questions.append(objectsIn: questions.map { $0.managedObject() })
+        object.questionsQuantity = questionsQuantity
+        object.isAnonymous = isAnonymous
+        object.answeredEmployeeQuantity = answeredEmployeeQuantity
+        return object
+    }
 }

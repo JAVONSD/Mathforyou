@@ -33,3 +33,19 @@ struct Image: Codable {
     }
 
 }
+
+// MARK: - Persistable
+
+extension Image: Persistable {
+    init(managedObject: ImageObject) {
+        streamId = managedObject.streamId
+        filename = managedObject.filename
+    }
+
+    func managedObject() -> ImageObject {
+        let object = ImageObject()
+        object.streamId = streamId
+        object.filename = filename
+        return object
+    }
+}

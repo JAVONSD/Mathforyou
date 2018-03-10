@@ -81,8 +81,66 @@ struct QuestionnaireQuestionStatistics: Codable {
 }
 
 struct QuestionnaireVariantStatistics: Codable {
-
     var variantText: String
     var percentage: Int
+}
 
+// MARK: - Persistable
+
+extension QuestionnaireStatistics: Persistable {
+    init(managedObject: QuestionnaireStatisticsObject) {
+        id = managedObject.id
+        createDate = managedObject.createDate
+        authorCode = managedObject.authorCode
+        authorName = managedObject.authorName
+        questions = managedObject.questions.map { QuestionnaireQuestionStatistics(managedObject: $0) }
+    }
+
+    func managedObject() -> QuestionnaireStatisticsObject {
+        let object = QuestionnaireStatisticsObject()
+        object.id = id
+        object.createDate = createDate
+        object.authorCode = authorCode
+        object.authorName = authorName
+        object.questions.append(objectsIn: questions.map { $0.managedObject() })
+        return object
+    }
+}
+
+extension QuestionnaireQuestionStatistics: Persistable {
+    init(managedObject: QuestionnaireQuestionStatisticsObject) {
+        questionText = managedObject.questionText
+        variants = managedObject.variants.map { QuestionnaireVariantStatistics(managedObject: $0) }
+
+        if let commentVariant = managedObject.commentVariant {
+            self.commentVariant = QuestionnaireVariantStatistics(managedObject: commentVariant)
+        } else {
+            self.commentVariant = nil
+        }
+
+        totalVotes = managedObject.totalVotes
+    }
+
+    func managedObject() -> QuestionnaireQuestionStatisticsObject {
+        let object = QuestionnaireQuestionStatisticsObject()
+        object.questionText = questionText
+        object.variants.append(objectsIn: variants.map { $0.managedObject() })
+        object.commentVariant = commentVariant?.managedObject()
+        object.totalVotes = totalVotes
+        return object
+    }
+}
+
+extension QuestionnaireVariantStatistics: Persistable {
+    init(managedObject: QuestionnaireVariantStatisticsObject) {
+        variantText = managedObject.variantText
+        percentage = managedObject.percentage
+    }
+
+    func managedObject() -> QuestionnaireVariantStatisticsObject {
+        let object = QuestionnaireVariantStatisticsObject()
+        object.variantText = variantText
+        object.percentage = percentage
+        return object
+    }
 }

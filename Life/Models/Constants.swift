@@ -230,6 +230,13 @@ struct App {
                 schemaVersion: schemaVersion,
                 migrationBlock: migrationBlock)
         }
+
+        static var popularQuestionnaires: Realm.Configuration {
+            return Realm.Configuration(
+                fileURL: docs.appendingPathComponent("PopularQuestionnaires.realm"),
+                schemaVersion: schemaVersion,
+                migrationBlock: migrationBlock)
+        }
     }
 
     struct Realms {
@@ -269,6 +276,17 @@ struct App {
             } catch {
                 fatalError(
                     "Failed to initialize realm with configurations - \(RealmConfig.outboxTasksAndRequests)"
+                )
+            }
+        }
+
+        static func popularQuestionnaires() throws -> Realm {
+            do {
+                let realm = try Realm(configuration: RealmConfig.popularQuestionnaires)
+                return realm
+            } catch {
+                fatalError(
+                    "Failed to initialize realm with configurations - \(RealmConfig.popularQuestionnaires)"
                 )
             }
         }
