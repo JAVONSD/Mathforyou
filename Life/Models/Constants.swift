@@ -195,23 +195,40 @@ struct App {
     // MARK: - Realms & Configs
 
     struct RealmConfig {
+        private static let schemaVersion: UInt64 = 2
         private static let docs = FileManager.default.urls(
             for: .documentDirectory, in: .userDomainMask).first!
+
+        private static let migrationBlock: ((Migration, UInt64) -> Void) = { (migration, oldSchemaVersion) in
+            print("Doing migration (\(migration)) the old schema version (\(oldSchemaVersion)")
+        }
 
         static var `default`: Realm.Configuration {
             return Realm.Configuration(
                 fileURL: docs.appendingPathComponent("Default.realm"),
-                schemaVersion: 1,
-                migrationBlock: { (_, _) in
-                })
+                schemaVersion: schemaVersion,
+                migrationBlock: migrationBlock)
         }
 
         static var birthdays: Realm.Configuration {
             return Realm.Configuration(
                 fileURL: docs.appendingPathComponent("Birthdays.realm"),
-                schemaVersion: 1,
-                migrationBlock: { (_, _) in
-            })
+                schemaVersion: schemaVersion,
+                migrationBlock: migrationBlock)
+        }
+
+        static var inboxTasksAndRequests: Realm.Configuration {
+            return Realm.Configuration(
+                fileURL: docs.appendingPathComponent("InboxTasksAndRequests.realm"),
+                schemaVersion: schemaVersion,
+                migrationBlock: migrationBlock)
+        }
+
+        static var outboxTasksAndRequests: Realm.Configuration {
+            return Realm.Configuration(
+                fileURL: docs.appendingPathComponent("OutboxTasksAndRequests.realm"),
+                schemaVersion: schemaVersion,
+                migrationBlock: migrationBlock)
         }
     }
 
@@ -231,6 +248,28 @@ struct App {
                 return realm
             } catch {
                 fatalError("Failed to initialize realm with configurations - \(RealmConfig.birthdays)")
+            }
+        }
+
+        static func inboxTasksAndRequests() throws -> Realm {
+            do {
+                let realm = try Realm(configuration: RealmConfig.inboxTasksAndRequests)
+                return realm
+            } catch {
+                fatalError(
+                    "Failed to initialize realm with configurations - \(RealmConfig.inboxTasksAndRequests)"
+                )
+            }
+        }
+
+        static func outboxTasksAndRequests() throws -> Realm {
+            do {
+                let realm = try Realm(configuration: RealmConfig.outboxTasksAndRequests)
+                return realm
+            } catch {
+                fatalError(
+                    "Failed to initialize realm with configurations - \(RealmConfig.outboxTasksAndRequests)"
+                )
             }
         }
     }

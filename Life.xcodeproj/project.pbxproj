@@ -198,6 +198,10 @@
 		C7A241AE204AB60C00994840 /* UIImageView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A241AD204AB60C00994840 /* UIImageView+Extensions.swift */; };
 		C7A241B0204AB9C700994840 /* MenuHeaderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A241AF204AB9C700994840 /* MenuHeaderButton.swift */; };
 		C7A241B2204AF28300994840 /* RequestFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A241B1204AF28300994840 /* RequestFormViewModel.swift */; };
+		C7A27456205383090026B549 /* MessageObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A27455205383090026B549 /* MessageObject.swift */; };
+		C7A27458205383930026B549 /* TaskActionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A27457205383930026B549 /* TaskActionObject.swift */; };
+		C7A2745A205383CC0026B549 /* TaskObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A27459205383CC0026B549 /* TaskObject.swift */; };
+		C7A2745C2053894C0026B549 /* RequestObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7A2745B2053894C0026B549 /* RequestObject.swift */; };
 		C7AB6F61204BE8F500328E17 /* CheckmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB6F39204BE8F400328E17 /* CheckmarkButton.swift */; };
 		C7AB6F62204BE8F500328E17 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB6F3A204BE8F400328E17 /* UIAlertController+Extension.swift */; };
 		C7AB6F63204BE8F500328E17 /* FileItemPresentationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB6F3B204BE8F400328E17 /* FileItemPresentationCoordinator.swift */; };
@@ -614,6 +618,10 @@
 		C7A241AD204AB60C00994840 /* UIImageView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extensions.swift"; sourceTree = "<group>"; };
 		C7A241AF204AB9C700994840 /* MenuHeaderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuHeaderButton.swift; sourceTree = "<group>"; };
 		C7A241B1204AF28300994840 /* RequestFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFormViewModel.swift; sourceTree = "<group>"; };
+		C7A27455205383090026B549 /* MessageObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageObject.swift; sourceTree = "<group>"; };
+		C7A27457205383930026B549 /* TaskActionObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskActionObject.swift; sourceTree = "<group>"; };
+		C7A27459205383CC0026B549 /* TaskObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskObject.swift; sourceTree = "<group>"; };
+		C7A2745B2053894C0026B549 /* RequestObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestObject.swift; sourceTree = "<group>"; };
 		C7AB6F38204BE8F400328E17 /* FileExplorer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileExplorer.h; sourceTree = "<group>"; };
 		C7AB6F39204BE8F400328E17 /* CheckmarkButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckmarkButton.swift; sourceTree = "<group>"; };
 		C7AB6F3A204BE8F400328E17 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
@@ -1010,6 +1018,10 @@
 			children = (
 				C752ACF220411D2B00D04E26 /* EmployeeObject.swift */,
 				C720AC88204EFB3000767473 /* VacancyObject.swift */,
+				C7A27455205383090026B549 /* MessageObject.swift */,
+				C7A27457205383930026B549 /* TaskActionObject.swift */,
+				C7A27459205383CC0026B549 /* TaskObject.swift */,
+				C7A2745B2053894C0026B549 /* RequestObject.swift */,
 			);
 			path = RealmObjects;
 			sourceTree = "<group>";
@@ -2381,6 +2393,7 @@
 				C7D832D42035C80E00282891 /* MainMenuFlow.swift in Sources */,
 				C7D641F920344F3B001DCA98 /* BIOfficeFlow.swift in Sources */,
 				C720EC862037093A007E4CD4 /* LentaOverviewCell.swift in Sources */,
+				C7A27456205383090026B549 /* MessageObject.swift in Sources */,
 				C7A241A6204A4DFD00994840 /* QuestionFormViewModel.swift in Sources */,
 				C7F7CB39203AEBCE007B9D1E /* Task.swift in Sources */,
 				C7D6423A20346FB7001DCA98 /* BIOfficeViewModel.swift in Sources */,
@@ -2398,6 +2411,7 @@
 				C79251E6203148AF00CDFBBA /* PlansViewController.swift in Sources */,
 				C73EB2902032F9B100429921 /* DataSources.swift in Sources */,
 				C7D832C52035C4ED00282891 /* BirthdaysViewModel.swift in Sources */,
+				C7A2745C2053894C0026B549 /* RequestObject.swift in Sources */,
 				C73EB2A82032F9B100429921 /* AnimatableSectionModelType.swift in Sources */,
 				C7D641F720344DC0001DCA98 /* AppTabBarController.swift in Sources */,
 				C73EB2982032F9B100429921 /* RxCollectionViewSectionedAnimatedDataSource.swift in Sources */,
@@ -2415,6 +2429,7 @@
 				C7F7CB4B203B1974007B9D1E /* TasksAndRequestsViewModel.swift in Sources */,
 				C7D832BB203576B400282891 /* Error+Extensions.swift in Sources */,
 				C7D6423C20346FC0001DCA98 /* EmployeesViewModel.swift in Sources */,
+				C7A2745A205383CC0026B549 /* TaskObject.swift in Sources */,
 				C7BB5C3C203E6D160056BBF9 /* TopAnswersCell.swift in Sources */,
 				C7D6421A203463E0001DCA98 /* UIWindow+Rx.swift in Sources */,
 				C7BB5C68203FD4420056BBF9 /* SuggestionDetailsCell.swift in Sources */,
@@ -2612,6 +2627,7 @@
 				C716D7FD204D82BC00C80912 /* TaskFormView.swift in Sources */,
 				C7BB5C5D203EFA6A0056BBF9 /* CommentViewModel.swift in Sources */,
 				C76EFBC82030201B00FA2BB9 /* GradientView.swift in Sources */,
+				C7A27458205383930026B549 /* TaskActionObject.swift in Sources */,
 				C7AB6F7A204BE8F500328E17 /* DirectoryItemPresentationCoordinator.swift in Sources */,
 				C73EB29D2032F9B100429921 /* Utilities.swift in Sources */,
 				C7F7CB73203C7442007B9D1E /* DashboardGalleryCell.swift in Sources */,

@@ -16,4 +16,8 @@ class VacancyObject: Object {
     @objc dynamic var createDate: String = ""
     @objc dynamic var departmentName: String = ""
     @objc dynamic var salary: String = ""
+
+    override static func primaryKey() -> String? {
+        return "id"
+    }
 }

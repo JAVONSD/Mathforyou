@@ -36,7 +36,7 @@ class TasksAndRequestsViewController: UIViewController, Stepper {
                     cell.titleLabel.text = viewModel.task.topic
 
                     var detailText = viewModel.task.statusCode.name
-                    if let date = viewModel.task.endDate {
+                    if let date = viewModel.task.startDate {
                         let fmtDate = date.prettyDateString()
                         detailText += "\n\(fmtDate)"
                     }
@@ -45,7 +45,7 @@ class TasksAndRequestsViewController: UIViewController, Stepper {
                     cell.titleLabel.text = viewModel.request.topic
 
                     var detailText = viewModel.request.statusCode.name
-                    let date = viewModel.request.endDate
+                    let date = viewModel.request.registrationDate
                     let fmtDate = date.prettyDateString()
                     detailText += "\n\(fmtDate)"
                     cell.subtitleLabel.text = detailText

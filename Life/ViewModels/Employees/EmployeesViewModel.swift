@@ -131,7 +131,7 @@ class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
                         realm.add(employee.managedObject(), update: true)
                     }
                 }
-                for employee in realm.objects(EmployeeObject.self) {
+                for employee in realm.objects(EmployeeObject.self).reversed() {
                     if !employeeItems.contains(Employee(managedObject: employee)),
                         let employeeObject = realm.object(
                             ofType: EmployeeObject.self,

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Task: Codable {
+struct Task: Codable, Hashable {
 
     enum Status: Int, Codable {
         case new = 0
@@ -192,6 +192,16 @@ struct Task: Codable {
         aCoder.encode(actions, forKey: "actions")
     }
 
+    // MARK: - Hashable
+
+    var hashValue: Int {
+        return id.hashValue
+    }
+
+    static func == (lhs: Task, rhs: Task) -> Bool {
+        return lhs.id == rhs.id
+    }
+
 }
 
 struct TaskAction: Codable {
@@ -229,4 +239,81 @@ struct TaskAction: Codable {
         aCoder.encode(authorName, forKey: "authorName")
     }
 
+}
+
+// MARK: - Persistable
+
+extension Task: Persistable {
+    init(managedObject: TaskObject) {
+        id = managedObject.id
+        topic = managedObject.topic
+        authorCode = managedObject.authorCode
+        authorName = managedObject.authorName
+        isAllDay = managedObject.isAllDay
+        startDate = managedObject.startDate
+        endDate = managedObject.endDate
+        location = managedObject.location
+        statusCode = Task.Status(rawValue: managedObject.statusCode) ?? .new
+        isExpired = managedObject.isExpired
+        description = managedObject.descriptionText
+        executorCode = managedObject.executorCode
+        executorName = managedObject.executorName
+        reminder = managedObject.reminder
+        type = Task.TaskType(rawValue: managedObject.type) ?? .execute
+        approveEntityId = managedObject.approveEntityId
+        approveEntityType = managedObject.approveEntityType
+        label = managedObject.label
+        participants = managedObject.participants.map { Employee(managedObject: $0) }
+        messages = managedObject.messages.map { Message(managedObject: $0) }
+        attachments = managedObject.attachments.map { $0 }
+        actions = managedObject.actions.map { TaskAction(managedObject: $0) }
+    }
+
+    func managedObject() -> TaskObject {
+        let object = TaskObject()
+        object.authorCode = authorCode
+        object.id = id
+        object.topic = topic
+        object.authorCode = authorCode
+        object.authorName = authorName
+        object.isAllDay = isAllDay
+        object.startDate = startDate
+        object.endDate = endDate
+        object.location = location
+        object.statusCode = statusCode.rawValue
+        object.isExpired = isExpired
+        object.descriptionText = description
+        object.executorCode = executorCode
+        object.executorName = executorName
+        object.reminder = reminder
+        object.type = type.rawValue
+        object.approveEntityId = approveEntityId
+        object.approveEntityType = approveEntityType
+        object.label = label
+        object.participants.append(objectsIn: participants.map { $0.managedObject() })
+        object.messages.append(objectsIn: messages.map { $0.managedObject() })
+        object.attachments.append(objectsIn: attachments)
+        object.actions.append(objectsIn: actions.map { $0.managedObject() })
+        return object
+    }
+}
+
+extension TaskAction: Persistable {
+    init(managedObject: TaskActionObject) {
+        authorCode = managedObject.authorCode
+        infoText = managedObject.infoText
+        createDate = managedObject.createDate
+        authorInitials = managedObject.authorInitials
+        authorName = managedObject.authorName
+    }
+
+    func managedObject() -> TaskActionObject {
+        let object = TaskActionObject()
+        object.authorCode = authorCode
+        object.infoText = infoText
+        object.createDate = createDate
+        object.authorInitials = authorInitials
+        object.authorName = authorName
+        return object
+    }
 }

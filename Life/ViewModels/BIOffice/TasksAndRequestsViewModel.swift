@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import DateToolsSwift
 import IGListKit
 import Moya
 import RxSwift
@@ -47,11 +48,45 @@ class TasksAndRequestsViewModel: NSObject, ViewModel, ListDiffable {
     }
 
     var inboxItems: [ListDiffable] {
-        return (tasks.inboxTasks as [ListDiffable]) + (requests.inboxRequests as [ListDiffable])
+        let items = (tasks.inboxTasks as [ListDiffable]) + (requests.inboxRequests as [ListDiffable])
+        return items.sorted(by: { (item1, item2) -> Bool in
+            var date1 = Date()
+            if let item1 = item1 as? RequestViewModel {
+                date1 = item1.request.registrationDate.date
+            } else if let item1 = item1 as? TaskViewModel {
+                date1 = (item1.task.startDate ?? "").date
+            }
+
+            var date2 = Date()
+            if let item2 = item2 as? RequestViewModel {
+                date2 = item2.request.registrationDate.date
+            } else if let item2 = item2 as? TaskViewModel {
+                date2 = (item2.task.startDate ?? "").date
+            }
+
+            return date1.isLater(than: date2)
+        })
     }
 
     var outboxItems: [ListDiffable] {
-        return (tasks.outboxTasks as [ListDiffable]) + (requests.outboxRequests as [ListDiffable])
+        let items = (tasks.outboxTasks as [ListDiffable]) + (requests.outboxRequests as [ListDiffable])
+        return items.sorted(by: { (item1, item2) -> Bool in
+            var date1 = Date()
+            if let item1 = item1 as? RequestViewModel {
+                date1 = item1.request.registrationDate.date
+            } else if let item1 = item1 as? TaskViewModel {
+                date1 = (item1.task.startDate ?? "").date
+            }
+
+            var date2 = Date()
+            if let item2 = item2 as? RequestViewModel {
+                date2 = item2.request.registrationDate.date
+            } else if let item2 = item2 as? TaskViewModel {
+                date2 = (item2.task.startDate ?? "").date
+            }
+
+            return date1.isLater(than: date2)
+        })
     }
 
     var inboxCount: Int {

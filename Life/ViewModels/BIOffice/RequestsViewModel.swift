@@ -8,6 +8,7 @@
 
 import Foundation
 import IGListKit
+import DateToolsSwift
 import Moya
 import RxSwift
 
@@ -22,7 +23,12 @@ class RequestsViewModel: NSObject, ListDiffable {
     let requestCreatedSubject = PublishSubject<Bool>()
 
     var requests: [RequestViewModel] {
-        return inboxRequests + outboxRequests
+        let items = inboxRequests + outboxRequests
+        return items.sorted(by: { (item1, item2) -> Bool in
+            let date1 = item1.request.registrationDate.date
+            let date2 = item2.request.registrationDate.date
+            return date1.isLater(than: date2)
+        })
     }
 
     private(set) var loadingInboxRequests = false
@@ -44,6 +50,8 @@ class RequestsViewModel: NSObject, ListDiffable {
     // MARK: - Methods
 
     public func getInbox(completion: @escaping ((Error?) -> Void)) {
+        returnRequestsFromCache(completion: completion, isInbox: true)
+
         provider
             .rx
             .request(.inboxRequests)
@@ -59,6 +67,8 @@ class RequestsViewModel: NSObject, ListDiffable {
                         self.inboxRequests = items
                         completion(nil)
                         self.inboxRequestsSubject.onNext(items)
+
+                        self.updateRequestsCache(requestItems, isInbox: true)
                     } else {
                         completion(nil)
                         self.inboxRequestsSubject.onNext(self.inboxRequests)
@@ -74,6 +84,8 @@ class RequestsViewModel: NSObject, ListDiffable {
     }
 
     public func getOutbox(completion: @escaping ((Error?) -> Void)) {
+        returnRequestsFromCache(completion: completion, isInbox: false)
+
         provider
             .rx
             .request(.outboxRequests)
@@ -89,6 +101,8 @@ class RequestsViewModel: NSObject, ListDiffable {
                         self.outboxRequests = items
                         completion(nil)
                         self.outboxRequestsSubject.onNext(items)
+
+                        self.updateRequestsCache(requestItems, isInbox: false)
                     } else {
                         completion(nil)
                         self.outboxRequestsSubject.onNext(self.outboxRequests)
@@ -101,6 +115,63 @@ class RequestsViewModel: NSObject, ListDiffable {
                 }
             }
             .disposed(by: disposeBag)
+    }
+
+    private func returnRequestsFromCache(completion: @escaping ((Error?) -> Void), isInbox: Bool) {
+        DispatchQueue.global().async {
+            do {
+                let realm = isInbox
+                    ? try App.Realms.inboxTasksAndRequests()
+                    : try App.Realms.outboxTasksAndRequests()
+                let cachedRequestObjects = realm.objects(RequestObject.self)
+
+                let cachedRequests = cachedRequestObjects.map { Request(managedObject: $0) }
+                let items = Array(cachedRequests).map { RequestViewModel(request: $0) }
+
+                if isInbox {
+                    self.inboxRequests = items
+                } else {
+                    self.outboxRequests = items
+                }
+
+                completion(nil)
+
+                DispatchQueue.main.async {
+                    if isInbox {
+                        self.inboxRequestsSubject.onNext(items)
+                    } else {
+                        self.outboxRequestsSubject.onNext(items)
+                    }
+                }
+            } catch let error as NSError {
+                print("Failed to access the Realm database with error - \(error.localizedDescription)")
+            }
+        }
+    }
+
+    private func updateRequestsCache(_ requestItems: [Request], isInbox: Bool) {
+        DispatchQueue.global().async {
+            do {
+                let realm = isInbox
+                    ? try App.Realms.inboxTasksAndRequests()
+                    : try App.Realms.outboxTasksAndRequests()
+                realm.beginWrite()
+                for request in requestItems {
+                    realm.add(request.managedObject(), update: true)
+                }
+                for requestObject in realm.objects(RequestObject.self).reversed() {
+                    if !requestItems.contains(Request(managedObject: requestObject)),
+                        let requestObjectToDelete = realm.object(
+                            ofType: RequestObject.self,
+                            forPrimaryKey: requestObject.id) {
+                        realm.delete(requestObjectToDelete)
+                    }
+                }
+                try realm.commitWrite()
+            } catch {
+                print("Failed to access the Realm database")
+            }
+        }
     }
 
     public func createRequest(

@@ -9,6 +9,7 @@
 import Foundation
 import IGListKit
 import Moya
+import RealmSwift
 import RxSwift
 
 class TasksViewModel: NSObject, ListDiffable {
@@ -22,7 +23,12 @@ class TasksViewModel: NSObject, ListDiffable {
     let taskUpdatedOrCreatedSubject = PublishSubject<TaskViewModel>()
 
     var tasks: [TaskViewModel] {
-        return inboxTasks + outboxTasks
+        let tasks = inboxTasks + outboxTasks
+        return tasks.sorted(by: { (item1, item2) -> Bool in
+            let date1 = (item1.task.startDate ?? "").date
+            let date2 = (item2.task.startDate ?? "").date
+            return date1.isLater(than: date2)
+        })
     }
 
     private(set) var loading = false
@@ -41,6 +47,8 @@ class TasksViewModel: NSObject, ListDiffable {
     // MARK: - Methods
 
     public func getInbox(completion: @escaping ((Error?) -> Void)) {
+        returnTasksFromCache(completion: completion, isInbox: true)
+
         provider
             .rx
             .request(.inboxTasks)
@@ -56,6 +64,8 @@ class TasksViewModel: NSObject, ListDiffable {
                         self.inboxTasks = items
                         completion(nil)
                         self.inboxTasksSubject.onNext(items)
+
+                        self.updateTasksCache(taskItems, isInbox: true)
                     } else {
                         completion(nil)
                         self.inboxTasksSubject.onNext(self.inboxTasks)
@@ -71,6 +81,8 @@ class TasksViewModel: NSObject, ListDiffable {
     }
 
     public func getOutbox(completion: @escaping ((Error?) -> Void)) {
+        returnTasksFromCache(completion: completion, isInbox: false)
+
         provider
             .rx
             .request(.outboxTasks)
@@ -86,6 +98,8 @@ class TasksViewModel: NSObject, ListDiffable {
                         self.outboxTasks = items
                         completion(nil)
                         self.outboxTasksSubject.onNext(items)
+
+                        self.updateTasksCache(taskItems, isInbox: false)
                     } else {
                         completion(nil)
                         self.outboxTasksSubject.onNext(self.outboxTasks)
@@ -98,6 +112,63 @@ class TasksViewModel: NSObject, ListDiffable {
                 }
             }
             .disposed(by: disposeBag)
+    }
+
+    private func returnTasksFromCache(completion: @escaping ((Error?) -> Void), isInbox: Bool) {
+        DispatchQueue.global().async {
+            do {
+                let realm = isInbox
+                    ? try App.Realms.inboxTasksAndRequests()
+                    : try App.Realms.outboxTasksAndRequests()
+                let cachedTaskObjects = realm.objects(TaskObject.self)
+
+                let cachedTasks = cachedTaskObjects.map { Task(managedObject: $0) }
+                let items = Array(cachedTasks).map { TaskViewModel(task: $0) }
+
+                if isInbox {
+                    self.inboxTasks = items
+                } else {
+                    self.outboxTasks = items
+                }
+
+                completion(nil)
+
+                DispatchQueue.main.async {
+                    if isInbox {
+                        self.inboxTasksSubject.onNext(items)
+                    } else {
+                        self.outboxTasksSubject.onNext(items)
+                    }
+                }
+            } catch let error as NSError {
+                print("Failed to access the Realm database with error - \(error.localizedDescription)")
+            }
+        }
+    }
+
+    private func updateTasksCache(_ taskItems: [Task], isInbox: Bool) {
+        DispatchQueue.global().async {
+            do {
+                let realm = isInbox
+                    ? try App.Realms.inboxTasksAndRequests()
+                    : try App.Realms.outboxTasksAndRequests()
+                realm.beginWrite()
+                for task in taskItems {
+                    realm.add(task.managedObject(), update: true)
+                }
+                for taskObject in realm.objects(TaskObject.self).reversed() {
+                    if !taskItems.contains(Task(managedObject: taskObject)),
+                        let taskObjectToDelete = realm.object(
+                            ofType: TaskObject.self,
+                            forPrimaryKey: taskObject.id) {
+                        realm.delete(taskObjectToDelete)
+                    }
+                }
+                try realm.commitWrite()
+            } catch {
+                print("Failed to access the Realm database")
+            }
+        }
     }
 
     public func createTask(

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Request: Codable {
+struct Request: Codable, Hashable {
 
     enum Status: Int, Codable {
         case new = 0
@@ -155,4 +155,62 @@ struct Request: Codable {
         aCoder.encode(statusCode, forKey: "statusCode")
     }
 
+    // MARK: - Hashable
+
+    var hashValue: Int {
+        return id.hashValue
+    }
+
+    static func == (lhs: Request, rhs: Request) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+}
+
+// MARK: - Persistable
+
+extension Request: Persistable {
+    init(managedObject: RequestObject) {
+        id = managedObject.id
+        surname = managedObject.surname
+        name = managedObject.name
+        taskNumber = managedObject.taskNumber
+        registrationDate = managedObject.registrationDate
+        dateofdelivery = managedObject.dateofdelivery
+        taskStatus = managedObject.taskStatus
+        shortDescription = managedObject.shortDescription
+        customer = managedObject.customer
+        comment = managedObject.comment
+        fullname = managedObject.fullname
+        topic = managedObject.topic
+        executorName = managedObject.executorName
+        authorName = managedObject.authorName
+        isExpired = managedObject.isExpired
+        isRequest = managedObject.isRequest
+        endDate = managedObject.endDate
+        statusCode = Request.Status(rawValue: managedObject.statusCode) ?? .new
+    }
+
+    func managedObject() -> RequestObject {
+        let object = RequestObject()
+        object.id = id
+        object.surname = surname
+        object.name = name
+        object.taskNumber = taskNumber
+        object.registrationDate = registrationDate
+        object.dateofdelivery = dateofdelivery
+        object.taskStatus = taskStatus
+        object.shortDescription = shortDescription
+        object.customer = customer
+        object.comment = comment
+        object.fullname = fullname
+        object.topic = topic
+        object.executorName = executorName
+        object.authorName = authorName
+        object.isExpired = isExpired
+        object.isRequest = isRequest
+        object.endDate = endDate
+        object.statusCode = statusCode.rawValue
+        return object
+    }
 }

@@ -45,3 +45,25 @@ struct Message: Codable {
     }
 
 }
+
+// MARK: - Persistable
+
+extension Message: Persistable {
+    init(managedObject: MessageObject) {
+        authorCode = managedObject.authorCode
+        authorName = managedObject.authorName
+        message = managedObject.message
+        createDate = managedObject.createDate
+        isFromCurrentUser = managedObject.isFromCurrentUser
+    }
+
+    func managedObject() -> MessageObject {
+        let object = MessageObject()
+        object.authorCode = authorCode
+        object.authorName = authorName
+        object.message = message
+        object.createDate = createDate
+        object.isFromCurrentUser = isFromCurrentUser
+        return object
+    }
+}
