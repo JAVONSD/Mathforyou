@@ -38,6 +38,8 @@ class SuggestionFormViewModel: NSObject {
     }
     var filteredTags = [Tag]()
 
+    var pickingMainImage = true
+
     private let suggestionsProvider = MoyaProvider<SuggestionsService>(
         plugins: [
             AuthPlugin(tokenClosure: {

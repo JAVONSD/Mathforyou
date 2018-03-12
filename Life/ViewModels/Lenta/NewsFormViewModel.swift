@@ -38,6 +38,8 @@ class NewsFormViewModel: NSObject {
     }
     var filteredTags = [Tag]()
 
+    var pickingMainImage = true
+
     let isHistoryEvent = BehaviorSubject<Bool>(value: false)
 
     private let newsProvider = MoyaProvider<NewsService>(

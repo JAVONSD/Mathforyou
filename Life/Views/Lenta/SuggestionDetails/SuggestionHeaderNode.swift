@@ -13,6 +13,8 @@ class SuggestionHeaderNode: ASDisplayNode {
 
     private(set) var collectionNode: ASCollectionNode!
 
+    private(set) var overlayNode: ASDisplayNode!
+
     private(set) var labelContainerNode: ASDisplayNode!
     private(set) var labelNode: ASTextNode!
 
@@ -39,21 +41,17 @@ class SuggestionHeaderNode: ASDisplayNode {
 
         super.init()
 
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        layout.minimumInteritemSpacing = 0
-        layout.minimumLineSpacing = 0
-        layout.sectionInset = .zero
-        collectionNode = ASCollectionNode(collectionViewLayout: layout)
-        collectionNode.backgroundColor = .clear
-        collectionNode.dataSource = self
-        collectionNode.delegate = self
-        addSubnode(collectionNode)
+        addCollectionNode()
+
+        overlayNode = ASDisplayNode()
+        overlayNode.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+        overlayNode.isUserInteractionEnabled = false
+        addSubnode(overlayNode)
 
         labelContainerNode = ASDisplayNode()
         labelContainerNode.backgroundColor = .white
         labelContainerNode.cornerRadius = App.Layout.cornerRadiusSmall / 2
-        collectionNode.addSubnode(labelContainerNode)
+        addSubnode(labelContainerNode)
 
         labelNode = ASTextNode()
         labelNode.attributedText = attLabel(NSLocalizedString("suggestion", comment: "").uppercased())
@@ -62,7 +60,7 @@ class SuggestionHeaderNode: ASDisplayNode {
         closeNode = ASButtonNode()
         closeNode.addTarget(self, action: #selector(handleCloseButton), forControlEvents: .touchUpInside)
         closeNode.setImage(#imageLiteral(resourceName: "close-circle"), for: .normal)
-        collectionNode.addSubnode(closeNode)
+        addSubnode(closeNode)
 
         pageControlNode = ASDisplayNode(viewBlock: { () -> UIView in
             self.pageControl = UIPageControl(frame: .init(x: 0, y: 0, width: 100, height: 20))
@@ -75,6 +73,19 @@ class SuggestionHeaderNode: ASDisplayNode {
         })
         pageControlNode.backgroundColor = .white
         addSubnode(pageControlNode)
+    }
+
+    private func addCollectionNode() {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 0
+        layout.sectionInset = .zero
+        collectionNode = ASCollectionNode(collectionViewLayout: layout)
+        collectionNode.backgroundColor = .clear
+        collectionNode.dataSource = self
+        collectionNode.delegate = self
+        addSubnode(collectionNode)
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
@@ -96,29 +107,30 @@ class SuggestionHeaderNode: ASDisplayNode {
                 right: App.Layout.itemSpacingSmall / 2), child: self.labelNode)
         }
 
-        collectionNode.layoutSpecBlock = { (_, _) in
-            let labelSpec = ASInsetLayoutSpec(insets: .init(
-                top: 10,
-                left: 0,
-                bottom: 0,
-                right: 0), child: self.labelContainerNode)
+        let horizStackSpec = ASStackLayoutSpec.horizontal()
+        horizStackSpec.children = [self.labelContainerNode, self.closeNode]
+        horizStackSpec.alignItems = .center
+        horizStackSpec.justifyContent = .spaceBetween
+        horizStackSpec.spacing = App.Layout.sideOffset
+        horizStackSpec.style.flexShrink = 1.0
 
-            let horizStackSpec = ASStackLayoutSpec.horizontal()
-            horizStackSpec.children = [labelSpec, self.closeNode]
-            horizStackSpec.alignItems = .start
-            horizStackSpec.justifyContent = .spaceBetween
+        let vertStackSpec = ASStackLayoutSpec.vertical()
+        vertStackSpec.children = [horizStackSpec]
+        vertStackSpec.justifyContent = .start
+        vertStackSpec.style.flexShrink = 1.0
 
-            return ASInsetLayoutSpec(insets: .init(
-                top: App.Layout.itemSpacingMedium,
-                left: App.Layout.sideOffset,
-                bottom: 0,
-                right: App.Layout.itemSpacingMedium), child: horizStackSpec)
-        }
-        collectionNode.style.alignItems = .start
-        collectionNode.style.alignSelf = .start
+        let insetSpec = ASInsetLayoutSpec(insets: .init(
+            top: App.Layout.itemSpacingMedium,
+            left: App.Layout.sideOffset,
+            bottom: 0,
+            right: App.Layout.itemSpacingMedium), child: vertStackSpec)
+        insetSpec.style.flexShrink = 1.0
+
+        let labelCloseOverlaySpec = ASOverlayLayoutSpec(child: overlayNode, overlay: insetSpec)
+        let overlaySpec = ASOverlayLayoutSpec(child: collectionNode, overlay: labelCloseOverlaySpec)
 
         let stackSpec = ASStackLayoutSpec.vertical()
-        stackSpec.children = [collectionNode, pageControlNode]
+        stackSpec.children = [overlaySpec, pageControlNode]
         return stackSpec
     }
 
@@ -183,8 +195,7 @@ extension SuggestionHeaderNode: ASCollectionDataSource {
             return ImageNode(
                 image: image,
                 size: self.collectionSize(),
-                cornerRadius: 0,
-                overlayColor: UIColor.black.withAlphaComponent(0.3)
+                cornerRadius: 0
             )
         }
     }

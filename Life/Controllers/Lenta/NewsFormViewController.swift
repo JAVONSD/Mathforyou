@@ -48,7 +48,9 @@ class NewsFormViewController: UIViewController, Stepper {
             .disposed(by: disposeBag)
     }
 
-    private func pickCoverImage() {
+    private func pickCoverImage(pickingMainImage: Bool) {
+        viewModel.pickingMainImage = pickingMainImage
+
         let alert = UIAlertController(
             title: NSLocalizedString("choose_option", comment: ""),
             message: nil,
@@ -79,7 +81,7 @@ class NewsFormViewController: UIViewController, Stepper {
 
     private func pickCoverImage(fromLibrary: Bool) {
         let vc = IQMediaPickerController()
-        vc.allowsPickingMultipleItems = false
+        vc.allowsPickingMultipleItems = !viewModel.pickingMainImage
         vc.delegate = self
         vc.mediaTypes = [
             NSNumber(value: IQMediaPickerControllerMediaType.photo.rawValue)
@@ -89,16 +91,7 @@ class NewsFormViewController: UIViewController, Stepper {
     }
 
     private func pickAttachments() {
-        let fileExplorer = FileExplorerViewController()
-        fileExplorer.canChooseFiles = true
-        fileExplorer.allowsMultipleSelection = true
-        fileExplorer.delegate = self
-        fileExplorer.fileFilters = [
-            Filter.extension("png"),
-            Filter.extension("jpg"),
-            Filter.extension("jpeg")
-        ]
-        self.present(fileExplorer, animated: true, completion: nil)
+        pickCoverImage(pickingMainImage: false)
     }
 
     // MARK: - UI
@@ -114,7 +107,7 @@ class NewsFormViewController: UIViewController, Stepper {
             self.step.accept(AppStep.createNewsDone)
         }
         newsFormView.didTapCoverImageButton = { [weak self] in
-            self?.pickCoverImage()
+            self?.pickCoverImage(pickingMainImage: true)
         }
         newsFormView.didTapAttachmentButton = { [weak self] in
             self?.pickAttachments()
@@ -231,42 +224,45 @@ class NewsFormViewController: UIViewController, Stepper {
 //swiftlint:disable line_length
 extension NewsFormViewController: IQMediaPickerControllerDelegate, UINavigationControllerDelegate {
     func mediaPickerController(_ controller: IQMediaPickerController, didFinishMediaWithInfo info: [AnyHashable : Any]) {
-        if let key = info.keys.first as? String,
-            let dicts = info[key] as? [[String: Any]],
-            let dict = dicts.first,
-            let image = dict[IQMediaImage] as? UIImage {
-            selectedImage = image
+        if !viewModel.pickingMainImage {
+            viewModel.attachments = []
+        }
 
-            let tempDir = NSTemporaryDirectory()
-            let tempDirPath = URL(fileURLWithPath: tempDir)
-            let imageName = UUID().uuidString
-            let imagePath = tempDirPath.appendingPathComponent("\(imageName).jpg")
-            if FileManager.default.fileExists(atPath: imagePath.path) {
-                try? FileManager.default.removeItem(at: imagePath)
-            }
-            let imageData = UIImageJPEGRepresentation(image, 1.0)
-            do {
-                try imageData?.write(to: imagePath)
-                viewModel.coverImage = imagePath
-            } catch {
-                print("Failed to write image at path \(imagePath)")
+        for key in info.keys where key is String {
+            if let dicts = info[key] as? [[String: Any]] {
+                for dict in dicts {
+                    if let image = dict[IQMediaImage] as? UIImage {
+                        if viewModel.pickingMainImage {
+                            selectedImage = image
+                        }
+
+                        let tempDir = NSTemporaryDirectory()
+                        let tempDirPath = URL(fileURLWithPath: tempDir)
+                        let imageName = UUID().uuidString
+                        let imagePath = tempDirPath.appendingPathComponent("\(imageName).jpg")
+                        if FileManager.default.fileExists(atPath: imagePath.path) {
+                            try? FileManager.default.removeItem(at: imagePath)
+                        }
+                        let imageData = UIImageJPEGRepresentation(image, 1.0)
+                        do {
+                            try imageData?.write(to: imagePath)
+
+                            if viewModel.pickingMainImage {
+                                viewModel.coverImage = imagePath
+                            } else {
+                                viewModel.attachments.append(imagePath)
+                            }
+                        } catch {
+                            print("Failed to write image at path \(imagePath)")
+                        }
+                    }
+                }
             }
         }
     }
 
     func mediaPickerControllerDidCancel(_ controller: IQMediaPickerController) {
         print("Media pick cancelled ...")
-    }
-}
-
-extension NewsFormViewController: FileExplorerViewControllerDelegate {
-    func fileExplorerViewControllerDidFinish(_ controller: FileExplorerViewController) {
-        print("File explorer did finish ...")
-    }
-
-    func fileExplorerViewController(_ controller: FileExplorerViewController, didChooseURLs urls: [URL]) {
-        print("Attached files with urls - \(urls)")
-        viewModel.attachments = urls
     }
 }
 
