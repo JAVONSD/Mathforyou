@@ -22,6 +22,8 @@ class SlideCell: ASCellNode {
     private(set) var width: CGFloat
     private(set) var height: CGFloat
 
+    var leftInset: CGFloat = 0
+
     var didSelectSlide: ((_ index: Int) -> Void)?
 
     init(slide: SliderViewModel,
@@ -78,9 +80,9 @@ class SlideCell: ASCellNode {
 
             return ASInsetLayoutSpec(insets: .init(
                 top: App.Layout.itemSpacingMedium,
-                left: App.Layout.sideOffset,
+                left: App.Layout.sideOffset + self.leftInset,
                 bottom: App.Layout.itemSpacingBig,
-                right: App.Layout.sideOffset), child: verticalSpec)
+                right: App.Layout.sideOffset - self.leftInset), child: verticalSpec)
         }
 
         imageNode.layoutSpecBlock = { (_, _) in

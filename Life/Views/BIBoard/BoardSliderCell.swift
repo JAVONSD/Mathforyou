@@ -172,7 +172,24 @@ extension BoardSliderCell: ASCollectionDataSource, ASCollectionDelegate {
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let width = scrollView.frame.size.width
-        let page = (scrollView.contentOffset.x + 0.5 * width) / width
-        self.pageControl.currentPage = max(min(Int(page), slides.count - 1), 0)
+        let currentX = scrollView.contentOffset.x + 0.5 * width
+        let page = currentX / width
+        let currentPage = max(min(Int(page), slides.count - 1), 0)
+        self.pageControl.currentPage = currentPage
+
+        for i in 0..<slides.count {
+            if let cell = collectionNode.nodeForItem(at: IndexPath(item: i, section: 0)) as? SlideCell {
+                let centerX = CGFloat(i + 1) * width / 2 + CGFloat(i) * width / 2
+                let offset = centerX - currentX
+                let percentage = offset / scrollView.contentSize.width
+                let maxOffsetDistance = scrollView.contentSize.width
+                let speed: CGFloat = 0.8
+                let currentOffset = maxOffsetDistance * percentage * speed
+                cell.leftInset = -currentOffset
+
+                cell.imageCoverNode.setNeedsLayout()
+                cell.imageCoverNode.layoutIfNeeded()
+            }
+        }
     }
 }
