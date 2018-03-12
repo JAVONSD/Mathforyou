@@ -335,6 +335,8 @@ extension NewsBodyNode: WKNavigationDelegate {
         spinnerNode.isHidden = true
         webViewNode.isHidden = false
 
+        insertCSSString(into: webView)
+
         guard needReloadOnWebViewLoad else {
             return
         }
@@ -376,5 +378,16 @@ extension NewsBodyNode: WKNavigationDelegate {
                     self.didLoadWebView(height)
                 }
         })
+    }
+
+    private func insertCSSString(into webView: WKWebView) {
+        let cssString = "img { width: 100%; height: auto; }"
+        let jsString =
+        """
+        var style = document.createElement('style');
+        style.innerHTML = '\(cssString)';
+        document.head.appendChild(style);
+        """
+        webView.evaluateJavaScript(jsString, completionHandler: nil)
     }
 }

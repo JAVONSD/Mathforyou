@@ -70,14 +70,8 @@ public extension String {
             <html>
             <head>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <style>
-                    img {
-                        height: auto;
-                        width: 100%;
-                    }
-                </style>
             </head>
-            <body style=\"font-family: '\(font.familyName)', '-apple-system', 'HelveticaNeue';
+            <body style="font-family: '\(font.familyName)', '-apple-system', 'HelveticaNeue';
             font-size: \(font.pointSize)\">
                 %@
             </body>
