@@ -217,8 +217,7 @@ extension TasksAndRequestsSectionController: ASSectionController {
 extension TasksAndRequestsSectionController: RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?) {
         viewModel?.getAllTasksAndRequests()
-        viewModel?.isLoadingSubject.subscribe(onNext: { [weak self] isLoading in
-            self?.updateContents()
+        viewModel?.isLoadingSubject.subscribe(onNext: { isLoading in
             if !isLoading, let completion = completion {
                 completion()
             }

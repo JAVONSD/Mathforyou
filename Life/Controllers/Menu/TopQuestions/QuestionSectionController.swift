@@ -28,7 +28,7 @@ class QuestionSectionController: ASCollectionSectionController {
 
         supplementaryViewSource = self
 
-        viewModel.questionsSubject.asObservable().subscribe(onNext: { [weak self] _ in
+        viewModel.questionsSubject.asDriver(onErrorJustReturn: []).drive(onNext: { [weak self] _ in
             self?.updateContents()
         }).disposed(by: disposeBag)
     }
@@ -58,15 +58,13 @@ class QuestionSectionController: ASCollectionSectionController {
 
     public func add(question: Question) {
         viewModel?.add(question: question)
-        updateContents()
     }
 
     public func add(answer: Answer, to questions: [String]) {
         viewModel?.add(answer: answer, to: questions)
-        updateContents()
     }
 
-    private func updateContents() {
+    private func updateContents(animated: Bool = false, completion: (() -> Void)? = nil) {
         var items = [ListDiffable]()
 
         if let viewModel = viewModel {
@@ -80,7 +78,7 @@ class QuestionSectionController: ASCollectionSectionController {
             }
         }
 
-        set(items: items, animated: false, completion: nil)
+        set(items: items, animated: animated, completion: completion)
     }
 
 }
@@ -124,10 +122,6 @@ extension QuestionSectionController: RefreshingSectionControllerType {
                 moyaError.response?.statusCode == 401,
                 let onUnathorizedError = self?.onUnathorizedError {
                 onUnathorizedError()
-            }
-            self?.updateContents()
-            if let completion = completion {
-                completion()
             }
         }
     }

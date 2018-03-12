@@ -14,9 +14,7 @@ import Moya
 class AnswersSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: AnswersViewModel?
 
-    var sectionTimestamp: NSString {
-        return NSString(string: UUID().uuidString)
-    }
+    var sectionTimestamp = DateCell()
 
     var onUnathorizedError: (() -> Void)?
     var didSelectVideo: ((String) -> Void)?
@@ -77,6 +75,7 @@ extension AnswersSectionController: ASSectionController {
 
 extension AnswersSectionController: RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?) {
+        sectionTimestamp.update()
         viewModel?.getVideoAnswers { [weak self] error in
             if let moyaError = error as? MoyaError,
                 moyaError.response?.statusCode == 401,

@@ -170,17 +170,19 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         let addNewsItem = setupFABMenuItem(
             title: NSLocalizedString("add_news", comment: ""),
             onTap: { [weak self] in
-                self?.step.accept(AppStep.createNews(completion: { [weak self] (news, imageSize) in
-                    guard let `self` = self else { return }
+                self?.step.accept(
+                    AppStep.createNews(completion: { [weak self] (news, imageSize) in
+                        guard let `self` = self else { return }
 
-                    var lentaItem = Lenta(news: news)
-                    lentaItem.imageSize = imageSize
-                    self.viewModel.add(item: lentaItem)
+                        var lentaItem = Lenta(news: news)
+                        lentaItem.imageSize = imageSize
+                        self.viewModel.add(item: lentaItem)
 
-                    let newsSC = self.listAdapter.sectionController(
-                        for: self.viewModel) as? NewsSectionController
-                    newsSC?.updateContents()
-                }))
+                        let newsSC = self.listAdapter.sectionController(
+                            for: self.viewModel) as? NewsSectionController
+                        newsSC?.updateContents()
+                    })
+                )
         })
         let addSuggestionItem = setupFABMenuItem(
             title: NSLocalizedString("new_suggestion", comment: ""),
@@ -196,8 +198,7 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
                         let newsSC = self.listAdapter.sectionController(
                             for: self.viewModel) as? NewsSectionController
                         newsSC?.updateContents()
-                        }
-                    )
+                    })
                 )
         })
 

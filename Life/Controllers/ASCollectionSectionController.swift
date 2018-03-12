@@ -43,15 +43,21 @@ class ASCollectionSectionController: ListSectionController {
             let result = ListDiff(
                 oldArray: self.pendingItems,
                 newArray: newItems,
-                option: .pointerPersonality)
+                option: .equality)
             self.pendingItems = newItems
 
             DispatchQueue.main.async {
                 let ctx = self.collectionContext
                 ctx?.performBatch(animated: animated, updates: { (batchContext) in
-                    batchContext.reload(in: self, at: result.updates)
-                    batchContext.insert(in: self, at: result.inserts)
                     batchContext.delete(in: self, at: result.deletes)
+                    batchContext.insert(in: self, at: result.inserts)
+
+                    for move in result.moves {
+                        batchContext.move(in: self, from: move.from, to: move.to)
+                    }
+
+                    batchContext.reload(in: self, at: result.updates)
+
                     self.items = newItems
                 }, completion: { _ in
                     if let completion = completion {

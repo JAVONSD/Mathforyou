@@ -59,12 +59,14 @@ class QuestionsViewModel: NSObject, ViewModel, ListDiffable {
 
     public func add(question: Question) {
         questions.insert(QuestionItemViewModel(question: question), at: 0)
+        questionsSubject.onNext(questions)
     }
 
     public func add(answer: Answer, to questions: [String]) {
         for question in self.questions where questions.contains(question.question.id) {
             question.question.answers.append(answer)
         }
+        questionsSubject.onNext(self.questions)
     }
 
     private func returnQuestionsFromCache(completion: @escaping ((Error?) -> Void)) {

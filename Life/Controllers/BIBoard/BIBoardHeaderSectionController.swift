@@ -20,9 +20,7 @@ class BIBoardHeaderSectionController: ASCollectionSectionController {
     var onUnathorizedError: (() -> Void)?
     var didSelectNews: ((String) -> Void)?
 
-    var sectionTimestamp: NSString {
-        return NSString(string: UUID().uuidString)
-    }
+    var sectionTimestamp = DateCell()
 
     private var loading = BehaviorRelay(value: false)
 
@@ -102,6 +100,7 @@ extension BIBoardHeaderSectionController: ASSectionController {
 
 extension BIBoardHeaderSectionController: RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?) {
+        sectionTimestamp.update()
         viewModel?.getTop3News { [weak self] error in
             if let moyaError = error as? MoyaError,
                 moyaError.response?.statusCode == 401,

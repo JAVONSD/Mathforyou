@@ -15,9 +15,7 @@ import RxSwift
 class AuthorsSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: TopQuestionsViewModel?
 
-    var sectionTimestamp: NSString {
-        return NSString(string: UUID().uuidString)
-    }
+    var sectionTimestamp = DateCell()
 
     let disposeBag = DisposeBag()
 
@@ -82,6 +80,7 @@ extension AuthorsSectionController: ASSectionController {
 
 extension AuthorsSectionController: RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?) {
+        sectionTimestamp.update()
         updateContents()
     }
 }
