@@ -10,9 +10,13 @@ import UIKit
 import AsyncDisplayKit
 import IGListKit
 import Moya
+import RxSwift
+import RxCocoa
 
 class QuestionSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: QuestionsViewModel?
+
+    let disposeBag = DisposeBag()
 
     var onUnathorizedError: (() -> Void)?
     var didSelectVideo: ((String) -> Void)?
@@ -23,6 +27,10 @@ class QuestionSectionController: ASCollectionSectionController {
         super.init()
 
         supplementaryViewSource = self
+
+        viewModel.questionsSubject.asObservable().subscribe(onNext: { [weak self] _ in
+            self?.updateContents()
+        }).disposed(by: disposeBag)
     }
 
     override func didUpdate(to object: Any) {

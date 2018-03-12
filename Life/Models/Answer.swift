@@ -74,6 +74,16 @@ struct Answer: Codable {
 
 }
 
+extension Answer: Hashable {
+    var hashValue: Int {
+        return id.hashValue
+    }
+
+    static func == (lhs: Answer, rhs: Answer) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+
 struct AnswerAuthor: Codable {
 
     var code: String
@@ -118,4 +128,74 @@ struct AnswerAuthor: Codable {
         aCoder.encode(isLikedByMe, forKey: "isLikedByMe")
     }
 
+}
+
+extension AnswerAuthor: Hashable {
+    var hashValue: Int {
+        return code.hashValue
+    }
+
+    static func == (lhs: AnswerAuthor, rhs: AnswerAuthor) -> Bool {
+        return lhs.code == rhs.code
+    }
+}
+
+// MARK: - Persistable
+
+extension Answer: Persistable {
+    init(managedObject: AnswerObject) {
+        id = managedObject.id
+        questionText = managedObject.questionText
+        createDate = managedObject.createDate
+        text = managedObject.text
+        authorCode = managedObject.authorCode
+        authorName = managedObject.authorName
+        jobPosition = managedObject.jobPosition
+        videoStreamId = managedObject.videoStreamId
+        likesQuantity = managedObject.likesQuantity
+        viewsQuantity = managedObject.viewsQuantity
+        answersQuantity = managedObject.answersQuantity
+        isLikedByMe = managedObject.isLikedByMe
+    }
+
+    func managedObject() -> AnswerObject {
+        let object = AnswerObject()
+        object.id = id
+        object.questionText = questionText
+        object.createDate = createDate
+        object.text = text
+        object.authorCode = authorCode
+        object.authorName = authorName
+        object.jobPosition = jobPosition
+        object.videoStreamId = videoStreamId
+        object.likesQuantity = likesQuantity
+        object.viewsQuantity = viewsQuantity
+        object.answersQuantity = answersQuantity
+        object.isLikedByMe = isLikedByMe
+        return object
+    }
+}
+
+extension AnswerAuthor: Persistable {
+    init(managedObject: AnswerAuthorObject) {
+        code = managedObject.code
+        name = managedObject.name
+        jobPosition = managedObject.jobPosition
+        likesQuantity = managedObject.likesQuantity
+        answersQuantity = managedObject.answersQuantity
+        viewsQuantity = managedObject.viewsQuantity
+        isLikedByMe = managedObject.isLikedByMe
+    }
+
+    func managedObject() -> AnswerAuthorObject {
+        let object = AnswerAuthorObject()
+        object.code = code
+        object.name = name
+        object.jobPosition = jobPosition
+        object.likesQuantity = likesQuantity
+        object.answersQuantity = answersQuantity
+        object.viewsQuantity = viewsQuantity
+        object.isLikedByMe = isLikedByMe
+        return object
+    }
 }

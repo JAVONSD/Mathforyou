@@ -77,3 +77,37 @@ extension Question: Hashable {
         return lhs.id == rhs.id
     }
 }
+
+// MARK: - Persistable
+
+extension Question: Persistable {
+    init(managedObject: QuestionObject) {
+        id = managedObject.id
+        text = managedObject.text
+        createDate = managedObject.createDate
+        authorCode = managedObject.authorCode
+        authorName = managedObject.authorName
+        canAnswer = managedObject.canAnswer
+        answers = managedObject.answers.map { Answer(managedObject: $0) }
+        tags = managedObject.tags.map { Tag(managedObject: $0) }
+        likesQuantity = managedObject.likesQuantity
+        viewsQuantity = managedObject.viewsQuantity
+        isLikedByMe = managedObject.isLikedByMe
+    }
+
+    func managedObject() -> QuestionObject {
+        let object = QuestionObject()
+        object.id = id
+        object.text = text
+        object.createDate = createDate
+        object.authorCode = authorCode
+        object.authorName = authorName
+        object.canAnswer = canAnswer
+        object.answers.append(objectsIn: answers.map { $0.managedObject() })
+        object.tags.append(objectsIn: tags.map { $0.managedObject() })
+        object.likesQuantity = likesQuantity
+        object.viewsQuantity = viewsQuantity
+        object.isLikedByMe = isLikedByMe
+        return object
+    }
+}

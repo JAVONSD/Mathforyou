@@ -9,6 +9,7 @@
 import Foundation
 import IGListKit
 import Moya
+import RealmSwift
 import RxSwift
 
 class QuestionsViewModel: NSObject, ViewModel, ListDiffable {
@@ -30,6 +31,8 @@ class QuestionsViewModel: NSObject, ViewModel, ListDiffable {
     // MARK: - Methods
 
     public func getQuestions(completion: @escaping ((Error?) -> Void)) {
+        returnQuestionsFromCache(completion: completion)
+
         provider
             .rx
             .request(.topQuestions)
@@ -41,6 +44,8 @@ class QuestionsViewModel: NSObject, ViewModel, ListDiffable {
                         self.questions = questions.map { QuestionItemViewModel(question: $0) }
 
                         completion(nil)
+
+                        self.updateQuestionsCache(questions)
                     } else {
                         completion(nil)
                     }
@@ -59,6 +64,50 @@ class QuestionsViewModel: NSObject, ViewModel, ListDiffable {
     public func add(answer: Answer, to questions: [String]) {
         for question in self.questions where questions.contains(question.question.id) {
             question.question.answers.append(answer)
+        }
+    }
+
+    private func returnQuestionsFromCache(completion: @escaping ((Error?) -> Void)) {
+        DispatchQueue.global().async {
+            do {
+                let realm = try App.Realms.default()
+                let cachedQuestionObjects = realm.objects(QuestionObject.self)
+
+                let cachedQuestions = Array(cachedQuestionObjects).map { Question(managedObject: $0) }
+                let items = cachedQuestions.map { QuestionItemViewModel(question: $0) }
+
+                self.questions = items
+
+                DispatchQueue.main.async {
+                    completion(nil)
+                    self.questionsSubject.onNext(items)
+                }
+            } catch let error as NSError {
+                print("Failed to access the Realm database with error - \(error.localizedDescription)")
+            }
+        }
+    }
+
+    private func updateQuestionsCache(_ questionItems: [Question]) {
+        DispatchQueue.global().async {
+            do {
+                let realm = try App.Realms.default()
+                realm.beginWrite()
+                for question in questionItems {
+                    realm.add(question.managedObject(), update: true)
+                }
+                for questionObject in realm.objects(QuestionObject.self).reversed() {
+                    if !questionItems.contains(Question(managedObject: questionObject)),
+                        let questionObjectToDelete = realm.object(
+                            ofType: QuestionObject.self,
+                            forPrimaryKey: questionObject.id) {
+                        realm.delete(questionObjectToDelete)
+                    }
+                }
+                try realm.commitWrite()
+            } catch {
+                print("Failed to access the Realm database")
+            }
         }
     }
 

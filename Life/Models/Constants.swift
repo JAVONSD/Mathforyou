@@ -188,7 +188,7 @@ struct App {
         case production
 
         static var current: Environment {
-            return .production
+            return .development
         }
     }
 
@@ -248,6 +248,20 @@ struct App {
         static var popularSuggestions: Realm.Configuration {
             return Realm.Configuration(
                 fileURL: docs.appendingPathComponent("PopularSuggestions.realm"),
+                schemaVersion: schemaVersion,
+                migrationBlock: migrationBlock)
+        }
+
+        static var answers: Realm.Configuration {
+            return Realm.Configuration(
+                fileURL: docs.appendingPathComponent("Answers.realm"),
+                schemaVersion: schemaVersion,
+                migrationBlock: migrationBlock)
+        }
+
+        static var videoAnswers: Realm.Configuration {
+            return Realm.Configuration(
+                fileURL: docs.appendingPathComponent("VideoAnswers.realm"),
                 schemaVersion: schemaVersion,
                 migrationBlock: migrationBlock)
         }
@@ -323,6 +337,28 @@ struct App {
             } catch {
                 fatalError(
                     "Failed to initialize realm with configurations - \(RealmConfig.popularSuggestions)"
+                )
+            }
+        }
+
+        static func answers() throws -> Realm {
+            do {
+                let realm = try Realm(configuration: RealmConfig.answers)
+                return realm
+            } catch {
+                fatalError(
+                    "Failed to initialize realm with configurations - \(RealmConfig.answers)"
+                )
+            }
+        }
+
+        static func videoAnswers() throws -> Realm {
+            do {
+                let realm = try Realm(configuration: RealmConfig.videoAnswers)
+                return realm
+            } catch {
+                fatalError(
+                    "Failed to initialize realm with configurations - \(RealmConfig.videoAnswers)"
                 )
             }
         }
