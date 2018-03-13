@@ -1,18 +1,24 @@
 PODS:
   - Alamofire (4.6.0)
+  - Cache (4.1.2)
   - DateToolsSwift (2.0.3)
   - DBCameraButton (1.0.0)
-  - DynamicColor (4.0.2)
+  - Hue (3.0.1)
   - IGListKit (3.0.0):
     - IGListKit/Default (= 3.0.0)
   - IGListKit/Default (3.0.0):
     - IGListKit/Diffing
   - IGListKit/Diffing (3.0.0)
+  - Imaginary (3.0.3):
+    - Cache (~> 4.0)
   - IQKeyboardManagerSwift (5.0.7)
   - IQMediaPickerController (1.0.2):
     - DBCameraButton
     - SCSiriWaveformView
   - Kingfisher (4.6.1)
+  - Lightbox (2.1.2):
+    - Hue (~> 3.0)
+    - Imaginary (~> 3.0)
   - Material (2.13.6):
     - Material/Core (= 2.13.6)
   - Material/Core (2.13.6):
@@ -78,11 +84,12 @@ PODS:
 
 DEPENDENCIES:
   - DateToolsSwift (~> 2.0)
-  - DynamicColor (~> 4.0)
+  - Hue (~> 3.0)
   - IGListKit (= 3.0.0)
   - IQKeyboardManagerSwift (~> 5.0)
   - IQMediaPickerController (~> 1.0)
   - Kingfisher (~> 4.0)
+  - Lightbox (~> 2.0)
   - Material (~> 2.0)
   - Moya/RxSwift (~> 11.0)
   - NVActivityIndicatorView (~> 4.0)
@@ -100,13 +107,16 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  Cache: bd0233fc688b5e83a27bcd87807db7e6f23adcc5
   DateToolsSwift: bf69bf9056d9e53c5c03f06e51f219b9b8b02f9e
   DBCameraButton: 969d585df804df5b413936a7bf5d77c562ca2307
-  DynamicColor: c7adcfe871781a2b39877a5774e452ba51b79eb3
+  Hue: 93e852fa6211ab35922ad8c293f51c43d6c79eb2
   IGListKit: 9eab6856a15fa25ad72018ff9d9eb2178c240fff
+  Imaginary: 9b45836a5af881f452a86e0a1215772ae4712d00
   IQKeyboardManagerSwift: 30fb3a61de1af53a95e02b80fb54ed0a19d5ede5
   IQMediaPickerController: 2fefdc3c6ba8fbaa246a9f906b05a441e949df58
   Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
+  Lightbox: 2dc267df8be2285bc7724cb11cbbf4aaaf59dced
   Material: ef704dcc1bced32ab7c91ece2ba734da557e3f36
   Motion: 9f74d115d7f72bb5380a8e3cde2f8a1fc898ac36
   Moya: be29766339783963a70d1279d69c891ab3a1393c
@@ -130,6 +140,6 @@ SPEC CHECKSUMS:
   UITextField_AutoSuggestion: dca08de21c8de3f6054dda085087a04b5b326208
   Yoga: 81670877477311136b1b3f69a6307ce62e1c89cf
 
-PODFILE CHECKSUM: 8b24776443ee7f3bdc9f131d8cc682ed25227dfd
+PODFILE CHECKSUM: 6b3171e8133660c7a7a343eee7657cd7a6e52ca5
 
 COCOAPODS: 1.4.0

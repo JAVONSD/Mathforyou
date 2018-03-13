@@ -17,10 +17,14 @@ class NewsDetailSectionController: ASCollectionSectionController {
 
     var onUnathorizedError: (() -> Void)?
     private(set) var didTapClose: (() -> Void)
+    private(set) var didTapImage: ((URL, [URL]) -> Void)
 
-    init(viewModel: NewsItemViewModel, didTapClose: @escaping (() -> Void)) {
+    init(viewModel: NewsItemViewModel,
+         didTapClose: @escaping (() -> Void),
+         didTapImage: @escaping ((URL, [URL]) -> Void)) {
         self.viewModel = viewModel
         self.didTapClose = didTapClose
+        self.didTapImage = didTapImage
 
         super.init()
     }
@@ -126,11 +130,12 @@ extension NewsDetailSectionController: ASSectionController {
                     viewModel.needReloadOnWebViewLoad = false
                     viewModel.calculatedWebViewHeight = height
                 },
-                didLikeNews: {
-                    self.viewModel?.likeNews(completion: { _ in
+                didLikeNews: { [weak self] in
+                    self?.viewModel?.likeNews(completion: { _ in
                         print("Liked news ...")
                     })
-                }
+                },
+                didTapImage: self.didTapImage
             )
             return cell
         }

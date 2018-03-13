@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DynamicColor
+import Hue
 import Material
 import SnapKit
 
@@ -31,7 +31,7 @@ class NotificationCell: ImageTextTableViewCell {
         setDivider(leftInset: App.Layout.sideOffset)
         setDivider(rightInset: App.Layout.sideOffset)
 
-        detailImageView.backgroundColor = UIColor(hexString: "#d8d8d8")
+        detailImageView.backgroundColor = UIColor(hex: "#d8d8d8")
         detailImageView.contentMode = .scaleAspectFill
         detailImageView.layer.cornerRadius = App.Layout.cornerRadiusSmall
         detailImageView.layer.masksToBounds = true

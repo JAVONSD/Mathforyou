@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DynamicColor
 import Material
 import RxSwift
 import RxCocoa

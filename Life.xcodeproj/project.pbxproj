@@ -398,6 +398,8 @@
 		C7F7CB75203C75B4007B9D1E /* ImageNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F7CB74203C75B4007B9D1E /* ImageNode.swift */; };
 		C7FC5D8E20569CB200F5A04B /* QuestionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FC5D8D20569CB200F5A04B /* QuestionObject.swift */; };
 		C7FC5D9020569CDF00F5A04B /* AnswerObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FC5D8F20569CDF00F5A04B /* AnswerObject.swift */; };
+		C7FC5D922057A35E00F5A04B /* news.css in Resources */ = {isa = PBXBuildFile; fileRef = C7FC5D912057A35E00F5A04B /* news.css */; };
+		C7FC5D942057A71C00F5A04B /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7FC5D932057A71C00F5A04B /* WebView.swift */; };
 		C8980F5F06EB082954A1EC12 /* Pods_LifeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D46E59888BA0BE2BC7F655D2 /* Pods_LifeUITests.framework */; };
 		E662A33585BEC04BB9C4E8C4 /* Pods_LifeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C6832F87B3CF9A6B146EC0E0 /* Pods_LifeTests.framework */; };
 /* End PBXBuildFile section */
@@ -832,6 +834,8 @@
 		C7F7CB74203C75B4007B9D1E /* ImageNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNode.swift; sourceTree = "<group>"; };
 		C7FC5D8D20569CB200F5A04B /* QuestionObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionObject.swift; sourceTree = "<group>"; };
 		C7FC5D8F20569CDF00F5A04B /* AnswerObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerObject.swift; sourceTree = "<group>"; };
+		C7FC5D912057A35E00F5A04B /* news.css */ = {isa = PBXFileReference; lastKnownFileType = text.css; path = news.css; sourceTree = "<group>"; };
+		C7FC5D932057A71C00F5A04B /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 		D176AD02439750FEBCD45041 /* Pods-LifeUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeUITests/Pods-LifeUITests.release.xcconfig"; sourceTree = "<group>"; };
 		D46E59888BA0BE2BC7F655D2 /* Pods_LifeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LifeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -1130,6 +1134,7 @@
 			children = (
 				C7D641BD20341125001DCA98 /* StubData */,
 				C76EFBAA203008B200FA2BB9 /* Fonts */,
+				C7FC5D912057A35E00F5A04B /* news.css */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -1282,6 +1287,7 @@
 				C7F7CB5E203C2E2B007B9D1E /* RoundedNode.swift */,
 				C7F7CB74203C75B4007B9D1E /* ImageNode.swift */,
 				C731033620503D1000E21672 /* CheckboxCell.swift */,
+				C7FC5D932057A71C00F5A04B /* WebView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2167,6 +2173,7 @@
 				C74FCE8920466ED800E9C6BA /* top_question_answers.json in Resources */,
 				C76EFBC1203008C100FA2BB9 /* Roboto-Regular.ttf in Resources */,
 				C76EFB55202E91F000FA2BB9 /* Assets.xcassets in Resources */,
+				C7FC5D922057A35E00F5A04B /* news.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2322,13 +2329,16 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Life/Pods-Life-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${BUILT_PRODUCTS_DIR}/DBCameraButton/DBCameraButton.framework",
 				"${BUILT_PRODUCTS_DIR}/DateToolsSwift/DateToolsSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/DynamicColor/DynamicColor.framework",
+				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/IQMediaPickerController/IQMediaPickerController.framework",
+				"${BUILT_PRODUCTS_DIR}/Imaginary/Imaginary.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/Lightbox/Lightbox.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
@@ -2354,13 +2364,16 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DBCameraButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateToolsSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicColor.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQMediaPickerController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Imaginary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lightbox.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
@@ -2428,6 +2441,7 @@
 				C79252052031B3EF00CDFBBA /* ResultsView.swift in Sources */,
 				C7D641AE2034089F001DCA98 /* QuestionnairesService.swift in Sources */,
 				C73EB2B620331EB900429921 /* BenefitsViewModel.swift in Sources */,
+				C7FC5D942057A71C00F5A04B /* WebView.swift in Sources */,
 				C79252072031B43700CDFBBA /* ImageTextTableViewCell.swift in Sources */,
 				C7BB5C53203ED34C0056BBF9 /* NewsCommentCell.swift in Sources */,
 				C76EFBED20302F8C00FA2BB9 /* MaskedTextFieldDelegate.swift in Sources */,

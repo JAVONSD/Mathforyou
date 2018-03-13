@@ -8,7 +8,7 @@
 
 import UIKit
 import AsyncDisplayKit
-import DynamicColor
+import Hue
 import Kingfisher
 
 class NewsCell: ASCellNode {
@@ -39,7 +39,7 @@ class NewsCell: ASCellNode {
 
         authorAvatarNode = ASNetworkImageNode()
         authorAvatarNode.cornerRadius = 8
-        authorAvatarNode.backgroundColor = UIColor(hexString: "#d8d8d8")
+        authorAvatarNode.backgroundColor = UIColor(hex: "#d8d8d8")
         backgroundNode.addSubnode(authorAvatarNode)
 
         createDateNode = ASTextNode()

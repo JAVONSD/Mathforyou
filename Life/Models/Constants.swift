@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DynamicColor
+import Hue
 import RealmSwift
 
 struct App {
@@ -16,34 +16,34 @@ struct App {
 
     struct Color {
 
-        static let coolGrey24 = UIColor(hexString: "#95989a").withAlphaComponent(0.24)
-        static let azure = UIColor(hexString: "#108aeb")
-        static let skyBlue = UIColor(hexString: "#4fc3f7")
-        static let black24 = UIColor(hexString: "#333333").withAlphaComponent(0.24)
-        static let midGreen = UIColor(hexString: "#4caf50")
-        static let darkSlateBlue = UIColor(hexString: "#152957")
-        static let silver = UIColor(hexString: "#d1d1d6")
-        static let mango = UIColor(hexString: "#ffa726")
-        static let white = UIColor(hexString: "#fefefe")
-        static let whiteSmoke = UIColor(hexString: "#f5f5f5")
-        static let blackDisable = UIColor(hexString: "#333333").withAlphaComponent(0.4)
-        static let grapefruit = UIColor(hexString: "#ff5252")
-        static let whiteTwo = UIColor(hexString: "#f7f7f7")
-        static let paleGrey = UIColor(hexString: "#efeff4")
-        static let black12 = UIColor(hexString: "#000000").withAlphaComponent(0.12)
-        static let paleGreyTwo = UIColor(hexString: "#e5e8ef")
-        static let steel = UIColor(hexString: "#8e8e93")
-        static let shadows = UIColor(hexString: "#000000").withAlphaComponent(0.24)
-        static let slateGrey = UIColor(hexString: "#6d6d72")
-        static let greyishBrown = UIColor(hexString: "#444444")
-        static let background = UIColor(hexString: "#fafafa")
-        static let coolGrey = UIColor(hexString: "#bcbbc1")
-        static let black = UIColor(hexString: "#333333")
-        static let sky = UIColor(hexString: "#87cefa")
+        static let coolGrey24 = UIColor(hex: "#95989a").withAlphaComponent(0.24)
+        static let azure = UIColor(hex: "#108aeb")
+        static let skyBlue = UIColor(hex: "#4fc3f7")
+        static let black24 = UIColor(hex: "#333333").withAlphaComponent(0.24)
+        static let midGreen = UIColor(hex: "#4caf50")
+        static let darkSlateBlue = UIColor(hex: "#152957")
+        static let silver = UIColor(hex: "#d1d1d6")
+        static let mango = UIColor(hex: "#ffa726")
+        static let white = UIColor(hex: "#fefefe")
+        static let whiteSmoke = UIColor(hex: "#f5f5f5")
+        static let blackDisable = UIColor(hex: "#333333").withAlphaComponent(0.4)
+        static let grapefruit = UIColor(hex: "#ff5252")
+        static let whiteTwo = UIColor(hex: "#f7f7f7")
+        static let paleGrey = UIColor(hex: "#efeff4")
+        static let black12 = UIColor(hex: "#000000").withAlphaComponent(0.12)
+        static let paleGreyTwo = UIColor(hex: "#e5e8ef")
+        static let steel = UIColor(hex: "#8e8e93")
+        static let shadows = UIColor(hex: "#000000").withAlphaComponent(0.24)
+        static let slateGrey = UIColor(hex: "#6d6d72")
+        static let greyishBrown = UIColor(hex: "#444444")
+        static let background = UIColor(hex: "#fafafa")
+        static let coolGrey = UIColor(hex: "#bcbbc1")
+        static let black = UIColor(hex: "#333333")
+        static let sky = UIColor(hex: "#87cefa")
 
         static let blueGradient = [
-            UIColor(hexString: "#1a44a9"),
-            UIColor(hexString: "#175abe"),
+            UIColor(hex: "#1a44a9"),
+            UIColor(hex: "#175abe"),
             App.Color.azure
         ]
 
@@ -188,7 +188,7 @@ struct App {
         case production
 
         static var current: Environment {
-            return .development
+            return .production
         }
     }
 

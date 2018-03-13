@@ -63,16 +63,15 @@ public extension String {
         return date.timeAgoSinceNow
     }
 
-    public func html(font: UIFont, textColor: UIColor) -> String {
-        print("HTML font family name - \(font.familyName)")
+    public func html() -> String {
         return String(format:
             """
             <html>
             <head>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+                <link rel="stylesheet" type="text/css" href="news.css">
             </head>
-            <body style="font-family: '\(font.familyName)', '-apple-system', 'HelveticaNeue';
-            font-size: \(font.pointSize)\">
+            <body>
                 %@
             </body>
             </html>

@@ -8,7 +8,6 @@
 
 import UIKit
 import DateToolsSwift
-import DynamicColor
 import Material
 import SnapKit
 

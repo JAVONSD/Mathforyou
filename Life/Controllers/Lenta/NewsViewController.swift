@@ -9,6 +9,7 @@
 import UIKit
 import AsyncDisplayKit
 import IGListKit
+import Lightbox
 import Material
 import SnapKit
 
@@ -80,6 +81,18 @@ class NewsViewController: ASViewController<ASCollectionNode>, Stepper {
         }
     }
 
+    private func open(image: URL, allImages: [URL]) {
+        guard !allImages.isEmpty else { return }
+
+        let images = allImages.map { LightboxImage(imageURL: $0) }
+        let startIndex = allImages.index(of: image) ?? 0
+
+        let controller = LightboxController(images: images, startIndex: startIndex)
+        controller.dynamicBackground = true
+
+        present(controller, animated: true, completion: nil)
+    }
+
 }
 
 extension NewsViewController: ListAdapterDataSource {
@@ -90,8 +103,11 @@ extension NewsViewController: ListAdapterDataSource {
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         let section = NewsDetailSectionController(
             viewModel: viewModel,
-            didTapClose: {
-                self.step.accept(AppStep.newsDone)
+            didTapClose: { [weak self] in
+                self?.step.accept(AppStep.newsDone)
+            },
+            didTapImage: { [weak self] (tappedImageURL, imageURLs) in
+                self?.open(image: tappedImageURL, allImages: imageURLs)
             }
         )
         section.onUnathorizedError = { [weak self] in

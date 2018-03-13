@@ -5,13 +5,11 @@ inhibit_all_warnings!
 target 'Life' do
   use_frameworks!
 
-  # Color management
-  pod 'DynamicColor', '~> 4.0'
-
   # Date tools
   pod 'DateToolsSwift', '~> 2.0'
 
-  # File Browser
+  # Color management
+  pod 'Hue', '~> 3.0'
 
   # Collection Views
   pod 'IGListKit', '3.0.0'
@@ -24,6 +22,9 @@ target 'Life' do
 
   # Image Caching
   pod 'Kingfisher', '~> 4.0'
+
+  # Image Gallery
+  pod 'Lightbox', '~> 2.0'
 
   # Material design
   pod 'Material', '~> 2.0'

@@ -17,10 +17,14 @@ class SuggestionSectionController: ASCollectionSectionController {
 
     var onUnathorizedError: (() -> Void)?
     private(set) var didTapClose: (() -> Void)
+    private(set) var didTapImage: ((URL, [URL]) -> Void)
 
-    init(viewModel: SuggestionItemViewModel, didTapClose: @escaping (() -> Void)) {
+    init(viewModel: SuggestionItemViewModel,
+         didTapClose: @escaping (() -> Void),
+         didTapImage:  @escaping ((URL, [URL]) -> Void)) {
         self.viewModel = viewModel
         self.didTapClose = didTapClose
+        self.didTapImage = didTapImage
 
         super.init()
     }
@@ -130,7 +134,8 @@ extension SuggestionSectionController: ASSectionController {
                     viewModel.likeSuggestion(vote: vote, completion: { _ in
                         print("User liked suggestion")
                     })
-                }
+                },
+                didTapImage: self.didTapImage
             )
             return cell
         }

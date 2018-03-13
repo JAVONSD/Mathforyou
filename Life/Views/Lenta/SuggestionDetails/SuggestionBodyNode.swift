@@ -8,11 +8,13 @@
 
 import UIKit
 import AsyncDisplayKit
-import DynamicColor
+import Hue
 import NVActivityIndicatorView
 import WebKit
 
 class SuggestionBodyNode: ASDisplayNode {
+
+    private let imageScheme = "openimage://"
 
     private(set) var authorImageNode: ASNetworkImageNode!
     private(set) var authorNameNode: ASTextNode!
@@ -20,7 +22,7 @@ class SuggestionBodyNode: ASDisplayNode {
 
     private(set) var separator1Node: ASDisplayNode!
 
-    private(set) var webView: WKWebView!
+    private(set) var webView: WebView!
     private(set) var webViewNode: ASDisplayNode!
 
     private(set) lazy var spinner = NVActivityIndicatorView(
@@ -49,6 +51,7 @@ class SuggestionBodyNode: ASDisplayNode {
     private(set) var didLoadWebView: ((CGFloat) -> Void)
 
     var didLikeSuggestion: ((UserVote) -> Void)?
+    var didTapImage: ((URL, [URL]) -> Void)?
 
     private(set) var webViewHeight: CGFloat = 0
 
@@ -64,7 +67,7 @@ class SuggestionBodyNode: ASDisplayNode {
         super.init()
 
         authorImageNode = ASNetworkImageNode()
-        authorImageNode.backgroundColor = UIColor(hexString: "#d8d8d8")
+        authorImageNode.backgroundColor = UIColor(hex: "#d8d8d8")
         authorImageNode.cornerRadius = App.Layout.cornerRadiusSmall
         addSubnode(authorImageNode)
 
@@ -100,16 +103,29 @@ class SuggestionBodyNode: ASDisplayNode {
 
     private func addWebNode() {
         webViewNode = ASDisplayNode(viewBlock: { () -> UIView in
-            self.webView = WKWebView(frame: .init(
-                x: 0,
-                y: 0,
-                width: UIScreen.main.bounds.size.width - 2 * App.Layout.sideOffset,
-                height: 0)
+            let source = self.changeImagesScheme()
+            let script = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: true)
+
+            let controller = WKUserContentController()
+            controller.addUserScript(script)
+
+            let configuration = WKWebViewConfiguration()
+            configuration.userContentController = controller
+
+            self.webView = WebView(
+                frame: .init(
+                    x: 0,
+                    y: 0,
+                    width: UIScreen.main.bounds.size.width - 2 * App.Layout.sideOffset,
+                    height: 0
+                ),
+                configuration: configuration
             )
             self.webView.navigationDelegate = self
+            self.webView.scrollView.isScrollEnabled = false
             self.webView.loadHTMLString(
-                self.suggestion.text.html(font: App.Font.body, textColor: .black),
-                baseURL: nil
+                self.suggestion.text.html(),
+                baseURL: URL(fileURLWithPath: Bundle.main.path(forResource: "news", ofType: "css")!)
             )
             return self.webView
         })
@@ -453,6 +469,63 @@ extension SuggestionBodyNode: WKNavigationDelegate {
                 if height > 24 {
                     self.didLoadWebView(height)
                 }
+        })
+    }
+
+    func webView(_ webView: WKWebView,
+                 decidePolicyFor navigationAction: WKNavigationAction,
+                 decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        if navigationAction.navigationType == .linkActivated {
+            if let url = navigationAction.request.url,
+                url.absoluteString.hasPrefix(imageScheme) {
+                var urlPath = url.absoluteString
+                urlPath.removeFirst(imageScheme.count + "https//".count)
+                urlPath = "https://" + urlPath
+                if let didTapImage = didTapImage,
+                    let imageUrl = URL(string: urlPath) {
+                    getAllImageURLs(in: webView, completion: { (allImages) in
+                        didTapImage(imageUrl, allImages)
+                    })
+                }
+            }
+            decisionHandler(.cancel)
+            return
+        }
+        decisionHandler(.allow)
+    }
+
+    private func changeImagesScheme() -> String {
+        let jsString =
+        """
+        var imgs = document.getElementsByTagName("img");
+        for (var i = 0; i < imgs.length; i++) {
+        var newImgs = '<a href="\(imageScheme)' + imgs[i].src + '">' + imgs[i].outerHTML + '</a>';
+        imgs[i].outerHTML = newImgs;
+        }
+        """
+        return jsString
+    }
+
+    private func getAllImageURLs(in webView: WKWebView, completion: @escaping (([URL]) -> Void)) {
+        let jsString =
+        """
+        var imgs = document.getElementsByTagName("img");
+        var imgURLs = [];
+        for (var i = 0; i < imgs.length; i++) {
+            imgURLs.push(imgs[i].src);
+        }
+        imgURLs
+        """
+        webView.evaluateJavaScript(jsString, completionHandler: { (imageURLs, _) in
+            var urls = [URL]()
+            if let imageURLs = imageURLs as? [String] {
+                for imageURL in imageURLs {
+                    if let url = URL(string: imageURL) {
+                        urls.append(url)
+                    }
+                }
+            }
+            completion(urls)
         })
     }
 }

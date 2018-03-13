@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import DynamicColor
+import Hue
 import SnapKit
 
 class ImageTextView: UIView {
@@ -121,7 +121,7 @@ class ImageTextView: UIView {
 
     private func setupImageView() {
         imageView = UIImageView()
-        imageView?.backgroundColor = UIColor(hexString: "#d8d8d8")
+        imageView?.backgroundColor = UIColor(hex: "#d8d8d8")
         imageView?.contentMode = .scaleAspectFill
         imageView?.layer.cornerRadius = App.Layout.cornerRadius
         imageView?.layer.masksToBounds = true

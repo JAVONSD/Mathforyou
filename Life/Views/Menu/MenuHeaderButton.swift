@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Hue
 import Material
 import SnapKit
 
@@ -79,7 +80,7 @@ class MenuHeaderButton: FlatButton {
         employeeImageView.backgroundColor = App.Color.paleGreyTwo
         employeeImageView.layer.cornerRadius = App.Layout.cornerRadiusSmall
         employeeImageView.layer.masksToBounds = true
-        employeeImageView.backgroundColor = UIColor(hexString: "#d8d8d8")
+        employeeImageView.backgroundColor = UIColor(hex: "#d8d8d8")
         employeeImageView.contentMode = .scaleAspectFill
         addSubview(employeeImageView)
         employeeImageView.snp.makeConstraints { (make) in

@@ -8,7 +8,7 @@
 
 import UIKit
 import AsyncDisplayKit
-import DynamicColor
+import Hue
 import Kingfisher
 import AVFoundation
 
@@ -39,7 +39,7 @@ class AnswerCell: ASCellNode {
         addSubnode(backgroundNode)
 
         authorImageNode = ASNetworkImageNode()
-        authorImageNode.backgroundColor = UIColor(hexString: "#d8d8d8")
+        authorImageNode.backgroundColor = UIColor(hex: "#d8d8d8")
         authorImageNode.contentMode = .scaleAspectFill
         authorImageNode.cornerRadius = 6
         backgroundNode.addSubnode(authorImageNode)
