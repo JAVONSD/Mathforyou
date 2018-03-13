@@ -32,12 +32,16 @@ class BIBoardHeaderSectionController: ASCollectionSectionController {
         viewModel.loadingTop3.bind(to: loading).disposed(by: disposeBag)
         viewModel.top3NewsObservable.subscribe(onNext: { [weak self] _ in
             guard let `self` = self else { return }
-            self.set(items: [self.sectionTimestamp], animated: false, completion: nil)
+            self.sectionTimestamp.update()
+            self.collectionContext?.performBatch(animated: true, updates: { (context) in
+                context.reload(self)
+            }, completion: nil)
         }).disposed(by: disposeBag)
     }
 
     override func didUpdate(to object: Any) {
         viewModel = object as? NewsViewModel
+        self.sectionTimestamp.update()
         set(items: [sectionTimestamp], animated: false, completion: nil)
     }
 
@@ -100,7 +104,6 @@ extension BIBoardHeaderSectionController: ASSectionController {
 
 extension BIBoardHeaderSectionController: RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?) {
-        sectionTimestamp.update()
         viewModel?.getTop3News { [weak self] error in
             if let moyaError = error as? MoyaError,
                 moyaError.response?.statusCode == 401,

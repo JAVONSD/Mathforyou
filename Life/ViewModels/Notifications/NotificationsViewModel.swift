@@ -103,16 +103,9 @@ class NotificationsViewModel: NSObject, ViewModel {
             do {
                 let realm = try App.Realms.default()
                 realm.beginWrite()
+                realm.delete(realm.objects(NotificationObject.self))
                 for notification in notificationItems {
                     realm.add(notification.managedObject(), update: true)
-                }
-                for notificationObject in realm.objects(NotificationObject.self).reversed() {
-                    if !notificationItems.contains(Notification(managedObject: notificationObject)),
-                        let notificationObjectToDelete = realm.object(
-                            ofType: NotificationObject.self,
-                            forPrimaryKey: notificationObject.id) {
-                        realm.delete(notificationObjectToDelete)
-                    }
                 }
                 try realm.commitWrite()
             } catch {

@@ -127,16 +127,9 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
                     ? try App.Realms.popularQuestionnaires()
                     : try App.Realms.default()
                 realm.beginWrite()
+                realm.delete(realm.objects(QuestionnaireObject.self))
                 for questionnaire in questionnaireItems {
                     realm.add(questionnaire.managedObject(), update: true)
-                }
-                for questionnaireObject in realm.objects(QuestionnaireObject.self).reversed() {
-                    if !questionnaireItems.contains(Questionnaire(managedObject: questionnaireObject)),
-                        let questionnaireObjectToDelete = realm.object(
-                            ofType: QuestionnaireObject.self,
-                            forPrimaryKey: questionnaireObject.id) {
-                        realm.delete(questionnaireObjectToDelete)
-                    }
                 }
                 try realm.commitWrite()
             } catch {

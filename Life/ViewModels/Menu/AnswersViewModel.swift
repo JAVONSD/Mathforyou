@@ -125,16 +125,9 @@ class AnswersViewModel: NSObject, ViewModel, ListDiffable {
                     ? try App.Realms.videoAnswers()
                     : try App.Realms.answers()
                 realm.beginWrite()
+                realm.delete(realm.objects(AnswerObject.self))
                 for answer in answerItems {
                     realm.add(answer.managedObject(), update: true)
-                }
-                for answerObject in realm.objects(AnswerObject.self).reversed() {
-                    if !answerItems.contains(Answer(managedObject: answerObject)),
-                        let questionObjectToDelete = realm.object(
-                            ofType: AnswerObject.self,
-                            forPrimaryKey: answerObject.id) {
-                        realm.delete(questionObjectToDelete)
-                    }
                 }
                 try realm.commitWrite()
             } catch {

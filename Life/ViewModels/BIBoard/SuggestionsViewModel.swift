@@ -157,16 +157,9 @@ class SuggestionsViewModel: NSObject, ListDiffable {
                     ? try App.Realms.popularSuggestions()
                     : try App.Realms.default()
                 realm.beginWrite()
+                realm.delete(realm.objects(SuggestionObject.self))
                 for suggestion in suggestionItems {
                     realm.add(suggestion.managedObject(), update: true)
-                }
-                for suggestionObject in realm.objects(SuggestionObject.self).reversed() {
-                    if !suggestionItems.contains(Suggestion(managedObject: suggestionObject)),
-                        let suggestionObjectToDelete = realm.object(
-                            ofType: SuggestionObject.self,
-                            forPrimaryKey: suggestionObject.id) {
-                        realm.delete(suggestionObjectToDelete)
-                    }
                 }
                 try realm.commitWrite()
             } catch {

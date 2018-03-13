@@ -154,16 +154,9 @@ class NewsViewModel: NSObject, ListDiffable {
                     ? try App.Realms.popularNews()
                     : try App.Realms.default()
                 realm.beginWrite()
+                realm.delete(realm.objects(NewsObject.self))
                 for news in newsItems {
                     realm.add(news.managedObject(), update: true)
-                }
-                for newsObject in realm.objects(NewsObject.self).reversed() {
-                    if !newsItems.contains(News(managedObject: newsObject)),
-                        let newsObjectToDelete = realm.object(
-                            ofType: NewsObject.self,
-                            forPrimaryKey: newsObject.id) {
-                        realm.delete(newsObjectToDelete)
-                    }
                 }
                 try realm.commitWrite()
             } catch {

@@ -153,16 +153,9 @@ class TasksViewModel: NSObject, ListDiffable {
                     ? try App.Realms.inboxTasksAndRequests()
                     : try App.Realms.outboxTasksAndRequests()
                 realm.beginWrite()
+                realm.delete(realm.objects(TaskObject.self))
                 for task in taskItems {
                     realm.add(task.managedObject(), update: true)
-                }
-                for taskObject in realm.objects(TaskObject.self).reversed() {
-                    if !taskItems.contains(Task(managedObject: taskObject)),
-                        let taskObjectToDelete = realm.object(
-                            ofType: TaskObject.self,
-                            forPrimaryKey: taskObject.id) {
-                        realm.delete(taskObjectToDelete)
-                    }
                 }
                 try realm.commitWrite()
             } catch {

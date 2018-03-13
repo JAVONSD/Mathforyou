@@ -95,16 +95,9 @@ class QuestionsViewModel: NSObject, ViewModel, ListDiffable {
             do {
                 let realm = try App.Realms.default()
                 realm.beginWrite()
+                realm.delete(realm.objects(QuestionObject.self))
                 for question in questionItems {
                     realm.add(question.managedObject(), update: true)
-                }
-                for questionObject in realm.objects(QuestionObject.self).reversed() {
-                    if !questionItems.contains(Question(managedObject: questionObject)),
-                        let questionObjectToDelete = realm.object(
-                            ofType: QuestionObject.self,
-                            forPrimaryKey: questionObject.id) {
-                        realm.delete(questionObjectToDelete)
-                    }
                 }
                 try realm.commitWrite()
             } catch {
