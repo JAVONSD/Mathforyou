@@ -136,7 +136,7 @@ extension EmployeesView: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 32
+        return 0.001
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -144,9 +144,6 @@ extension EmployeesView: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if let viewForHeaderDelegate = configureViewForHeader {
-            return viewForHeaderDelegate(tableView, section)
-        }
         return nil
     }
 
