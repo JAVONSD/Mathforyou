@@ -1,5 +1,5 @@
 //
-//  SBSectionController.swift
+//  HRSectionController.swift
 //  Life
 //
 //  Created by Shyngys Kassymov on 20.02.2018.
@@ -11,19 +11,19 @@ import AsyncDisplayKit
 import IGListKit
 import Moya
 
-class SBSectionController: ASCollectionSectionController {
-    private(set) weak var viewModel: SBViewModel?
+class HRSectionController: ASCollectionSectionController {
+    private(set) weak var viewModel: HRViewModel?
 
     var onUnathorizedError: (() -> Void)?
 
-    init(viewModel: SBViewModel) {
+    init(viewModel: HRViewModel) {
         self.viewModel = viewModel
 
         super.init()
     }
 
     override func didUpdate(to object: Any) {
-        self.viewModel = object as? SBViewModel
+        self.viewModel = object as? HRViewModel
 
         guard let viewModel = self.viewModel else {
             return
@@ -67,7 +67,7 @@ class SBSectionController: ASCollectionSectionController {
     }
 }
 
-extension SBSectionController: ASSectionController {
+extension HRSectionController: ASSectionController {
     func nodeBlockForItem(at index: Int) -> ASCellNodeBlock {
         guard index < items.count,
             let viewModel = self.viewModel else {
@@ -76,7 +76,7 @@ extension SBSectionController: ASSectionController {
                 }
         }
 
-        if (items[index] as? SBViewModel) != nil {
+        if (items[index] as? HRViewModel) != nil {
             return {
                 let separatorInset = index == 1
                     ? ItemCell.SeparatorInset(
@@ -117,7 +117,7 @@ extension SBSectionController: ASSectionController {
             : [UIRectCorner.topLeft, UIRectCorner.topRight]
         let config = DashboardCell.Config(
             image: "",
-            title: NSLocalizedString("s_and_b", comment: ""),
+            title: NSLocalizedString("hr", comment: ""),
             itemColor: App.Color.azure,
             item1Count: 0,
             item1Title: "-",
@@ -129,7 +129,7 @@ extension SBSectionController: ASSectionController {
             corners: corners,
             minimized: viewModel.minimized,
             didTapAddButton: {
-                print("Did tap button in suggestion section  ...")
+                print("Did tap button in HR section  ...")
         })
 
         let cell = DashboardCell(config: config)
@@ -168,7 +168,7 @@ extension SBSectionController: ASSectionController {
 
 }
 
-extension SBSectionController: RefreshingSectionControllerType {
+extension HRSectionController: RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?) {
         if let completion = completion {
             completion()

@@ -1,5 +1,5 @@
 //
-//  SBViewModel.swift
+//  HRViewModel.swift
 //  Life
 //
 //  Created by Shyngys Kassymov on 20.02.2018.
@@ -9,7 +9,7 @@
 import Foundation
 import IGListKit
 
-class SBViewModel: NSObject, ListDiffable {
+class HRViewModel: NSObject, ListDiffable {
     var items = [ListDiffable]()
     var minimized = true
 
@@ -18,7 +18,7 @@ class SBViewModel: NSObject, ListDiffable {
     }
 
     func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
-        if let object = object as? SBViewModel {
+        if let object = object as? HRViewModel {
             return self == object
         }
         return false

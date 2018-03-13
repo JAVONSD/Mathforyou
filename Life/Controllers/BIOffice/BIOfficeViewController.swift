@@ -97,7 +97,7 @@ extension BIOfficeViewController: ListAdapterDataSource {
             viewModel.eventsViewModel,
             viewModel.tasksAndRequestsViewModel,
             viewModel.kpiViewModel,
-            viewModel.sbvViewModel,
+            viewModel.hrViewModel,
             viewModel.idpViewModel
         ]
     }
@@ -175,8 +175,8 @@ extension BIOfficeViewController: ListAdapterDataSource {
         return section
     }
 
-    private func sbSection(_ viewModel: SBViewModel) -> ListSectionController {
-        let section = SBSectionController(viewModel: viewModel)
+    private func hrSection(_ viewModel: HRViewModel) -> ListSectionController {
+        let section = HRSectionController(viewModel: viewModel)
         section.onUnathorizedError = { [weak self] in
             guard let `self` = self else { return }
             self.onUnauthorized()
@@ -201,8 +201,8 @@ extension BIOfficeViewController: ListAdapterDataSource {
             return tasksAndRequestsSection(viewModel)
         case let viewModel as KPIViewModel:
             return kpiSection(viewModel)
-        case let viewModel as SBViewModel:
-            return sbSection(viewModel)
+        case let viewModel as HRViewModel:
+            return hrSection(viewModel)
         case let viewModel as IDPViewModel:
             return idpSection(viewModel)
         default:

@@ -103,15 +103,6 @@ class BIBoardViewController: ASViewController<ASCollectionNode>, Stepper {
             }
         })
 
-        let stuffCtrl =  listAdapter.sectionController(
-            for: viewModel.stuffViewModel
-            ) as? RefreshingSectionControllerType
-        stuffCtrl?.refreshContent(with: {
-            if self.refreshCtrl.isRefreshing {
-                self.refreshCtrl.endRefreshing()
-            }
-        })
-
         let topQuestionsCtrl =  listAdapter.sectionController(
             for: viewModel.topQuestionsViewModel
             ) as? RefreshingSectionControllerType
@@ -137,7 +128,6 @@ extension BIBoardViewController: ListAdapterDataSource {
             viewModel.newsViewModel,
             viewModel.suggestionsViewModel,
             viewModel.questionnairesViewModel,
-            viewModel.stuffViewModel,
             viewModel.topQuestionsViewModel
         ] as [ListDiffable]
 
