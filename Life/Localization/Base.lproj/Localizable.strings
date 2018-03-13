@@ -193,6 +193,7 @@
 "capture_photo" = "Capture photo";
 "capture_video" = "Capture video";
 "pick_from_gallery" = "Pick from gallery";
+"pick_from_documents" = "Pick from documents";
 "cancel" = "Cancel";
 
 

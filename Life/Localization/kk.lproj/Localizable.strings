@@ -193,6 +193,7 @@
 "capture_photo" = "Сделать снимок";
 "capture_video" = "Записать видео";
 "pick_from_gallery" = "Выбрать из галереи";
+"pick_from_documents" = "Выбрать из документов";
 "cancel" = "Отмена";
 
 
