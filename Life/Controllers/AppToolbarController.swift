@@ -75,9 +75,9 @@ class AppToolbarController: NavigationController, Stepper {
             navBar.contentEdgeInsetsPreset = EdgeInsetsPreset.none
             navBar.contentEdgeInsets = .init(
                 top: 4,
-                left: 0,
+                left: 7,
                 bottom: 4,
-                right: 6
+                right: 0
             )
         }
 

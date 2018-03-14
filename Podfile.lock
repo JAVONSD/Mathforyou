@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (4.6.0)
+  - Alamofire (4.7.0)
   - Cache (4.1.2)
   - DateToolsSwift (2.0.3)
   - DBCameraButton (1.0.0)
@@ -11,25 +11,25 @@ PODS:
   - IGListKit/Diffing (3.0.0)
   - Imaginary (3.0.3):
     - Cache (~> 4.0)
-  - IQKeyboardManagerSwift (5.0.7)
+  - IQKeyboardManagerSwift (5.0.8)
   - IQMediaPickerController (1.0.2):
     - DBCameraButton
     - SCSiriWaveformView
-  - Kingfisher (4.6.1)
+  - Kingfisher (4.6.3)
   - Lightbox (2.1.2):
     - Hue (~> 3.0)
     - Imaginary (~> 3.0)
-  - Material (2.13.6):
-    - Material/Core (= 2.13.6)
-  - Material/Core (2.13.6):
+  - Material (2.14.0):
+    - Material/Core (= 2.14.0)
+  - Material/Core (2.14.0):
     - Motion (~> 1.3.0)
   - Motion (1.3.5):
     - Motion/Core (= 1.3.5)
   - Motion/Core (1.3.5)
-  - Moya/Core (11.0.0):
+  - Moya/Core (11.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 3.0)
-  - Moya/RxSwift (11.0.0):
+  - Moya/RxSwift (11.0.1):
     - Moya/Core
     - RxSwift (~> 4.0)
   - NVActivityIndicatorView (4.1.1):
@@ -42,7 +42,7 @@ PODS:
     - PINCache/Core
   - PINCache/Core (3.0.1-beta.6):
     - PINOperation (~> 1.1.0)
-  - PINOperation (1.1)
+  - PINOperation (1.1.1)
   - PINRemoteImage/Core (3.0.0-beta.13):
     - PINOperation
   - PINRemoteImage/iOS (3.0.0-beta.13):
@@ -65,7 +65,7 @@ PODS:
   - SCSiriWaveformView (1.1.1)
   - SkeletonView (1.1.1)
   - SnapKit (4.0.0)
-  - SwiftLint (0.24.2)
+  - SwiftLint (0.25.0)
   - Texture/Core (2.6)
   - Texture/IGListKit (2.6):
     - IGListKit (= 3.0.0)
@@ -78,7 +78,7 @@ PODS:
     - Texture/Core
     - Yoga (= 1.6.0)
   - Toast (4.0.0)
-  - TTGTagCollectionView (1.8.2)
+  - TTGTagCollectionView (1.9.0)
   - UITextField_AutoSuggestion (0.3.0)
   - Yoga (1.6.0)
 
@@ -106,23 +106,23 @@ DEPENDENCIES:
   - UITextField_AutoSuggestion (~> 0.0)
 
 SPEC CHECKSUMS:
-  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
   Cache: bd0233fc688b5e83a27bcd87807db7e6f23adcc5
   DateToolsSwift: bf69bf9056d9e53c5c03f06e51f219b9b8b02f9e
   DBCameraButton: 969d585df804df5b413936a7bf5d77c562ca2307
   Hue: 93e852fa6211ab35922ad8c293f51c43d6c79eb2
   IGListKit: 9eab6856a15fa25ad72018ff9d9eb2178c240fff
   Imaginary: 9b45836a5af881f452a86e0a1215772ae4712d00
-  IQKeyboardManagerSwift: 30fb3a61de1af53a95e02b80fb54ed0a19d5ede5
+  IQKeyboardManagerSwift: 2e7dc7f98c111458c1ea2b373f893e8cf95e2b97
   IQMediaPickerController: 2fefdc3c6ba8fbaa246a9f906b05a441e949df58
-  Kingfisher: 1f9157d9c02b380cbd0b7cc890161195164eb634
+  Kingfisher: 98e6d5b5e807645743e8ed5ececd25d688d38452
   Lightbox: 2dc267df8be2285bc7724cb11cbbf4aaaf59dced
-  Material: ef704dcc1bced32ab7c91ece2ba734da557e3f36
+  Material: c5bea030f57d4b903c5284200bb612d571c9ec03
   Motion: 9f74d115d7f72bb5380a8e3cde2f8a1fc898ac36
-  Moya: be29766339783963a70d1279d69c891ab3a1393c
+  Moya: 3d594ada51a21cc02b18739ab578a1984f900c8a
   NVActivityIndicatorView: 60109b9bf46efc2e71ab81453196ccdfdfeea870
   PINCache: d195fdba255283f7e9900a55e3cced377f431f9b
-  PINOperation: 7f042fa6df5b606deb4bd5997654cf7033d5be1d
+  PINOperation: a6219e6fc9db9c269eb7a7b871ac193bcf400aac
   PINRemoteImage: d6d51c5d2adda55f1ce30c96e850b6c4ebd2856a
   Realm: 42d1c38a5b1bbcc828b48a7ce702cb86fc68adf4
   RealmSwift: d31937ca6a6ee54acde64ec839523c0a3c04924b
@@ -133,10 +133,10 @@ SPEC CHECKSUMS:
   SCSiriWaveformView: 15b9dd6f94c7536e2032b34a35c6ff74d38c7411
   SkeletonView: 041053e904504e7d8db83df166e599be75659fe1
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
-  SwiftLint: 2aa21b96c8d13396a051bc1cb659d2ce1e0075b0
+  SwiftLint: e14651157288e9e01d6e1a71db7014fb5744a8ea
   Texture: 7249074582daf75e524e59df5428b66b8e8db0e4
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
-  TTGTagCollectionView: 20cf236b538ea9a17d1f0538968148c8d304414a
+  TTGTagCollectionView: 958f20b946dee92a8ba20dc37d10a06737641ae9
   UITextField_AutoSuggestion: dca08de21c8de3f6054dda085087a04b5b326208
   Yoga: 81670877477311136b1b3f69a6307ce62e1c89cf
 
