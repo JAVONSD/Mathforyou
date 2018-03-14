@@ -87,6 +87,7 @@
 "chief" = "Chief";
 "administrative_chief" = "Administrative chief";
 "functional_chief" = "Functional chief";
+"Close" = "Close";
 
 /* Lenta */
 
@@ -196,5 +197,18 @@
 "pick_from_gallery" = "Pick from gallery";
 "pick_from_documents" = "Pick from documents";
 "cancel" = "Cancel";
+
+/* File explorer */
+
+"OK" = "OK";
+"Size" = "Size";
+"Created" = "Created";
+"Modified" = "Modified";
+"Kind" = "Kind";
+"Cancel" = "Cancel";
+"Done" = "Done";
+"Select" = "Select";
+"Delete" = "Delete";
+"Choose" = "Choose";
 
 

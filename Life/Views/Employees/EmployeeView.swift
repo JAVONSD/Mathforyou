@@ -25,6 +25,7 @@ class EmployeeView: UIView {
     private(set) var emailButton: ImageTextButton?
 
     var didTapCloseButton: (() -> Void)?
+    var didTapAvatar: (() -> Void)?
     var didTapCallButton: (() -> Void)?
     var didTapEmailButton: (() -> Void)?
 
@@ -107,6 +108,13 @@ class EmployeeView: UIView {
     }
 
     @objc
+    private func handleAvatarTap() {
+        if let didTapAvatar = didTapAvatar {
+            didTapAvatar()
+        }
+    }
+
+    @objc
     private func handleCallButton() {
         if let didTapCallButton = didTapCallButton {
             didTapCallButton()
@@ -151,6 +159,12 @@ class EmployeeView: UIView {
 
         guard let headerView = headerView,
             let employeeHeaderView = employeeHeaderView else { return }
+
+        let tapGr = UITapGestureRecognizer(target: self, action: #selector(handleAvatarTap))
+        tapGr.numberOfTapsRequired = 1
+        tapGr.numberOfTouchesRequired = 1
+        employeeHeaderView.imageView?.isUserInteractionEnabled = true
+        employeeHeaderView.imageView?.addGestureRecognizer(tapGr)
 
         employeeHeaderView.callButton?.addTarget(
             self, action: #selector(handleCallButton), for: .touchUpInside)

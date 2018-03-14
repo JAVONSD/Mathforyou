@@ -8,6 +8,8 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import Kingfisher
+import Lightbox
 import RxSwift
 import RxCocoa
 
@@ -48,6 +50,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 
         IQKeyboardManager.sharedManager().enable = true
+
+        LightboxConfig.loadImage = { imageView, url, completion in
+            ImageDownloader.download(image: url.absoluteString, completion: { (image) in
+                if let image = image {
+                    imageView.image = image
+                    completion?(image)
+                }
+            })
+        }
 
         return true
     }

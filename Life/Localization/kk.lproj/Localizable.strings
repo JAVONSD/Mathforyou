@@ -87,6 +87,7 @@
 "chief" = "Руководитель";
 "administrative_chief" = "Административный руководитель";
 "functional_chief" = "Функциональный руководитель";
+"Close" = "Закрыть";
 
 /* Lenta */
 
@@ -196,5 +197,18 @@
 "pick_from_gallery" = "Выбрать из галереи";
 "pick_from_documents" = "Выбрать из документов";
 "cancel" = "Отмена";
+
+/* File explorer */
+
+"OK" = "OK";
+"Size" = "Размер";
+"Created" = "Создано";
+"Modified" = "Изменено";
+"Kind" = "Тип";
+"Cancel" = "Отмена";
+"Done" = "Готово";
+"Select" = "Выбрать";
+"Delete" = "Удалить";
+"Choose" = "Выбрать";
 
 

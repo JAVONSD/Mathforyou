@@ -58,14 +58,6 @@ class AppToolbarController: NavigationController, Stepper {
             let depthNone = Depth(preset: .none)
             let depthExist = Depth(offset: Offset.init(horizontal: 0, vertical: 1), opacity: 1, radius: 6)
             navBar.depth =  hidden ? depthNone : depthExist
-
-            navBar.interimSpacePreset = .none
-            navBar.contentEdgeInsets = .init(
-                top: 4,
-                left: 0,
-                bottom: 4,
-                right: 6
-            )
         }
     }
 
@@ -78,8 +70,15 @@ class AppToolbarController: NavigationController, Stepper {
     private func setupToolbar() {
         if let navBar = navigationBar as? NavigationBar {
             navBar.backButtonImage = #imageLiteral(resourceName: "back")
-
             navBar.backgroundColor = App.Color.white
+            navBar.interimSpacePreset = .none
+            navBar.contentEdgeInsetsPreset = EdgeInsetsPreset.none
+            navBar.contentEdgeInsets = .init(
+                top: 4,
+                left: 0,
+                bottom: 4,
+                right: 6
+            )
         }
 
         setShadow(hidden: false)

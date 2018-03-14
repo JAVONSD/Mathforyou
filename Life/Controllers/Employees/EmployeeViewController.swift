@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import Lightbox
 import Material
 import Moya
 import RxSwift
@@ -60,6 +61,20 @@ class EmployeeViewController: UIViewController, ViewModelBased, Stepper {
         }).disposed(by: disposeBag)
     }
 
+    // MARK: - Methods
+
+    private func openAvatar() {
+        guard let avatarURL = ImageDownloader.url(for: "", employeeCode: viewModel.employee.code) else {
+            return
+        }
+        let avatarImage = LightboxImage(imageURL: avatarURL)
+        let controller = LightboxController(images: [avatarImage])
+        controller.dynamicBackground = true
+        controller.footerView.isHidden = true
+
+        present(controller, animated: true, completion: nil)
+    }
+
     // MARK: - UI
 
     private func setupUI() {
@@ -72,6 +87,9 @@ class EmployeeViewController: UIViewController, ViewModelBased, Stepper {
         employeeView = EmployeeView(frame: .zero)
         employeeView.didTapCloseButton = { [weak self] in
             self?.step.accept(AppStep.employeeDone)
+        }
+        employeeView.didTapAvatar = { [weak self] in
+            self?.openAvatar()
         }
         employeeView.didTapCallButton = {
             let telUrl = "telprompt://\(self.viewModel.employee.mobilePhoneNumber)"

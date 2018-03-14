@@ -125,7 +125,8 @@ class TaskFormView: UIView {
         reminderField.rightView = detailView
         reminderField.rightViewMode = .always
         let reminders = Task.Reminder.all().map { $0.name }
-        reminderField.setAsPicker(with: reminders, setText: false)
+        let selectedIdx = reminders.index(of: Task.Reminder.thirtyMins.name) ?? -1
+        reminderField.setAsPicker(with: reminders, setText: true, selectedIdx: selectedIdx)
         contentView.addSubview(reminderField)
         reminderField.snp.makeConstraints { (make) in
             make.top.equalTo(self.topicField.snp.bottom).offset(App.Layout.sideOffset)
@@ -250,7 +251,8 @@ class TaskFormView: UIView {
         typeField.rightView = detailView
         typeField.rightViewMode = .always
         let taskTypes = Task.TaskType.all().map { $0.name }
-        typeField.setAsPicker(with: taskTypes, setText: false)
+        let selectedIdx = taskTypes.index(of: Task.TaskType.execute.name) ?? -1
+        typeField.setAsPicker(with: taskTypes, setText: true, selectedIdx: selectedIdx)
         contentView.addSubview(typeField)
         typeField.snp.makeConstraints { (make) in
             make.top.equalTo(self.tagsCollectionView.snp.bottom).offset(App.Layout.itemSpacingMedium)

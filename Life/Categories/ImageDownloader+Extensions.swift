@@ -82,7 +82,7 @@ extension ImageDownloader {
         }
     }
 
-    private static func url(for image: String, employeeCode: String? = nil) -> URL? {
+    public static func url(for image: String, employeeCode: String? = nil) -> URL? {
         var url = URL(string: image)
 
         if let code = employeeCode {

@@ -28,9 +28,9 @@ class TaskFormViewModel: NSObject {
     let startDate = BehaviorSubject<Date>(value: Date())
     let endDate = BehaviorSubject<Date>(value: Date())
     let isAllDay = BehaviorSubject<Bool>(value: false)
-    let reminder = BehaviorSubject<Int>(value: 0)
+    let reminder = BehaviorSubject<Int>(value: Task.Reminder.thirtyMins.rawValue)
     let attachments = BehaviorSubject<[URL]>(value: [])
-    let type = BehaviorSubject<Int>(value: 0)
+    let type = BehaviorSubject<Int>(value: Task.TaskType.execute.rawValue)
 
     var participants = Set<Employee>()
 
