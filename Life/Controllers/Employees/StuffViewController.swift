@@ -9,9 +9,12 @@
 import Foundation
 import Material
 
-class StuffViewController: TabsController, Stepper {
+class StuffViewController: TabsController, TabsControllerDelegate, Stepper {
 
     private var previousShadowHidden = false
+    var needScrollToTop: ((Int) -> Void)?
+
+    private var lastSelectedIndex = 0
 
     init(stuffViewModel: StuffViewModel) {
         let vc1 = EmployeesViewController(viewModel: stuffViewModel.employeesViewModel)
@@ -43,6 +46,8 @@ class StuffViewController: TabsController, Stepper {
         vc3.didSelectVacancy = { code in
             print("Vacancy picked with code - \(code)")
         }
+
+        delegate = self
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -52,17 +57,11 @@ class StuffViewController: TabsController, Stepper {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        if let navVC = navigationController as? AppToolbarController {
-            previousShadowHidden = navVC.shadowHidden
-            navVC.setShadow(hidden: true)
-        }
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        if let navVC = navigationController as? AppToolbarController {
-            navVC.setShadow(hidden: previousShadowHidden)
+        if let tabVC = parent as? AppTabBarController {
+            tabVC.didTapTab = { [weak self] idx in
+                guard idx == 3, tabVC.currentTabIndex == idx else { return }
+                self?.needScrollToTop?(self?.selectedIndex ?? 0)
+            }
         }
     }
 
@@ -92,6 +91,21 @@ class StuffViewController: TabsController, Stepper {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .default
+    }
+
+    // MARK: - TabsControllerDelegate
+
+    func tabBar(tabBar: TabBar, shouldSelect tabItem: TabItem) -> Bool {
+        if let index = tabBar.tabItems.index(of: tabItem) {
+            if lastSelectedIndex == index {
+                needScrollToTop?(selectedIndex)
+            }
+        }
+        return true
+    }
+
+    func tabsController(tabsController: TabsController, didSelect viewController: UIViewController) {
+        lastSelectedIndex = selectedIndex
     }
 
 }

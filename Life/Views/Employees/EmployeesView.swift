@@ -48,42 +48,29 @@ class EmployeesView: UIView {
     // MARK: - UI
 
     private func setupUI() {
-        setupSearchView()
         setupTableView()
+        setupSearchView()
     }
 
     private func setupSearchView() {
-        searchView = SearchView(frame: .zero)
+        searchView = SearchView()
         searchView?.edgeInsets = .init(
             top: 20,
             left: App.Layout.itemSpacingMedium,
-            bottom: 0,
+            bottom: App.Layout.itemSpacingMedium,
             right: App.Layout.itemSpacingMedium
         )
 
         guard let searchView = searchView else { return }
 
-        addSubview(searchView)
-        searchView.snp.makeConstraints { (make) in
-            make.top.equalTo(self)
-            make.left.equalTo(self)
-            make.right.equalTo(self)
-            make.height.equalTo(72)
-        }
+        tableView?.setAndLayoutTable(headerView: searchView)
     }
 
     private func setupTableView() {
         tableView = UITableView(frame: .zero, style: .plain)
 
-        guard let searchView = searchView,
-            let tableView = tableView else { return }
+        guard let tableView = tableView else { return }
 
-        tableView.tableHeaderView = UIView(frame: .init(
-            x: 0,
-            y: 0,
-            width: 1,
-            height: 0.001)
-        )
         tableView.backgroundView = nil
         tableView.backgroundColor = App.Color.whiteSmoke
         tableView.contentInset = .init(
@@ -98,10 +85,7 @@ class EmployeesView: UIView {
         addSubview(tableView)
         tableView.snp.makeConstraints { [weak self] (make) in
             guard let `self` = self else { return }
-            make.top.equalTo(searchView.snp.bottom)
-            make.left.equalTo(self)
-            make.bottom.equalTo(self)
-            make.right.equalTo(self)
+            make.edges.equalTo(self)
         }
 
         tableView.register(

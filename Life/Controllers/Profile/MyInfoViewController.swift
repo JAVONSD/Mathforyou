@@ -99,11 +99,14 @@ class MyInfoViewController: UIViewController {
         self.myInfoView.detailedView?
             .corporateExperienceView?.subtitleLabel?.text = profile?.corporateExperience
 
+        let lastDate = profile?.medicalExamination.last?.prettyDateString(format: "dd.MM.yyyy")
         self.myInfoView.detailedView?
-            .lastMedicalView?.subtitleLabel?.text = profile?.medicalExamination.last
+            .lastMedicalView?.subtitleLabel?.text = lastDate
             ?? NSLocalizedString("no_data", comment: "")
+
+        let nextDate = profile?.medicalExamination.next?.prettyDateString(format: "dd.MM.yyyy")
         self.myInfoView.detailedView?
-            .nextMedicalView?.subtitleLabel?.text = profile?.medicalExamination.next
+            .nextMedicalView?.subtitleLabel?.text = nextDate
             ?? NSLocalizedString("no_data", comment: "")
     }
 

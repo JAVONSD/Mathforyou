@@ -117,7 +117,7 @@ class LoginView: UIView, UITextFieldDelegate, MaskedTextFieldDelegateListener {
         }
 
         headerImageView.contentMode = .scaleAspectFit
-        headerImageView.image = #imageLiteral(resourceName: "bi-logo-copy")
+        headerImageView.image = #imageLiteral(resourceName: "bi-logo")
 
         headerView.addSubview(headerImageView)
         headerImageView.snp.makeConstraints { (make) in

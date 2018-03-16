@@ -20,6 +20,7 @@ class SearchView: UIView, UITextFieldDelegate {
                 guard let `self` = self else { return }
                 make.top.equalTo(self).inset(edgeInsets.top)
                 make.left.equalTo(self).inset(edgeInsets.left)
+                make.bottom.equalTo(self).inset(edgeInsets.bottom)
                 make.right.equalTo(self).inset(edgeInsets.right)
                 make.height.equalTo(self.searchBarHeight)
             }
@@ -32,6 +33,7 @@ class SearchView: UIView, UITextFieldDelegate {
                 guard let `self` = self else { return }
                 make.top.equalTo(self).inset(edgeInsets.top)
                 make.left.equalTo(self).inset(edgeInsets.left)
+                make.bottom.equalTo(self).inset(edgeInsets.bottom)
                 make.right.equalTo(self).inset(edgeInsets.right)
                 make.height.equalTo(self.searchBarHeight)
             }
@@ -105,6 +107,7 @@ class SearchView: UIView, UITextFieldDelegate {
             guard let `self` = self else { return }
             make.top.equalTo(self).inset(edgeInsets.top)
             make.left.equalTo(self).inset(edgeInsets.left)
+            make.bottom.equalTo(self).inset(edgeInsets.bottom)
             make.right.equalTo(self).inset(edgeInsets.right)
             make.height.equalTo(self.searchBarHeight)
         }

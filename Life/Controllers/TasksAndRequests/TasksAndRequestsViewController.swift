@@ -16,6 +16,7 @@ import SnapKit
 class TasksAndRequestsViewController: UIViewController, Stepper {
 
     private(set) weak var viewModel: TasksAndRequestsViewModel?
+    private var lastSelectedTabIndex = 0
 
     private var tasksAndRequestsView: TasksAndRequetsView!
 
@@ -119,8 +120,15 @@ class TasksAndRequestsViewController: UIViewController, Stepper {
             self?.viewModel?.step.accept(AppStep.tasksAndRequestsDone)
         }
         tasksAndRequestsView.didTapTabItem = { [weak self] index in
-            self?.viewModel?.selectedItemsType = index == 0 ? .inbox : .outbox
-            self?.itemsChangeSubject.onNext(self?.viewModel?.currentItems ?? [])
+            if let last = self?.lastSelectedTabIndex,
+                index == last {
+                self?.tasksAndRequestsView.tableView?.setContentOffset(.zero, animated: true)
+            } else {
+                self?.viewModel?.selectedItemsType = index == 0 ? .inbox : .outbox
+                self?.itemsChangeSubject.onNext(self?.viewModel?.currentItems ?? [])
+            }
+            self?.lastSelectedTabIndex = index
+
         }
         view.addSubview(tasksAndRequestsView)
         tasksAndRequestsView.snp.makeConstraints({ [weak self] (make) in
@@ -136,6 +144,7 @@ class TasksAndRequestsViewController: UIViewController, Stepper {
 
         if let tabBar = tasksAndRequestsView.tabBar {
             let currentIndex = viewModel?.selectedItemsType == .inbox ? 0 : 1
+            lastSelectedTabIndex = currentIndex
             tabBar.select(at: currentIndex, completion: nil)
         }
     }

@@ -65,6 +65,17 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
         bind()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let tabVC = parent as? AppTabBarController {
+            tabVC.didTapTab = { [weak self] idx in
+                guard idx == 4, tabVC.currentTabIndex == idx else { return }
+                self?.menuView.tableView?.setContentOffset(.zero, animated: true)
+            }
+        }
+    }
+
     // MARK: - Bind
 
     private func bind() {

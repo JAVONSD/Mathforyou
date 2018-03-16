@@ -14,8 +14,7 @@ class BIOfficeFlow: Flow {
         return self.rootViewController
     }
 
-    private var rootViewController: AppToolbarController
-    private var viewController: BIOfficeViewController
+    private let rootViewController: BIOfficeViewController
 
     private unowned var notificationsViewModel: NotificationsViewModel
     private unowned var tasksAndRequestsViewModel: TasksAndRequestsViewModel
@@ -25,23 +24,13 @@ class BIOfficeFlow: Flow {
          notificationsViewModel: NotificationsViewModel,
          tasksAndRequestsViewModel: TasksAndRequestsViewModel,
          employeesViewModel: EmployeesViewModel) {
-        self.viewController = viewController
-        rootViewController = AppToolbarController(rootViewController: viewController)
+        rootViewController = viewController
 
         self.notificationsViewModel = notificationsViewModel
         self.tasksAndRequestsViewModel = tasksAndRequestsViewModel
         self.employeesViewModel = employeesViewModel
-
-        rootViewController.setupToolbarButtons(for: viewController)
-        rootViewController.didTapNotifications = { [weak self] in
-            self?.viewController.step.accept(AppStep.notifications)
-        }
-        rootViewController.didTapProfile = { [weak self] in
-            self?.viewController.step.accept(AppStep.profile)
-        }
     }
 
-    //swiftlint:disable cyclomatic_complexity
     func navigate(to step: Step) -> NextFlowItems {
         guard let step = step as? AppStep else { return NextFlowItems.stepNotHandled }
 
@@ -49,16 +38,10 @@ class BIOfficeFlow: Flow {
         case .biOffice:
             return NextFlowItems.one(
                 flowItem: NextFlowItem(
-                    nextPresentable: viewController,
-                    nextStepper: viewController
+                    nextPresentable: rootViewController,
+                    nextStepper: rootViewController
                 )
             )
-        case .profile:
-            return navigationToProfileScreen()
-        case .notifications:
-            return navigationToNotifications()
-        case .notificationsDone:
-            return navigationFromNotifications()
         case .tasksAndRequests:
             return navigationToTasksAndRequests()
         case .createRequest(let category, let didCreateRequest):
@@ -72,35 +55,6 @@ class BIOfficeFlow: Flow {
         default:
             return NextFlowItems.stepNotHandled
         }
-    }
-    //swiftlint:enable cyclomatic_complexity
-
-    private func navigationToProfileScreen() -> NextFlowItems {
-        let viewController = ProfileViewController.configuredVC
-        let flow = ProfileFlow(viewController: viewController)
-        self.rootViewController.pushViewController(viewController, animated: true)
-        return NextFlowItems.one(flowItem:
-            NextFlowItem(
-                nextPresentable: flow,
-                nextStepper: viewController)
-        )
-    }
-
-    private func navigationToNotifications() -> NextFlowItems {
-        let notificationsViewController = NotificationsViewController.instantiate(
-            withViewModel: notificationsViewModel
-        )
-        self.rootViewController.present(notificationsViewController, animated: true, completion: nil)
-        return NextFlowItems.one(flowItem:
-            NextFlowItem(
-                nextPresentable: notificationsViewController,
-                nextStepper: notificationsViewController)
-        )
-    }
-
-    private func navigationFromNotifications() -> NextFlowItems {
-        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
-        return NextFlowItems.none
     }
 
     private func navigationToTasksAndRequests() -> NextFlowItems {

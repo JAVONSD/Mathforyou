@@ -14,28 +14,21 @@ class MenuFlow: Flow {
         return self.rootViewController
     }
 
-    private var rootViewController: AppToolbarController
-    private var viewController: MenuViewController
+    private weak var navigationController: AppToolbarController?
+    private var rootViewController: MenuViewController
 
     private unowned var topQuestionsViewModel: TopQuestionsViewModel
     private unowned var notificationsViewModel: NotificationsViewModel
 
-    init(viewController: MenuViewController,
+    init(navigationController: AppToolbarController,
+         viewController: MenuViewController,
          topQuestionsViewModel: TopQuestionsViewModel,
          notificationsViewModel: NotificationsViewModel) {
         self.topQuestionsViewModel = topQuestionsViewModel
         self.notificationsViewModel = notificationsViewModel
 
-        self.viewController = viewController
-        rootViewController = AppToolbarController(rootViewController: viewController)
-
-        rootViewController.setupToolbarButtons(for: viewController)
-        rootViewController.didTapNotifications = { [weak self] in
-            self?.viewController.step.accept(AppStep.notifications)
-        }
-        rootViewController.didTapProfile = { [weak self] in
-            self?.viewController.step.accept(AppStep.profile)
-        }
+        self.navigationController = navigationController
+        self.rootViewController = viewController
     }
 
     func navigate(to step: Step) -> NextFlowItems {
@@ -45,49 +38,15 @@ class MenuFlow: Flow {
         case .menu:
             return NextFlowItems.one(
                 flowItem: NextFlowItem(
-                    nextPresentable: viewController,
-                    nextStepper: viewController
+                    nextPresentable: rootViewController,
+                    nextStepper: rootViewController
                 )
             )
         case .topQuestions:
             return navigationToTopQuestions()
-        case .profile:
-            return navigationToProfileScreen()
-        case .notifications:
-            return navigationToNotifications()
-        case .notificationsDone:
-            return navigationFromNotifications()
         default:
             return NextFlowItems.stepNotHandled
         }
-    }
-
-    private func navigationToProfileScreen() -> NextFlowItems {
-        let viewController = ProfileViewController.configuredVC
-        let flow = ProfileFlow(viewController: viewController)
-        self.rootViewController.pushViewController(viewController, animated: true)
-        return NextFlowItems.one(flowItem:
-            NextFlowItem(
-                nextPresentable: flow,
-                nextStepper: viewController)
-        )
-    }
-
-    private func navigationToNotifications() -> NextFlowItems {
-        let notificationsViewController = NotificationsViewController.instantiate(
-            withViewModel: notificationsViewModel
-        )
-        self.rootViewController.present(notificationsViewController, animated: true, completion: nil)
-        return NextFlowItems.one(flowItem:
-            NextFlowItem(
-                nextPresentable: notificationsViewController,
-                nextStepper: notificationsViewController)
-        )
-    }
-
-    private func navigationFromNotifications() -> NextFlowItems {
-        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
-        return NextFlowItems.none
     }
 
     private func navigationToTopQuestions() -> NextFlowItems {
@@ -96,7 +55,7 @@ class MenuFlow: Flow {
             viewController: viewController,
             topQuestionsViewModel: topQuestionsViewModel
         )
-        rootViewController.pushViewController(viewController, animated: true)
+        navigationController?.pushViewController(viewController, animated: true)
 
         return NextFlowItems.one(flowItem: NextFlowItem(
             nextPresentable: flow,

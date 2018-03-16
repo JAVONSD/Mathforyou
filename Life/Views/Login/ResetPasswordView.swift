@@ -70,7 +70,7 @@ class ResetPasswordView: UIView, UITextFieldDelegate {
         }
 
         headerImageView.contentMode = .scaleAspectFit
-        headerImageView.image = #imageLiteral(resourceName: "bi-logo-copy")
+        headerImageView.image = #imageLiteral(resourceName: "bi-logo")
 
         headerView.addSubview(headerImageView)
         headerImageView.snp.makeConstraints { (make) in

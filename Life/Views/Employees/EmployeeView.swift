@@ -51,8 +51,18 @@ class EmployeeView: UIView {
 
     var fullname: String = "" {
         didSet {
-            employeeHeaderView?.titleLabel?.text = fullname.onEmpty(
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.hyphenationFactor = 1.0
+
+            let hyphenAttribute = [
+                NSAttributedStringKey.paragraphStyle: paragraphStyle
+            ] as [NSAttributedStringKey : Any]
+
+            let text = fullname.onEmpty(
                 NSLocalizedString("no_data", comment: ""))
+            let attributedString = NSMutableAttributedString(string: text, attributes: hyphenAttribute)
+
+            employeeHeaderView?.titleLabel.attributedText = attributedString
         }
     }
 
@@ -155,7 +165,7 @@ class EmployeeView: UIView {
     }
 
     private func setupEmployeeHeader() {
-        employeeHeaderView = EmployeeHeaderView(image: nil, title: "Фамилия\nИмя", subtitle: nil)
+        employeeHeaderView = EmployeeHeaderView()
 
         guard let headerView = headerView,
             let employeeHeaderView = employeeHeaderView else { return }
@@ -163,10 +173,10 @@ class EmployeeView: UIView {
         let tapGr = UITapGestureRecognizer(target: self, action: #selector(handleAvatarTap))
         tapGr.numberOfTapsRequired = 1
         tapGr.numberOfTouchesRequired = 1
-        employeeHeaderView.imageView?.isUserInteractionEnabled = true
-        employeeHeaderView.imageView?.addGestureRecognizer(tapGr)
+        employeeHeaderView.imageView.isUserInteractionEnabled = true
+        employeeHeaderView.imageView.addGestureRecognizer(tapGr)
 
-        employeeHeaderView.callButton?.addTarget(
+        employeeHeaderView.callButton.addTarget(
             self, action: #selector(handleCallButton), for: .touchUpInside)
 
         addSubview(employeeHeaderView)

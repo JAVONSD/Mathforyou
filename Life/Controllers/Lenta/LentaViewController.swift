@@ -110,6 +110,17 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let tabVC = parent as? AppTabBarController {
+            tabVC.didTapTab = { [weak self] idx in
+                guard idx == 2, tabVC.currentTabIndex == idx else { return }
+                self?.collectionNode.setContentOffset(.zero, animated: true)
+            }
+        }
+    }
+
     // MARK: - Methods
 
     private func syncUserProfile(onUnauthorizedError: @escaping (() -> Void)) {

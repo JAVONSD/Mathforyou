@@ -72,6 +72,17 @@ class BIBoardViewController: ASViewController<ASCollectionNode>, Stepper {
         refreshFeed()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let tabVC = parent as? AppTabBarController {
+            tabVC.didTapTab = { [weak self] idx in
+                guard idx == 1, tabVC.currentTabIndex == idx else { return }
+                self?.collectionNode.setContentOffset(.zero, animated: true)
+            }
+        }
+    }
+
     // MARK: - Methods
 
     @objc

@@ -65,7 +65,6 @@ class VacanciesViewModel: NSObject, ViewModel {
 
                         completion(nil)
                         self.itemsChangeSubject.onNext(self.vacancies)
-                        print("returning from network ...")
 
                         self.updateCache(vacancyItems)
                     } else {
@@ -96,7 +95,6 @@ class VacanciesViewModel: NSObject, ViewModel {
 
                     DispatchQueue.main.async {
                         self.itemsChangeSubject.onNext(vacancyViewModels)
-                        print("returning from cache ...")
                     }
                 }
             } catch {

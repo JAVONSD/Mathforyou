@@ -14,25 +14,14 @@ class LentaFlow: Flow {
         return self.rootViewController
     }
 
-    private var rootViewController: AppToolbarController
-    private var viewController: LentaViewController
+    private var rootViewController: LentaViewController
 
     private unowned var notificationsViewModel: NotificationsViewModel
 
     init(viewController: LentaViewController,
          notificationsViewModel: NotificationsViewModel) {
         self.notificationsViewModel = notificationsViewModel
-
-        self.viewController = viewController
-        rootViewController = AppToolbarController(rootViewController: viewController)
-
-        rootViewController.setupToolbarButtons(for: viewController)
-        rootViewController.didTapNotifications = { [weak self] in
-            self?.viewController.step.accept(AppStep.notifications)
-        }
-        rootViewController.didTapProfile = { [weak self] in
-            self?.viewController.step.accept(AppStep.profile)
-        }
+        self.rootViewController = viewController
     }
 
     //swiftlint:disable cyclomatic_complexity
@@ -43,16 +32,10 @@ class LentaFlow: Flow {
         case .lenta:
             return NextFlowItems.one(
                 flowItem: NextFlowItem(
-                    nextPresentable: viewController,
-                    nextStepper: viewController
+                    nextPresentable: rootViewController,
+                    nextStepper: rootViewController
                 )
             )
-        case .profile:
-            return navigationToProfileScreen()
-        case .notifications:
-            return navigationToNotifications()
-        case .notificationsDone:
-            return navigationFromNotifications()
         case .newsPicked(let id):
             return navigationToNewsDetail(id)
         case .newsDone:
@@ -75,34 +58,6 @@ class LentaFlow: Flow {
     }
     //swiftlint:enable cyclomatic_complexity
 
-    private func navigationToProfileScreen() -> NextFlowItems {
-        let viewController = ProfileViewController.configuredVC
-        let flow = ProfileFlow(viewController: viewController)
-        self.rootViewController.pushViewController(viewController, animated: true)
-        return NextFlowItems.one(flowItem:
-            NextFlowItem(
-                nextPresentable: flow,
-                nextStepper: viewController)
-        )
-    }
-
-    private func navigationToNotifications() -> NextFlowItems {
-        let notificationsViewController = NotificationsViewController.instantiate(
-            withViewModel: notificationsViewModel
-        )
-        self.rootViewController.present(notificationsViewController, animated: true, completion: nil)
-        return NextFlowItems.one(flowItem:
-            NextFlowItem(
-                nextPresentable: notificationsViewController,
-                nextStepper: notificationsViewController)
-        )
-    }
-
-    private func navigationFromNotifications() -> NextFlowItems {
-        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
-        return NextFlowItems.none
-    }
-
     private func navigationToNewsDetail(_ id: String) -> NextFlowItems {
         let viewController = NewsViewController(
             viewModel: NewsItemViewModel(id: id)
@@ -116,7 +71,7 @@ class LentaFlow: Flow {
     }
 
     private func navigationFromNewsDetail() -> NextFlowItems {
-        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
+        self.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
         return NextFlowItems.none
     }
 
@@ -133,7 +88,7 @@ class LentaFlow: Flow {
     }
 
     private func navigationFromSuggestion() -> NextFlowItems {
-        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
+        self.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
         return NextFlowItems.none
     }
 
@@ -145,7 +100,7 @@ class LentaFlow: Flow {
     }
 
     private func navigationFromNewsForm() -> NextFlowItems {
-        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
+        self.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
         return NextFlowItems.none
     }
 
@@ -158,7 +113,7 @@ class LentaFlow: Flow {
     }
 
     private func navigationFromSuggestionForm() -> NextFlowItems {
-        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
+        self.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
         return NextFlowItems.none
     }
 

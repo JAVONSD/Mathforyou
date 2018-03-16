@@ -96,6 +96,17 @@ class EmployeesViewController: UIViewController {
         }).disposed(by: disposeBag)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let tabVC = parent as? StuffViewController {
+            tabVC.needScrollToTop = { [weak self] idx in
+                guard idx == 0 else { return }
+                self?.employeesView.tableView?.setContentOffset(.zero, animated: true)
+            }
+        }
+    }
+
     // MARK: - Bind
 
     private func bind() {

@@ -64,7 +64,8 @@ class EmployeeViewController: UIViewController, ViewModelBased, Stepper {
     // MARK: - Methods
 
     private func openAvatar() {
-        guard let avatarURL = ImageDownloader.url(for: "", employeeCode: viewModel.employee.code) else {
+        guard let avatarURL = ImageDownloader.url(for: "", employeeCode: viewModel.employee.code),
+            viewModel.employee.hasAvatar else {
             return
         }
         let avatarImage = LightboxImage(imageURL: avatarURL)

@@ -21,7 +21,9 @@ class AppTabBarController: UIViewController, TabBarDelegate, Stepper {
     private let disposeBag = DisposeBag()
 
     var viewControllers = [UIViewController]()
-    private var currentTabIndex = 0
+    private(set) var currentTabIndex = 0
+
+    var didTapTab: ((Int) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,7 +104,7 @@ class AppTabBarController: UIViewController, TabBarDelegate, Stepper {
     // MARK: - UI
 
     private func setupUI() {
-        view.backgroundColor = App.Color.whiteSmoke
+        view.backgroundColor = .white
 
         setupTabBar()
         setupContainerView()
@@ -184,6 +186,11 @@ class AppTabBarController: UIViewController, TabBarDelegate, Stepper {
     // MARK: - TabBarDelegate
 
     func tabBar(tabBar: TabBar, didSelect tabItem: TabItem) {
+        navigationController?.setNavigationBarHidden(tabItem.tag == 3, animated: false)
+
+        if let didTapTab = didTapTab {
+            didTapTab(tabItem.tag)
+        }
         move(to: tabItem.tag)
     }
 

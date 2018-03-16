@@ -20,12 +20,20 @@ class MainMenuFlow: Flow {
         return self.rootViewController
     }
 
-    private let rootViewController: StatusBarController
+    private let rootViewController: AppToolbarController
     private let viewController: AppTabBarController
 
     init() {
         viewController = AppTabBarController()
-        rootViewController = StatusBarController(rootViewController: viewController)
+
+        rootViewController = AppToolbarController(rootViewController: viewController)
+        rootViewController.setupToolbarButtons(for: viewController)
+        rootViewController.didTapNotifications = { [weak self] in
+            self?.viewController.step.accept(AppStep.notifications)
+        }
+        rootViewController.didTapProfile = { [weak self] in
+            self?.viewController.step.accept(AppStep.profile)
+        }
     }
 
     func navigate(to step: Step) -> NextFlowItems {
@@ -34,6 +42,12 @@ class MainMenuFlow: Flow {
         switch step {
         case .mainMenu:
             return navigationToMainMenuScreen()
+        case .notifications:
+            return navigationToNotifications()
+        case .notificationsDone:
+            return navigationFromNotifications()
+        case .profile:
+            return navigationToProfileScreen()
         case .unauthorized:
             onUnauthorized()
             return .stepNotHandled
@@ -46,6 +60,11 @@ class MainMenuFlow: Flow {
 
     //swiftlint:disable function_body_length
     private func navigationToMainMenuScreen() -> NextFlowItems {
+        let tabBarFlowItem = NextFlowItem(
+            nextPresentable: rootViewController,
+            nextStepper: viewController
+        )
+
         let biOfficeVC = configuredBIOffice()
         let biOfficeFlow = BIOfficeFlow(
             viewController: biOfficeVC,
@@ -53,12 +72,21 @@ class MainMenuFlow: Flow {
             tasksAndRequestsViewModel: tasksAndRequestsViewModel,
             employeesViewModel: stuffViewModel.employeesViewModel
         )
+        let biOfficeFlowItem = NextFlowItem(
+            nextPresentable: biOfficeFlow,
+            nextStepper: OneStepper(withSingleStep: AppStep.biOffice)
+        )
 
         let biBoardVC = configuredBIBoard()
         let biBoardFlow = BIBoardFlow(
+            navigationController: rootViewController,
             viewController: biBoardVC,
             notificationsViewModel: notificationsViewModel,
             topQuestionsViewModel: topQuestionsViewModel
+        )
+        let biBoardFlowItem = NextFlowItem(
+            nextPresentable: biBoardFlow,
+            nextStepper: OneStepper(withSingleStep: AppStep.biBoard)
         )
 
         let lentaVC = configuredLenta()
@@ -66,51 +94,50 @@ class MainMenuFlow: Flow {
             viewController: lentaVC,
             notificationsViewModel: notificationsViewModel
         )
+        let lentaFlowItem = NextFlowItem(
+            nextPresentable: lentaFlow,
+            nextStepper: OneStepper(withSingleStep: AppStep.lenta)
+        )
 
         let employeesViewController = configuredStuff()
         let employeesFlow = EmployeesFlow(
             viewController: employeesViewController
         )
+        let employeesFlowItem = NextFlowItem(
+            nextPresentable: employeesFlow,
+            nextStepper: OneStepper(withSingleStep: AppStep.employees)
+        )
 
         let menuVC = configuredMenu()
         let menuFlow = MenuFlow(
+            navigationController: rootViewController,
             viewController: menuVC,
             topQuestionsViewModel: topQuestionsViewModel,
             notificationsViewModel: notificationsViewModel
         )
-
-        if let nav1 = biOfficeFlow.root as? UIViewController,
-            let nav2 = biBoardFlow.root as? UIViewController,
-            let nav3 = lentaFlow.root as? UIViewController,
-            let vc4 = employeesFlow.root as? UIViewController,
-            let nav5 = menuFlow.root as? UIViewController {
-            viewController.viewControllers = [nav1, nav2, nav3, vc4, nav5]
-        }
-
-        var flowItems = [NextFlowItem]()
-
-        flowItems.append(
-            NextFlowItem(nextPresentable: biOfficeFlow,
-                         nextStepper: OneStepper(withSingleStep: AppStep.biOffice))
-        )
-        flowItems.append(
-            NextFlowItem(nextPresentable: biBoardFlow,
-                         nextStepper: OneStepper(withSingleStep: AppStep.biBoard))
-        )
-        flowItems.append(
-            NextFlowItem(nextPresentable: lentaFlow,
-                         nextStepper: OneStepper(withSingleStep: AppStep.lenta))
-        )
-        flowItems.append(
-            NextFlowItem(nextPresentable: employeesFlow,
-                         nextStepper: OneStepper(withSingleStep: AppStep.employees))
-        )
-        flowItems.append(
-            NextFlowItem(nextPresentable: menuFlow,
-                         nextStepper: OneStepper(withSingleStep: AppStep.menu))
+        let menuFlowItem = NextFlowItem(
+            nextPresentable: menuFlow,
+            nextStepper: OneStepper(withSingleStep: AppStep.menu)
         )
 
-        return NextFlowItems.multiple(flowItems: flowItems)
+        viewController.viewControllers = [
+            biOfficeVC,
+            biBoardVC,
+            lentaVC,
+            employeesViewController,
+            menuVC
+        ]
+
+        return NextFlowItems.multiple(
+            flowItems: [
+                tabBarFlowItem,
+                biOfficeFlowItem,
+                biBoardFlowItem,
+                lentaFlowItem,
+                employeesFlowItem,
+                menuFlowItem
+            ]
+        )
     }
     //swiftlint:enable function_body_length
 
@@ -122,6 +149,34 @@ class MainMenuFlow: Flow {
             flow: appDelegate.appFlow,
             withStepper: OneStepper(withSingleStep: AppStep.unauthorized)
         )
+    }
+
+    private func navigationToProfileScreen() -> NextFlowItems {
+        let viewController = ProfileViewController.configuredVC
+        let flow = ProfileFlow(viewController: viewController)
+        rootViewController.pushViewController(viewController, animated: true)
+        return NextFlowItems.one(flowItem:
+            NextFlowItem(
+                nextPresentable: flow,
+                nextStepper: viewController)
+        )
+    }
+
+    private func navigationToNotifications() -> NextFlowItems {
+        let notificationsViewController = NotificationsViewController.instantiate(
+            withViewModel: notificationsViewModel
+        )
+        rootViewController.present(notificationsViewController, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem:
+            NextFlowItem(
+                nextPresentable: notificationsViewController,
+                nextStepper: notificationsViewController)
+        )
+    }
+
+    private func navigationFromNotifications() -> NextFlowItems {
+        rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
+        return NextFlowItems.none
     }
 
     // MARK: - Methods

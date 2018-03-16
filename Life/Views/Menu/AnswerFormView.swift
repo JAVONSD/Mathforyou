@@ -86,9 +86,9 @@ class AnswerFormView: UIView {
 
     private func setupFooterView() {
         if isVideo {
-            tableView.setAndLayoutTableHeaderView(footer: videoAnswerView)
+            tableView.setAndLayoutTable(footerView: videoAnswerView)
         } else {
-            tableView.setAndLayoutTableHeaderView(footer: answerView)
+            tableView.setAndLayoutTable(footerView: answerView)
         }
     }
 
@@ -133,11 +133,19 @@ extension AnswerFormView: UITableViewDelegate {
 }
 
 extension UITableView {
-    func setAndLayoutTableHeaderView(footer: UIView) {
-        self.tableFooterView = footer
-        footer.setNeedsLayout()
-        footer.layoutIfNeeded()
-        footer.frame.size = footer.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-        self.tableFooterView = footer
+    func setAndLayoutTable(headerView: UIView) {
+        self.tableHeaderView = headerView
+        headerView.setNeedsLayout()
+        headerView.layoutIfNeeded()
+        headerView.frame.size = headerView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        self.tableHeaderView = headerView
+    }
+
+    func setAndLayoutTable(footerView: UIView) {
+        self.tableFooterView = footerView
+        footerView.setNeedsLayout()
+        footerView.layoutIfNeeded()
+        footerView.frame.size = footerView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        self.tableFooterView = footerView
     }
 }

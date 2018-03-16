@@ -14,28 +14,21 @@ class BIBoardFlow: Flow {
         return self.rootViewController
     }
 
-    private var rootViewController: AppToolbarController
-    private var viewController: BIBoardViewController
+    private weak var navigationController: AppToolbarController?
+    let rootViewController: BIBoardViewController
 
     private unowned var notificationsViewModel: NotificationsViewModel
     private unowned var topQuestionsViewModel: TopQuestionsViewModel
 
-    init(viewController: BIBoardViewController,
+    init(navigationController: AppToolbarController,
+         viewController: BIBoardViewController,
          notificationsViewModel: NotificationsViewModel,
          topQuestionsViewModel: TopQuestionsViewModel) {
         self.notificationsViewModel = notificationsViewModel
         self.topQuestionsViewModel = topQuestionsViewModel
 
-        self.viewController = viewController
-        rootViewController = AppToolbarController(rootViewController: viewController)
-
-        rootViewController.setupToolbarButtons(for: viewController)
-        rootViewController.didTapNotifications = { [weak self] in
-            self?.viewController.step.accept(AppStep.notifications)
-        }
-        rootViewController.didTapProfile = { [weak self] in
-            self?.viewController.step.accept(AppStep.profile)
-        }
+        self.navigationController = navigationController
+        self.rootViewController = viewController
     }
 
     //swiftlint:disable cyclomatic_complexity
@@ -46,16 +39,10 @@ class BIBoardFlow: Flow {
         case .biBoard:
             return NextFlowItems.one(
                 flowItem: NextFlowItem(
-                    nextPresentable: viewController,
-                    nextStepper: viewController
+                    nextPresentable: rootViewController,
+                    nextStepper: rootViewController
                 )
             )
-        case .profile:
-            return navigationToProfileScreen()
-        case .notifications:
-            return navigationToNotifications()
-        case .notificationsDone:
-            return navigationFromNotifications()
         case .newsPicked(let id):
             return navigationToNewsDetail(id)
         case .newsDone:
@@ -83,41 +70,13 @@ class BIBoardFlow: Flow {
     }
     //swiftlint:enable cyclomatic_complexity
 
-    private func navigationToProfileScreen() -> NextFlowItems {
-        let viewController = ProfileViewController.configuredVC
-        let flow = ProfileFlow(viewController: viewController)
-        self.rootViewController.pushViewController(viewController, animated: true)
-        return NextFlowItems.one(flowItem:
-            NextFlowItem(
-                nextPresentable: flow,
-                nextStepper: viewController)
-        )
-    }
-
-    private func navigationToNotifications() -> NextFlowItems {
-        let notificationsViewController = NotificationsViewController.instantiate(
-            withViewModel: notificationsViewModel
-        )
-        self.rootViewController.present(notificationsViewController, animated: true, completion: nil)
-        return NextFlowItems.one(flowItem:
-            NextFlowItem(
-                nextPresentable: notificationsViewController,
-                nextStepper: notificationsViewController)
-        )
-    }
-
-    private func navigationFromNotifications() -> NextFlowItems {
-        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
-        return NextFlowItems.none
-    }
-
     private func navigationToTopQuestions() -> NextFlowItems {
         let viewController = TopQuestionsViewController(viewModel: topQuestionsViewModel)
         let flow = TopQuestionsFlow(
             viewController: viewController,
             topQuestionsViewModel: topQuestionsViewModel
         )
-        rootViewController.pushViewController(viewController, animated: true)
+        navigationController?.pushViewController(viewController, animated: true)
 
         return NextFlowItems.one(flowItem: NextFlowItem(
             nextPresentable: flow,
@@ -138,7 +97,7 @@ class BIBoardFlow: Flow {
     }
 
     private func navigationFromNewsDetail() -> NextFlowItems {
-        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
+        self.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
         return NextFlowItems.none
     }
 
@@ -155,7 +114,7 @@ class BIBoardFlow: Flow {
     }
 
     private func navigationFromSuggestion() -> NextFlowItems {
-        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
+        self.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
         return NextFlowItems.none
     }
 
@@ -185,7 +144,7 @@ class BIBoardFlow: Flow {
     }
 
     private func navigationFromSuggestionForm() -> NextFlowItems {
-        self.rootViewController.visibleViewController?.dismiss(animated: true, completion: nil)
+        self.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
         return NextFlowItems.none
     }
 
