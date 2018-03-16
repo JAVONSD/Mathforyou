@@ -114,7 +114,8 @@
 
 /* Top Questions */
 
-"questions" = "Вопрос Тор-7";
+"questions" = "Questions";
+"ask_question_title" = "Задай вопрос";
 "answer_exists" = "Есть ответ";
 "answer_does_not_exist" = "Нет ответов";
 "answers_for_popular_questions" = "Ответы на популярные вопросы";

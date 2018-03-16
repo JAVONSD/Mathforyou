@@ -34,7 +34,7 @@ extension MenuViewModel: Mockable {
             image: ""
         )
         let menu4 = MenuItemViewModel(
-            title: "Вопрос ТОП-7",
+            title: NSLocalizedString("questions", comment: ""),
             subtitle: "Последний вопрос",
             image: ""
         )

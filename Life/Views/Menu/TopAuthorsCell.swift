@@ -31,7 +31,7 @@ class TopAuthorsCell: ASCellNode {
         super.init()
 
         titleNode = ASTextNode()
-        titleNode.attributedText = attTitle(NSLocalizedString("questions", comment: ""))
+        titleNode.attributedText = attTitle(NSLocalizedString("ask_question_title", comment: ""))
         addSubnode(titleNode)
 
         addCollectionNode()
