@@ -22,7 +22,7 @@ class TodayHeader: ASCellNode {
         dateFormatter.dateFormat = "EEEE d MMMM"
 
         dateNode = ASTextNode()
-        dateNode.attributedText = attDate(dateFormatter.string(from: date))
+        dateNode.attributedText = attDate(dateFormatter.string(from: date).uppercased())
         addSubnode(dateNode)
 
         todayNode = ASTextNode()
