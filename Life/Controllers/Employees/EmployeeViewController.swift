@@ -95,12 +95,12 @@ class EmployeeViewController: UIViewController, ViewModelBased, Stepper {
         employeeView.didTapCallButton = {
             let telUrl = "telprompt://\(self.viewModel.employee.mobilePhoneNumber)"
             if let url = URL(string: telUrl) {
-                UIApplication.shared.openURL(url)
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }
         employeeView.didTapEmailButton = {
             if let url = URL(string: "mailto:\(self.viewModel.employee.email)") {
-                UIApplication.shared.openURL(url)
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }
         view.addSubview(employeeView)

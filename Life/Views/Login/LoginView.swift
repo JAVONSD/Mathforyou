@@ -140,7 +140,7 @@ class LoginView: UIView, UITextFieldDelegate, MaskedTextFieldDelegateListener {
             return
         }
 
-        phoneField.placeholder = NSLocalizedString("username_or_phone", comment: "")
+        phoneField.placeholder = NSLocalizedString("login_name", comment: "")
         phoneField.autocorrectionType = .no
         phoneField.autocapitalizationType = .none
         phoneField.delegate = self

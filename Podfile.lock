@@ -50,11 +50,11 @@ PODS:
   - PINRemoteImage/PINCache (3.0.0-beta.13):
     - PINCache (= 3.0.1-beta.6)
     - PINRemoteImage/Core
-  - Realm (3.1.1):
-    - Realm/Headers (= 3.1.1)
-  - Realm/Headers (3.1.1)
-  - RealmSwift (3.1.1):
-    - Realm (= 3.1.1)
+  - Realm (3.2.0):
+    - Realm/Headers (= 3.2.0)
+  - Realm/Headers (3.2.0)
+  - RealmSwift (3.2.0):
+    - Realm (= 3.2.0)
   - Result (3.2.4)
   - RxCocoa (4.1.2):
     - RxSwift (~> 4.0)
@@ -124,8 +124,8 @@ SPEC CHECKSUMS:
   PINCache: d195fdba255283f7e9900a55e3cced377f431f9b
   PINOperation: a6219e6fc9db9c269eb7a7b871ac193bcf400aac
   PINRemoteImage: d6d51c5d2adda55f1ce30c96e850b6c4ebd2856a
-  Realm: 42d1c38a5b1bbcc828b48a7ce702cb86fc68adf4
-  RealmSwift: d31937ca6a6ee54acde64ec839523c0a3c04924b
+  Realm: ae552b9b9eca3a12374a589fa842f220e286a80a
+  RealmSwift: 05727129547dcab3fe828bd87bc30be903736b9c
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   RxCocoa: d88ba0f1f6abf040011a9eb4b539324fc426843a
   RxRealm: a6c6c0a07cb61f34209969ca6657734edfdfff30
@@ -140,6 +140,6 @@ SPEC CHECKSUMS:
   UITextField_AutoSuggestion: dca08de21c8de3f6054dda085087a04b5b326208
   Yoga: 81670877477311136b1b3f69a6307ce62e1c89cf
 
-PODFILE CHECKSUM: 6b3171e8133660c7a7a343eee7657cd7a6e52ca5
+PODFILE CHECKSUM: 470caf4af2b1aea4d7da2dc14aa326548ce2ee5e
 
 COCOAPODS: 1.4.0

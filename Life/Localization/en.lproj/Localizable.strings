@@ -28,6 +28,8 @@
 "cant_login_title" = "Can not login?";
 "cant_login_descr" = "Enter your username or e-mail address, and we'll send you a link for restore access to your account.";
 "send" = "Send";
+"forgot_password_instructions" = "For password change call Service Desk: +7 (7172) 918989";
+"call" = "Call";
 
 /* Profile */
 

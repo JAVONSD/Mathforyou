@@ -78,9 +78,11 @@ extension BIBoardHeaderSectionController: ASSectionController {
                 )
             }
 
+            let height = max(200 * UIScreen.main.bounds.size.width / 375.0, 200)
+
             let cell = BoardSliderCell(
                 slides: slides,
-                height: 200,
+                height: height,
                 hideSpinner: !self.loading.value
             )
             cell.didSelectSlide = { index in

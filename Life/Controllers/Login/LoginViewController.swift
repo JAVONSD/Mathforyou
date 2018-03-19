@@ -44,6 +44,34 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
         return .lightContent
     }
 
+    // MARK: - Actions
+
+    private func helpPressedHandler() {
+        let alert = UIAlertController(
+            title: NSLocalizedString("help", comment: ""),
+            message: NSLocalizedString("forgot_password_instructions", comment: ""),
+            preferredStyle: .alert
+        )
+        alert.popoverPresentationController?.sourceView = view
+
+        let helpAction = UIAlertAction(
+            title: NSLocalizedString("call", comment: ""),
+            style: .default, handler: { _ in
+                if let url = URL(string: "telprompt://+77172918989") {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }
+        )
+        alert.addAction(helpAction)
+
+        let cancelAction = UIAlertAction(
+            title: NSLocalizedString("cancel", comment: ""),
+            style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true, completion: nil)
+    }
+
     // MARK: - UI
 
     private func setupUI() {
@@ -53,7 +81,8 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
         }
         loginView.didTapForgotPassword = { [weak self] (login) in
             guard let `self` = self else { return }
-            self.step.accept(AppStep.forgotPassword(login: login))
+            self.helpPressedHandler()
+//            self.step.accept(AppStep.forgotPassword(login: login))
         }
         view.addSubview(loginView)
         loginView.snp.makeConstraints({ [weak self] (make) in

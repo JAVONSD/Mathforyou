@@ -106,10 +106,10 @@ extension BIOfficeViewController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return [
             viewModel.eventsViewModel,
-            viewModel.tasksAndRequestsViewModel,
-            viewModel.kpiViewModel,
-            viewModel.hrViewModel,
-            viewModel.idpViewModel
+            viewModel.tasksAndRequestsViewModel
+//            viewModel.kpiViewModel,
+//            viewModel.hrViewModel,
+//            viewModel.idpViewModel
         ]
     }
 
