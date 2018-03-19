@@ -39,7 +39,7 @@ class NewsCell: ASCellNode {
 
         authorAvatarNode = ASNetworkImageNode()
         authorAvatarNode.cornerRadius = 8
-        authorAvatarNode.backgroundColor = UIColor(hex: "#d8d8d8")
+        authorAvatarNode.image = #imageLiteral(resourceName: "ic-user")
         backgroundNode.addSubnode(authorAvatarNode)
 
         createDateNode = ASTextNode()
@@ -137,7 +137,10 @@ class NewsCell: ASCellNode {
 
         guard let viewModel = self.viewModel else { return }
 
-        ImageDownloader.download(image: "", employeeCode: viewModel.item.authorCode) { (image) in
+        ImageDownloader.download(
+            image: "",
+            employeeCode: viewModel.item.authorCode,
+            placeholderImage: #imageLiteral(resourceName: "ic-user")) { (image) in
             self.authorAvatarNode.image = image
         }
 

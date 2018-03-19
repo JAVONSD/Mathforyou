@@ -38,7 +38,10 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
                 cell.employeeImageView.layer.cornerRadius = App.Layout.cornerRadiusSmall
                 cell.employeeImageView.backgroundColor = App.Color.paleGreyTwo
                 cell.imageSize = CGSize(width: 24, height: 24)
-                cell.employeeImageView.set(image: element.image, employeeCode: nil)
+                cell.employeeImageView.set(
+                    image: element.image,
+                    employeeCode: nil
+                )
 
                 cell.separatorLeftOffset = 70
                 cell.accessoryButton.isHidden = true

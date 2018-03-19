@@ -39,7 +39,11 @@ class MenuView: UIView {
     }
 
     private func setupHeaderButton() {
-        headerButton.employeeImageView.set(image: "", employeeCode: User.current.employeeCode)
+        headerButton.employeeImageView.set(
+            image: "",
+            employeeCode: User.current.employeeCode,
+            placeholderImage: #imageLiteral(resourceName: "ic-user")
+        )
         addSubview(headerButton)
         headerButton.snp.makeConstraints { (make) in
             make.top.equalTo(self)

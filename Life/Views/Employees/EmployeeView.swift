@@ -44,7 +44,8 @@ class EmployeeView: UIView {
             ImageDownloader.set(
                 image: "",
                 employeeCode: image,
-                to: employeeHeaderView?.imageView
+                to: employeeHeaderView?.imageView,
+                placeholderImage: #imageLiteral(resourceName: "ic-user")
             )
         }
     }
@@ -175,6 +176,7 @@ class EmployeeView: UIView {
         tapGr.numberOfTouchesRequired = 1
         employeeHeaderView.imageView.isUserInteractionEnabled = true
         employeeHeaderView.imageView.addGestureRecognizer(tapGr)
+        employeeHeaderView.imageView.backgroundColor = .clear
 
         employeeHeaderView.callButton.addTarget(
             self, action: #selector(handleCallButton), for: .touchUpInside)

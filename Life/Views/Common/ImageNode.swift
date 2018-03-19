@@ -35,7 +35,11 @@ class ImageNode: ASCellNode {
         super.init()
 
         imageNode = ASNetworkImageNode()
-        imageNode.backgroundColor = backgroundColor
+        if !imageIsAvatar {
+            imageNode.backgroundColor = backgroundColor
+        } else {
+            imageNode.image = #imageLiteral(resourceName: "ic-user")
+        }
         imageNode.contentMode = .scaleAspectFill
         imageNode.cornerRadius = cornerRadius
         imageNode.style.preferredSize = size
@@ -66,7 +70,11 @@ class ImageNode: ASCellNode {
                 self.imageNode.image = image
             }
         } else if imageIsAvatar {
-            ImageDownloader.download(image: "", employeeCode: image, completion: { image in
+            ImageDownloader.download(
+                image: "",
+                employeeCode: image,
+                placeholderImage: #imageLiteral(resourceName: "ic-user"),
+                completion: { image in
                 self.imageNode.image = image
             })
         } else {

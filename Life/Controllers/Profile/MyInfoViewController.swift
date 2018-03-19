@@ -35,7 +35,8 @@ class MyInfoViewController: UIViewController {
             ImageDownloader.set(
                 image: "",
                 employeeCode: (profile?.employeeCode ?? ""),
-                to: self.myInfoView.mainView?.infoView?.imageView
+                to: self.myInfoView.mainView?.infoView?.imageView,
+                placeholderImage: #imageLiteral(resourceName: "ic-user")
             )
 
             self.updateUI(with: profile)

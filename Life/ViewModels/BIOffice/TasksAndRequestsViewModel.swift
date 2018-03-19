@@ -25,7 +25,7 @@ class TasksAndRequestsViewModel: NSObject, ViewModel, ListDiffable {
 
     var onUnathorizedError: (() -> Void)?
 
-    var minimized = true
+    var minimized = false
 
     enum SelectedItemsType {
         case inbox, outbox

@@ -29,6 +29,7 @@ class MyInfoMainView: StackedView {
     private func setupInfoView() {
         infoView = ImageTextView(image: nil, title: "Фамилия\nИмя", subtitle: "Должность")
         infoView?.imageSize = CGSize(width: 96, height: 96)
+        infoView?.imageView?.backgroundColor = .clear
 
         guard let stackView = stackView, let infoView = infoView else { return }
 

@@ -37,9 +37,9 @@ class QuestionCell: ASCellNode {
         addSubnode(backgroundNode)
 
         authorImageNode = ASNetworkImageNode()
-        authorImageNode.backgroundColor = UIColor(hex: "#d8d8d8")
         authorImageNode.contentMode = .scaleAspectFill
         authorImageNode.cornerRadius = 6
+        authorImageNode.image = #imageLiteral(resourceName: "ic-user")
         backgroundNode.addSubnode(authorImageNode)
 
         authorNameNode = ASTextNode()
@@ -144,7 +144,10 @@ class QuestionCell: ASCellNode {
     override func didLoad() {
         super.didLoad()
 
-        ImageDownloader.download(image: "", employeeCode: question.authorCode) { (image) in
+        ImageDownloader.download(
+            image: "",
+            employeeCode: question.authorCode,
+            placeholderImage: #imageLiteral(resourceName: "ic-user")) { (image) in
             self.authorImageNode.image = image
         }
     }

@@ -122,7 +122,8 @@ class AppToolbarController: NavigationController, Stepper {
             ImageDownloader.set(
                 image: "",
                 employeeCode: (profile?.employeeCode ?? ""),
-                to: profileButton.iconView
+                to: profileButton.iconView,
+                placeholderImage: #imageLiteral(resourceName: "ic-user")
             )
         }).disposed(by: disposeBag)
         return profileButton

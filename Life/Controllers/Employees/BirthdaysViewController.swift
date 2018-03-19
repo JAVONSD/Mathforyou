@@ -35,8 +35,23 @@ class BirthdaysViewController: UIViewController {
                 }
 
                 cell.titleLabel.text = element.employee.fullname
-                cell.subtitleLabel.text = element.employee.jobPosition
-                cell.employeeImageView.set(image: "", employeeCode: element.employee.code)
+
+                var subtitleText = element.employee.jobPosition
+                let mobilePhoneNumber = element.employee.mobilePhoneNumber
+                if !mobilePhoneNumber.isEmpty {
+                    subtitleText += "\n\(mobilePhoneNumber)"
+                }
+                cell.subtitleLabel.text = subtitleText
+
+                cell.employeeImageView.backgroundColor = .clear
+                cell.employeeImageView.set(
+                    image: "",
+                    employeeCode: element.employee.code,
+                    placeholderImage: #imageLiteral(resourceName: "ic-user")
+                )
+
+                cell.accessoryButton.backgroundColor = .clear
+                cell.accessoryButton.setImage(#imageLiteral(resourceName: "ic-bd-active"), for: .normal)
 
                 let itemsCount = tv.numberOfRows(inSection: indexPath.section)
                 if indexPath.row == itemsCount - 1 {

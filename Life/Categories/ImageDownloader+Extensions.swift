@@ -14,10 +14,13 @@ extension ImageDownloader {
 
     static func set(image: String,
                     employeeCode: String? = nil,
-                    to imageView: UIImageView?) {
+                    to imageView: UIImageView?,
+                    placeholderImage: UIImage? = nil) {
+        imageView?.image = placeholderImage
+
         let imageKey = employeeCode ?? image
         guard !imageKey.isEmpty else {
-            imageView?.image = nil
+            imageView?.image = placeholderImage
             return
         }
         if let image = ImageCache.default.retrieveImageInMemoryCache(forKey: imageKey) {
@@ -42,6 +45,8 @@ extension ImageDownloader {
                         if let downloadedImage = downloadedImage {
                             ImageCache.default.store(downloadedImage, forKey: imageKey)
                             imageView?.image = downloadedImage
+                        } else {
+                            imageView?.image = placeholderImage
                         }
             }
         }
@@ -49,10 +54,11 @@ extension ImageDownloader {
 
     static func download(image: String,
                          employeeCode: String? = nil,
+                         placeholderImage: UIImage? = nil,
                          completion: @escaping ((UIImage?) -> Void)) {
         let imageKey = employeeCode ?? image
         guard !imageKey.isEmpty else {
-            completion(nil)
+            completion(placeholderImage)
             return
         }
         if let image = ImageCache.default.retrieveImageInMemoryCache(forKey: imageKey) {
@@ -76,8 +82,10 @@ extension ImageDownloader {
                     progressBlock: nil) { (downloadedImage, _, _, _) in
                         if let downloadedImage = downloadedImage {
                             ImageCache.default.store(downloadedImage, forKey: imageKey)
+                            completion(downloadedImage)
+                        } else {
+                            completion(placeholderImage)
                         }
-                        completion(downloadedImage)
             }
         }
     }

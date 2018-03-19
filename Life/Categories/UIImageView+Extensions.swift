@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 
 extension UIImageView {
-    public func set(image: String, employeeCode: String? = nil) {
+    public func set(image: String, employeeCode: String? = nil, placeholderImage: UIImage? = nil) {
         let url = self.url(for: image, employeeCode: employeeCode)
         let modifier = AnyModifier { request in
             var r = request
@@ -19,7 +19,7 @@ extension UIImageView {
             return r
         }
 
-        kf.setImage(with: url, options: [.requestModifier(modifier)])
+        kf.setImage(with: url, placeholder: placeholderImage, options: [.requestModifier(modifier)])
     }
 
     private func url(for image: String, employeeCode: String? = nil) -> URL? {
