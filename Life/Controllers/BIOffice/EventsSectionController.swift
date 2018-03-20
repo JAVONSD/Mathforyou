@@ -10,26 +10,42 @@ import UIKit
 import AsyncDisplayKit
 import IGListKit
 import Moya
+import RxSwift
+import RxCocoa
 
 class EventsSectionController: ASCollectionSectionController {
-    private(set) weak var viewModel: EventsViewModel?
+//    private(set) weak var viewModel: EventsViewModel?
+    private(set) weak var viewModel: NewsViewModel?
+    let disposeBag = DisposeBag()
+
+    var sectionTimestamp = DateCell()
 
     var onUnathorizedError: (() -> Void)?
+    var didSelectNews: ((String) -> Void)?
 
-    init(viewModel: EventsViewModel) {
+    private var loading = BehaviorRelay(value: false)
+
+    init(viewModel: NewsViewModel) {
         self.viewModel = viewModel
 
         super.init()
 
         supplementaryViewSource = self
+
+        viewModel.loadingTop3.bind(to: loading).disposed(by: disposeBag)
+        viewModel.top3NewsObservable.subscribe(onNext: { [weak self] _ in
+            guard let `self` = self else { return }
+            self.sectionTimestamp.update()
+            self.collectionContext?.performBatch(animated: true, updates: { (context) in
+                context.reload(self)
+            }, completion: nil)
+        }).disposed(by: disposeBag)
     }
 
     override func didUpdate(to object: Any) {
-        viewModel = object as? EventsViewModel
-
-        // do nothing because API not ready
-//        guard let viewModel = self.viewModel else { return }
-//        set(items: [viewModel], animated: false, completion: nil)
+        viewModel = object as? NewsViewModel
+        sectionTimestamp.update()
+        set(items: [sectionTimestamp], animated: false, completion: nil)
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
@@ -47,22 +63,23 @@ class EventsSectionController: ASCollectionSectionController {
 
 extension EventsSectionController: ASSectionController {
     func nodeBlockForItem(at index: Int) -> ASCellNodeBlock {
-        guard index < items.count,
-            let viewModel = items[index] as? EventsViewModel else {
-                return {
-                    return ASCellNode()
-                }
+        guard let viewModel = viewModel else {
+            return {
+                return ASCellNode()
+            }
         }
 
         return {
-            let slides = viewModel.events.map {
-                //swiftlint:disable line_length
+            let slides = viewModel.top3News.map { (viewModel) -> SliderViewModel in
+                var image = viewModel.news.imageStreamId ?? ""
+                if image.isEmpty {
+                    image = viewModel.news.imageUrl
+                }
                 return SliderViewModel(
-                    title: $0.event.title,
-                    label: NSLocalizedString("calend", comment: "").uppercased(),
-                    image: "https://images.pexels.com/photos/313691/pexels-photo-313691.jpeg?w=1260&h=750&auto=compress&cs=tinysrgb"
+                    title: viewModel.news.title,
+                    label: NSLocalizedString("news_single", comment: "").uppercased(),
+                    image: image
                 )
-                //swiftlint:enable line_length
             }
 
             let defaultLayout = UICollectionViewFlowLayout()
@@ -75,12 +92,21 @@ extension EventsSectionController: ASSectionController {
                 bottom: 0,
                 right: App.Layout.itemSpacingSmall)
 
-            return BoardSliderCell(
+            let height = max(180 * UIScreen.main.bounds.size.width / 375.0, 180)
+            let cell = BoardSliderCell(
                 slides: slides,
-                height: 180,
+                height: height,
                 layout: defaultLayout,
-                slidesCornerRadius: App.Layout.cornerRadiusSmall
+                slidesCornerRadius: App.Layout.cornerRadiusSmall,
+                hideSpinner: !self.loading.value
             )
+            cell.didSelectSlide = { index in
+                if let didSelectNews = self.didSelectNews {
+                    didSelectNews(viewModel.top3News[index].news.id)
+                }
+            }
+
+            return cell
         }
     }
 
@@ -95,8 +121,15 @@ extension EventsSectionController: ASSectionController {
 
 extension EventsSectionController: RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?) {
-        if let completion = completion {
-            completion()
+        viewModel?.getTop3News { [weak self] error in
+            if let moyaError = error as? MoyaError,
+                moyaError.response?.statusCode == 401,
+                let onUnathorizedError = self?.onUnathorizedError {
+                onUnathorizedError()
+            }
+            if let completion = completion {
+                completion()
+            }
         }
     }
 }

@@ -42,6 +42,10 @@ class BIOfficeFlow: Flow {
                     nextStepper: rootViewController
                 )
             )
+        case .newsPicked(let id):
+            return navigationToNewsDetail(id)
+        case .newsDone:
+            return navigationFromNewsDetail()
         case .tasksAndRequests:
             return navigationToTasksAndRequests()
         case .createRequest(let category, let didCreateRequest):
@@ -55,6 +59,23 @@ class BIOfficeFlow: Flow {
         default:
             return NextFlowItems.stepNotHandled
         }
+    }
+
+    private func navigationToNewsDetail(_ id: String) -> NextFlowItems {
+        let viewController = NewsViewController(
+            viewModel: NewsItemViewModel(id: id)
+        )
+        self.rootViewController.present(viewController, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem:
+            NextFlowItem(
+                nextPresentable: viewController,
+                nextStepper: viewController)
+        )
+    }
+
+    private func navigationFromNewsDetail() -> NextFlowItems {
+        self.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
+        return NextFlowItems.none
     }
 
     private func navigationToTasksAndRequests() -> NextFlowItems {

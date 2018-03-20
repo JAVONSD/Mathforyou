@@ -86,6 +86,12 @@ class BIOfficeViewController: ASViewController<ASCollectionNode>, Stepper {
 
     @objc
     private func refreshFeed() {
+        let eventsSC = listAdapter.sectionController(
+            for: viewModel.newsViewModel) as? RefreshingSectionControllerType
+        eventsSC?.refreshContent {
+            self.refreshCtrl.endRefreshing()
+        }
+
         let tasksAndRequestsSC = listAdapter.sectionController(
             for: viewModel.tasksAndRequestsViewModel) as? RefreshingSectionControllerType
         tasksAndRequestsSC?.refreshContent {
@@ -105,7 +111,7 @@ class BIOfficeViewController: ASViewController<ASCollectionNode>, Stepper {
 extension BIOfficeViewController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return [
-            viewModel.eventsViewModel,
+            viewModel.newsViewModel,
             viewModel.tasksAndRequestsViewModel
 //            viewModel.kpiViewModel,
 //            viewModel.hrViewModel,
@@ -113,11 +119,14 @@ extension BIOfficeViewController: ListAdapterDataSource {
         ]
     }
 
-    private func eventsSection(_ viewModel: EventsViewModel) -> ListSectionController {
+    private func eventsSection(_ viewModel: NewsViewModel) -> ListSectionController {
         let section = EventsSectionController(viewModel: viewModel)
         section.onUnathorizedError = { [weak self] in
             guard let `self` = self else { return }
             self.onUnauthorized()
+        }
+        section.didSelectNews = { [weak self] id in
+            self?.step.accept(AppStep.newsPicked(withId: id))
         }
         return section
     }
@@ -206,7 +215,7 @@ extension BIOfficeViewController: ListAdapterDataSource {
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         switch object {
-        case let viewModel as EventsViewModel:
+        case let viewModel as NewsViewModel:
             return eventsSection(viewModel)
         case let viewModel as TasksAndRequestsViewModel:
             return tasksAndRequestsSection(viewModel)

@@ -9,6 +9,7 @@
 import UIKit
 import AsyncDisplayKit
 import Hue
+import Kingfisher
 import NVActivityIndicatorView
 import WebKit
 
@@ -64,8 +65,8 @@ class NewsBodyNode: ASDisplayNode {
         super.init()
 
         authorImageNode = ASNetworkImageNode()
-        authorImageNode.backgroundColor = UIColor(hex: "#d8d8d8")
         authorImageNode.cornerRadius = App.Layout.cornerRadiusSmall
+        authorImageNode.image = #imageLiteral(resourceName: "ic-user")
         addSubnode(authorImageNode)
 
         authorNameNode = ASTextNode()
@@ -272,6 +273,17 @@ class NewsBodyNode: ASDisplayNode {
             left: App.Layout.sideOffset,
             bottom: App.Layout.sideOffset,
             right: App.Layout.sideOffset), child: stackSpec)
+    }
+
+    override func didLoad() {
+        super.didLoad()
+
+        ImageDownloader.download(
+            image: "",
+            employeeCode: news.authorCode,
+            placeholderImage: #imageLiteral(resourceName: "ic-user")) { (image) in
+                self.authorImageNode.image = image
+        }
     }
 
     // MARK: - Actions

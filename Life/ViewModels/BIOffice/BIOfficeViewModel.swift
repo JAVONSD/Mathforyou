@@ -15,6 +15,7 @@ struct BIOfficeViewModel: ViewModel {
 
     private(set) var eventsViewModel = EventsViewModel()
     private(set) unowned var tasksAndRequestsViewModel: TasksAndRequestsViewModel
+    private(set) var newsViewModel = NewsViewModel()
     private(set) var kpiViewModel = KPIViewModel()
     private(set) var hrViewModel = HRViewModel()
     private(set) var idpViewModel = IDPViewModel()
