@@ -16,6 +16,7 @@ class EmployeeView: UIView {
     private(set) var headerView: NotificationHeaderView?
     private(set) var employeeHeaderView: EmployeeHeaderView?
     private(set) var scrollView: StackedScrollView?
+    private(set) lazy var fabButton = FABButton(image: Icon.cm.add, tintColor: .white)
 
     private(set) var positionView: ImageTextView?
     private(set) var administrativeChiefView: ImageTextView?
@@ -28,6 +29,7 @@ class EmployeeView: UIView {
     var didTapAvatar: (() -> Void)?
     var didTapCallButton: (() -> Void)?
     var didTapEmailButton: (() -> Void)?
+    var didTapAddContactButton: (() -> Void)?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -139,12 +141,20 @@ class EmployeeView: UIView {
         }
     }
 
+    @objc
+    private func handleAddContactButton() {
+        if let didTapAddContactButton = didTapAddContactButton {
+            didTapAddContactButton()
+        }
+    }
+
     // MARK: - UI
 
     private func setupUI() {
         setupHeader()
         setupEmployeeHeader()
         setupScroll()
+        setupFabButton()
     }
 
     private func setupHeader() {
@@ -186,6 +196,22 @@ class EmployeeView: UIView {
             make.top.equalTo(headerView.snp.bottom)
             make.left.equalTo(self)
             make.right.equalTo(self)
+        }
+    }
+
+    private func setupFabButton() {
+        fabButton.addTarget(self, action: #selector(handleAddContactButton), for: .touchUpInside)
+        fabButton.pulseColor = .white
+        fabButton.backgroundColor = App.Color.azure
+        fabButton.shadowColor = App.Color.black12
+        fabButton.depth = Depth(offset: Offset.init(horizontal: 0, vertical: 12), opacity: 1, radius: 12)
+        fabButton.isHidden = true
+
+        addSubview(fabButton)
+        fabButton.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self).inset(App.Layout.sideOffset)
+            make.right.equalTo(self).inset(App.Layout.sideOffset)
+            make.size.equalTo(CGSize(width: 56, height: 56))
         }
     }
 

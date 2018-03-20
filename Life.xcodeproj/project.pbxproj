@@ -50,6 +50,7 @@
 		C7310335205038B200E21672 /* VideoAnswerFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7310334205038B200E21672 /* VideoAnswerFooterView.swift */; };
 		C731033720503D1000E21672 /* CheckboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C731033620503D1000E21672 /* CheckboxCell.swift */; };
 		C73103392050405600E21672 /* AnswerFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73103382050405600E21672 /* AnswerFormViewController.swift */; };
+		C73748872060AF45004DA267 /* ContactsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73748862060AF45004DA267 /* ContactsService.swift */; };
 		C73997B0203A7A8F00C3981A /* SliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73997AF203A7A8F00C3981A /* SliderCell.swift */; };
 		C73EB2512032D71B00429921 /* ResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2502032D71B00429921 /* ResultsViewModel.swift */; };
 		C73EB25B2032DA4300429921 /* Mockable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB25A2032DA4300429921 /* Mockable.swift */; };
@@ -471,6 +472,7 @@
 		C7310334205038B200E21672 /* VideoAnswerFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAnswerFooterView.swift; sourceTree = "<group>"; };
 		C731033620503D1000E21672 /* CheckboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxCell.swift; sourceTree = "<group>"; };
 		C73103382050405600E21672 /* AnswerFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerFormViewController.swift; sourceTree = "<group>"; };
+		C73748862060AF45004DA267 /* ContactsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsService.swift; sourceTree = "<group>"; };
 		C73997AF203A7A8F00C3981A /* SliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderCell.swift; sourceTree = "<group>"; };
 		C73EB2502032D71B00429921 /* ResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewModel.swift; sourceTree = "<group>"; };
 		C73EB25A2032DA4300429921 /* Mockable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mockable.swift; sourceTree = "<group>"; };
@@ -904,6 +906,14 @@
 			path = TasksAndRequests;
 			sourceTree = "<group>";
 		};
+		C73748852060AF2D004DA267 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C73748862060AF45004DA267 /* ContactsService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		C73EB24D2032D6F100429921 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -1177,6 +1187,7 @@
 		C76EFB84202E92BB00FA2BB9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C73748852060AF2D004DA267 /* Services */,
 				C7A2745F20539B0F0026B549 /* Providers */,
 				C752ACF120411D1F00D04E26 /* RealmObjects */,
 				C73EB2592032DA2200429921 /* Common */,
@@ -2563,6 +2574,7 @@
 				C7A274732053E63E0026B549 /* LentaObject.swift in Sources */,
 				C717C685203D94000070447D /* EmployeeViewController.swift in Sources */,
 				C7AB6F82204BE8F500328E17 /* ActionsViewController.swift in Sources */,
+				C73748872060AF45004DA267 /* ContactsService.swift in Sources */,
 				C7F7CB75203C75B4007B9D1E /* ImageNode.swift in Sources */,
 				C7D641F02034466B001DCA98 /* AppFlow.swift in Sources */,
 				C73EB28B2032F9B100429921 /* Array+Extensions.swift in Sources */,

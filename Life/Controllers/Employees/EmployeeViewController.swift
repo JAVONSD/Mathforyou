@@ -44,6 +44,20 @@ class EmployeeViewController: UIViewController, ViewModelBased, Stepper {
         }
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        if !isMovingFromParentViewController {
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+        }
+    }
+
     // MARK: - Bind
 
     private func bind() {
@@ -103,6 +117,20 @@ class EmployeeViewController: UIViewController, ViewModelBased, Stepper {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }
         }
+        employeeView.didTapAddContactButton = { [weak self] in
+            guard let `self` = self,
+                let navVC = self.navigationController else { return }
+            self.viewModel.contactsService.contactSaveCompletion = { [weak self] success in
+                guard let `self` = self else { return }
+                if success {
+                    self.employeeView.fabButton.isHidden = true
+                }
+            }
+            self.viewModel.contactsService.save(
+                employee: self.viewModel.employee,
+                presentIn: navVC
+            )
+        }
         view.addSubview(employeeView)
         employeeView.snp.makeConstraints({ [weak self] (make) in
             guard let `self` = self else { return }
@@ -111,6 +139,16 @@ class EmployeeViewController: UIViewController, ViewModelBased, Stepper {
             make.right.equalTo(self.view)
             make.bottom.equalTo(self.view)
         })
+
+        DispatchQueue.global().async { [weak self] in
+            guard let `self` = self else { return }
+            if !self.viewModel.contactsService.isContactExists(for: self.viewModel.employee) {
+                DispatchQueue.main.async { [weak self] in
+                    guard let `self` = self else { return }
+                    self.employeeView.fabButton.isHidden = false
+                }
+            }
+        }
     }
 
 }

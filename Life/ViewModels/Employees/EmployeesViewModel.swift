@@ -42,6 +42,11 @@ class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
     // MARK: - Methods
 
     public func getEmployees(completion: @escaping ((Error?) -> Void)) {
+        // load local phone contacts
+        DispatchQueue.global().async {
+            _ = ContactsService.shared.contacts
+        }
+
         returnFromCache()
 
         if loading.value || didLoadEmployees {
@@ -253,6 +258,8 @@ class EmployeeViewModel: NSObject, ViewModel, ListDiffable {
             })
         ]
     )
+
+    let contactsService = ContactsService.shared
 
     init(employee: Employee) {
         self.employee = employee

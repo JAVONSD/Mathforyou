@@ -41,14 +41,16 @@ class EmployeesFlow: Flow {
     }
 
     private func navigationToEmployee(_ employee: Employee) -> NextFlowItems {
-        let notificationsViewController = EmployeeViewController.instantiate(
+        let employeeViewController = EmployeeViewController.instantiate(
             withViewModel: EmployeeViewModel(employee: employee)
         )
-        self.rootViewController.present(notificationsViewController, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: employeeViewController)
+        navigationController.setNavigationBarHidden(true, animated: false)
+        self.rootViewController.present(navigationController, animated: true, completion: nil)
         return NextFlowItems.one(flowItem:
             NextFlowItem(
-                nextPresentable: notificationsViewController,
-                nextStepper: notificationsViewController)
+                nextPresentable: navigationController,
+                nextStepper: employeeViewController)
         )
     }
 

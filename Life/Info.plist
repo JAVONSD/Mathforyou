@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.1</string>
+	<string>1.0.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -54,6 +54,8 @@
 	<string>Медиа библиотека используется для выбора файлов в новости, предложения и др. разделов. </string>
 	<key>NSCameraUsageDescription</key>
 	<string>Камера используется для снятия фото или видео в новости, предложения и др. разделов. </string>
+	<key>NSContactsUsageDescription</key>
+	<string>Данное разрешение позволяет приложению добавлять новые контакты.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Микрофон используется для записи видео файлов со звуком.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
