@@ -178,6 +178,10 @@ extension BIBoardViewController: ListAdapterDataSource {
                 suggestionsCtrl?.updateContents()
             }))
         }
+        section.didTapViewAll = {
+            self.parent?.showToast("Этот раздел еще в разработке. Нет дизайна.")
+            print("View all suggestions ...")
+        }
         return section
     }
 
@@ -186,6 +190,10 @@ extension BIBoardViewController: ListAdapterDataSource {
         section.onUnathorizedError = { [weak self] in
             guard let `self` = self else { return }
             self.onUnauthorized()
+        }
+        section.didTapViewAll = {
+            self.parent?.showToast("Этот раздел еще в разработке. Нет дизайна.")
+            print("View all questionnaires ...")
         }
         return section
     }

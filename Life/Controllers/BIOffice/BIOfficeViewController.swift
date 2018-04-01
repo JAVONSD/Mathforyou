@@ -183,6 +183,9 @@ extension BIOfficeViewController: ListAdapterDataSource {
 
             self?.present(alert, animated: true, completion: nil)
         }
+        section.didTapViewAll = { [weak self] in
+            self?.step.accept(AppStep.tasksAndRequests)
+        }
         return section
     }
 

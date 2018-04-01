@@ -289,6 +289,7 @@
 		C7BB5C79204015B40056BBF9 /* RequestFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C78204015B40056BBF9 /* RequestFormViewController.swift */; };
 		C7BB5C7B20401A870056BBF9 /* SuggestionFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C7A20401A870056BBF9 /* SuggestionFormViewController.swift */; };
 		C7BB5C7D204021190056BBF9 /* NewsFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C7C204021190056BBF9 /* NewsFormViewController.swift */; };
+		C7CE70DA2070CB1F00333779 /* LabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CE70D92070CB1F00333779 /* LabelNode.swift */; };
 		C7D6419C20340750001DCA98 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419B20340750001DCA98 /* AuthService.swift */; };
 		C7D6419E20340777001DCA98 /* EmployeesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419D20340777001DCA98 /* EmployeesService.swift */; };
 		C7D641A020340789001DCA98 /* EventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419F20340789001DCA98 /* EventsService.swift */; };
@@ -726,6 +727,7 @@
 		C7BB5C78204015B40056BBF9 /* RequestFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFormViewController.swift; sourceTree = "<group>"; };
 		C7BB5C7A20401A870056BBF9 /* SuggestionFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionFormViewController.swift; sourceTree = "<group>"; };
 		C7BB5C7C204021190056BBF9 /* NewsFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFormViewController.swift; sourceTree = "<group>"; };
+		C7CE70D92070CB1F00333779 /* LabelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNode.swift; sourceTree = "<group>"; };
 		C7D6419B20340750001DCA98 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		C7D6419D20340777001DCA98 /* EmployeesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesService.swift; sourceTree = "<group>"; };
 		C7D6419F20340789001DCA98 /* EventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsService.swift; sourceTree = "<group>"; };
@@ -1299,6 +1301,7 @@
 				C7F7CB74203C75B4007B9D1E /* ImageNode.swift */,
 				C731033620503D1000E21672 /* CheckboxCell.swift */,
 				C7FC5D932057A71C00F5A04B /* WebView.swift */,
+				C7CE70D92070CB1F00333779 /* LabelNode.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2467,6 +2470,7 @@
 				C720EC862037093A007E4CD4 /* LentaOverviewCell.swift in Sources */,
 				C7A27456205383090026B549 /* MessageObject.swift in Sources */,
 				C7A241A6204A4DFD00994840 /* QuestionFormViewModel.swift in Sources */,
+				C7CE70DA2070CB1F00333779 /* LabelNode.swift in Sources */,
 				C7F7CB39203AEBCE007B9D1E /* Task.swift in Sources */,
 				C7D6423A20346FB7001DCA98 /* BIOfficeViewModel.swift in Sources */,
 				C7AB6F76204BE8F500328E17 /* ThumbnailGenerator.swift in Sources */,
