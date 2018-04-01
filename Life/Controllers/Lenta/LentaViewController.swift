@@ -240,6 +240,7 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
 
     func fabMenuWillOpen(fabMenu: FABMenu) {
         collectionNode.alpha = 0.15
+        collectionNode.isUserInteractionEnabled = false
 
         fabButton.backgroundColor = App.Color.paleGreyTwo
         fabButton.image = Icon.cm.close
@@ -254,6 +255,10 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         fabButton.tintColor = UIColor.white
     }
 
+    func fabMenuDidClose(fabMenu: FABMenu) {
+        collectionNode.isUserInteractionEnabled = true
+    }
+
 }
 
 extension LentaViewController: ListAdapterDataSource {
@@ -264,9 +269,11 @@ extension LentaViewController: ListAdapterDataSource {
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         let section = NewsSectionController(viewModel: viewModel)
         section.didTapNews = { [weak self] id in
+            guard !(self?.fabMenu.isOpened ?? false) else { return }
             self?.step.accept(AppStep.newsPicked(withId: id))
         }
         section.didTapSuggestion = { [weak self] id in
+            guard !(self?.fabMenu.isOpened ?? false) else { return }
             self?.step.accept(AppStep.suggestionPicked(withId: id))
         }
         section.onUnathorizedError = { [weak self] in
