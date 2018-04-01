@@ -83,4 +83,14 @@ public extension String {
         return isEmpty ? defaultValue : self
     }
 
+    public func removing(chars: [String]) -> String {
+        var res = NSString(string: self)
+
+        for char in chars {
+            res = NSString(string: res.replacingOccurrences(of: char, with: ""))
+        }
+
+        return String(res)
+    }
+
 }

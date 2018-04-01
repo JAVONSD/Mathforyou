@@ -179,6 +179,13 @@ class BirthdaysViewModel: NSObject, ViewModel {
                 }
                 if !include {
                     include = include
+                        || employeeViewModel.employee.workPhoneNumber
+                            .removing(chars: [" ", "(", ")", "-"])
+                            .lowercased()
+                            .contains(text)
+                }
+                if !include {
+                    include = include
                         || employeeViewModel.employee.mobilePhoneNumber.lowercased().contains(text)
                 }
 

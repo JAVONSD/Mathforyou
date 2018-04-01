@@ -37,7 +37,7 @@ class EmployeesViewController: UIViewController {
                 cell.titleLabel.text = element.employee.fullname
 
                 var subtitleText = element.employee.jobPosition
-                let mobilePhoneNumber = element.employee.mobilePhoneNumber
+                let mobilePhoneNumber = element.employee.workPhoneNumber
                 if !mobilePhoneNumber.isEmpty {
                     subtitleText += "\n\(mobilePhoneNumber)"
                 }
