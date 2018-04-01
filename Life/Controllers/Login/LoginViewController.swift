@@ -133,6 +133,7 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
             User.current.token = user.token
             User.current.login = user.login
             User.current.employeeCode = user.employeeCode
+            User.current.roles = user.roles
             User.current.save()
         }
 

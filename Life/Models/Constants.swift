@@ -156,6 +156,7 @@ struct App {
         static let userLogin = "userLogin"
         static let userEmployeeCode = "userEmployeeCode"
         static let userProfile = "userProfile"
+        static let userRoles = "userRoles"
     }
 
     // MARK: - Fields
@@ -188,7 +189,7 @@ struct App {
         case production
 
         static var current: Environment {
-            return .production
+            return .development
         }
     }
 

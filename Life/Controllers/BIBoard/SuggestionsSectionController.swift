@@ -118,6 +118,7 @@ extension SuggestionsSectionController: ASSectionController {
         let corners = viewModel.minimized
             ? UIRectCorner.allCorners
             : [UIRectCorner.topLeft, UIRectCorner.topRight]
+        let showAddButton = User.current.canCreateNewsOrSuggestion
         let config = DashboardCell.Config(
             image: "",
             title: NSLocalizedString("suggestions", comment: ""),
@@ -128,7 +129,7 @@ extension SuggestionsSectionController: ASSectionController {
             item2Title: NSLocalizedString("total_count_short", comment: ""),
             item3Count: viewModel.popularSuggestions.count,
             item3Title: NSLocalizedString("popular_count_short", comment: ""),
-            showAddButton: true,
+            showAddButton: showAddButton,
             corners: corners,
             minimized: viewModel.minimized,
             didTapAddButton: {

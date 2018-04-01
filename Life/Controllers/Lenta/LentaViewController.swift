@@ -57,6 +57,7 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         }
         addNode.backgroundColor = .clear
         addNode.style.preferredSize = CGSize(width: 56, height: 56)
+        addNode.isHidden = !User.current.canCreateNewsOrSuggestion
         node.addSubnode(addNode)
 
         node.layoutSpecBlock = { (_, _) in

@@ -70,7 +70,7 @@ class EmployeeViewController: UIViewController, ViewModelBased, Stepper {
             self.employeeView.birthdate = employee.birthDate.prettyDateString(format: "dd MMMM")
             self.employeeView.administrativeChief = employee.administrativeChiefName ?? ""
             self.employeeView.functionalChief = employee.functionalChiefName ?? ""
-            self.employeeView.phone = employee.mobilePhoneNumber
+            self.employeeView.phone = employee.workPhoneNumber
             self.employeeView.email = employee.email
         }).disposed(by: disposeBag)
     }
@@ -107,7 +107,7 @@ class EmployeeViewController: UIViewController, ViewModelBased, Stepper {
             self?.openAvatar()
         }
         employeeView.didTapCallButton = {
-            let telUrl = "telprompt://\(self.viewModel.employee.mobilePhoneNumber)"
+            let telUrl = "telprompt://\(self.viewModel.employee.workPhoneNumber)"
             if let url = URL(string: telUrl) {
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             }

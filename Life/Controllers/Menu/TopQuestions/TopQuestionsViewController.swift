@@ -220,7 +220,11 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper, FABM
                 )
         })
 
-        fabMenu.fabMenuItems = [addQuestionItem, addAnswerItem, addVideoAnswerItem].reversed()
+        if User.current.canVideoAnswerTopQuestion {
+            fabMenu.fabMenuItems = [addQuestionItem, addAnswerItem, addVideoAnswerItem].reversed()
+        } else {
+            fabMenu.fabMenuItems = [addQuestionItem, addAnswerItem].reversed()
+        }
     }
 
     private func setupFABMenuItem(title: String, onTap: @escaping (() -> Void)) -> FABMenuItem {
