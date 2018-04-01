@@ -29,7 +29,15 @@ class SuggestionDetailsCell: ASCellNode {
 
         backgroundColor = .clear
 
-        headerNode = SuggestionHeaderNode(suggestion: suggestion, didTapClose: didTapClose)
+        headerNode = SuggestionHeaderNode(
+            suggestion: suggestion,
+            didTapClose: didTapClose,
+            didTapImage: { (selectedImage, imageStringURLs) in
+                guard let url = URL(string: selectedImage) else { return }
+                let urls = imageStringURLs.flatMap { URL(string: $0) }
+                didTapImage(url, urls)
+            }
+        )
         addSubnode(headerNode)
 
         bodyNode = SuggestionBodyNode(
