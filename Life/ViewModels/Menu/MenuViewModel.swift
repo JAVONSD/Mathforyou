@@ -38,12 +38,18 @@ extension MenuViewModel: Mockable {
             subtitle: "Последний вопрос",
             image: ""
         )
+        let menu5 = MenuItemViewModel(
+            title: NSLocalizedString("log_out", comment: ""),
+            subtitle: "",
+            image: ""
+        )
 
         menuViewModel.items = [
             menu1,
             menu2,
             menu3,
-            menu4
+            menu4,
+            menu5
         ]
 
         return menuViewModel

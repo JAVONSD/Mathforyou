@@ -13,6 +13,7 @@ import SnapKit
 
 class EmployeeCell: TableViewCell {
 
+    private(set) lazy var containerView = UIView()
     private(set) lazy var employeeImageView = UIImageView()
     private(set) lazy var textContainerView = UIView()
     private(set) lazy var titleLabel = UILabel()
@@ -24,9 +25,29 @@ class EmployeeCell: TableViewCell {
     var imageSize: CGSize = CGSize(width: 40, height: 40) {
         didSet {
             employeeImageView.snp.remakeConstraints { (make) in
-                make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
-                make.centerY.equalTo(self.contentView)
+                make.left.equalTo(self.containerView).inset(App.Layout.sideOffset)
+                make.centerY.equalTo(self.containerView)
                 make.size.equalTo(imageSize)
+            }
+        }
+    }
+
+    var textTopOffset: CGFloat = 19 {
+        didSet {
+            textContainerView.snp.remakeConstraints { (make) in
+                make.top.equalTo(self.containerView).inset(textTopOffset)
+                make.left.equalTo(self.employeeImageView.snp.right).offset(textLeftOffset)
+                make.bottom.equalTo(self.containerView).inset(19)
+            }
+        }
+    }
+
+    var textLeftOffset: CGFloat = App.Layout.itemSpacingMedium {
+        didSet {
+            textContainerView.snp.remakeConstraints { (make) in
+                make.top.equalTo(self.containerView).inset(19)
+                make.left.equalTo(self.employeeImageView.snp.right).offset(textLeftOffset)
+                make.bottom.equalTo(self.containerView).inset(19)
             }
         }
     }
@@ -41,6 +62,7 @@ class EmployeeCell: TableViewCell {
             }
         }
     }
+
     var separatorRightOffset: CGFloat = 0 {
         didSet {
             separatorView.snp.remakeConstraints { (make) in
@@ -48,6 +70,17 @@ class EmployeeCell: TableViewCell {
                 make.bottom.equalTo(self.contentView)
                 make.right.equalTo(self.contentView).inset(separatorRightOffset)
                 make.height.equalTo(0.5)
+            }
+        }
+    }
+
+    var containerInsets: UIEdgeInsets = .zero {
+        didSet {
+            containerView.snp.remakeConstraints { (make) in
+                make.top.equalTo(self.contentView).inset(containerInsets.top)
+                make.left.equalTo(self.contentView).inset(containerInsets.left)
+                make.bottom.equalTo(self.contentView).inset(containerInsets.bottom)
+                make.right.equalTo(self.contentView).inset(containerInsets.right)
             }
         }
     }
@@ -72,11 +105,19 @@ class EmployeeCell: TableViewCell {
         backgroundView = nil
         contentView.backgroundColor = .clear
 
+        setupContainerView()
         setupEmployeeImageView()
         setupTextContainerView()
         setupAccessoryButton()
         setupDisclosureImageView()
         setupSeparatorView()
+    }
+
+    private func setupContainerView() {
+        contentView.addSubview(containerView)
+        containerView.snp.makeConstraints { (make) in
+            make.edges.equalTo(self.contentView)
+        }
     }
 
     private func setupEmployeeImageView() {
@@ -85,20 +126,20 @@ class EmployeeCell: TableViewCell {
         employeeImageView.layer.masksToBounds = true
         employeeImageView.backgroundColor = UIColor(hex: "#d8d8d8")
         employeeImageView.contentMode = .scaleAspectFill
-        contentView.addSubview(employeeImageView)
+        containerView.addSubview(employeeImageView)
         employeeImageView.snp.makeConstraints { (make) in
-            make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
-            make.centerY.equalTo(self.contentView)
+            make.left.equalTo(self.containerView).inset(App.Layout.sideOffset)
+            make.centerY.equalTo(self.containerView)
             make.size.equalTo(CGSize(width: 40, height: 40))
         }
     }
 
     private func setupTextContainerView() {
-        contentView.addSubview(textContainerView)
+        containerView.addSubview(textContainerView)
         textContainerView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.contentView).inset(19)
+            make.top.equalTo(self.containerView).inset(19)
             make.left.equalTo(self.employeeImageView.snp.right).offset(App.Layout.itemSpacingMedium)
-            make.bottom.equalTo(self.contentView).inset(19)
+            make.bottom.equalTo(self.containerView).inset(19)
         }
 
         setupTitleLabel()
@@ -136,10 +177,10 @@ class EmployeeCell: TableViewCell {
         accessoryButton.backgroundColor = App.Color.paleGreyTwo
         accessoryButton.layer.cornerRadius = App.Layout.cornerRadiusSmall
         accessoryButton.layer.masksToBounds = true
-        contentView.addSubview(accessoryButton)
+        containerView.addSubview(accessoryButton)
         accessoryButton.snp.makeConstraints { (make) in
             make.left.equalTo(self.textContainerView.snp.right).offset(13)
-            make.centerY.equalTo(self.contentView)
+            make.centerY.equalTo(self.containerView)
             make.size.equalTo(CGSize(width: 22, height: 22))
         }
     }
@@ -148,11 +189,11 @@ class EmployeeCell: TableViewCell {
         disclosureImageView.contentMode = .scaleAspectFit
         disclosureImageView.image = #imageLiteral(resourceName: "chevron_right")
         disclosureImageView.tintColor = App.Color.silver
-        contentView.addSubview(disclosureImageView)
+        containerView.addSubview(disclosureImageView)
         disclosureImageView.snp.makeConstraints { (make) in
             make.left.equalTo(self.accessoryButton.snp.right).offset(App.Layout.itemSpacingSmall)
-            make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
-            make.centerY.equalTo(self.contentView)
+            make.right.equalTo(self.containerView).inset(App.Layout.sideOffset)
+            make.centerY.equalTo(self.containerView)
             make.size.equalTo(CGSize(width: 18, height: 18))
         }
     }

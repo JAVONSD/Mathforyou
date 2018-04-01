@@ -214,4 +214,8 @@
 "Delete" = "Delete";
 "Choose" = "Choose";
 
+/* Menu */
+
+"log_out" = "Log out";
+
 

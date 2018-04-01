@@ -51,6 +51,9 @@ class MainMenuFlow: Flow {
         case .unauthorized:
             onUnauthorized()
             return .stepNotHandled
+        case .login:
+            navigateToLogin()
+            return .stepNotHandled
         default:
             return NextFlowItems.stepNotHandled
         }
@@ -148,6 +151,16 @@ class MainMenuFlow: Flow {
         appDelegate.coordinator.coordinate(
             flow: appDelegate.appFlow,
             withStepper: OneStepper(withSingleStep: AppStep.unauthorized)
+        )
+    }
+
+    private func navigateToLogin() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        appDelegate.coordinator.coordinate(
+            flow: appDelegate.appFlow,
+            withStepper: OneStepper(withSingleStep: AppStep.login)
         )
     }
 

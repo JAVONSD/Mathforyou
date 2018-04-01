@@ -98,6 +98,9 @@ class MenuView: UIView {
 
 extension MenuView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.item == tableView.numberOfRows(inSection: 0) - 2 {
+            return 100
+        }
         return 68
     }
 

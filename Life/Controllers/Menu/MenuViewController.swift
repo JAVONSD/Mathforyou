@@ -45,12 +45,23 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
 
                 cell.separatorLeftOffset = 70
                 cell.accessoryButton.isHidden = true
+                cell.disclosureImageView.isHidden = false
+                cell.separatorView.isHidden = false
+                cell.containerInsets = .zero
+                cell.textLeftOffset = App.Layout.itemSpacingMedium
+                cell.textTopOffset = 19
 
                 let itemsCount = tv.numberOfRows(inSection: indexPath.section)
-                if indexPath.row == itemsCount - 1 {
+
+                if indexPath.row == itemsCount - 2 {
+                    cell.separatorLeftOffset = App.Layout.sideOffset
+                    cell.containerInsets = .init(top: 0, left: 0, bottom: 32, right: 0)
+                } else if indexPath.row == itemsCount - 1 {
+                    cell.disclosureImageView.isHidden = true
                     cell.separatorView.isHidden = true
-                } else {
-                    cell.separatorView.isHidden = false
+                    cell.imageSize = .zero
+                    cell.textLeftOffset = 0
+                    cell.textTopOffset = App.Layout.itemSpacingMedium
                 }
 
                 return cell
@@ -101,6 +112,9 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
             .subscribe(onNext: { [weak self] pair in
                 if pair.0.row == 3 {
                     self?.step.accept(AppStep.topQuestions)
+                } else if pair.0.row == 4 {
+                    User.current.logout()
+                    self?.step.accept(AppStep.login)
                 }
             })
             .disposed(by: disposeBag)
