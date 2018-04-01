@@ -113,8 +113,7 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
                 if pair.0.row == 3 {
                     self?.step.accept(AppStep.topQuestions)
                 } else if pair.0.row == 4 {
-                    User.current.logout()
-                    self?.step.accept(AppStep.login)
+                    self?.askToConfirmLogout()
                 }
             })
             .disposed(by: disposeBag)
@@ -122,6 +121,37 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
         tableView.rx
             .setDelegate(menuView)
             .disposed(by: disposeBag)
+    }
+
+    // MARK: - Methods
+
+    private func askToConfirmLogout() {
+        let alert = UIAlertController(
+            title: NSLocalizedString("confirm_action", comment: ""),
+            message: NSLocalizedString("are_you_sure", comment: ""),
+            preferredStyle: .actionSheet)
+        alert.popoverPresentationController?.sourceView = view
+
+        let taskAction = UIAlertAction(
+            title: NSLocalizedString("log_out", comment: ""),
+            style: .destructive, handler: { [weak self] _ in
+                self?.logout()
+            }
+        )
+        alert.addAction(taskAction)
+
+        let cancelAction = UIAlertAction(
+            title: NSLocalizedString("cancel", comment: ""),
+            style: .cancel,
+            handler: nil)
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true, completion: nil)
+    }
+
+    private func logout() {
+        User.current.logout()
+        step.accept(AppStep.login)
     }
 
     // MARK: - UI
