@@ -19,6 +19,8 @@ class MyInfoViewController: UIViewController {
 
     private let disposeBag = DisposeBag()
 
+    var didTapAvatar: (() -> Void)?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -41,6 +43,15 @@ class MyInfoViewController: UIViewController {
 
             self.updateUI(with: profile)
         }).disposed(by: disposeBag)
+    }
+
+    // MARK: - Actions
+
+    @objc
+    private func handleAvatarTap() {
+        if let didTapAvatar = didTapAvatar {
+            didTapAvatar()
+        }
     }
 
     // MARK: - UI
@@ -67,46 +78,53 @@ class MyInfoViewController: UIViewController {
     }
 
     private func updateUI(with profile: UserProfile?) {
-        self.myInfoView.mainView?
+        let tapGr = UITapGestureRecognizer(target: self, action: #selector(handleAvatarTap))
+        tapGr.numberOfTapsRequired = 1
+        tapGr.numberOfTouchesRequired = 1
+
+        myInfoView.mainView?.infoView?.imageView?.isUserInteractionEnabled = true
+        myInfoView.mainView?.infoView?.imageView?.addGestureRecognizer(tapGr)
+
+        myInfoView.mainView?
             .infoView?.titleLabel?.text = profile?.fullname
-        self.myInfoView.mainView?
+        myInfoView.mainView?
             .infoView?.subtitleLabel?.text = profile?.jobPosition
 
-        self.myInfoView.contactView?
+        myInfoView.contactView?
             .divisionButton?.view?.titleLabel?.text = profile?.company
-        self.myInfoView.contactView?
+        myInfoView.contactView?
             .cellPhoneButton?.view?.titleLabel?.text = profile?.mobilePhoneNumber
-        self.myInfoView.contactView?
+        myInfoView.contactView?
             .emailButton?.view?.titleLabel?.text = profile?.email
-        self.myInfoView.contactView?
+        myInfoView.contactView?
             .officialPhoneButton?.view?.titleLabel?.text = profile?.workPhoneNumber
 
-        self.myInfoView.detailedView?
+        myInfoView.detailedView?
             .iinView?.subtitleLabel?.text = profile?.iin
-        self.myInfoView.detailedView?
+        myInfoView.detailedView?
             .familyStatusView?.subtitleLabel?.text = profile?.familyStatus
-        self.myInfoView.detailedView?
+        myInfoView.detailedView?
             .childrenCountView?.subtitleLabel?.text = profile?.childrenQuantity
-        self.myInfoView.detailedView?
+        myInfoView.detailedView?
             .birthdateView?.subtitleLabel?.text = profile?.birthDate
                 .prettyDateString(format: "dd MMMM yyyy")
-        self.myInfoView.detailedView?
+        myInfoView.detailedView?
             .genderView?.subtitleLabel?.text = profile?.gender
-        self.myInfoView.detailedView?
+        myInfoView.detailedView?
             .clothingSizeView?.subtitleLabel?.text = profile?.clothingSize
 
-        self.myInfoView.detailedView?
+        myInfoView.detailedView?
             .workExperienceView?.subtitleLabel?.text = profile?.totalExperience
-        self.myInfoView.detailedView?
+        myInfoView.detailedView?
             .corporateExperienceView?.subtitleLabel?.text = profile?.corporateExperience
 
         let lastDate = profile?.medicalExamination.last?.prettyDateString(format: "dd.MM.yyyy")
-        self.myInfoView.detailedView?
+        myInfoView.detailedView?
             .lastMedicalView?.subtitleLabel?.text = lastDate
             ?? NSLocalizedString("no_data", comment: "")
 
         let nextDate = profile?.medicalExamination.next?.prettyDateString(format: "dd.MM.yyyy")
-        self.myInfoView.detailedView?
+        myInfoView.detailedView?
             .nextMedicalView?.subtitleLabel?.text = nextDate
             ?? NSLocalizedString("no_data", comment: "")
     }
