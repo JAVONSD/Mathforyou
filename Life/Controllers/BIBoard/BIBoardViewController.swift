@@ -220,7 +220,7 @@ extension BIBoardViewController: ListAdapterDataSource {
             self.onUnauthorized()
         }
         section.didTapTop7 = { [weak self] id in
-            self?.step.accept(AppStep.topQuestionPicked(withId: id))
+//            self?.step.accept(AppStep.topQuestionPicked(withId: id))
         }
         return section
     }

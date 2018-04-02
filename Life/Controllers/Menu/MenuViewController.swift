@@ -111,7 +111,7 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
             }
             .subscribe(onNext: { [weak self] pair in
                 if pair.0.row == 3 {
-                    self?.step.accept(AppStep.topQuestions)
+//                    self?.step.accept(AppStep.topQuestions)
                 } else if pair.0.row == 4 {
                     self?.askToConfirmLogout()
                 }
