@@ -112,7 +112,9 @@ extension BIOfficeViewController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return [
             viewModel.newsViewModel,
-            viewModel.tasksAndRequestsViewModel
+            viewModel.tasksAndRequestsViewModel,
+            viewModel.suggestionsViewModel,
+            viewModel.questionnairesViewModel
 //            viewModel.kpiViewModel,
 //            viewModel.hrViewModel,
 //            viewModel.idpViewModel
@@ -216,6 +218,47 @@ extension BIOfficeViewController: ListAdapterDataSource {
         return section
     }
 
+    private func suggestions(_ viewModel: SuggestionsViewModel) -> ListSectionController {
+        let section = SuggestionsSectionController(viewModel: viewModel)
+        section.onUnathorizedError = { [weak self] in
+            guard let `self` = self else { return }
+            self.onUnauthorized()
+        }
+        section.didTapAtSuggestion = { [weak self] id in
+            self?.step.accept(AppStep.suggestionPicked(withId: id))
+        }
+        section.didTapAddSuggestion = { [weak self] in
+            self?.step.accept(AppStep.createSuggestion(completion: { [weak self] (suggestion, _) in
+                guard let `self` = self else { return }
+
+                self.viewModel.suggestionsViewModel.add(suggestion: suggestion)
+
+                let suggestionsCtrl = self.listAdapter.sectionController(
+                    for: self.viewModel.suggestionsViewModel
+                    ) as? SuggestionsSectionController
+                suggestionsCtrl?.updateContents()
+            }))
+        }
+        section.didTapViewAll = {
+            self.parent?.showToast("Этот раздел еще в разработке.")
+            print("View all suggestions ...")
+        }
+        return section
+    }
+
+    private func questionnaires(_ viewModel: QuestionnairesViewModel) -> ListSectionController {
+        let section = QuestionnairesSectionController(viewModel: viewModel)
+        section.onUnathorizedError = { [weak self] in
+            guard let `self` = self else { return }
+            self.onUnauthorized()
+        }
+        section.didTapViewAll = {
+            self.parent?.showToast("Этот раздел еще в разработке.")
+            print("View all questionnaires ...")
+        }
+        return section
+    }
+
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         switch object {
         case let viewModel as NewsViewModel:
@@ -228,6 +271,10 @@ extension BIOfficeViewController: ListAdapterDataSource {
             return hrSection(viewModel)
         case let viewModel as IDPViewModel:
             return idpSection(viewModel)
+        case let viewModel as SuggestionsViewModel:
+            return suggestions(viewModel)
+        case let viewModel as QuestionnairesViewModel:
+            return questionnaires(viewModel)
         default:
             break
         }

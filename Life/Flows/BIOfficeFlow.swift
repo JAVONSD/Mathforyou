@@ -56,6 +56,14 @@ class BIOfficeFlow: Flow {
             return navigationToTaskForm(didCreateTask: didCreateTask)
         case .createTaskDone:
             return navigationFromTaskForm()
+        case .suggestionPicked(let id):
+            return navigationToSuggestion(id)
+        case .suggestionDone:
+            return navigationFromSuggestion()
+        case .createSuggestion(let completion):
+            return navigationToSuggestionForm(completion: completion)
+        case .createSuggestionDone:
+            return navigationFromSuggestionForm()
         default:
             return NextFlowItems.stepNotHandled
         }
@@ -116,6 +124,36 @@ class BIOfficeFlow: Flow {
     }
 
     private func navigationFromTaskForm() -> NextFlowItems {
+        self.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
+        return NextFlowItems.none
+    }
+
+    private func navigationToSuggestion( _ id: String) -> NextFlowItems {
+        let viewController = SuggestionViewController(
+            viewModel: SuggestionItemViewModel(id: id)
+        )
+        self.rootViewController.present(viewController, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem:
+            NextFlowItem(
+                nextPresentable: viewController,
+                nextStepper: viewController)
+        )
+    }
+
+    private func navigationFromSuggestion() -> NextFlowItems {
+        self.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
+        return NextFlowItems.none
+    }
+
+    private func navigationToSuggestionForm(
+        completion: @escaping ((Suggestion, ImageSize) -> Void)) -> NextFlowItems {
+        let vc = SuggestionFormViewController()
+        vc.didAddSuggestion = completion
+        self.rootViewController.present(vc, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc))
+    }
+
+    private func navigationFromSuggestionForm() -> NextFlowItems {
         self.rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
         return NextFlowItems.none
     }
