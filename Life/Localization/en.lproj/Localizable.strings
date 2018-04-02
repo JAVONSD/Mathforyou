@@ -118,6 +118,7 @@
 "add_news" = "Add news";
 "news_single" = "News";
 "suggestion" = "Suggestion";
+"loading_employees" = "Loading employee list";
 
 /* Notifications */
 

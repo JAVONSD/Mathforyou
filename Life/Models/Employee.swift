@@ -94,6 +94,37 @@ struct Employee: Codable {
         aCoder.encode(functionalChiefName, forKey: "functionalChiefName")
     }
 
+    // MARK: - Methods
+
+    public func filter(by text: String) -> Bool {
+        var include = false
+        include = include || fullname.lowercased().contains(text)
+        if !include { include = include || firstname.lowercased().contains(text) }
+        if !include { include = include || login.lowercased().contains(text) }
+        if !include { include = include || jobPosition.lowercased().contains(text) }
+        if !include { include = include || company.lowercased().contains(text) }
+        if !include { include = include || companyName.lowercased().contains(text) }
+        if !include { include = include || departmentName.lowercased().contains(text) }
+        if !include { include = include || address.lowercased().contains(text) }
+        if !include { include = include || workPhoneNumber.lowercased().contains(text) }
+        if !include {
+            include = include
+                || workPhoneNumber
+                    .removing(chars: [" ", "(", ")", "-"])
+                    .lowercased()
+                    .contains(text)
+        }
+        if !include { include = include || mobilePhoneNumber.lowercased().contains(text) }
+        if !include {
+            include = include
+                || mobilePhoneNumber
+                    .removing(chars: [" ", "(", ")", "-"])
+                    .lowercased()
+                    .contains(text)
+        }
+        return include
+    }
+
 }
 
 extension Employee: Persistable {

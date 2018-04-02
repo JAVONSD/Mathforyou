@@ -45,6 +45,11 @@ class LentaViewModel: NSObject {
     private(set) var loading = false
     private var usingCached = false
 
+    private(set) var newsViewModel = NewsViewModel()
+    private(set) var suggestionsViewModel = SuggestionsViewModel()
+    private(set) var questionnairesViewModel = QuestionnairesViewModel()
+    private(set) unowned var stuffViewModel: StuffViewModel
+
     private var disposeBag = DisposeBag()
 
     private var _provider: MoyaProvider<LentaService>?
@@ -60,6 +65,12 @@ class LentaViewModel: NSObject {
     }
 
     var items = [LentaItemViewModel]()
+
+    init(stuffViewModel: StuffViewModel) {
+        self.stuffViewModel = stuffViewModel
+    }
+
+    // MARK: - Methods
 
     func reload(_ completion: @escaping ((Error?) -> Void)) {
         fetchNextPage(reset: true, completion)
@@ -192,7 +203,7 @@ extension LentaViewModel: Mockable {
     typealias T = LentaViewModel
 
     static func sample() -> LentaViewModel {
-        let lenta = LentaViewModel()
+        let lenta = LentaViewModel(stuffViewModel: StuffViewModel())
 
         let item1Json = [
             "authorName": "User",

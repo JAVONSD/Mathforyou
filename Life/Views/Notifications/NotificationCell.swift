@@ -38,6 +38,7 @@ class NotificationCell: ImageTextTableViewCell {
         detailImageView.snp.makeConstraints { (make) in
             make.size.equalTo(CGSize(width: 32, height: 32))
         }
+        detailImageView.isHidden = true
         view?.stackView?.stackView?.addArrangedSubview(detailImageView)
     }
 

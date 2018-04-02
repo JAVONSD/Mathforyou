@@ -91,7 +91,8 @@ class EmployeesViewController: UIViewController {
         setupUI()
         bind()
 
-        viewModel?.getEmployees { [weak self] error in
+        viewModel?.getEmployees()
+        viewModel?.onError.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] error in
             guard let `self` = self
                 else { return }
 
@@ -100,7 +101,7 @@ class EmployeesViewController: UIViewController {
                 let onUnathorizedError = self.onUnathorizedError {
                 onUnathorizedError()
             }
-        }
+        }).disposed(by: disposeBag)
         viewModel?.loading.asDriver().drive(onNext: { [weak self] loading in
             if loading {
                 self?.employeesView.startLoading()
@@ -129,7 +130,7 @@ class EmployeesViewController: UIViewController {
 
         let dataSource = self.dataSource
 
-        let observable = viewModel.itemsChangeSubject.asObservable()
+        let observable = viewModel.filteredEmployees.asObservable()
         let items = observable.concatMap { (items) in
             return Observable.just([SectionModel(model: self.viewModel!, items: items)])
         }

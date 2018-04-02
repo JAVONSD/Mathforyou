@@ -105,6 +105,7 @@
 "add_news" = "Добавить новость";
 "news_single" = "Новость";
 "suggestion" = "Предложение";
+"loading_employees" = "Загрузка списка сотрудников";
 
 /* Notifications */
 

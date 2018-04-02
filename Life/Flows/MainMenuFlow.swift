@@ -217,6 +217,7 @@ class MainMenuFlow: Flow {
 
     private func configuredLenta() -> LentaViewController {
         let lentaVC = LentaViewController()
+        lentaVC.viewModel = LentaViewModel(stuffViewModel: stuffViewModel)
         return lentaVC
     }
 

@@ -9,6 +9,8 @@
 import UIKit
 import Kingfisher
 import Material
+import MBProgressHUD
+import NVActivityIndicatorView
 import RxSwift
 import RxCocoa
 import Toast
@@ -18,6 +20,37 @@ enum ToastPosition {
 }
 
 extension UIViewController {
+
+    // MARK: - HUD
+
+    func showHUD(title: String?) {
+        let spinner = NVActivityIndicatorView(
+            frame: .init(x: 0, y: 0, width: 60, height: 60),
+            type: .circleStrokeSpin,
+            color: UIColor.white,
+            padding: App.Layout.itemSpacingSmall
+        )
+        spinner.startAnimating()
+
+        if let app = UIApplication.shared.delegate as? AppDelegate, let window = app.window {
+            let hud = MBProgressHUD.showAdded(to: window, animated: true)
+            hud.bezelView.color = UIColor.black.withAlphaComponent(0.75)
+            hud.backgroundView.blurEffectStyle = .dark
+            hud.backgroundView.color = UIColor.black.withAlphaComponent(0.5)
+            hud.animationType = .zoomIn
+            hud.mode = .customView
+            hud.removeFromSuperViewOnHide = true
+            hud.label.text = title
+            hud.contentColor = .white
+            hud.customView = spinner
+        }
+    }
+
+    func hideHUD() {
+        if let app = UIApplication.shared.delegate as? AppDelegate, let window = app.window {
+            MBProgressHUD.hide(for: window, animated: true)
+        }
+    }
 
     // MARK: - Toast
 

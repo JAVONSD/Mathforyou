@@ -141,54 +141,7 @@ class BirthdaysViewModel: NSObject, ViewModel {
         DispatchQueue.global().async {
             let text = text.lowercased()
             let filteredEmployees = self.employees.filter({ (employeeViewModel) -> Bool in
-                var include = false
-                include = include
-                    || employeeViewModel.employee.fullname.lowercased().contains(text)
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.firstname.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.login.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.jobPosition.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.company.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.companyName.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.departmentName.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.address.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.workPhoneNumber.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.workPhoneNumber
-                            .removing(chars: [" ", "(", ")", "-"])
-                            .lowercased()
-                            .contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.mobilePhoneNumber.lowercased().contains(text)
-                }
-
-                return include
+                return employeeViewModel.employee.filter(by: text)
             })
 
             DispatchQueue.main.async {

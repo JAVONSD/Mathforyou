@@ -10,6 +10,7 @@ import UIKit
 import AsyncDisplayKit
 import IGListKit
 import Moya
+import RxSwift
 
 class EmployeesSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: StuffViewModel?
@@ -17,6 +18,8 @@ class EmployeesSectionController: ASCollectionSectionController {
     var onUnathorizedError: (() -> Void)?
     var didSelectStuff: (() -> Void)?
     var didSelectEmployee: ((Employee) -> Void)?
+
+    let disposeBag = DisposeBag()
 
     init(viewModel: StuffViewModel) {
         self.viewModel = viewModel
@@ -81,7 +84,7 @@ extension EmployeesSectionController: ASSectionController {
                 image: "",
                 title: NSLocalizedString("employees", comment: ""),
                 itemColor: .black,
-                item1Count: viewModel.employeesViewModel.employees.count,
+                item1Count: viewModel.employeesViewModel.employees.value.count,
                 item1Title: NSLocalizedString("total_count_short", comment: ""),
                 item2Count: viewModel.birthdaysViewModel.employees.count,
                 item2Title: NSLocalizedString("birthdays_count_short", comment: ""),
@@ -166,17 +169,30 @@ extension EmployeesSectionController: ASSectionController {
 
 extension EmployeesSectionController: RefreshingSectionControllerType {
     func refreshContent(with completion: (() -> Void)?) {
-        viewModel?.employeesViewModel.getEmployees { [weak self] error in
-            if let moyaError = error as? MoyaError,
-                moyaError.response?.statusCode == 401,
-                let onUnathorizedError = self?.onUnathorizedError {
-                onUnathorizedError()
-            }
-            self?.updateContents()
-            if let completion = completion {
-                completion()
-            }
-        }
+        viewModel?.employeesViewModel.getEmployees()
+        viewModel?.employeesViewModel.onSuccess
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in
+                self?.updateContents()
+                if let completion = completion {
+                    completion()
+                }
+            })
+            .disposed(by: disposeBag)
+        viewModel?.employeesViewModel.onError
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] error in
+                if let moyaError = error as? MoyaError,
+                    moyaError.response?.statusCode == 401,
+                    let onUnathorizedError = self?.onUnathorizedError {
+                    onUnathorizedError()
+                }
+                self?.updateContents()
+                if let completion = completion {
+                    completion()
+                }
+            })
+            .disposed(by: disposeBag)
         viewModel?.birthdaysViewModel.getBirthdays { [weak self] error in
             if let moyaError = error as? MoyaError,
                 moyaError.response?.statusCode == 401,

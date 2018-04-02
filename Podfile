@@ -29,6 +29,9 @@ target 'Life' do
   # Material design
   pod 'Material', '~> 2.0'
 
+  # Progress hud
+  pod 'MBProgressHUD', '~> 1.1.0'
+
   # Loading indicators
   pod 'NVActivityIndicatorView', '~> 4.0'
 
@@ -41,9 +44,6 @@ target 'Life' do
 
   # Database
   pod 'RxRealm', '~> 0.7'
-
-  # Skeleton
-  pod 'SkeletonView', '~> 1.0'
 
   # AutoLayout
   pod 'SnapKit', '~> 4.0'

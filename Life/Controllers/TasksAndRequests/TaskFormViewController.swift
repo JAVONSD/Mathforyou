@@ -247,12 +247,11 @@ class TaskFormViewController: UIViewController, Stepper {
     }
 
     private func bindExecutorAndParticipantsFields() {
-        if viewModel.employeesViewModel.employees.isEmpty {
-            viewModel.employeesViewModel.getEmployees(completion: { _ in
-            })
+        if viewModel.employeesViewModel.employees.value.isEmpty {
+            viewModel.employeesViewModel.getEmployees()
         }
 
-        viewModel.employeesViewModel.itemsChangeSubject.subscribe(onNext: { [weak self] _ in
+        viewModel.employeesViewModel.onSuccess.subscribe(onNext: { [weak self] _ in
             self?.taskFormView.participantsField.reloadContents()
             if self?.taskFormView.participantsField.isFirstResponder ?? false {
                 self?.taskFormView.participantsField.setLoading(
@@ -380,7 +379,7 @@ extension TaskFormViewController: UITextFieldAutoSuggestionDataSource {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: App.CellIdentifier.suggestionCellId)
 
         let cell = tableView.dequeueReusableCell(withIdentifier: App.CellIdentifier.suggestionCellId, for: indexPath)
-        let employees = viewModel.employeesViewModel.filteredEmployees
+        let employees = viewModel.employeesViewModel.filteredEmployees.value
         if employees.count > indexPath.row {
             cell.textLabel?.text = employees[indexPath.row].employee.fullname
         }
@@ -388,11 +387,11 @@ extension TaskFormViewController: UITextFieldAutoSuggestionDataSource {
     }
 
     func autoSuggestionField(_ field: UITextField!, tableView: UITableView!, numberOfRowsInSection section: Int, forText text: String!) -> Int {
-        return viewModel.employeesViewModel.filteredEmployees.count
+        return viewModel.employeesViewModel.filteredEmployees.value.count
     }
 
     func autoSuggestionField(_ field: UITextField!, tableView: UITableView!, didSelectRowAt indexPath: IndexPath!, forText text: String!) {
-        let employees = viewModel.employeesViewModel.filteredEmployees
+        let employees = viewModel.employeesViewModel.filteredEmployees.value
         if employees.count > indexPath.row {
             if field == taskFormView.participantsField {
                 viewModel.participants.insert(employees[indexPath.row].employee)

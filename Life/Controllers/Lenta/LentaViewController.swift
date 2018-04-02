@@ -12,6 +12,7 @@ import IGListKit
 import Material
 import Moya
 import NVActivityIndicatorView
+import RealmSwift
 import RxSwift
 import RxCocoa
 import SnapKit
@@ -75,8 +76,6 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
             return ASOverlayLayoutSpec(child: self.collectionNode, overlay: relativeSpec)
         }
 
-        viewModel = LentaViewModel()
-
         let updater = ListAdapterUpdater()
         listAdapter = ListAdapter(updater: updater, viewController: self, workingRangeSize: 0)
         listAdapter.dataSource = self
@@ -102,6 +101,30 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         refreshCtrl.addTarget(self, action: #selector(refreshFeed), for: .valueChanged)
         refreshCtrl.tintColor = App.Color.azure
         collectionNode.view.addSubview(refreshCtrl)
+
+        do {
+            let realm = try App.Realms.default()
+            let employeeObjects = realm.objects(EmployeeObject.self)
+
+            if employeeObjects.isEmpty {
+                showHUD(title: NSLocalizedString("loading_employees", comment: ""))
+            }
+            viewModel.stuffViewModel.employeesViewModel.onSuccess
+                .observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self] _ in
+                    self?.hideHUD()
+                })
+                .disposed(by: disposeBag)
+            viewModel.stuffViewModel.employeesViewModel.onError
+                .observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self] _ in
+                    self?.downloadEmployees()
+                })
+                .disposed(by: disposeBag)
+            downloadEmployees()
+        } catch {
+            print("Failed to access the Realm database")
+        }
 
         syncUserProfile {
             DispatchQueue.main.async { [weak self] in
@@ -235,6 +258,10 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         }).disposed(by: disposeBag)
 
         return menuItem
+    }
+
+    private func downloadEmployees() {
+        viewModel.stuffViewModel.employeesViewModel.getEmployees()
     }
 
     // MARK: - FABMenuDelegate

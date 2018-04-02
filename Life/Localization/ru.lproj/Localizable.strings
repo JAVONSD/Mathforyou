@@ -102,6 +102,7 @@
 "with_birthday" = "с Днем рождения";
 "send_congratulation" = "Отправить поздравление";
 "congratulation_text" = "Текст поздравления";
+"loading_employees" = "Загрузка списка сотрудников";
 
 /* Lenta */
 
