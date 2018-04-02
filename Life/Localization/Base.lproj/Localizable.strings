@@ -10,7 +10,7 @@
 
 "username_or_phone" = "User name or phone number";
 "phone" = "Phone";
-"password" = "Password";
+"password" = "Пароль AD ( с которым входите в компьютер)";
 "login" = "Login";
 "forgot_password_descr" = "Did you forget your login credentials?";
 "help" = "Help";
@@ -28,7 +28,7 @@
 "cant_login_title" = "Can not login?";
 "cant_login_descr" = "Enter your username or e-mail address, and we'll send you a link for restore access to your account.";
 "send" = "Send";
-"forgot_password_instructions" = "For password change call Service Desk: +7 (7172) 918989";
+"forgot_password_instructions" = "Пароль необходимо сменить с вашего компьютера, нажав на ctrl+alt+delete и выбрав \"Сменить пароль\". Для подробной информации просим связаться с операторами Service desk по номеру 8 (7172) 91-89-89.";
 "call" = "Call";
 
 /* Profile */
@@ -85,11 +85,15 @@
 "vacancies" = "Vacancies";
 "search" = "Search";
 "job_position" = "Position";
-"login_name" = "Login";
+"login_name" = "Логин AD ( с которым входите в ваш компьютер)";
 "chief" = "Chief";
 "administrative_chief" = "Administrative chief";
 "functional_chief" = "Functional chief";
 "Close" = "Close";
+"congratulate" = "Congratulate";
+"with_birthday" = "with birthday";
+"send_congratulation" = "Send congratulation";
+"congratulation_text" = "Congratulation text";
 
 /* Lenta */
 

@@ -17,6 +17,7 @@ import SnapKit
 class BirthdaysViewController: UIViewController {
 
     var onUnathorizedError: (() -> Void)?
+    var wantCongratulate: ((Employee) -> Void)?
 
     weak var viewModel: BirthdaysViewModel?
     var didSelectBirthdate: ((Employee) -> Void)?
@@ -52,6 +53,8 @@ class BirthdaysViewController: UIViewController {
 
                 cell.accessoryButton.backgroundColor = .clear
                 cell.accessoryButton.setImage(#imageLiteral(resourceName: "ic-bd-active"), for: .normal)
+
+                cell.accessoryButton.addTarget(self, action: #selector(handleCongratulateButton(_:)), for: .touchUpInside)
 
                 let itemsCount = tv.numberOfRows(inSection: indexPath.section)
                 if indexPath.row == itemsCount - 1 {
@@ -118,6 +121,23 @@ class BirthdaysViewController: UIViewController {
             tabVC.needScrollToTop = { [weak self] idx in
                 guard idx == 1 else { return }
                 self?.employeesView.tableView?.setContentOffset(.zero, animated: true)
+            }
+        }
+    }
+
+    // MARK: - Actions
+
+    @objc
+    private func handleCongratulateButton(_ button: UIButton) {
+        let point = button.convert(CGPoint.zero, to: employeesView.tableView)
+        let indexPath = employeesView.tableView?.indexPathForRow(at: point)
+        if let indexPath = indexPath {
+            let employees = viewModel?.employeesToShow.value ?? []
+            if employees.count > indexPath.row {
+                let employee = employees[indexPath.row]
+                if let wantCongratulate = wantCongratulate {
+                    wantCongratulate(employee.employee)
+                }
             }
         }
     }

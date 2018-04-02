@@ -57,7 +57,7 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
         let helpAction = UIAlertAction(
             title: NSLocalizedString("call", comment: ""),
             style: .default, handler: { _ in
-                if let url = URL(string: "telprompt://+77172918989") {
+                if let url = URL(string: "tel://+77172918989") {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 }
             }

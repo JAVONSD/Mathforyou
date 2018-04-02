@@ -362,6 +362,9 @@
 		C7D832D42035C80E00282891 /* MainMenuFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D832D32035C80E00282891 /* MainMenuFlow.swift */; };
 		C7DE698E20479FB800E028BC /* StuffViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DE698D20479FB800E028BC /* StuffViewModel.swift */; };
 		C7E01E4B2045B68200204956 /* TRTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E01E4A2045B68200204956 /* TRTableViewCell.swift */; };
+		C7F4EAE12071F3F200898204 /* CongratulateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F4EAE02071F3F200898204 /* CongratulateViewController.swift */; };
+		C7F4EAE32071F41100898204 /* CongratulateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F4EAE22071F41100898204 /* CongratulateView.swift */; };
+		C7F4EAE52071F42400898204 /* CongratulateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F4EAE42071F42400898204 /* CongratulateViewModel.swift */; };
 		C7F6996D2052C357005123F1 /* AnswerFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F6996C2052C357005123F1 /* AnswerFormViewModel.swift */; };
 		C7F7CB31203AE866007B9D1E /* BIBoardHeaderSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F7CB30203AE866007B9D1E /* BIBoardHeaderSectionController.swift */; };
 		C7F7CB33203AE98A007B9D1E /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F7CB32203AE98A007B9D1E /* Question.swift */; };
@@ -800,6 +803,9 @@
 		C7D832D32035C80E00282891 /* MainMenuFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuFlow.swift; sourceTree = "<group>"; };
 		C7DE698D20479FB800E028BC /* StuffViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StuffViewModel.swift; sourceTree = "<group>"; };
 		C7E01E4A2045B68200204956 /* TRTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRTableViewCell.swift; sourceTree = "<group>"; };
+		C7F4EAE02071F3F200898204 /* CongratulateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratulateViewController.swift; sourceTree = "<group>"; };
+		C7F4EAE22071F41100898204 /* CongratulateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratulateView.swift; sourceTree = "<group>"; };
+		C7F4EAE42071F42400898204 /* CongratulateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratulateViewModel.swift; sourceTree = "<group>"; };
 		C7F6996C2052C357005123F1 /* AnswerFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerFormViewModel.swift; sourceTree = "<group>"; };
 		C7F7CB30203AE866007B9D1E /* BIBoardHeaderSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIBoardHeaderSectionController.swift; sourceTree = "<group>"; };
 		C7F7CB32203AE98A007B9D1E /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
@@ -1865,6 +1871,7 @@
 				C7D832C02035C48700282891 /* BirthdaysViewController.swift */,
 				C7D832C22035C49100282891 /* VacanciesViewController.swift */,
 				C717C684203D94000070447D /* EmployeeViewController.swift */,
+				C7F4EAE02071F3F200898204 /* CongratulateViewController.swift */,
 			);
 			path = Employees;
 			sourceTree = "<group>";
@@ -1912,6 +1919,7 @@
 				C7D6423B20346FC0001DCA98 /* EmployeesViewModel.swift */,
 				C7D832C42035C4ED00282891 /* BirthdaysViewModel.swift */,
 				C7D832C62035C4FC00282891 /* VacanciesViewModel.swift */,
+				C7F4EAE42071F42400898204 /* CongratulateViewModel.swift */,
 			);
 			path = Employees;
 			sourceTree = "<group>";
@@ -1987,6 +1995,7 @@
 				C717C67E203D89010070447D /* EmployeeView.swift */,
 				C717C680203D892C0070447D /* EmployeeHeaderView.swift */,
 				C752ACF820413ECB00D04E26 /* VacancyCell.swift */,
+				C7F4EAE22071F41100898204 /* CongratulateView.swift */,
 			);
 			path = Employees;
 			sourceTree = "<group>";
@@ -2346,6 +2355,7 @@
 				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${BUILT_PRODUCTS_DIR}/DBCameraButton/DBCameraButton.framework",
 				"${BUILT_PRODUCTS_DIR}/DateToolsSwift/DateToolsSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/DynamicBlurView/DynamicBlurView.framework",
 				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
@@ -2360,6 +2370,7 @@
 				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
 				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
 				"${BUILT_PRODUCTS_DIR}/PINRemoteImage/PINRemoteImage.framework",
+				"${BUILT_PRODUCTS_DIR}/PopupDialog/PopupDialog.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
@@ -2381,6 +2392,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DBCameraButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateToolsSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicBlurView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
@@ -2395,6 +2407,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINRemoteImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopupDialog.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
@@ -2498,6 +2511,7 @@
 				C7AB6F80204BE8F500328E17 /* UISearchBar+Extension.swift in Sources */,
 				C73EB2BA203327AA00429921 /* BenefitsTableViewCell.swift in Sources */,
 				C73EB2AA2032F9B100429921 /* UIImagePickerController+Rx.swift in Sources */,
+				C7F4EAE32071F41100898204 /* CongratulateView.swift in Sources */,
 				C7D64216203463E0001DCA98 /* NextFlowItem.swift in Sources */,
 				C73EB2A32032F9B100429921 /* ItemPath.swift in Sources */,
 				C79251F520317A6100CDFBBA /* AppToolbarController.swift in Sources */,
@@ -2703,6 +2717,7 @@
 				C716D801204D925B00C80912 /* TasksAndRequestsFlow.swift in Sources */,
 				C76EFBEA20302F8C00FA2BB9 /* Mask.swift in Sources */,
 				C7AB6F70204BE8F500328E17 /* UknownFileTypeViewController.swift in Sources */,
+				C7F4EAE52071F42400898204 /* CongratulateViewModel.swift in Sources */,
 				C73EB2942032F9B100429921 /* CollectionViewSectionedDataSource.swift in Sources */,
 				C7D6422F20346F53001DCA98 /* LentaViewController.swift in Sources */,
 				C73EB2AC2032F9B100429921 /* RxCLLocationManagerDelegateProxy.swift in Sources */,
@@ -2761,6 +2776,7 @@
 				C7AB6F84204BE8F500328E17 /* UITableView+Extension.swift in Sources */,
 				C7D641F520344C70001DCA98 /* LoginFlow.swift in Sources */,
 				C79263592038374500067371 /* NotificationsViewController.swift in Sources */,
+				C7F4EAE12071F3F200898204 /* CongratulateViewController.swift in Sources */,
 				C720EC822036E67E007E4CD4 /* NewsSectionController.swift in Sources */,
 				C7B5FA0420305691003F3D2C /* ForgotPasswordView.swift in Sources */,
 				C7F7CB5F203C2E2B007B9D1E /* RoundedNode.swift in Sources */,

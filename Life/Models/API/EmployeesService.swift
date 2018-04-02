@@ -15,6 +15,7 @@ enum EmployeesService {
     case employeeInfo(code: String)
     case vacancies
     case birthdays
+    case congratulate(code: String, text: String)
 }
 
 extension EmployeesService: AuthorizedTargetType {
@@ -31,6 +32,8 @@ extension EmployeesService: AuthorizedTargetType {
             return "/vacancies"
         case .birthdays:
             return "/employeesEvents"
+        case .congratulate(let code, _):
+            return "/employees/\(code)/congratulations"
         }
     }
 
@@ -42,6 +45,8 @@ extension EmployeesService: AuthorizedTargetType {
              .vacancies,
              .birthdays:
             return .get
+        case .congratulate:
+            return .post
         }
     }
 
@@ -56,6 +61,11 @@ extension EmployeesService: AuthorizedTargetType {
             return .requestParameters(
                 parameters: ["filterText": text, "top": top],
                 encoding: URLEncoding.default
+            )
+        case let .congratulate(_, text):
+            return .requestParameters(
+                parameters: ["congratulationText": text],
+                encoding: JSONEncoding.default
             )
         }
     }
@@ -72,6 +82,8 @@ extension EmployeesService: AuthorizedTargetType {
             return Bundle.main.stubJSONWith(name: "vacancies")
         case .birthdays:
             return Bundle.main.stubJSONWith(name: "birthdays")
+        case .congratulate:
+            return "{\"status\": 200}".utf8Encoded
         }
     }
 

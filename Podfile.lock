@@ -1,8 +1,9 @@
 PODS:
   - Alamofire (4.7.0)
   - Cache (4.1.2)
-  - DateToolsSwift (2.0.3)
+  - DateToolsSwift (4.0.0)
   - DBCameraButton (1.0.0)
+  - DynamicBlurView (2.0.2)
   - Hue (3.0.1)
   - IGListKit (3.0.0):
     - IGListKit/Default (= 3.0.0)
@@ -50,6 +51,8 @@ PODS:
   - PINRemoteImage/PINCache (3.0.0-beta.13):
     - PINCache (= 3.0.1-beta.6)
     - PINRemoteImage/Core
+  - PopupDialog (0.7.1):
+    - DynamicBlurView (~> 2.0)
   - Realm (3.2.0):
     - Realm/Headers (= 3.2.0)
   - Realm/Headers (3.2.0)
@@ -83,7 +86,7 @@ PODS:
   - Yoga (1.6.0)
 
 DEPENDENCIES:
-  - DateToolsSwift (~> 2.0)
+  - DateToolsSwift (~> 4.0)
   - Hue (~> 3.0)
   - IGListKit (= 3.0.0)
   - IQKeyboardManagerSwift (~> 5.0)
@@ -93,6 +96,7 @@ DEPENDENCIES:
   - Material (~> 2.0)
   - Moya/RxSwift (~> 11.0)
   - NVActivityIndicatorView (~> 4.0)
+  - PopupDialog (~> 0.7)
   - RxCocoa (~> 4.0)
   - RxRealm (~> 0.7)
   - SkeletonView (~> 1.0)
@@ -108,8 +112,9 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
   Cache: bd0233fc688b5e83a27bcd87807db7e6f23adcc5
-  DateToolsSwift: bf69bf9056d9e53c5c03f06e51f219b9b8b02f9e
+  DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
   DBCameraButton: 969d585df804df5b413936a7bf5d77c562ca2307
+  DynamicBlurView: aa6db4defc6e537eb86fc5e58dd3991666178399
   Hue: 93e852fa6211ab35922ad8c293f51c43d6c79eb2
   IGListKit: 9eab6856a15fa25ad72018ff9d9eb2178c240fff
   Imaginary: 9b45836a5af881f452a86e0a1215772ae4712d00
@@ -124,6 +129,7 @@ SPEC CHECKSUMS:
   PINCache: d195fdba255283f7e9900a55e3cced377f431f9b
   PINOperation: a6219e6fc9db9c269eb7a7b871ac193bcf400aac
   PINRemoteImage: d6d51c5d2adda55f1ce30c96e850b6c4ebd2856a
+  PopupDialog: 39598b7d41719f5c025b4b70e62728bae7734fef
   Realm: ae552b9b9eca3a12374a589fa842f220e286a80a
   RealmSwift: 05727129547dcab3fe828bd87bc30be903736b9c
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
@@ -140,6 +146,6 @@ SPEC CHECKSUMS:
   UITextField_AutoSuggestion: dca08de21c8de3f6054dda085087a04b5b326208
   Yoga: 81670877477311136b1b3f69a6307ce62e1c89cf
 
-PODFILE CHECKSUM: 470caf4af2b1aea4d7da2dc14aa326548ce2ee5e
+PODFILE CHECKSUM: 39e70cbe9433e26fbe8865cec4a9ca0eb61e6ba6
 
 COCOAPODS: 1.4.0

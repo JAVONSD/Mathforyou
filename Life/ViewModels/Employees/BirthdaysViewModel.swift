@@ -23,8 +23,7 @@ class BirthdaysViewModel: NSObject, ViewModel {
 
     private let disposeBag = DisposeBag()
 
-    private let employeesToShowSubject = PublishSubject<[EmployeeViewModel]>()
-    var employeesToShow: Observable<[EmployeeViewModel]> { return employeesToShowSubject.asObservable() }
+    let employeesToShow = BehaviorRelay<[EmployeeViewModel]>(value: [])
 
     let filterText = BehaviorRelay(value: "")
 
@@ -49,7 +48,7 @@ class BirthdaysViewModel: NSObject, ViewModel {
         if loadingBirthdays.value || didLoadBirthdays {
             completion(nil)
             if !loadingBirthdays.value {
-                self.employeesToShowSubject.onNext(self.employees)
+                self.employeesToShow.accept(self.employees)
             }
             return
         }
@@ -72,16 +71,16 @@ class BirthdaysViewModel: NSObject, ViewModel {
                         self.didLoadBirthdays = true
 
                         completion(nil)
-                        self.employeesToShowSubject.onNext(self.employees)
+                        self.employeesToShow.accept(self.employees)
 
                         self.updateCache(employeeItems)
                     } else {
                         completion(nil)
-                        self.employeesToShowSubject.onNext(self.employees)
+                        self.employeesToShow.accept(self.employees)
                     }
                 case .error(let error):
                     completion(error)
-                    self.employeesToShowSubject.onNext(self.employees)
+                    self.employeesToShow.accept(self.employees)
                 }
             }
             .disposed(by: disposeBag)
@@ -101,7 +100,7 @@ class BirthdaysViewModel: NSObject, ViewModel {
                     self.loadingBirthdays.accept(false)
 
                     DispatchQueue.main.async {
-                        self.employeesToShowSubject.onNext(employeeViewModels)
+                        self.employeesToShow.accept(employeeViewModels)
                     }
                 }
             } catch {
@@ -135,7 +134,7 @@ class BirthdaysViewModel: NSObject, ViewModel {
 
     public func filter(with text: String) {
         if text.isEmpty {
-            employeesToShowSubject.onNext(employees)
+            employeesToShow.accept(employees)
             return
         }
 
@@ -193,7 +192,7 @@ class BirthdaysViewModel: NSObject, ViewModel {
             })
 
             DispatchQueue.main.async {
-                self.employeesToShowSubject.onNext(filteredEmployees)
+                self.employeesToShow.accept(filteredEmployees)
             }
         }
     }

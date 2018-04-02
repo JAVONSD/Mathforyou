@@ -6,7 +6,7 @@ target 'Life' do
   use_frameworks!
 
   # Date tools
-  pod 'DateToolsSwift', '~> 2.0'
+  pod 'DateToolsSwift', '~> 4.0'
 
   # Color management
   pod 'Hue', '~> 3.0'
@@ -31,6 +31,9 @@ target 'Life' do
 
   # Loading indicators
   pod 'NVActivityIndicatorView', '~> 4.0'
+
+  # Popup
+  pod 'PopupDialog', '~> 0.7'
 
   # Network wrapper and Rx
   pod 'Moya/RxSwift', '~> 11.0'
