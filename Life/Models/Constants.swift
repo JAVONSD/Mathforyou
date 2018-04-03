@@ -384,3 +384,10 @@ struct App {
     }
 
 }
+
+// MARK: - Notifications
+
+extension Foundation.Notification.Name {
+    static let selectSuggestionsTab = Foundation.Notification.Name("selectSuggestionsTab")
+    static let selectQuestionnairesTab = Foundation.Notification.Name("selectQuestionnairesTab")
+}

@@ -367,8 +367,11 @@ extension BIOfficeViewController: ListAdapterDataSource {
             }))
         }
         section.didTapViewAll = {
-            self.parent?.showToast("Этот раздел еще в разработке.")
-            print("View all suggestions ...")
+            if let tabVC = self.parent as? AppTabBarController {
+                NotificationCenter.default.post(name: .selectSuggestionsTab, object: nil)
+
+                tabVC.move(to: 1, animate: true)
+            }
         }
         return section
     }
@@ -380,8 +383,11 @@ extension BIOfficeViewController: ListAdapterDataSource {
             self.onUnauthorized()
         }
         section.didTapViewAll = {
-            self.parent?.showToast("Этот раздел еще в разработке.")
-            print("View all questionnaires ...")
+            if let tabVC = self.parent as? AppTabBarController {
+                NotificationCenter.default.post(name: .selectQuestionnairesTab, object: nil)
+
+                tabVC.move(to: 1, animate: true)
+            }
         }
         return section
     }

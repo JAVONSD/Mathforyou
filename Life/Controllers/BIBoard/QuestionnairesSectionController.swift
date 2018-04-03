@@ -55,7 +55,10 @@ class QuestionnairesSectionController: ASCollectionSectionController {
 
     override func didSelectItem(at index: Int) {
         guard let viewModel = viewModel else { return }
-        if viewModel.questionnaires.count > 5 && index == self.items.count - 1 {
+
+        if index == 0 {
+            didTapViewAll?()
+        } else if viewModel.questionnaires.count > 5 && index == self.items.count - 1 {
             if let didTapViewAll = didTapViewAll {
                 didTapViewAll()
             }

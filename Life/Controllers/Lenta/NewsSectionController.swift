@@ -169,6 +169,11 @@ extension NewsSectionController: ASSectionController {
                         onUnathorizedError()
                     }
 
+                    guard viewModel.currentFilter == .news else {
+                        context.completeBatchFetching(true)
+                        return
+                    }
+
                     let items = viewModel.newsViewModel.news.map {
                         LentaItemViewModel(lenta: Lenta(news: $0.news, authorIsCurrent: false))
                         } as [ListDiffable]
@@ -199,6 +204,11 @@ extension NewsSectionController: ASSectionController {
                     moyaError.response?.statusCode == 401,
                     let onUnathorizedError = self.onUnathorizedError {
                     onUnathorizedError()
+                }
+
+                guard viewModel.currentFilter == .all else {
+                    context.completeBatchFetching(true)
+                    return
                 }
 
                 self.set(items: viewModel.items, animated: false, completion: {
@@ -246,14 +256,14 @@ extension NewsSectionController: RefreshingSectionControllerType {
                     onUnathorizedError()
                 }
 
+                guard viewModel.currentFilter == .news else {
+                    return
+                }
+
                 let items = viewModel.newsViewModel.news.map {
                     LentaItemViewModel(lenta: Lenta(news: $0.news, authorIsCurrent: false))
                     } as [ListDiffable]
                 self.set(items: items, animated: true, completion: completion)
-
-                if let vc = self.viewController as? LentaViewController {
-                    vc.collectionNode.reloadData()
-                }
             }
 
             return
@@ -270,14 +280,14 @@ extension NewsSectionController: RefreshingSectionControllerType {
                     onUnathorizedError()
                 }
 
+                guard viewModel.currentFilter == .suggestions else {
+                    return
+                }
+
                 let items = viewModel.suggestionsViewModel.suggestions.map {
                     LentaItemViewModel(lenta: Lenta(suggestion: $0.suggestion, authorIsCurrent: false))
                     } as [ListDiffable]
                 self.set(items: items, animated: true, completion: completion)
-
-                if let vc = self.viewController as? LentaViewController {
-                    vc.collectionNode.reloadData()
-                }
             }
 
             return
@@ -294,14 +304,14 @@ extension NewsSectionController: RefreshingSectionControllerType {
                     onUnathorizedError()
                 }
 
+                guard viewModel.currentFilter == .questionnaires else {
+                    return
+                }
+
                 let items = viewModel.questionnairesViewModel.questionnaires.map {
                     LentaItemViewModel(lenta: Lenta(questionnaire: $0.questionnaire, authorIsCurrent: false))
                     } as [ListDiffable]
                 self.set(items: items, animated: true, completion: completion)
-
-                if let vc = self.viewController as? LentaViewController {
-                    vc.collectionNode.reloadData()
-                }
             }
 
             return
@@ -316,11 +326,12 @@ extension NewsSectionController: RefreshingSectionControllerType {
                 let onUnathorizedError = self.onUnathorizedError {
                 onUnathorizedError()
             }
-            self.set(items: viewModel.items, animated: true, completion: completion)
 
-            if let vc = self.viewController as? LentaViewController {
-                vc.collectionNode.reloadData()
+            guard viewModel.currentFilter == .all else {
+                return
             }
+
+            self.set(items: viewModel.items, animated: true, completion: completion)
         }
     }
 }

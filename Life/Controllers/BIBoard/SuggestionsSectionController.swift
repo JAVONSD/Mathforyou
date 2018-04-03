@@ -59,7 +59,9 @@ class SuggestionsSectionController: ASCollectionSectionController {
     override func didSelectItem(at index: Int) {
         guard let viewModel = viewModel else { return }
 
-        if let didTapAtSuggestion = didTapAtSuggestion, index > 0 && index < 5 {
+        if index == 0 {
+            didTapViewAll?()
+        } else if let didTapAtSuggestion = didTapAtSuggestion, index > 0 && index < 5 {
             didTapAtSuggestion(Array(viewModel.suggestions.prefix(5))[index - 1].suggestion.id)
         } else if viewModel.suggestions.count > 5 && index == self.items.count - 1 {
             if let didTapViewAll = didTapViewAll {

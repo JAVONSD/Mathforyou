@@ -133,6 +133,7 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         }
 
         refreshFeed(onlyHeader: true)
+        addObservers()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -144,6 +145,54 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
                 self?.collectionNode.setContentOffset(.zero, animated: true)
             }
         }
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    // MARK: - Observers
+
+    private func addObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(onSelectSuggestionsTab(_:)),
+            name: .selectSuggestionsTab,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(onSelectQuestionnairesTab(_:)),
+            name: .selectQuestionnairesTab,
+            object: nil
+        )
+    }
+
+    @objc
+    private func onSelectSuggestionsTab(_ notification: Foundation.Notification) {
+        viewModel.currentFilter = .suggestions
+
+        let secCtrl = listAdapter
+            .sectionController(
+                for: viewModel
+            ) as? NewsSectionController
+        secCtrl?.updateContents()
+
+        collectionNode.reloadData()
+    }
+
+    @objc
+    private func onSelectQuestionnairesTab(_ notification: Foundation.Notification) {
+        viewModel.currentFilter = .questionnaires
+
+        let secCtrl = listAdapter
+            .sectionController(
+                for: viewModel
+            ) as? NewsSectionController
+        secCtrl?.updateContents()
+
+        collectionNode.reloadData()
     }
 
     // MARK: - Methods
