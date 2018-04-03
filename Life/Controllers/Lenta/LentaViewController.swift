@@ -21,8 +21,14 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
 
     private var listAdapter: ListAdapter!
     private(set) var collectionNode: ASCollectionNode!
-    private(set) lazy var spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    private(set) lazy var spinner = NVActivityIndicatorView(
+        frame: .init(x: 0, y: 0, width: 44, height: 44),
+        type: .circleStrokeSpin,
+        color: App.Color.azure,
+        padding: 0)
     private lazy var refreshCtrl = UIRefreshControl()
+
+    private var spinnerNode: ASDisplayNode!
 
     private var fabButton: FABButton!
     private var fabMenu: FABMenu!
@@ -60,6 +66,14 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         addNode.style.preferredSize = CGSize(width: 56, height: 56)
         node.addSubnode(addNode)
 
+        spinnerNode = ASDisplayNode(viewBlock: { () -> UIView in
+            self.spinner.startAnimating()
+            return self.spinner
+        })
+        spinnerNode.backgroundColor = .clear
+        spinnerNode.style.preferredSize = CGSize(width: 24, height: 24)
+        node.addSubnode(spinnerNode)
+
         node.layoutSpecBlock = { (_, _) in
             let insetSpec = ASInsetLayoutSpec(insets: .init(
                 top: 0,
@@ -72,7 +86,19 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
                 sizingOption: [],
                 child: insetSpec
             )
-            return ASOverlayLayoutSpec(child: self.collectionNode, overlay: relativeSpec)
+            let collectionSpec = ASOverlayLayoutSpec(child: self.collectionNode, overlay: relativeSpec)
+
+            let spinnerSpec = ASStackLayoutSpec.vertical()
+            spinnerSpec.children = [self.spinnerNode]
+            spinnerSpec.alignItems = .center
+            spinnerSpec.justifyContent = .center
+
+            let spinnerInsetSpect = ASInsetLayoutSpec(
+                insets: .init(top: 240 / 2, left: 0, bottom: 0, right: 0),
+                child: spinnerSpec
+            )
+
+            return ASOverlayLayoutSpec(child: collectionSpec, overlay: spinnerInsetSpect)
         }
 
         let updater = ListAdapterUpdater()
@@ -167,6 +193,54 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
             name: .selectQuestionnairesTab,
             object: nil
         )
+
+        viewModel.loading
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] loading in
+                guard let `self` = self else { return }
+
+                if self.viewModel.currentFilter == .all,
+                    self.viewModel.items.isEmpty {
+                    loading ? self.spinner.startAnimating() : self.spinner.stopAnimating()
+                }
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.newsViewModel.loading
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] loading in
+                guard let `self` = self else { return }
+
+                if self.viewModel.currentFilter == .news,
+                    self.viewModel.newsViewModel.news.isEmpty {
+                    loading ? self.spinner.startAnimating() : self.spinner.stopAnimating()
+                }
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.suggestionsViewModel.loading
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] loading in
+                guard let `self` = self else { return }
+
+                if self.viewModel.currentFilter == .suggestions,
+                    self.viewModel.suggestionsViewModel.suggestions.isEmpty {
+                    loading ? self.spinner.startAnimating() : self.spinner.stopAnimating()
+                }
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.questionnairesViewModel.loading
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] loading in
+                guard let `self` = self else { return }
+
+                if self.viewModel.currentFilter == .questionnaires,
+                    self.viewModel.questionnairesViewModel.questionnaires.isEmpty {
+                    loading ? self.spinner.startAnimating() : self.spinner.stopAnimating()
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     @objc
@@ -406,7 +480,6 @@ extension LentaViewController: ListAdapterDataSource {
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
-        spinner.startAnimating()
-        return spinner
+        return nil
     }
 }

@@ -144,7 +144,7 @@ extension NewsSectionController: ASSectionController {
                 viewModel.newsViewModel.fetchNextPage({ [weak self] (error) in
                     guard let `self` = self,
                         let viewModel = self.viewModel,
-                        !viewModel.newsViewModel.loading else { return }
+                        !viewModel.newsViewModel.loading.value else { return }
 
                     if let didFinishLoad = self.didFinishLoad {
                         didFinishLoad()
@@ -182,7 +182,7 @@ extension NewsSectionController: ASSectionController {
                 viewModel.suggestionsViewModel.fetchNextPage({ [weak self] (error) in
                     guard let `self` = self,
                         let viewModel = self.viewModel,
-                        !viewModel.suggestionsViewModel.loading else { return }
+                        !viewModel.suggestionsViewModel.loading.value else { return }
 
                     if let didFinishLoad = self.didFinishLoad {
                         didFinishLoad()
@@ -220,7 +220,7 @@ extension NewsSectionController: ASSectionController {
                 viewModel.questionnairesViewModel.fetchNextPage({ [weak self] (error) in
                     guard let `self` = self,
                         let viewModel = self.viewModel,
-                        !viewModel.questionnairesViewModel.loading else { return }
+                        !viewModel.questionnairesViewModel.loading.value else { return }
 
                     if let didFinishLoad = self.didFinishLoad {
                         didFinishLoad()
@@ -257,7 +257,7 @@ extension NewsSectionController: ASSectionController {
             viewModel.fetchNextPage({ [weak self] (error) in
                 guard let `self` = self,
                     let viewModel = self.viewModel,
-                    !viewModel.loading else { return }
+                    !viewModel.loading.value else { return }
 
                 if let didFinishLoad = self.didFinishLoad {
                     didFinishLoad()

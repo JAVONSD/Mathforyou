@@ -52,7 +52,7 @@ class LentaViewModel: NSObject {
     private var offset = 0
     private let rows = 10
     private(set) var canLoadMore = true
-    private(set) var loading = false
+    let loading = BehaviorRelay<Bool>(value: false)
     private var usingCached = false
 
     private(set) var newsViewModel = NewsViewModel()
@@ -89,12 +89,12 @@ class LentaViewModel: NSObject {
     func fetchNextPage(
         reset: Bool = false,
         _ completion: @escaping ((Error?) -> Void)) {
-        if loading {
+        if loading.value {
             completion(nil)
             return
         }
 
-        loading = true
+        loading.accept(true)
 
         if reset {
             offset = 0
@@ -113,7 +113,7 @@ class LentaViewModel: NSObject {
                 ))
             .filterSuccessfulStatusCodes()
             .subscribe { response in
-                self.loading = false
+                self.loading.accept(false)
 
                 switch response {
                 case .success(let json):
@@ -161,14 +161,14 @@ class LentaViewModel: NSObject {
                 let cachedLentaItems = Array(cachedLentaObjects).map { Lenta(managedObject: $0) }
                 let items = cachedLentaItems.map { LentaItemViewModel(lenta: $0) }
 
-                if !items.isEmpty {
-                    self.loading = false
-                }
-
                 self.usingCached = true
                 self.items = items
 
                 DispatchQueue.main.async {
+                    if !items.isEmpty {
+                        self.loading.accept(false)
+                    }
+
                     completion(nil)
                 }
             } catch let error as NSError {

@@ -10,6 +10,7 @@ import Foundation
 import IGListKit
 import Moya
 import RxSwift
+import RxCocoa
 
 class SuggestionsViewModel: NSObject, ListDiffable {
     private(set) var suggestions = [SuggestionItemViewModel]()
@@ -22,7 +23,7 @@ class SuggestionsViewModel: NSObject, ListDiffable {
     private var offset = 0
     private let rows = 10
     private(set) var canLoadMore = true
-    private(set) var loading = false
+    let loading = BehaviorRelay<Bool>(value: false)
     private var usingCached = false
 
     private let disposeBag = DisposeBag()
@@ -139,12 +140,12 @@ class SuggestionsViewModel: NSObject, ListDiffable {
     func fetchNextPage(
         reset: Bool = false,
         _ completion: @escaping ((Error?) -> Void)) {
-        if loading {
+        if loading.value {
             completion(nil)
             return
         }
 
-        loading = true
+        loading.accept(true)
 
         if reset {
             offset = 0
@@ -162,7 +163,7 @@ class SuggestionsViewModel: NSObject, ListDiffable {
                 ))
             .filterSuccessfulStatusCodes()
             .subscribe { response in
-                self.loading = false
+                self.loading.accept(false)
 
                 switch response {
                 case .success(let json):
@@ -221,21 +222,26 @@ class SuggestionsViewModel: NSObject, ListDiffable {
                 } else if type == .all {
                     self.loadingSuggestionsSubject.onNext(false)
                     self.suggestions = items
+                    self.usingCached = true
                 } else {
                     self.loadingAllSuggestionsSubject.onNext(false)
                     self.allSuggestions = items
                 }
 
                 DispatchQueue.main.async {
-                    completion(nil)
-
                     if type == .popular {
                         self.popularSuggestionsSubject.onNext(items)
                     } else if type == .all {
+                        if !items.isEmpty {
+                            self.loading.accept(false)
+                        }
+
                         self.suggestionsSubject.onNext(items)
                     } else {
                         self.allSuggestionsSubject.onNext(items)
                     }
+
+                    completion(nil)
                 }
             } catch let error as NSError {
                 print("Failed to access the Realm database with error - \(error.localizedDescription)")

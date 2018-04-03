@@ -10,6 +10,7 @@ import Foundation
 import IGListKit
 import Moya
 import RxSwift
+import RxCocoa
 
 class NewsViewModel: NSObject, ListDiffable {
     private(set) var news = [NewsItemViewModel]()
@@ -21,7 +22,7 @@ class NewsViewModel: NSObject, ListDiffable {
     private var offset = 0
     private let rows = 10
     private(set) var canLoadMore = true
-    private(set) var loading = false
+    let loading = BehaviorRelay<Bool>(value: false)
     private var usingCached = false
 
     private let disposeBag = DisposeBag()
@@ -133,12 +134,12 @@ class NewsViewModel: NSObject, ListDiffable {
     func fetchNextPage(
         reset: Bool = false,
         _ completion: @escaping ((Error?) -> Void)) {
-        if loading {
+        if loading.value {
             completion(nil)
             return
         }
 
-        loading = true
+        loading.accept(true)
 
         if reset {
             offset = 0
@@ -156,7 +157,7 @@ class NewsViewModel: NSObject, ListDiffable {
                 ))
             .filterSuccessfulStatusCodes()
             .subscribe { response in
-                self.loading = false
+                self.loading.accept(false)
 
                 switch response {
                 case .success(let json):
@@ -208,6 +209,7 @@ class NewsViewModel: NSObject, ListDiffable {
                 if type == .all {
                     self.loadingAllSubject.onNext(false)
                     self.news = items
+                    self.usingCached = true
                 } else if type == .popular {
                     self.loadingPopularSubject.onNext(false)
                     self.popularNews = items
@@ -220,15 +222,19 @@ class NewsViewModel: NSObject, ListDiffable {
                 }
 
                 DispatchQueue.main.async {
-                    completion(nil)
-
                     if type == .all {
+                        if !items.isEmpty {
+                            self.loading.accept(false)
+                        }
+
                         self.newsSubject.onNext(items)
                     } else if type == .popular {
                         self.popularNewsSubject.onNext(items)
                     } else if type == .top3 {
                         self.top3NewsSubject.onNext(items)
                     }
+
+                    completion(nil)
                 }
             } catch let error as NSError {
                 print("Failed to access the Realm database with error - \(error.localizedDescription)")

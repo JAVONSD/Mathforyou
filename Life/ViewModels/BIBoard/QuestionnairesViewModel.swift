@@ -11,6 +11,7 @@ import IGListKit
 import Moya
 import RealmSwift
 import RxSwift
+import RxCocoa
 
 class QuestionnairesViewModel: NSObject, ListDiffable {
     var questionnaires = [QuestionnaireViewModel]()
@@ -23,7 +24,7 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
     private var offset = 0
     private let rows = 10
     private(set) var canLoadMore = true
-    private(set) var loading = false
+    let loading = BehaviorRelay<Bool>(value: false)
     private var usingCached = false
 
     private let disposeBag = DisposeBag()
@@ -107,12 +108,12 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
     func fetchNextPage(
         reset: Bool = false,
         _ completion: @escaping ((Error?) -> Void)) {
-        if loading {
+        if loading.value {
             completion(nil)
             return
         }
 
-        loading = true
+        loading.accept(true)
 
         if reset {
             offset = 0
@@ -130,7 +131,7 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
                 ))
             .filterSuccessfulStatusCodes()
             .subscribe { response in
-                self.loading = false
+                self.loading.accept(false)
 
                 switch response {
                 case .success(let json):
@@ -184,20 +185,25 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
                     self.popularQuestionnaires = items
                 } else if type == .all {
                     self.questionnaires = items
+                    self.usingCached = true
                 } else {
                     self.topQuestionnaires = items
                 }
 
                 DispatchQueue.main.async {
-                    completion(nil)
-
                     if type == .popular {
                         self.popularQuestionnairesSubject.onNext(items)
                     } else if type == .all {
+                        if !items.isEmpty {
+                            self.loading.accept(false)
+                        }
+
                         self.qestionnairesSubject.onNext(items)
                     } else {
                         self.topQuestionnairesSubject.onNext(items)
                     }
+
+                    completion(nil)
                 }
             } catch let error as NSError {
                 print("Failed to access the Realm database with error - \(error.localizedDescription)")
