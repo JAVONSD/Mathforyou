@@ -26,7 +26,6 @@ class TasksAndRequestsViewModel: NSObject, ViewModel, ListDiffable {
     var onUnathorizedError: (() -> Void)?
 
     var minimized = true
-    private var didLoad = false
 
     enum SelectedItemsType {
         case inbox, outbox
@@ -121,12 +120,6 @@ class TasksAndRequestsViewModel: NSObject, ViewModel, ListDiffable {
             }
         tasksAndRequestsObservable?
             .bind { (items) in
-                if !self.didLoad {
-                    self.didLoad = true
-
-                    self.minimized = items.isEmpty
-                }
-
                 self.isLoadingSubject.onNext(false)
                 self.tasksAndRequestsSubject.onNext(items)
             }.disposed(by: disposeBag)

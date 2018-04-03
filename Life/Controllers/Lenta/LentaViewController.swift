@@ -270,6 +270,8 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
 
             self.fabMenuWillClose(fabMenu: self.fabMenu)
             self.fabMenu.close()
+
+            self.collectionNode.isUserInteractionEnabled = true
         }).disposed(by: disposeBag)
 
         return menuItem
