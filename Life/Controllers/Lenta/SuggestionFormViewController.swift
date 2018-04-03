@@ -233,6 +233,8 @@ extension SuggestionFormViewController: IQMediaPickerControllerDelegate, UINavig
 
                             if viewModel.pickingMainImage {
                                 viewModel.coverImage = imagePath
+
+                                suggestionFormView.set(coverImage: image)
                             } else {
                                 viewModel.attachments.append(imagePath)
                             }

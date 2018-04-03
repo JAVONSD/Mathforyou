@@ -20,6 +20,7 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
     )
     private(set) lazy var scrollView = UIScrollView()
     private(set) lazy var contentView = UIView()
+    private(set) lazy var coverImageView = UIImageView()
     private(set) lazy var coverImageButton = FlatButton(
         title: NSLocalizedString("add_cover", comment: ""),
         titleColor: App.Color.steel
@@ -36,6 +37,10 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
     private(set) lazy var sendButton = Button(
         title: NSLocalizedString("send", comment: "").uppercased()
     )
+
+    private var coverImageHeightConstraint: Constraint?
+    private var coverImageButtonTopConstraint: Constraint?
+    private var attachmentButtonTopConstraint: Constraint?
 
     var didTapCloseButton: (() -> Void)?
     var didTapCoverImageButton: (() -> Void)?
@@ -91,6 +96,22 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
         }
     }
 
+    // MARK: - Methods
+
+    public func set(coverImage: UIImage) {
+        coverImageView.image = coverImage
+
+        let imageSize = coverImage.size
+        let width = coverImageView.frame.size.width
+        let height = width * imageSize.height / imageSize.width
+        coverImageHeightConstraint?.update(offset: height)
+
+        coverImageButtonTopConstraint?.update(offset: App.Layout.itemSpacingMedium)
+        attachmentButtonTopConstraint?.update(offset: App.Layout.itemSpacingMedium)
+
+        coverImageButton.setTitle(NSLocalizedString("change_cover", comment: ""), for: .normal)
+    }
+
     // MARK: - UI
 
     private func setupUI() {
@@ -130,6 +151,7 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
             make.width.equalTo(self.scrollView)
         }
 
+        setupCoverImageView()
         setupCoverImageButton()
         setupAttachmentButton()
         setupTopicField()
@@ -137,6 +159,18 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
         setupTagsField()
         setupTagsCollectionView()
         setupSendButton()
+    }
+
+    private func setupCoverImageView() {
+        coverImageView.contentMode = .scaleAspectFill
+        coverImageView.layer.masksToBounds = true
+        contentView.addSubview(coverImageView)
+        coverImageView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            self.coverImageHeightConstraint = make.height.equalTo(0).constraint
+        }
     }
 
     private func setupCoverImageButton() {
@@ -152,7 +186,8 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
         coverImageButton.addTarget(self, action: #selector(handleCoverImageButton), for: .touchUpInside)
         contentView.addSubview(coverImageButton)
         coverImageButton.snp.makeConstraints { (make) in
-            make.top.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            self.coverImageButtonTopConstraint = make.top.equalTo(self.coverImageView.snp.bottom)
+                .offset(0).constraint
             make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.height.equalTo(72)
         }
@@ -168,7 +203,8 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
         attachmentButton.layer.borderWidth = 0.5
         contentView.addSubview(attachmentButton)
         attachmentButton.snp.makeConstraints { (make) in
-            make.top.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            self.attachmentButtonTopConstraint = make.top.equalTo(self.coverImageView.snp.bottom)
+                .offset(0).constraint
             make.left.equalTo(self.coverImageButton.snp.right).offset(App.Layout.itemSpacingSmall)
             make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.height.equalTo(72)

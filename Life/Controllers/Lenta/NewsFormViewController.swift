@@ -249,6 +249,8 @@ extension NewsFormViewController: IQMediaPickerControllerDelegate, UINavigationC
 
                             if viewModel.pickingMainImage {
                                 viewModel.coverImage = imagePath
+
+                                newsFormView.set(coverImage: image)
                             } else {
                                 viewModel.attachments.append(imagePath)
                             }

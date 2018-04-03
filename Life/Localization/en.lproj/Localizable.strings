@@ -206,6 +206,7 @@
 "pick_from_gallery" = "Pick from gallery";
 "pick_from_documents" = "Pick from documents";
 "cancel" = "Cancel";
+"change_cover" = "Change cover";
 
 /* File explorer */
 
