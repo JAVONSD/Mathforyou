@@ -90,6 +90,7 @@ extension BIBoardHeaderSectionController: ASSectionController {
                     didSelectNews(viewModel.top3News[index].news.id)
                 }
             }
+            cell.backgroundColor = App.Color.whiteSmoke
 
             return cell
         }

@@ -15,7 +15,9 @@ import RxSwift
 class QuestionnairesViewModel: NSObject, ListDiffable {
     var questionnaires = [QuestionnaireViewModel]()
     var popularQuestionnaires = [QuestionnaireViewModel]()
+
     var minimized = true
+    var didLoad = false
 
     private let disposeBag = DisposeBag()
 
@@ -40,6 +42,8 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
             .request(.questionnaires)
             .filterSuccessfulStatusCodes()
             .subscribe { response in
+                self.didLoad = true
+
                 switch response {
                 case .success(let json):
                     if let questionnaires = try? JSONDecoder().decode([Questionnaire].self, from: json.data) {

@@ -39,6 +39,16 @@ extension LentaItemViewModel: ListDiffable {
 }
 
 class LentaViewModel: NSObject {
+
+    enum FilterType: Int {
+        case all = 0
+        case news = 1
+        case suggestions = 2
+        case questionnaires = 3
+    }
+
+    var currentFilter = FilterType.all
+
     private var offset = 0
     private let rows = 10
     private(set) var canLoadMore = true

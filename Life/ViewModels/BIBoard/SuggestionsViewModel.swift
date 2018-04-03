@@ -14,7 +14,9 @@ import RxSwift
 class SuggestionsViewModel: NSObject, ListDiffable {
     private(set) var suggestions = [SuggestionItemViewModel]()
     private(set) var popularSuggestions = [SuggestionItemViewModel]()
+
     var minimized = true
+    var didLoad = false
 
     private let disposeBag = DisposeBag()
 
@@ -63,6 +65,8 @@ class SuggestionsViewModel: NSObject, ListDiffable {
             .filterSuccessfulStatusCodes()
             .subscribe { response in
                 self.loadingSuggestionsSubject.onNext(false)
+                self.didLoad = true
+
                 switch response {
                 case .success(let json):
                     if let suggestions = try? JSONDecoder().decode([Suggestion].self, from: json.data) {

@@ -189,7 +189,7 @@ struct App {
         case production
 
         static var current: Environment {
-            return .development
+            return .production
         }
     }
 
@@ -242,6 +242,13 @@ struct App {
         static var popularNews: Realm.Configuration {
             return Realm.Configuration(
                 fileURL: docs.appendingPathComponent("PopularNews.realm"),
+                schemaVersion: schemaVersion,
+                migrationBlock: migrationBlock)
+        }
+
+        static var topNews: Realm.Configuration {
+            return Realm.Configuration(
+                fileURL: docs.appendingPathComponent("TopNews.realm"),
                 schemaVersion: schemaVersion,
                 migrationBlock: migrationBlock)
         }
@@ -327,6 +334,17 @@ struct App {
             } catch {
                 fatalError(
                     "Failed to initialize realm with configurations - \(RealmConfig.popularNews)"
+                )
+            }
+        }
+
+        static func topNews() throws -> Realm {
+            do {
+                let realm = try Realm(configuration: RealmConfig.topNews)
+                return realm
+            } catch {
+                fatalError(
+                    "Failed to initialize realm with configurations - \(RealmConfig.topNews)"
                 )
             }
         }

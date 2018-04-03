@@ -22,6 +22,10 @@ enum EntityType: Int, Codable {
     case news = 10, suggestion = 20, questionnaire = 30
 }
 
+enum ResultsType: Int {
+    case all, top3, popular
+}
+
 struct Lenta: Decodable, Hashable {
     var id: String
     var authorCode: String
@@ -55,13 +59,13 @@ struct Lenta: Decodable, Hashable {
         self.imageStreamId = news.imageStreamId
         self.imageSize = .init(width: 200, height: 200)
         self.questionsQuantity = 0
-        self.commentsQuantity = 0
-        self.likesQuantity = 0
+        self.commentsQuantity = news.commentsQuantity
+        self.likesQuantity = news.likesQuantity
         self.dislikesQuantity = 0
         self.userVote = 0
-        self.isLikedByMe = false
-        self.viewsQuantity = 0
-        self.isFromSharepoint = false
+        self.isLikedByMe = news.isLikedByMe
+        self.viewsQuantity = news.viewsQuantity
+        self.isFromSharepoint = news.isFromSharepoint
         self.entityType = .init(name: "News", code: .news)
     }
 
@@ -78,6 +82,29 @@ struct Lenta: Decodable, Hashable {
         self.imageStreamId = suggestion.imageStreamId
         self.imageSize = .init(width: 200, height: 200)
         self.questionsQuantity = 0
+        self.commentsQuantity = suggestion.commentsQuantity
+        self.likesQuantity = suggestion.likesQuantity
+        self.dislikesQuantity = suggestion.dislikesQuantity
+        self.userVote = suggestion.userVote.rawValue
+        self.isLikedByMe = suggestion.userVote == .liked
+        self.viewsQuantity = suggestion.viewsQuantity
+        self.isFromSharepoint = false
+        self.entityType = .init(name: "Suggestion", code: .suggestion)
+    }
+
+    init(questionnaire: Questionnaire, authorIsCurrent: Bool = true) {
+        self.id = questionnaire.id
+        self.authorCode = authorIsCurrent ? User.current.employeeCode : questionnaire.authorCode
+        self.authorName = authorIsCurrent
+            ? (User.current.profile?.fullname ?? questionnaire.authorName)
+            : questionnaire.authorName
+        self.createDate = questionnaire.createDate
+        self.title = questionnaire.title
+        self.description = ""
+        self.image = questionnaire.imageStreamId
+        self.imageStreamId = questionnaire.imageStreamId
+        self.imageSize = .init(width: 200, height: 200)
+        self.questionsQuantity = 0
         self.commentsQuantity = 0
         self.likesQuantity = 0
         self.dislikesQuantity = 0
@@ -85,7 +112,7 @@ struct Lenta: Decodable, Hashable {
         self.isLikedByMe = false
         self.viewsQuantity = 0
         self.isFromSharepoint = false
-        self.entityType = .init(name: "Suggestion", code: .suggestion)
+        self.entityType = .init(name: "Questionnaire", code: .questionnaire)
     }
 
     // MARK: - Decodable

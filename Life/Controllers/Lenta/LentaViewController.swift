@@ -92,7 +92,7 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         collectionNode.view.backgroundColor = App.Color.whiteSmoke
         collectionNode.view.alwaysBounceVertical = true
         collectionNode.view.scrollIndicatorInsets = .init(
-            top: 176,
+            top: 240,
             left: 0,
             bottom: 0,
             right: 0)
@@ -132,6 +132,8 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
                 self?.step.accept(AppStep.unauthorized)
             }
         }
+
+        refreshFeed(onlyHeader: true)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -170,13 +172,23 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
     }
 
     @objc
-    private func refreshFeed() {
-        guard let secCtrl = listAdapter
-            .sectionController(for: viewModel) as? RefreshingSectionControllerType else {
-            return
+    private func refreshFeed(onlyHeader: Bool = false) {
+        let newsCtrl = listAdapter.sectionController(
+            for: viewModel.newsViewModel
+            ) as? RefreshingSectionControllerType
+        newsCtrl?.refreshContent {
+            if self.refreshCtrl.isRefreshing {
+                self.refreshCtrl.endRefreshing()
+            }
         }
 
-        secCtrl.refreshContent {
+        if onlyHeader { return }
+
+        let secCtrl = listAdapter
+            .sectionController(
+                for: viewModel
+            ) as? RefreshingSectionControllerType
+        secCtrl?.refreshContent {
             self.refreshCtrl.endRefreshing()
         }
     }
@@ -264,6 +276,13 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         viewModel.stuffViewModel.employeesViewModel.getEmployees()
     }
 
+    private func onUnauthorized() {
+        DispatchQueue.main.async {
+            User.current.logout()
+            self.step.accept(AppStep.unauthorized)
+        }
+    }
+
     // MARK: - FABMenuDelegate
 
     func fabMenuWillOpen(fabMenu: FABMenu) {
@@ -291,10 +310,29 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
 
 extension LentaViewController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return [viewModel]
+        return [
+            viewModel.newsViewModel,
+            viewModel
+        ]
+    }
+
+    private func header(_ viewModel: NewsViewModel) -> ListSectionController {
+        let section = BIBoardHeaderSectionController(viewModel: viewModel)
+        section.onUnathorizedError = { [weak self] in
+            guard let `self` = self else { return }
+            self.onUnauthorized()
+        }
+        section.didSelectNews = { [weak self] id in
+            self?.step.accept(AppStep.newsPicked(withId: id))
+        }
+        return section
     }
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+        if let viewModel = object as? NewsViewModel {
+            return header(viewModel)
+        }
+
         let section = NewsSectionController(viewModel: viewModel)
         section.didTapNews = { [weak self] id in
             guard !(self?.fabMenu.isOpened ?? false) else { return }
@@ -305,11 +343,7 @@ extension LentaViewController: ListAdapterDataSource {
             self?.step.accept(AppStep.suggestionPicked(withId: id))
         }
         section.onUnathorizedError = { [weak self] in
-            guard let `self` = self else { return }
-            DispatchQueue.main.async {
-                User.current.logout()
-                self.step.accept(AppStep.unauthorized)
-            }
+            self?.onUnauthorized()
         }
         section.didFinishLoad = {
             self.spinner.isHidden = true
