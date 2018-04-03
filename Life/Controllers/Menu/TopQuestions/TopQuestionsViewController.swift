@@ -220,7 +220,11 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper, FABM
                 )
         })
 
-        fabMenu.fabMenuItems = [addQuestionItem, addAnswerItem, addVideoAnswerItem].reversed()
+        if User.current.canVideoAnswerTopQuestion {
+            fabMenu.fabMenuItems = [addQuestionItem, addAnswerItem, addVideoAnswerItem].reversed()
+        } else {
+            fabMenu.fabMenuItems = [addQuestionItem, addAnswerItem].reversed()
+        }
     }
 
     private func setupFABMenuItem(title: String, onTap: @escaping (() -> Void)) -> FABMenuItem {
@@ -247,6 +251,7 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper, FABM
 
     func fabMenuWillOpen(fabMenu: FABMenu) {
         collectionNode.alpha = 0.15
+        collectionNode.isUserInteractionEnabled = false
 
         fabButton.backgroundColor = App.Color.paleGreyTwo
         fabButton.image = Icon.cm.close
@@ -259,6 +264,10 @@ class TopQuestionsViewController: ASViewController<ASDisplayNode>, Stepper, FABM
         fabButton.backgroundColor = App.Color.azure
         fabButton.image = Icon.cm.add
         fabButton.tintColor = UIColor.white
+    }
+
+    func fabMenuDidClose(fabMenu: FABMenu) {
+        collectionNode.isUserInteractionEnabled = true
     }
 
 }
@@ -288,6 +297,7 @@ extension TopQuestionsViewController: ListAdapterDataSource {
             self.onUnauthorized()
         }
         section.didSelectVideo = { [weak self] video in
+            guard !(self?.fabMenu.isOpened ?? false) else { return }
             self?.play(video: video)
         }
         return section
@@ -300,6 +310,7 @@ extension TopQuestionsViewController: ListAdapterDataSource {
             self.onUnauthorized()
         }
         section.didSelectVideo = { [weak self] video in
+            guard !(self?.fabMenu.isOpened ?? false) else { return }
             self?.play(video: video)
         }
         return section

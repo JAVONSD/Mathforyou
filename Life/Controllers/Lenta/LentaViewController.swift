@@ -12,6 +12,7 @@ import IGListKit
 import Material
 import Moya
 import NVActivityIndicatorView
+import RealmSwift
 import RxSwift
 import RxCocoa
 import SnapKit
@@ -20,8 +21,14 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
 
     private var listAdapter: ListAdapter!
     private(set) var collectionNode: ASCollectionNode!
-    private(set) lazy var spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    private(set) lazy var spinner = NVActivityIndicatorView(
+        frame: .init(x: 0, y: 0, width: 44, height: 44),
+        type: .circleStrokeSpin,
+        color: App.Color.azure,
+        padding: 0)
     private lazy var refreshCtrl = UIRefreshControl()
+
+    private var spinnerNode: ASDisplayNode!
 
     private var fabButton: FABButton!
     private var fabMenu: FABMenu!
@@ -59,6 +66,14 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         addNode.style.preferredSize = CGSize(width: 56, height: 56)
         node.addSubnode(addNode)
 
+        spinnerNode = ASDisplayNode(viewBlock: { () -> UIView in
+            self.spinner.startAnimating()
+            return self.spinner
+        })
+        spinnerNode.backgroundColor = .clear
+        spinnerNode.style.preferredSize = CGSize(width: 24, height: 24)
+        node.addSubnode(spinnerNode)
+
         node.layoutSpecBlock = { (_, _) in
             let insetSpec = ASInsetLayoutSpec(insets: .init(
                 top: 0,
@@ -71,10 +86,20 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
                 sizingOption: [],
                 child: insetSpec
             )
-            return ASOverlayLayoutSpec(child: self.collectionNode, overlay: relativeSpec)
-        }
+            let collectionSpec = ASOverlayLayoutSpec(child: self.collectionNode, overlay: relativeSpec)
 
-        viewModel = LentaViewModel()
+            let spinnerSpec = ASStackLayoutSpec.vertical()
+            spinnerSpec.children = [self.spinnerNode]
+            spinnerSpec.alignItems = .center
+            spinnerSpec.justifyContent = .center
+
+            let spinnerInsetSpect = ASInsetLayoutSpec(
+                insets: .init(top: 240 / 2, left: 0, bottom: 0, right: 0),
+                child: spinnerSpec
+            )
+
+            return ASOverlayLayoutSpec(child: collectionSpec, overlay: spinnerInsetSpect)
+        }
 
         let updater = ListAdapterUpdater()
         listAdapter = ListAdapter(updater: updater, viewController: self, workingRangeSize: 0)
@@ -92,7 +117,7 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         collectionNode.view.backgroundColor = App.Color.whiteSmoke
         collectionNode.view.alwaysBounceVertical = true
         collectionNode.view.scrollIndicatorInsets = .init(
-            top: 176,
+            top: 240,
             left: 0,
             bottom: 0,
             right: 0)
@@ -102,12 +127,39 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         refreshCtrl.tintColor = App.Color.azure
         collectionNode.view.addSubview(refreshCtrl)
 
+        do {
+            let realm = try App.Realms.default()
+            let employeeObjects = realm.objects(EmployeeObject.self)
+
+            if employeeObjects.isEmpty {
+                showHUD(title: NSLocalizedString("loading_employees", comment: ""))
+            }
+            viewModel.stuffViewModel.employeesViewModel.onSuccess
+                .observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self] _ in
+                    self?.hideHUD()
+                })
+                .disposed(by: disposeBag)
+            viewModel.stuffViewModel.employeesViewModel.onError
+                .observeOn(MainScheduler.instance)
+                .subscribe(onNext: { [weak self] _ in
+                    self?.downloadEmployees()
+                })
+                .disposed(by: disposeBag)
+            downloadEmployees()
+        } catch {
+            print("Failed to access the Realm database")
+        }
+
         syncUserProfile {
             DispatchQueue.main.async { [weak self] in
                 User.current.logout()
                 self?.step.accept(AppStep.unauthorized)
             }
         }
+
+        refreshFeed(onlyHeader: true)
+        addObservers()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -119,6 +171,102 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
                 self?.collectionNode.setContentOffset(.zero, animated: true)
             }
         }
+    }
+
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
+    // MARK: - Observers
+
+    private func addObservers() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(onSelectSuggestionsTab(_:)),
+            name: .selectSuggestionsTab,
+            object: nil
+        )
+
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(onSelectQuestionnairesTab(_:)),
+            name: .selectQuestionnairesTab,
+            object: nil
+        )
+
+        viewModel.loading
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] loading in
+                guard let `self` = self else { return }
+
+                if self.viewModel.currentFilter == .all,
+                    self.viewModel.items.isEmpty {
+                    loading ? self.spinner.startAnimating() : self.spinner.stopAnimating()
+                }
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.newsViewModel.loading
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] loading in
+                guard let `self` = self else { return }
+
+                if self.viewModel.currentFilter == .news,
+                    self.viewModel.newsViewModel.news.isEmpty {
+                    loading ? self.spinner.startAnimating() : self.spinner.stopAnimating()
+                }
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.suggestionsViewModel.loading
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] loading in
+                guard let `self` = self else { return }
+
+                if self.viewModel.currentFilter == .suggestions,
+                    self.viewModel.suggestionsViewModel.suggestions.isEmpty {
+                    loading ? self.spinner.startAnimating() : self.spinner.stopAnimating()
+                }
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.questionnairesViewModel.loading
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] loading in
+                guard let `self` = self else { return }
+
+                if self.viewModel.currentFilter == .questionnaires,
+                    self.viewModel.questionnairesViewModel.questionnaires.isEmpty {
+                    loading ? self.spinner.startAnimating() : self.spinner.stopAnimating()
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+
+    @objc
+    private func onSelectSuggestionsTab(_ notification: Foundation.Notification) {
+        viewModel.currentFilter = .suggestions
+
+        let secCtrl = listAdapter
+            .sectionController(
+                for: viewModel
+            ) as? NewsSectionController
+        secCtrl?.updateContents()
+
+        collectionNode.reloadData()
+    }
+
+    @objc
+    private func onSelectQuestionnairesTab(_ notification: Foundation.Notification) {
+        viewModel.currentFilter = .questionnaires
+
+        let secCtrl = listAdapter
+            .sectionController(
+                for: viewModel
+            ) as? NewsSectionController
+        secCtrl?.updateContents()
+
+        collectionNode.reloadData()
     }
 
     // MARK: - Methods
@@ -146,13 +294,23 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
     }
 
     @objc
-    private func refreshFeed() {
-        guard let secCtrl = listAdapter
-            .sectionController(for: viewModel) as? RefreshingSectionControllerType else {
-            return
+    private func refreshFeed(onlyHeader: Bool = false) {
+        let newsCtrl = listAdapter.sectionController(
+            for: viewModel.newsViewModel
+            ) as? RefreshingSectionControllerType
+        newsCtrl?.refreshContent {
+            if self.refreshCtrl.isRefreshing {
+                self.refreshCtrl.endRefreshing()
+            }
         }
 
-        secCtrl.refreshContent {
+        if onlyHeader { return }
+
+        let secCtrl = listAdapter
+            .sectionController(
+                for: viewModel
+            ) as? RefreshingSectionControllerType
+        secCtrl?.refreshContent {
             self.refreshCtrl.endRefreshing()
         }
     }
@@ -213,7 +371,11 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
                 )
         })
 
-        fabMenu.fabMenuItems = [addNewsItem, addSuggestionItem].reversed()
+        if User.current.canCreateNews {
+            fabMenu.fabMenuItems = [addNewsItem, addSuggestionItem].reversed()
+        } else {
+            fabMenu.fabMenuItems = [addSuggestionItem].reversed()
+        }
     }
 
     private func setupFABMenuItem(title: String, onTap: @escaping (() -> Void)) -> FABMenuItem {
@@ -231,15 +393,29 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
 
             self.fabMenuWillClose(fabMenu: self.fabMenu)
             self.fabMenu.close()
+
+            self.collectionNode.isUserInteractionEnabled = true
         }).disposed(by: disposeBag)
 
         return menuItem
+    }
+
+    private func downloadEmployees() {
+        viewModel.stuffViewModel.employeesViewModel.getEmployees()
+    }
+
+    private func onUnauthorized() {
+        DispatchQueue.main.async {
+            User.current.logout()
+            self.step.accept(AppStep.unauthorized)
+        }
     }
 
     // MARK: - FABMenuDelegate
 
     func fabMenuWillOpen(fabMenu: FABMenu) {
         collectionNode.alpha = 0.15
+        collectionNode.isUserInteractionEnabled = false
 
         fabButton.backgroundColor = App.Color.paleGreyTwo
         fabButton.image = Icon.cm.close
@@ -254,27 +430,48 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         fabButton.tintColor = UIColor.white
     }
 
+    func fabMenuDidClose(fabMenu: FABMenu) {
+        collectionNode.isUserInteractionEnabled = true
+    }
+
 }
 
 extension LentaViewController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
-        return [viewModel]
+        return [
+            viewModel.newsViewModel,
+            viewModel
+        ]
+    }
+
+    private func header(_ viewModel: NewsViewModel) -> ListSectionController {
+        let section = BIBoardHeaderSectionController(viewModel: viewModel)
+        section.onUnathorizedError = { [weak self] in
+            guard let `self` = self else { return }
+            self.onUnauthorized()
+        }
+        section.didSelectNews = { [weak self] id in
+            self?.step.accept(AppStep.newsPicked(withId: id))
+        }
+        return section
     }
 
     func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
+        if let viewModel = object as? NewsViewModel {
+            return header(viewModel)
+        }
+
         let section = NewsSectionController(viewModel: viewModel)
         section.didTapNews = { [weak self] id in
+            guard !(self?.fabMenu.isOpened ?? false) else { return }
             self?.step.accept(AppStep.newsPicked(withId: id))
         }
         section.didTapSuggestion = { [weak self] id in
+            guard !(self?.fabMenu.isOpened ?? false) else { return }
             self?.step.accept(AppStep.suggestionPicked(withId: id))
         }
         section.onUnathorizedError = { [weak self] in
-            guard let `self` = self else { return }
-            DispatchQueue.main.async {
-                User.current.logout()
-                self.step.accept(AppStep.unauthorized)
-            }
+            self?.onUnauthorized()
         }
         section.didFinishLoad = {
             self.spinner.isHidden = true
@@ -283,7 +480,6 @@ extension LentaViewController: ListAdapterDataSource {
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
-        spinner.startAnimating()
-        return spinner
+        return nil
     }
 }

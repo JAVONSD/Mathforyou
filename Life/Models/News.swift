@@ -15,6 +15,7 @@ struct News: Codable, Hashable {
     var text: String
     var createDate: String
     var imageStreamId: String?
+    var imageSize: ImageSize
     var imageUrl: String
     var authorCode: String
     var authorName: String
@@ -36,6 +37,7 @@ struct News: Codable, Hashable {
         case text
         case createDate
         case imageStreamId
+        case imageSize
         case imageUrl
         case authorCode
         case authorName
@@ -58,6 +60,7 @@ struct News: Codable, Hashable {
         self.text = try container.decodeWrapper(key: .text, defaultValue: "")
         self.createDate = try container.decodeWrapper(key: .createDate, defaultValue: "")
         self.imageStreamId = try container.decodeWrapper(key: .imageStreamId, defaultValue: "")
+        self.imageSize = try container.decodeWrapper(key: .imageSize, defaultValue: ImageSize(width: 200, height: 200))
         self.imageUrl = try container.decodeWrapper(key: .imageUrl, defaultValue: "")
         self.authorCode = try container.decodeWrapper(key: .authorCode, defaultValue: "")
         self.authorName = try container.decodeWrapper(key: .authorName, defaultValue: "")
@@ -78,6 +81,7 @@ struct News: Codable, Hashable {
         aCoder.encode(text, forKey: "text")
         aCoder.encode(createDate, forKey: "createDate")
         aCoder.encode(imageStreamId, forKey: "imageStreamId")
+        aCoder.encode(imageSize, forKey: "imageSize")
         aCoder.encode(imageUrl, forKey: "imageUrl")
         aCoder.encode(authorCode, forKey: "authorCode")
         aCoder.encode(authorName, forKey: "authorName")
@@ -113,6 +117,10 @@ extension News: Persistable {
         text = managedObject.text
         createDate = managedObject.createDate
         imageStreamId = managedObject.imageStreamId
+
+        let imageSize = managedObject.imageSize ?? ImageSizeObject()
+        self.imageSize = ImageSize(managedObject: imageSize)
+
         imageUrl = managedObject.imageUrl
         authorCode = managedObject.authorCode
         authorName = managedObject.authorName
@@ -134,6 +142,7 @@ extension News: Persistable {
         object.text = text
         object.createDate = createDate
         object.imageStreamId = imageStreamId
+        object.imageSize = imageSize.managedObject()
         object.imageUrl = imageUrl
         object.authorCode = authorCode
         object.authorName = authorName

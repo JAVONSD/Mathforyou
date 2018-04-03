@@ -15,6 +15,7 @@ class QuestionnairesSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: QuestionnairesViewModel?
 
     var onUnathorizedError: (() -> Void)?
+    var didTapViewAll: (() -> Void)?
 
     init(viewModel: QuestionnairesViewModel) {
         self.viewModel = viewModel
@@ -35,7 +36,10 @@ class QuestionnairesSectionController: ASCollectionSectionController {
         var items = [ListDiffable]()
         items.append(DateCell())
         if !viewModel.minimized {
-            items.append(contentsOf: viewModel.questionnaires as [ListDiffable])
+            items.append(contentsOf: Array(viewModel.questionnaires.prefix(5)) as [ListDiffable])
+        }
+        if !viewModel.minimized && viewModel.questionnaires.count > 5 {
+            items.append(NSString(string: "ViewMoreCell"))
         }
 
         set(items: items, animated: false, completion: nil)
@@ -50,13 +54,22 @@ class QuestionnairesSectionController: ASCollectionSectionController {
     }
 
     override func didSelectItem(at index: Int) {
+        guard let viewModel = viewModel else { return }
+
+        if index == 0 {
+            didTapViewAll?()
+        } else if viewModel.questionnaires.count > 5 && index == self.items.count - 1 {
+            if let didTapViewAll = didTapViewAll {
+                didTapViewAll()
+            }
+        }
     }
 
     // MARK: - Methods
 
     private func toggle() {
         if let viewModel = self.viewModel,
-            !viewModel.popularQuestionnaires.isEmpty {
+            !viewModel.questionnaires.isEmpty {
             viewModel.minimized = !viewModel.minimized
             updateContents()
         }
@@ -81,10 +94,10 @@ extension QuestionnairesSectionController: ASSectionController {
                     : ItemCell.SeparatorInset(
                         left: App.Layout.itemSpacingMedium,
                         right: App.Layout.itemSpacingMedium)
-                let bottomInset: CGFloat = index == viewModel.questionnaires.count
+                let bottomInset: CGFloat = index == self.items.count - 1
                     ? App.Layout.itemSpacingMedium
                     : App.Layout.itemSpacingSmall
-                let corners: UIRectCorner = index == viewModel.questionnaires.count
+                let corners: UIRectCorner = index == self.items.count - 1
                     ? [UIRectCorner.bottomLeft, UIRectCorner.bottomRight]
                     : []
                 return ItemCell(
@@ -99,6 +112,13 @@ extension QuestionnairesSectionController: ASSectionController {
         }
 
         return {
+            if index != 0 {
+                let corners: UIRectCorner = [UIRectCorner.bottomLeft, UIRectCorner.bottomRight]
+                return LabelNode(
+                    text: NSLocalizedString("view_all", comment: ""),
+                    corners: corners
+                )
+            }
             return self.dashboardCell(viewModel: viewModel)
         }
     }
@@ -143,7 +163,11 @@ extension QuestionnairesSectionController: ASSectionController {
                 items.insert(DateCell(), at: 0)
             }
             if !viewModel.minimized {
-                items.append(contentsOf: viewModel.questionnaires as [ListDiffable])
+                items.append(contentsOf: Array(viewModel.questionnaires.prefix(5)) as [ListDiffable])
+            }
+
+            if viewModel.questionnaires.count > 5 {
+                items.append(NSString(string: "ViewMoreCell"))
             }
 
             self.set(items: items, animated: false, completion: {

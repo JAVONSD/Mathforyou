@@ -254,6 +254,7 @@
 		C7AB6F87204BE8F500328E17 /* DirectoryContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB6F60204BE8F400328E17 /* DirectoryContentViewController.swift */; };
 		C7AB6F89204BE9D600328E17 /* NewsFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB6F88204BE9D600328E17 /* NewsFormViewModel.swift */; };
 		C7AB6F8B204C10B600328E17 /* SuggestionFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7AB6F8A204C10B600328E17 /* SuggestionFormViewModel.swift */; };
+		C7B28ECC20727C330043E0DB /* TabNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B28ECB20727C330043E0DB /* TabNode.swift */; };
 		C7B5FA0420305691003F3D2C /* ForgotPasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B5FA0320305691003F3D2C /* ForgotPasswordView.swift */; };
 		C7B5FA0620305D11003F3D2C /* ForgotPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7B5FA0520305D11003F3D2C /* ForgotPasswordViewController.swift */; };
 		C7BB5C36203E64E90056BBF9 /* AnswersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C35203E64E90056BBF9 /* AnswersViewModel.swift */; };
@@ -289,6 +290,7 @@
 		C7BB5C79204015B40056BBF9 /* RequestFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C78204015B40056BBF9 /* RequestFormViewController.swift */; };
 		C7BB5C7B20401A870056BBF9 /* SuggestionFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C7A20401A870056BBF9 /* SuggestionFormViewController.swift */; };
 		C7BB5C7D204021190056BBF9 /* NewsFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C7C204021190056BBF9 /* NewsFormViewController.swift */; };
+		C7CE70DA2070CB1F00333779 /* LabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CE70D92070CB1F00333779 /* LabelNode.swift */; };
 		C7D6419C20340750001DCA98 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419B20340750001DCA98 /* AuthService.swift */; };
 		C7D6419E20340777001DCA98 /* EmployeesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419D20340777001DCA98 /* EmployeesService.swift */; };
 		C7D641A020340789001DCA98 /* EventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419F20340789001DCA98 /* EventsService.swift */; };
@@ -361,6 +363,9 @@
 		C7D832D42035C80E00282891 /* MainMenuFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D832D32035C80E00282891 /* MainMenuFlow.swift */; };
 		C7DE698E20479FB800E028BC /* StuffViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7DE698D20479FB800E028BC /* StuffViewModel.swift */; };
 		C7E01E4B2045B68200204956 /* TRTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7E01E4A2045B68200204956 /* TRTableViewCell.swift */; };
+		C7F4EAE12071F3F200898204 /* CongratulateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F4EAE02071F3F200898204 /* CongratulateViewController.swift */; };
+		C7F4EAE32071F41100898204 /* CongratulateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F4EAE22071F41100898204 /* CongratulateView.swift */; };
+		C7F4EAE52071F42400898204 /* CongratulateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F4EAE42071F42400898204 /* CongratulateViewModel.swift */; };
 		C7F6996D2052C357005123F1 /* AnswerFormViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F6996C2052C357005123F1 /* AnswerFormViewModel.swift */; };
 		C7F7CB31203AE866007B9D1E /* BIBoardHeaderSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F7CB30203AE866007B9D1E /* BIBoardHeaderSectionController.swift */; };
 		C7F7CB33203AE98A007B9D1E /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7F7CB32203AE98A007B9D1E /* Question.swift */; };
@@ -691,6 +696,7 @@
 		C7AB6F60204BE8F400328E17 /* DirectoryContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectoryContentViewController.swift; sourceTree = "<group>"; };
 		C7AB6F88204BE9D600328E17 /* NewsFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFormViewModel.swift; sourceTree = "<group>"; };
 		C7AB6F8A204C10B600328E17 /* SuggestionFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionFormViewModel.swift; sourceTree = "<group>"; };
+		C7B28ECB20727C330043E0DB /* TabNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabNode.swift; sourceTree = "<group>"; };
 		C7B5FA0320305691003F3D2C /* ForgotPasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordView.swift; sourceTree = "<group>"; };
 		C7B5FA0520305D11003F3D2C /* ForgotPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewController.swift; sourceTree = "<group>"; };
 		C7BB5C35203E64E90056BBF9 /* AnswersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswersViewModel.swift; sourceTree = "<group>"; };
@@ -726,6 +732,7 @@
 		C7BB5C78204015B40056BBF9 /* RequestFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFormViewController.swift; sourceTree = "<group>"; };
 		C7BB5C7A20401A870056BBF9 /* SuggestionFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionFormViewController.swift; sourceTree = "<group>"; };
 		C7BB5C7C204021190056BBF9 /* NewsFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFormViewController.swift; sourceTree = "<group>"; };
+		C7CE70D92070CB1F00333779 /* LabelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNode.swift; sourceTree = "<group>"; };
 		C7D6419B20340750001DCA98 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		C7D6419D20340777001DCA98 /* EmployeesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesService.swift; sourceTree = "<group>"; };
 		C7D6419F20340789001DCA98 /* EventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsService.swift; sourceTree = "<group>"; };
@@ -798,6 +805,9 @@
 		C7D832D32035C80E00282891 /* MainMenuFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuFlow.swift; sourceTree = "<group>"; };
 		C7DE698D20479FB800E028BC /* StuffViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StuffViewModel.swift; sourceTree = "<group>"; };
 		C7E01E4A2045B68200204956 /* TRTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRTableViewCell.swift; sourceTree = "<group>"; };
+		C7F4EAE02071F3F200898204 /* CongratulateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratulateViewController.swift; sourceTree = "<group>"; };
+		C7F4EAE22071F41100898204 /* CongratulateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratulateView.swift; sourceTree = "<group>"; };
+		C7F4EAE42071F42400898204 /* CongratulateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CongratulateViewModel.swift; sourceTree = "<group>"; };
 		C7F6996C2052C357005123F1 /* AnswerFormViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerFormViewModel.swift; sourceTree = "<group>"; };
 		C7F7CB30203AE866007B9D1E /* BIBoardHeaderSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BIBoardHeaderSectionController.swift; sourceTree = "<group>"; };
 		C7F7CB32203AE98A007B9D1E /* Question.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
@@ -1299,6 +1309,7 @@
 				C7F7CB74203C75B4007B9D1E /* ImageNode.swift */,
 				C731033620503D1000E21672 /* CheckboxCell.swift */,
 				C7FC5D932057A71C00F5A04B /* WebView.swift */,
+				C7CE70D92070CB1F00333779 /* LabelNode.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1862,6 +1873,7 @@
 				C7D832C02035C48700282891 /* BirthdaysViewController.swift */,
 				C7D832C22035C49100282891 /* VacanciesViewController.swift */,
 				C717C684203D94000070447D /* EmployeeViewController.swift */,
+				C7F4EAE02071F3F200898204 /* CongratulateViewController.swift */,
 			);
 			path = Employees;
 			sourceTree = "<group>";
@@ -1909,6 +1921,7 @@
 				C7D6423B20346FC0001DCA98 /* EmployeesViewModel.swift */,
 				C7D832C42035C4ED00282891 /* BirthdaysViewModel.swift */,
 				C7D832C62035C4FC00282891 /* VacanciesViewModel.swift */,
+				C7F4EAE42071F42400898204 /* CongratulateViewModel.swift */,
 			);
 			path = Employees;
 			sourceTree = "<group>";
@@ -1971,6 +1984,7 @@
 				C7BB5C63203FD4150056BBF9 /* SuggestionDetails */,
 				C7BB5C52203ED34C0056BBF9 /* NewsCommentCell.swift */,
 				C761B4B820429D0000467304 /* CommentToolbar.swift */,
+				C7B28ECB20727C330043E0DB /* TabNode.swift */,
 			);
 			path = Lenta;
 			sourceTree = "<group>";
@@ -1984,6 +1998,7 @@
 				C717C67E203D89010070447D /* EmployeeView.swift */,
 				C717C680203D892C0070447D /* EmployeeHeaderView.swift */,
 				C752ACF820413ECB00D04E26 /* VacancyCell.swift */,
+				C7F4EAE22071F41100898204 /* CongratulateView.swift */,
 			);
 			path = Employees;
 			sourceTree = "<group>";
@@ -2343,6 +2358,7 @@
 				"${BUILT_PRODUCTS_DIR}/Cache/Cache.framework",
 				"${BUILT_PRODUCTS_DIR}/DBCameraButton/DBCameraButton.framework",
 				"${BUILT_PRODUCTS_DIR}/DateToolsSwift/DateToolsSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/DynamicBlurView/DynamicBlurView.framework",
 				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
@@ -2350,6 +2366,7 @@
 				"${BUILT_PRODUCTS_DIR}/Imaginary/Imaginary.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Lightbox/Lightbox.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
@@ -2357,6 +2374,7 @@
 				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
 				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
 				"${BUILT_PRODUCTS_DIR}/PINRemoteImage/PINRemoteImage.framework",
+				"${BUILT_PRODUCTS_DIR}/PopupDialog/PopupDialog.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
@@ -2364,7 +2382,6 @@
 				"${BUILT_PRODUCTS_DIR}/RxRealm/RxRealm.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SCSiriWaveformView/SCSiriWaveformView.framework",
-				"${BUILT_PRODUCTS_DIR}/SkeletonView/SkeletonView.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/TTGTagCollectionView/TTGTagCollectionView.framework",
 				"${BUILT_PRODUCTS_DIR}/Texture/AsyncDisplayKit.framework",
@@ -2378,6 +2395,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DBCameraButton.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateToolsSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicBlurView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
@@ -2385,6 +2403,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Imaginary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lightbox.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
@@ -2392,6 +2411,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINRemoteImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopupDialog.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
@@ -2399,7 +2419,6 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRealm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSiriWaveformView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SkeletonView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TTGTagCollectionView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AsyncDisplayKit.framework",
@@ -2467,6 +2486,7 @@
 				C720EC862037093A007E4CD4 /* LentaOverviewCell.swift in Sources */,
 				C7A27456205383090026B549 /* MessageObject.swift in Sources */,
 				C7A241A6204A4DFD00994840 /* QuestionFormViewModel.swift in Sources */,
+				C7CE70DA2070CB1F00333779 /* LabelNode.swift in Sources */,
 				C7F7CB39203AEBCE007B9D1E /* Task.swift in Sources */,
 				C7D6423A20346FB7001DCA98 /* BIOfficeViewModel.swift in Sources */,
 				C7AB6F76204BE8F500328E17 /* ThumbnailGenerator.swift in Sources */,
@@ -2475,6 +2495,7 @@
 				C7F7CB6F203C65B4007B9D1E /* IDPViewModel.swift in Sources */,
 				C76EFBF6203032B600FA2BB9 /* ResetPasswordViewController.swift in Sources */,
 				C7D641B0203408C1001DCA98 /* ReferencesService.swift in Sources */,
+				C7B28ECC20727C330043E0DB /* TabNode.swift in Sources */,
 				C7D64215203463E0001DCA98 /* Flow.swift in Sources */,
 				C70ECFD1203AB83800710DB5 /* SlideCell.swift in Sources */,
 				C7AB6F72204BE8F500328E17 /* FileService.swift in Sources */,
@@ -2494,6 +2515,7 @@
 				C7AB6F80204BE8F500328E17 /* UISearchBar+Extension.swift in Sources */,
 				C73EB2BA203327AA00429921 /* BenefitsTableViewCell.swift in Sources */,
 				C73EB2AA2032F9B100429921 /* UIImagePickerController+Rx.swift in Sources */,
+				C7F4EAE32071F41100898204 /* CongratulateView.swift in Sources */,
 				C7D64216203463E0001DCA98 /* NextFlowItem.swift in Sources */,
 				C73EB2A32032F9B100429921 /* ItemPath.swift in Sources */,
 				C79251F520317A6100CDFBBA /* AppToolbarController.swift in Sources */,
@@ -2699,6 +2721,7 @@
 				C716D801204D925B00C80912 /* TasksAndRequestsFlow.swift in Sources */,
 				C76EFBEA20302F8C00FA2BB9 /* Mask.swift in Sources */,
 				C7AB6F70204BE8F500328E17 /* UknownFileTypeViewController.swift in Sources */,
+				C7F4EAE52071F42400898204 /* CongratulateViewModel.swift in Sources */,
 				C73EB2942032F9B100429921 /* CollectionViewSectionedDataSource.swift in Sources */,
 				C7D6422F20346F53001DCA98 /* LentaViewController.swift in Sources */,
 				C73EB2AC2032F9B100429921 /* RxCLLocationManagerDelegateProxy.swift in Sources */,
@@ -2757,6 +2780,7 @@
 				C7AB6F84204BE8F500328E17 /* UITableView+Extension.swift in Sources */,
 				C7D641F520344C70001DCA98 /* LoginFlow.swift in Sources */,
 				C79263592038374500067371 /* NotificationsViewController.swift in Sources */,
+				C7F4EAE12071F3F200898204 /* CongratulateViewController.swift in Sources */,
 				C720EC822036E67E007E4CD4 /* NewsSectionController.swift in Sources */,
 				C7B5FA0420305691003F3D2C /* ForgotPasswordView.swift in Sources */,
 				C7F7CB5F203C2E2B007B9D1E /* RoundedNode.swift in Sources */,
@@ -2949,7 +2973,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = AK24CEK6KH;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2970,7 +2994,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 18;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = AK24CEK6KH;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

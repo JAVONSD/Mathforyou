@@ -23,8 +23,7 @@ class BirthdaysViewModel: NSObject, ViewModel {
 
     private let disposeBag = DisposeBag()
 
-    private let employeesToShowSubject = PublishSubject<[EmployeeViewModel]>()
-    var employeesToShow: Observable<[EmployeeViewModel]> { return employeesToShowSubject.asObservable() }
+    let employeesToShow = BehaviorRelay<[EmployeeViewModel]>(value: [])
 
     let filterText = BehaviorRelay(value: "")
 
@@ -49,7 +48,7 @@ class BirthdaysViewModel: NSObject, ViewModel {
         if loadingBirthdays.value || didLoadBirthdays {
             completion(nil)
             if !loadingBirthdays.value {
-                self.employeesToShowSubject.onNext(self.employees)
+                self.employeesToShow.accept(self.employees)
             }
             return
         }
@@ -72,16 +71,16 @@ class BirthdaysViewModel: NSObject, ViewModel {
                         self.didLoadBirthdays = true
 
                         completion(nil)
-                        self.employeesToShowSubject.onNext(self.employees)
+                        self.employeesToShow.accept(self.employees)
 
                         self.updateCache(employeeItems)
                     } else {
                         completion(nil)
-                        self.employeesToShowSubject.onNext(self.employees)
+                        self.employeesToShow.accept(self.employees)
                     }
                 case .error(let error):
                     completion(error)
-                    self.employeesToShowSubject.onNext(self.employees)
+                    self.employeesToShow.accept(self.employees)
                 }
             }
             .disposed(by: disposeBag)
@@ -101,7 +100,7 @@ class BirthdaysViewModel: NSObject, ViewModel {
                     self.loadingBirthdays.accept(false)
 
                     DispatchQueue.main.async {
-                        self.employeesToShowSubject.onNext(employeeViewModels)
+                        self.employeesToShow.accept(employeeViewModels)
                     }
                 }
             } catch {
@@ -135,58 +134,18 @@ class BirthdaysViewModel: NSObject, ViewModel {
 
     public func filter(with text: String) {
         if text.isEmpty {
-            employeesToShowSubject.onNext(employees)
+            employeesToShow.accept(employees)
             return
         }
 
         DispatchQueue.global().async {
             let text = text.lowercased()
             let filteredEmployees = self.employees.filter({ (employeeViewModel) -> Bool in
-                var include = false
-                include = include
-                    || employeeViewModel.employee.fullname.lowercased().contains(text)
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.firstname.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.login.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.jobPosition.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.company.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.companyName.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.departmentName.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.address.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.workPhoneNumber.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.mobilePhoneNumber.lowercased().contains(text)
-                }
-
-                return include
+                return employeeViewModel.employee.filter(by: text)
             })
 
             DispatchQueue.main.async {
-                self.employeesToShowSubject.onNext(filteredEmployees)
+                self.employeesToShow.accept(filteredEmployees)
             }
         }
     }

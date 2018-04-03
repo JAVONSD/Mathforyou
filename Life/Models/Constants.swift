@@ -156,6 +156,7 @@ struct App {
         static let userLogin = "userLogin"
         static let userEmployeeCode = "userEmployeeCode"
         static let userProfile = "userProfile"
+        static let userRoles = "userRoles"
     }
 
     // MARK: - Fields
@@ -188,14 +189,14 @@ struct App {
         case production
 
         static var current: Environment {
-            return .production
+            return .development
         }
     }
 
     // MARK: - Realms & Configs
 
     struct RealmConfig {
-        private static let schemaVersion: UInt64 = 2
+        private static let schemaVersion: UInt64 = 3
         private static let docs = FileManager.default.urls(
             for: .documentDirectory, in: .userDomainMask).first!
 
@@ -231,6 +232,13 @@ struct App {
                 migrationBlock: migrationBlock)
         }
 
+        static var allQuestionnaires: Realm.Configuration {
+            return Realm.Configuration(
+                fileURL: docs.appendingPathComponent("AllQuestionnaires.realm"),
+                schemaVersion: schemaVersion,
+                migrationBlock: migrationBlock)
+        }
+
         static var popularQuestionnaires: Realm.Configuration {
             return Realm.Configuration(
                 fileURL: docs.appendingPathComponent("PopularQuestionnaires.realm"),
@@ -241,6 +249,20 @@ struct App {
         static var popularNews: Realm.Configuration {
             return Realm.Configuration(
                 fileURL: docs.appendingPathComponent("PopularNews.realm"),
+                schemaVersion: schemaVersion,
+                migrationBlock: migrationBlock)
+        }
+
+        static var topNews: Realm.Configuration {
+            return Realm.Configuration(
+                fileURL: docs.appendingPathComponent("TopNews.realm"),
+                schemaVersion: schemaVersion,
+                migrationBlock: migrationBlock)
+        }
+
+        static var allSuggestions: Realm.Configuration {
+            return Realm.Configuration(
+                fileURL: docs.appendingPathComponent("AllSuggestions.realm"),
                 schemaVersion: schemaVersion,
                 migrationBlock: migrationBlock)
         }
@@ -308,6 +330,17 @@ struct App {
             }
         }
 
+        static func allQuestionnaires() throws -> Realm {
+            do {
+                let realm = try Realm(configuration: RealmConfig.allQuestionnaires)
+                return realm
+            } catch {
+                fatalError(
+                    "Failed to initialize realm with configurations - \(RealmConfig.allQuestionnaires)"
+                )
+            }
+        }
+
         static func popularQuestionnaires() throws -> Realm {
             do {
                 let realm = try Realm(configuration: RealmConfig.popularQuestionnaires)
@@ -326,6 +359,28 @@ struct App {
             } catch {
                 fatalError(
                     "Failed to initialize realm with configurations - \(RealmConfig.popularNews)"
+                )
+            }
+        }
+
+        static func topNews() throws -> Realm {
+            do {
+                let realm = try Realm(configuration: RealmConfig.topNews)
+                return realm
+            } catch {
+                fatalError(
+                    "Failed to initialize realm with configurations - \(RealmConfig.topNews)"
+                )
+            }
+        }
+
+        static func allSuggestions() throws -> Realm {
+            do {
+                let realm = try Realm(configuration: RealmConfig.allSuggestions)
+                return realm
+            } catch {
+                fatalError(
+                    "Failed to initialize realm with configurations - \(RealmConfig.allSuggestions)"
                 )
             }
         }
@@ -364,4 +419,11 @@ struct App {
         }
     }
 
+}
+
+// MARK: - Notifications
+
+extension Foundation.Notification.Name {
+    static let selectSuggestionsTab = Foundation.Notification.Name("selectSuggestionsTab")
+    static let selectQuestionnairesTab = Foundation.Notification.Name("selectQuestionnairesTab")
 }

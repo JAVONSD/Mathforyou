@@ -12,9 +12,18 @@ import RxCocoa
 
 struct User: Codable {
 
+    enum Role: String, Codable {
+        case hr = "HR"
+        case pr = "PR"
+        case lean = "LEAN"
+        case moderator = "MODERATOR"
+        case top7 = "TOP7"
+    }
+
     var token: String?
     var login: String
     var employeeCode: String
+    var roles = [Role]()
 
     //swiftlint:disable redundant_optional_initialization
     var profile: UserProfile? = nil
@@ -22,10 +31,19 @@ struct User: Codable {
 
     let updated = BehaviorRelay<UserProfile?>(value: nil)
 
-    init(token: String?, login: String, employeeCode: String) {
+    var canCreateNews: Bool {
+        return roles.contains(.hr) || roles.contains(.pr) || roles.contains(.moderator)
+    }
+
+    var canVideoAnswerTopQuestion: Bool {
+        return roles.contains(.top7) || roles.contains(.moderator)
+    }
+
+    init(token: String?, login: String, employeeCode: String, roles: [Role]) {
         self.token = token
         self.login = login
         self.employeeCode = employeeCode
+        self.roles = roles
     }
 
     // MARK: - Codable
@@ -34,6 +52,27 @@ struct User: Codable {
         case token
         case login
         case employeeCode
+        case roles
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+
+        self.token = try container.decodeWrapper(key: .token, defaultValue: "")
+        self.login = try container.decodeWrapper(key: .login, defaultValue: "")
+        self.employeeCode = try container.decodeWrapper(key: .employeeCode, defaultValue: "")
+
+        self.roles = []
+        if let strRoles = (try? container.decodeWrapper(key: .roles, defaultValue: [String]())) {
+            self.roles = strRoles.compactMap { Role(rawValue: $0) }
+        }
+    }
+
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(token, forKey: "token")
+        aCoder.encode(login, forKey: "login")
+        aCoder.encode(employeeCode, forKey: "employeeCode")
+        aCoder.encode(roles.map { $0.rawValue }, forKey: "roles")
     }
 
     // MARK: - Methods
@@ -48,7 +87,13 @@ struct User: Codable {
             let token = UserDefaults.standard.string(forKey: App.Key.userToken)
             let login = UserDefaults.standard.string(forKey: App.Key.userLogin) ?? ""
             let employeeCode = UserDefaults.standard.string(forKey: App.Key.userEmployeeCode) ?? ""
-            _current = User(token: token, login: login, employeeCode: employeeCode)
+
+            var roles = [Role]()
+            if let strRoles = UserDefaults.standard.object(forKey: App.Key.userRoles) as? [String] {
+                roles = strRoles.compactMap { Role(rawValue: $0) }
+            }
+
+            _current = User(token: token, login: login, employeeCode: employeeCode, roles: roles)
 
             if let profileData = UserDefaults.standard.data(forKey: App.Key.userProfile),
                 let profile = try? PropertyListDecoder().decode(UserProfile.self, from: profileData) {
@@ -77,6 +122,7 @@ struct User: Codable {
         }
         UserDefaults.standard.set(login, forKey: App.Key.userLogin)
         UserDefaults.standard.set(employeeCode, forKey: App.Key.userEmployeeCode)
+        UserDefaults.standard.set(roles.map { $0.rawValue }, forKey: App.Key.userRoles)
         UserDefaults.standard.synchronize()
 
         updated.accept(profile)
@@ -87,6 +133,7 @@ struct User: Codable {
         UserDefaults.standard.set(nil, forKey: App.Key.userProfile)
         UserDefaults.standard.set(login, forKey: App.Key.userLogin)
         UserDefaults.standard.set(nil, forKey: App.Key.userEmployeeCode)
+        UserDefaults.standard.set(nil, forKey: App.Key.userRoles)
         UserDefaults.standard.synchronize()
     }
 

@@ -10,11 +10,21 @@ import Foundation
 import IGListKit
 import Moya
 import RxSwift
+import RxCocoa
 
 class SuggestionsViewModel: NSObject, ListDiffable {
     private(set) var suggestions = [SuggestionItemViewModel]()
+    private(set) var allSuggestions = [SuggestionItemViewModel]()
     private(set) var popularSuggestions = [SuggestionItemViewModel]()
+
     var minimized = true
+    var didLoad = false
+
+    private var offset = 0
+    private let rows = 10
+    private(set) var canLoadMore = true
+    let loading = BehaviorRelay<Bool>(value: false)
+    private var usingCached = false
 
     private let disposeBag = DisposeBag()
 
@@ -23,8 +33,17 @@ class SuggestionsViewModel: NSObject, ListDiffable {
         return loadingSuggestionsSubject.asObservable()
     }
     private let suggestionsSubject = PublishSubject<[SuggestionItemViewModel]>()
-    var suggsetionsObservable: Observable<[SuggestionItemViewModel]> {
+    var suggestionsObservable: Observable<[SuggestionItemViewModel]> {
         return suggestionsSubject.asObservable()
+    }
+
+    private let loadingAllSuggestionsSubject = PublishSubject<Bool>()
+    var loadingAllSuggestions: Observable<Bool> {
+        return loadingAllSuggestionsSubject.asObservable()
+    }
+    private let allSuggestionsSubject = PublishSubject<[SuggestionItemViewModel]>()
+    var allSuggsetionsObservable: Observable<[SuggestionItemViewModel]> {
+        return allSuggestionsSubject.asObservable()
     }
 
     private let loadingPopularSuggestionsSubject = PublishSubject<Bool>()
@@ -36,7 +55,7 @@ class SuggestionsViewModel: NSObject, ListDiffable {
         return popularSuggestionsSubject.asObservable()
     }
 
-    var loadingAllSuggestions: Observable<Bool> {
+    var loadingAllAndPopularSuggestions: Observable<Bool> {
         return Observable
             .zip(loadingSuggestions, loadingPopularSuggestions)
             .map { (load1, load2) in return load1 && load2 }
@@ -53,28 +72,30 @@ class SuggestionsViewModel: NSObject, ListDiffable {
     // MARK: - Methods
 
     public func getSuggestions(completion: @escaping ((Error?) -> Void)) {
-        loadingSuggestionsSubject.onNext(true)
+        loadingAllSuggestionsSubject.onNext(true)
 
-        returnSuggestionsFromCache(completion: completion, isPopular: false)
+        returnSuggestionsFromCache(completion: completion, type: .top3)
 
         provider
             .rx
             .request(.suggestions)
             .filterSuccessfulStatusCodes()
             .subscribe { response in
-                self.loadingSuggestionsSubject.onNext(false)
+                self.loadingAllSuggestionsSubject.onNext(false)
+                self.didLoad = true
+
                 switch response {
                 case .success(let json):
                     if let suggestions = try? JSONDecoder().decode([Suggestion].self, from: json.data) {
-                        self.suggestions = suggestions.map { SuggestionItemViewModel(suggestion: $0) }
+                        self.allSuggestions = suggestions.map { SuggestionItemViewModel(suggestion: $0) }
 
                         completion(nil)
 
-                        self.updateSuggestionsCache(suggestions, isPopular: false)
+                        self.updateSuggestionsCache(suggestions, type: .top3)
                     } else {
                         completion(nil)
                     }
-                    self.suggestionsSubject.onNext(self.suggestions)
+                    self.allSuggestionsSubject.onNext(self.allSuggestions)
                 case .error(let error):
                     completion(error)
                 }
@@ -85,7 +106,7 @@ class SuggestionsViewModel: NSObject, ListDiffable {
     public func getPopularSuggestions(completion: @escaping ((Error?) -> Void)) {
         loadingPopularSuggestionsSubject.onNext(true)
 
-        returnSuggestionsFromCache(completion: completion, isPopular: true)
+        returnSuggestionsFromCache(completion: completion, type: .popular)
 
         provider
             .rx
@@ -100,7 +121,7 @@ class SuggestionsViewModel: NSObject, ListDiffable {
 
                         completion(nil)
 
-                        self.updateSuggestionsCache(suggestions, isPopular: true)
+                        self.updateSuggestionsCache(suggestions, type: .popular)
                     } else {
                         completion(nil)
                     }
@@ -112,37 +133,115 @@ class SuggestionsViewModel: NSObject, ListDiffable {
             .disposed(by: disposeBag)
     }
 
+    func reload(_ completion: @escaping ((Error?) -> Void)) {
+        fetchNextPage(reset: true, completion)
+    }
+
+    func fetchNextPage(
+        reset: Bool = false,
+        _ completion: @escaping ((Error?) -> Void)) {
+        if loading.value {
+            completion(nil)
+            return
+        }
+
+        loading.accept(true)
+
+        if reset {
+            offset = 0
+        }
+        if suggestions.isEmpty && !self.usingCached {
+            returnSuggestionsFromCache(completion: completion, type: .all)
+        }
+
+        provider
+            .rx
+            .request(
+                .suggestionsWithDetails(
+                    rows: rows,
+                    offset: offset
+                ))
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                self.loading.accept(false)
+
+                switch response {
+                case .success(let json):
+                    if let suggestionsItems = try? JSONDecoder().decode([Suggestion].self, from: json.data) {
+                        let items = suggestionsItems.map { SuggestionItemViewModel(suggestion: $0) }
+                        if !reset && !self.usingCached {
+                            self.suggestions.append(contentsOf: items)
+                        } else {
+                            self.suggestions = items
+                            self.usingCached = false
+                        }
+
+                        self.canLoadMore = items.count >= self.rows
+                        if self.canLoadMore {
+                            self.offset += 1
+                        }
+
+                        completion(nil)
+
+                        if self.suggestions.count <= self.rows {
+                            self.updateSuggestionsCache(suggestionsItems, type: .all)
+                        }
+                    } else {
+                        self.canLoadMore = false
+                        completion(nil)
+                    }
+                case .error(let error):
+                    self.canLoadMore = false
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
     public func add(suggestion: Suggestion) {
         suggestions.insert(SuggestionItemViewModel(suggestion: suggestion), at: 0)
     }
 
-    private func returnSuggestionsFromCache(completion: @escaping ((Error?) -> Void), isPopular: Bool) {
+    private func returnSuggestionsFromCache(completion: @escaping ((Error?) -> Void), type: ResultsType) {
         DispatchQueue.global().async {
             do {
-                let realm = isPopular
-                    ? try App.Realms.popularSuggestions()
-                    : try App.Realms.default()
+                var realm = try App.Realms.default()
+                if type == .top3 {
+                    realm = try App.Realms.allSuggestions()
+                } else if type == .popular {
+                    realm = try App.Realms.popularSuggestions()
+                }
                 let cachedSuggestionObjects = realm.objects(SuggestionObject.self)
 
                 let cachedSuggestions = Array(cachedSuggestionObjects).map { Suggestion(managedObject: $0) }
                 let items = cachedSuggestions.map { SuggestionItemViewModel(suggestion: $0) }
 
-                if isPopular {
+                if type == .popular {
                     self.loadingPopularSuggestionsSubject.onNext(false)
                     self.popularSuggestions = items
-                } else {
+                } else if type == .all {
                     self.loadingSuggestionsSubject.onNext(false)
                     self.suggestions = items
+                    self.usingCached = true
+                } else {
+                    self.loadingAllSuggestionsSubject.onNext(false)
+                    self.allSuggestions = items
                 }
 
                 DispatchQueue.main.async {
-                    completion(nil)
-
-                    if isPopular {
+                    if type == .popular {
                         self.popularSuggestionsSubject.onNext(items)
-                    } else {
+                    } else if type == .all {
+                        if !items.isEmpty {
+                            self.loading.accept(false)
+                        }
+
                         self.suggestionsSubject.onNext(items)
+                    } else {
+                        self.allSuggestionsSubject.onNext(items)
                     }
+
+                    completion(nil)
                 }
             } catch let error as NSError {
                 print("Failed to access the Realm database with error - \(error.localizedDescription)")
@@ -150,12 +249,15 @@ class SuggestionsViewModel: NSObject, ListDiffable {
         }
     }
 
-    private func updateSuggestionsCache(_ suggestionItems: [Suggestion], isPopular: Bool) {
+    private func updateSuggestionsCache(_ suggestionItems: [Suggestion], type: ResultsType) {
         DispatchQueue.global().async {
             do {
-                let realm = isPopular
-                    ? try App.Realms.popularSuggestions()
-                    : try App.Realms.default()
+                var realm = try App.Realms.default()
+                if type == .top3 {
+                    realm = try App.Realms.allSuggestions()
+                } else if type == .popular {
+                    realm = try App.Realms.popularSuggestions()
+                }
                 realm.beginWrite()
                 realm.delete(realm.objects(SuggestionObject.self))
                 for suggestion in suggestionItems {

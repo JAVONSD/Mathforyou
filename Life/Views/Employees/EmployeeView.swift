@@ -47,7 +47,8 @@ class EmployeeView: UIView {
                 image: "",
                 employeeCode: image,
                 to: employeeHeaderView?.imageView,
-                placeholderImage: #imageLiteral(resourceName: "ic-user")
+                placeholderImage: #imageLiteral(resourceName: "ic-user"),
+                size: CGSize(width: 72, height: 72)
             )
         }
     }

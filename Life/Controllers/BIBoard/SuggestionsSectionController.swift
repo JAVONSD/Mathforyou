@@ -18,6 +18,7 @@ class SuggestionsSectionController: ASCollectionSectionController {
     var onUnathorizedError: (() -> Void)?
     var didTapAtSuggestion: ((String) -> Void)?
     var didTapAddSuggestion: (() -> Void)?
+    var didTapViewAll: (() -> Void)?
 
     init(viewModel: SuggestionsViewModel) {
         self.viewModel = viewModel
@@ -38,7 +39,10 @@ class SuggestionsSectionController: ASCollectionSectionController {
         var items = [ListDiffable]()
         items.append(DateCell())
         if !viewModel.minimized {
-            items.append(contentsOf: viewModel.popularSuggestions as [ListDiffable])
+            items.append(contentsOf: Array(viewModel.suggestions.prefix(5)) as [ListDiffable])
+        }
+        if !viewModel.minimized && viewModel.suggestions.count > 5 {
+            items.append(NSString(string: "ViewMoreCell"))
         }
 
         set(items: items, animated: false, completion: nil)
@@ -53,9 +57,16 @@ class SuggestionsSectionController: ASCollectionSectionController {
     }
 
     override func didSelectItem(at index: Int) {
-        if let viewModel = viewModel,
-            let didTapAtSuggestion = didTapAtSuggestion, index > 0 {
-            didTapAtSuggestion(viewModel.suggestions[index - 1].suggestion.id)
+        guard let viewModel = viewModel else { return }
+
+        if index == 0 {
+            didTapViewAll?()
+        } else if let didTapAtSuggestion = didTapAtSuggestion, index > 0 && index < 5 {
+            didTapAtSuggestion(Array(viewModel.suggestions.prefix(5))[index - 1].suggestion.id)
+        } else if viewModel.suggestions.count > 5 && index == self.items.count - 1 {
+            if let didTapViewAll = didTapViewAll {
+                didTapViewAll()
+            }
         }
     }
 
@@ -63,7 +74,7 @@ class SuggestionsSectionController: ASCollectionSectionController {
 
     private func toggle() {
         if let viewModel = self.viewModel,
-            !viewModel.popularSuggestions.isEmpty {
+            !viewModel.suggestions.isEmpty {
             viewModel.minimized = !viewModel.minimized
             updateContents()
         }
@@ -88,10 +99,10 @@ extension SuggestionsSectionController: ASSectionController {
                     : ItemCell.SeparatorInset(
                         left: App.Layout.itemSpacingMedium,
                         right: App.Layout.itemSpacingMedium)
-                let bottomInset: CGFloat = index == viewModel.popularSuggestions.count
+                let bottomInset: CGFloat = index == self.items.count - 1
                     ? App.Layout.itemSpacingMedium
                     : App.Layout.itemSpacingSmall
-                let corners: UIRectCorner = index == viewModel.popularSuggestions.count
+                let corners: UIRectCorner = index == self.items.count - 1
                     ? [UIRectCorner.bottomLeft, UIRectCorner.bottomRight]
                     : []
                 return ItemCell(
@@ -106,6 +117,13 @@ extension SuggestionsSectionController: ASSectionController {
         }
 
         return {
+            if index != 0 {
+                let corners: UIRectCorner = [UIRectCorner.bottomLeft, UIRectCorner.bottomRight]
+                return LabelNode(
+                    text: NSLocalizedString("view_all", comment: ""),
+                    corners: corners
+                )
+            }
             return self.dashboardCell()
         }
     }

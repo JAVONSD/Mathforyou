@@ -39,11 +39,26 @@ extension LentaItemViewModel: ListDiffable {
 }
 
 class LentaViewModel: NSObject {
+
+    enum FilterType: Int {
+        case all = 0
+        case news = 1
+        case suggestions = 2
+        case questionnaires = 3
+    }
+
+    var currentFilter = FilterType.all
+
     private var offset = 0
     private let rows = 10
     private(set) var canLoadMore = true
-    private(set) var loading = false
+    let loading = BehaviorRelay<Bool>(value: false)
     private var usingCached = false
+
+    private(set) var newsViewModel = NewsViewModel()
+    private(set) var suggestionsViewModel = SuggestionsViewModel()
+    private(set) var questionnairesViewModel = QuestionnairesViewModel()
+    private(set) unowned var stuffViewModel: StuffViewModel
 
     private var disposeBag = DisposeBag()
 
@@ -61,6 +76,12 @@ class LentaViewModel: NSObject {
 
     var items = [LentaItemViewModel]()
 
+    init(stuffViewModel: StuffViewModel) {
+        self.stuffViewModel = stuffViewModel
+    }
+
+    // MARK: - Methods
+
     func reload(_ completion: @escaping ((Error?) -> Void)) {
         fetchNextPage(reset: true, completion)
     }
@@ -68,12 +89,12 @@ class LentaViewModel: NSObject {
     func fetchNextPage(
         reset: Bool = false,
         _ completion: @escaping ((Error?) -> Void)) {
-        if loading {
+        if loading.value {
             completion(nil)
             return
         }
 
-        loading = true
+        loading.accept(true)
 
         if reset {
             offset = 0
@@ -92,7 +113,7 @@ class LentaViewModel: NSObject {
                 ))
             .filterSuccessfulStatusCodes()
             .subscribe { response in
-                self.loading = false
+                self.loading.accept(false)
 
                 switch response {
                 case .success(let json):
@@ -140,14 +161,14 @@ class LentaViewModel: NSObject {
                 let cachedLentaItems = Array(cachedLentaObjects).map { Lenta(managedObject: $0) }
                 let items = cachedLentaItems.map { LentaItemViewModel(lenta: $0) }
 
-                if !items.isEmpty {
-                    self.loading = false
-                }
-
                 self.usingCached = true
                 self.items = items
 
                 DispatchQueue.main.async {
+                    if !items.isEmpty {
+                        self.loading.accept(false)
+                    }
+
                     completion(nil)
                 }
             } catch let error as NSError {
@@ -192,7 +213,7 @@ extension LentaViewModel: Mockable {
     typealias T = LentaViewModel
 
     static func sample() -> LentaViewModel {
-        let lenta = LentaViewModel()
+        let lenta = LentaViewModel(stuffViewModel: StuffViewModel())
 
         let item1Json = [
             "authorName": "User",

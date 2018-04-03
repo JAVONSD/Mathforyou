@@ -15,10 +15,15 @@ extension ImageDownloader {
     static func set(image: String,
                     employeeCode: String? = nil,
                     to imageView: UIImageView?,
-                    placeholderImage: UIImage? = nil) {
+                    placeholderImage: UIImage? = nil,
+                    size: CGSize? = nil) {
         imageView?.image = placeholderImage
 
-        let imageKey = employeeCode ?? image
+        var imageKey = employeeCode ?? image
+        if let employeeCode = employeeCode, let size = size {
+            imageKey = "\(employeeCode)_\(Int(size.width))x\(Int(size.height))"
+        }
+
         guard !imageKey.isEmpty else {
             imageView?.image = placeholderImage
             return
@@ -29,13 +34,13 @@ extension ImageDownloader {
         }
 
         let modifier = AnyModifier { request in
-            var r = request
+            var req = request
             let token = User.current.token ?? ""
-            r.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-            return r
+            req.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            return req
         }
 
-        if let url = url(for: image, employeeCode: employeeCode) {
+        if let url = url(for: image, employeeCode: employeeCode, size: size) {
             ImageDownloader
                 .default
                 .downloadImage(
@@ -55,8 +60,13 @@ extension ImageDownloader {
     static func download(image: String,
                          employeeCode: String? = nil,
                          placeholderImage: UIImage? = nil,
+                         size: CGSize? = nil,
                          completion: @escaping ((UIImage?) -> Void)) {
-        let imageKey = employeeCode ?? image
+        var imageKey = employeeCode ?? image
+        if let employeeCode = employeeCode, let size = size {
+            imageKey = "\(employeeCode)_\(Int(size.width))x\(Int(size.height))"
+        }
+
         guard !imageKey.isEmpty else {
             completion(placeholderImage)
             return
@@ -67,13 +77,13 @@ extension ImageDownloader {
         }
 
         let modifier = AnyModifier { request in
-            var r = request
+            var req = request
             let token = User.current.token ?? ""
-            r.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-            return r
+            req.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            return req
         }
 
-        if let url = url(for: image, employeeCode: employeeCode) {
+        if let url = url(for: image, employeeCode: employeeCode, size: size) {
             ImageDownloader
                 .default
                 .downloadImage(
@@ -90,11 +100,19 @@ extension ImageDownloader {
         }
     }
 
-    public static func url(for image: String, employeeCode: String? = nil) -> URL? {
+    public static func url(
+        for image: String,
+        employeeCode: String? = nil,
+        size: CGSize? = nil) -> URL? {
         var url = URL(string: image)
 
         if let code = employeeCode {
-            url = URL(string: "\(App.String.apiBaseUrl)/employees/\(code)/avatar")
+            if let size = size {
+                let sizeQuery = "width=\(Int(size.width))&height=\(Int(size.height))"
+                url = URL(string: "\(App.String.apiBaseUrl)/employees/\(code)/avatar?\(sizeQuery)")
+            } else {
+                url = URL(string: "\(App.String.apiBaseUrl)/employees/\(code)/avatar")
+            }
         } else if !image.hasPrefix("http") && !image.hasPrefix("https") {
 
             let ratio: CGFloat = 360.0 / 300.0

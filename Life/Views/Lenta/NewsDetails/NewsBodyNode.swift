@@ -281,7 +281,8 @@ class NewsBodyNode: ASDisplayNode {
         ImageDownloader.download(
             image: "",
             employeeCode: news.authorCode,
-            placeholderImage: #imageLiteral(resourceName: "ic-user")) { (image) in
+            placeholderImage: #imageLiteral(resourceName: "ic-user"),
+            size: CGSize(width: 40, height: 40)) { (image) in
                 self.authorImageNode.image = image
         }
     }

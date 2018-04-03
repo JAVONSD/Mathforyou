@@ -147,7 +147,11 @@ class QuestionCell: ASCellNode {
         ImageDownloader.download(
             image: "",
             employeeCode: question.authorCode,
-            placeholderImage: #imageLiteral(resourceName: "ic-user")) { (image) in
+            placeholderImage: #imageLiteral(resourceName: "ic-user"),
+            size: CGSize(
+                width: App.Layout.itemSpacingMedium,
+                height: App.Layout.itemSpacingMedium
+            )) { (image) in
             self.authorImageNode.image = image
         }
     }

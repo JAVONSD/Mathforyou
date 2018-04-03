@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Kingfisher
+import Lightbox
 import Material
 
 class ProfileViewController: TabsController, Stepper {
@@ -71,13 +73,34 @@ class ProfileViewController: TabsController, Stepper {
     // MARK: - Methods
 
     public static var configuredVC: ProfileViewController {
+        let myInfoVC = MyInfoViewController()
+
         let vsc = [
-            MyInfoViewController(),
+            myInfoVC,
             ResultsViewController(),
             PlansViewController(),
             BenefitsViewController()
         ]
-        return ProfileViewController(viewControllers: vsc)
+
+        let profileVC = ProfileViewController(viewControllers: vsc)
+        myInfoVC.didTapAvatar = { [weak profileVC] in
+            profileVC?.openAvatar()
+        }
+        return profileVC
+    }
+
+    private func openAvatar() {
+        guard let avatarURL = ImageDownloader.url(
+            for: "",
+            employeeCode: User.current.employeeCode) else {
+            return
+        }
+        let avatarImage = LightboxImage(imageURL: avatarURL)
+        let controller = LightboxController(images: [avatarImage])
+        controller.dynamicBackground = true
+        controller.footerView.isHidden = true
+
+        present(controller, animated: true, completion: nil)
     }
 
 }

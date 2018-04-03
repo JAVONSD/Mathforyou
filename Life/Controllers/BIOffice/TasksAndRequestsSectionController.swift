@@ -22,6 +22,7 @@ class TasksAndRequestsSectionController: ASCollectionSectionController {
     var didTapOnTasksAndRequests: (() -> Void)?
     var didTapOnTaskOrRequest: ((Int) -> Void)?
     var didTapAddRequest: (() -> Void)?
+    var didTapViewAll: (() -> Void)?
 
     init(viewModel: TasksAndRequestsViewModel) {
         self.viewModel = viewModel
@@ -53,6 +54,10 @@ class TasksAndRequestsSectionController: ASCollectionSectionController {
             if let didTapOnTasksAndRequests = didTapOnTasksAndRequests {
                 didTapOnTasksAndRequests()
             }
+        } else if (viewModel?.items.count ?? 0) > 5 && index == self.items.count - 1 {
+            if let didTapViewAll = didTapViewAll {
+                didTapViewAll()
+            }
         } else {
             if let didTapOnTaskOrRequest = didTapOnTaskOrRequest {
                 didTapOnTaskOrRequest(index - 1)
@@ -78,7 +83,10 @@ class TasksAndRequestsSectionController: ASCollectionSectionController {
         var items = [ListDiffable]()
         items.append(DateCell())
         if !viewModel.minimized {
-            items.append(contentsOf: viewModel.inboxItems)
+            items.append(contentsOf: Array(viewModel.items.prefix(5)))
+        }
+        if !viewModel.minimized && viewModel.items.count > 5 {
+            items.append(NSString(string: "ViewMoreCell"))
         }
 
         set(items: items, animated: false, completion: nil)
@@ -98,10 +106,10 @@ extension TasksAndRequestsSectionController: ASSectionController {
                 : ItemCell.SeparatorInset(
                     left: App.Layout.itemSpacingMedium,
                     right: App.Layout.itemSpacingMedium)
-            let bottomInset: CGFloat = index == viewModel.inboxItems.count
+            let bottomInset: CGFloat = index == self.items.count - 1
                 ? App.Layout.itemSpacingMedium
                 : App.Layout.itemSpacingSmall
-            let corners: UIRectCorner = index == viewModel.inboxItems.count
+            let corners: UIRectCorner = index == self.items.count - 1
                 ? [UIRectCorner.bottomLeft, UIRectCorner.bottomRight]
                 : []
             var detailText = task.task.statusCode.name
@@ -132,10 +140,10 @@ extension TasksAndRequestsSectionController: ASSectionController {
                 : ItemCell.SeparatorInset(
                     left: App.Layout.itemSpacingMedium,
                     right: App.Layout.itemSpacingMedium)
-            let bottomInset: CGFloat = index == viewModel.items.count
+            let bottomInset: CGFloat = index == self.items.count - 1
                 ? App.Layout.itemSpacingMedium
                 : App.Layout.itemSpacingSmall
-            let corners: UIRectCorner = index == viewModel.items.count
+            let corners: UIRectCorner = index == self.items.count - 1
                 ? [UIRectCorner.bottomLeft, UIRectCorner.bottomRight]
                 : []
             return ItemCell(
@@ -164,6 +172,13 @@ extension TasksAndRequestsSectionController: ASSectionController {
         }
 
         return {
+            if index != 0 {
+                let corners: UIRectCorner = [UIRectCorner.bottomLeft, UIRectCorner.bottomRight]
+                return LabelNode(
+                    text: NSLocalizedString("view_all", comment: ""),
+                    corners: corners
+                )
+            }
             return self.dashboardCell()
         }
     }

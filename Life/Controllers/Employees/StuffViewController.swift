@@ -8,6 +8,7 @@
 
 import Foundation
 import Material
+import PopupDialog
 
 class StuffViewController: TabsController, TabsControllerDelegate, Stepper {
 
@@ -38,6 +39,14 @@ class StuffViewController: TabsController, TabsControllerDelegate, Stepper {
         }
         vc2.didSelectBirthdate = { [weak self] employee in
             self?.step.accept(AppStep.employeePicked(employee: employee))
+        }
+        vc2.wantCongratulate = { [weak self] employee in
+            let viewModel = CongratulateViewModel(employee: employee)
+            let vc = CongratulateViewController(viewModel: viewModel)
+            let popup = PopupDialog(viewController: vc)
+            let containerAppearance = PopupDialogContainerView.appearance()
+            containerAppearance.cornerRadius = Float(App.Layout.cornerRadius)
+            self?.present(popup, animated: true, completion: nil)
         }
         vc3.onUnathorizedError = { [weak self] in
             User.current.logout()

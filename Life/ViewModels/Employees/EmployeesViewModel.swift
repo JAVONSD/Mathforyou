@@ -14,17 +14,18 @@ import RxSwift
 import RxCocoa
 
 class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
-    private(set) var employees = [EmployeeViewModel]()
-    private(set) var filteredEmployees = [EmployeeViewModel]()
-
-    private(set) var loading = BehaviorRelay<Bool>(value: false)
-    private(set) var canLoadMore = true
-    private(set) var didLoadEmployees = false
 
     private let disposeBag = DisposeBag()
 
-    let itemsChangeSubject = PublishSubject<[EmployeeViewModel]>()
+    private(set) var loading = BehaviorRelay<Bool>(value: false)
+    private(set) var didLoadEmployees = false
+
+    let employees = BehaviorRelay<[EmployeeViewModel]>(value: [])
+    let filteredEmployees = BehaviorRelay<[EmployeeViewModel]>(value: [])
     var filterText = Observable.just("")
+
+    let onSuccess = PublishSubject<Void>()
+    let onError = PublishSubject<Error>()
 
     private let provider = MoyaProvider<EmployeesService>(
         plugins: [
@@ -36,12 +37,12 @@ class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
 
     convenience init(employees: [EmployeeViewModel]) {
         self.init()
-        self.employees = employees
+        self.employees.accept(employees)
     }
 
     // MARK: - Methods
 
-    public func getEmployees(completion: @escaping ((Error?) -> Void)) {
+    public func getEmployees() {
         // load local phone contacts
         DispatchQueue.global().async {
             _ = ContactsService.shared.contacts
@@ -50,9 +51,8 @@ class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
         returnFromCache()
 
         if loading.value || didLoadEmployees {
-            completion(nil)
             if !loading.value {
-                self.itemsChangeSubject.onNext(self.employees)
+                filteredEmployees.accept(employees.value)
             }
             return
         }
@@ -64,7 +64,6 @@ class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
             .filterSuccessfulStatusCodes()
             .subscribe { response in
                 self.loading.accept(false)
-                self.canLoadMore = false
 
                 switch response {
                 case .success(let json):
@@ -73,27 +72,27 @@ class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
                             options: []
                         )) as? [String: Any],
                         let list = jsonData["list"] as? [[String: Any]] {
+                        self.didLoadEmployees = true
+
                         //swiftlint:disable force_try
                         let employeeItems = list.map {
                             try! JSONDecoder().decode(Employee.self, from: $0.toJSONData())
                         }
                         //swiftlint:enable force_try
-                        let items = employeeItems.map { EmployeeViewModel(employee: $0) }
-                        self.employees = items
-                        self.filteredEmployees = items
-                        self.didLoadEmployees = true
 
-                        completion(nil)
-                        self.itemsChangeSubject.onNext(self.employees)
+                        let items = employeeItems.map { EmployeeViewModel(employee: $0) }
+                        self.employees.accept(items)
+                        self.filteredEmployees.accept(items)
+
+                        self.onSuccess.onNext(())
 
                         self.updateCache(employeeItems)
                     } else {
-                        completion(nil)
-                        self.itemsChangeSubject.onNext(self.employees)
+                        self.filteredEmployees.accept(self.employees.value)
                     }
                 case .error(let error):
-                    completion(error)
-                    self.itemsChangeSubject.onNext(self.employees)
+                    self.filteredEmployees.accept(self.employees.value)
+                    self.onError.onNext(error)
                 }
             }
             .disposed(by: disposeBag)
@@ -108,13 +107,12 @@ class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
                     let employees = Array(employeeObjects).map { Employee(managedObject: $0) }
                     let employeeViewModels = employees.map { EmployeeViewModel(employee: $0) }
 
-                    self.employees = employeeViewModels
-                    self.filteredEmployees = employeeViewModels
+                    self.employees.accept(employeeViewModels)
 
                     self.loading.accept(false)
 
                     DispatchQueue.main.async {
-                        self.itemsChangeSubject.onNext(employeeViewModels)
+                        self.filteredEmployees.accept(employeeViewModels)
                     }
                 }
             } catch {
@@ -153,59 +151,19 @@ class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
 
     public func filter(with text: String) {
         if text.isEmpty {
-            itemsChangeSubject.onNext(employees)
+            filteredEmployees.accept(employees.value)
             return
         }
 
         DispatchQueue.global().async {
             let text = text.lowercased()
 
-            self.filteredEmployees = self.employees.filter({ (employeeViewModel) -> Bool in
-                var include = false
-                include = include
-                    || employeeViewModel.employee.fullname.lowercased().contains(text)
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.firstname.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.login.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.jobPosition.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.company.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.companyName.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.departmentName.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.address.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.workPhoneNumber.lowercased().contains(text)
-                }
-                if !include {
-                    include = include
-                        || employeeViewModel.employee.mobilePhoneNumber.lowercased().contains(text)
-                }
-
-                return include
+            let filteredEmployees = self.employees.value.filter({ (employeeViewModel) -> Bool in
+                return employeeViewModel.employee.filter(by: text)
             })
 
             DispatchQueue.main.async {
-                self.itemsChangeSubject.onNext(self.filteredEmployees)
+                self.filteredEmployees.accept(filteredEmployees)
             }
         }
     }

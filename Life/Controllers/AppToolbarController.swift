@@ -118,14 +118,14 @@ class AppToolbarController: NavigationController, Stepper {
         profileButton.iconView.layer.cornerRadius = 12
         profileButton.iconView.layer.masksToBounds = true
 
-        User.current.updated.asDriver().drive(onNext: { profile in
-            ImageDownloader.set(
-                image: "",
-                employeeCode: (profile?.employeeCode ?? ""),
-                to: profileButton.iconView,
-                placeholderImage: #imageLiteral(resourceName: "ic-user")
-            )
-        }).disposed(by: disposeBag)
+        ImageDownloader.set(
+            image: "",
+            employeeCode: User.current.employeeCode,
+            to: profileButton.iconView,
+            placeholderImage: #imageLiteral(resourceName: "ic-user"),
+            size: CGSize(width: 24, height: 24)
+        )
+
         return profileButton
     }
 

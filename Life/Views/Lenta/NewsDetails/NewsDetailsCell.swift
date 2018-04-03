@@ -29,7 +29,15 @@ class NewsDetailsCell: ASCellNode {
 
         backgroundColor = .clear
 
-        headerNode = NewsHeaderNode(news: news, didTapClose: didTapClose)
+        headerNode = NewsHeaderNode(
+            news: news,
+            didTapClose: didTapClose,
+            didTapImage: { (selectedImage, imageStringURLs) in
+                guard let url = URL(string: selectedImage) else { return }
+                let urls = imageStringURLs.compactMap { URL(string: $0) }
+                didTapImage(url, urls)
+            }
+        )
         addSubnode(headerNode)
 
         bodyNode = NewsBodyNode(

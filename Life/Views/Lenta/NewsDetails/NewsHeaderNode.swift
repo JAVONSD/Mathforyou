@@ -33,11 +33,14 @@ class NewsHeaderNode: ASDisplayNode {
     }
 
     private(set) var didTapClose: (() -> Void)?
+    private(set) var didTapImage: ((String, [String]) -> Void)?
 
     init(news: News,
-         didTapClose: @escaping (() -> Void)) {
+         didTapClose: @escaping (() -> Void),
+         didTapImage: @escaping ((String, [String]) -> Void)) {
         self.news = news
         self.didTapClose = didTapClose
+        self.didTapImage = didTapImage
 
         super.init()
 
@@ -213,6 +216,12 @@ extension NewsHeaderNode: ASCollectionDataSource {
 }
 
 extension NewsHeaderNode: ASCollectionDelegate {
+    func collectionNode(_ collectionNode: ASCollectionNode, didSelectItemAt indexPath: IndexPath) {
+        if let didTapImage = didTapImage {
+            didTapImage(images[indexPath.item], images)
+        }
+    }
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let width = scrollView.frame.size.width
         let page = (scrollView.contentOffset.x + 0.5 * width) / width

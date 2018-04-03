@@ -124,21 +124,21 @@ class AppTabBarController: UIViewController, TabBarDelegate, Stepper {
         let tabItem1 = TabItem(image: #imageLiteral(resourceName: "board-inactive"), tintColor: App.Color.azure)
         tabItem1.tag = 0
 
-        let tabItem2 = TabItem(image: #imageLiteral(resourceName: "office-inactive"), tintColor: App.Color.azure)
-        tabItem2.tag = 1
+//        let tabItem2 = TabItem(image: #imageLiteral(resourceName: "office-inactive"), tintColor: App.Color.azure)
+//        tabItem2.tag = 1
 
         let tabItem3 = TabItem(image: #imageLiteral(resourceName: "feed-office-inactive"), tintColor: App.Color.azure)
-        tabItem3.tag = 2
+        tabItem3.tag = 1
 
         let tabItem4 = TabItem(image: #imageLiteral(resourceName: "stuff-inactive"), tintColor: App.Color.azure)
-        tabItem4.tag = 3
+        tabItem4.tag = 2
 
         let tabItem5 = TabItem(image: #imageLiteral(resourceName: "menu-inactive"), tintColor: App.Color.azure)
-        tabItem5.tag = 4
+        tabItem5.tag = 3
 
         tabBar.tabItems = [
             tabItem1,
-            tabItem2,
+//            tabItem2,
             tabItem3,
             tabItem4,
             tabItem5
@@ -176,7 +176,7 @@ class AppTabBarController: UIViewController, TabBarDelegate, Stepper {
     }
 
     private func setupInitialVC() {
-        currentTabIndex = viewControllers.count / 2
+        currentTabIndex = 1
         if currentTabIndex < viewControllers.count {
             tabBar.select(at: currentTabIndex)
             addChild(viewControllers[currentTabIndex])
@@ -186,7 +186,7 @@ class AppTabBarController: UIViewController, TabBarDelegate, Stepper {
     // MARK: - TabBarDelegate
 
     func tabBar(tabBar: TabBar, didSelect tabItem: TabItem) {
-        navigationController?.setNavigationBarHidden(tabItem.tag == 3, animated: false)
+        navigationController?.setNavigationBarHidden(tabItem.tag == 2, animated: false)
 
         if let didTapTab = didTapTab {
             didTapTab(tabItem.tag)

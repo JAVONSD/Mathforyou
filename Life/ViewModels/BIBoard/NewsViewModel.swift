@@ -10,20 +10,34 @@ import Foundation
 import IGListKit
 import Moya
 import RxSwift
+import RxCocoa
 
 class NewsViewModel: NSObject, ListDiffable {
     private(set) var news = [NewsItemViewModel]()
     private(set) var popularNews = [NewsItemViewModel]()
     private(set) var top3News = [NewsItemViewModel]()
+
     var minimized = true
 
+    private var offset = 0
+    private let rows = 10
+    private(set) var canLoadMore = true
+    let loading = BehaviorRelay<Bool>(value: false)
+    private var usingCached = false
+
     private let disposeBag = DisposeBag()
+
+    private let newsSubject = PublishSubject<[NewsItemViewModel]>()
+    var newsObservable: Observable<[NewsItemViewModel]> { return newsSubject.asObservable() }
 
     private let popularNewsSubject = PublishSubject<[NewsItemViewModel]>()
     var popularNewsObservable: Observable<[NewsItemViewModel]> { return popularNewsSubject.asObservable() }
 
     private let top3NewsSubject = PublishSubject<[NewsItemViewModel]>()
     var top3NewsObservable: Observable<[NewsItemViewModel]> { return top3NewsSubject.asObservable() }
+
+    private let loadingAllSubject = PublishSubject<Bool>()
+    var loadingAll: Observable<Bool> { return loadingAllSubject.asObservable() }
 
     private let loadingPopularSubject = PublishSubject<Bool>()
     var loadingPopular: Observable<Bool> { return loadingPopularSubject.asObservable() }
@@ -44,7 +58,7 @@ class NewsViewModel: NSObject, ListDiffable {
     public func getPopularNews(completion: @escaping ((Error?) -> Void)) {
         loadingPopularSubject.onNext(true)
 
-        returnNewsFromCache(completion: completion, isPopular: true)
+        returnNewsFromCache(completion: completion, type: .popular)
 
         provider
             .rx
@@ -59,7 +73,7 @@ class NewsViewModel: NSObject, ListDiffable {
 
                         completion(nil)
 
-                        self.updateNewsCache(news, isPopular: true)
+                        self.updateNewsCache(news, type: .popular)
                     } else {
                         completion(nil)
                     }
@@ -74,7 +88,7 @@ class NewsViewModel: NSObject, ListDiffable {
     public func getTop3News(completion: @escaping ((Error?) -> Void)) {
         loadingTop3Subject.onNext(true)
 
-        returnNewsFromCache(completion: completion, isPopular: false)
+        returnNewsFromCache(completion: completion, type: .top3)
 
         provider
             .rx
@@ -95,13 +109,13 @@ class NewsViewModel: NSObject, ListDiffable {
                         }
 
                         self.top3News = []
-                        for i in 0..<min(3, newsWithImage.count) {
-                            self.top3News.append(newsWithImage[i])
+                        for idx in 0..<min(3, newsWithImage.count) {
+                            self.top3News.append(newsWithImage[idx])
                         }
 
                         completion(nil)
 
-                        self.updateNewsCache(self.top3News.map { $0.news }, isPopular: false)
+                        self.updateNewsCache(self.top3News.map { $0.news }, type: .top3)
                     } else {
                         completion(nil)
                     }
@@ -113,33 +127,114 @@ class NewsViewModel: NSObject, ListDiffable {
             .disposed(by: disposeBag)
     }
 
-    private func returnNewsFromCache(completion: @escaping ((Error?) -> Void), isPopular: Bool) {
+    func reload(_ completion: @escaping ((Error?) -> Void)) {
+        fetchNextPage(reset: true, completion)
+    }
+
+    func fetchNextPage(
+        reset: Bool = false,
+        _ completion: @escaping ((Error?) -> Void)) {
+        if loading.value {
+            completion(nil)
+            return
+        }
+
+        loading.accept(true)
+
+        if reset {
+            offset = 0
+        }
+        if news.isEmpty && !self.usingCached {
+            returnNewsFromCache(completion: completion, type: .all)
+        }
+
+        provider
+            .rx
+            .request(
+                .newsWithDetails(
+                    rows: rows,
+                    offset: offset
+                ))
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                self.loading.accept(false)
+
+                switch response {
+                case .success(let json):
+                    if let newsItems = try? JSONDecoder().decode([News].self, from: json.data) {
+                        let items = newsItems.map { NewsItemViewModel(news: $0) }
+                        if !reset && !self.usingCached {
+                            self.news.append(contentsOf: items)
+                        } else {
+                            self.news = items
+                            self.usingCached = false
+                        }
+
+                        self.canLoadMore = items.count >= self.rows
+                        if self.canLoadMore {
+                            self.offset += 1
+                        }
+
+                        completion(nil)
+
+                        if self.news.count <= self.rows {
+                            self.updateNewsCache(newsItems, type: .all)
+                        }
+                    } else {
+                        self.canLoadMore = false
+                        completion(nil)
+                    }
+                case .error(let error):
+                    self.canLoadMore = false
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    private func returnNewsFromCache(completion: @escaping ((Error?) -> Void), type: ResultsType) {
         DispatchQueue.global().async {
             do {
-                let realm = isPopular
-                    ? try App.Realms.popularNews()
-                    : try App.Realms.default()
+                var realm = try App.Realms.default()
+                if type == .popular {
+                    realm = try App.Realms.popularNews()
+                } else if type == .top3 {
+                    realm = try App.Realms.topNews()
+                }
                 let cachedNewsObjects = realm.objects(NewsObject.self)
 
                 let cachedNews = Array(cachedNewsObjects).map { News(managedObject: $0) }
                 let items = cachedNews.map { NewsItemViewModel(news: $0) }
 
-                if isPopular {
+                if type == .all {
+                    self.loadingAllSubject.onNext(false)
+                    self.news = items
+                    self.usingCached = true
+                } else if type == .popular {
                     self.loadingPopularSubject.onNext(false)
                     self.popularNews = items
-                } else {
-                    self.loadingTop3Subject.onNext(false)
+                } else if type == .top3 {
+                    if !items.isEmpty {
+                        self.loadingTop3Subject.onNext(false)
+                    }
+
                     self.top3News = items
                 }
 
                 DispatchQueue.main.async {
-                    completion(nil)
+                    if type == .all {
+                        if !items.isEmpty {
+                            self.loading.accept(false)
+                        }
 
-                    if isPopular {
+                        self.newsSubject.onNext(items)
+                    } else if type == .popular {
                         self.popularNewsSubject.onNext(items)
-                    } else {
+                    } else if type == .top3 {
                         self.top3NewsSubject.onNext(items)
                     }
+
+                    completion(nil)
                 }
             } catch let error as NSError {
                 print("Failed to access the Realm database with error - \(error.localizedDescription)")
@@ -147,12 +242,15 @@ class NewsViewModel: NSObject, ListDiffable {
         }
     }
 
-    private func updateNewsCache(_ newsItems: [News], isPopular: Bool) {
+    private func updateNewsCache(_ newsItems: [News], type: ResultsType) {
         DispatchQueue.global().async {
             do {
-                let realm = isPopular
-                    ? try App.Realms.popularNews()
-                    : try App.Realms.default()
+                var realm = try App.Realms.default()
+                if type == .popular {
+                    realm = try App.Realms.popularNews()
+                } else if type == .top3 {
+                    realm = try App.Realms.topNews()
+                }
                 realm.beginWrite()
                 realm.delete(realm.objects(NewsObject.self))
                 for news in newsItems {

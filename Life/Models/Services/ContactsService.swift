@@ -113,6 +113,6 @@ extension ContactsService: CNContactViewControllerDelegate {
             contactSaveCompletion(contact != nil)
         }
 
-        viewController.dismiss(animated: true, completion: nil)
+        viewController.navigationController?.popToRootViewController(animated: true)
     }
 }

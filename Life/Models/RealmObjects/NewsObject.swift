@@ -15,6 +15,7 @@ class NewsObject: Object {
     @objc dynamic var text: String = ""
     @objc dynamic var createDate: String = ""
     @objc dynamic var imageStreamId: String?
+    @objc dynamic var imageSize: ImageSizeObject?
     @objc dynamic var imageUrl: String = ""
     @objc dynamic var authorCode: String = ""
     @objc dynamic var authorName: String = ""

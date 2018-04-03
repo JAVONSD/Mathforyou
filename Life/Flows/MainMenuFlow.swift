@@ -51,6 +51,9 @@ class MainMenuFlow: Flow {
         case .unauthorized:
             onUnauthorized()
             return .stepNotHandled
+        case .login:
+            navigateToLogin()
+            return .stepNotHandled
         default:
             return NextFlowItems.stepNotHandled
         }
@@ -77,17 +80,17 @@ class MainMenuFlow: Flow {
             nextStepper: OneStepper(withSingleStep: AppStep.biOffice)
         )
 
-        let biBoardVC = configuredBIBoard()
-        let biBoardFlow = BIBoardFlow(
-            navigationController: rootViewController,
-            viewController: biBoardVC,
-            notificationsViewModel: notificationsViewModel,
-            topQuestionsViewModel: topQuestionsViewModel
-        )
-        let biBoardFlowItem = NextFlowItem(
-            nextPresentable: biBoardFlow,
-            nextStepper: OneStepper(withSingleStep: AppStep.biBoard)
-        )
+//        let biBoardVC = configuredBIBoard()
+//        let biBoardFlow = BIBoardFlow(
+//            navigationController: rootViewController,
+//            viewController: biBoardVC,
+//            notificationsViewModel: notificationsViewModel,
+//            topQuestionsViewModel: topQuestionsViewModel
+//        )
+//        let biBoardFlowItem = NextFlowItem(
+//            nextPresentable: biBoardFlow,
+//            nextStepper: OneStepper(withSingleStep: AppStep.biBoard)
+//        )
 
         let lentaVC = configuredLenta()
         let lentaFlow = LentaFlow(
@@ -122,7 +125,7 @@ class MainMenuFlow: Flow {
 
         viewController.viewControllers = [
             biOfficeVC,
-            biBoardVC,
+//            biBoardVC,
             lentaVC,
             employeesViewController,
             menuVC
@@ -132,7 +135,7 @@ class MainMenuFlow: Flow {
             flowItems: [
                 tabBarFlowItem,
                 biOfficeFlowItem,
-                biBoardFlowItem,
+//                biBoardFlowItem,
                 lentaFlowItem,
                 employeesFlowItem,
                 menuFlowItem
@@ -148,6 +151,16 @@ class MainMenuFlow: Flow {
         appDelegate.coordinator.coordinate(
             flow: appDelegate.appFlow,
             withStepper: OneStepper(withSingleStep: AppStep.unauthorized)
+        )
+    }
+
+    private func navigateToLogin() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        appDelegate.coordinator.coordinate(
+            flow: appDelegate.appFlow,
+            withStepper: OneStepper(withSingleStep: AppStep.login)
         )
     }
 
@@ -183,7 +196,8 @@ class MainMenuFlow: Flow {
 
     private func configuredBIOffice() -> BIOfficeViewController {
         let biOfficeViewModel = BIOfficeViewModel(
-            tasksAndRequestsViewModel: tasksAndRequestsViewModel
+            tasksAndRequestsViewModel: tasksAndRequestsViewModel,
+            topQuestionsViewModel: topQuestionsViewModel
         )
         let biOfficeVC = BIOfficeViewController(
             viewModel: biOfficeViewModel
@@ -203,6 +217,7 @@ class MainMenuFlow: Flow {
 
     private func configuredLenta() -> LentaViewController {
         let lentaVC = LentaViewController()
+        lentaVC.viewModel = LentaViewModel(stuffViewModel: stuffViewModel)
         return lentaVC
     }
 
