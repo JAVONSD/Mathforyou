@@ -47,7 +47,8 @@ class EmployeesViewController: UIViewController {
                 cell.employeeImageView.set(
                     image: "",
                     employeeCode: element.employee.code,
-                    placeholderImage: #imageLiteral(resourceName: "ic-user")
+                    placeholderImage: #imageLiteral(resourceName: "ic-user"),
+                    size: CGSize(width: 40, height: 40)
                 )
 
                 cell.accessoryButton.isHidden = true

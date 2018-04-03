@@ -311,7 +311,8 @@ class SuggestionBodyNode: ASDisplayNode {
         ImageDownloader.download(
             image: "",
             employeeCode: suggestion.authorCode,
-            placeholderImage: #imageLiteral(resourceName: "ic-user")) { (image) in
+            placeholderImage: #imageLiteral(resourceName: "ic-user"),
+            size: CGSize(width: 40, height: 40)) { (image) in
                 self.authorImageNode.image = image
         }
     }

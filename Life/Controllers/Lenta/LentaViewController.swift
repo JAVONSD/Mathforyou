@@ -58,7 +58,6 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         }
         addNode.backgroundColor = .clear
         addNode.style.preferredSize = CGSize(width: 56, height: 56)
-        addNode.isHidden = !User.current.canCreateNewsOrSuggestion
         node.addSubnode(addNode)
 
         node.layoutSpecBlock = { (_, _) in
@@ -249,7 +248,11 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
                 )
         })
 
-        fabMenu.fabMenuItems = [addNewsItem, addSuggestionItem].reversed()
+        if User.current.canCreateNews {
+            fabMenu.fabMenuItems = [addNewsItem, addSuggestionItem].reversed()
+        } else {
+            fabMenu.fabMenuItems = [addSuggestionItem].reversed()
+        }
     }
 
     private func setupFABMenuItem(title: String, onTap: @escaping (() -> Void)) -> FABMenuItem {

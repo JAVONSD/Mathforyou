@@ -34,7 +34,7 @@ class NewsDetailsCell: ASCellNode {
             didTapClose: didTapClose,
             didTapImage: { (selectedImage, imageStringURLs) in
                 guard let url = URL(string: selectedImage) else { return }
-                let urls = imageStringURLs.flatMap { URL(string: $0) }
+                let urls = imageStringURLs.compactMap { URL(string: $0) }
                 didTapImage(url, urls)
             }
         )

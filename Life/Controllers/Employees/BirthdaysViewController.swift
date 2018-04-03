@@ -48,13 +48,18 @@ class BirthdaysViewController: UIViewController {
                 cell.employeeImageView.set(
                     image: "",
                     employeeCode: element.employee.code,
-                    placeholderImage: #imageLiteral(resourceName: "ic-user")
+                    placeholderImage: #imageLiteral(resourceName: "ic-user"),
+                    size: CGSize(width: 40, height: 40)
                 )
 
                 cell.accessoryButton.backgroundColor = .clear
                 cell.accessoryButton.setImage(#imageLiteral(resourceName: "ic-bd-active"), for: .normal)
 
-                cell.accessoryButton.addTarget(self, action: #selector(handleCongratulateButton(_:)), for: .touchUpInside)
+                cell.accessoryButton.addTarget(
+                    self,
+                    action: #selector(handleCongratulateButton(_:)),
+                    for: .touchUpInside
+                )
 
                 let itemsCount = tv.numberOfRows(inSection: indexPath.section)
                 if indexPath.row == itemsCount - 1 {

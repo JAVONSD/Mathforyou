@@ -34,15 +34,16 @@ class MyInfoViewController: UIViewController {
         User.current.updated.asDriver().drive(onNext: { [weak self] profile in
             guard let `self` = self else { return }
 
-            ImageDownloader.set(
-                image: "",
-                employeeCode: (profile?.employeeCode ?? ""),
-                to: self.myInfoView.mainView?.infoView?.imageView,
-                placeholderImage: #imageLiteral(resourceName: "ic-user")
-            )
-
             self.updateUI(with: profile)
         }).disposed(by: disposeBag)
+
+        ImageDownloader.set(
+            image: "",
+            employeeCode: User.current.employeeCode,
+            to: self.myInfoView.mainView?.infoView?.imageView,
+            placeholderImage: #imageLiteral(resourceName: "ic-user"),
+            size: CGSize(width: 96, height: 96)
+        )
     }
 
     // MARK: - Actions

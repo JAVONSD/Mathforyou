@@ -64,7 +64,9 @@ class CongratulateViewController: UIViewController, Stepper {
             image: "",
             employeeCode: viewModel.employee.code,
             to: congratulateView.headerView.imageView,
-            placeholderImage: #imageLiteral(resourceName: "ic-user"))
+            placeholderImage: #imageLiteral(resourceName: "ic-user"),
+            size: CGSize(width: 50, height: 50)
+        )
 
         congratulateView.headerView.closeButton?.rx.tap
             .asDriver()

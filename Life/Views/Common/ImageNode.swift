@@ -74,6 +74,7 @@ class ImageNode: ASCellNode {
                 image: "",
                 employeeCode: image,
                 placeholderImage: #imageLiteral(resourceName: "ic-user"),
+                size: CGSize(width: size.width, height: size.height),
                 completion: { image in
                 self.imageNode.image = image
             })

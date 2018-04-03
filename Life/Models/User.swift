@@ -31,7 +31,7 @@ struct User: Codable {
 
     let updated = BehaviorRelay<UserProfile?>(value: nil)
 
-    var canCreateNewsOrSuggestion: Bool {
+    var canCreateNews: Bool {
         return roles.contains(.hr) || roles.contains(.pr) || roles.contains(.moderator)
     }
 
@@ -64,7 +64,7 @@ struct User: Codable {
 
         self.roles = []
         if let strRoles = (try? container.decodeWrapper(key: .roles, defaultValue: [String]())) {
-            self.roles = strRoles.flatMap { Role(rawValue: $0) }
+            self.roles = strRoles.compactMap { Role(rawValue: $0) }
         }
     }
 
@@ -90,7 +90,7 @@ struct User: Codable {
 
             var roles = [Role]()
             if let strRoles = UserDefaults.standard.object(forKey: App.Key.userRoles) as? [String] {
-                roles = strRoles.flatMap { Role(rawValue: $0) }
+                roles = strRoles.compactMap { Role(rawValue: $0) }
             }
 
             _current = User(token: token, login: login, employeeCode: employeeCode, roles: roles)
