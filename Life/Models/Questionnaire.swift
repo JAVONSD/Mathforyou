@@ -15,6 +15,7 @@ struct Questionnaire: Codable, Hashable {
     var description: String
     var createDate: String
     var imageStreamId: String
+    var imageSize: ImageSize
     var authorCode: String
     var authorName: String
     var secondaryImages: [Image]
@@ -31,6 +32,7 @@ struct Questionnaire: Codable, Hashable {
         case description
         case createDate
         case imageStreamId
+        case imageSize
         case authorCode
         case authorName
         case secondaryImages
@@ -48,6 +50,7 @@ struct Questionnaire: Codable, Hashable {
         self.description = try container.decodeWrapper(key: .description, defaultValue: "")
         self.createDate = try container.decodeWrapper(key: .createDate, defaultValue: "")
         self.imageStreamId = try container.decodeWrapper(key: .imageStreamId, defaultValue: "")
+        self.imageSize = try container.decodeWrapper(key: .imageSize, defaultValue: ImageSize(width: 200, height: 200))
         self.authorCode = try container.decodeWrapper(key: .authorCode, defaultValue: "")
         self.authorName = try container.decodeWrapper(key: .authorName, defaultValue: "")
         self.secondaryImages = try container.decodeWrapper(key: .secondaryImages, defaultValue: [])
@@ -66,6 +69,7 @@ struct Questionnaire: Codable, Hashable {
         aCoder.encode(description, forKey: "description")
         aCoder.encode(createDate, forKey: "createDate")
         aCoder.encode(imageStreamId, forKey: "imageStreamId")
+        aCoder.encode(imageSize, forKey: "imageSize")
         aCoder.encode(authorCode, forKey: "authorCode")
         aCoder.encode(authorName, forKey: "authorName")
         aCoder.encode(secondaryImages, forKey: "secondaryImages")
@@ -96,6 +100,10 @@ extension Questionnaire: Persistable {
         description = managedObject.descriptionText
         createDate = managedObject.createDate
         imageStreamId = managedObject.imageStreamId
+
+        let imageSize = managedObject.imageSize ?? ImageSizeObject()
+        self.imageSize = ImageSize(managedObject: imageSize)
+
         authorCode = managedObject.authorCode
         authorName = managedObject.authorName
         secondaryImages = managedObject.secondaryImages.map { Image(managedObject: $0) }
@@ -112,6 +120,7 @@ extension Questionnaire: Persistable {
         object.descriptionText = description
         object.createDate = createDate
         object.imageStreamId = imageStreamId
+        object.imageSize = imageSize.managedObject()
         object.authorCode = authorCode
         object.authorName = authorName
         object.secondaryImages.append(objectsIn: secondaryImages.map { $0.managedObject() })

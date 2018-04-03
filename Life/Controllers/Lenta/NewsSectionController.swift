@@ -83,7 +83,6 @@ class NewsSectionController: ASCollectionSectionController {
         set(items: items, animated: false, completion: nil)
     }
 
-
     private func loadNews() {
         let news = (viewModel?.newsViewModel.news ?? [])
         let items = news.map {
@@ -92,18 +91,12 @@ class NewsSectionController: ASCollectionSectionController {
         set(items: items, animated: false, completion: nil)
     }
 
-
     private func loadSuggestions() {
         let suggestions = (viewModel?.suggestionsViewModel.suggestions ?? [])
         let items = suggestions.map {
             LentaItemViewModel(lenta: Lenta(suggestion: $0.suggestion, authorIsCurrent: false))
         } as [ListDiffable]
-
         set(items: items, animated: false, completion: nil)
-
-        if items.isEmpty && !(viewModel?.suggestionsViewModel.didLoad ?? false) {
-            refreshContent(with: nil)
-        }
     }
 
     private func loadQuestionnaires() {
@@ -111,12 +104,7 @@ class NewsSectionController: ASCollectionSectionController {
         let items = questionnaires.map {
             LentaItemViewModel(lenta: Lenta(questionnaire: $0.questionnaire, authorIsCurrent: false))
         } as [ListDiffable]
-
         set(items: items, animated: false, completion: nil)
-
-        if items.isEmpty && !(viewModel?.questionnairesViewModel.didLoad ?? false) {
-            refreshContent(with: nil)
-        }
     }
 }
 
@@ -142,10 +130,9 @@ extension NewsSectionController: ASSectionController {
         }
     }
 
+    //swiftlint:disable cyclomatic_complexity
     func beginBatchFetch(with context: ASBatchContext) {
-        guard let viewModel = viewModel,
-            viewModel.currentFilter != .suggestions
-                && viewModel.currentFilter != .questionnaires else {
+        guard let viewModel = viewModel else {
             context.completeBatchFetching(true)
             return
         }
@@ -176,6 +163,82 @@ extension NewsSectionController: ASSectionController {
 
                     let items = viewModel.newsViewModel.news.map {
                         LentaItemViewModel(lenta: Lenta(news: $0.news, authorIsCurrent: false))
+                        } as [ListDiffable]
+
+                    self.set(items: items, animated: false, completion: {
+                        context.completeBatchFetching(true)
+
+                        if itemsCount == 0 {
+                            if let vc = self.viewController as? LentaViewController {
+                                vc.collectionNode.reloadData()
+                            }
+                        }
+                    })
+                })
+                return
+            }
+
+            if viewModel.currentFilter == .suggestions {
+                viewModel.suggestionsViewModel.fetchNextPage({ [weak self] (error) in
+                    guard let `self` = self,
+                        let viewModel = self.viewModel,
+                        !viewModel.suggestionsViewModel.loading else { return }
+
+                    if let didFinishLoad = self.didFinishLoad {
+                        didFinishLoad()
+                    }
+
+                    if let moyaError = error as? MoyaError,
+                        moyaError.response?.statusCode == 401,
+                        let onUnathorizedError = self.onUnathorizedError {
+                        onUnathorizedError()
+                    }
+
+                    guard viewModel.currentFilter == .suggestions else {
+                        context.completeBatchFetching(true)
+                        return
+                    }
+
+                    let items = viewModel.suggestionsViewModel.suggestions.map {
+                        LentaItemViewModel(lenta: Lenta(suggestion: $0.suggestion, authorIsCurrent: false))
+                        } as [ListDiffable]
+
+                    self.set(items: items, animated: false, completion: {
+                        context.completeBatchFetching(true)
+
+                        if itemsCount == 0 {
+                            if let vc = self.viewController as? LentaViewController {
+                                vc.collectionNode.reloadData()
+                            }
+                        }
+                    })
+                })
+                return
+            }
+
+            if viewModel.currentFilter == .questionnaires {
+                viewModel.questionnairesViewModel.fetchNextPage({ [weak self] (error) in
+                    guard let `self` = self,
+                        let viewModel = self.viewModel,
+                        !viewModel.questionnairesViewModel.loading else { return }
+
+                    if let didFinishLoad = self.didFinishLoad {
+                        didFinishLoad()
+                    }
+
+                    if let moyaError = error as? MoyaError,
+                        moyaError.response?.statusCode == 401,
+                        let onUnathorizedError = self.onUnathorizedError {
+                        onUnathorizedError()
+                    }
+
+                    guard viewModel.currentFilter == .questionnaires else {
+                        context.completeBatchFetching(true)
+                        return
+                    }
+
+                    let items = viewModel.questionnairesViewModel.questionnaires.map {
+                        LentaItemViewModel(lenta: Lenta(questionnaire: $0.questionnaire, authorIsCurrent: false))
                         } as [ListDiffable]
 
                     self.set(items: items, animated: false, completion: {
@@ -223,6 +286,7 @@ extension NewsSectionController: ASSectionController {
             })
         }
     }
+    //swiftlint:enable cyclomatic_complexity
 
     func shouldBatchFetch() -> Bool {
         guard let viewModel = viewModel else { return false }
@@ -232,9 +296,9 @@ extension NewsSectionController: ASSectionController {
         case .news:
             return viewModel.newsViewModel.canLoadMore
         case .suggestions:
-            return false
+            return viewModel.suggestionsViewModel.canLoadMore
         case .questionnaires:
-            return false
+            return viewModel.questionnairesViewModel.canLoadMore
         }
     }
 }
@@ -270,7 +334,7 @@ extension NewsSectionController: RefreshingSectionControllerType {
         }
 
         if viewModel.currentFilter == .suggestions {
-            viewModel.suggestionsViewModel.getSuggestions { [weak self]  (error) in
+            viewModel.suggestionsViewModel.reload { [weak self]  (error) in
                 guard let `self` = self,
                     let viewModel = self.viewModel else { return }
 
@@ -294,7 +358,7 @@ extension NewsSectionController: RefreshingSectionControllerType {
         }
 
         if viewModel.currentFilter == .questionnaires {
-            viewModel.questionnairesViewModel.getQuestionnaires { [weak self]  (error) in
+            viewModel.questionnairesViewModel.reload { [weak self]  (error) in
                 guard let `self` = self,
                     let viewModel = self.viewModel else { return }
 

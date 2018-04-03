@@ -15,6 +15,7 @@ struct Suggestion: Codable, Hashable {
     var text: String
     var createDate: String
     var imageStreamId: String?
+    var imageSize: ImageSize
     var authorCode: String
     var authorName: String
     var canEdit: Bool
@@ -35,6 +36,7 @@ struct Suggestion: Codable, Hashable {
         case text
         case createDate
         case imageStreamId
+        case imageSize
         case authorCode
         case authorName
         case canEdit
@@ -56,6 +58,7 @@ struct Suggestion: Codable, Hashable {
         self.text = try container.decodeWrapper(key: .text, defaultValue: "")
         self.createDate = try container.decodeWrapper(key: .createDate, defaultValue: "")
         self.imageStreamId = try container.decodeWrapper(key: .imageStreamId, defaultValue: "")
+        self.imageSize = try container.decodeWrapper(key: .imageSize, defaultValue: ImageSize(width: 200, height: 200))
         self.authorCode = try container.decodeWrapper(key: .authorCode, defaultValue: "")
         self.authorName = try container.decodeWrapper(key: .authorName, defaultValue: "")
         self.canEdit = try container.decodeWrapper(key: .canEdit, defaultValue: false)
@@ -75,6 +78,7 @@ struct Suggestion: Codable, Hashable {
         aCoder.encode(text, forKey: "text")
         aCoder.encode(createDate, forKey: "createDate")
         aCoder.encode(imageStreamId, forKey: "imageStreamId")
+        aCoder.encode(imageSize, forKey: "imageSize")
         aCoder.encode(authorCode, forKey: "authorCode")
         aCoder.encode(authorName, forKey: "authorName")
         aCoder.encode(canEdit, forKey: "canEdit")
@@ -109,6 +113,10 @@ extension Suggestion: Persistable {
         text = managedObject.text
         createDate = managedObject.createDate
         imageStreamId = managedObject.imageStreamId
+
+        let imageSize = managedObject.imageSize ?? ImageSizeObject()
+        self.imageSize = ImageSize(managedObject: imageSize)
+
         authorCode = managedObject.authorCode
         authorName = managedObject.authorName
         commentsQuantity = managedObject.commentsQuantity
@@ -129,6 +137,7 @@ extension Suggestion: Persistable {
         object.text = text
         object.createDate = createDate
         object.imageStreamId = imageStreamId
+        object.imageSize = imageSize.managedObject()
         object.authorCode = authorCode
         object.authorName = authorName
         object.commentsQuantity = commentsQuantity

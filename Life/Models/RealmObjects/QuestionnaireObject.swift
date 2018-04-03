@@ -15,6 +15,7 @@ class QuestionnaireObject: Object {
     @objc dynamic var descriptionText: String = ""
     @objc dynamic var createDate: String = ""
     @objc dynamic var imageStreamId: String = ""
+    @objc dynamic var imageSize: ImageSizeObject?
     @objc dynamic var authorCode: String = ""
     @objc dynamic var authorName: String = ""
     let secondaryImages = List<ImageObject>()

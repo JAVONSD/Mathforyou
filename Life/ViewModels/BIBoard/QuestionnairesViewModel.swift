@@ -14,14 +14,22 @@ import RxSwift
 
 class QuestionnairesViewModel: NSObject, ListDiffable {
     var questionnaires = [QuestionnaireViewModel]()
+    var topQuestionnaires = [QuestionnaireViewModel]()
     var popularQuestionnaires = [QuestionnaireViewModel]()
 
     var minimized = true
     var didLoad = false
 
+    private var offset = 0
+    private let rows = 10
+    private(set) var canLoadMore = true
+    private(set) var loading = false
+    private var usingCached = false
+
     private let disposeBag = DisposeBag()
 
-    let questionnairesSubject = PublishSubject<[QuestionnaireViewModel]>()
+    let qestionnairesSubject = PublishSubject<[QuestionnaireViewModel]>()
+    let topQuestionnairesSubject = PublishSubject<[QuestionnaireViewModel]>()
     let popularQuestionnairesSubject = PublishSubject<[QuestionnaireViewModel]>()
 
     private let provider = MoyaProvider<QuestionnairesService>(
@@ -35,7 +43,7 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
     // MARK: - Methods
 
     public func getQuestionnaires(completion: @escaping ((Error?) -> Void)) {
-        returnQuestionnairesFromCache(completion: completion, isPopular: false)
+        returnQuestionnairesFromCache(completion: completion, type: .top3)
 
         provider
             .rx
@@ -47,15 +55,15 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
                 switch response {
                 case .success(let json):
                     if let questionnaires = try? JSONDecoder().decode([Questionnaire].self, from: json.data) {
-                        self.questionnaires = questionnaires.map { QuestionnaireViewModel(questionnaire: $0) }
+                        self.topQuestionnaires = questionnaires.map { QuestionnaireViewModel(questionnaire: $0) }
 
                         completion(nil)
 
-                        self.updateQuestionnairesCache(questionnaires, isPopular: false)
+                        self.updateQuestionnairesCache(questionnaires, type: .top3)
                     } else {
                         completion(nil)
                     }
-                    self.questionnairesSubject.onNext(self.questionnaires)
+                    self.topQuestionnairesSubject.onNext(self.topQuestionnaires)
                 case .error(let error):
                     completion(error)
                 }
@@ -64,7 +72,7 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
     }
 
     public func getPopularQuestionnaires(completion: @escaping ((Error?) -> Void)) {
-        returnQuestionnairesFromCache(completion: completion, isPopular: true)
+        returnQuestionnairesFromCache(completion: completion, type: .popular)
 
         provider
             .rx
@@ -80,7 +88,7 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
 
                         completion(nil)
 
-                        self.updateQuestionnairesCache(questionnaires, isPopular: true)
+                        self.updateQuestionnairesCache(questionnaires, type: .popular)
                     } else {
                         completion(nil)
                     }
@@ -92,30 +100,103 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
             .disposed(by: disposeBag)
     }
 
-    private func returnQuestionnairesFromCache(completion: @escaping ((Error?) -> Void), isPopular: Bool) {
+    func reload(_ completion: @escaping ((Error?) -> Void)) {
+        fetchNextPage(reset: true, completion)
+    }
+
+    func fetchNextPage(
+        reset: Bool = false,
+        _ completion: @escaping ((Error?) -> Void)) {
+        if loading {
+            completion(nil)
+            return
+        }
+
+        loading = true
+
+        if reset {
+            offset = 0
+        }
+        if questionnaires.isEmpty && !self.usingCached {
+            returnQuestionnairesFromCache(completion: completion, type: .all)
+        }
+
+        provider
+            .rx
+            .request(
+                .questionnairesWithDetails(
+                    rows: rows,
+                    offset: offset
+                ))
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                self.loading = false
+
+                switch response {
+                case .success(let json):
+                    if let questionnaireItems = try? JSONDecoder().decode([Questionnaire].self, from: json.data) {
+                        let items = questionnaireItems.map { QuestionnaireViewModel(questionnaire: $0) }
+                        if !reset && !self.usingCached {
+                            self.questionnaires.append(contentsOf: items)
+                        } else {
+                            self.questionnaires = items
+                            self.usingCached = false
+                        }
+
+                        self.canLoadMore = items.count >= self.rows
+                        if self.canLoadMore {
+                            self.offset += 1
+                        }
+
+                        completion(nil)
+
+                        if self.questionnaires.count <= self.rows {
+                            self.updateQuestionnairesCache(questionnaireItems, type: .all)
+                        }
+                    } else {
+                        self.canLoadMore = false
+                        completion(nil)
+                    }
+                case .error(let error):
+                    self.canLoadMore = false
+                    completion(error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+
+    private func returnQuestionnairesFromCache(completion: @escaping ((Error?) -> Void), type: ResultsType) {
         DispatchQueue.global().async {
             do {
-                let realm = isPopular
-                    ? try App.Realms.popularQuestionnaires()
-                    : try App.Realms.default()
+                var realm = try App.Realms.default()
+                if type == .top3 {
+                    realm = try App.Realms.allQuestionnaires()
+                } else if type == .popular {
+                    realm = try App.Realms.popularQuestionnaires()
+                }
+
                 let cachedTaskObjects = realm.objects(QuestionnaireObject.self)
 
                 let cachedTasks = Array(cachedTaskObjects).map { Questionnaire(managedObject: $0) }
                 let items = cachedTasks.map { QuestionnaireViewModel(questionnaire: $0) }
 
-                if isPopular {
+                if type == .popular {
                     self.popularQuestionnaires = items
-                } else {
+                } else if type == .all {
                     self.questionnaires = items
+                } else {
+                    self.topQuestionnaires = items
                 }
 
                 DispatchQueue.main.async {
                     completion(nil)
 
-                    if isPopular {
+                    if type == .popular {
                         self.popularQuestionnairesSubject.onNext(items)
+                    } else if type == .all {
+                        self.qestionnairesSubject.onNext(items)
                     } else {
-                        self.questionnairesSubject.onNext(items)
+                        self.topQuestionnairesSubject.onNext(items)
                     }
                 }
             } catch let error as NSError {
@@ -124,12 +205,16 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
         }
     }
 
-    private func updateQuestionnairesCache(_ questionnaireItems: [Questionnaire], isPopular: Bool) {
+    private func updateQuestionnairesCache(_ questionnaireItems: [Questionnaire], type: ResultsType) {
         DispatchQueue.global().async {
             do {
-                let realm = isPopular
-                    ? try App.Realms.popularQuestionnaires()
-                    : try App.Realms.default()
+                var realm = try App.Realms.default()
+                if type == .top3 {
+                    realm = try App.Realms.allQuestionnaires()
+                } else if type == .popular {
+                    realm = try App.Realms.popularQuestionnaires()
+                }
+
                 realm.beginWrite()
                 realm.delete(realm.objects(QuestionnaireObject.self))
                 for questionnaire in questionnaireItems {
@@ -168,7 +253,7 @@ extension QuestionnairesViewModel: Mockable {
             ]
             if let questionnaire = try? JSONDecoder().decode(Questionnaire.self, from: json.toJSONData()) {
                 let item = QuestionnaireViewModel(questionnaire: questionnaire)
-                sample.questionnaires.append(item)
+                sample.topQuestionnaires.append(item)
             }
         }
 
