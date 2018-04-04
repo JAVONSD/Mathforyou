@@ -106,6 +106,7 @@
 "news_single" = "Новость";
 "suggestion" = "Предложение";
 "loading_employees" = "Загрузка списка сотрудников";
+"no_internet_connection" = "Нет соединения с интернетом";
 
 /* Notifications */
 

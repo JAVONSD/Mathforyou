@@ -54,6 +54,7 @@ class LentaViewModel: NSObject {
     private(set) var canLoadMore = true
     let loading = BehaviorRelay<Bool>(value: false)
     private var usingCached = false
+    private(set) var didLoadFromCache = false
 
     private(set) var newsViewModel = NewsViewModel()
     private(set) var suggestionsViewModel = SuggestionsViewModel()
@@ -168,6 +169,8 @@ class LentaViewModel: NSObject {
                     if !items.isEmpty {
                         self.loading.accept(false)
                     }
+
+                    self.didLoadFromCache = true
 
                     completion(nil)
                 }

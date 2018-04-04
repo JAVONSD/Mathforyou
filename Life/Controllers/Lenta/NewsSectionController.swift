@@ -290,6 +290,36 @@ extension NewsSectionController: ASSectionController {
 
     func shouldBatchFetch() -> Bool {
         guard let viewModel = viewModel else { return false }
+
+        if !Connectivity.isConnectedToInternet {
+            switch viewModel.currentFilter {
+            case .all:
+                if !viewModel.didLoadFromCache
+                    && items.isEmpty {
+                    return true
+                }
+                return false
+            case .news:
+                if !viewModel.newsViewModel.didLoadFromRealmCache
+                    && items.isEmpty {
+                    return true
+                }
+                return false
+            case .suggestions:
+                if !viewModel.suggestionsViewModel.didLoadFromCache
+                    && items.isEmpty {
+                    return true
+                }
+                return false
+            case .questionnaires:
+                if !viewModel.questionnairesViewModel.didLoadFromCache
+                    && items.isEmpty {
+                    return true
+                }
+                return false
+            }
+        }
+
         switch viewModel.currentFilter {
         case .all:
             return viewModel.canLoadMore

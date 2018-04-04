@@ -106,6 +106,7 @@
 "news_single" = "News";
 "suggestion" = "Suggestion";
 "loading_employees" = "Loading employee list";
+"no_internet_connection" = "No internet connection";
 
 /* Notifications */
 

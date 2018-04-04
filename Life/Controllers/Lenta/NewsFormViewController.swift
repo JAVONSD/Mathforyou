@@ -112,6 +112,9 @@ class NewsFormViewController: UIViewController, Stepper {
         newsFormView.didTapAttachmentButton = { [weak self] in
             self?.pickAttachments()
         }
+        newsFormView.attachmentsView.didTapAdd = { [weak self] in
+            self?.pickAttachments()
+        }
         view.addSubview(newsFormView)
         newsFormView.snp.makeConstraints { (make) in
             make.top.equalTo(self.topLayoutGuide.snp.bottom)
@@ -191,6 +194,10 @@ class NewsFormViewController: UIViewController, Stepper {
             .filter { !$0 }
             .subscribe(onNext: { [weak self] _ in
                 self?.view.endEditing(true)
+
+                self?.viewModel.attachments = self?.newsFormView.attachmentsView
+                    .attachments.map { $0.url } ?? []
+
                 self?.viewModel.createNews()
             })
             .disposed(by: disposeBag)
@@ -224,9 +231,7 @@ class NewsFormViewController: UIViewController, Stepper {
 //swiftlint:disable line_length
 extension NewsFormViewController: IQMediaPickerControllerDelegate, UINavigationControllerDelegate {
     func mediaPickerController(_ controller: IQMediaPickerController, didFinishMediaWithInfo info: [AnyHashable : Any]) {
-        if !viewModel.pickingMainImage {
-            viewModel.attachments = []
-        }
+        var attachments = [URL]()
 
         for key in info.keys where key is String {
             if let dicts = info[key] as? [[String: Any]] {
@@ -252,7 +257,7 @@ extension NewsFormViewController: IQMediaPickerControllerDelegate, UINavigationC
 
                                 newsFormView.set(coverImage: image)
                             } else {
-                                viewModel.attachments.append(imagePath)
+                                attachments.append(imagePath)
                             }
                         } catch {
                             print("Failed to write image at path \(imagePath)")
@@ -260,6 +265,13 @@ extension NewsFormViewController: IQMediaPickerControllerDelegate, UINavigationC
                     }
                 }
             }
+        }
+
+        if !attachments.isEmpty {
+            newsFormView.addAttachments(
+                with: attachments,
+                isImage: true
+            )
         }
     }
 

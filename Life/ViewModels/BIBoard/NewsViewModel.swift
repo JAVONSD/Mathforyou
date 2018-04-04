@@ -24,6 +24,7 @@ class NewsViewModel: NSObject, ListDiffable {
     private(set) var canLoadMore = true
     let loading = BehaviorRelay<Bool>(value: false)
     private var usingCached = false
+    private(set) var didLoadFromRealmCache = false
 
     private let disposeBag = DisposeBag()
 
@@ -226,6 +227,8 @@ class NewsViewModel: NSObject, ListDiffable {
                         if !items.isEmpty {
                             self.loading.accept(false)
                         }
+
+                        self.didLoadFromRealmCache = true
 
                         self.newsSubject.onNext(items)
                     } else if type == .popular {

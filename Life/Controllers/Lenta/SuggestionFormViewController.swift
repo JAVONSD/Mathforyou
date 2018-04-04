@@ -112,6 +112,9 @@ class SuggestionFormViewController: UIViewController, Stepper {
         suggestionFormView.didTapAttachmentButton = { [weak self] in
             self?.pickAttachments()
         }
+        suggestionFormView.attachmentsView.didTapAdd = { [weak self] in
+            self?.pickAttachments()
+        }
         view.addSubview(suggestionFormView)
         suggestionFormView.snp.makeConstraints { (make) in
             make.top.equalTo(self.topLayoutGuide.snp.bottom)
@@ -175,6 +178,10 @@ class SuggestionFormViewController: UIViewController, Stepper {
             .filter { !$0 }
             .subscribe(onNext: { [weak self] _ in
                 self?.view.endEditing(true)
+
+                self?.viewModel.attachments = self?.suggestionFormView.attachmentsView
+                    .attachments.map { $0.url } ?? []
+
                 self?.viewModel.createSuggestion()
             })
             .disposed(by: disposeBag)
@@ -208,9 +215,7 @@ class SuggestionFormViewController: UIViewController, Stepper {
 //swiftlint:disable line_length
 extension SuggestionFormViewController: IQMediaPickerControllerDelegate, UINavigationControllerDelegate {
     func mediaPickerController(_ controller: IQMediaPickerController, didFinishMediaWithInfo info: [AnyHashable : Any]) {
-        if !viewModel.pickingMainImage {
-            viewModel.attachments = []
-        }
+        var attachments = [URL]()
 
         for key in info.keys where key is String {
             if let dicts = info[key] as? [[String: Any]] {
@@ -236,7 +241,7 @@ extension SuggestionFormViewController: IQMediaPickerControllerDelegate, UINavig
 
                                 suggestionFormView.set(coverImage: image)
                             } else {
-                                viewModel.attachments.append(imagePath)
+                                attachments.append(imagePath)
                             }
                         } catch {
                             print("Failed to write image at path \(imagePath)")
@@ -244,6 +249,13 @@ extension SuggestionFormViewController: IQMediaPickerControllerDelegate, UINavig
                     }
                 }
             }
+        }
+
+        if !attachments.isEmpty {
+            suggestionFormView.addAttachments(
+                with: attachments,
+                isImage: true
+            )
         }
     }
 

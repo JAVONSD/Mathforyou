@@ -130,8 +130,9 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         do {
             let realm = try App.Realms.default()
             let employeeObjects = realm.objects(EmployeeObject.self)
+            let isEmployeeCacheEmpty = employeeObjects.isEmpty
 
-            if employeeObjects.isEmpty {
+            if isEmployeeCacheEmpty {
                 showHUD(title: NSLocalizedString("loading_employees", comment: ""))
             }
             viewModel.stuffViewModel.employeesViewModel.onSuccess
@@ -143,6 +144,21 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
             viewModel.stuffViewModel.employeesViewModel.onError
                 .observeOn(MainScheduler.instance)
                 .subscribe(onNext: { [weak self] _ in
+                    if !Connectivity.isConnectedToInternet {
+                        if !isEmployeeCacheEmpty {
+                            return
+                        }
+                        self?.hideHUD()
+                        self?.showHUD(
+                            title: NSLocalizedString("no_internet_connection", comment: "")
+                        )
+                    } else {
+                        self?.hideHUD()
+                        self?.showHUD(
+                            title: NSLocalizedString("loading_employees", comment: "")
+                        )
+                    }
+
                     self?.downloadEmployees()
                 })
                 .disposed(by: disposeBag)

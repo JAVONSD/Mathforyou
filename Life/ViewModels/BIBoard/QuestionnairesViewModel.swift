@@ -26,6 +26,7 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
     private(set) var canLoadMore = true
     let loading = BehaviorRelay<Bool>(value: false)
     private var usingCached = false
+    private(set) var didLoadFromCache = false
 
     private let disposeBag = DisposeBag()
 
@@ -202,6 +203,8 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
                     } else {
                         self.topQuestionnairesSubject.onNext(items)
                     }
+
+                    self.didLoadFromCache = true
 
                     completion(nil)
                 }

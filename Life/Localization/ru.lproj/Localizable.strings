@@ -114,6 +114,7 @@
 "add_news" = "Добавить новость";
 "news_single" = "Новость";
 "suggestion" = "Предложение";
+"no_internet_connection" = "Нет соединения с интернетом";
 
 /* Notifications */
 

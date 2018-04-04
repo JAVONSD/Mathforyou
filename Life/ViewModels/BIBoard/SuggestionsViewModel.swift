@@ -25,6 +25,7 @@ class SuggestionsViewModel: NSObject, ListDiffable {
     private(set) var canLoadMore = true
     let loading = BehaviorRelay<Bool>(value: false)
     private var usingCached = false
+    private(set) var didLoadFromCache = false
 
     private let disposeBag = DisposeBag()
 
@@ -240,6 +241,8 @@ class SuggestionsViewModel: NSObject, ListDiffable {
                     } else {
                         self.allSuggestionsSubject.onNext(items)
                     }
+
+                    self.didLoadFromCache = true
 
                     completion(nil)
                 }

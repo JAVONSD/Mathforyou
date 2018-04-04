@@ -25,6 +25,7 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
         title: NSLocalizedString("add_cover", comment: ""),
         titleColor: App.Color.steel
     )
+    private(set) lazy var attachmentsView = AttachmentsView()
     private(set) lazy var attachmentButton = FlatButton()
     private(set) lazy var topicField = TextField(frame: .zero)
     private(set) lazy var textField = TextView(frame: .zero)
@@ -41,6 +42,7 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
     private var coverImageHeightConstraint: Constraint?
     private var coverImageButtonTopConstraint: Constraint?
     private var attachmentButtonTopConstraint: Constraint?
+    private var attachmentsViewTopConstraint: Constraint?
 
     var didTapCloseButton: (() -> Void)?
     var didTapCoverImageButton: (() -> Void)?
@@ -106,10 +108,38 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
         let height = width * imageSize.height / imageSize.width
         coverImageHeightConstraint?.update(offset: height)
 
-        coverImageButtonTopConstraint?.update(offset: App.Layout.itemSpacingMedium)
-        attachmentButtonTopConstraint?.update(offset: App.Layout.itemSpacingMedium)
+        let offset = attachmentsView.isHidden
+            ? App.Layout.itemSpacingMedium
+            : 2 * App.Layout.itemSpacingMedium + AttachmentCollectionViewCell.height()
+
+        coverImageButtonTopConstraint?.update(offset: offset)
+        attachmentButtonTopConstraint?.update(offset: offset)
+        attachmentsViewTopConstraint?.update(offset: App.Layout.itemSpacingMedium)
 
         coverImageButton.setTitle(NSLocalizedString("change_cover", comment: ""), for: .normal)
+    }
+
+    public func addAttachments(with urls: [URL], isImage: Bool) {
+        if attachmentsView.isHidden {
+            attachmentsView.isHidden = false
+
+            let offset = coverImageView.image == nil
+                ? App.Layout.itemSpacingMedium + AttachmentCollectionViewCell.height()
+                : 2 * App.Layout.itemSpacingMedium + AttachmentCollectionViewCell.height()
+
+            coverImageButtonTopConstraint?.update(offset: offset)
+            attachmentButtonTopConstraint?.update(offset: offset)
+        }
+
+        var attachments = [Attachment]()
+
+        for url in urls {
+            let type: Attachment.AttachmentType = isImage ? .image : .file
+            let attachment = Attachment(url: url, type: type)
+            attachments.append(attachment)
+        }
+
+        attachmentsView.add(attachments: attachments)
     }
 
     // MARK: - UI
@@ -153,6 +183,7 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
 
         setupCoverImageView()
         setupCoverImageButton()
+        setupAttachmentsView()
         setupAttachmentButton()
         setupTopicField()
         setupTextField()
@@ -163,6 +194,7 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
 
     private func setupCoverImageView() {
         coverImageView.contentMode = .scaleAspectFill
+        coverImageView.layer.cornerRadius = App.Layout.cornerRadiusSmall
         coverImageView.layer.masksToBounds = true
         contentView.addSubview(coverImageView)
         coverImageView.snp.makeConstraints { (make) in
@@ -190,6 +222,17 @@ class SuggestionFormView: UIView, UITextFieldDelegate {
                 .offset(0).constraint
             make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.height.equalTo(72)
+        }
+    }
+
+    private func setupAttachmentsView() {
+        attachmentsView.isHidden = true
+        contentView.addSubview(attachmentsView)
+        attachmentsView.snp.makeConstraints { (make) in
+            self.attachmentsViewTopConstraint = make.top.equalTo(self.coverImageView.snp.bottom)
+                .offset(0).constraint
+            make.left.equalTo(self.contentView)
+            make.right.equalTo(self.contentView)
         }
     }
 
