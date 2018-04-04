@@ -34,6 +34,8 @@ class NewsCell: ASCellNode {
     private(set) var viewsIconNode: ASImageNode!
     private(set) var viewsNode: ASTextNode!
 
+    private let image: String
+
     fileprivate func setupHeader(_ viewModel: LentaItemViewModel) {
         self.viewModel = viewModel
 
@@ -95,6 +97,8 @@ class NewsCell: ASCellNode {
     }
 
     init(viewModel: LentaItemViewModel) {
+        self.image = viewModel.item.imageStreamId ?? viewModel.item.image
+
         super.init()
 
         clipsToBounds = false
@@ -116,8 +120,7 @@ class NewsCell: ASCellNode {
         titleNode.maximumNumberOfLines = 0
         backgroundNode.addSubnode(titleNode)
 
-        if !viewModel.item.image.isEmpty,
-            URL(string: viewModel.item.image) != nil {
+        if !image.isEmpty {
             imageNode = ASNetworkImageNode()
             imageNode?.backgroundColor = App.Color.paleGreyTwo
 
@@ -145,7 +148,7 @@ class NewsCell: ASCellNode {
             self.authorAvatarNode.image = image
         }
 
-        ImageDownloader.download(image: viewModel.item.image) { (image) in
+        ImageDownloader.download(image: image) { (image) in
             self.imageNode?.image = image
         }
     }
