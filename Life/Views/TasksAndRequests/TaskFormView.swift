@@ -33,6 +33,7 @@ class TaskFormView: UIView {
     private(set) lazy var tagsCollectionView = TTGTextTagCollectionView()
     private(set) lazy var typeField = TextField(frame: .zero)
     private(set) lazy var textField = TextView(frame: .zero)
+    private(set) lazy var attachmentsView = AttachmentsView()
     private(set) lazy var addAttachmentButton = FlatButton(
         title: NSLocalizedString("attach", comment: ""),
         titleColor: UIColor.black
@@ -40,6 +41,8 @@ class TaskFormView: UIView {
     private(set) lazy var sendButton = Button(
         title: NSLocalizedString("send", comment: "").uppercased()
     )
+
+    private var attachmentButtonTopConstraint: Constraint?
 
     var didDeleteParticipant: ((String) -> Void)?
 
@@ -51,6 +54,19 @@ class TaskFormView: UIView {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    // MARK: - Methods
+
+    public func add(attachments: [Attachment]) {
+        if attachmentsView.isHidden {
+            attachmentsView.isHidden = false
+
+            let offset = AttachmentCollectionViewCell.height() + 2 * App.Layout.itemSpacingSmall
+            attachmentButtonTopConstraint?.update(offset: offset)
+        }
+
+        attachmentsView.add(attachments: attachments)
     }
 
     // MARK: - UI
@@ -101,6 +117,7 @@ class TaskFormView: UIView {
         setupTagsCollectionView()
         setupTypeField()
         setupTextField()
+        setupAttachmentsView()
         setupAddAttachmentButton()
         setupSendButton()
     }
@@ -283,6 +300,16 @@ class TaskFormView: UIView {
         }
     }
 
+    private func setupAttachmentsView() {
+        attachmentsView.isHidden = true
+        contentView.addSubview(attachmentsView)
+        attachmentsView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.textField.snp.bottom).offset(App.Layout.itemSpacingSmall)
+            make.left.equalTo(self.contentView)
+            make.right.equalTo(self.contentView)
+        }
+    }
+
     private func setupAddAttachmentButton() {
         addAttachmentButton.image = #imageLiteral(resourceName: "attach-file")
         addAttachmentButton.tintColor = App.Color.steel
@@ -292,7 +319,7 @@ class TaskFormView: UIView {
         addAttachmentButton.contentHorizontalAlignment = .left
         contentView.addSubview(addAttachmentButton)
         addAttachmentButton.snp.makeConstraints { (make) in
-            make.top.equalTo(self.textField.snp.bottom).offset(App.Layout.itemSpacingSmall)
+            self.attachmentButtonTopConstraint = make.top.equalTo(self.textField.snp.bottom).offset(App.Layout.itemSpacingSmall).constraint
             make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.height.equalTo(40)

@@ -50,7 +50,22 @@ class TaskFormViewController: UIViewController, Stepper {
         fileExplorer.fileFilters = [
             Filter.extension("png"),
             Filter.extension("jpg"),
-            Filter.extension("jpeg")
+            Filter.extension("jpeg"),
+            Filter.extension("txt"),
+            Filter.extension("pdf"),
+            Filter.extension("xlsx"),
+            Filter.extension("xls"),
+            Filter.extension("xml"),
+            Filter.extension("html"),
+            Filter.extension("htm"),
+            Filter.extension("doc"),
+            Filter.extension("docx"),
+            Filter.extension("rtf"),
+            Filter.extension("gif"),
+            Filter.extension("bmp"),
+            Filter.extension("zip"),
+            Filter.extension("tgz"),
+            Filter.extension("tar.gz")
         ]
         self.present(fileExplorer, animated: true, completion: nil)
     }
@@ -116,9 +131,8 @@ class TaskFormViewController: UIViewController, Stepper {
 
                         let writeResult = try? videoData?.write(to: videoPath)
                         if writeResult != nil {
-                            var attachments = (try? self.viewModel.attachments.value()) ?? []
-                            attachments.append(videoPath)
-                            self.viewModel.attachments.onNext(attachments)
+                            let attachment = Attachment(url: videoPath, type: .file)
+                            self.taskFormView.add(attachments: [attachment])
                         }
                     }
             })
@@ -303,6 +317,9 @@ class TaskFormViewController: UIViewController, Stepper {
     }
 
     private func bindAttachmentButton() {
+        taskFormView.attachmentsView.didTapAdd = { [weak self] in
+            self?.pickAttachments()
+        }
         taskFormView.addAttachmentButton.rx.tap.asDriver().throttle(0.5).drive(onNext: { [weak self] in
             self?.pickAttachments()
         }).disposed(by: disposeBag)
@@ -315,6 +332,11 @@ class TaskFormViewController: UIViewController, Stepper {
         }).disposed(by: disposeBag)
 
         taskFormView.sendButton.rx.tap.asDriver().throttle(0.5).drive(onNext: { [weak self] in
+            self?.view.endEditing(true)
+
+            let attachments = self?.taskFormView.attachmentsView.attachments.map { $0.url } ?? []
+            self?.viewModel.attachments.onNext(attachments)
+
             self?.viewModel.createTask()
         }).disposed(by: disposeBag)
     }
@@ -324,7 +346,7 @@ class TaskFormViewController: UIViewController, Stepper {
 extension TaskFormViewController: IQMediaPickerControllerDelegate, UINavigationControllerDelegate {
     func mediaPickerController(_ controller: IQMediaPickerController,
                                didFinishMediaWithInfo info: [AnyHashable : Any]) {
-        viewModel.attachments.onNext([])
+        var attachments = [Attachment]()
 
         for key in info.keys where key is String {
             if let dicts = info[key] as? [[String: Any]] {
@@ -341,9 +363,8 @@ extension TaskFormViewController: IQMediaPickerControllerDelegate, UINavigationC
                         do {
                             try imageData?.write(to: imagePath)
 
-                            var attachments = (try? self.viewModel.attachments.value()) ?? []
-                            attachments.append(imagePath)
-                            self.viewModel.attachments.onNext(attachments)
+                            let attachment = Attachment(url: imagePath, type: .image)
+                            attachments.append(attachment)
                         } catch {
                             print("Failed to write image at path \(imagePath)")
                         }
@@ -355,6 +376,8 @@ extension TaskFormViewController: IQMediaPickerControllerDelegate, UINavigationC
                 }
             }
         }
+
+        taskFormView.add(attachments: attachments)
     }
 
     func mediaPickerControllerDidCancel(_ controller: IQMediaPickerController) {
@@ -369,7 +392,18 @@ extension TaskFormViewController: FileExplorerViewControllerDelegate {
 
     func fileExplorerViewController(_ controller: FileExplorerViewController, didChooseURLs urls: [URL]) {
         print("Attached files with urls - \(urls)")
-        viewModel.attachments.onNext(urls)
+
+        let attachments = urls.map { url -> Attachment in
+            let extensionName = url.pathExtension.lowercased()
+            if extensionName.hasSuffix("png")
+                || extensionName.hasSuffix("jpg")
+                || extensionName.hasSuffix("jpeg") {
+                return Attachment(url: url, type: .image)
+            }
+
+            return Attachment(url: url, type: .file)
+        }
+        taskFormView.add(attachments: attachments)
     }
 }
 

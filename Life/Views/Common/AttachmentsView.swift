@@ -122,6 +122,7 @@ extension AttachmentsView: UICollectionViewDataSource {
 
         cell.titleLabel.text = nil
         cell.subtitleLabel.text = nil
+        cell.imageView.image = nil
 
         if indexPath.item < attachments.count {
             let attachment = attachments[indexPath.item]

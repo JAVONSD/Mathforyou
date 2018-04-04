@@ -102,6 +102,8 @@ class AttachmentCollectionViewCell: UICollectionViewCell {
     }
 
     private func setupTitleLabel() {
+        titleLabel.adjustsFontSizeToFitWidth = true
+        titleLabel.minimumScaleFactor = 0.5
         titleLabel.font = App.Font.subheadAlts
         titleLabel.textAlignment = .center
         titleLabel.textColor = .black

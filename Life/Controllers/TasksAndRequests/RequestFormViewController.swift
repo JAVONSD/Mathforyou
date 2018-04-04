@@ -48,7 +48,22 @@ class RequestFormViewController: UIViewController, Stepper {
         fileExplorer.fileFilters = [
             Filter.extension("png"),
             Filter.extension("jpg"),
-            Filter.extension("jpeg")
+            Filter.extension("jpeg"),
+            Filter.extension("txt"),
+            Filter.extension("pdf"),
+            Filter.extension("xlsx"),
+            Filter.extension("xls"),
+            Filter.extension("xml"),
+            Filter.extension("html"),
+            Filter.extension("htm"),
+            Filter.extension("doc"),
+            Filter.extension("docx"),
+            Filter.extension("rtf"),
+            Filter.extension("gif"),
+            Filter.extension("bmp"),
+            Filter.extension("zip"),
+            Filter.extension("tgz"),
+            Filter.extension("tar.gz")
         ]
         self.present(fileExplorer, animated: true, completion: nil)
     }
@@ -114,9 +129,8 @@ class RequestFormViewController: UIViewController, Stepper {
 
                         let writeResult = try? videoData?.write(to: videoPath)
                         if writeResult != nil {
-                            var attachments = (try? self.viewModel.attachments.value()) ?? []
-                            attachments.append(videoPath)
-                            self.viewModel.attachments.onNext(attachments)
+                            let attachment = Attachment(url: videoPath, type: .file)
+                            self.requestFormView.add(attachments: [attachment])
                         }
                     }
             })
@@ -140,7 +154,14 @@ class RequestFormViewController: UIViewController, Stepper {
         }
         requestFormView.didTapSendButton = { [weak self] in
             self?.view.endEditing(true)
+
+            let attachments = self?.requestFormView.attachmentsView.attachments.map { $0.url } ?? []
+            self?.viewModel.attachments.onNext(attachments)
+
             self?.viewModel.createRequest()
+        }
+        requestFormView.attachmentsView.didTapAdd = { [weak self] in
+            self?.pickAttachments()
         }
 
         let allCategories = Request.Category.all
@@ -222,7 +243,7 @@ class RequestFormViewController: UIViewController, Stepper {
 extension RequestFormViewController: IQMediaPickerControllerDelegate, UINavigationControllerDelegate {
     func mediaPickerController(_ controller: IQMediaPickerController,
                                didFinishMediaWithInfo info: [AnyHashable : Any]) {
-        viewModel.attachments.onNext([])
+        var attachments = [Attachment]()
 
         for key in info.keys where key is String {
             if let dicts = info[key] as? [[String: Any]] {
@@ -239,9 +260,8 @@ extension RequestFormViewController: IQMediaPickerControllerDelegate, UINavigati
                         do {
                             try imageData?.write(to: imagePath)
 
-                            var attachments = (try? self.viewModel.attachments.value()) ?? []
-                            attachments.append(imagePath)
-                            self.viewModel.attachments.onNext(attachments)
+                            let attachment = Attachment(url: imagePath, type: .image)
+                            attachments.append(attachment)
                         } catch {
                             print("Failed to write image at path \(imagePath)")
                         }
@@ -253,6 +273,8 @@ extension RequestFormViewController: IQMediaPickerControllerDelegate, UINavigati
                 }
             }
         }
+
+        requestFormView.add(attachments: attachments)
     }
 
     func mediaPickerControllerDidCancel(_ controller: IQMediaPickerController) {
@@ -267,6 +289,17 @@ extension RequestFormViewController: FileExplorerViewControllerDelegate {
 
     func fileExplorerViewController(_ controller: FileExplorerViewController, didChooseURLs urls: [URL]) {
         print("Attached files with urls - \(urls)")
-        viewModel.attachments.onNext(urls)
+
+        let attachments = urls.map { url -> Attachment in
+            let extensionName = url.pathExtension.lowercased()
+            if extensionName.hasSuffix("png")
+                || extensionName.hasSuffix("jpg")
+                || extensionName.hasSuffix("jpeg") {
+                return Attachment(url: url, type: .image)
+            }
+
+            return Attachment(url: url, type: .file)
+        }
+        requestFormView.add(attachments: attachments)
     }
 }

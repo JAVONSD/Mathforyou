@@ -23,6 +23,7 @@ class RequestFormView: UIView {
     private(set) lazy var categoryField = TextField(frame: .zero)
     private(set) lazy var endDateField = TextField(frame: .zero)
     private(set) lazy var textField = TextView(frame: .zero)
+    private(set) lazy var attachmentsView = AttachmentsView()
     private(set) lazy var addAttachmentButton = FlatButton(
         title: NSLocalizedString("attach", comment: ""),
         titleColor: UIColor.black
@@ -30,6 +31,8 @@ class RequestFormView: UIView {
     private(set) lazy var sendButton = Button(
         title: NSLocalizedString("send", comment: "").uppercased()
     )
+
+    private var attachmentButtonTopConstraint: Constraint?
 
     var didTapCloseButton: (() -> Void)?
     var didTapAttachmentButton: (() -> Void)?
@@ -66,6 +69,19 @@ class RequestFormView: UIView {
         if let didTapSendButton = didTapSendButton {
             didTapSendButton()
         }
+    }
+
+    // MARK: - Methods
+
+    public func add(attachments: [Attachment]) {
+        if attachmentsView.isHidden {
+            attachmentsView.isHidden = false
+
+            let offset = AttachmentCollectionViewCell.height() + 2 * App.Layout.itemSpacingSmall
+            attachmentButtonTopConstraint?.update(offset: offset)
+        }
+
+        attachmentsView.add(attachments: attachments)
     }
 
     // MARK: - UI
@@ -111,6 +127,7 @@ class RequestFormView: UIView {
         setupCategoryField()
         setupEndDateField()
         setupTextField()
+        setupAttachmentsView()
         setupAddAttachmentButton()
         setupSendButton()
     }
@@ -183,6 +200,16 @@ class RequestFormView: UIView {
         }
     }
 
+    private func setupAttachmentsView() {
+        attachmentsView.isHidden = true
+        contentView.addSubview(attachmentsView)
+        attachmentsView.snp.makeConstraints { (make) in
+            make.top.equalTo(self.textField.snp.bottom).offset(App.Layout.itemSpacingSmall)
+            make.left.equalTo(self.contentView)
+            make.right.equalTo(self.contentView)
+        }
+    }
+
     private func setupAddAttachmentButton() {
         addAttachmentButton.image = #imageLiteral(resourceName: "attach-file")
         addAttachmentButton.tintColor = App.Color.steel
@@ -193,7 +220,7 @@ class RequestFormView: UIView {
         addAttachmentButton.addTarget(self, action: #selector(handleAttachmentButton), for: .touchUpInside)
         contentView.addSubview(addAttachmentButton)
         addAttachmentButton.snp.makeConstraints { (make) in
-            make.top.equalTo(self.textField.snp.bottom).offset(App.Layout.itemSpacingSmall)
+            self.attachmentButtonTopConstraint = make.top.equalTo(self.textField.snp.bottom).offset(App.Layout.itemSpacingSmall).constraint
             make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.height.equalTo(40)
