@@ -197,7 +197,7 @@ struct App {
     // MARK: - Realms & Configs
 
     struct RealmConfig {
-        private static let schemaVersion: UInt64 = 3
+        private static let schemaVersion: UInt64 = 4
         private static let docs = FileManager.default.urls(
             for: .documentDirectory, in: .userDomainMask).first!
 

@@ -229,4 +229,16 @@
 "confirm_action" = "Confirm action";
 "are_you_sure" = "Are you sure?";
 
+/* Questionnaires */
+
+"anonymous" = "Anonymous";
+"not_anonymous" = "Not anonymous";
+"change_answers" = "Change answers";
+"see_statistics" = "See statistics";
+"pass" = "Pass";
+"author" = "Author";
+"question_count" = "Questions";
+"answered_employee_count" = "Respondents";
+"questionnaire_type" = "Type";
+
 

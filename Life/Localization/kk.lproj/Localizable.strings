@@ -229,4 +229,16 @@
 "confirm_action" = "Әрекетті растаңыз";
 "are_you_sure" = "Сіз сенімдісіз бе?";
 
+/* Questionnaires */
+
+"anonymous" = "Анонимный";
+"not_anonymous" = "Не анонимный";
+"change_answers" = "Поменять ответы";
+"see_statistics" = "Просмотреть статистику";
+"pass" = "Пройти";
+"author" = "Автор";
+"question_count" = "Вопросов";
+"answered_employee_count" = "Опрошенных";
+"questionnaire_type" = "Тип";
+
 

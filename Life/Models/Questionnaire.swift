@@ -22,7 +22,10 @@ struct Questionnaire: Codable, Hashable {
     var questions: [QuestionnaireQuestion]
     var questionsQuantity: Int
     var isAnonymous: Bool
+    var isPublishedAsGroup: Bool
     var answeredEmployeeQuantity: Int
+    var interviewedUsersQuantity: Int
+    var isCurrentUserInterviewed: Bool
 
     // MARK: - Decodable
 
@@ -39,7 +42,10 @@ struct Questionnaire: Codable, Hashable {
         case questions
         case questionsQuantity
         case isAnonymous
+        case isPublishedAsGroup
         case answeredEmployeeQuantity
+        case interviewedUsersQuantity
+        case isCurrentUserInterviewed
     }
 
     init(from decoder: Decoder) throws {
@@ -50,17 +56,26 @@ struct Questionnaire: Codable, Hashable {
         self.description = try container.decodeWrapper(key: .description, defaultValue: "")
         self.createDate = try container.decodeWrapper(key: .createDate, defaultValue: "")
         self.imageStreamId = try container.decodeWrapper(key: .imageStreamId, defaultValue: "")
-        self.imageSize = try container.decodeWrapper(key: .imageSize, defaultValue: ImageSize(width: 200, height: 200))
+        self.imageSize = try container.decodeWrapper(
+            key: .imageSize,
+            defaultValue: ImageSize(width: 200, height: 200)
+        )
         self.authorCode = try container.decodeWrapper(key: .authorCode, defaultValue: "")
         self.authorName = try container.decodeWrapper(key: .authorName, defaultValue: "")
         self.secondaryImages = try container.decodeWrapper(key: .secondaryImages, defaultValue: [])
         self.questions = try container.decodeWrapper(key: .questions, defaultValue: [])
         self.questionsQuantity = try container.decodeWrapper(key: .questionsQuantity, defaultValue: 0)
         self.isAnonymous = try container.decodeWrapper(key: .isAnonymous, defaultValue: false)
+        self.isPublishedAsGroup = try container.decodeWrapper(key: .isPublishedAsGroup, defaultValue: false)
         self.answeredEmployeeQuantity = try container.decodeWrapper(
             key: .answeredEmployeeQuantity,
             defaultValue: 0
         )
+        self.interviewedUsersQuantity = try container.decodeWrapper(
+            key: .interviewedUsersQuantity,
+            defaultValue: 0
+        )
+        self.isCurrentUserInterviewed = try container.decodeWrapper(key: .isCurrentUserInterviewed, defaultValue: false)
     }
 
     func encode(with aCoder: NSCoder) {
@@ -76,7 +91,10 @@ struct Questionnaire: Codable, Hashable {
         aCoder.encode(questions, forKey: "questions")
         aCoder.encode(questionsQuantity, forKey: "questionsQuantity")
         aCoder.encode(isAnonymous, forKey: "isAnonymous")
+        aCoder.encode(isPublishedAsGroup, forKey: "isPublishedAsGroup")
         aCoder.encode(answeredEmployeeQuantity, forKey: "answeredEmployeeQuantity")
+        aCoder.encode(interviewedUsersQuantity, forKey: "interviewedUsersQuantity")
+        aCoder.encode(isCurrentUserInterviewed, forKey: "isCurrentUserInterviewed")
     }
 
     // MARK: - Hashable
@@ -110,7 +128,10 @@ extension Questionnaire: Persistable {
         questions = managedObject.questions.map { QuestionnaireQuestion(managedObject: $0) }
         questionsQuantity = managedObject.questionsQuantity
         isAnonymous = managedObject.isAnonymous
+        isPublishedAsGroup = managedObject.isPublishedAsGroup
         answeredEmployeeQuantity = managedObject.answeredEmployeeQuantity
+        interviewedUsersQuantity = managedObject.interviewedUsersQuantity
+        isCurrentUserInterviewed = managedObject.isCurrentUserInterviewed
     }
 
     func managedObject() -> QuestionnaireObject {
@@ -127,7 +148,10 @@ extension Questionnaire: Persistable {
         object.questions.append(objectsIn: questions.map { $0.managedObject() })
         object.questionsQuantity = questionsQuantity
         object.isAnonymous = isAnonymous
+        object.isPublishedAsGroup = isPublishedAsGroup
         object.answeredEmployeeQuantity = answeredEmployeeQuantity
+        object.interviewedUsersQuantity = interviewedUsersQuantity
+        object.isCurrentUserInterviewed = isCurrentUserInterviewed
         return object
     }
 }

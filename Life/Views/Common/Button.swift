@@ -109,4 +109,10 @@ class Button: RaisedButton {
         setView(disabled: true)
     }
 
+    public func applyLightTheme() {
+        backgroundColor = App.Color.paleGreyTwo
+        titleColor = App.Color.azure
+        pulseColor = App.Color.azure
+    }
+
 }

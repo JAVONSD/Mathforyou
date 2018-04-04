@@ -12,6 +12,7 @@ import IGListKit
 import Material
 import Moya
 import NVActivityIndicatorView
+import PopupDialog
 import RealmSwift
 import RxSwift
 import RxCocoa
@@ -464,6 +465,20 @@ extension LentaViewController: ListAdapterDataSource {
         section.didTapSuggestion = { [weak self] id in
             guard !(self?.fabMenu.isOpened ?? false) else { return }
             self?.step.accept(AppStep.suggestionPicked(withId: id))
+        }
+        section.didTapQuestionnaire = { [weak self] id in
+            guard !(self?.fabMenu.isOpened ?? false) else { return }
+            let vc = QuestionnairePreviewController(questionnaireId: id)
+            vc.didTapViewStatistics = { [weak self] in
+                print("View questionnaire statistics tapped ...")
+            }
+            vc.didTapPass = { [weak self] in
+                print("Pass questionnaire tapped ...")
+            }
+            let popup = PopupDialog(viewController: vc)
+            let containerAppearance = PopupDialogContainerView.appearance()
+            containerAppearance.cornerRadius = Float(App.Layout.cornerRadius)
+            self?.present(popup, animated: true, completion: nil)
         }
         section.onUnathorizedError = { [weak self] in
             self?.onUnauthorized()

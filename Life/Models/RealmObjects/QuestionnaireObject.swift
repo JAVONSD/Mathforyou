@@ -22,7 +22,10 @@ class QuestionnaireObject: Object {
     let questions = List<QuestionnaireQuestionObject>()
     @objc dynamic var questionsQuantity: Int = 0
     @objc dynamic var isAnonymous: Bool = false
+    @objc dynamic var isPublishedAsGroup: Bool = false
     @objc dynamic var answeredEmployeeQuantity: Int = 0
+    @objc dynamic var interviewedUsersQuantity: Int = 0
+    @objc dynamic var isCurrentUserInterviewed: Bool = false
 
     override static func primaryKey() -> String? {
         return "id"

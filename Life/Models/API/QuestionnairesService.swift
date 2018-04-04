@@ -20,6 +20,7 @@ enum QuestionnairesService {
         isCommented: Bool,
         commenteText: String
     )
+    case questionnaireShortInfo(id: String)
     case questionnaireStatistics(id: String)
     case createQuestionnaire(
         mainImage: URL,
@@ -47,6 +48,8 @@ extension QuestionnairesService: AuthorizedTargetType {
             return "/Questionnaires/\(id)/description"
         case .addAnswer(let id, let questionId, _, _, _):
             return "/Questionnaires/\(id)/questions/\(questionId)/userAnswers"
+        case .questionnaireShortInfo(let id):
+            return "/Questionnaires/\(id)/shortInfo"
         case .questionnaireStatistics(let id):
             return "/Questionnaires/\(id)/statistics"
         case .popularQuestionnaires:
@@ -59,7 +62,8 @@ extension QuestionnairesService: AuthorizedTargetType {
     var method: Moya.Method {
         switch self {
         case .questionnaire, .questionnaires, .popularQuestionnaires,
-             .questionnairesWithDetails, .questionnaireDescription, .questionnaireStatistics:
+             .questionnairesWithDetails, .questionnaireDescription,
+             .questionnaireStatistics, .questionnaireShortInfo:
             return .get
         case .addAnswer, .createQuestionnaire:
             return .post
@@ -69,7 +73,7 @@ extension QuestionnairesService: AuthorizedTargetType {
     var task: Moya.Task {
         switch self {
         case .questionnaires, .questionnaire, .questionnaireDescription,
-             .questionnaireStatistics, .popularQuestionnaires:
+             .questionnaireShortInfo, .questionnaireStatistics, .popularQuestionnaires:
             return .requestPlain
         case .addAnswer(
             _,
@@ -127,7 +131,7 @@ extension QuestionnairesService: AuthorizedTargetType {
 
     var sampleData: Data {
         switch self {
-        case .questionnaire, .createQuestionnaire, .questionnaireDescription:
+        case .questionnaire, .createQuestionnaire, .questionnaireDescription, .questionnaireShortInfo:
             return Bundle.main.stubJSONWith(name: "questionnaire")
         case .questionnaires, .popularQuestionnaires, .questionnairesWithDetails:
             return Bundle.main.stubJSONWith(name: "questionnaires")

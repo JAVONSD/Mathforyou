@@ -22,6 +22,7 @@ class NewsSectionController: ASCollectionSectionController {
 
     var didTapNews: ((String) -> Void)?
     var didTapSuggestion: ((String) -> Void)?
+    var didTapQuestionnaire: ((String) -> Void)?
 
     var didFinishLoad: (() -> Void)?
 
@@ -54,6 +55,9 @@ class NewsSectionController: ASCollectionSectionController {
             } else if news.item.entityType.code == .suggestion,
                 let didTapSuggestion = didTapSuggestion {
                 didTapSuggestion(news.item.id)
+            } else if news.item.entityType.code == .questionnaire,
+                let didTapQuestionnaire = didTapQuestionnaire {
+                didTapQuestionnaire(news.item.id)
             }
         } else if let news = items[index] as? NewsItemViewModel,
             let didTapNews = didTapNews {
@@ -61,6 +65,9 @@ class NewsSectionController: ASCollectionSectionController {
         } else if let suggestion = items[index] as? SuggestionItemViewModel,
             let didTapSuggestion = didTapSuggestion {
             didTapSuggestion(suggestion.suggestion.id)
+        } else if let questionnaire = items[index] as? QuestionnaireViewModel,
+            let didTapQuestionnaire = didTapQuestionnaire {
+            didTapQuestionnaire(questionnaire.questionnaire.id)
         }
     }
 
