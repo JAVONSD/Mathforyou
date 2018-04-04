@@ -68,7 +68,7 @@ class StuffViewController: TabsController, TabsControllerDelegate, Stepper {
 
         if let tabVC = parent as? AppTabBarController {
             tabVC.didTapTab = { [weak self] idx in
-                guard idx == 3, tabVC.currentTabIndex == idx else { return }
+                guard idx == 2, tabVC.currentTabIndex == idx else { return }
                 self?.needScrollToTop?(self?.selectedIndex ?? 0)
             }
         }

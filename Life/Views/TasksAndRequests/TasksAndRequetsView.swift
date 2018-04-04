@@ -114,7 +114,7 @@ class TasksAndRequetsView: UIView, TabBarDelegate {
         tabBar.dividerColor = nil
         tabBar.lineHeight = 2.0
         tabBar.lineAlignment = .bottom
-        tabBar.backgroundColor = App.Color.white
+        tabBar.backgroundColor = .white
         tabBar.tabItemsContentEdgeInsetsPreset = .none
 
         addTabItems(tabBar)

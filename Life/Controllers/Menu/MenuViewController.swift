@@ -84,7 +84,7 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
 
         if let tabVC = parent as? AppTabBarController {
             tabVC.didTapTab = { [weak self] idx in
-                guard idx == 4, tabVC.currentTabIndex == idx else { return }
+                guard idx == 3, tabVC.currentTabIndex == idx else { return }
                 self?.menuView.tableView?.setContentOffset(.zero, animated: true)
             }
         }

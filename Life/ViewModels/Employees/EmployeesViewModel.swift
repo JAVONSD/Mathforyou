@@ -109,9 +109,8 @@ class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
 
                     self.employees.accept(employeeViewModels)
 
-                    self.loading.accept(false)
-
                     DispatchQueue.main.async {
+                        self.loading.accept(false)
                         self.filteredEmployees.accept(employeeViewModels)
                     }
                 }

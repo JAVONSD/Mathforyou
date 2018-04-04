@@ -141,27 +141,6 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
                     self?.hideHUD()
                 })
                 .disposed(by: disposeBag)
-            viewModel.stuffViewModel.employeesViewModel.onError
-                .observeOn(MainScheduler.instance)
-                .subscribe(onNext: { [weak self] _ in
-                    if !Connectivity.isConnectedToInternet {
-                        if !isEmployeeCacheEmpty {
-                            return
-                        }
-                        self?.hideHUD()
-                        self?.showHUD(
-                            title: NSLocalizedString("no_internet_connection", comment: "")
-                        )
-                    } else {
-                        self?.hideHUD()
-                        self?.showHUD(
-                            title: NSLocalizedString("loading_employees", comment: "")
-                        )
-                    }
-
-                    self?.downloadEmployees()
-                })
-                .disposed(by: disposeBag)
             downloadEmployees()
         } catch {
             print("Failed to access the Realm database")
@@ -183,7 +162,7 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
 
         if let tabVC = parent as? AppTabBarController {
             tabVC.didTapTab = { [weak self] idx in
-                guard idx == 2, tabVC.currentTabIndex == idx else { return }
+                guard idx == 1, tabVC.currentTabIndex == idx else { return }
                 self?.collectionNode.setContentOffset(.zero, animated: true)
             }
         }
