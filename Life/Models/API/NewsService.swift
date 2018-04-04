@@ -22,6 +22,7 @@ enum NewsService {
         text: String,
         rawText: String,
         isHistoryEvent: Bool,
+        isPressService: Bool,
         tags: [String]
     )
     case updateNews(
@@ -32,6 +33,7 @@ enum NewsService {
         text: String,
         rawText: String,
         isHistoryEvent: Bool,
+        isPressService: Bool,
         tags: [String]
     )
     case popularNews
@@ -91,6 +93,7 @@ extension NewsService: AuthorizedTargetType {
             let text,
             let rawText,
             let isHistoryEvent,
+            let isPressService,
             let tags):
             var data = [MultipartFormData]()
 
@@ -108,6 +111,7 @@ extension NewsService: AuthorizedTargetType {
             data.append(text.multipartFormData("Text"))
             data.append(rawText.multipartFormData("RawText"))
             data.append(String(isHistoryEvent).multipartFormData("IsHistoryEvent"))
+            data.append(String(isPressService).multipartFormData("IsPressService"))
 
             for tag in tags {
                 data.append(tag.multipartFormData("Tags"))
@@ -122,6 +126,7 @@ extension NewsService: AuthorizedTargetType {
             let text,
             let rawText,
             let isHistoryEvent,
+            let isPressService,
             let tags):
             var data = [MultipartFormData]()
 
@@ -141,6 +146,7 @@ extension NewsService: AuthorizedTargetType {
             data.append(text.multipartFormData("Text"))
             data.append(rawText.multipartFormData("RawText"))
             data.append(String(isHistoryEvent).multipartFormData("IsHistoryEvent"))
+            data.append(String(isPressService).multipartFormData("IsPressService"))
 
             for tag in tags {
                 data.append(tag.multipartFormData("Tags"))

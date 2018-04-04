@@ -126,6 +126,7 @@ class NewsFormViewController: UIViewController, Stepper {
         bindTitleField()
         bindTextView()
         bindTags()
+        bindMakeAsPressServiceButton()
         bindMakeAsHistoryButton()
         bindSendButton()
     }
@@ -159,6 +160,21 @@ class NewsFormViewController: UIViewController, Stepper {
                 makeAsHistoryButton?.isSelected = !isHistoryEvent
                 makeAsHistoryButton?.tintColor = !isHistoryEvent ? App.Color.azure : App.Color.coolGrey
                 self?.viewModel.isHistoryEvent.onNext(!isHistoryEvent)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    private func bindMakeAsPressServiceButton() {
+        newsFormView.makeAsPressServiceButton
+            .rx
+            .tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                let makeAsPressServiceButton = self?.newsFormView.makeAsPressServiceButton
+                let isPressService = makeAsPressServiceButton?.isSelected ?? false
+                makeAsPressServiceButton?.isSelected = !isPressService
+                makeAsPressServiceButton?.tintColor = !isPressService ? App.Color.azure : App.Color.coolGrey
+                self?.viewModel.isPressService.onNext(!isPressService)
             })
             .disposed(by: disposeBag)
     }

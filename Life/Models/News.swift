@@ -60,7 +60,10 @@ struct News: Codable, Hashable {
         self.text = try container.decodeWrapper(key: .text, defaultValue: "")
         self.createDate = try container.decodeWrapper(key: .createDate, defaultValue: "")
         self.imageStreamId = try container.decodeWrapper(key: .imageStreamId, defaultValue: "")
-        self.imageSize = try container.decodeWrapper(key: .imageSize, defaultValue: ImageSize(width: 200, height: 200))
+        self.imageSize = try container.decodeWrapper(
+            key: .imageSize,
+            defaultValue: ImageSize(width: 200, height: 200)
+        )
         self.imageUrl = try container.decodeWrapper(key: .imageUrl, defaultValue: "")
         self.authorCode = try container.decodeWrapper(key: .authorCode, defaultValue: "")
         self.authorName = try container.decodeWrapper(key: .authorName, defaultValue: "")

@@ -41,6 +41,7 @@ class NewsFormViewModel: NSObject {
     var pickingMainImage = true
 
     let isHistoryEvent = BehaviorSubject<Bool>(value: false)
+    let isPressService = BehaviorSubject<Bool>(value: true)
 
     private let newsProvider = MoyaProvider<NewsService>(
         plugins: [
@@ -55,7 +56,8 @@ class NewsFormViewModel: NSObject {
     public func createNews() {
         guard let title = try? titleSubject.value(),
             let text = try? textSubject.value(),
-            let isHistoryEvent = try? isHistoryEvent.value() else {
+            let isHistoryEvent = try? isHistoryEvent.value(),
+            let isPressService = try? isPressService.value() else {
                 return
         }
 
@@ -71,6 +73,7 @@ class NewsFormViewModel: NSObject {
                 text: text,
                 rawText: text,
                 isHistoryEvent: isHistoryEvent,
+                isPressService: isPressService,
                 tags: tags)
             )
             .filterSuccessfulStatusCodes()

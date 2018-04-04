@@ -208,6 +208,7 @@
 "pick_from_documents" = "Выбрать из документов";
 "cancel" = "Отмена";
 "change_cover" = "Поменять обложку";
+"from_name_of_press_service" = "От имени Пресс-Службы BI Group";
 
 /* File explorer */
 

@@ -31,6 +31,10 @@ class NewsFormView: UIView {
     private(set) lazy var textField = TextView(frame: .zero)
     private(set) lazy var tagsField = TextField(frame: .zero)
     private(set) lazy var tagsCollectionView = TTGTextTagCollectionView(frame: .zero)
+    private(set) lazy var makeAsPressServiceButton = FlatButton(
+        title: NSLocalizedString("from_name_of_press_service", comment: ""),
+        titleColor: App.Color.steel
+    )
     private(set) lazy var makeAsHistoryButton = FlatButton(
         title: NSLocalizedString("history_event_to_history", comment: ""),
         titleColor: App.Color.steel
@@ -189,6 +193,7 @@ class NewsFormView: UIView {
         setupTextField()
         setupTagsField()
         setupTagsCollectionView()
+        setupMakeAsPressServiceButton()
         setupMakeAsHistoryButton()
         setupSendButton()
     }
@@ -336,6 +341,25 @@ class NewsFormView: UIView {
         }
     }
 
+    private func setupMakeAsPressServiceButton() {
+        makeAsPressServiceButton.setImage(#imageLiteral(resourceName: "checkbox_empty"), for: .normal)
+        makeAsPressServiceButton.setImage(#imageLiteral(resourceName: "checkbox_tick"), for: .selected)
+        makeAsPressServiceButton.setImage(#imageLiteral(resourceName: "checkbox_tick"), for: .highlighted)
+        makeAsPressServiceButton.tintColor = App.Color.azure
+        makeAsPressServiceButton.titleEdgeInsets = .init(top: 0, left: 4, bottom: 0, right: 0)
+        makeAsPressServiceButton.titleLabel?.font = App.Font.caption
+        makeAsPressServiceButton.titleLabel?.textColor = App.Color.steel
+        makeAsPressServiceButton.contentHorizontalAlignment = .left
+        makeAsPressServiceButton.isSelected = true
+        contentView.addSubview(makeAsPressServiceButton)
+        makeAsPressServiceButton.snp.makeConstraints { (make) in
+            make.top.equalTo(self.tagsCollectionView.snp.bottom).offset(App.Layout.itemSpacingSmall)
+            make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
+            make.height.equalTo(40)
+        }
+    }
+
     private func setupMakeAsHistoryButton() {
         makeAsHistoryButton.setImage(#imageLiteral(resourceName: "checkbox_empty"), for: .normal)
         makeAsHistoryButton.setImage(#imageLiteral(resourceName: "checkbox_tick"), for: .selected)
@@ -347,7 +371,7 @@ class NewsFormView: UIView {
         makeAsHistoryButton.contentHorizontalAlignment = .left
         contentView.addSubview(makeAsHistoryButton)
         makeAsHistoryButton.snp.makeConstraints { (make) in
-            make.top.equalTo(self.tagsCollectionView.snp.bottom).offset(App.Layout.itemSpacingSmall)
+            make.top.equalTo(self.makeAsPressServiceButton.snp.bottom).offset(App.Layout.itemSpacingSmall)
             make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.height.equalTo(40)
