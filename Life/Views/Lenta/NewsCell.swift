@@ -101,7 +101,11 @@ class NewsCell: ASCellNode {
     }
 
     init(viewModel: LentaItemViewModel) {
-        self.image = viewModel.item.imageStreamId ?? viewModel.item.image
+        if viewModel.item.entityType.code != .questionnaire {
+            self.image = viewModel.item.image
+        } else {
+            self.image = viewModel.item.imageStreamId ?? viewModel.item.image
+        }
 
         super.init()
 
