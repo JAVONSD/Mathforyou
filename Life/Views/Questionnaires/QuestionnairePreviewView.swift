@@ -243,6 +243,7 @@ class QuestionnairePreviewView: UIView {
     }
 
     private func setupSpinner() {
+        spinner.isHidden = true
         addSubview(spinner)
         spinner.snp.makeConstraints { (make) in
             make.center.equalTo(self)

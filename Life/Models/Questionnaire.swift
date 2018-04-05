@@ -75,7 +75,10 @@ struct Questionnaire: Codable, Hashable {
             key: .interviewedUsersQuantity,
             defaultValue: 0
         )
-        self.isCurrentUserInterviewed = try container.decodeWrapper(key: .isCurrentUserInterviewed, defaultValue: false)
+        self.isCurrentUserInterviewed = try container.decodeWrapper(
+            key: .isCurrentUserInterviewed,
+            defaultValue: false
+        )
     }
 
     func encode(with aCoder: NSCoder) {

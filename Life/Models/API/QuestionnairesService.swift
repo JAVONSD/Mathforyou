@@ -16,9 +16,9 @@ enum QuestionnairesService {
     case addAnswer(
         id: String,
         questionId: String,
-        variantId: String,
+        variantIds: [String],
         isCommented: Bool,
-        commenteText: String
+        commentText: String
     )
     case questionnaireShortInfo(id: String)
     case questionnaireStatistics(id: String)
@@ -78,14 +78,14 @@ extension QuestionnairesService: AuthorizedTargetType {
         case .addAnswer(
             _,
             _,
-            let variantId,
+            let variantIds,
             let isCommented,
-            let commenteText):
+            let commentText):
             return .requestParameters(
                 parameters: [
-                    "userAnswerVariantIds": [variantId],
+                    "userAnswerVariantIds": variantIds,
                     "isCommented": isCommented,
-                    "userAnswerCommentText": commenteText
+                    "userAnswerCommentText": commentText
                 ],
                 encoding: JSONEncoding.default
             )

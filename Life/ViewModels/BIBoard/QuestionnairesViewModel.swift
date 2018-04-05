@@ -57,7 +57,9 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
                 switch response {
                 case .success(let json):
                     if let questionnaires = try? JSONDecoder().decode([Questionnaire].self, from: json.data) {
-                        self.topQuestionnaires = questionnaires.map { QuestionnaireViewModel(questionnaire: $0) }
+                        self.topQuestionnaires = questionnaires.map {
+                            QuestionnaireViewModel(questionnaire: $0)
+                        }
 
                         completion(nil)
 
@@ -136,7 +138,8 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
 
                 switch response {
                 case .success(let json):
-                    if let questionnaireItems = try? JSONDecoder().decode([Questionnaire].self, from: json.data) {
+                    if let questionnaireItems = try? JSONDecoder()
+                        .decode([Questionnaire].self, from: json.data) {
                         let items = questionnaireItems.map { QuestionnaireViewModel(questionnaire: $0) }
                         if !reset && !self.usingCached {
                             self.questionnaires.append(contentsOf: items)
@@ -147,7 +150,7 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
 
                         self.canLoadMore = items.count >= self.rows
                         if self.canLoadMore {
-                            self.offset += 1
+                            self.offset += self.rows
                         }
 
                         completion(nil)

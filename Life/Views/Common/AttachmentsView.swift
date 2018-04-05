@@ -57,7 +57,10 @@ class AttachmentsView: UIView {
         attachments.append(attachment)
 
         collectionView.performBatchUpdates({
-            collectionView.insertItemsAtIndexPaths([IndexPath(item: index, section: 0)], animationStyle: .automatic)
+            collectionView.insertItemsAtIndexPaths(
+                [IndexPath(item: index, section: 0)],
+                animationStyle: .automatic
+            )
         }, completion: nil)
     }
 
@@ -76,7 +79,10 @@ class AttachmentsView: UIView {
 
         collectionView.performBatchUpdates({
             for idx in 0..<attachments.count {
-                collectionView.insertItemsAtIndexPaths([IndexPath(item: index + idx, section: 0)], animationStyle: .automatic)
+                collectionView.insertItemsAtIndexPaths(
+                    [IndexPath(item: index + idx, section: 0)],
+                    animationStyle: .automatic
+                )
             }
         }, completion: nil)
     }
@@ -111,7 +117,9 @@ extension AttachmentsView: UICollectionViewDataSource {
         return attachments.count + 1
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let aCell = collectionView.dequeueReusableCell(
             withReuseIdentifier: App.CellIdentifier.attachmentCellId,
             for: indexPath

@@ -240,5 +240,11 @@
 "question_count" = "Questions";
 "answered_employee_count" = "Respondents";
 "questionnaire_type" = "Type";
+"questionnaire" = "Questionnaire";
+"back" = "Back";
+"next" = "Next";
+"finish" = "Finish";
+"other_in_comment" = "Other in comment";
+"write_comment" = "Write comment";
 
 

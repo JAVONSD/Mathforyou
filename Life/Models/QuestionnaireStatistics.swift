@@ -14,6 +14,7 @@ struct QuestionnaireStatistics: Codable {
     var createDate: String
     var authorCode: String
     var authorName: String
+    var name: String
     var questions: [QuestionnaireQuestionStatistics]
 
     // MARK: - Decodable
@@ -23,6 +24,7 @@ struct QuestionnaireStatistics: Codable {
         case createDate
         case authorCode
         case authorName
+        case name
         case questions
     }
 
@@ -33,6 +35,7 @@ struct QuestionnaireStatistics: Codable {
         self.createDate = try container.decodeWrapper(key: .createDate, defaultValue: "")
         self.authorCode = try container.decodeWrapper(key: .authorCode, defaultValue: "")
         self.authorName = try container.decodeWrapper(key: .authorName, defaultValue: "")
+        self.name = try container.decodeWrapper(key: .name, defaultValue: "")
         self.questions = try container.decodeWrapper(key: .questions, defaultValue: [])
     }
 
@@ -41,6 +44,7 @@ struct QuestionnaireStatistics: Codable {
         aCoder.encode(createDate, forKey: "createDate")
         aCoder.encode(authorCode, forKey: "authorCode")
         aCoder.encode(authorName, forKey: "authorName")
+        aCoder.encode(name, forKey: "name")
         aCoder.encode(questions, forKey: "questions")
     }
 
@@ -93,6 +97,7 @@ extension QuestionnaireStatistics: Persistable {
         createDate = managedObject.createDate
         authorCode = managedObject.authorCode
         authorName = managedObject.authorName
+        name = managedObject.name
         questions = managedObject.questions.map { QuestionnaireQuestionStatistics(managedObject: $0) }
     }
 
@@ -102,6 +107,7 @@ extension QuestionnaireStatistics: Persistable {
         object.createDate = createDate
         object.authorCode = authorCode
         object.authorName = authorName
+        object.name = name
         object.questions.append(objectsIn: questions.map { $0.managedObject() })
         return object
     }

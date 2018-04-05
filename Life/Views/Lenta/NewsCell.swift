@@ -92,7 +92,11 @@ class NewsCell: ASCellNode {
 
         viewsNode = ASTextNode()
         viewsNode.maximumNumberOfLines = 1
-        viewsNode.attributedText = attDetailText("\(viewModel.item.viewsQuantity)")
+        if viewModel.item.entityType.code != .questionnaire {
+            viewsNode.attributedText = attDetailText("\(viewModel.item.viewsQuantity)")
+        } else {
+            viewsNode.attributedText = attDetailText("\(viewModel.item.questionsQuantity)")
+        }
         backgroundNode.addSubnode(viewsNode)
     }
 

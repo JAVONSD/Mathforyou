@@ -147,6 +147,7 @@ struct App {
         static let suggestionCellId = "suggestionCellId"
         static let checkboxCellId = "checkboxCellId"
         static let attachmentCellId = "attachmentCellId"
+        static let imageCellId = "imageCellId"
 
     }
 
@@ -197,7 +198,7 @@ struct App {
     // MARK: - Realms & Configs
 
     struct RealmConfig {
-        private static let schemaVersion: UInt64 = 4
+        private static let schemaVersion: UInt64 = 5
         private static let docs = FileManager.default.urls(
             for: .documentDirectory, in: .userDomainMask).first!
 

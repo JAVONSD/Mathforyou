@@ -240,5 +240,11 @@
 "question_count" = "Вопросов";
 "answered_employee_count" = "Опрошенных";
 "questionnaire_type" = "Тип";
+"questionnaire" = "Опрос";
+"back" = "Назад";
+"next" = "Далее";
+"finish" = "Завершить";
+"other_in_comment" = "Другое в комментарии";
+"write_comment" = "Написать комментарии";
 
 

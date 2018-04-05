@@ -407,6 +407,11 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         }
     }
 
+    private func openQuestionnaire(id: String, loadOnlyStatistics: Bool) {
+        let vc = QuestionnaireViewController(questionnaireId: id, loadOnlyStatistics: loadOnlyStatistics)
+        present(vc, animated: true, completion: nil)
+    }
+
     // MARK: - FABMenuDelegate
 
     func fabMenuWillOpen(fabMenu: FABMenu) {
@@ -470,10 +475,10 @@ extension LentaViewController: ListAdapterDataSource {
             guard !(self?.fabMenu.isOpened ?? false) else { return }
             let vc = QuestionnairePreviewController(questionnaireId: id)
             vc.didTapViewStatistics = { [weak self] in
-                print("View questionnaire statistics tapped ...")
+                self?.openQuestionnaire(id: id, loadOnlyStatistics: true)
             }
             vc.didTapPass = { [weak self] in
-                print("Pass questionnaire tapped ...")
+                self?.openQuestionnaire(id: id, loadOnlyStatistics: false)
             }
             let popup = PopupDialog(viewController: vc)
             let containerAppearance = PopupDialogContainerView.appearance()

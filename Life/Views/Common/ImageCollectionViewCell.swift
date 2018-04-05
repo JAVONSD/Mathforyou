@@ -14,11 +14,18 @@ import SnapKit
 class ImageCollectionViewCell: CollectionViewCell {
 
     private(set) var imageView: UIImageView?
+    private(set) lazy var collectionOverlayView = UIView()
 
     var imageRadius: CGFloat = 0 {
         didSet {
             imageView?.layer.cornerRadius = imageRadius
             imageView?.layer.masksToBounds = imageRadius != 0
+        }
+    }
+
+    var overlayColor: UIColor = .clear {
+        didSet {
+            collectionOverlayView.backgroundColor = overlayColor
         }
     }
 
@@ -54,6 +61,13 @@ class ImageCollectionViewCell: CollectionViewCell {
         imageView.snp.makeConstraints { [weak self] (make) in
             guard let `self` = self else { return }
             make.edges.equalTo(self)
+        }
+
+        collectionOverlayView.backgroundColor = .clear
+        collectionOverlayView.isUserInteractionEnabled = false
+        imageView.addSubview(collectionOverlayView)
+        collectionOverlayView.snp.makeConstraints { (make) in
+            make.edges.equalTo(imageView)
         }
     }
 

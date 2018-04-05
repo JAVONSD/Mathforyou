@@ -297,6 +297,14 @@
 		C7CE70DA2070CB1F00333779 /* LabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CE70D92070CB1F00333779 /* LabelNode.swift */; };
 		C7D5BEC32075004D00A8F37F /* QuestionnairePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BEC22075004D00A8F37F /* QuestionnairePreviewController.swift */; };
 		C7D5BEC5207500C200A8F37F /* QuestionnairePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BEC4207500C200A8F37F /* QuestionnairePreviewView.swift */; };
+		C7D5BEC82075242400A8F37F /* QuestionnaireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BEC72075242400A8F37F /* QuestionnaireView.swift */; };
+		C7D5BECA2075243600A8F37F /* QuestionnaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BEC92075243600A8F37F /* QuestionnaireViewController.swift */; };
+		C7D5BECC2075262A00A8F37F /* QuestionnairePollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BECB2075262A00A8F37F /* QuestionnairePollView.swift */; };
+		C7D5BECE2075264100A8F37F /* QuestionnaireStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BECD2075264100A8F37F /* QuestionnaireStatisticsView.swift */; };
+		C7D5BED02075270D00A8F37F /* QuestionnaireHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BECF2075270D00A8F37F /* QuestionnaireHeaderView.swift */; };
+		C7D5BED42075398000A8F37F /* InsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BED32075398000A8F37F /* InsetLabel.swift */; };
+		C7D5BED72075C81E00A8F37F /* QuestionnaireStatisticsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BED62075C81E00A8F37F /* QuestionnaireStatisticsItemView.swift */; };
+		C7D5BED92075C9A400A8F37F /* QuestionStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BED82075C9A400A8F37F /* QuestionStatisticsView.swift */; };
 		C7D6419C20340750001DCA98 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419B20340750001DCA98 /* AuthService.swift */; };
 		C7D6419E20340777001DCA98 /* EmployeesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419D20340777001DCA98 /* EmployeesService.swift */; };
 		C7D641A020340789001DCA98 /* EventsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D6419F20340789001DCA98 /* EventsService.swift */; };
@@ -745,6 +753,14 @@
 		C7CE70D92070CB1F00333779 /* LabelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNode.swift; sourceTree = "<group>"; };
 		C7D5BEC22075004D00A8F37F /* QuestionnairePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnairePreviewController.swift; sourceTree = "<group>"; };
 		C7D5BEC4207500C200A8F37F /* QuestionnairePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnairePreviewView.swift; sourceTree = "<group>"; };
+		C7D5BEC72075242400A8F37F /* QuestionnaireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireView.swift; sourceTree = "<group>"; };
+		C7D5BEC92075243600A8F37F /* QuestionnaireViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireViewController.swift; sourceTree = "<group>"; };
+		C7D5BECB2075262A00A8F37F /* QuestionnairePollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnairePollView.swift; sourceTree = "<group>"; };
+		C7D5BECD2075264100A8F37F /* QuestionnaireStatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestionnaireStatisticsView.swift; path = /Users/chika/Documents/Projects/Life/Life/Views/Questionnaires/QuestionnaireStatisticsView.swift; sourceTree = "<absolute>"; };
+		C7D5BECF2075270D00A8F37F /* QuestionnaireHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireHeaderView.swift; sourceTree = "<group>"; };
+		C7D5BED32075398000A8F37F /* InsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetLabel.swift; sourceTree = "<group>"; };
+		C7D5BED62075C81E00A8F37F /* QuestionnaireStatisticsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireStatisticsItemView.swift; sourceTree = "<group>"; };
+		C7D5BED82075C9A400A8F37F /* QuestionStatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionStatisticsView.swift; sourceTree = "<group>"; };
 		C7D6419B20340750001DCA98 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		C7D6419D20340777001DCA98 /* EmployeesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeesService.swift; sourceTree = "<group>"; };
 		C7D6419F20340789001DCA98 /* EventsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsService.swift; sourceTree = "<group>"; };
@@ -1328,6 +1344,7 @@
 				C7CE70D92070CB1F00333779 /* LabelNode.swift */,
 				C74F26A92074757B00C68EC7 /* AttachmentsView.swift */,
 				C74F26AB207478D700C68EC7 /* AttachmentCollectionViewCell.swift */,
+				C7D5BED32075398000A8F37F /* InsetLabel.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1625,6 +1642,12 @@
 			isa = PBXGroup;
 			children = (
 				C7D5BEC4207500C200A8F37F /* QuestionnairePreviewView.swift */,
+				C7D5BEC72075242400A8F37F /* QuestionnaireView.swift */,
+				C7D5BECF2075270D00A8F37F /* QuestionnaireHeaderView.swift */,
+				C7D5BECB2075262A00A8F37F /* QuestionnairePollView.swift */,
+				C7D5BECD2075264100A8F37F /* QuestionnaireStatisticsView.swift */,
+				C7D5BED62075C81E00A8F37F /* QuestionnaireStatisticsItemView.swift */,
+				C7D5BED82075C9A400A8F37F /* QuestionStatisticsView.swift */,
 			);
 			path = Questionnaires;
 			sourceTree = "<group>";
@@ -1633,6 +1656,7 @@
 			isa = PBXGroup;
 			children = (
 				C7D5BEC22075004D00A8F37F /* QuestionnairePreviewController.swift */,
+				C7D5BEC92075243600A8F37F /* QuestionnaireViewController.swift */,
 			);
 			path = Questionnaires;
 			sourceTree = "<group>";
@@ -2137,7 +2161,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Shyngys Kassymov";
 				TargetAttributes = {
 					C76EFB49202E91F000FA2BB9 = {
@@ -2488,6 +2512,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C7AB6F74204BE8F500328E17 /* UIViewController+Extension.swift in Sources */,
+				C7D5BECC2075262A00A8F37F /* QuestionnairePollView.swift in Sources */,
 				C73EB29E2032F9B100429921 /* IdentifiableType.swift in Sources */,
 				C7D6421D203463E0001DCA98 /* Step.swift in Sources */,
 				C7F7CB63203C5F18007B9D1E /* KPISectionController.swift in Sources */,
@@ -2534,6 +2559,7 @@
 				C70ECFD1203AB83800710DB5 /* SlideCell.swift in Sources */,
 				C7AB6F72204BE8F500328E17 /* FileService.swift in Sources */,
 				C7A2745E20539A840026B549 /* TagObject.swift in Sources */,
+				C7D5BED92075C9A400A8F37F /* QuestionStatisticsView.swift in Sources */,
 				C7D832CE2035C53600282891 /* EmployeesView.swift in Sources */,
 				C73EB2A12032F9B100429921 /* AnimatableSectionModel.swift in Sources */,
 				C79251E6203148AF00CDFBBA /* PlansViewController.swift in Sources */,
@@ -2555,6 +2581,7 @@
 				C7D64216203463E0001DCA98 /* NextFlowItem.swift in Sources */,
 				C73EB2A32032F9B100429921 /* ItemPath.swift in Sources */,
 				C79251F520317A6100CDFBBA /* AppToolbarController.swift in Sources */,
+				C7D5BECA2075243600A8F37F /* QuestionnaireViewController.swift in Sources */,
 				C7AB6F66204BE8F500328E17 /* Item.swift in Sources */,
 				C7F7CB41203B10D3007B9D1E /* Event.swift in Sources */,
 				C7AB6F6B204BE8F500328E17 /* Result.swift in Sources */,
@@ -2607,6 +2634,7 @@
 				C7AB6F6D204BE8F500328E17 /* DirectoryViewController.swift in Sources */,
 				C70ECFD3203AC56B00710DB5 /* SuggestionsSectionController.swift in Sources */,
 				C7D832BD203596AA00282891 /* UIViewController+Extensions.swift in Sources */,
+				C7D5BED72075C81E00A8F37F /* QuestionnaireStatisticsItemView.swift in Sources */,
 				C79251E0203145E200CDFBBA /* ProfileViewController.swift in Sources */,
 				C717C67F203D89010070447D /* EmployeeView.swift in Sources */,
 				C7D64219203463E0001DCA98 /* UIViewController+Rx.swift in Sources */,
@@ -2635,6 +2663,7 @@
 				C7AB6F82204BE8F500328E17 /* ActionsViewController.swift in Sources */,
 				C73748872060AF45004DA267 /* ContactsService.swift in Sources */,
 				C7F7CB75203C75B4007B9D1E /* ImageNode.swift in Sources */,
+				C7D5BEC82075242400A8F37F /* QuestionnaireView.swift in Sources */,
 				C7D641F02034466B001DCA98 /* AppFlow.swift in Sources */,
 				C73EB28B2032F9B100429921 /* Array+Extensions.swift in Sources */,
 				C73EB28C2032F9B100429921 /* AnimationConfiguration.swift in Sources */,
@@ -2770,7 +2799,9 @@
 				C73EB2932032F9B100429921 /* Deprecated.swift in Sources */,
 				C7BB5C7B20401A870056BBF9 /* SuggestionFormViewController.swift in Sources */,
 				C7F7CB33203AE98A007B9D1E /* Question.swift in Sources */,
+				C7D5BED42075398000A8F37F /* InsetLabel.swift in Sources */,
 				C716D7FD204D82BC00C80912 /* TaskFormView.swift in Sources */,
+				C7D5BED02075270D00A8F37F /* QuestionnaireHeaderView.swift in Sources */,
 				C7BB5C5D203EFA6A0056BBF9 /* CommentViewModel.swift in Sources */,
 				C76EFBC82030201B00FA2BB9 /* GradientView.swift in Sources */,
 				C7A27458205383930026B549 /* TaskActionObject.swift in Sources */,
@@ -2813,6 +2844,7 @@
 				C720AC89204EFB3000767473 /* VacancyObject.swift in Sources */,
 				C7F7CB45203B138D007B9D1E /* EventsViewModel.swift in Sources */,
 				C76EFBEB20302F8C00FA2BB9 /* InterfaceBuilderSupport.swift in Sources */,
+				C7D5BECE2075264100A8F37F /* QuestionnaireStatisticsView.swift in Sources */,
 				C7BB5C6D203FD6810056BBF9 /* SuggestionSectionController.swift in Sources */,
 				C79251EB2031532E00CDFBBA /* MyInfoView.swift in Sources */,
 				C76EFBE420302F8C00FA2BB9 /* ValueState.swift in Sources */,
@@ -2913,6 +2945,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -2920,6 +2953,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -2971,6 +3005,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -2978,6 +3013,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

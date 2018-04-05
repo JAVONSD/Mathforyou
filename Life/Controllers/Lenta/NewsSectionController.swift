@@ -145,8 +145,6 @@ extension NewsSectionController: ASSectionController {
         }
 
         DispatchQueue.main.async {
-            let itemsCount = self.items.count
-
             if viewModel.currentFilter == .news {
                 viewModel.newsViewModel.fetchNextPage({ [weak self] (error) in
                     guard let `self` = self,
@@ -174,12 +172,6 @@ extension NewsSectionController: ASSectionController {
 
                     self.set(items: items, animated: false, completion: {
                         context.completeBatchFetching(true)
-
-                        if itemsCount == 0 {
-                            if let vc = self.viewController as? LentaViewController {
-                                vc.collectionNode.reloadData()
-                            }
-                        }
                     })
                 })
                 return
@@ -212,12 +204,6 @@ extension NewsSectionController: ASSectionController {
 
                     self.set(items: items, animated: false, completion: {
                         context.completeBatchFetching(true)
-
-                        if itemsCount == 0 {
-                            if let vc = self.viewController as? LentaViewController {
-                                vc.collectionNode.reloadData()
-                            }
-                        }
                     })
                 })
                 return
@@ -245,17 +231,13 @@ extension NewsSectionController: ASSectionController {
                     }
 
                     let items = viewModel.questionnairesViewModel.questionnaires.map {
-                        LentaItemViewModel(lenta: Lenta(questionnaire: $0.questionnaire, authorIsCurrent: false))
-                        } as [ListDiffable]
+                        LentaItemViewModel(
+                            lenta: Lenta(questionnaire: $0.questionnaire, authorIsCurrent: false)
+                        )
+                    } as [ListDiffable]
 
                     self.set(items: items, animated: false, completion: {
                         context.completeBatchFetching(true)
-
-                        if itemsCount == 0 {
-                            if let vc = self.viewController as? LentaViewController {
-                                vc.collectionNode.reloadData()
-                            }
-                        }
                     })
                 })
                 return
@@ -283,12 +265,6 @@ extension NewsSectionController: ASSectionController {
 
                 self.set(items: viewModel.items, animated: false, completion: {
                     context.completeBatchFetching(true)
-
-                    if itemsCount == 0 {
-                        if let vc = self.viewController as? LentaViewController {
-                            vc.collectionNode.reloadData()
-                        }
-                    }
                 })
             })
         }

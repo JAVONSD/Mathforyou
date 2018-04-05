@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:/Users/chika/Documents/Projects/Life/Life/Views/Questionnaires/QuestionnaireStatisticsView.swift">
+   </FileRef>
+   <FileRef
       location = "group:Life.xcodeproj">
    </FileRef>
    <FileRef

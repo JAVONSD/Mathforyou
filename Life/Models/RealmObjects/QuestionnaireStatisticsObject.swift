@@ -14,6 +14,7 @@ class QuestionnaireStatisticsObject: Object {
     @objc dynamic var createDate: String = ""
     @objc dynamic var authorCode: String = ""
     @objc dynamic var authorName: String = ""
+    @objc dynamic var name: String = ""
     let questions = List<QuestionnaireQuestionStatisticsObject>()
 
     override static func primaryKey() -> String? {

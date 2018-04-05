@@ -177,9 +177,9 @@ extension BoardSliderCell: ASCollectionDataSource, ASCollectionDelegate {
         let currentPage = max(min(Int(page), slides.count - 1), 0)
         self.pageControl.currentPage = currentPage
 
-        for i in 0..<slides.count {
-            if let cell = collectionNode.nodeForItem(at: IndexPath(item: i, section: 0)) as? SlideCell {
-                let centerX = CGFloat(i + 1) * width / 2 + CGFloat(i) * width / 2
+        for idx in 0..<slides.count {
+            if let cell = collectionNode.nodeForItem(at: IndexPath(item: idx, section: 0)) as? SlideCell {
+                let centerX = CGFloat(idx + 1) * width / 2 + CGFloat(idx) * width / 2
                 let offset = centerX - currentX
                 let percentage = offset / scrollView.contentSize.width
                 let maxOffsetDistance = scrollView.contentSize.width

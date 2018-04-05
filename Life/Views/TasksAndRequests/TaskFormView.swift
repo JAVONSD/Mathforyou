@@ -319,7 +319,8 @@ class TaskFormView: UIView {
         addAttachmentButton.contentHorizontalAlignment = .left
         contentView.addSubview(addAttachmentButton)
         addAttachmentButton.snp.makeConstraints { (make) in
-            self.attachmentButtonTopConstraint = make.top.equalTo(self.textField.snp.bottom).offset(App.Layout.itemSpacingSmall).constraint
+            self.attachmentButtonTopConstraint = make.top.equalTo(self.textField.snp.bottom)
+                .offset(App.Layout.itemSpacingSmall).constraint
             make.left.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.right.equalTo(self.contentView).inset(App.Layout.sideOffset)
             make.height.equalTo(40)

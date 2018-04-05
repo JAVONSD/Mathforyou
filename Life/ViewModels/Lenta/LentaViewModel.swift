@@ -129,7 +129,7 @@ class LentaViewModel: NSObject {
 
                         self.canLoadMore = items.count >= self.rows
                         if self.canLoadMore {
-                            self.offset += 1
+                            self.offset += self.rows
                         }
 
                         completion(nil)
