@@ -89,10 +89,10 @@ class PlansViewController: UIViewController {
 
         let dataSource = self.dataSource
 
-        let sectionModels = plansViewModel.sections.map {
-            SectionModel(model: $0, items: $0.plans)
-        }
-        let items = Observable.just(sectionModels)
+//        let sectionModels = plansViewModel.sections.map {
+//            SectionModel(model: $0, items: $0.plans)
+//        }
+        let items = PublishSubject<[SectionModel<PlansSectionViewModel, PlanViewModel>]>().asObservable()
 
         items
             .bind(to: tableView.rx.items(dataSource: dataSource))

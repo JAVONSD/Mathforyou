@@ -8,6 +8,9 @@ target 'Life' do
   # Date tools
   pod 'DateToolsSwift', '~> 4.0'
 
+  # Empty state
+  pod 'DZNEmptyDataSet', '~> 1.8'
+
   # Color management
   pod 'Hue', '~> 3.0'
 

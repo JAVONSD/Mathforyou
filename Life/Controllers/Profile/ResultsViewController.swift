@@ -92,10 +92,10 @@ class ResultsViewController: UIViewController {
 
         let dataSource = self.dataSource
 
-        let sectionModels = resultsViewModel.sections.map {
-            SectionModel(model: $0, items: $0.results)
-        }
-        let items = Observable.just(sectionModels)
+//        let sectionModels = resultsViewModel.sections.map {
+//            SectionModel(model: $0, items: $0.results)
+//        }
+        let items = PublishSubject<[SectionModel<ResultsSectionViewModel, ResultViewModel>]>().asObservable()
 
         items
             .bind(to: tableView.rx.items(dataSource: dataSource))

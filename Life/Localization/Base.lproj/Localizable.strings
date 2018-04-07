@@ -67,6 +67,7 @@
 "last_visit" = "Last visit";
 "nearest_visit" = "Nearest visit";
 "no_data" = "No data";
+"section_still_in_dev_text" = "This section is in development. Sorry for the inconvenience.";
 
 /* Errors */
 

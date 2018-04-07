@@ -4,6 +4,7 @@ PODS:
   - DateToolsSwift (4.0.0)
   - DBCameraButton (1.0.0)
   - DynamicBlurView (2.0.2)
+  - DZNEmptyDataSet (1.8.1)
   - Hue (3.0.1)
   - IGListKit (3.0.0):
     - IGListKit/Default (= 3.0.0)
@@ -87,6 +88,7 @@ PODS:
 
 DEPENDENCIES:
   - DateToolsSwift (~> 4.0)
+  - DZNEmptyDataSet (~> 1.8)
   - Hue (~> 3.0)
   - IGListKit (= 3.0.0)
   - IQKeyboardManagerSwift (~> 5.0)
@@ -115,6 +117,7 @@ SPEC CHECKSUMS:
   DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
   DBCameraButton: 969d585df804df5b413936a7bf5d77c562ca2307
   DynamicBlurView: aa6db4defc6e537eb86fc5e58dd3991666178399
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   Hue: 93e852fa6211ab35922ad8c293f51c43d6c79eb2
   IGListKit: 9eab6856a15fa25ad72018ff9d9eb2178c240fff
   Imaginary: 9b45836a5af881f452a86e0a1215772ae4712d00
@@ -146,6 +149,6 @@ SPEC CHECKSUMS:
   UITextField_AutoSuggestion: dca08de21c8de3f6054dda085087a04b5b326208
   Yoga: 81670877477311136b1b3f69a6307ce62e1c89cf
 
-PODFILE CHECKSUM: bb40cb1a2c490b798990fd01cfc2982e7ec44b5e
+PODFILE CHECKSUM: df6c2e4a683f8ba7cc00e259a1d0e92e2a54c1c9
 
 COCOAPODS: 1.4.0

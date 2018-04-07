@@ -80,6 +80,7 @@
 "select_executor" = "Select executor";
 "add_participants" = "Add participants";
 "task_type" = "Task type";
+"section_still_in_dev_text" = "This section is in development. Sorry for the inconvenience.";
 
 /* Errors */
 

@@ -75,6 +75,7 @@
 "fifteen_minutes" = "15 минут";
 "thirty_minutes" = "30 минут";
 "one_hour" = "1 час";
+"section_still_in_dev_text" = "Данный раздел в разработке. Приносим свои извинения за предоставленные неудобства.";
 
 /* Errors */
 

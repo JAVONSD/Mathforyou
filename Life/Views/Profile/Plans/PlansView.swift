@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DZNEmptyDataSet
 import Material
 import SnapKit
 
@@ -49,6 +50,8 @@ class PlansView: UIView {
         )
         tableView.separatorColor = .clear
         tableView.separatorStyle = .none
+        tableView.emptyDataSetSource = self
+        tableView.emptyDataSetDelegate = self
 
         addSubview(tableView)
         tableView.snp.makeConstraints { [weak self] (make) in
@@ -103,5 +106,28 @@ extension PlansView: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView(frame: .init(x: 0, y: 0, width: 1, height: 0.001))
+    }
+}
+
+extension PlansView: DZNEmptyDataSetSource {
+    func image(forEmptyDataSet scrollView: UIScrollView!) -> UIImage! {
+        return #imageLiteral(resourceName: "ic_config")
+    }
+
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let text = NSLocalizedString("section_still_in_dev_text", comment: "")
+        let attText = NSMutableAttributedString(string: text)
+
+        let allRange = NSRange(location: 0, length: attText.length)
+        attText.addAttribute(.font, value: App.Font.subhead, range: allRange)
+        attText.addAttribute(.foregroundColor, value: App.Color.black, range: allRange)
+
+        return attText
+    }
+}
+
+extension PlansView: DZNEmptyDataSetDelegate {
+    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        return true
     }
 }
