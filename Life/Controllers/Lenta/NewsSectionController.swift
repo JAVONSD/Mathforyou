@@ -20,6 +20,8 @@ class NewsSectionController: ASCollectionSectionController {
 
     var onUnathorizedError: (() -> Void)?
 
+    var didUpdateContents: (() -> Void)?
+
     var didTapNews: ((String) -> Void)?
     var didTapSuggestion: ((String) -> Void)?
     var didTapQuestionnaire: ((String) -> Void)?
@@ -83,6 +85,8 @@ class NewsSectionController: ASCollectionSectionController {
         case .questionnaires:
             loadQuestionnaires()
         }
+
+        didUpdateContents?()
     }
 
     private func loadAll() {
@@ -147,6 +151,8 @@ extension NewsSectionController: ASSectionController {
         DispatchQueue.main.async {
             if viewModel.currentFilter == .news {
                 viewModel.newsViewModel.fetchNextPage({ [weak self] (error) in
+                    self?.didUpdateContents?()
+
                     guard let `self` = self,
                         let viewModel = self.viewModel,
                         !viewModel.newsViewModel.loading.value else { return }
@@ -179,6 +185,8 @@ extension NewsSectionController: ASSectionController {
 
             if viewModel.currentFilter == .suggestions {
                 viewModel.suggestionsViewModel.fetchNextPage({ [weak self] (error) in
+                    self?.didUpdateContents?()
+
                     guard let `self` = self,
                         let viewModel = self.viewModel,
                         !viewModel.suggestionsViewModel.loading.value else { return }
@@ -211,6 +219,8 @@ extension NewsSectionController: ASSectionController {
 
             if viewModel.currentFilter == .questionnaires {
                 viewModel.questionnairesViewModel.fetchNextPage({ [weak self] (error) in
+                    self?.didUpdateContents?()
+
                     guard let `self` = self,
                         let viewModel = self.viewModel,
                         !viewModel.questionnairesViewModel.loading.value else { return }
@@ -244,6 +254,8 @@ extension NewsSectionController: ASSectionController {
             }
 
             viewModel.fetchNextPage({ [weak self] (error) in
+                self?.didUpdateContents?()
+
                 guard let `self` = self,
                     let viewModel = self.viewModel,
                     !viewModel.loading.value else { return }
@@ -323,7 +335,9 @@ extension NewsSectionController: RefreshingSectionControllerType {
         }
 
         if viewModel.currentFilter == .news {
-            viewModel.newsViewModel.reload { [weak self]  (error) in
+            viewModel.newsViewModel.reload { [weak self] (error) in
+                self?.didUpdateContents?()
+
                 guard let `self` = self,
                     let viewModel = self.viewModel else { return }
 
@@ -347,7 +361,9 @@ extension NewsSectionController: RefreshingSectionControllerType {
         }
 
         if viewModel.currentFilter == .suggestions {
-            viewModel.suggestionsViewModel.reload { [weak self]  (error) in
+            viewModel.suggestionsViewModel.reload { [weak self] (error) in
+                self?.didUpdateContents?()
+
                 guard let `self` = self,
                     let viewModel = self.viewModel else { return }
 
@@ -371,7 +387,9 @@ extension NewsSectionController: RefreshingSectionControllerType {
         }
 
         if viewModel.currentFilter == .questionnaires {
-            viewModel.questionnairesViewModel.reload { [weak self]  (error) in
+            viewModel.questionnairesViewModel.reload { [weak self] (error) in
+                self?.didUpdateContents?()
+
                 guard let `self` = self,
                     let viewModel = self.viewModel else { return }
 
@@ -395,6 +413,8 @@ extension NewsSectionController: RefreshingSectionControllerType {
         }
 
         viewModel.reload { [weak self] (error) in
+            self?.didUpdateContents?()
+
             guard let `self` = self,
                 let viewModel = self.viewModel else { return }
 

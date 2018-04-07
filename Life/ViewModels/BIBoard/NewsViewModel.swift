@@ -18,6 +18,7 @@ class NewsViewModel: NSObject, ListDiffable {
     private(set) var top3News = [NewsItemViewModel]()
 
     var minimized = true
+    var didLoad = true
 
     private var offset = 0
     private let rows = 10
@@ -159,6 +160,7 @@ class NewsViewModel: NSObject, ListDiffable {
             .filterSuccessfulStatusCodes()
             .subscribe { response in
                 self.loading.accept(false)
+                self.didLoad = true
 
                 switch response {
                 case .success(let json):

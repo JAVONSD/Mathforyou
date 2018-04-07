@@ -25,6 +25,7 @@ struct News: Codable, Hashable {
     var viewsQuantity: Int
     var isHistoryEvent: Bool
     var isFromSharepoint: Bool
+    var isPublishedAsGroup: Bool
     var comments: [Comment]
     var secondaryImages: [Image]
     var tags: [Tag]
@@ -47,6 +48,7 @@ struct News: Codable, Hashable {
         case viewsQuantity
         case isHistoryEvent
         case isFromSharepoint
+        case isPublishedAsGroup
         case comments
         case secondaryImages
         case tags
@@ -73,6 +75,7 @@ struct News: Codable, Hashable {
         self.viewsQuantity = try container.decodeWrapper(key: .viewsQuantity, defaultValue: 0)
         self.isHistoryEvent = try container.decodeWrapper(key: .isHistoryEvent, defaultValue: false)
         self.isFromSharepoint = try container.decodeWrapper(key: .isFromSharepoint, defaultValue: false)
+        self.isPublishedAsGroup = try container.decodeWrapper(key: .isPublishedAsGroup, defaultValue: false)
         self.comments = try container.decodeWrapper(key: .comments, defaultValue: [])
         self.secondaryImages = try container.decodeWrapper(key: .secondaryImages, defaultValue: [])
         self.tags = try container.decodeWrapper(key: .tags, defaultValue: [])
@@ -94,6 +97,7 @@ struct News: Codable, Hashable {
         aCoder.encode(viewsQuantity, forKey: "viewsQuantity")
         aCoder.encode(isHistoryEvent, forKey: "isHistoryEvent")
         aCoder.encode(isFromSharepoint, forKey: "isFromSharepoint")
+        aCoder.encode(isPublishedAsGroup, forKey: "isPublishedAsGroup")
         aCoder.encode(comments, forKey: "comments")
         aCoder.encode(secondaryImages, forKey: "secondaryImages")
         aCoder.encode(tags, forKey: "tags")
@@ -133,6 +137,7 @@ extension News: Persistable {
         viewsQuantity = managedObject.viewsQuantity
         isHistoryEvent = managedObject.isHistoryEvent
         isFromSharepoint = managedObject.isFromSharepoint
+        isPublishedAsGroup = managedObject.isPublishedAsGroup
         comments = managedObject.comments.map { Comment(managedObject: $0) }
         secondaryImages = managedObject.secondaryImages.map { Image(managedObject: $0) }
         tags = managedObject.tags.map { Tag(managedObject: $0) }
@@ -155,6 +160,7 @@ extension News: Persistable {
         object.viewsQuantity = viewsQuantity
         object.isHistoryEvent = isHistoryEvent
         object.isFromSharepoint = isFromSharepoint
+        object.isPublishedAsGroup = isPublishedAsGroup
         object.comments.append(objectsIn: comments.map { $0.managedObject() })
         object.secondaryImages.append(objectsIn: secondaryImages.map { $0.managedObject() })
         object.tags.append(objectsIn: tags.map { $0.managedObject() })

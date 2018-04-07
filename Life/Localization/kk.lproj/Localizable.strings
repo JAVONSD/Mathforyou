@@ -108,6 +108,10 @@
 "suggestion" = "Предложение";
 "loading_employees" = "Загрузка списка сотрудников";
 "no_internet_connection" = "Нет соединения с интернетом";
+"no_lenta_data" = "Нет данных";
+"no_news_data" = "Нет новостей";
+"no_suggestions_data" = "Нет предложений";
+"no_questionnaires_data" = "Нет опросов";
 
 /* Notifications */
 

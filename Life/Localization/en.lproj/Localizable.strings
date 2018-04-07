@@ -121,6 +121,10 @@
 "suggestion" = "Suggestion";
 "loading_employees" = "Loading employee list";
 "no_internet_connection" = "No internet connection";
+"no_lenta_data" = "No feed data";
+"no_news_data" = "No news data";
+"no_suggestions_data" = "No suggestions data";
+"no_questionnaires_data" = "No questionnaires data";
 
 /* Notifications */
 

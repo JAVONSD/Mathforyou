@@ -64,10 +64,12 @@ class NewsBodyNode: ASDisplayNode {
 
         super.init()
 
-        authorImageNode = ASNetworkImageNode()
-        authorImageNode.cornerRadius = App.Layout.cornerRadiusSmall
-        authorImageNode.image = #imageLiteral(resourceName: "ic-user")
-        addSubnode(authorImageNode)
+        if !news.isPublishedAsGroup {
+            authorImageNode = ASNetworkImageNode()
+            authorImageNode.cornerRadius = App.Layout.cornerRadiusSmall
+            authorImageNode.image = #imageLiteral(resourceName: "ic-user")
+            addSubnode(authorImageNode)
+        }
 
         authorNameNode = ASTextNode()
         authorNameNode.attributedText = attAuthorName(news.authorName)
@@ -205,14 +207,20 @@ class NewsBodyNode: ASDisplayNode {
     }
 
     private func authorSpec() -> ASLayoutSpec {
-        authorImageNode.style.preferredSize = CGSize(width: 40, height: 40)
+        if !news.isPublishedAsGroup {
+            authorImageNode.style.preferredSize = CGSize(width: 40, height: 40)
+        }
 
         let nameDateSpec = ASStackLayoutSpec.vertical()
         nameDateSpec.children = [authorNameNode, dateNode]
         nameDateSpec.spacing = App.Layout.itemSpacingSmall / 2
 
         let stackSpec = ASStackLayoutSpec.horizontal()
-        stackSpec.children = [authorImageNode, nameDateSpec]
+        if !news.isPublishedAsGroup {
+            stackSpec.children = [authorImageNode, nameDateSpec]
+        } else {
+            stackSpec.children = [nameDateSpec]
+        }
         stackSpec.spacing = App.Layout.itemSpacingMedium
         stackSpec.alignItems = .center
 
@@ -277,6 +285,8 @@ class NewsBodyNode: ASDisplayNode {
 
     override func didLoad() {
         super.didLoad()
+
+        guard !news.isPublishedAsGroup else { return }
 
         ImageDownloader.download(
             image: "",

@@ -34,15 +34,18 @@ class NewsCell: ASCellNode {
     private(set) var viewsIconNode: ASImageNode!
     private(set) var viewsNode: ASTextNode!
 
+    private let item: Lenta
     private let image: String
 
     fileprivate func setupHeader(_ viewModel: LentaItemViewModel) {
         self.viewModel = viewModel
 
-        authorAvatarNode = ASNetworkImageNode()
-        authorAvatarNode.cornerRadius = 8
-        authorAvatarNode.image = #imageLiteral(resourceName: "ic-user")
-        backgroundNode.addSubnode(authorAvatarNode)
+        if !item.isPublishedAsGroup {
+            authorAvatarNode = ASNetworkImageNode()
+            authorAvatarNode.cornerRadius = 8
+            authorAvatarNode.image = #imageLiteral(resourceName: "ic-user")
+            backgroundNode.addSubnode(authorAvatarNode)
+        }
 
         createDateNode = ASTextNode()
         createDateNode.attributedText = attDetailText(viewModel.timeAgo)
@@ -101,6 +104,8 @@ class NewsCell: ASCellNode {
     }
 
     init(viewModel: LentaItemViewModel) {
+        self.item = viewModel.item
+
         if viewModel.item.entityType.code != .questionnaire {
             self.image = viewModel.item.image
         } else {
@@ -148,12 +153,14 @@ class NewsCell: ASCellNode {
 
         guard let viewModel = self.viewModel else { return }
 
-        ImageDownloader.download(
-            image: "",
-            employeeCode: viewModel.item.authorCode,
-            placeholderImage: #imageLiteral(resourceName: "ic-user"),
-            size: CGSize(width: 40, height: 40)) { (image) in
-            self.authorAvatarNode.image = image
+        if !item.isPublishedAsGroup {
+            ImageDownloader.download(
+                image: "",
+                employeeCode: viewModel.item.authorCode,
+                placeholderImage: #imageLiteral(resourceName: "ic-user"),
+                size: CGSize(width: 40, height: 40)) { (image) in
+                self.authorAvatarNode.image = image
+            }
         }
 
         ImageDownloader.download(image: image) { (image) in
@@ -221,7 +228,9 @@ class NewsCell: ASCellNode {
     }
 
     private func layoutHeader() -> ASLayoutSpec {
-        authorAvatarNode.style.preferredSize = CGSize(width: 40, height: 40)
+        if !item.isPublishedAsGroup {
+            authorAvatarNode.style.preferredSize = CGSize(width: 40, height: 40)
+        }
         shareNode.style.preferredSize = CGSize(width: 40, height: 40)
 
         authorNameNode.style.maxWidth = ASDimension(
@@ -241,10 +250,14 @@ class NewsCell: ASCellNode {
         userDateStack.spacing = 5
 
         let avatarUserDateStack = ASStackLayoutSpec.horizontal()
-        avatarUserDateStack.children = [
-            authorAvatarNode,
-            userDateStack
-        ]
+        if !item.isPublishedAsGroup {
+            avatarUserDateStack.children = [
+                authorAvatarNode,
+                userDateStack
+            ]
+        } else {
+            avatarUserDateStack.children = [userDateStack]
+        }
         avatarUserDateStack.spacing = 16
 
         let headerStack = ASStackLayoutSpec.horizontal()

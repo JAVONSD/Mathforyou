@@ -44,6 +44,7 @@ struct Lenta: Decodable, Hashable {
     var isLikedByMe: Bool
     var viewsQuantity: Int
     var isFromSharepoint: Bool
+    var isPublishedAsGroup: Bool
     var entityType: LentaType
 
     init(news: News, authorIsCurrent: Bool = true) {
@@ -66,6 +67,7 @@ struct Lenta: Decodable, Hashable {
         self.isLikedByMe = news.isLikedByMe
         self.viewsQuantity = news.viewsQuantity
         self.isFromSharepoint = news.isFromSharepoint
+        self.isPublishedAsGroup = news.isPublishedAsGroup
         self.entityType = .init(name: "News", code: .news)
     }
 
@@ -89,6 +91,7 @@ struct Lenta: Decodable, Hashable {
         self.isLikedByMe = suggestion.userVote == .liked
         self.viewsQuantity = suggestion.viewsQuantity
         self.isFromSharepoint = false
+        self.isPublishedAsGroup = false
         self.entityType = .init(name: "Suggestion", code: .suggestion)
     }
 
@@ -112,6 +115,7 @@ struct Lenta: Decodable, Hashable {
         self.isLikedByMe = false
         self.viewsQuantity = 0
         self.isFromSharepoint = false
+        self.isPublishedAsGroup = questionnaire.isPublishedAsGroup
         self.entityType = .init(name: "Questionnaire", code: .questionnaire)
     }
 
@@ -135,6 +139,7 @@ struct Lenta: Decodable, Hashable {
         case isLikedByMe
         case viewsQuantity
         case isFromSharepoint
+        case isPublishedAsGroup
         case entityType
     }
 
@@ -161,6 +166,7 @@ struct Lenta: Decodable, Hashable {
         self.isLikedByMe = try container.decodeWrapper(key: .isLikedByMe, defaultValue: false)
         self.viewsQuantity = try container.decodeWrapper(key: .viewsQuantity, defaultValue: 0)
         self.isFromSharepoint = try container.decodeWrapper(key: .isFromSharepoint, defaultValue: false)
+        self.isPublishedAsGroup = try container.decodeWrapper(key: .isPublishedAsGroup, defaultValue: false)
         self.entityType = try container.decodeWrapper(
             key: .entityType,
             defaultValue: LentaType(name: "News", code: .news)
@@ -202,6 +208,7 @@ extension Lenta: Persistable {
         isLikedByMe = managedObject.isLikedByMe
         viewsQuantity = managedObject.viewsQuantity
         isFromSharepoint = managedObject.isFromSharepoint
+        isPublishedAsGroup = managedObject.isPublishedAsGroup
 
         let entityType = managedObject.entityType ?? LentaTypeObject()
         self.entityType = LentaType(managedObject: entityType)
@@ -226,6 +233,7 @@ extension Lenta: Persistable {
         object.isLikedByMe = isLikedByMe
         object.viewsQuantity = viewsQuantity
         object.isFromSharepoint = isFromSharepoint
+        object.isPublishedAsGroup = isPublishedAsGroup
         object.entityType = entityType.managedObject()
         return object
     }

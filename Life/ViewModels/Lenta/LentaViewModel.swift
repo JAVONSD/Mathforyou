@@ -54,6 +54,7 @@ class LentaViewModel: NSObject {
     private(set) var canLoadMore = true
     let loading = BehaviorRelay<Bool>(value: false)
     private var usingCached = false
+    private(set) var didLoad = false
     private(set) var didLoadFromCache = false
 
     private(set) var newsViewModel = NewsViewModel()
@@ -118,6 +119,8 @@ class LentaViewModel: NSObject {
 
                 switch response {
                 case .success(let json):
+                    self.didLoad = true
+
                     if let lentaItems = try? JSONDecoder().decode([Lenta].self, from: json.data) {
                         let items = lentaItems.map { LentaItemViewModel(lenta: $0) }
                         if !reset && !self.usingCached {

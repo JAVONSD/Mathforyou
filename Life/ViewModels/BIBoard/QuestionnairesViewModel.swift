@@ -135,6 +135,7 @@ class QuestionnairesViewModel: NSObject, ListDiffable {
             .filterSuccessfulStatusCodes()
             .subscribe { response in
                 self.loading.accept(false)
+                self.didLoad = true
 
                 switch response {
                 case .success(let json):

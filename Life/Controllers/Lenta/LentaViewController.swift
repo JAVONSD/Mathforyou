@@ -8,6 +8,7 @@
 
 import UIKit
 import AsyncDisplayKit
+import DZNEmptyDataSet
 import IGListKit
 import Material
 import Moya
@@ -19,6 +20,8 @@ import RxCocoa
 import SnapKit
 
 class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Stepper {
+
+    private let topInset: CGFloat = 240
 
     private var listAdapter: ListAdapter!
     private(set) var collectionNode: ASCollectionNode!
@@ -95,7 +98,7 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
             spinnerSpec.justifyContent = .center
 
             let spinnerInsetSpect = ASInsetLayoutSpec(
-                insets: .init(top: 240 / 2, left: 0, bottom: 0, right: 0),
+                insets: .init(top: self.topInset / 2, left: 0, bottom: 0, right: 0),
                 child: spinnerSpec
             )
 
@@ -118,10 +121,12 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         collectionNode.view.backgroundColor = App.Color.whiteSmoke
         collectionNode.view.alwaysBounceVertical = true
         collectionNode.view.scrollIndicatorInsets = .init(
-            top: 240,
+            top: topInset,
             left: 0,
             bottom: 0,
             right: 0)
+        collectionNode.view.emptyDataSetSource = self
+        collectionNode.view.emptyDataSetDelegate = self
 
         refreshCtrl = UIRefreshControl()
         refreshCtrl.addTarget(self, action: #selector(refreshFeed), for: .valueChanged)
@@ -195,9 +200,12 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
             .subscribe(onNext: { [weak self] loading in
                 guard let `self` = self else { return }
 
-                if self.viewModel.currentFilter == .all,
-                    self.viewModel.items.isEmpty {
-                    loading ? self.spinner.startAnimating() : self.spinner.stopAnimating()
+                if self.viewModel.currentFilter == .all {
+                    if self.viewModel.items.isEmpty && loading {
+                        self.spinner.startAnimating()
+                    } else {
+                        self.spinner.stopAnimating()
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -207,9 +215,12 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
             .subscribe(onNext: { [weak self] loading in
                 guard let `self` = self else { return }
 
-                if self.viewModel.currentFilter == .news,
-                    self.viewModel.newsViewModel.news.isEmpty {
-                    loading ? self.spinner.startAnimating() : self.spinner.stopAnimating()
+                if self.viewModel.currentFilter == .news {
+                    if self.viewModel.newsViewModel.news.isEmpty, loading {
+                        self.spinner.startAnimating()
+                    } else {
+                        self.spinner.stopAnimating()
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -219,9 +230,12 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
             .subscribe(onNext: { [weak self] loading in
                 guard let `self` = self else { return }
 
-                if self.viewModel.currentFilter == .suggestions,
-                    self.viewModel.suggestionsViewModel.suggestions.isEmpty {
-                    loading ? self.spinner.startAnimating() : self.spinner.stopAnimating()
+                if self.viewModel.currentFilter == .suggestions {
+                    if self.viewModel.suggestionsViewModel.suggestions.isEmpty, loading {
+                        self.spinner.startAnimating()
+                    } else {
+                        self.spinner.stopAnimating()
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -231,9 +245,12 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
             .subscribe(onNext: { [weak self] loading in
                 guard let `self` = self else { return }
 
-                if self.viewModel.currentFilter == .questionnaires,
-                    self.viewModel.questionnairesViewModel.questionnaires.isEmpty {
-                    loading ? self.spinner.startAnimating() : self.spinner.stopAnimating()
+                if self.viewModel.currentFilter == .questionnaires {
+                    if self.viewModel.questionnairesViewModel.questionnaires.isEmpty, loading {
+                        self.spinner.startAnimating()
+                    } else {
+                        self.spinner.stopAnimating()
+                    }
                 }
             })
             .disposed(by: disposeBag)
@@ -488,13 +505,87 @@ extension LentaViewController: ListAdapterDataSource {
         section.onUnathorizedError = { [weak self] in
             self?.onUnauthorized()
         }
-        section.didFinishLoad = {
-            self.spinner.isHidden = true
+        section.didUpdateContents = {
+            DispatchQueue.main.async { [weak self] in
+                self?.collectionNode.view.reloadEmptyDataSet()
+            }
         }
         return section
     }
 
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
+    }
+}
+
+extension LentaViewController: DZNEmptyDataSetSource {
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        var text = ""
+        switch viewModel.currentFilter {
+        case .all:
+            text = NSLocalizedString("no_lenta_data", comment: "")
+        case .news:
+            text = NSLocalizedString("no_news_data", comment: "")
+        case .suggestions:
+            text = NSLocalizedString("no_suggestions_data", comment: "")
+        case .questionnaires:
+            text = NSLocalizedString("no_questionnaires_data", comment: "")
+        }
+
+        let attText = NSMutableAttributedString(string: text)
+
+        let allRange = NSRange(location: 0, length: attText.length)
+        attText.addAttribute(.font, value: App.Font.subhead, range: allRange)
+        attText.addAttribute(.foregroundColor, value: App.Color.black, range: allRange)
+
+        return attText
+    }
+}
+
+extension LentaViewController: DZNEmptyDataSetDelegate {
+    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        switch viewModel.currentFilter {
+        case .all:
+            return !viewModel.loading.value
+                && viewModel.didLoad
+        case .news:
+            return !viewModel.newsViewModel.loading.value
+                && viewModel.newsViewModel.didLoad
+        case .suggestions:
+            return !viewModel.suggestionsViewModel.loading.value
+                && viewModel.suggestionsViewModel.didLoad
+        case .questionnaires:
+            return !viewModel.questionnairesViewModel.loading.value
+                && viewModel.questionnairesViewModel.didLoad
+        }
+    }
+
+    func emptyDataSetShouldBeForced(toDisplay scrollView: UIScrollView!) -> Bool {
+        switch viewModel.currentFilter {
+        case .all:
+            return !viewModel.loading.value
+                && viewModel.didLoad
+                && viewModel.items.isEmpty
+        case .news:
+            return !viewModel.newsViewModel.loading.value
+                && viewModel.newsViewModel.didLoad
+                && viewModel.newsViewModel.news.isEmpty
+        case .suggestions:
+            return !viewModel.suggestionsViewModel.loading.value
+                && viewModel.suggestionsViewModel.didLoad
+                && viewModel.suggestionsViewModel.suggestions.isEmpty
+        case .questionnaires:
+            return !viewModel.questionnairesViewModel.loading.value
+                && viewModel.questionnairesViewModel.didLoad
+                && viewModel.questionnairesViewModel.questionnaires.isEmpty
+        }
+    }
+
+    func verticalOffset(forEmptyDataSet scrollView: UIScrollView!) -> CGFloat {
+        return topInset / 2
+    }
+
+    func emptyDataSetShouldAllowScroll(_ scrollView: UIScrollView!) -> Bool {
+        return true
     }
 }

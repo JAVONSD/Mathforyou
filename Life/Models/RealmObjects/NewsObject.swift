@@ -25,6 +25,7 @@ class NewsObject: Object {
     @objc dynamic var viewsQuantity: Int = 0
     @objc dynamic var isHistoryEvent: Bool = false
     @objc dynamic var isFromSharepoint: Bool = false
+    @objc dynamic var isPublishedAsGroup: Bool = false
     let comments = List<CommentObject>()
     let secondaryImages = List<ImageObject>()
     let tags = List<TagObject>()
