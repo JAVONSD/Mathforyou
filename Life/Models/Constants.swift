@@ -160,6 +160,8 @@ struct App {
         static let userEmployeeCode = "userEmployeeCode"
         static let userProfile = "userProfile"
         static let userRoles = "userRoles"
+        static let useTouchOrFaceIdToLogin = "useTouchOrFaceIdToLogin"
+        static let loginCredentialsIdentifier = "org.bi-group.life.login-credentials"
     }
 
     // MARK: - Fields
@@ -192,7 +194,7 @@ struct App {
         case production
 
         static var current: Environment {
-            return .development
+            return .production
         }
     }
 

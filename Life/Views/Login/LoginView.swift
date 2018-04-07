@@ -145,6 +145,10 @@ class LoginView: UIView, UITextFieldDelegate, MaskedTextFieldDelegateListener {
         phoneField.autocapitalizationType = .none
         phoneField.delegate = self
 
+        if #available(iOS 11.0, *) {
+            phoneField.textContentType = .username
+        }
+
 //        phoneField.delegate = maskFormatter
 
 //        maskFormatter.put(text: "+7 ", into: phoneField)
@@ -166,6 +170,10 @@ class LoginView: UIView, UITextFieldDelegate, MaskedTextFieldDelegateListener {
         passwordField?.visibilityIconButton?.tintColor = App.Color.azure
         passwordField?.isVisibilityIconButtonEnabled = true
         passwordField?.delegate = self
+
+        if #available(iOS 11.0, *) {
+            passwordField?.textContentType = .password
+        }
 
         guard let passwordField = passwordField,
             let phoneField = phoneField else {

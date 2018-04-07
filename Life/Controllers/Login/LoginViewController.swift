@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import BiometricAuthentication
+import KeychainAccess
 import Material
 import Moya
 import RxSwift
@@ -38,6 +40,8 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
 
             isUnauthorized = false
         }
+
+        promptBiometricLoginIfEnabled()
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -128,17 +132,89 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
         })
     }
 
-    private func onLogin(json: Response) {
+    private func loginWithSavedCredentials() {
+        let keychain = Keychain(service: App.Key.loginCredentialsIdentifier)
+
+        let login = UserDefaults.standard.string(forKey: App.Key.userLogin) ?? ""
+        let password = keychain[string: login] ?? ""
+
+        self.loginView.loginButton?.buttonState = .loading
+        self.viewModel.login(
+            login,
+            password: password,
+            completion: { [weak self] (response: SingleEvent<Response>) in
+                self?.loginView.loginButton?.buttonState = .normal
+
+                switch response {
+                case .success(let json):
+                    self?.onLogin(json: json, saveCredentials: false)
+                case .error(let error):
+                    self?.onLogin(error: error)
+                }
+        })
+    }
+
+    private func onLogin(json: Response, saveCredentials: Bool = true) {
+        saveUser(json)
+
+        if saveCredentials,
+            BioMetricAuthenticator.canAuthenticate()
+            && !UserDefaults.standard.bool(forKey: App.Key.useTouchOrFaceIdToLogin) {
+            promptToUseTouchOrFaceId()
+        } else {
+            if User.current.isAuthenticated {
+                step.accept(AppStep.mainMenu)
+            }
+        }
+    }
+
+    private func promptToUseTouchOrFaceId() {
+        var title = NSLocalizedString("use_touch__to_login_q", comment: "")
+        if BioMetricAuthenticator.shared.faceIDAvailable() {
+            title = NSLocalizedString("use_face_id_to_login_q", comment: "")
+        }
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        alert.popoverPresentationController?.sourceView = view
+
+        let saveAction = UIAlertAction(
+            title: NSLocalizedString("yes", comment: ""),
+            style: .default) { [weak self] (_) in
+                guard let `self` = self else { return }
+
+                UserDefaults.standard.set(true, forKey: App.Key.useTouchOrFaceIdToLogin)
+                UserDefaults.standard.synchronize()
+
+                let login = self.loginView.phoneField?.text ?? ""
+                let password = self.loginView.passwordField?.text ?? ""
+
+                let keychain = Keychain(service: App.Key.loginCredentialsIdentifier)
+                keychain[login] = password
+
+                if User.current.isAuthenticated {
+                    self.step.accept(AppStep.mainMenu)
+                }
+            }
+        alert.addAction(saveAction)
+
+        let cancelAction = UIAlertAction(
+            title: NSLocalizedString("skip", comment: ""),
+            style: .cancel) { [weak self] _ in
+                if User.current.isAuthenticated {
+                    self?.step.accept(AppStep.mainMenu)
+                }
+            }
+        alert.addAction(cancelAction)
+
+        present(alert, animated: true, completion: nil)
+    }
+
+    private func saveUser(_ json: Response) {
         if let user = try? JSONDecoder().decode(User.self, from: json.data) {
             User.current.token = user.token
             User.current.login = user.login
             User.current.employeeCode = user.employeeCode
             User.current.roles = user.roles
             User.current.save()
-        }
-
-        if User.current.isAuthenticated {
-            self.step.accept(AppStep.mainMenu)
         }
     }
 
@@ -151,6 +227,89 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
         if let error = errorMessages[App.Field.default] {
             showToast(error, position: .top)
         }
+    }
+
+    private func promptBiometricLoginIfEnabled() {
+        guard UserDefaults.standard.bool(forKey: App.Key.useTouchOrFaceIdToLogin) else {
+            return
+        }
+
+        let isFaceIdAvailable = BioMetricAuthenticator.shared.faceIDAvailable()
+
+        var reason = NSLocalizedString("kTouchIdAuthenticationReason", comment: "")
+        if isFaceIdAvailable {
+            reason = NSLocalizedString("kFaceIdAuthenticationReason", comment: "")
+        }
+
+        let fallbackTitle = NSLocalizedString("enter_manually", comment: "")
+
+        BioMetricAuthenticator.authenticateWithBioMetrics(
+            reason: reason,
+            fallbackTitle: fallbackTitle,
+            success: { [weak self] in
+                self?.loginWithSavedCredentials()
+            },
+            failure: { [weak self] (error) in
+                self?.handleBiometric(error: error, isFaceIdAvailable: isFaceIdAvailable)
+            }
+        )
+    }
+
+    private func handleBiometric(error: AuthenticationError, isFaceIdAvailable: Bool, isPasscode: Bool = false) {
+        if error == .canceledByUser || error == .canceledBySystem {
+            resetSavedUserLoginCredentials()
+            return
+        } else if error == .biometryNotAvailable {
+            let reason = NSLocalizedString("kBiometryNotAvailableReason", comment: "")
+            showErrorAlert(reason)
+        } else if error == .fallback {
+            resetSavedUserLoginCredentials()
+
+            _ = loginView.phoneField?.becomeFirstResponder()
+        } else if error == .biometryNotEnrolled {
+            var reason = NSLocalizedString("kNoFingerprintEnrolled", comment: "")
+            if isFaceIdAvailable {
+                reason = NSLocalizedString("kNoFaceIdentityEnrolled", comment: "")
+            }
+
+            if isPasscode {
+                reason = NSLocalizedString("kSetPasscodeToUseTouchID", comment: "")
+                if isFaceIdAvailable {
+                    reason = NSLocalizedString("kSetPasscodeToUseFaceID", comment: "")
+                }
+            }
+
+            showErrorAlert(reason)
+        } else if error == .biometryLockedout {
+            var reason = NSLocalizedString("kTouchIdPasscodeAuthenticationReason", comment: "")
+            if isFaceIdAvailable {
+                reason = NSLocalizedString("kFaceIdPasscodeAuthenticationReason", comment: "")
+            }
+
+            BioMetricAuthenticator.authenticateWithPasscode(
+                reason: reason,
+                success: { [weak self] in
+                    self?.loginWithSavedCredentials()
+                },
+                failure: { [weak self] (error) in
+                    self?.handleBiometric(error: error, isFaceIdAvailable: isFaceIdAvailable, isPasscode: true)
+                }
+            )
+        } else {
+            var reason = NSLocalizedString("kDefaultTouchIDAuthenticationFailedReason", comment: "")
+            if isFaceIdAvailable {
+                reason = NSLocalizedString("kDefaultFaceIDAuthenticationFailedReason", comment: "")
+            }
+            showErrorAlert(reason)
+        }
+    }
+
+    private func resetSavedUserLoginCredentials() {
+        UserDefaults.standard.set(false, forKey: App.Key.useTouchOrFaceIdToLogin)
+        UserDefaults.standard.synchronize()
+
+        let keychain = Keychain(service: App.Key.loginCredentialsIdentifier)
+        try? keychain.removeAll()
     }
 
 }

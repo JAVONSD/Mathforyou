@@ -5,6 +5,9 @@ inhibit_all_warnings!
 target 'Life' do
   use_frameworks!
 
+  # Biometric authentication
+  pod 'BiometricAuthentication', '~> 1.0'
+
   # Date tools
   pod 'DateToolsSwift', '~> 4.0'
 
@@ -22,6 +25,9 @@ target 'Life' do
 
   # Media Picker
   pod 'IQMediaPickerController', '~> 1.0'
+
+  # Keychain wrapper
+  pod 'KeychainAccess', '~> 3.0'
 
   # Image Caching
   pod 'Kingfisher', '~> 4.0'

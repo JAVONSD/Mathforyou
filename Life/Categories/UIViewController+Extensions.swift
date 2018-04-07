@@ -21,6 +21,20 @@ enum ToastPosition {
 
 extension UIViewController {
 
+    // MARK: - Alert
+
+    func showErrorAlert(_ message: String) {
+        let alert = UIAlertController(
+            title: NSLocalizedString("error", comment: ""),
+            message: message,
+            preferredStyle: .alert
+        )
+        alert.popoverPresentationController?.sourceView = view
+        let cancelAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(cancelAction)
+        present(alert, animated: true, completion: nil)
+    }
+
     // MARK: - HUD
 
     func showHUD(title: String?) {

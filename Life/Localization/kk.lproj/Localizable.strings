@@ -16,6 +16,22 @@
 "help" = "Помощь";
 "bi_group_2017" = "BI Group %d";
 "you_are_unathorized_message" = "Ваша сессия истекла. Пожалуйста, авторизуйтесь снова.";
+"kBiometryNotAvailableReason" = "Для этого устройства биометрическая аутентификация недоступна.";
+"kTouchIdAuthenticationReason" = "Подтвердите свой отпечаток для входа.";
+"kTouchIdPasscodeAuthenticationReason" = "Touch ID теперь заблокирован из-за слишком большого числа неудачных попыток. Введите свой код доступа (Passcode), чтобы разблокировать Touch ID.";
+"kSetPasscodeToUseTouchID" = "Пожалуйста, установите код доступа к устройству для использования Touch ID для аутентификации.";
+"kNoFingerprintEnrolled" = "В устройстве нет отпечатков пальцев. Перейдите в Настройки -> Touch ID & Passcode и зарегистрируйте отпечатки пальцев.";
+"kDefaultTouchIDAuthenticationFailedReason" = "Touch ID не распознает ваш отпечаток. Повторите попытку с помощью зарегистрированного отпечатка пальца.";
+"kFaceIdAuthenticationReason" = "Подтвердите свое лицо для входа.";
+"kFaceIdPasscodeAuthenticationReason" = "Face ID теперь заблокирован из-за слишком большого числа неудачных попыток. Введите код доступа, чтобы разблокировать Face ID.";
+"kSetPasscodeToUseFaceID" = "Пожалуйста, установите код доступа к устройству, чтобы использовать Face ID для аутентификации.";
+"kNoFaceIdentityEnrolled" = "В устройстве нет лица. Перейдите в Настройки устройства -> Face ID и зарегистрируйте свое лицо.";
+"kDefaultFaceIDAuthenticationFailedReason" = "Face ID не распознает ваше лицо. Повторите попытку с вашим зарегистрированным лицом.";
+"use_touch__to_login_q" = "Использовать Touch ID для входа?";
+"use_face_id_to_login_q" = "Использовать Face ID для входа?";
+"yes" = "Да";
+"skip" = "Пропустить";
+"enter_manually" = "Ввести самому";
 
 /* Reset Password */
 
@@ -71,6 +87,7 @@
 
 /* Errors */
 
+"error" = "Ошибка";
 "bad_requet_error_message" = "Некорректный запрос";
 "unathorized_error_message" = "Вы не авторизованы";
 "time_out_error_message" = "Время запроса истекло";

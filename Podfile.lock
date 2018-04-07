@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.7.0)
+  - BiometricAuthentication (1.0.5)
   - Cache (4.1.2)
   - DateToolsSwift (4.0.0)
   - DBCameraButton (1.0.0)
@@ -17,6 +18,7 @@ PODS:
   - IQMediaPickerController (1.0.2):
     - DBCameraButton
     - SCSiriWaveformView
+  - KeychainAccess (3.1.0)
   - Kingfisher (4.6.3)
   - Lightbox (2.1.2):
     - Hue (~> 3.0)
@@ -87,12 +89,14 @@ PODS:
   - Yoga (1.6.0)
 
 DEPENDENCIES:
+  - BiometricAuthentication (~> 1.0)
   - DateToolsSwift (~> 4.0)
   - DZNEmptyDataSet (~> 1.8)
   - Hue (~> 3.0)
   - IGListKit (= 3.0.0)
   - IQKeyboardManagerSwift (~> 5.0)
   - IQMediaPickerController (~> 1.0)
+  - KeychainAccess (~> 3.0)
   - Kingfisher (~> 4.0)
   - Lightbox (~> 2.0)
   - Material (~> 2.0)
@@ -113,6 +117,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Alamofire: 907e0a98eb68cdb7f9d1f541a563d6ac5dc77b25
+  BiometricAuthentication: e80e99bf1fe871ab624172eb91f1ddbbc47499b5
   Cache: bd0233fc688b5e83a27bcd87807db7e6f23adcc5
   DateToolsSwift: 875d97ff9e3a5d54abdd67a269b3f51c757b71ab
   DBCameraButton: 969d585df804df5b413936a7bf5d77c562ca2307
@@ -123,6 +128,7 @@ SPEC CHECKSUMS:
   Imaginary: 9b45836a5af881f452a86e0a1215772ae4712d00
   IQKeyboardManagerSwift: 2e7dc7f98c111458c1ea2b373f893e8cf95e2b97
   IQMediaPickerController: 2fefdc3c6ba8fbaa246a9f906b05a441e949df58
+  KeychainAccess: 94c5540b32eabf7bc32bfb976a268e8ea05fd6da
   Kingfisher: 98e6d5b5e807645743e8ed5ececd25d688d38452
   Lightbox: 2dc267df8be2285bc7724cb11cbbf4aaaf59dced
   Material: c5bea030f57d4b903c5284200bb612d571c9ec03
@@ -149,6 +155,6 @@ SPEC CHECKSUMS:
   UITextField_AutoSuggestion: dca08de21c8de3f6054dda085087a04b5b326208
   Yoga: 81670877477311136b1b3f69a6307ce62e1c89cf
 
-PODFILE CHECKSUM: df6c2e4a683f8ba7cc00e259a1d0e92e2a54c1c9
+PODFILE CHECKSUM: f07eb3779b17415a686c80d267b351c6ec4c3f42
 
 COCOAPODS: 1.4.0
