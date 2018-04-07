@@ -148,6 +148,7 @@ struct App {
         static let checkboxCellId = "checkboxCellId"
         static let attachmentCellId = "attachmentCellId"
         static let imageCellId = "imageCellId"
+        static let dummyCellId = "dummyCellId"
 
     }
 

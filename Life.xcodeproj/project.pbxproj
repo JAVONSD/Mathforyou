@@ -50,6 +50,7 @@
 		C7310335205038B200E21672 /* VideoAnswerFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7310334205038B200E21672 /* VideoAnswerFooterView.swift */; };
 		C731033720503D1000E21672 /* CheckboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C731033620503D1000E21672 /* CheckboxCell.swift */; };
 		C73103392050405600E21672 /* AnswerFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73103382050405600E21672 /* AnswerFormViewController.swift */; };
+		C731AC1A2078834D00CD0708 /* EmptyTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C731AC192078834D00CD0708 /* EmptyTableViewController.swift */; };
 		C73748872060AF45004DA267 /* ContactsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73748862060AF45004DA267 /* ContactsService.swift */; };
 		C73997B0203A7A8F00C3981A /* SliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73997AF203A7A8F00C3981A /* SliderCell.swift */; };
 		C73EB2512032D71B00429921 /* ResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C73EB2502032D71B00429921 /* ResultsViewModel.swift */; };
@@ -491,6 +492,7 @@
 		C7310334205038B200E21672 /* VideoAnswerFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoAnswerFooterView.swift; sourceTree = "<group>"; };
 		C731033620503D1000E21672 /* CheckboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxCell.swift; sourceTree = "<group>"; };
 		C73103382050405600E21672 /* AnswerFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnswerFormViewController.swift; sourceTree = "<group>"; };
+		C731AC192078834D00CD0708 /* EmptyTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewController.swift; sourceTree = "<group>"; };
 		C73748862060AF45004DA267 /* ContactsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsService.swift; sourceTree = "<group>"; };
 		C73997AF203A7A8F00C3981A /* SliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderCell.swift; sourceTree = "<group>"; };
 		C73EB2502032D71B00429921 /* ResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewModel.swift; sourceTree = "<group>"; };
@@ -1918,6 +1920,7 @@
 			isa = PBXGroup;
 			children = (
 				C7D6423020346F5A001DCA98 /* MenuViewController.swift */,
+				C731AC192078834D00CD0708 /* EmptyTableViewController.swift */,
 				C7BB5C43203E85D30056BBF9 /* TopQuestions */,
 			);
 			path = Menu;
@@ -2728,6 +2731,7 @@
 				C717C67D203D4B1F0070447D /* TasksAndRequestsFABController.swift in Sources */,
 				C73EB2912032F9B100429921 /* String+IdentifiableType.swift in Sources */,
 				C73103392050405600E21672 /* AnswerFormViewController.swift in Sources */,
+				C731AC1A2078834D00CD0708 /* EmptyTableViewController.swift in Sources */,
 				C76EFBE620302F8C00FA2BB9 /* FixedState.swift in Sources */,
 				C73997B0203A7A8F00C3981A /* SliderCell.swift in Sources */,
 				C76EFBA42030056000FA2BB9 /* LoginView.swift in Sources */,

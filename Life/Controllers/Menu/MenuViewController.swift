@@ -110,8 +110,19 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
                 return (indexPath, dataSource[indexPath])
             }
             .subscribe(onNext: { [weak self] pair in
-                if pair.0.row == 3 {
+                if pair.0.row == 0 {
+                    let title = NSLocalizedString("Обучение", comment: "")
+                    self?.openEmptyScreen(with: title)
+                } else if pair.0.row == 1 {
+                    let title = NSLocalizedString("Развитие", comment: "")
+                    self?.openEmptyScreen(with: title)
+                } else if pair.0.row == 2 {
+                    let title = NSLocalizedString("BI Wiki", comment: "")
+                    self?.openEmptyScreen(with: title)
+                } else if pair.0.row == 3 {
 //                    self?.step.accept(AppStep.topQuestions)
+                    let title = NSLocalizedString("questions", comment: "")
+                    self?.openEmptyScreen(with: title)
                 } else if pair.0.row == 4 {
                     self?.askToConfirmLogout()
                 }
@@ -124,6 +135,12 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
     }
 
     // MARK: - Methods
+
+    private func openEmptyScreen(with title: String) {
+        let vc = EmptyTableViewController(style: .plain)
+        vc.title = title
+        parent?.navigationController?.pushViewController(vc, animated: true)
+    }
 
     private func askToConfirmLogout() {
         let alert = UIAlertController(
