@@ -10,11 +10,15 @@ import Foundation
 import Moya
 import RealmSwift
 import RxSwift
+import RxCocoa
 
 class NotificationsViewModel: NSObject, ViewModel {
-    private(set) var notifications = [NotificationViewModel]()
+    private(set) var notifications = BehaviorRelay<[NotificationViewModel]>(value: [])
 
     private let disposeBag = DisposeBag()
+
+    let loading = BehaviorRelay<Bool>(value: false)
+    let onError = PublishSubject<Error>()
 
     private let provider = MoyaProvider<NotificationsService>(
         plugins: [
@@ -26,40 +30,44 @@ class NotificationsViewModel: NSObject, ViewModel {
 
     convenience init(notifications: [NotificationViewModel]) {
         self.init()
-        self.notifications = notifications
+        self.notifications.accept(notifications)
     }
 
     // MARK: - Methods
 
-    public func getNotifications(completion: @escaping ((Error?) -> Void)) {
-        returnNotificationsFromCache(completion: completion)
+    public func getNotifications() {
+        loading.accept(true)
+
+        returnNotificationsFromCache()
 
         provider
             .rx
             .request(.notifications)
             .filterSuccessfulStatusCodes()
             .subscribe { response in
+                self.loading.accept(false)
+
                 switch response {
                 case .success(let json):
                     if let notifications = try? JSONDecoder().decode(
                         [Notification].self, from: json.data) {
-                        self.notifications = notifications.map { NotificationViewModel(notification: $0) }
-
-                        completion(nil)
+                        self.notifications.accept(
+                            notifications.map { NotificationViewModel(notification: $0) }
+                        )
 
                         self.updateNotificationsCache(notifications)
-                    } else {
-                        completion(nil)
                     }
                 case .error(let error):
-                    completion(error)
+                    self.onError.onNext(error)
                 }
             }
             .disposed(by: disposeBag)
     }
 
-    public func readNotification(_ id: String, completion: @escaping ((Error?) -> Void)) {
-        notifications = notifications.filter { $0.notification.id != id }
+    public func readNotification(_ id: String) {
+        self.notifications.accept(
+            self.notifications.value.filter { $0.notification.id != id }
+        )
 
         provider
             .rx
@@ -68,17 +76,15 @@ class NotificationsViewModel: NSObject, ViewModel {
             .subscribe { response in
                 switch response {
                 case .success:
-                    completion(nil)
-
                     self.deleteNotificationFromCache(id)
                 case .error(let error):
-                    completion(error)
+                    self.onError.onNext(error)
                 }
             }
             .disposed(by: disposeBag)
     }
 
-    private func returnNotificationsFromCache(completion: @escaping ((Error?) -> Void)) {
+    private func returnNotificationsFromCache() {
         DispatchQueue.global().async {
             do {
                 let realm = try App.Realms.default()
@@ -87,10 +93,12 @@ class NotificationsViewModel: NSObject, ViewModel {
                 let cachedTasks = Array(cachedTaskObjects).map { Notification(managedObject: $0) }
                 let items = cachedTasks.map { NotificationViewModel(notification: $0) }
 
-                self.notifications = items
-
                 DispatchQueue.main.async {
-                    completion(nil)
+                    if !items.isEmpty {
+                        self.loading.accept(false)
+                    }
+
+                    self.notifications.accept(items)
                 }
             } catch let error as NSError {
                 print("Failed to access the Realm database with error - \(error.localizedDescription)")

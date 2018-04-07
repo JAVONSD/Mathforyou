@@ -125,6 +125,7 @@
 /* Notifications */
 
 "notifications" = "Notifications";
+"no_new_notifications" = "No new notifications";
 
 /* Top Questions */
 

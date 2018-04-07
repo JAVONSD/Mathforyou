@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DZNEmptyDataSet
 import Material
 import Moya
 import RxSwift
@@ -22,8 +23,6 @@ class NotificationsViewController: UIViewController, ViewModelBased, Stepper {
     var viewModel: NotificationsViewModel!
 
     private var notificationsView: NotificationView!
-
-    private let itemsChangeSubject = PublishSubject<[NotificationViewModel]>()
 
     private let disposeBag = DisposeBag()
     private let dataSource =
@@ -60,21 +59,7 @@ class NotificationsViewController: UIViewController, ViewModelBased, Stepper {
         setupUI()
         bind()
 
-        notificationsView.startLoading()
-        viewModel.getNotifications { [weak self] error in
-            guard let `self` = self
-                else { return }
-
-            self.notificationsView.stopLoading()
-
-            if let moyaError = error as? MoyaError,
-                moyaError.response?.statusCode == 401,
-                let onUnathorizedError = self.onUnathorizedError {
-                onUnathorizedError()
-            } else {
-                self.itemsChangeSubject.onNext(self.viewModel.notifications)
-            }
-        }
+        viewModel.getNotifications()
     }
 
     // MARK: - Bind
@@ -84,7 +69,7 @@ class NotificationsViewController: UIViewController, ViewModelBased, Stepper {
 
         let dataSource = self.dataSource
 
-        let observable = itemsChangeSubject.asObservable()
+        let observable = viewModel.notifications.asObservable()
         let items = observable.concatMap { (items) in
             return Observable.just([SectionModel(model: self.viewModel!, items: items)])
         }
@@ -108,16 +93,8 @@ class NotificationsViewController: UIViewController, ViewModelBased, Stepper {
             .map { indexPath in
                 return (indexPath, dataSource[indexPath])
             }
-            .subscribe(onNext: { pair in
-                self.viewModel.readNotification(pair.1.notification.id, completion: { (error) in
-                    self.itemsChangeSubject.onNext(self.viewModel.notifications)
-
-                    if let moyaError = error as? MoyaError,
-                        moyaError.response?.statusCode == 401,
-                        let onUnathorizedError = self.onUnathorizedError {
-                        onUnathorizedError()
-                    }
-                })
+            .subscribe(onNext: { [weak self] pair in
+                self?.viewModel.readNotification(pair.1.notification.id)
             })
             .disposed(by: disposeBag)
 
@@ -125,7 +102,23 @@ class NotificationsViewController: UIViewController, ViewModelBased, Stepper {
             .setDelegate(notificationsView)
             .disposed(by: disposeBag)
 
-        itemsChangeSubject.onNext(viewModel.notifications)
+        viewModel.loading.observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] isLoading in
+                isLoading
+                    ? self?.notificationsView.startLoading()
+                    : self?.notificationsView.stopLoading()
+            })
+            .disposed(by: disposeBag)
+
+        viewModel.onError.observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] error in
+                if let moyaError = error as? MoyaError,
+                    moyaError.response?.statusCode == 401,
+                    let onUnathorizedError = self?.onUnathorizedError {
+                    onUnathorizedError()
+                }
+            })
+            .disposed(by: disposeBag)
     }
 
     // MARK: - UI
@@ -141,6 +134,8 @@ class NotificationsViewController: UIViewController, ViewModelBased, Stepper {
         notificationsView.didTapCloseButton = { [weak self] in
             self?.step.accept(AppStep.notificationsDone)
         }
+        notificationsView.tableView?.emptyDataSetSource = self
+        notificationsView.tableView?.emptyDataSetDelegate = self
         view.addSubview(notificationsView)
         notificationsView.snp.makeConstraints({ [weak self] (make) in
             guard let `self` = self else { return }
@@ -151,4 +146,23 @@ class NotificationsViewController: UIViewController, ViewModelBased, Stepper {
         })
     }
 
+}
+
+extension NotificationsViewController: DZNEmptyDataSetSource {
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let text = NSLocalizedString("no_new_notifications", comment: "")
+        let attText = NSMutableAttributedString(string: text)
+
+        let allRange = NSRange(location: 0, length: attText.length)
+        attText.addAttribute(.font, value: App.Font.subhead, range: allRange)
+        attText.addAttribute(.foregroundColor, value: App.Color.black, range: allRange)
+
+        return attText
+    }
+}
+
+extension NotificationsViewController: DZNEmptyDataSetDelegate {
+    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        return !viewModel.loading.value
+    }
 }

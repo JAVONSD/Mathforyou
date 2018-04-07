@@ -120,6 +120,7 @@
 /* Notifications */
 
 "notifications" = "Уведомления";
+"no_new_notifications" = "Нет новых уведомлений";
 
 /* Top Questions */
 
