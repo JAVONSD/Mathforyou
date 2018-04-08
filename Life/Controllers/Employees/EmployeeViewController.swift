@@ -90,6 +90,72 @@ class EmployeeViewController: UIViewController, ViewModelBased, Stepper {
         present(controller, animated: true, completion: nil)
     }
 
+    private func openShareSheet() {
+        let actionSheet = UIAlertController(
+            title: NSLocalizedString("choose_option", comment: ""),
+            message: nil,
+            preferredStyle: .actionSheet
+        )
+
+        actionSheet.addAction(
+            UIAlertAction(
+                title: NSLocalizedString("share_contact", comment: ""),
+                style: .default,
+                handler: { [weak self] _ in
+                    self?.shareContact()
+                }
+            )
+        )
+
+        if !self.viewModel.contactsService.isContactExists(for: self.viewModel.employee) {
+            actionSheet.addAction(
+                UIAlertAction(
+                    title: NSLocalizedString("add_to_contacts", comment: ""),
+                    style: .default,
+                    handler: { [weak self] _ in
+                        guard let `self` = self,
+                            let navVC = self.navigationController else { return }
+                        self.viewModel.contactsService.contactSaveCompletion = { _ in }
+                        self.viewModel.contactsService.save(
+                            employee: self.viewModel.employee,
+                            presentIn: navVC
+                        )
+                    }
+                )
+            )
+        }
+
+        actionSheet.addAction(
+            UIAlertAction(
+                title: NSLocalizedString("cancel", comment: ""),
+                style: .cancel,
+                handler: nil
+            )
+        )
+
+        present(actionSheet, animated: true, completion: nil)
+    }
+
+    private func shareContact() {
+        let shareText =
+        """
+        ФИО: "\(viewModel.employee.fullname)"
+        Должность: \(viewModel.employee.jobPosition)
+        День рождения: \(viewModel.employee.birthDate.prettyDateString(format: "dd MMMM"))
+        Рабочий телефон: \(viewModel.employee.workPhoneNumber)
+        Эл. почта: \(viewModel.employee.email)
+        """
+
+        let shareItems = [shareText]
+        let activityViewController = UIActivityViewController(
+            activityItems: shareItems,
+            applicationActivities: nil
+        )
+        activityViewController.popoverPresentationController?.sourceView = self.view
+
+        present(activityViewController, animated: true, completion: nil)
+    }
+
     // MARK: - UI
 
     private func setupUI() {
@@ -118,18 +184,7 @@ class EmployeeViewController: UIViewController, ViewModelBased, Stepper {
             }
         }
         employeeView.didTapAddContactButton = { [weak self] in
-            guard let `self` = self,
-                let navVC = self.navigationController else { return }
-            self.viewModel.contactsService.contactSaveCompletion = { [weak self] success in
-                guard let `self` = self else { return }
-                if success {
-                    self.employeeView.fabButton.isHidden = true
-                }
-            }
-            self.viewModel.contactsService.save(
-                employee: self.viewModel.employee,
-                presentIn: navVC
-            )
+            self?.openShareSheet()
         }
         view.addSubview(employeeView)
         employeeView.snp.makeConstraints({ [weak self] (make) in
@@ -142,11 +197,10 @@ class EmployeeViewController: UIViewController, ViewModelBased, Stepper {
 
         DispatchQueue.global().async { [weak self] in
             guard let `self` = self else { return }
-            if !self.viewModel.contactsService.isContactExists(for: self.viewModel.employee) {
-                DispatchQueue.main.async { [weak self] in
-                    guard let `self` = self else { return }
-                    self.employeeView.fabButton.isHidden = false
-                }
+            _ = self.viewModel.contactsService.isContactExists(for: self.viewModel.employee)
+            DispatchQueue.main.async { [weak self] in
+                guard let `self` = self else { return }
+                self.employeeView.shareButton.isHidden = false
             }
         }
     }

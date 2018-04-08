@@ -16,13 +16,13 @@ class EmployeeView: UIView {
     private(set) var headerView: NotificationHeaderView?
     private(set) var employeeHeaderView: EmployeeHeaderView?
     private(set) var scrollView: StackedScrollView?
-    private(set) lazy var fabButton = FABButton(image: Icon.cm.add, tintColor: .white)
 
     private(set) var positionView: ImageTextView?
     private(set) var administrativeChiefView: ImageTextView?
     private(set) var functionalChiefView: ImageTextView?
     private(set) var birthdateView: ImageTextView?
     private(set) var phoneView: ImageTextView?
+    private(set) lazy var shareButton = FlatButton(image: #imageLiteral(resourceName: "share"))
     private(set) var emailButton: ImageTextButton?
 
     var didTapCloseButton: (() -> Void)?
@@ -155,7 +155,6 @@ class EmployeeView: UIView {
         setupHeader()
         setupEmployeeHeader()
         setupScroll()
-        setupFabButton()
     }
 
     private func setupHeader() {
@@ -197,22 +196,6 @@ class EmployeeView: UIView {
             make.top.equalTo(headerView.snp.bottom)
             make.left.equalTo(self)
             make.right.equalTo(self)
-        }
-    }
-
-    private func setupFabButton() {
-        fabButton.addTarget(self, action: #selector(handleAddContactButton), for: .touchUpInside)
-        fabButton.pulseColor = .white
-        fabButton.backgroundColor = App.Color.azure
-        fabButton.shadowColor = App.Color.black12
-        fabButton.depth = Depth(offset: Offset.init(horizontal: 0, vertical: 12), opacity: 1, radius: 12)
-        fabButton.isHidden = true
-
-        addSubview(fabButton)
-        fabButton.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self).inset(App.Layout.sideOffset)
-            make.right.equalTo(self).inset(App.Layout.sideOffset)
-            make.size.equalTo(CGSize(width: 56, height: 56))
         }
     }
 
@@ -319,6 +302,14 @@ class EmployeeView: UIView {
             let phoneView = phoneView else {
                 return
         }
+
+        shareButton.addTarget(self, action: #selector(handleAddContactButton), for: .touchUpInside)
+        shareButton.isHidden = true
+        shareButton.tintColor = App.Color.azure
+        shareButton.snp.makeConstraints { (make) in
+            make.size.equalTo(CGSize(width: 50, height: 35))
+        }
+        phoneView.stackView?.stackView?.addArrangedSubview(shareButton)
 
         setup(view: phoneView)
         scrollView.stackView?.addArrangedSubview(phoneView)

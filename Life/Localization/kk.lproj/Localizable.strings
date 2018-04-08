@@ -112,6 +112,8 @@
 "with_birthday" = "с Днем рождения";
 "send_congratulation" = "Отправить поздравление";
 "congratulation_text" = "Текст поздравления";
+"share_contact" = "Поделиться контактом";
+"add_to_contacts" = "Добавить в контакты";
 
 /* Lenta */
 

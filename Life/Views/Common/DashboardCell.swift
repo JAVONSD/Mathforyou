@@ -214,6 +214,14 @@ class DashboardCell: ASCellNode {
         let horizontalStackSpec = ASStackLayoutSpec.horizontal()
         horizontalStackSpec.alignContent = .spaceBetween
         horizontalStackSpec.style.flexGrow = 1.0
+        horizontalStackSpec.style.minWidth = ASDimension(
+            unit: .points,
+            value: constrainedSize.max.width - 2 * App.Layout.itemSpacingSmall
+        )
+        horizontalStackSpec.style.maxWidth = ASDimension(
+            unit: .points,
+            value: constrainedSize.max.width - 2 * App.Layout.itemSpacingSmall
+        )
 
         if config.showAddButton {
             let rightInsetSpec = ASInsetLayoutSpec(insets: .init(
