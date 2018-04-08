@@ -16,6 +16,7 @@ class AttachmentCollectionViewCell: UICollectionViewCell {
     private(set) lazy var titleLabel = UILabel()
     private(set) lazy var subtitleLabel = UILabel()
     private(set) lazy var deleteButton = UIButton()
+    private(set) lazy var borderLayer = CAShapeLayer()
 
     static let containerSideLength: CGFloat = 60
     static let sideInset: CGFloat = 12
@@ -35,6 +36,9 @@ class AttachmentCollectionViewCell: UICollectionViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+
+        borderLayer.frame = imageView.bounds
+        borderLayer.path = UIBezierPath(rect: imageView.bounds).cgPath
 
         titleLabel.preferredMaxLayoutWidth = titleLabel.frame.size.width
         subtitleLabel.preferredMaxLayoutWidth = subtitleLabel.frame.size.width
@@ -99,6 +103,15 @@ class AttachmentCollectionViewCell: UICollectionViewCell {
         imageView.snp.makeConstraints { (make) in
             make.edges.equalTo(self.containerView)
         }
+
+        borderLayer.strokeColor = UIColor.black.cgColor
+        borderLayer.lineDashPattern = [4, 4]
+        borderLayer.frame = bounds
+        borderLayer.fillColor = nil
+        borderLayer.path = UIBezierPath(rect: bounds).cgPath
+        borderLayer.isHidden = true
+        borderLayer.cornerRadius = App.Layout.cornerRadiusSmall
+        imageView.layer.addSublayer(borderLayer)
     }
 
     private func setupTitleLabel() {

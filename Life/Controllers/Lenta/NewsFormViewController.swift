@@ -199,6 +199,20 @@ class NewsFormViewController: UIViewController, Stepper {
 
         newsFormView.tagsField.autoSuggestionDataSource = self
         newsFormView.tagsField.observeChanges()
+
+        let emptyView1 = UIView()
+        let label1 = UILabel()
+        label1.text = NSLocalizedString("no_matches", comment: "")
+        label1.font = App.Font.body
+        label1.textAlignment = .center
+        label1.textColor = App.Color.steel
+        emptyView1.addSubview(label1)
+        label1.snp.makeConstraints { (make) in
+            make.edges.equalTo(emptyView1)
+        }
+        newsFormView.tagsField.emptyView = emptyView1
+
+        newsFormView.tagsField.keyboardDistanceFromTextField = 50
     }
 
     private func bindSendButton() {

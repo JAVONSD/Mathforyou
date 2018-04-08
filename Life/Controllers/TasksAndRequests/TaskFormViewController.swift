@@ -288,11 +288,46 @@ class TaskFormViewController: UIViewController, Stepper {
             })
         }
 
+        viewModel.employeesViewModel.filteredEmployees
+            .observeOn(MainScheduler.instance)
+            .skip(1)
+            .subscribe(onNext: { [weak self] _ in
+                self?.taskFormView.participantsField.reloadContents()
+                self?.taskFormView.executorField.reloadContents()
+            })
+            .disposed(by: disposeBag)
+
         taskFormView.participantsField.autoSuggestionDataSource = self
         taskFormView.participantsField.observeChanges()
 
+        let emptyView1 = UIView()
+        let label1 = UILabel()
+        label1.text = NSLocalizedString("no_matches", comment: "")
+        label1.font = App.Font.body
+        label1.textAlignment = .center
+        label1.textColor = App.Color.steel
+        emptyView1.addSubview(label1)
+        label1.snp.makeConstraints { (make) in
+            make.edges.equalTo(emptyView1)
+        }
+        taskFormView.participantsField.emptyView = emptyView1
+
+        taskFormView.participantsField.keyboardDistanceFromTextField = 50
+
         taskFormView.executorField.autoSuggestionDataSource = self
         taskFormView.executorField.observeChanges()
+
+        let emptyView2 = UIView()
+        let label2 = UILabel()
+        label2.text = NSLocalizedString("no_matches", comment: "")
+        label2.font = App.Font.body
+        label2.textAlignment = .center
+        label2.textColor = App.Color.steel
+        emptyView2.addSubview(label2)
+        label2.snp.makeConstraints { (make) in
+            make.edges.equalTo(emptyView2)
+        }
+        taskFormView.executorField.emptyView = emptyView2
     }
 
     private func bindTypeField() {

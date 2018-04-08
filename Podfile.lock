@@ -85,7 +85,7 @@ PODS:
     - Yoga (= 1.6.0)
   - Toast (4.0.0)
   - TTGTagCollectionView (1.9.0)
-  - UITextField_AutoSuggestion (0.3.0)
+  - UITextField_AutoSuggestion (0.3.1)
   - Yoga (1.6.0)
 
 DEPENDENCIES:
@@ -152,7 +152,7 @@ SPEC CHECKSUMS:
   Texture: 7249074582daf75e524e59df5428b66b8e8db0e4
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   TTGTagCollectionView: 958f20b946dee92a8ba20dc37d10a06737641ae9
-  UITextField_AutoSuggestion: dca08de21c8de3f6054dda085087a04b5b326208
+  UITextField_AutoSuggestion: ba430510ec9ec00a4a7091fd9d24032d2721f641
   Yoga: 81670877477311136b1b3f69a6307ce62e1c89cf
 
 PODFILE CHECKSUM: f07eb3779b17415a686c80d267b351c6ec4c3f42

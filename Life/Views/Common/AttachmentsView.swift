@@ -144,6 +144,8 @@ extension AttachmentsView: UICollectionViewDataSource {
 
             cell.containerView.backgroundColor = App.Color.paleGreyTwo
 
+            cell.borderLayer.isHidden = true
+
             cell.deleteButton.isHidden = false
             cell.didTapDelete = { [weak self] sender in
                 guard let `self` = self else { return }
@@ -156,6 +158,8 @@ extension AttachmentsView: UICollectionViewDataSource {
             }
         } else {
             cell.containerView.backgroundColor = .clear
+
+            cell.borderLayer.isHidden = false
 
             cell.imageView.contentMode = .center
             cell.imageView.image = #imageLiteral(resourceName: "plus")

@@ -123,6 +123,7 @@
 "loading_employees" = "Загрузка списка сотрудников";
 "share_contact" = "Поделиться контактом";
 "add_to_contacts" = "Добавить в контакты";
+"no_matches" = "Нет совпадений";
 
 /* Lenta */
 

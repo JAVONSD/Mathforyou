@@ -167,6 +167,20 @@ class SuggestionFormViewController: UIViewController, Stepper {
 
         suggestionFormView.tagsField.autoSuggestionDataSource = self
         suggestionFormView.tagsField.observeChanges()
+
+        let emptyView = UIView()
+        let label = UILabel()
+        label.text = NSLocalizedString("no_matches", comment: "")
+        label.font = App.Font.body
+        label.textAlignment = .center
+        label.textColor = App.Color.steel
+        emptyView.addSubview(label)
+        label.snp.makeConstraints { (make) in
+            make.edges.equalTo(emptyView)
+        }
+        suggestionFormView.tagsField.emptyView = emptyView
+
+        suggestionFormView.tagsField.keyboardDistanceFromTextField = 50
     }
 
     private func bindSendButton() {
