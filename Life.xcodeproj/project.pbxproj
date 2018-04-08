@@ -754,6 +754,7 @@
 		C7BB5C7A20401A870056BBF9 /* SuggestionFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionFormViewController.swift; sourceTree = "<group>"; };
 		C7BB5C7C204021190056BBF9 /* NewsFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFormViewController.swift; sourceTree = "<group>"; };
 		C7C9090F207A311D00012188 /* LinkBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkBuilder.swift; sourceTree = "<group>"; };
+		C7C90911207A380E00012188 /* Life.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Life.entitlements; sourceTree = "<group>"; };
 		C7CE70D92070CB1F00333779 /* LabelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNode.swift; sourceTree = "<group>"; };
 		C7D5BEC22075004D00A8F37F /* QuestionnairePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnairePreviewController.swift; sourceTree = "<group>"; };
 		C7D5BEC4207500C200A8F37F /* QuestionnairePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnairePreviewView.swift; sourceTree = "<group>"; };
@@ -1148,6 +1149,7 @@
 		C76EFB4C202E91F000FA2BB9 /* Life */ = {
 			isa = PBXGroup;
 			children = (
+				C7C90911207A380E00012188 /* Life.entitlements */,
 				C76EFB4D202E91F000FA2BB9 /* AppDelegate.swift */,
 				C76EFB82202E92BB00FA2BB9 /* Categories */,
 				C76EFB85202E92BB00FA2BB9 /* Controllers */,
@@ -2173,6 +2175,11 @@
 					C76EFB49202E91F000FA2BB9 = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.SafariKeychain = {
+								enabled = 1;
+							};
+						};
 					};
 					C76EFB5D202E91F000FA2BB9 = {
 						CreatedOnToolsVersion = 9.2;
@@ -3062,6 +3069,7 @@
 			baseConfigurationReference = 639719E8416CCF3FD63614E7 /* Pods-Life.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = AK24CEK6KH;
@@ -3082,6 +3090,7 @@
 			baseConfigurationReference = A5856C72266F971904DBA28A /* Pods-Life.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 26;

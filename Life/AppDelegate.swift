@@ -76,4 +76,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {}
 
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+        if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
+            if let url = userActivity.webpageURL {
+                let pathComponents = url.pathComponents
+                let pathComponentCount = pathComponents.count
+                if pathComponentCount > 2,
+                    pathComponents[pathComponentCount - 2] == "news",
+                    let newsId = pathComponents.last {
+                    print("Open news with id - \(newsId)")
+                } else if pathComponentCount > 2,
+                    pathComponents[pathComponentCount - 2] == "suggestions",
+                    let suggestionId = pathComponents.last {
+                    print("Open suggestion with id - \(suggestionId)")
+                } else if pathComponentCount > 2,
+                    pathComponents[pathComponentCount - 2] == "questionnaires",
+                    let questionnaireId = pathComponents.last {
+                    print("Open questionnaire with id - \(questionnaireId)")
+                }
+            }
+        }
+        return true
+    }
+
 }
