@@ -429,6 +429,36 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
         present(vc, animated: true, completion: nil)
     }
 
+    private func showShareWindow(for lentaItem: Lenta) {
+        let text = lentaItem.title
+
+        var textType = "Новость"
+        var link = LinkBuilder.newsLink(for: lentaItem.id)
+        if lentaItem.entityType.code == .suggestion {
+            textType = "Предложение"
+            link = LinkBuilder.suggestionLink(for: lentaItem.id)
+        } else if lentaItem.entityType.code == .questionnaire {
+            textType = "Опрос"
+            link = LinkBuilder.questionnaireLink(for: lentaItem.id)
+        }
+
+        let shareText =
+        """
+        \(textType): "\(text)"
+        Автор: \(lentaItem.authorName)
+        Ссылка: \(link)
+        """
+
+        let shareItems = [shareText]
+        let activityViewController = UIActivityViewController(
+            activityItems: shareItems,
+            applicationActivities: nil
+        )
+        activityViewController.popoverPresentationController?.sourceView = self.view
+
+        present(activityViewController, animated: true, completion: nil)
+    }
+
     // MARK: - FABMenuDelegate
 
     func fabMenuWillOpen(fabMenu: FABMenu) {
@@ -509,6 +539,9 @@ extension LentaViewController: ListAdapterDataSource {
             DispatchQueue.main.async { [weak self] in
                 self?.collectionNode.view.reloadEmptyDataSet()
             }
+        }
+        section.didTapShare = { [weak self] lentaItem in
+            self?.showShareWindow(for: lentaItem)
         }
         return section
     }

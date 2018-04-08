@@ -295,6 +295,7 @@
 		C7BB5C79204015B40056BBF9 /* RequestFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C78204015B40056BBF9 /* RequestFormViewController.swift */; };
 		C7BB5C7B20401A870056BBF9 /* SuggestionFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C7A20401A870056BBF9 /* SuggestionFormViewController.swift */; };
 		C7BB5C7D204021190056BBF9 /* NewsFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7BB5C7C204021190056BBF9 /* NewsFormViewController.swift */; };
+		C7C90910207A311D00012188 /* LinkBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7C9090F207A311D00012188 /* LinkBuilder.swift */; };
 		C7CE70DA2070CB1F00333779 /* LabelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7CE70D92070CB1F00333779 /* LabelNode.swift */; };
 		C7D5BEC32075004D00A8F37F /* QuestionnairePreviewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BEC22075004D00A8F37F /* QuestionnairePreviewController.swift */; };
 		C7D5BEC5207500C200A8F37F /* QuestionnairePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BEC4207500C200A8F37F /* QuestionnairePreviewView.swift */; };
@@ -752,6 +753,7 @@
 		C7BB5C78204015B40056BBF9 /* RequestFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestFormViewController.swift; sourceTree = "<group>"; };
 		C7BB5C7A20401A870056BBF9 /* SuggestionFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionFormViewController.swift; sourceTree = "<group>"; };
 		C7BB5C7C204021190056BBF9 /* NewsFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFormViewController.swift; sourceTree = "<group>"; };
+		C7C9090F207A311D00012188 /* LinkBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkBuilder.swift; sourceTree = "<group>"; };
 		C7CE70D92070CB1F00333779 /* LabelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelNode.swift; sourceTree = "<group>"; };
 		C7D5BEC22075004D00A8F37F /* QuestionnairePreviewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnairePreviewController.swift; sourceTree = "<group>"; };
 		C7D5BEC4207500C200A8F37F /* QuestionnairePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnairePreviewView.swift; sourceTree = "<group>"; };
@@ -1003,6 +1005,7 @@
 				C73EB25A2032DA4300429921 /* Mockable.swift */,
 				C74F26AD20747B9A00C68EC7 /* Attachment.swift */,
 				C74F26B120748BC900C68EC7 /* Connectivity.swift */,
+				C7C9090F207A311D00012188 /* LinkBuilder.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2630,6 +2633,7 @@
 				C717C677203D135F0070447D /* TasksAndRequetsView.swift in Sources */,
 				C7BB5C69203FD4420056BBF9 /* SuggestionHeaderNode.swift in Sources */,
 				C7D641DF2034190B001DCA98 /* ResetPasswordViewModel.swift in Sources */,
+				C7C90910207A311D00012188 /* LinkBuilder.swift in Sources */,
 				C79251FF2031A18B00CDFBBA /* MyInfoMainView.swift in Sources */,
 				C7BB5C38203E672F0056BBF9 /* QuestionsViewModel.swift in Sources */,
 				C7D641BA20340C7E001DCA98 /* String+Extensions.swift in Sources */,

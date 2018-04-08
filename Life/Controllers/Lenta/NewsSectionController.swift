@@ -28,6 +28,8 @@ class NewsSectionController: ASCollectionSectionController {
 
     var didFinishLoad: (() -> Void)?
 
+    var didTapShare: ((Lenta) -> Void)?
+
     init(viewModel: LentaViewModel) {
         self.viewModel = viewModel
 
@@ -131,6 +133,7 @@ extension NewsSectionController: ASSectionController {
         if let object = items[index] as? LentaItemViewModel {
             return {
                 let cell = NewsCell(viewModel: object)
+                cell.didTapShare = self.didTapShare
                 return cell
             }
         }

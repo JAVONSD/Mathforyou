@@ -37,6 +37,8 @@ class NewsCell: ASCellNode {
     private let item: Lenta
     private let image: String
 
+    var didTapShare: ((Lenta) -> Void)?
+
     fileprivate func setupHeader(_ viewModel: LentaItemViewModel) {
         self.viewModel = viewModel
 
@@ -61,6 +63,7 @@ class NewsCell: ASCellNode {
         shareNode = ASButtonNode()
         shareNode.contentMode = .scaleAspectFit
         shareNode.setImage(#imageLiteral(resourceName: "more"), for: .normal)
+        shareNode.addTarget(self, action: #selector(handleShare), forControlEvents: .touchUpInside)
         backgroundNode.addSubnode(shareNode)
     }
 
@@ -316,6 +319,13 @@ class NewsCell: ASCellNode {
             ),
             child: footerStack)
         return footerInsetSpec
+    }
+
+    // MARK: - Actions
+
+    @objc
+    private func handleShare() {
+        didTapShare?(item)
     }
 
     // MARK: - Methods
