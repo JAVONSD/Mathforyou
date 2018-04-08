@@ -1,0 +1,1 @@
+The app intended for BI Group employees which are mostly citizens of Kazakhstan, but also there are people from Russia, Kyrgyzstan, Uzbekistan, Georgia, and Turkey. Therefore we specified only these countries in Pricing and Availability section.
