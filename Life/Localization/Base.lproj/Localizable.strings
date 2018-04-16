@@ -10,7 +10,7 @@
 
 "username_or_phone" = "User name or phone number";
 "phone" = "Phone";
-"password" = "Пароль AD ( с которым входите в компьютер)";
+"password" = "Пароль AD (с которым входите в компьютер)";
 "login" = "Login";
 "forgot_password_descr" = "Did you forget your login credentials?";
 "help" = "Help";
@@ -103,7 +103,7 @@
 "vacancies" = "Vacancies";
 "search" = "Search";
 "job_position" = "Position";
-"login_name" = "Логин AD ( с которым входите в ваш компьютер)";
+"login_name" = "Логин AD (Пример: zhaparov_zh)";
 "chief" = "Chief";
 "administrative_chief" = "Administrative chief";
 "functional_chief" = "Functional chief";
