@@ -29,6 +29,8 @@
 "kDefaultFaceIDAuthenticationFailedReason" = "Face ID не распознает ваше лицо. Повторите попытку с вашим зарегистрированным лицом.";
 "use_touch__to_login_q" = "Использовать Touch ID для входа?";
 "use_face_id_to_login_q" = "Использовать Face ID для входа?";
+"use_touch__to_login" = "Использовать Touch ID для входа";
+"use_face_id_to_login" = "Использовать Face ID для входа";
 "yes" = "Да";
 "skip" = "Пропустить";
 "enter_manually" = "Ввести самому";

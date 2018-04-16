@@ -7,7 +7,9 @@
 //
 
 import UIKit
+import BiometricAuthentication
 import DateToolsSwift
+import Hue
 import Material
 import SnapKit
 
@@ -19,6 +21,8 @@ class LoginView: UIView, UITextFieldDelegate, MaskedTextFieldDelegateListener {
     private(set) var passwordField: TextField?
     private(set) var loginButton: Button?
     private(set) var forgotPasswordView: UIView?
+    private(set) lazy var useTouchIDLabel = UILabel()
+    private(set) lazy var useTouchIDSwitch = Switch(state: .off, style: .light, size: .medium)
     private(set) var forgotPasswordLabel: UILabel?
     private(set) var forgotPasswordButton: FlatButton?
     private(set) var biGroupLabel: UILabel?
@@ -35,6 +39,7 @@ class LoginView: UIView, UITextFieldDelegate, MaskedTextFieldDelegateListener {
         setupPhoneField()
         setupPasswordField()
         setupLoginButton()
+        setupTouchIDViews()
         setupForgotPasswordView()
         setupBIGroupLabel()
     }
@@ -210,6 +215,36 @@ class LoginView: UIView, UITextFieldDelegate, MaskedTextFieldDelegateListener {
         }
     }
 
+    private func setupTouchIDViews() {
+        if BioMetricAuthenticator.canAuthenticate(),
+            let loginButton = loginButton {
+            useTouchIDSwitch.buttonOnColor = App.Color.azure
+            useTouchIDSwitch.trackOnColor = App.Color.azure.withAlphaComponent(0.5)
+            addSubview(useTouchIDSwitch)
+            useTouchIDSwitch.snp.makeConstraints { (make) in
+                make.top.equalTo(loginButton.snp.bottom).offset(App.Layout.itemSpacingMedium)
+                make.right.equalTo(self).inset(App.Layout.sideOffset)
+            }
+
+            useTouchIDLabel.font = App.Font.body
+            useTouchIDLabel.numberOfLines = 0
+            useTouchIDLabel.lineBreakMode = .byWordWrapping
+            useTouchIDLabel.textColor = App.Color.slateGrey
+
+            let text = BioMetricAuthenticator.shared.faceIDAvailable()
+                ? NSLocalizedString("use_face_id_to_login", comment: "")
+                : NSLocalizedString("use_touch__to_login", comment: "")
+            useTouchIDLabel.text = text
+
+            addSubview(useTouchIDLabel)
+            useTouchIDLabel.snp.makeConstraints { (make) in
+                make.left.equalTo(self).inset(App.Layout.sideOffset)
+                make.right.equalTo(self.useTouchIDSwitch.snp.left).offset(-App.Layout.itemSpacingMedium)
+                make.centerY.equalTo(self.useTouchIDSwitch)
+            }
+        }
+    }
+
     private func setupForgotPasswordView() {
         forgotPasswordView = UIView()
 
@@ -222,7 +257,11 @@ class LoginView: UIView, UITextFieldDelegate, MaskedTextFieldDelegateListener {
         forgotPasswordView.snp.makeConstraints { [weak self] (make) in
             guard let `self` = self else { return }
 
-            make.top.equalTo(loginButton.snp.bottom).offset(App.Layout.itemSpacingMedium * 2)
+            if BioMetricAuthenticator.canAuthenticate() {
+                make.top.equalTo(useTouchIDLabel.snp.bottom).offset(App.Layout.itemSpacingMedium * 2)
+            } else {
+                make.top.equalTo(loginButton.snp.bottom).offset(App.Layout.itemSpacingMedium * 2)
+            }
             make.centerX.equalTo(self)
         }
 

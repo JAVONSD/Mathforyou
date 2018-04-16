@@ -29,6 +29,8 @@
 "kDefaultFaceIDAuthenticationFailedReason" = "Face ID does not recognize your face. Please try again with your enrolled face.";
 "use_touch__to_login_q" = "Use Touch ID to login?";
 "use_face_id_to_login_q" = "Use Face ID to login?";
+"use_touch__to_login" = "Use Touch ID to login";
+"use_face_id_to_login" = "Use Face ID to login";
 "yes" = "Yes";
 "skip" = "Skip";
 "enter_manually" = "Enter manually";

@@ -88,6 +88,18 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
             self.helpPressedHandler()
 //            self.step.accept(AppStep.forgotPassword(login: login))
         }
+
+        let isOn = UserDefaults.standard.bool(forKey: App.Key.useTouchOrFaceIdToLogin)
+        loginView.useTouchIDSwitch.setSwitchState(state: isOn ? .on : .off)
+        loginView.useTouchIDSwitch.rx.controlEvent(.valueChanged)
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                let isOn = self?.loginView.useTouchIDSwitch.isOn ?? false
+                UserDefaults.standard.set(isOn, forKey: App.Key.useTouchOrFaceIdToLogin)
+                UserDefaults.standard.synchronize()
+            })
+            .disposed(by: disposeBag)
+
         view.addSubview(loginView)
         loginView.snp.makeConstraints({ [weak self] (make) in
             guard let `self` = self else { return }
@@ -125,7 +137,8 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
 
                 switch response {
                 case .success(let json):
-                    self?.onLogin(json: json)
+                    let saveCredentials = self?.loginView.useTouchIDSwitch.isOn ?? false
+                    self?.onLogin(json: json, saveCredentials: saveCredentials)
                 case .error(let error):
                     self?.onLogin(error: error)
                 }
@@ -157,55 +170,17 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
     private func onLogin(json: Response, saveCredentials: Bool = true) {
         saveUser(json)
 
-        if saveCredentials,
-            BioMetricAuthenticator.canAuthenticate()
-            && !UserDefaults.standard.bool(forKey: App.Key.useTouchOrFaceIdToLogin) {
-            promptToUseTouchOrFaceId()
-        } else {
-            if User.current.isAuthenticated {
-                step.accept(AppStep.mainMenu)
-            }
+        if saveCredentials {
+            let login = self.loginView.phoneField?.text ?? ""
+            let password = self.loginView.passwordField?.text ?? ""
+
+            let keychain = Keychain(service: App.Key.loginCredentialsIdentifier)
+            keychain[login] = password
         }
-    }
 
-    private func promptToUseTouchOrFaceId() {
-        var title = NSLocalizedString("use_touch__to_login_q", comment: "")
-        if BioMetricAuthenticator.shared.faceIDAvailable() {
-            title = NSLocalizedString("use_face_id_to_login_q", comment: "")
+        if User.current.isAuthenticated {
+            step.accept(AppStep.mainMenu)
         }
-        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
-        alert.popoverPresentationController?.sourceView = view
-
-        let saveAction = UIAlertAction(
-            title: NSLocalizedString("yes", comment: ""),
-            style: .default) { [weak self] (_) in
-                guard let `self` = self else { return }
-
-                UserDefaults.standard.set(true, forKey: App.Key.useTouchOrFaceIdToLogin)
-                UserDefaults.standard.synchronize()
-
-                let login = self.loginView.phoneField?.text ?? ""
-                let password = self.loginView.passwordField?.text ?? ""
-
-                let keychain = Keychain(service: App.Key.loginCredentialsIdentifier)
-                keychain[login] = password
-
-                if User.current.isAuthenticated {
-                    self.step.accept(AppStep.mainMenu)
-                }
-            }
-        alert.addAction(saveAction)
-
-        let cancelAction = UIAlertAction(
-            title: NSLocalizedString("skip", comment: ""),
-            style: .cancel) { [weak self] _ in
-                if User.current.isAuthenticated {
-                    self?.step.accept(AppStep.mainMenu)
-                }
-            }
-        alert.addAction(cancelAction)
-
-        present(alert, animated: true, completion: nil)
     }
 
     private func saveUser(_ json: Response) {
@@ -310,6 +285,8 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
 
         let keychain = Keychain(service: App.Key.loginCredentialsIdentifier)
         try? keychain.removeAll()
+
+        loginView.useTouchIDSwitch.setSwitchState(state: .off)
     }
 
 }
