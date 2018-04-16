@@ -248,7 +248,11 @@ class QuestionnairePollView: UIView {
             button.addTarget(self, action: #selector(handleVariant(_:)), for: .touchUpInside)
             questionsContentView.addSubview(button)
             button.snp.makeConstraints { (make) in
-                make.top.equalTo(previousView!.snp.bottom).offset(App.Layout.itemSpacingSmall)
+                if let previousView = previousView {
+                    make.top.equalTo(previousView.snp.bottom).offset(App.Layout.itemSpacingSmall)
+                } else {
+                    make.top.equalTo(self.questionsContentView)
+                }
                 make.left.equalTo(self.questionsContentView)
                 make.right.equalTo(self.questionsContentView)
             }
