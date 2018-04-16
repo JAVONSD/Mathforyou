@@ -85,6 +85,33 @@ class EmployeeCell: TableViewCell {
         }
     }
 
+    var accessoryButtonIsHidden: Bool = false {
+        didSet {
+            accessoryButton.isHidden = accessoryButtonIsHidden
+            accessoryButton.snp.remakeConstraints { (make) in
+                let leftOffest = accessoryButtonIsHidden ? 0 : 13
+                make.left.equalTo(self.textContainerView.snp.right).offset(leftOffest)
+                make.centerY.equalTo(self.containerView)
+                let size = accessoryButtonIsHidden ? 0 : 22
+                make.size.equalTo(CGSize(width: size, height: size))
+            }
+        }
+    }
+
+    var disclosureImageViewIsHidden: Bool = false {
+        didSet {
+            disclosureImageView.isHidden = disclosureImageViewIsHidden
+            disclosureImageView.snp.remakeConstraints { (make) in
+                let leftOffset = disclosureImageViewIsHidden ? 0 : App.Layout.itemSpacingSmall
+                make.left.equalTo(self.accessoryButton.snp.right).offset(leftOffset)
+                make.right.equalTo(self.containerView).inset(App.Layout.sideOffset)
+                make.centerY.equalTo(self.containerView)
+                let size = disclosureImageViewIsHidden ? 0 : 18
+                make.size.equalTo(CGSize(width: size, height: size))
+            }
+        }
+    }
+
     override func prepare() {
         super.prepare()
 

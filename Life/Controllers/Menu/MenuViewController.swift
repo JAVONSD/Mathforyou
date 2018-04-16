@@ -44,12 +44,13 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
                 )
 
                 cell.separatorLeftOffset = 70
-                cell.accessoryButton.isHidden = true
-                cell.disclosureImageView.isHidden = false
+                cell.accessoryButtonIsHidden = true
+                cell.disclosureImageViewIsHidden = false
                 cell.separatorView.isHidden = false
                 cell.containerInsets = .zero
                 cell.textLeftOffset = App.Layout.itemSpacingMedium
                 cell.textTopOffset = 19
+                cell.titleLabel.textAlignment = .left
 
                 let itemsCount = tv.numberOfRows(inSection: indexPath.section)
 
@@ -57,11 +58,12 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
                     cell.separatorLeftOffset = App.Layout.sideOffset
                     cell.containerInsets = .init(top: 0, left: 0, bottom: 32, right: 0)
                 } else if indexPath.row == itemsCount - 1 {
-                    cell.disclosureImageView.isHidden = true
+                    cell.disclosureImageViewIsHidden = true
                     cell.separatorView.isHidden = true
                     cell.imageSize = .zero
                     cell.textLeftOffset = 0
                     cell.textTopOffset = App.Layout.itemSpacingMedium
+                    cell.titleLabel.textAlignment = .center
                 }
 
                 return cell
