@@ -79,6 +79,12 @@ class MyInfoViewController: UIViewController {
     }
 
     private func updateUI(with profile: UserProfile?) {
+        fillMainInfo(from: profile)
+        fillContactInfo(from: profile)
+        fillDetailedInfo(from: profile)
+    }
+
+    private func fillMainInfo(from profile: UserProfile?) {
         let tapGr = UITapGestureRecognizer(target: self, action: #selector(handleAvatarTap))
         tapGr.numberOfTapsRequired = 1
         tapGr.numberOfTouchesRequired = 1
@@ -88,36 +94,54 @@ class MyInfoViewController: UIViewController {
 
         myInfoView.mainView?
             .infoView?.titleLabel?.text = profile?.fullname
+                .onEmpty(NSLocalizedString("no_data", comment: ""))
         myInfoView.mainView?
             .infoView?.subtitleLabel?.text = profile?.jobPosition
+                .onEmpty(NSLocalizedString("no_data", comment: ""))
+    }
 
+    private func fillContactInfo(from profile: UserProfile?) {
         myInfoView.contactView?
             .divisionButton?.view?.titleLabel?.text = profile?.company
+                .onEmpty(NSLocalizedString("no_data", comment: ""))
         myInfoView.contactView?
             .cellPhoneButton?.view?.titleLabel?.text = profile?.mobilePhoneNumber
+                .onEmpty(NSLocalizedString("no_data", comment: ""))
         myInfoView.contactView?
             .emailButton?.view?.titleLabel?.text = profile?.email
+                .onEmpty(NSLocalizedString("no_data", comment: ""))
         myInfoView.contactView?
             .officialPhoneButton?.view?.titleLabel?.text = profile?.workPhoneNumber
+                .onEmpty(NSLocalizedString("no_data", comment: ""))
+    }
 
+    private func fillDetailedInfo(from profile: UserProfile?) {
         myInfoView.detailedView?
             .iinView?.subtitleLabel?.text = profile?.iin
+                .onEmpty(NSLocalizedString("no_data", comment: ""))
         myInfoView.detailedView?
             .familyStatusView?.subtitleLabel?.text = profile?.familyStatus
+                .onEmpty(NSLocalizedString("no_data", comment: ""))
         myInfoView.detailedView?
             .childrenCountView?.subtitleLabel?.text = profile?.childrenQuantity
+                .onEmpty(NSLocalizedString("no_data", comment: ""))
         myInfoView.detailedView?
             .birthdateView?.subtitleLabel?.text = profile?.birthDate
                 .prettyDateString(format: "dd MMMM yyyy")
+                .onEmpty(NSLocalizedString("no_data", comment: ""))
         myInfoView.detailedView?
             .genderView?.subtitleLabel?.text = profile?.gender
+                .onEmpty(NSLocalizedString("no_data", comment: ""))
         myInfoView.detailedView?
             .clothingSizeView?.subtitleLabel?.text = profile?.clothingSize
+                .onEmpty(NSLocalizedString("no_data", comment: ""))
 
         myInfoView.detailedView?
             .workExperienceView?.subtitleLabel?.text = profile?.totalExperience
+                .onEmpty(NSLocalizedString("no_data", comment: ""))
         myInfoView.detailedView?
             .corporateExperienceView?.subtitleLabel?.text = profile?.corporateExperience
+                .onEmpty(NSLocalizedString("no_data", comment: ""))
 
         let lastDate = profile?.medicalExamination.last?.prettyDateString(format: "dd.MM.yyyy")
         myInfoView.detailedView?

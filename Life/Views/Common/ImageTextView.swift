@@ -82,11 +82,13 @@ class ImageTextView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        guard let titleLabel = titleLabel else {
+        guard let titleLabel = titleLabel,
+            let subtitleLabel = subtitleLabel else {
             return
         }
 
         titleLabel.preferredMaxLayoutWidth = titleLabel.frame.size.width
+        subtitleLabel.preferredMaxLayoutWidth = subtitleLabel.frame.size.width
     }
 
     // MARK: - UI
@@ -157,6 +159,8 @@ class ImageTextView: UIView {
 
         subtitleLabel = UILabel()
         subtitleLabel?.font = App.Font.body
+        subtitleLabel?.lineBreakMode = .byWordWrapping
+        subtitleLabel?.numberOfLines = 0
         subtitleLabel?.textColor = App.Color.steel
 
         guard let textStackView = textStackView,
