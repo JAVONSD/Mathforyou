@@ -17,7 +17,7 @@ class LentaItemViewModel: NSObject {
     var item: Lenta
 
     var timeAgo: String {
-        return item.createDate.date.timeAgoSinceNow
+        return item.createDate.prettyDateOrTimeAgoString()
     }
 
     init(lenta: Lenta) {

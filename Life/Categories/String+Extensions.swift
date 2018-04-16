@@ -57,7 +57,7 @@ public extension String {
         dateFormatter.dateFormat = format
         let result = dateFormatter.string(from: date)
 
-        if date.daysAgo > 0 {
+        if date.hoursAgo > 24 {
             return result
         }
         return date.timeAgoSinceNow
