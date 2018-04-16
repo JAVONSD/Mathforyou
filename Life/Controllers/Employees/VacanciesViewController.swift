@@ -34,7 +34,16 @@ class VacanciesViewController: UIViewController {
                 }
 
                 cell.positionLabel.text = element.vacancy.jobPosition
-                cell.companyLabel.text = element.vacancy.companyName
+
+                var companyTexts = [String]()
+                if !element.vacancy.companyName.isEmpty {
+                    companyTexts.append(element.vacancy.companyName)
+                }
+                if !element.vacancy.departmentName.isEmpty {
+                    companyTexts.append(element.vacancy.departmentName)
+                }
+                cell.companyLabel.text = companyTexts.joined(separator: ", ")
+
                 cell.salaryLabel.text = element.vacancy.salary
 
                 let itemsCount = tv.numberOfRows(inSection: indexPath.section)
