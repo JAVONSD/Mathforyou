@@ -166,7 +166,16 @@ class NewsCell: ASCellNode {
             }
         }
 
-        ImageDownloader.download(image: image) { (image) in
+        var size = CGSize(width: 200, height: 200)
+        if viewModel.item.imageSize.width > 0 && viewModel.item.imageSize.height > 0 {
+            size = CGSize(width: viewModel.item.imageSize.width, height: viewModel.item.imageSize.height)
+        }
+        let width = UIScreen.main.bounds.size.width - 2 * App.Layout.sideOffset
+        let height = size.height * width / size.width
+
+        ImageDownloader.download(
+            image: image,
+            size: CGSize(width: width, height: height)) { (image) in
             self.imageNode?.image = image
         }
     }

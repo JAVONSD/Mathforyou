@@ -23,6 +23,8 @@ extension ImageDownloader {
         var imageKey = employeeCode ?? image
         if let employeeCode = employeeCode, let size = size {
             imageKey = "\(employeeCode)_\(Int(size.width))x\(Int(size.height))"
+        } else if let size = size {
+            imageKey = "\(image)_\(Int(size.width))x\(Int(size.height))"
         }
 
         guard !imageKey.isEmpty else {
@@ -71,6 +73,8 @@ extension ImageDownloader {
         var imageKey = employeeCode ?? image
         if let employeeCode = employeeCode, let size = size {
             imageKey = "\(employeeCode)_\(Int(size.width))x\(Int(size.height))"
+        } else if let size = size {
+            imageKey = "\(image)_\(Int(size.width))x\(Int(size.height))"
         }
 
         guard !imageKey.isEmpty else {
@@ -130,8 +134,9 @@ extension ImageDownloader {
         } else if !image.hasPrefix("http") && !image.hasPrefix("https") {
 
             let ratio: CGFloat = 360.0 / 300.0
-            let width = UIScreen.main.bounds.size.width * 2
-            let height = Int(width / ratio)
+            let scale = useDeviceScale ? UIScreen.main.scale : 1
+            let width = size != nil ? size!.width * scale : UIScreen.main.bounds.size.width * scale
+            let height = size != nil ? Int(size!.height * scale) : Int(width / ratio * scale)
 
             let urlParams = "?isMedia=true&width=\(Int(width))&height=\(height)&isAttachment=true"
             url = URL(string: "\(App.String.apiBaseUrl)/Files/\(image)\(urlParams)")
