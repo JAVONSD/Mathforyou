@@ -14,8 +14,14 @@ extension UIImageView {
         image: String,
         employeeCode: String? = nil,
         placeholderImage: UIImage? = nil,
-        size: CGSize? = nil) {
-        let url = ImageDownloader.url(for: image, employeeCode: employeeCode, size: size)
+        size: CGSize? = nil,
+        useDeviceScale: Bool = true) {
+        let url = ImageDownloader.url(
+            for: image,
+            employeeCode: employeeCode,
+            size: size,
+            useDeviceScale: useDeviceScale
+        )
         let modifier = AnyModifier { request in
             var req = request
             let token = User.current.token ?? ""

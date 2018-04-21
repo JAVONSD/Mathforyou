@@ -16,7 +16,8 @@ extension ImageDownloader {
                     employeeCode: String? = nil,
                     to imageView: UIImageView?,
                     placeholderImage: UIImage? = nil,
-                    size: CGSize? = nil) {
+                    size: CGSize? = nil,
+                    useDeviceScale: Bool = true) {
         imageView?.image = placeholderImage
 
         var imageKey = employeeCode ?? image
@@ -40,7 +41,11 @@ extension ImageDownloader {
             return req
         }
 
-        if let url = url(for: image, employeeCode: employeeCode, size: size) {
+        if let url = url(
+            for: image,
+            employeeCode: employeeCode,
+            size: size,
+            useDeviceScale: useDeviceScale) {
             ImageDownloader
                 .default
                 .downloadImage(
@@ -61,6 +66,7 @@ extension ImageDownloader {
                          employeeCode: String? = nil,
                          placeholderImage: UIImage? = nil,
                          size: CGSize? = nil,
+                         useDeviceScale: Bool = true,
                          completion: @escaping ((UIImage?) -> Void)) {
         var imageKey = employeeCode ?? image
         if let employeeCode = employeeCode, let size = size {
@@ -83,7 +89,11 @@ extension ImageDownloader {
             return req
         }
 
-        if let url = url(for: image, employeeCode: employeeCode, size: size) {
+        if let url = url(
+            for: image,
+            employeeCode: employeeCode,
+            size: size,
+            useDeviceScale: useDeviceScale) {
             ImageDownloader
                 .default
                 .downloadImage(
@@ -103,12 +113,16 @@ extension ImageDownloader {
     public static func url(
         for image: String,
         employeeCode: String? = nil,
-        size: CGSize? = nil) -> URL? {
+        size: CGSize? = nil,
+        useDeviceScale: Bool = true) -> URL? {
         var url = URL(string: image)
 
         if let code = employeeCode {
             if let size = size {
-                let sizeQuery = "width=\(Int(size.width))&height=\(Int(size.height))"
+                let scale = useDeviceScale ? UIScreen.main.scale : 1
+                let width = Int(size.width * scale)
+                let height = Int(size.height * scale)
+                let sizeQuery = "width=\(width)&height=\(height)"
                 url = URL(string: "\(App.String.apiBaseUrl)/employees/\(code)/avatar?\(sizeQuery)")
             } else {
                 url = URL(string: "\(App.String.apiBaseUrl)/employees/\(code)/avatar")

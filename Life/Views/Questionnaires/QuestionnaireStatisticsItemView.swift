@@ -90,6 +90,9 @@ class QuestionnaireStatisticsItemView: UIView {
 
             lastVariantView = variantView
         }
+        if lastVariantView == nil {
+            lastVariantView = titleLabel
+        }
     }
 
     private func setupVoteViews() {
