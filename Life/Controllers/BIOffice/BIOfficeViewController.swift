@@ -11,6 +11,7 @@ import AsyncDisplayKit
 import IGListKit
 import Material
 import Moya
+import PopupDialog
 import RxSwift
 import SnapKit
 
@@ -210,6 +211,11 @@ class BIOfficeViewController: ASViewController<ASDisplayNode>, Stepper, FABMenuD
         return menuItem
     }
 
+    private func openQuestionnaire(id: String, loadOnlyStatistics: Bool) {
+        let vc = QuestionnaireViewController(questionnaireId: id, loadOnlyStatistics: loadOnlyStatistics)
+        present(vc, animated: true, completion: nil)
+    }
+
     // MARK: - FABMenuDelegate
 
     func fabMenuWillOpen(fabMenu: FABMenu) {
@@ -255,6 +261,7 @@ extension BIOfficeViewController: ListAdapterDataSource {
             self.onUnauthorized()
         }
         section.didSelectNews = { [weak self] id in
+            guard !(self?.fabMenu.isOpened ?? false) else { return }
             self?.step.accept(AppStep.newsPicked(withId: id))
         }
         return section
@@ -271,9 +278,11 @@ extension BIOfficeViewController: ListAdapterDataSource {
             print("Openning task or request ...")
         }
         section.didTapOnTasksAndRequests = { [weak self] in
+            guard !(self?.fabMenu.isOpened ?? false) else { return }
             self?.step.accept(AppStep.tasksAndRequests)
         }
         section.didTapAddRequest = { [weak self] in
+            guard !(self?.fabMenu.isOpened ?? false) else { return }
             let alert = UIAlertController(
                 title: NSLocalizedString("choose_option", comment: ""),
                 message: nil,
@@ -313,6 +322,7 @@ extension BIOfficeViewController: ListAdapterDataSource {
             self?.present(alert, animated: true, completion: nil)
         }
         section.didTapViewAll = { [weak self] in
+            guard !(self?.fabMenu.isOpened ?? false) else { return }
             self?.step.accept(AppStep.tasksAndRequests)
         }
         return section
@@ -352,9 +362,11 @@ extension BIOfficeViewController: ListAdapterDataSource {
             self.onUnauthorized()
         }
         section.didTapAtSuggestion = { [weak self] id in
+            guard !(self?.fabMenu.isOpened ?? false) else { return }
             self?.step.accept(AppStep.suggestionPicked(withId: id))
         }
         section.didTapAddSuggestion = { [weak self] in
+            guard !(self?.fabMenu.isOpened ?? false) else { return }
             self?.step.accept(AppStep.createSuggestion(completion: { [weak self] (suggestion, _) in
                 guard let `self` = self else { return }
 
@@ -366,8 +378,9 @@ extension BIOfficeViewController: ListAdapterDataSource {
                 suggestionsCtrl?.updateContents()
             }))
         }
-        section.didTapViewAll = {
-            if let tabVC = self.parent as? AppTabBarController {
+        section.didTapViewAll = { [weak self] in
+            guard !(self?.fabMenu.isOpened ?? false) else { return }
+            if let tabVC = self?.parent as? AppTabBarController {
                 NotificationCenter.default.post(name: .selectSuggestionsTab, object: nil)
 
                 tabVC.move(to: 1, animate: true)
@@ -382,8 +395,23 @@ extension BIOfficeViewController: ListAdapterDataSource {
             guard let `self` = self else { return }
             self.onUnauthorized()
         }
-        section.didTapViewAll = {
-            if let tabVC = self.parent as? AppTabBarController {
+        section.didTapQuestionnaire = { [weak self] id in
+            guard !(self?.fabMenu.isOpened ?? false) else { return }
+            let vc = QuestionnairePreviewController(questionnaireId: id)
+            vc.didTapViewStatistics = { [weak self] in
+                self?.openQuestionnaire(id: id, loadOnlyStatistics: true)
+            }
+            vc.didTapPass = { [weak self] in
+                self?.openQuestionnaire(id: id, loadOnlyStatistics: false)
+            }
+            let popup = PopupDialog(viewController: vc)
+            let containerAppearance = PopupDialogContainerView.appearance()
+            containerAppearance.cornerRadius = Float(App.Layout.cornerRadius)
+            self?.present(popup, animated: true, completion: nil)
+        }
+        section.didTapViewAll = { [weak self] in
+            guard !(self?.fabMenu.isOpened ?? false) else { return }
+            if let tabVC = self?.parent as? AppTabBarController {
                 NotificationCenter.default.post(name: .selectQuestionnairesTab, object: nil)
 
                 tabVC.move(to: 1, animate: true)

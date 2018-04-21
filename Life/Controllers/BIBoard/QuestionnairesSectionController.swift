@@ -15,6 +15,7 @@ class QuestionnairesSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: QuestionnairesViewModel?
 
     var onUnathorizedError: (() -> Void)?
+    var didTapQuestionnaire: ((String) -> Void)?
     var didTapViewAll: (() -> Void)?
 
     init(viewModel: QuestionnairesViewModel) {
@@ -58,10 +59,12 @@ class QuestionnairesSectionController: ASCollectionSectionController {
 
         if index == 0 {
             didTapViewAll?()
-        } else if viewModel.questionnaires.count > 5 && index == self.items.count - 1 {
+        } else if viewModel.questionnaires.count > 5 && index == items.count - 1 {
             if let didTapViewAll = didTapViewAll {
                 didTapViewAll()
             }
+        } else {
+            didTapQuestionnaire?(viewModel.questionnaires[index - 1].questionnaire.id)
         }
     }
 
