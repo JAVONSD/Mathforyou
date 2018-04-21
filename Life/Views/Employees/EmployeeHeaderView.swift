@@ -59,7 +59,7 @@ class EmployeeHeaderView: UIView {
 
     private func setupTitleLabel() {
         titleLabel.font = App.Font.headline
-        titleLabel.lineBreakMode = .byCharWrapping
+        titleLabel.lineBreakMode = .byWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.textColor = .black
         addSubview(titleLabel)

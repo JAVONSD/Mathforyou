@@ -83,11 +83,10 @@ class SuggestionsSectionController: ASCollectionSectionController {
 
 extension SuggestionsSectionController: ASSectionController {
     func nodeBlockForItem(at index: Int) -> ASCellNodeBlock {
-        guard index < items.count,
-            let viewModel = self.viewModel else {
-                return {
-                    return ASCellNode()
-                }
+        guard index < items.count else {
+            return {
+                return ASCellNode()
+            }
         }
 
         if let suggestion = items[index] as? SuggestionItemViewModel {

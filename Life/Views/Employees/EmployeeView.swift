@@ -55,18 +55,11 @@ class EmployeeView: UIView {
 
     var fullname: String = "" {
         didSet {
-            let paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.hyphenationFactor = 1.0
-
-            let hyphenAttribute = [
-                NSAttributedStringKey.paragraphStyle: paragraphStyle
-            ] as [NSAttributedStringKey : Any]
-
             let text = fullname.onEmpty(
                 NSLocalizedString("no_data", comment: ""))
-            let attributedString = NSMutableAttributedString(string: text, attributes: hyphenAttribute)
-
-            employeeHeaderView?.titleLabel.attributedText = attributedString
+            let nameItems = text.split(separator: " ")
+            employeeHeaderView?.titleLabel.numberOfLines = nameItems.count
+            employeeHeaderView?.titleLabel.text = nameItems.joined(separator: "\n")
         }
     }
 
@@ -180,6 +173,10 @@ class EmployeeView: UIView {
 
         guard let headerView = headerView,
             let employeeHeaderView = employeeHeaderView else { return }
+
+        employeeHeaderView.titleLabel.adjustsFontSizeToFitWidth = true
+        employeeHeaderView.titleLabel.minimumScaleFactor = 0.5
+        employeeHeaderView.titleLabel.lineBreakMode = .byTruncatingTail
 
         let tapGr = UITapGestureRecognizer(target: self, action: #selector(handleAvatarTap))
         tapGr.numberOfTapsRequired = 1

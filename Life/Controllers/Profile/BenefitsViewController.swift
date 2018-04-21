@@ -111,7 +111,9 @@ class BenefitsViewController: UIViewController {
 //        let sectionModels = benefitsViewModel.sections.map {
 //            SectionModel(model: $0, items: $0.benefits)
 //        }
-        let items = PublishSubject<[SectionModel<BenefitsSectionViewModel, BenefitViewModel>]>().asObservable()
+        let items = PublishSubject<[
+            SectionModel<BenefitsSectionViewModel, BenefitViewModel>
+            ]>().asObservable()
 
         items
             .bind(to: tableView.rx.items(dataSource: dataSource))

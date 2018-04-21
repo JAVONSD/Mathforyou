@@ -145,7 +145,7 @@ final class DirectoryContentViewController: UICollectionViewController {
             selectActionButton,
             UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
             deleteActionButton
-            ].flatMap { $0 }
+            ].compactMap { $0 }
     }
 
     // MARK: Actions

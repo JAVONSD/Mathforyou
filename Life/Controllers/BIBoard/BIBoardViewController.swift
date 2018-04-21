@@ -219,7 +219,7 @@ extension BIBoardViewController: ListAdapterDataSource {
             guard let `self` = self else { return }
             self.onUnauthorized()
         }
-        section.didTapTop7 = { [weak self] id in
+        section.didTapTop7 = { _ in
 //            self?.step.accept(AppStep.topQuestionPicked(withId: id))
         }
         return section

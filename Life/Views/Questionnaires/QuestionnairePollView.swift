@@ -169,8 +169,8 @@ class QuestionnairePollView: UIView {
         let totalAnswers = questionnaire.questions[currentQuestionIdx].totalAnswers
         let text = "\(totalAnswers) голосов"
         let attText = NSMutableAttributedString(string: text)
-        let allRange = NSMakeRange(0, text.count)
-        let countRange = NSMakeRange(0, "\(totalAnswers)".count)
+        let allRange = NSRange(location: 0, length: text.count)
+        let countRange = NSRange(location: 0, length: "\(totalAnswers)".count)
         attText.addAttribute(.font, value: App.Font.caption, range: allRange)
         attText.addAttribute(.foregroundColor, value: App.Color.steel, range: allRange)
         attText.addAttribute(.font, value: App.Font.captionAlts, range: countRange)

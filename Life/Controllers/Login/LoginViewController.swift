@@ -230,7 +230,10 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
         )
     }
 
-    private func handleBiometric(error: AuthenticationError, isFaceIdAvailable: Bool, isPasscode: Bool = false) {
+    private func handleBiometric(
+        error: AuthenticationError,
+        isFaceIdAvailable: Bool,
+        isPasscode: Bool = false) {
         if error == .canceledByUser || error == .canceledBySystem {
             resetSavedUserLoginCredentials()
             return
@@ -267,7 +270,11 @@ class LoginViewController: UIViewController, ViewModelBased, Stepper {
                     self?.loginWithSavedCredentials()
                 },
                 failure: { [weak self] (error) in
-                    self?.handleBiometric(error: error, isFaceIdAvailable: isFaceIdAvailable, isPasscode: true)
+                    self?.handleBiometric(
+                        error: error,
+                        isFaceIdAvailable: isFaceIdAvailable,
+                        isPasscode: true
+                    )
                 }
             )
         } else {
