@@ -113,7 +113,7 @@ class AppToolbarController: NavigationController, Stepper {
     private func setupProfileButton() -> SizedButton {
         let profileButton = SizedButton(image: nil, size: .init(width: 24, height: 24))
         profileButton.addTarget(self, action: #selector(handleProfileTap), for: .touchUpInside)
-        profileButton.iconView.backgroundColor = App.Color.coolGrey
+        profileButton.iconView.backgroundColor = .clear
         profileButton.pulseColor = App.Color.azure
         profileButton.iconView.layer.cornerRadius = 12
         profileButton.iconView.layer.masksToBounds = true
