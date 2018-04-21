@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DZNEmptyDataSet
 import IGListKit
 import Material
 import RxSwift
@@ -116,6 +117,8 @@ class TasksAndRequestsViewController: UIViewController, Stepper {
 
     private func setupTaskAndRequestsView() {
         tasksAndRequestsView = TasksAndRequetsView(frame: .zero)
+        tasksAndRequestsView.tableView?.emptyDataSetSource = self
+        tasksAndRequestsView.tableView?.emptyDataSetDelegate = self
         tasksAndRequestsView.didTapCloseButton = { [weak self] in
             self?.viewModel?.step.accept(AppStep.tasksAndRequestsDone)
         }
@@ -149,4 +152,25 @@ class TasksAndRequestsViewController: UIViewController, Stepper {
         }
     }
 
+}
+
+extension TasksAndRequestsViewController: DZNEmptyDataSetSource {
+    func title(forEmptyDataSet scrollView: UIScrollView!) -> NSAttributedString! {
+        let inboxText = NSLocalizedString("no_inbox_data", comment: "")
+        let outboxText = NSLocalizedString("no_outbox_data", comment: "")
+        let text = viewModel?.selectedItemsType == .inbox ? inboxText : outboxText
+        let attText = NSMutableAttributedString(string: text)
+
+        let allRange = NSRange(location: 0, length: attText.length)
+        attText.addAttribute(.font, value: App.Font.subhead, range: allRange)
+        attText.addAttribute(.foregroundColor, value: App.Color.black, range: allRange)
+
+        return attText
+    }
+}
+
+extension TasksAndRequestsViewController: DZNEmptyDataSetDelegate {
+    func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
+        return !(viewModel?.isLoadingSubject.value ?? false)
+    }
 }

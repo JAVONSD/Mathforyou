@@ -11,6 +11,7 @@ import DateToolsSwift
 import IGListKit
 import Moya
 import RxSwift
+import RxCocoa
 
 class TasksAndRequestsViewModel: NSObject, ViewModel, ListDiffable {
     private(set) var tasks = TasksViewModel()
@@ -20,7 +21,7 @@ class TasksAndRequestsViewModel: NSObject, ViewModel, ListDiffable {
     let tasksAndRequestsSubject = PublishSubject<[ListDiffable]>()
     private var tasksAndRequestsObservable: Observable<[ListDiffable]>?
 
-    let isLoadingSubject = PublishSubject<Bool>()
+    let isLoadingSubject = BehaviorRelay<Bool>(value: false)
     let errorSubject = PublishSubject<Error>()
 
     var onUnathorizedError: (() -> Void)?
@@ -120,7 +121,7 @@ class TasksAndRequestsViewModel: NSObject, ViewModel, ListDiffable {
             }
         tasksAndRequestsObservable?
             .bind { (items) in
-                self.isLoadingSubject.onNext(false)
+                self.isLoadingSubject.accept(false)
                 self.tasksAndRequestsSubject.onNext(items)
             }.disposed(by: disposeBag)
     }
@@ -130,7 +131,7 @@ class TasksAndRequestsViewModel: NSObject, ViewModel, ListDiffable {
     public func getAllTasksAndRequests() {
         bind()
 
-        isLoadingSubject.onNext(true)
+        isLoadingSubject.accept(true)
 
         getAllTasks()
         getAllRequests()

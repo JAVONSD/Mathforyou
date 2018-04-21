@@ -91,7 +91,7 @@ class LentaViewModel: NSObject {
     func fetchNextPage(
         reset: Bool = false,
         _ completion: @escaping ((Error?) -> Void)) {
-        if loading.value {
+        if loading.value || usingCached {
             completion(nil)
             return
         }

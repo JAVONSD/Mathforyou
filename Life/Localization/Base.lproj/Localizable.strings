@@ -134,6 +134,8 @@
 "no_news_data" = "No news data";
 "no_suggestions_data" = "No suggestions data";
 "no_questionnaires_data" = "No questionnaires data";
+"no_inbox_data" = "No inbox data";
+"no_outbox_data" = "No outbox data";
 
 /* Notifications */
 
