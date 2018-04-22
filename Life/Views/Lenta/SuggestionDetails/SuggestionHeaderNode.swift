@@ -26,7 +26,8 @@ class SuggestionHeaderNode: ASDisplayNode {
     private(set) var suggestion: Suggestion
     private var images: [String] {
         var res = suggestion.secondaryImages.map { $0.streamId }
-        if let image = suggestion.imageStreamId {
+        if let image = suggestion.imageStreamId,
+            !image.isEmpty {
             res.insert(image, at: 0)
         }
         return res
@@ -70,6 +71,7 @@ class SuggestionHeaderNode: ASDisplayNode {
             self.pageControl.backgroundColor = .white
             self.pageControl.numberOfPages = self.images.count
             self.pageControl.currentPage = 0
+            self.pageControl.hidesForSinglePage = true
             self.pageControl.pageIndicatorTintColor = App.Color.slateGrey.withAlphaComponent(0.32)
             self.pageControl.currentPageIndicatorTintColor = App.Color.slateGrey
             return self.pageControl
@@ -167,8 +169,13 @@ class SuggestionHeaderNode: ASDisplayNode {
     }
 
     private func collectionSize() -> CGSize {
-        let ratio: CGFloat = 360.0 / 300.0
         let width = UIScreen.main.bounds.size.width
+
+        if images.isEmpty {
+            return CGSize(width: width, height: 70)
+        }
+
+        let ratio: CGFloat = 360.0 / 300.0
         let height = width / ratio
 
         let size = CGSize(width: width, height: height)

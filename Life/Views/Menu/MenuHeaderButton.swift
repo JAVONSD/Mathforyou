@@ -77,10 +77,9 @@ class MenuHeaderButton: FlatButton {
     }
 
     private func setupEmployeeImageView() {
-        employeeImageView.backgroundColor = App.Color.paleGreyTwo
+        employeeImageView.backgroundColor = .clear
         employeeImageView.layer.cornerRadius = App.Layout.cornerRadiusSmall
         employeeImageView.layer.masksToBounds = true
-        employeeImageView.backgroundColor = UIColor(hex: "#d8d8d8")
         employeeImageView.contentMode = .scaleAspectFill
         addSubview(employeeImageView)
         employeeImageView.snp.makeConstraints { (make) in

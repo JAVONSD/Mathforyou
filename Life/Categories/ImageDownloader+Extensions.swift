@@ -138,7 +138,10 @@ extension ImageDownloader {
             let width = size != nil ? size!.width * scale : UIScreen.main.bounds.size.width * scale
             let height = size != nil ? Int(size!.height * scale) : Int(width / ratio * scale)
 
-            let urlParams = "?isMedia=true&width=\(Int(width))&height=\(height)&isAttachment=true"
+            var urlParams = "?isMedia=true&width=\(Int(width))&height=\(height)&isAttachment=true"
+            if size == nil {
+                urlParams = ""
+            }
             url = URL(string: "\(App.String.apiBaseUrl)/Files/\(image)\(urlParams)")
         }
 

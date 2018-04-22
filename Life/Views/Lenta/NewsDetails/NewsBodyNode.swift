@@ -424,8 +424,12 @@ extension NewsBodyNode: WKNavigationDelegate {
             if let url = navigationAction.request.url,
                 url.absoluteString.hasPrefix(imageScheme) {
                 var urlPath = url.absoluteString
-                urlPath.removeFirst(imageScheme.count + "https//".count)
-                urlPath = "https://" + urlPath
+                if urlPath.hasPrefix(imageScheme + "https//") {
+                    urlPath.removeFirst(imageScheme.count + "https//".count)
+                    urlPath = "https://" + urlPath
+                } else if urlPath.hasPrefix(imageScheme) {
+                    urlPath.removeFirst(imageScheme.count)
+                }
                 if let didTapImage = didTapImage,
                     let imageUrl = URL(string: urlPath) {
                     getAllImageURLs(in: webView, completion: { (allImages) in

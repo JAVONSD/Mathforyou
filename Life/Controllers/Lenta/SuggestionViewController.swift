@@ -83,8 +83,18 @@ class SuggestionViewController: ASViewController<ASCollectionNode>, Stepper {
     private func open(image: URL, allImages: [URL]) {
         guard !allImages.isEmpty else { return }
 
-        let images = allImages.map { LightboxImage(imageURL: $0) }
+        var images = allImages.map { LightboxImage(imageURL: $0) }
         let startIndex = allImages.index(of: image) ?? 0
+
+        if !image.absoluteString.hasPrefix("http://") && !image.absoluteString.hasPrefix("https://") {
+            images = allImages.map { url -> LightboxImage in
+                guard let data = try? Data.init(contentsOf: url),
+                    let image = UIImage(data: data) else {
+                        return LightboxImage(imageURL: url)
+                }
+                return LightboxImage(image: image)
+            }
+        }
 
         let controller = LightboxController(images: images, startIndex: startIndex)
         controller.dynamicBackground = true

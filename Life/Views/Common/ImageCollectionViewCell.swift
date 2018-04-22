@@ -48,6 +48,7 @@ class ImageCollectionViewCell: CollectionViewCell {
         backgroundColor = .clear
         backgroundView = nil
         contentView.backgroundColor = .clear
+        layer.masksToBounds = true
 
         imageView = UIImageView()
         imageView?.backgroundColor = App.Color.silver
