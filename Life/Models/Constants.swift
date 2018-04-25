@@ -201,7 +201,7 @@ struct App {
     // MARK: - Realms & Configs
 
     struct RealmConfig {
-        private static let schemaVersion: UInt64 = 6
+        private static let schemaVersion: UInt64 = 7
         private static let docs = FileManager.default.urls(
             for: .documentDirectory, in: .userDomainMask).first!
 
@@ -289,6 +289,13 @@ struct App {
         static var videoAnswers: Realm.Configuration {
             return Realm.Configuration(
                 fileURL: docs.appendingPathComponent("VideoAnswers.realm"),
+                schemaVersion: schemaVersion,
+                migrationBlock: migrationBlock)
+        }
+
+        static var notifications: Realm.Configuration {
+            return Realm.Configuration(
+                fileURL: docs.appendingPathComponent("Notifications.realm"),
                 schemaVersion: schemaVersion,
                 migrationBlock: migrationBlock)
         }
@@ -419,6 +426,17 @@ struct App {
             } catch {
                 fatalError(
                     "Failed to initialize realm with configurations - \(RealmConfig.videoAnswers)"
+                )
+            }
+        }
+
+        static func notifications() throws -> Realm {
+            do {
+                let realm = try Realm(configuration: RealmConfig.notifications)
+                return realm
+            } catch {
+                fatalError(
+                    "Failed to initialize realm with configurations - \(RealmConfig.notifications)"
                 )
             }
         }

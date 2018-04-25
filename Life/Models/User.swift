@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import RealmSwift
 import RxSwift
 import RxCocoa
 
@@ -129,12 +130,46 @@ struct User: Codable {
     }
 
     public func logout() {
+        User._current = nil
+
         UserDefaults.standard.set(nil, forKey: App.Key.userToken)
         UserDefaults.standard.set(nil, forKey: App.Key.userProfile)
         UserDefaults.standard.set(login, forKey: App.Key.userLogin)
         UserDefaults.standard.set(nil, forKey: App.Key.userEmployeeCode)
         UserDefaults.standard.set(nil, forKey: App.Key.userRoles)
         UserDefaults.standard.synchronize()
+
+        removeUserRelatedData()
+    }
+
+    private func removeUserRelatedData() {
+        DispatchQueue.global().async {
+            do {
+                // tasks and requests
+                var tasksAndRequestsRealms = [Realm]()
+
+                let inboxTasksRealm = try App.Realms.inboxTasksAndRequests()
+                tasksAndRequestsRealms.append(inboxTasksRealm)
+
+                let outboxTasksRealm = try App.Realms.outboxTasksAndRequests()
+                tasksAndRequestsRealms.append(outboxTasksRealm)
+
+                for realm in tasksAndRequestsRealms {
+                    realm.beginWrite()
+                    realm.delete(realm.objects(TaskObject.self))
+                    realm.delete(realm.objects(RequestObject.self))
+                    try realm.commitWrite()
+                }
+
+                // notifications
+                let notifictationsRealm = try App.Realms.notifications()
+                notifictationsRealm.beginWrite()
+                notifictationsRealm.delete(notifictationsRealm.objects(NotificationObject.self))
+                try notifictationsRealm.commitWrite()
+            } catch {
+                print("Failed to access the Realm database")
+            }
+        }
     }
 
 }

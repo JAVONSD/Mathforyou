@@ -87,7 +87,7 @@ class NotificationsViewModel: NSObject, ViewModel {
     private func returnNotificationsFromCache() {
         DispatchQueue.global().async {
             do {
-                let realm = try App.Realms.default()
+                let realm = try App.Realms.notifications()
                 let cachedTaskObjects = realm.objects(NotificationObject.self)
 
                 let cachedTasks = Array(cachedTaskObjects).map { Notification(managedObject: $0) }
@@ -109,7 +109,7 @@ class NotificationsViewModel: NSObject, ViewModel {
     private func updateNotificationsCache(_ notificationItems: [Notification]) {
         DispatchQueue.global().async {
             do {
-                let realm = try App.Realms.default()
+                let realm = try App.Realms.notifications()
                 realm.beginWrite()
                 realm.delete(realm.objects(NotificationObject.self))
                 for notification in notificationItems {
@@ -125,7 +125,7 @@ class NotificationsViewModel: NSObject, ViewModel {
     private func deleteNotificationFromCache(_ id: String) {
         DispatchQueue.global().async {
             do {
-                let realm = try App.Realms.default()
+                let realm = try App.Realms.notifications()
                 realm.beginWrite()
                 if let notificationObjectToDelete = realm.object(
                     ofType: NotificationObject.self,
