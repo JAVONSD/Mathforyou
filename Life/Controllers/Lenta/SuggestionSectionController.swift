@@ -10,6 +10,7 @@ import UIKit
 import AsyncDisplayKit
 import IGListKit
 import Moya
+import RxSwift
 
 class SuggestionSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: SuggestionItemViewModel?
@@ -18,6 +19,8 @@ class SuggestionSectionController: ASCollectionSectionController {
     var onUnathorizedError: (() -> Void)?
     private(set) var didTapClose: (() -> Void)
     private(set) var didTapImage: ((URL, [URL]) -> Void)
+
+    private let disposeBag = DisposeBag()
 
     init(viewModel: SuggestionItemViewModel,
          didTapClose: @escaping (() -> Void),
@@ -66,7 +69,7 @@ class SuggestionSectionController: ASCollectionSectionController {
 extension SuggestionSectionController: ASSectionController {
     private func scrollToBottom() {
         if let vc = self.viewController as? SuggestionViewController {
-            vc.node.scrollToItem(
+            vc.collectionNode.scrollToItem(
                 at: IndexPath(item: self.items.count - 1, section: 0),
                 at: .bottom,
                 animated: false
@@ -91,6 +94,13 @@ extension SuggestionSectionController: ASSectionController {
             cell.didChange = {
                 self.scrollToBottom()
             }
+
+            self.viewModel?.loading
+                .subscribe(onNext: { [weak cell] loading in
+                    cell?.isHidden = loading
+                })
+                .disposed(by: self.disposeBag)
+
             return cell
         }
     }
@@ -114,6 +124,13 @@ extension SuggestionSectionController: ASSectionController {
                             print("User did like comment ...")
                     })
                 }
+
+                self.viewModel?.loading
+                    .subscribe(onNext: { [weak cell] loading in
+                        cell?.isHidden = loading
+                    })
+                    .disposed(by: self.disposeBag)
+
                 return cell
             }
         } else if items[index] is String {
@@ -137,6 +154,13 @@ extension SuggestionSectionController: ASSectionController {
                 },
                 didTapImage: self.didTapImage
             )
+
+            viewModel.loading
+                .subscribe(onNext: { [weak cell] loading in
+                    cell?.bodyNode.isHidden = loading
+                })
+                .disposed(by: self.disposeBag)
+
             return cell
         }
     }

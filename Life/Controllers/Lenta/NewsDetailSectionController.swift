@@ -10,6 +10,7 @@ import UIKit
 import AsyncDisplayKit
 import IGListKit
 import Moya
+import RxSwift
 
 class NewsDetailSectionController: ASCollectionSectionController {
     private(set) weak var viewModel: NewsItemViewModel?
@@ -18,6 +19,8 @@ class NewsDetailSectionController: ASCollectionSectionController {
     var onUnathorizedError: (() -> Void)?
     private(set) var didTapClose: (() -> Void)
     private(set) var didTapImage: ((URL, [URL]) -> Void)
+
+    private let disposeBag = DisposeBag()
 
     init(viewModel: NewsItemViewModel,
          didTapClose: @escaping (() -> Void),
@@ -66,7 +69,7 @@ class NewsDetailSectionController: ASCollectionSectionController {
 extension NewsDetailSectionController: ASSectionController {
     private func scrollToBottom() {
         if let vc = self.viewController as? NewsViewController {
-            vc.node.scrollToItem(
+            vc.collectionNode.scrollToItem(
                 at: IndexPath(item: self.items.count - 1, section: 0),
                 at: .bottom,
                 animated: false
@@ -91,6 +94,13 @@ extension NewsDetailSectionController: ASSectionController {
             cell.didChange = {
                 self.scrollToBottom()
             }
+
+            self.viewModel?.loading
+                .subscribe(onNext: { [weak cell] loading in
+                    cell?.isHidden = loading
+                })
+                .disposed(by: self.disposeBag)
+
             return cell
         }
     }
@@ -114,6 +124,13 @@ extension NewsDetailSectionController: ASSectionController {
                             print("User did like comment ...")
                     })
                 }
+
+                viewModel.loading
+                    .subscribe(onNext: { [weak cell] loading in
+                        cell?.isHidden = loading
+                    })
+                    .disposed(by: self.disposeBag)
+
                 return cell
             }
         } else if items[index] is NSString {
@@ -137,6 +154,13 @@ extension NewsDetailSectionController: ASSectionController {
                 },
                 didTapImage: self.didTapImage
             )
+
+            viewModel.loading
+                .subscribe(onNext: { [weak cell] loading in
+                    cell?.bodyNode.isHidden = loading
+                })
+                .disposed(by: self.disposeBag)
+
             return cell
         }
     }

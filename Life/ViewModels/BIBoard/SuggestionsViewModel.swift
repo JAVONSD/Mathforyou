@@ -314,7 +314,7 @@ class SuggestionItemViewModel: NSObject, ListDiffable {
     var calculatedWebViewHeight: CGFloat = 24
 
     private(set) var canLoadMore = true
-    private(set) var loading = false
+    let loading = BehaviorRelay<Bool>(value: false)
 
     private let disposeBag = DisposeBag()
 
@@ -340,11 +340,11 @@ class SuggestionItemViewModel: NSObject, ListDiffable {
     // MARK: - Methods
 
     public func getSuggestion(completion: @escaping ((Error?) -> Void)) {
-        if loading {
+        if loading.value {
             return
         }
 
-        loading = true
+        loading.accept(true)
 
         provider
             .rx
@@ -352,7 +352,7 @@ class SuggestionItemViewModel: NSObject, ListDiffable {
             .filterSuccessfulStatusCodes()
             .subscribe { response in
                 self.canLoadMore = false
-                self.loading = false
+                self.loading.accept(false)
 
                 switch response {
                 case .success(let json):
@@ -371,12 +371,6 @@ class SuggestionItemViewModel: NSObject, ListDiffable {
     }
 
     public func likeSuggestion(vote: UserVote, completion: @escaping ((Error?) -> Void)) {
-        if loading {
-            return
-        }
-
-        loading = true
-
         provider
             .rx
             .request(.likeSuggestion(withId: suggestion.id, voteType: vote))
@@ -393,20 +387,11 @@ class SuggestionItemViewModel: NSObject, ListDiffable {
     }
 
     public func addCommentToSuggestion(commentText: String, completion: @escaping ((Error?) -> Void)) {
-        if loading {
-            return
-        }
-
-        loading = true
-
         provider
             .rx
             .request(.addCommentToSuggestion(withId: suggestion.id, commentText: commentText))
             .filterSuccessfulStatusCodes()
             .subscribe { response in
-                self.canLoadMore = false
-                self.loading = false
-
                 switch response {
                 case .success(let json):
                     if let comment = try? JSONDecoder().decode(Comment.self, from: json.data) {
@@ -424,12 +409,6 @@ class SuggestionItemViewModel: NSObject, ListDiffable {
     }
 
     public func likeComment(id: String, voteType: UserVote, completion: @escaping ((Error?) -> Void)) {
-        if loading {
-            return
-        }
-
-        loading = true
-
         provider
             .rx
             .request(.likeComment(suggestionId: suggestion.id, commentId: id, voteType: voteType))

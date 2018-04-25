@@ -308,7 +308,7 @@ class NewsItemViewModel: NSObject, ListDiffable {
     var calculatedWebViewHeight: CGFloat = 24
 
     private(set) var canLoadMore = true
-    private(set) var loading = false
+    let loading = BehaviorRelay<Bool>(value: false)
 
     private let disposeBag = DisposeBag()
 
@@ -334,11 +334,11 @@ class NewsItemViewModel: NSObject, ListDiffable {
     // MARK: - Methods
 
     public func getNews(completion: @escaping ((Error?) -> Void)) {
-        if loading {
+        if loading.value {
             return
         }
 
-        loading = true
+        loading.accept(true)
 
         provider
             .rx
@@ -346,7 +346,7 @@ class NewsItemViewModel: NSObject, ListDiffable {
             .filterSuccessfulStatusCodes()
             .subscribe { response in
                 self.canLoadMore = false
-                self.loading = false
+                self.loading.accept(false)
 
                 switch response {
                 case .success(let json):
@@ -365,12 +365,6 @@ class NewsItemViewModel: NSObject, ListDiffable {
     }
 
     public func likeNews(completion: @escaping ((Error?) -> Void)) {
-        if loading {
-            return
-        }
-
-        loading = true
-
         provider
             .rx
             .request(.likeNews(withId: news.id))
@@ -387,20 +381,11 @@ class NewsItemViewModel: NSObject, ListDiffable {
     }
 
     public func addCommentToNews(commentText: String, completion: @escaping ((Error?) -> Void)) {
-        if loading {
-            return
-        }
-
-        loading = true
-
         provider
             .rx
             .request(.addCommentToNews(withId: news.id, commentText: commentText))
             .filterSuccessfulStatusCodes()
             .subscribe { response in
-                self.canLoadMore = false
-                self.loading = false
-
                 switch response {
                 case .success(let json):
                     if let comment = try? JSONDecoder().decode(Comment.self, from: json.data) {
@@ -418,12 +403,6 @@ class NewsItemViewModel: NSObject, ListDiffable {
     }
 
     public func likeComment(id: String, voteType: UserVote, completion: @escaping ((Error?) -> Void)) {
-        if loading {
-            return
-        }
-
-        loading = true
-
         provider
             .rx
             .request(.likeComment(newsId: news.id, commentId: id, voteType: voteType))

@@ -11,29 +11,39 @@ import AsyncDisplayKit
 import IGListKit
 import Lightbox
 import Material
+import NVActivityIndicatorView
+import RxSwift
 import SnapKit
 
-class NewsViewController: ASViewController<ASCollectionNode>, Stepper {
+class NewsViewController: ASViewController<ASDisplayNode>, Stepper {
 
     private var listAdapter: ListAdapter!
-    private var collectionNode: ASCollectionNode {
-        return node
-    }
-    private lazy var spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+    private(set) var collectionNode: ASCollectionNode!
+
+    private var spinnerNode: ASDisplayNode!
+    private(set) lazy var spinner = NVActivityIndicatorView(
+        frame: .init(x: 0, y: 0, width: 44, height: 44),
+        type: .circleStrokeSpin,
+        color: App.Color.azure,
+        padding: 0)
+
     private lazy var refreshCtrl = UIRefreshControl()
+
+    private var fabButton: FABButton!
 
     var viewModel: NewsItemViewModel!
 
     var onUnathorizedError: (() -> Void)?
 
+    let disposeBag = DisposeBag()
+
     init(viewModel: NewsItemViewModel) {
         self.viewModel = viewModel
 
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionFootersPinToVisibleBounds = true
-        let node = ASCollectionNode(collectionViewLayout: layout)
-
+        let node = ASDisplayNode()
         super.init(node: node)
+
+        setupNodes()
 
         let updater = ListAdapterUpdater()
         listAdapter = ListAdapter(updater: updater, viewController: self, workingRangeSize: 0)
@@ -65,6 +75,47 @@ class NewsViewController: ASViewController<ASCollectionNode>, Stepper {
         refreshCtrl.addTarget(self, action: #selector(refreshFeed), for: .valueChanged)
         refreshCtrl.tintColor = App.Color.azure
         collectionNode.view.addSubview(refreshCtrl)
+
+        bind()
+    }
+
+    // MARK: - Actions
+
+    @objc
+    private func handleShareButton() {
+        let text = viewModel.news.title
+
+        let textType = "Новость"
+        let link = LinkBuilder.newsLink(for: viewModel.news.id)
+
+        let shareText =
+        """
+        \(textType): "\(text)"
+        Автор: \(viewModel.news.authorName)
+        Ссылка: \(link)
+        """
+
+        let shareItems = [shareText]
+        let activityViewController = UIActivityViewController(
+            activityItems: shareItems,
+            applicationActivities: nil
+        )
+        activityViewController.popoverPresentationController?.sourceView = self.view
+
+        present(activityViewController, animated: true, completion: nil)
+    }
+
+    // MARK: - Bind
+
+    private func bind() {
+        viewModel.loading.asDriver()
+            .drive(onNext: { [weak self] loading in
+                guard let `self` = self else { return }
+                loading ? self.spinner.startAnimating() : self.spinner.stopAnimating()
+                self.spinnerNode.isHidden = !loading
+                self.fabButton.isHidden = loading
+            })
+            .disposed(by: disposeBag)
     }
 
     // MARK: - Methods
@@ -101,6 +152,75 @@ class NewsViewController: ASViewController<ASCollectionNode>, Stepper {
         controller.dynamicBackground = true
 
         present(controller, animated: true, completion: nil)
+    }
+
+    private func setupFABButton() {
+        fabButton = FABButton(image: Icon.cm.share, tintColor: .white)
+        fabButton.addTarget(self, action: #selector(handleShareButton), for: .touchUpInside)
+        fabButton.pulseColor = .white
+        fabButton.backgroundColor = App.Color.azure
+        fabButton.shadowColor = App.Color.black12
+        fabButton.depth = Depth(offset: Offset.init(horizontal: 0, vertical: 12), opacity: 1, radius: 12)
+        fabButton.isHidden = true
+    }
+
+    // MARK: - UI
+
+    private func setupNodes() {
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionFootersPinToVisibleBounds = true
+        collectionNode = ASCollectionNode(collectionViewLayout: layout)
+        node.addSubnode(collectionNode)
+
+        let fabNode = ASDisplayNode { () -> UIView in
+            self.setupFABButton()
+            let view = UIView()
+            view.backgroundColor = .clear
+            view.addSubview(self.fabButton)
+            self.fabButton.snp.makeConstraints { (make) in
+                make.size.equalTo(CGSize(width: 56, height: 56))
+                make.edges.equalTo(view)
+            }
+            return view
+        }
+        fabNode.backgroundColor = .clear
+        fabNode.style.preferredSize = CGSize(width: 56, height: 56)
+        node.addSubnode(fabNode)
+
+        spinnerNode = ASDisplayNode(viewBlock: { () -> UIView in
+            self.spinner.startAnimating()
+            return self.spinner
+        })
+        spinnerNode.backgroundColor = .clear
+        spinnerNode.style.preferredSize = CGSize(width: 44, height: 44)
+        node.addSubnode(spinnerNode)
+
+        node.layoutSpecBlock = { (_, _) in
+            let insetSpec = ASInsetLayoutSpec(insets: .init(
+                top: 0,
+                left: 0,
+                bottom: 30,
+                right: App.Layout.sideOffset), child: fabNode)
+            let relativeSpec = ASRelativeLayoutSpec(
+                horizontalPosition: .end,
+                verticalPosition: .end,
+                sizingOption: [],
+                child: insetSpec
+            )
+            let collectionSpec = ASOverlayLayoutSpec(child: self.collectionNode, overlay: relativeSpec)
+
+            let spinnerSpec = ASStackLayoutSpec.vertical()
+            spinnerSpec.children = [self.spinnerNode]
+            spinnerSpec.alignItems = .center
+            spinnerSpec.justifyContent = .center
+
+            let spinnerInsetSpect = ASInsetLayoutSpec(
+                insets: .init(top: 70, left: 0, bottom: 0, right: 0),
+                child: spinnerSpec
+            )
+
+            return ASOverlayLayoutSpec(child: collectionSpec, overlay: spinnerInsetSpect)
+        }
     }
 
 }
