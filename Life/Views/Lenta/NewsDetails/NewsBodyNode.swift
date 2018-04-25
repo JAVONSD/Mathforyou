@@ -23,6 +23,8 @@ class NewsBodyNode: ASDisplayNode {
 
     private(set) var separator1Node: ASDisplayNode!
 
+    private(set) var titleNode: ASTextNode!
+
     private(set) var webView: WebView!
     private(set) var webViewNode: ASDisplayNode!
 
@@ -82,6 +84,10 @@ class NewsBodyNode: ASDisplayNode {
         separator1Node = ASDisplayNode()
         separator1Node.backgroundColor = App.Color.coolGrey
         addSubnode(separator1Node)
+
+        titleNode = ASTextNode()
+        titleNode.attributedText = attTitle(news.title)
+        addSubnode(titleNode)
 
         addWebNode()
         addLikesViews()
@@ -173,6 +179,16 @@ class NewsBodyNode: ASDisplayNode {
     }
 
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
+        let titleSpec = ASInsetLayoutSpec(
+            insets: .init(
+                top: App.Layout.itemSpacingMedium,
+                left: App.Layout.sideOffset,
+                bottom: 0,
+                right: App.Layout.sideOffset
+            ),
+            child: titleNode
+        )
+
         separator1Node.style.preferredSize = CGSize(
             width: constrainedSize.max.width - 2 * App.Layout.sideOffset,
             height: 0.5
@@ -197,6 +213,7 @@ class NewsBodyNode: ASDisplayNode {
         stackSpec.children = [
             authorSpec(),
             sep1Spec,
+            titleSpec,
             webSpec(),
             likesViewsSpec(),
             sep2Spec,
@@ -233,7 +250,7 @@ class NewsBodyNode: ASDisplayNode {
 
     private func webSpec() -> ASLayoutSpec {
         let webSpec = ASInsetLayoutSpec(insets: .init(
-            top: App.Layout.sideOffset,
+            top: App.Layout.itemSpacingSmall,
             left: App.Layout.sideOffset,
             bottom:0,
             right: App.Layout.sideOffset), child: webViewNode)
@@ -333,6 +350,16 @@ class NewsBodyNode: ASDisplayNode {
         let allRange = NSRange(location: 0, length: attText.length)
         attText.addAttribute(.font, value: App.Font.body, range: allRange)
         attText.addAttribute(.foregroundColor, value: App.Color.steel, range: allRange)
+
+        return attText
+    }
+
+    private func attTitle(_ string: String) -> NSMutableAttributedString {
+        let attText = NSMutableAttributedString(string: string)
+
+        let allRange = NSRange(location: 0, length: attText.length)
+        attText.addAttribute(.font, value: App.Font.subheadAlts, range: allRange)
+        attText.addAttribute(.foregroundColor, value: UIColor.black, range: allRange)
 
         return attText
     }
