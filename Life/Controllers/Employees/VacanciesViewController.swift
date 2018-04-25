@@ -44,7 +44,7 @@ class VacanciesViewController: UIViewController {
                 }
                 cell.companyLabel.text = companyTexts.joined(separator: ", ")
 
-                cell.salaryLabel.text = element.vacancy.salary
+                cell.salaryLabel.text = "з/п \(element.vacancy.salary)"
 
                 let itemsCount = tv.numberOfRows(inSection: indexPath.section)
                 if indexPath.row == itemsCount - 1 {
