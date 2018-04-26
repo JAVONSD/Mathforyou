@@ -15,6 +15,7 @@ import RxSwift
 class QuestionnairePollView: UIView {
 
     private(set) lazy var titleLabel = UILabel()
+    private(set) lazy var questionLabel = UILabel()
     private(set) lazy var questionNumberLabel = UILabel()
     private(set) lazy var minAnswerCountLabel = UILabel()
 
@@ -45,6 +46,7 @@ class QuestionnairePollView: UIView {
         super.layoutSubviews()
 
         titleLabel.preferredMaxLayoutWidth = titleLabel.frame.size.width
+        questionLabel.preferredMaxLayoutWidth = questionLabel.frame.size.width
     }
 
     // MARK: - Mewthods
@@ -151,6 +153,7 @@ class QuestionnairePollView: UIView {
 
     private func setupUI() {
         setupTitleLabel()
+        setupQuestionLabel()
         setupQuestionNumberLabel()
         setupMinAnswerCountLabel()
         setupQuestionsContentView()
@@ -162,6 +165,7 @@ class QuestionnairePollView: UIView {
         guard questionnaire.questions.count > currentQuestionIdx else { return }
 
         titleLabel.text = questionnaire.title
+        questionLabel.text = questionnaire.questions[currentQuestionIdx].text
         questionNumberLabel.text = "\(currentQuestionIdx + 1)/\(questionnaire.questions.count) вопросов"
 
         buildQuestionView()
@@ -314,12 +318,25 @@ class QuestionnairePollView: UIView {
         }
     }
 
+    private func setupQuestionLabel() {
+        questionLabel.font = App.Font.body
+        questionLabel.lineBreakMode = .byWordWrapping
+        questionLabel.numberOfLines = 0
+        questionLabel.textColor = .black
+        addSubview(questionLabel)
+        questionLabel.snp.makeConstraints { (make) in
+            make.top.equalTo(titleLabel.snp.bottom).offset(App.Layout.itemSpacingMedium)
+            make.left.equalTo(self).inset(App.Layout.sideOffset)
+            make.right.equalTo(self).inset(App.Layout.sideOffset)
+        }
+    }
+
     private func setupQuestionNumberLabel() {
         questionNumberLabel.font = App.Font.body
         questionNumberLabel.textColor = App.Color.steel
         addSubview(questionNumberLabel)
         questionNumberLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(App.Layout.itemSpacingMedium)
+            make.top.equalTo(self.questionLabel.snp.bottom).offset(App.Layout.itemSpacingSmall)
             make.right.equalTo(self).inset(App.Layout.sideOffset)
         }
     }

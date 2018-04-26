@@ -51,9 +51,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         IQKeyboardManager.sharedManager().enable = true
 
-        // set image caching limit to 100 MB
-        ImageCache.default.maxDiskCacheSize = 100 * 1024 * 1024
-
         LightboxConfig.loadImage = { imageView, url, completion in
             ImageDownloader.download(image: url.absoluteString, completion: { (image) in
                 if let image = image {
