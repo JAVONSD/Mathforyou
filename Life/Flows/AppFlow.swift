@@ -20,6 +20,7 @@ class AppFlow: Flow {
         self.rootWindow = window
     }
 
+    // Presentable
     func navigate(to step: Step) -> NextFlowItems {
         guard let step = step as? AppStep else { return NextFlowItems.stepNotHandled }
 
@@ -56,6 +57,7 @@ class AppFlow: Flow {
     private func navigationToMainMenuScreen () -> NextFlowItems {
         let mainMenuFlow = MainMenuFlow()
 
+        // when the first Flow is ready, set its root as the rootViewController of the Window
         Flows.whenReady(
             flow1: mainMenuFlow) { nav1 in
                 self.rootWindow.rootViewController = nav1

@@ -73,6 +73,9 @@ target 'Life' do
 
   # Suggestion
   pod 'UITextField_AutoSuggestion', '~> 0.0'
+  
+  # Transition
+  pod 'Hero'
 
   target 'LifeTests' do
     inherit! :search_paths

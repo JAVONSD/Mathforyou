@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2645CE45D7BDDF7B375C06AD /* Pods_Life.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6099E4209624F63B0227327D /* Pods_Life.framework */; };
+		9D1955B52105D42500B93EAB /* QuestionnaireStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1955B42105D42500B93EAB /* QuestionnaireStatisticsView.swift */; };
+		9DF738CC21075F9200953214 /* UIGestureRecognizer+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF738CB21075F9200953214 /* UIGestureRecognizer+Extentions.swift */; };
 		C7054BB12041767C00A8ED1A /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7054BB02041767B00A8ED1A /* Notification.swift */; };
 		C7054BB32041782300A8ED1A /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = C7054BB22041782300A8ED1A /* notifications.json */; };
 		C70ECFCF203AB51F00710DB5 /* SliderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C70ECFCE203AB51F00710DB5 /* SliderViewModel.swift */; };
@@ -302,7 +304,6 @@
 		C7D5BEC82075242400A8F37F /* QuestionnaireView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BEC72075242400A8F37F /* QuestionnaireView.swift */; };
 		C7D5BECA2075243600A8F37F /* QuestionnaireViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BEC92075243600A8F37F /* QuestionnaireViewController.swift */; };
 		C7D5BECC2075262A00A8F37F /* QuestionnairePollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BECB2075262A00A8F37F /* QuestionnairePollView.swift */; };
-		C7D5BECE2075264100A8F37F /* QuestionnaireStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BECD2075264100A8F37F /* QuestionnaireStatisticsView.swift */; };
 		C7D5BED02075270D00A8F37F /* QuestionnaireHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BECF2075270D00A8F37F /* QuestionnaireHeaderView.swift */; };
 		C7D5BED42075398000A8F37F /* InsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BED32075398000A8F37F /* InsetLabel.swift */; };
 		C7D5BED72075C81E00A8F37F /* QuestionnaireStatisticsItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7D5BED62075C81E00A8F37F /* QuestionnaireStatisticsItemView.swift */; };
@@ -448,6 +449,8 @@
 		5C89D515CE0C2B4C9EF00C4C /* Pods-LifeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LifeUITests/Pods-LifeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6099E4209624F63B0227327D /* Pods_Life.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Life.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		639719E8416CCF3FD63614E7 /* Pods-Life.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Life/Pods-Life.debug.xcconfig"; sourceTree = "<group>"; };
+		9D1955B42105D42500B93EAB /* QuestionnaireStatisticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionnaireStatisticsView.swift; sourceTree = "<group>"; };
+		9DF738CB21075F9200953214 /* UIGestureRecognizer+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Extentions.swift"; sourceTree = "<group>"; };
 		A5856C72266F971904DBA28A /* Pods-Life.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life.release.xcconfig"; path = "Pods/Target Support Files/Pods-Life/Pods-Life.release.xcconfig"; sourceTree = "<group>"; };
 		BB877A7D8C856CDF13C84955 /* Pods-LifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeTests/Pods-LifeTests.release.xcconfig"; sourceTree = "<group>"; };
 		C6832F87B3CF9A6B146EC0E0 /* Pods_LifeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LifeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -761,7 +764,6 @@
 		C7D5BEC72075242400A8F37F /* QuestionnaireView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireView.swift; sourceTree = "<group>"; };
 		C7D5BEC92075243600A8F37F /* QuestionnaireViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireViewController.swift; sourceTree = "<group>"; };
 		C7D5BECB2075262A00A8F37F /* QuestionnairePollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnairePollView.swift; sourceTree = "<group>"; };
-		C7D5BECD2075264100A8F37F /* QuestionnaireStatisticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = QuestionnaireStatisticsView.swift; path = /Users/chika/Documents/Projects/Life/Life/Views/Questionnaires/QuestionnaireStatisticsView.swift; sourceTree = "<absolute>"; };
 		C7D5BECF2075270D00A8F37F /* QuestionnaireHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireHeaderView.swift; sourceTree = "<group>"; };
 		C7D5BED32075398000A8F37F /* InsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetLabel.swift; sourceTree = "<group>"; };
 		C7D5BED62075C81E00A8F37F /* QuestionnaireStatisticsItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionnaireStatisticsItemView.swift; sourceTree = "<group>"; };
@@ -1210,6 +1212,7 @@
 				C74FCE6C2046499800E9C6BA /* Date+Extensions.swift */,
 				C74FCE7620464FD500E9C6BA /* URL+Extensions.swift */,
 				C7A241AD204AB60C00994840 /* UIImageView+Extensions.swift */,
+				9DF738CB21075F9200953214 /* UIGestureRecognizer+Extentions.swift */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -1652,9 +1655,9 @@
 				C7D5BEC72075242400A8F37F /* QuestionnaireView.swift */,
 				C7D5BECF2075270D00A8F37F /* QuestionnaireHeaderView.swift */,
 				C7D5BECB2075262A00A8F37F /* QuestionnairePollView.swift */,
-				C7D5BECD2075264100A8F37F /* QuestionnaireStatisticsView.swift */,
 				C7D5BED62075C81E00A8F37F /* QuestionnaireStatisticsItemView.swift */,
 				C7D5BED82075C9A400A8F37F /* QuestionStatisticsView.swift */,
+				9D1955B42105D42500B93EAB /* QuestionnaireStatisticsView.swift */,
 			);
 			path = Questionnaires;
 			sourceTree = "<group>";
@@ -2174,7 +2177,7 @@
 				TargetAttributes = {
 					C76EFB49202E91F000FA2BB9 = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.SafariKeychain = {
 								enabled = 1;
@@ -2432,6 +2435,7 @@
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
 				"${BUILT_PRODUCTS_DIR}/DateToolsSwift/DateToolsSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/DynamicBlurView/DynamicBlurView.framework",
+				"${BUILT_PRODUCTS_DIR}/Hero/Hero.framework",
 				"${BUILT_PRODUCTS_DIR}/Hue/Hue.framework",
 				"${BUILT_PRODUCTS_DIR}/IGListKit/IGListKit.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
@@ -2472,6 +2476,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DateToolsSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DynamicBlurView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hero.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Hue.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IGListKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
@@ -2553,6 +2558,7 @@
 				C79252072031B43700CDFBBA /* ImageTextTableViewCell.swift in Sources */,
 				C7BB5C53203ED34C0056BBF9 /* NewsCommentCell.swift in Sources */,
 				C76EFBED20302F8C00FA2BB9 /* MaskedTextFieldDelegate.swift in Sources */,
+				9D1955B52105D42500B93EAB /* QuestionnaireStatisticsView.swift in Sources */,
 				C79251F9203184F800CDFBBA /* ImageTextButton.swift in Sources */,
 				C7D6420120344F61001DCA98 /* MenuFlow.swift in Sources */,
 				C7A241AE204AB60C00994840 /* UIImageView+Extensions.swift in Sources */,
@@ -2779,6 +2785,7 @@
 				C7D6424020346FD3001DCA98 /* MenuViewModel.swift in Sources */,
 				C720EC7220368E64007E4CD4 /* SearchView.swift in Sources */,
 				C76EFBE520302F8C00FA2BB9 /* EOLState.swift in Sources */,
+				9DF738CC21075F9200953214 /* UIGestureRecognizer+Extentions.swift in Sources */,
 				C74FCE8120465FED00E9C6BA /* QuestionnaireStatistics.swift in Sources */,
 				C7AB6F67204BE8F500328E17 /* UIImage+Extension.swift in Sources */,
 				C7D641B8203408FD001DCA98 /* TopQuestionsService.swift in Sources */,
@@ -2865,7 +2872,6 @@
 				C720AC89204EFB3000767473 /* VacancyObject.swift in Sources */,
 				C7F7CB45203B138D007B9D1E /* EventsViewModel.swift in Sources */,
 				C76EFBEB20302F8C00FA2BB9 /* InterfaceBuilderSupport.swift in Sources */,
-				C7D5BECE2075264100A8F37F /* QuestionnaireStatisticsView.swift in Sources */,
 				C7BB5C6D203FD6810056BBF9 /* SuggestionSectionController.swift in Sources */,
 				C79251EB2031532E00CDFBBA /* MyInfoView.swift in Sources */,
 				C76EFBE420302F8C00FA2BB9 /* ValueState.swift in Sources */,
@@ -3070,15 +3076,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = AK24CEK6KH;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.bi-group.Life";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "36c5f4e5-9b2c-4261-aa92-cd1c126b11e9";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development org.bi-group.Life";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -3091,16 +3098,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Life/Life.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 34;
 				DEVELOPMENT_TEAM = AK24CEK6KH;
 				INFOPLIST_FILE = Life/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.bi-group.Life";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "633d5204-6883-44ac-8476-29d01108850e";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore org.bi-group.Life";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";

@@ -47,6 +47,7 @@ class NewsDetailSectionController: ASCollectionSectionController {
         }
     }
 
+    // tells section that controller was updated to  new object
     override func didUpdate(to object: Any) {
         viewModel = object as? NewsItemViewModel
 
@@ -54,10 +55,12 @@ class NewsDetailSectionController: ASCollectionSectionController {
     }
 
     override func cellForItem(at index: Int) -> UICollectionViewCell {
+        // AsyncDisplayKit provides cell
         return ASIGListSectionControllerMethods.cellForItem(at: index, sectionController: self)
     }
 
     override func sizeForItem(at index: Int) -> CGSize {
+        // AsyncDisplayKit responsable for size
         return ASIGListSectionControllerMethods.sizeForItem(at: index)
     }
 

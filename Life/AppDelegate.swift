@@ -19,11 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     let disposeBag = DisposeBag()
+    
+    // RxFlow
     var coordinator = Coordinator()
     var appFlow: AppFlow!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions
         launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = .white
         window?.makeKeyAndVisible()
@@ -31,12 +34,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         guard let window = self.window else { return false }
 
         coordinator.rx.didNavigate.subscribe(onNext: { (flow, step) in
-            print ("did navigate to flow=\(flow) and step=\(step)")
+            print ("******** did navigate to flow=\(flow) and step=\(step)")
         }).disposed(by: self.disposeBag)
 
         self.appFlow = AppFlow(window: window)
 
         let loggedIn = User.current.isAuthenticated
+        // ask the Coordinator to coordinate this Flow with a first Step
         if loggedIn {
             coordinator.coordinate(
                 flow: self.appFlow,
@@ -76,6 +80,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      continue userActivity: NSUserActivity,
                      restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+        
         if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
             if let url = userActivity.webpageURL {
                 let pathComponents = url.pathComponents
@@ -99,3 +104,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 }
+
+
+
+
+
+
+

@@ -14,6 +14,7 @@ import Material
 import NVActivityIndicatorView
 import RxSwift
 import SnapKit
+import Hero
 
 class NewsViewController: ASViewController<ASDisplayNode>, Stepper {
 
@@ -36,6 +37,11 @@ class NewsViewController: ASViewController<ASDisplayNode>, Stepper {
     var onUnathorizedError: (() -> Void)?
 
     let disposeBag = DisposeBag()
+    
+    // dismiss
+    var panGR : UIPanGestureRecognizer!
+    var progressBool : Bool = false
+    var dismissBool : Bool = true
 
     init(viewModel: NewsItemViewModel) {
         self.viewModel = viewModel
@@ -45,16 +51,18 @@ class NewsViewController: ASViewController<ASDisplayNode>, Stepper {
 
         setupNodes()
 
+        // IGList Adapter - kind of dataSource for collection view
         let updater = ListAdapterUpdater()
         listAdapter = ListAdapter(updater: updater, viewController: self, workingRangeSize: 0)
         listAdapter.dataSource = self
+        // Connect list adapter to collection node
         listAdapter.setASDKCollectionNode(collectionNode)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -77,8 +85,11 @@ class NewsViewController: ASViewController<ASDisplayNode>, Stepper {
         collectionNode.view.addSubview(refreshCtrl)
 
         bind()
+        setupGestureForDismiss()
     }
-
+    
+    
+ 
     // MARK: - Actions
 
     @objc
@@ -225,7 +236,10 @@ class NewsViewController: ASViewController<ASDisplayNode>, Stepper {
 
 }
 
+    // used to provide data to an IGListAdapter
 extension NewsViewController: ListAdapterDataSource {
+    
+    // ask data sourse for objects to display in list
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return [viewModel]
     }
@@ -252,7 +266,97 @@ extension NewsViewController: ListAdapterDataSource {
         return section
     }
 
+    // if we have nothing to show
     func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
     }
 }
+
+extension NewsViewController : UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool{
+        
+        return true
+    }
+    
+    private func setupGestureForDismiss() {
+        hero.isEnabled = true
+        panGR = UIPanGestureRecognizer(target: self, action: #selector(panAct))
+        view.addGestureRecognizer(panGR)
+        panGR.delegate = self
+    }
+    
+    @objc func panAct(recognizer : UIPanGestureRecognizer) {
+        
+        //1. Monitor the translation of view
+        let translation = recognizer.translation(in: nil)
+        let progressX = (translation.x / 2 ) / view.bounds.width
+        let progressY = (translation.y / 2 ) / view.bounds.height
+        
+        //1. Monitor the direction of view
+        if recognizer.direction == .right {
+            
+            if (translation.x > 0) {
+                if dismissBool {
+                    dismissBool = false
+                    hero.dismissViewController()
+                    self.hero.modalAnimationType = .uncover(direction: .right)
+                    recognizer.setTranslation(.zero, in: view)
+                }
+            }
+            
+        }
+        //3. Gesture states
+        switch recognizer.state {
+        //3.1 Gesture states began to check the pan direction the user initiated
+        case .began:
+            
+            print("began")
+            
+        //3.2 Gesture state changed to Translate the view according to the user pan gesture
+        case .changed:
+            
+            if progressBool {
+                
+                let currentPos = CGPoint(x: view.center.x , y: translation.y + view.center.y)
+                Hero.shared.update(progressY)
+                Hero.shared.apply(modifiers: [.position(currentPos)], to: view)
+                
+            } else {
+                
+                if translation.x > 0 {
+                    let currentPos = CGPoint(x: translation.x + view.center.x , y: view.center.y)
+                    Hero.shared.update(progressX)
+                    Hero.shared.apply(modifiers: [.position(currentPos)], to: view)
+                }
+                
+            }
+            
+            
+        //3.3 Gesture state end to finish the animation
+        default:
+            dismissBool = true
+            progressBool = false
+            if fabs(progressY + recognizer.velocity(in: nil).y / view.bounds.height ) > 0.5 {
+                Hero.shared.finish()
+            } else if progressX + recognizer.velocity(in: nil).x / view.bounds.width > 0.5 {
+                Hero.shared.finish()
+            } else {
+                Hero.shared.cancel()
+                self.hero.modalAnimationType = .uncover(direction: .right)
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+

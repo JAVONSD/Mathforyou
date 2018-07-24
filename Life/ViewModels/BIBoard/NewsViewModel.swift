@@ -418,7 +418,7 @@ class NewsItemViewModel: NSObject, ListDiffable {
             .disposed(by: disposeBag)
     }
 
-    // MARK: - ListDiffable
+    // MARK: - ListDiffable ( IGListKit )
 
     func diffIdentifier() -> NSObjectProtocol {
         return NSString(string: news.id)
@@ -431,3 +431,8 @@ class NewsItemViewModel: NSObject, ListDiffable {
         return false
     }
 }
+
+
+
+
+

@@ -8,6 +8,8 @@
 
 import UIKit
 
+// all the navigation code, such as presenting or pushing view controllers, is declared in Flows.
+
 class ProfileFlow: Flow {
 
     var root: Presentable {

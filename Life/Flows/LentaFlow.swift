@@ -30,6 +30,7 @@ class LentaFlow: Flow {
 
         switch step {
         case .lenta:
+            // the “navigate(to:)” function transforms Step into NextFlowItem - Rx paradigma
             return NextFlowItems.one(
                 flowItem: NextFlowItem(
                     nextPresentable: rootViewController,
@@ -62,11 +63,14 @@ class LentaFlow: Flow {
         let viewController = NewsViewController(
             viewModel: NewsItemViewModel(id: id)
         )
+        // side effect
         self.rootViewController.present(viewController, animated: true, completion: nil)
+        
+        // NextFlowItems are produced. Therefore, Presentables and Steppers are registered into the Coordinator
         return NextFlowItems.one(flowItem:
             NextFlowItem(
                 nextPresentable: viewController,
-                nextStepper: viewController)
+                nextStepper: viewController /* Steppers emit new Steps and here we go again */ )
         )
     }
 
