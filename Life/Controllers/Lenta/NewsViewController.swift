@@ -286,6 +286,7 @@ extension NewsViewController : UIGestureRecognizerDelegate {
         panGR.delegate = self
     }
     
+    // Action
     @objc func panAct(recognizer : UIPanGestureRecognizer) {
         
         //1. Monitor the translation of view
@@ -295,7 +296,6 @@ extension NewsViewController : UIGestureRecognizerDelegate {
         
         //1. Monitor the direction of view
         if recognizer.direction == .right {
-            
             if (translation.x > 0) {
                 if dismissBool {
                     dismissBool = false
@@ -304,36 +304,24 @@ extension NewsViewController : UIGestureRecognizerDelegate {
                     recognizer.setTranslation(.zero, in: view)
                 }
             }
-            
         }
+        
         //3. Gesture states
         switch recognizer.state {
-        //3.1 Gesture states began to check the pan direction the user initiated
         case .began:
-            
             print("began")
-            
-        //3.2 Gesture state changed to Translate the view according to the user pan gesture
         case .changed:
-            
             if progressBool {
-                
                 let currentPos = CGPoint(x: view.center.x , y: translation.y + view.center.y)
                 Hero.shared.update(progressY)
                 Hero.shared.apply(modifiers: [.position(currentPos)], to: view)
-                
             } else {
-                
                 if translation.x > 0 {
                     let currentPos = CGPoint(x: translation.x + view.center.x , y: view.center.y)
                     Hero.shared.update(progressX)
                     Hero.shared.apply(modifiers: [.position(currentPos)], to: view)
                 }
-                
             }
-            
-            
-        //3.3 Gesture state end to finish the animation
         default:
             dismissBool = true
             progressBool = false

@@ -40,6 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.appFlow = AppFlow(window: window)
 
         let loggedIn = User.current.isAuthenticated
+        
         // ask the Coordinator to coordinate this Flow with a first Step
         if loggedIn {
             coordinator.coordinate(
