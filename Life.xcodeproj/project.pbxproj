@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		2645CE45D7BDDF7B375C06AD /* Pods_Life.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6099E4209624F63B0227327D /* Pods_Life.framework */; };
 		9D1955B52105D42500B93EAB /* QuestionnaireStatisticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1955B42105D42500B93EAB /* QuestionnaireStatisticsView.swift */; };
+		9D1B8D04210842530080FD0E /* GlobalSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1B8D03210842530080FD0E /* GlobalSearchService.swift */; };
+		9D1B8D06210895810080FD0E /* NewsSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1B8D05210895810080FD0E /* NewsSearchViewController.swift */; };
+		9D1B8D08210895A90080FD0E /* NewsSearchSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1B8D07210895A90080FD0E /* NewsSearchSectionController.swift */; };
 		9DF738CC21075F9200953214 /* UIGestureRecognizer+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF738CB21075F9200953214 /* UIGestureRecognizer+Extentions.swift */; };
 		C7054BB12041767C00A8ED1A /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7054BB02041767B00A8ED1A /* Notification.swift */; };
 		C7054BB32041782300A8ED1A /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = C7054BB22041782300A8ED1A /* notifications.json */; };
@@ -450,6 +453,9 @@
 		6099E4209624F63B0227327D /* Pods_Life.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Life.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		639719E8416CCF3FD63614E7 /* Pods-Life.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Life/Pods-Life.debug.xcconfig"; sourceTree = "<group>"; };
 		9D1955B42105D42500B93EAB /* QuestionnaireStatisticsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionnaireStatisticsView.swift; sourceTree = "<group>"; };
+		9D1B8D03210842530080FD0E /* GlobalSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchService.swift; sourceTree = "<group>"; };
+		9D1B8D05210895810080FD0E /* NewsSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchViewController.swift; sourceTree = "<group>"; };
+		9D1B8D07210895A90080FD0E /* NewsSearchSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchSectionController.swift; sourceTree = "<group>"; };
 		9DF738CB21075F9200953214 /* UIGestureRecognizer+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Extentions.swift"; sourceTree = "<group>"; };
 		A5856C72266F971904DBA28A /* Pods-Life.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life.release.xcconfig"; path = "Pods/Target Support Files/Pods-Life/Pods-Life.release.xcconfig"; sourceTree = "<group>"; };
 		BB877A7D8C856CDF13C84955 /* Pods-LifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeTests/Pods-LifeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -1609,6 +1615,7 @@
 				C7D641B5203408E9001DCA98 /* TasksService.swift */,
 				C7D641B7203408FD001DCA98 /* TopQuestionsService.swift */,
 				C7D641D6203417CB001DCA98 /* UserProfileService.swift */,
+				9D1B8D03210842530080FD0E /* GlobalSearchService.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -1920,6 +1927,8 @@
 				C7BB5C6A203FD6730056BBF9 /* SuggestionViewController.swift */,
 				C7BB5C6C203FD6810056BBF9 /* SuggestionSectionController.swift */,
 				C7BB5C7A20401A870056BBF9 /* SuggestionFormViewController.swift */,
+				9D1B8D05210895810080FD0E /* NewsSearchViewController.swift */,
+				9D1B8D07210895A90080FD0E /* NewsSearchSectionController.swift */,
 			);
 			path = Lenta;
 			sourceTree = "<group>";
@@ -2676,6 +2685,7 @@
 				C7AB6F6C204BE8F500328E17 /* FileViewModel.swift in Sources */,
 				C752ACF320411D2B00D04E26 /* EmployeeObject.swift in Sources */,
 				C73EB2AE2033114500429921 /* HeaderView.swift in Sources */,
+				9D1B8D04210842530080FD0E /* GlobalSearchService.swift in Sources */,
 				C79251E42031489A00CDFBBA /* ResultsViewController.swift in Sources */,
 				C7F7CB69203C5F57007B9D1E /* EventsSectionController.swift in Sources */,
 				C70ECFD5203AC76500710DB5 /* SuggestionsViewModel.swift in Sources */,
@@ -2760,6 +2770,7 @@
 				C7F7CB4D203B19D1007B9D1E /* TasksViewModel.swift in Sources */,
 				C70ECFE1203ACD3D00710DB5 /* Like.swift in Sources */,
 				C7BB5C67203FD4420056BBF9 /* SuggestionBodyNode.swift in Sources */,
+				9D1B8D08210895A90080FD0E /* NewsSearchSectionController.swift in Sources */,
 				C752ACF920413ECB00D04E26 /* VacancyCell.swift in Sources */,
 				C7D64218203463E0001DCA98 /* UIViewController+Presentable.swift in Sources */,
 				C7A2746F2053DDF90026B549 /* NewsObject.swift in Sources */,
@@ -2833,6 +2844,7 @@
 				C7BB5C5D203EFA6A0056BBF9 /* CommentViewModel.swift in Sources */,
 				C76EFBC82030201B00FA2BB9 /* GradientView.swift in Sources */,
 				C7A27458205383930026B549 /* TaskActionObject.swift in Sources */,
+				9D1B8D06210895810080FD0E /* NewsSearchViewController.swift in Sources */,
 				C7AB6F7A204BE8F500328E17 /* DirectoryItemPresentationCoordinator.swift in Sources */,
 				C73EB29D2032F9B100429921 /* Utilities.swift in Sources */,
 				C7F7CB73203C7442007B9D1E /* DashboardGalleryCell.swift in Sources */,

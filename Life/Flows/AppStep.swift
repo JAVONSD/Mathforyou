@@ -51,6 +51,7 @@ enum AppStep: Step {
     case newsPicked(withId: String)
     case newsDone
     case forumPostPicked(withId: String)
+    case newsSearch
 
     // MARK: - Suggestions
 

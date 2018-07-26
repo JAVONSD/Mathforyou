@@ -172,6 +172,7 @@ class LentaViewController: ASViewController<ASDisplayNode>, FABMenuDelegate, Ste
                 self?.collectionNode.setContentOffset(.zero, animated: true)
             }
         }
+        
     }
 
     deinit {

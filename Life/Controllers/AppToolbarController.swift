@@ -19,6 +19,8 @@ class AppToolbarController: NavigationController, Stepper {
 
     var didTapNotifications: (() -> Void)?
     var didTapProfile: (() -> Void)?
+    
+    var didTapSearch: (() -> Void)?
 
     open override func prepare() {
         super.prepare()
@@ -37,6 +39,13 @@ class AppToolbarController: NavigationController, Stepper {
     private func handleNotificationsTap() {
         if let didTapNotifications = didTapNotifications {
             didTapNotifications()
+        }
+    }
+    
+    @objc
+    private func handleSearchTap() {
+        if let didTapSearch = didTapSearch {
+            didTapSearch()
         }
     }
 
@@ -89,10 +98,10 @@ class AppToolbarController: NavigationController, Stepper {
     public func setupToolbarButtons(for viewController: UIViewController) {
         let biGroupButton = setupBiGroupButton()
         let notificationsButton = setupNotificationsButton()
-        let profileButton = setupProfileButton()
+        let searchButton = setupSearchButton()
 
         viewController.navigationItem.leftViews = [biGroupButton]
-        viewController.navigationItem.rightViews = [notificationsButton, profileButton]
+        viewController.navigationItem.rightViews = [notificationsButton, searchButton ]
     }
 
     private func setupBiGroupButton() -> SizedButton {
@@ -110,6 +119,27 @@ class AppToolbarController: NavigationController, Stepper {
         return notificationsButton
     }
 
+    private func setupSearchButton() -> SizedButton {
+        let searchButton = SizedButton(image: nil, size: .init(width: 24, height: 24))
+        searchButton.addTarget(self, action: #selector(handleSearchTap), for: .touchUpInside)
+        searchButton.iconView.backgroundColor = .clear
+        searchButton.pulseColor = App.Color.azure
+        searchButton.iconView.layer.cornerRadius = 12
+        searchButton.iconView.layer.masksToBounds = true
+        searchButton.iconView.tintColor = App.Color.coolGrey
+        
+        ImageDownloader.set(
+            image: "",
+            employeeCode: User.current.employeeCode,
+            to: searchButton.iconView,
+            placeholderImage: #imageLiteral(resourceName: "search"),
+            size: CGSize(width: 24, height: 24)
+        )
+        
+        return searchButton
+    }
+    
+    /*
     private func setupProfileButton() -> SizedButton {
         let profileButton = SizedButton(image: nil, size: .init(width: 24, height: 24))
         profileButton.addTarget(self, action: #selector(handleProfileTap), for: .touchUpInside)
@@ -128,5 +158,11 @@ class AppToolbarController: NavigationController, Stepper {
 
         return profileButton
     }
+    */
+ 
 
 }
+
+
+
+

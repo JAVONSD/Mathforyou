@@ -201,6 +201,7 @@ extension EmployeesViewModel: Mockable {
     }
 }
 
+// MARK: - Employee View Model
 class EmployeeViewModel: NSObject, ViewModel, ListDiffable {
     private(set) var employee: Employee
     let employeeVariable = BehaviorRelay<Employee>(
@@ -317,3 +318,10 @@ class EmployeeViewModel: NSObject, ViewModel, ListDiffable {
         return false
     }
 }
+
+
+
+
+
+
+

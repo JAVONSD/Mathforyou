@@ -6,4 +6,13 @@
 //  Copyright © 2018 Shyngys Kassymov. All rights reserved.
 //
 
-import Foundation
+import UIKit
+import AsyncDisplayKit
+import IGListKit
+import Moya
+import RxSwift
+
+class NewsSearchSectionController: ASCollectionSectionController {
+
+    
+}

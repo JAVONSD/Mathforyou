@@ -88,7 +88,7 @@ class EmployeesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
         bind()
 
@@ -189,3 +189,8 @@ class EmployeesViewController: UIViewController {
     }
 
 }
+
+
+
+
+

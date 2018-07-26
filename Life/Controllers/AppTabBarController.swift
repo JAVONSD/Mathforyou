@@ -27,7 +27,7 @@ class AppTabBarController: UIViewController, TabBarDelegate, Stepper {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupUI()
     }
 

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Hero
 
 //Pan Gesture
 public enum PanDirection: Int {
@@ -27,7 +28,7 @@ public extension UIPanGestureRecognizer {
         case (false, let x, _) where x < 0: return .left
         default: return nil
         }
-        
     }
-    
 }
+
+

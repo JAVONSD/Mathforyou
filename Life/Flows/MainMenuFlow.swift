@@ -34,6 +34,9 @@ class MainMenuFlow: Flow {
         rootViewController.didTapProfile = { [weak self] in
             self?.viewController.step.accept(AppStep.profile)
         }
+        rootViewController.didTapSearch = { [weak self] in
+            self?.viewController.step.accept(AppStep.newsSearch)
+        }
     }
 
     func navigate(to step: Step) -> NextFlowItems {
@@ -54,6 +57,8 @@ class MainMenuFlow: Flow {
         case .login:
             navigateToLogin()
             return .stepNotHandled
+        case .newsSearch:
+            return navigationToNewsSearch()
         default:
             return NextFlowItems.stepNotHandled
         }
@@ -186,6 +191,14 @@ class MainMenuFlow: Flow {
                 nextStepper: notificationsViewController)
         )
     }
+    
+    // Fix
+    private func navigationToNewsSearch() -> NextFlowItems {
+        let newsSearchViewController = configuredNewsSearch()
+        
+        rootViewController.present(newsSearchViewController, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: newsSearchViewController, nextStepper: newsSearchViewController))
+    }
 
     private func navigationFromNotifications() -> NextFlowItems {
         rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
@@ -229,6 +242,12 @@ class MainMenuFlow: Flow {
     private func configuredMenu() -> MenuViewController {
         let menuVC = MenuViewController.instantiate(withViewModel: MenuViewModel())
         return menuVC
+    }
+    
+    private func configuredNewsSearch() -> NewsSearchViewController {
+        let lentaVC = NewsSearchViewController()
+        lentaVC.viewModel = LentaViewModel(stuffViewModel: stuffViewModel)
+        return lentaVC
     }
 
 }
