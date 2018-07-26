@@ -30,6 +30,7 @@ class SlideCell: ASCellNode {
          width: CGFloat,
          height: CGFloat,
          slideCornerRadius: CGFloat) {
+        
         self.slide = slide
         self.width = width
         self.height = height

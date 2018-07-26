@@ -12,6 +12,9 @@
 		9D1B8D04210842530080FD0E /* GlobalSearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1B8D03210842530080FD0E /* GlobalSearchService.swift */; };
 		9D1B8D06210895810080FD0E /* NewsSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1B8D05210895810080FD0E /* NewsSearchViewController.swift */; };
 		9D1B8D08210895A90080FD0E /* NewsSearchSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1B8D07210895A90080FD0E /* NewsSearchSectionController.swift */; };
+		9D1B8D0A2109C06F0080FD0E /* NewsSearchHeaderSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1B8D092109C06F0080FD0E /* NewsSearchHeaderSectionController.swift */; };
+		9D1B8D0C2109C8DC0080FD0E /* NewsSearchSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1B8D0B2109C8DC0080FD0E /* NewsSearchSliderCell.swift */; };
+		9D2C99CB2109E164000ACD4B /* NewsSearchHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99CA2109E164000ACD4B /* NewsSearchHeaderCell.swift */; };
 		9DF738CC21075F9200953214 /* UIGestureRecognizer+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF738CB21075F9200953214 /* UIGestureRecognizer+Extentions.swift */; };
 		C7054BB12041767C00A8ED1A /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7054BB02041767B00A8ED1A /* Notification.swift */; };
 		C7054BB32041782300A8ED1A /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = C7054BB22041782300A8ED1A /* notifications.json */; };
@@ -456,6 +459,9 @@
 		9D1B8D03210842530080FD0E /* GlobalSearchService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchService.swift; sourceTree = "<group>"; };
 		9D1B8D05210895810080FD0E /* NewsSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchViewController.swift; sourceTree = "<group>"; };
 		9D1B8D07210895A90080FD0E /* NewsSearchSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchSectionController.swift; sourceTree = "<group>"; };
+		9D1B8D092109C06F0080FD0E /* NewsSearchHeaderSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchHeaderSectionController.swift; sourceTree = "<group>"; };
+		9D1B8D0B2109C8DC0080FD0E /* NewsSearchSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchSliderCell.swift; sourceTree = "<group>"; };
+		9D2C99CA2109E164000ACD4B /* NewsSearchHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchHeaderCell.swift; sourceTree = "<group>"; };
 		9DF738CB21075F9200953214 /* UIGestureRecognizer+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Extentions.swift"; sourceTree = "<group>"; };
 		A5856C72266F971904DBA28A /* Pods-Life.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life.release.xcconfig"; path = "Pods/Target Support Files/Pods-Life/Pods-Life.release.xcconfig"; sourceTree = "<group>"; };
 		BB877A7D8C856CDF13C84955 /* Pods-LifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeTests/Pods-LifeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -1929,6 +1935,7 @@
 				C7BB5C7A20401A870056BBF9 /* SuggestionFormViewController.swift */,
 				9D1B8D05210895810080FD0E /* NewsSearchViewController.swift */,
 				9D1B8D07210895A90080FD0E /* NewsSearchSectionController.swift */,
+				9D1B8D092109C06F0080FD0E /* NewsSearchHeaderSectionController.swift */,
 			);
 			path = Lenta;
 			sourceTree = "<group>";
@@ -2063,6 +2070,8 @@
 				C7BB5C52203ED34C0056BBF9 /* NewsCommentCell.swift */,
 				C761B4B820429D0000467304 /* CommentToolbar.swift */,
 				C7B28ECB20727C330043E0DB /* TabNode.swift */,
+				9D1B8D0B2109C8DC0080FD0E /* NewsSearchSliderCell.swift */,
+				9D2C99CA2109E164000ACD4B /* NewsSearchHeaderCell.swift */,
 			);
 			path = Lenta;
 			sourceTree = "<group>";
@@ -2641,6 +2650,7 @@
 				C720EC802036E3C1007E4CD4 /* ASCollectionSectionController.swift in Sources */,
 				C7D641AA20340880001DCA98 /* LentaService.swift in Sources */,
 				C73EB2A62032F9B100429921 /* Changeset.swift in Sources */,
+				9D2C99CB2109E164000ACD4B /* NewsSearchHeaderCell.swift in Sources */,
 				C7D5BEC5207500C200A8F37F /* QuestionnairePreviewView.swift in Sources */,
 				C73EB2992032F9B100429921 /* TableViewSectionedDataSource.swift in Sources */,
 				C7F7CB55203BD9D4007B9D1E /* QuestionnairesSectionController.swift in Sources */,
@@ -2750,6 +2760,7 @@
 				C76EFB4E202E91F000FA2BB9 /* AppDelegate.swift in Sources */,
 				C7BB5C71203FE77F0056BBF9 /* NewsFormView.swift in Sources */,
 				C7D832C32035C49100282891 /* VacanciesViewController.swift in Sources */,
+				9D1B8D0C2109C8DC0080FD0E /* NewsSearchSliderCell.swift in Sources */,
 				C76EFBC4203008D200FA2BB9 /* Constants.swift in Sources */,
 				C76EFBE720302F8C00FA2BB9 /* OptionalValueState.swift in Sources */,
 				C7DE698E20479FB800E028BC /* StuffViewModel.swift in Sources */,
@@ -2863,6 +2874,7 @@
 				C79263562038318E00067371 /* NotificationCell.swift in Sources */,
 				C7AB6F62204BE8F500328E17 /* UIAlertController+Extension.swift in Sources */,
 				C7D64217203463E0001DCA98 /* Presentable.swift in Sources */,
+				9D1B8D0A2109C06F0080FD0E /* NewsSearchHeaderSectionController.swift in Sources */,
 				C7D64222203463E0001DCA98 /* Coordinator.swift in Sources */,
 				C7D641E120341A42001DCA98 /* User.swift in Sources */,
 				C74FCE6D2046499800E9C6BA /* Date+Extensions.swift in Sources */,

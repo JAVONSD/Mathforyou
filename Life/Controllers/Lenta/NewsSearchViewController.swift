@@ -492,6 +492,7 @@ class NewsSearchViewController: ASViewController<ASDisplayNode>, FABMenuDelegate
     
 }
 
+// MARK: - ListAdapter DataSource
 extension NewsSearchViewController: ListAdapterDataSource {
     func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return [
@@ -501,7 +502,7 @@ extension NewsSearchViewController: ListAdapterDataSource {
     }
     
     private func header(_ viewModel: NewsViewModel) -> ListSectionController {
-        let section = BIBoardHeaderSectionController(viewModel: viewModel)
+        let section = NewsSearchHeaderSectionController(viewModel: viewModel)
         section.onUnathorizedError = { [weak self] in
             guard let `self` = self else { return }
             self.onUnauthorized()
@@ -634,7 +635,6 @@ extension NewsSearchViewController: DZNEmptyDataSetDelegate {
 extension NewsSearchViewController : UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool{
-        
         return true
     }
     
