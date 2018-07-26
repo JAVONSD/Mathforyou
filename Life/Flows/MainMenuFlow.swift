@@ -192,12 +192,12 @@ class MainMenuFlow: Flow {
         )
     }
     
-    // Fix
     private func navigationToNewsSearch() -> NextFlowItems {
-        let newsSearchViewController = configuredNewsSearch()
-        
-        rootViewController.present(newsSearchViewController, animated: true, completion: nil)
-        return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: newsSearchViewController, nextStepper: newsSearchViewController))
+        let vc = configuredNewsSearch()
+        let nav = UINavigationController(rootViewController: vc)
+
+        rootViewController.present(nav, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc))
     }
 
     private func navigationFromNotifications() -> NextFlowItems {
@@ -244,10 +244,9 @@ class MainMenuFlow: Flow {
         return menuVC
     }
     
-    private func configuredNewsSearch() -> NewsSearchViewController {
-        let lentaVC = NewsSearchViewController()
-        lentaVC.viewModel = LentaViewModel(stuffViewModel: stuffViewModel)
-        return lentaVC
+    private func configuredNewsSearch() -> SearchViewController {
+        let vc = SearchViewController()
+        return vc
     }
 
 }

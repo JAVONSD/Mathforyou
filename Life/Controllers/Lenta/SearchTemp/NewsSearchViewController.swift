@@ -585,6 +585,7 @@ extension NewsSearchViewController: DZNEmptyDataSetSource {
 }
 
 extension NewsSearchViewController: DZNEmptyDataSetDelegate {
+    
     func emptyDataSetShouldDisplay(_ scrollView: UIScrollView!) -> Bool {
         switch viewModel.currentFilter {
         case .all:
@@ -635,7 +636,7 @@ extension NewsSearchViewController: DZNEmptyDataSetDelegate {
 extension NewsSearchViewController : UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool{
-        return true
+        return false
     }
     
     private func setupGestureForDismiss() {

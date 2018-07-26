@@ -15,6 +15,23 @@
 		9D1B8D0A2109C06F0080FD0E /* NewsSearchHeaderSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1B8D092109C06F0080FD0E /* NewsSearchHeaderSectionController.swift */; };
 		9D1B8D0C2109C8DC0080FD0E /* NewsSearchSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1B8D0B2109C8DC0080FD0E /* NewsSearchSliderCell.swift */; };
 		9D2C99CB2109E164000ACD4B /* NewsSearchHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99CA2109E164000ACD4B /* NewsSearchHeaderCell.swift */; };
+		9D2C99CD210A132B000ACD4B /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99CC210A132B000ACD4B /* SearchViewController.swift */; };
+		9D2C99CF210A1348000ACD4B /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99CE210A1348000ACD4B /* DetailViewController.swift */; };
+		9D2C9A00210A17DF000ACD4B /* MagiSearchExension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99F1210A17DF000ACD4B /* MagiSearchExension.swift */; };
+		9D2C9A01210A17DF000ACD4B /* MagiSearch.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D2C99F2210A17DF000ACD4B /* MagiSearch.xcassets */; };
+		9D2C9A02210A17DF000ACD4B /* MagiSearchTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99F3210A17DF000ACD4B /* MagiSearchTextField.swift */; };
+		9D2C9A03210A17DF000ACD4B /* MagiSearchDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99F4210A17DF000ACD4B /* MagiSearchDelegate.swift */; };
+		9D2C9A04210A17DF000ACD4B /* MagiSearchListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99F5210A17DF000ACD4B /* MagiSearchListView.swift */; };
+		9D2C9A05210A17DF000ACD4B /* MagiSearchHistoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99F6210A17DF000ACD4B /* MagiSearchHistoryButton.swift */; };
+		9D2C9A06210A17DF000ACD4B /* MagiSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99F7210A17DF000ACD4B /* MagiSearchView.swift */; };
+		9D2C9A07210A17DF000ACD4B /* MagiSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99F8210A17DF000ACD4B /* MagiSearchModel.swift */; };
+		9D2C9A08210A17DF000ACD4B /* Objectification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99F9210A17DF000ACD4B /* Objectification.swift */; };
+		9D2C9A09210A17DF000ACD4B /* MagiSearchListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99FA210A17DF000ACD4B /* MagiSearchListViewCell.swift */; };
+		9D2C9A0A210A17DF000ACD4B /* MagiSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99FB210A17DF000ACD4B /* MagiSearch.swift */; };
+		9D2C9A0B210A17DF000ACD4B /* MagiCategoryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99FC210A17DF000ACD4B /* MagiCategoryButton.swift */; };
+		9D2C9A0C210A17DF000ACD4B /* MagiConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99FD210A17DF000ACD4B /* MagiConst.swift */; };
+		9D2C9A0D210A17DF000ACD4B /* MagiSearchMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99FE210A17DF000ACD4B /* MagiSearchMainView.swift */; };
+		9D2C9A0E210A17DF000ACD4B /* MagiSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99FF210A17DF000ACD4B /* MagiSearchViewController.swift */; };
 		9DF738CC21075F9200953214 /* UIGestureRecognizer+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF738CB21075F9200953214 /* UIGestureRecognizer+Extentions.swift */; };
 		C7054BB12041767C00A8ED1A /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7054BB02041767B00A8ED1A /* Notification.swift */; };
 		C7054BB32041782300A8ED1A /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = C7054BB22041782300A8ED1A /* notifications.json */; };
@@ -462,6 +479,23 @@
 		9D1B8D092109C06F0080FD0E /* NewsSearchHeaderSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchHeaderSectionController.swift; sourceTree = "<group>"; };
 		9D1B8D0B2109C8DC0080FD0E /* NewsSearchSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchSliderCell.swift; sourceTree = "<group>"; };
 		9D2C99CA2109E164000ACD4B /* NewsSearchHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchHeaderCell.swift; sourceTree = "<group>"; };
+		9D2C99CC210A132B000ACD4B /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		9D2C99CE210A1348000ACD4B /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		9D2C99F1210A17DF000ACD4B /* MagiSearchExension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagiSearchExension.swift; sourceTree = "<group>"; };
+		9D2C99F2210A17DF000ACD4B /* MagiSearch.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = MagiSearch.xcassets; sourceTree = "<group>"; };
+		9D2C99F3210A17DF000ACD4B /* MagiSearchTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagiSearchTextField.swift; sourceTree = "<group>"; };
+		9D2C99F4210A17DF000ACD4B /* MagiSearchDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagiSearchDelegate.swift; sourceTree = "<group>"; };
+		9D2C99F5210A17DF000ACD4B /* MagiSearchListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagiSearchListView.swift; sourceTree = "<group>"; };
+		9D2C99F6210A17DF000ACD4B /* MagiSearchHistoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagiSearchHistoryButton.swift; sourceTree = "<group>"; };
+		9D2C99F7210A17DF000ACD4B /* MagiSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagiSearchView.swift; sourceTree = "<group>"; };
+		9D2C99F8210A17DF000ACD4B /* MagiSearchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagiSearchModel.swift; sourceTree = "<group>"; };
+		9D2C99F9210A17DF000ACD4B /* Objectification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Objectification.swift; sourceTree = "<group>"; };
+		9D2C99FA210A17DF000ACD4B /* MagiSearchListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagiSearchListViewCell.swift; sourceTree = "<group>"; };
+		9D2C99FB210A17DF000ACD4B /* MagiSearch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagiSearch.swift; sourceTree = "<group>"; };
+		9D2C99FC210A17DF000ACD4B /* MagiCategoryButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagiCategoryButton.swift; sourceTree = "<group>"; };
+		9D2C99FD210A17DF000ACD4B /* MagiConst.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagiConst.swift; sourceTree = "<group>"; };
+		9D2C99FE210A17DF000ACD4B /* MagiSearchMainView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagiSearchMainView.swift; sourceTree = "<group>"; };
+		9D2C99FF210A17DF000ACD4B /* MagiSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MagiSearchViewController.swift; sourceTree = "<group>"; };
 		9DF738CB21075F9200953214 /* UIGestureRecognizer+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Extentions.swift"; sourceTree = "<group>"; };
 		A5856C72266F971904DBA28A /* Pods-Life.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life.release.xcconfig"; path = "Pods/Target Support Files/Pods-Life/Pods-Life.release.xcconfig"; sourceTree = "<group>"; };
 		BB877A7D8C856CDF13C84955 /* Pods-LifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeTests/Pods-LifeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -940,6 +974,39 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		9D2C99EF210A13DF000ACD4B /* SearchTemp */ = {
+			isa = PBXGroup;
+			children = (
+				9D1B8D05210895810080FD0E /* NewsSearchViewController.swift */,
+				9D1B8D07210895A90080FD0E /* NewsSearchSectionController.swift */,
+				9D1B8D092109C06F0080FD0E /* NewsSearchHeaderSectionController.swift */,
+			);
+			path = SearchTemp;
+			sourceTree = "<group>";
+		};
+		9D2C99F0210A17DF000ACD4B /* MagiSearch */ = {
+			isa = PBXGroup;
+			children = (
+				9D2C99F1210A17DF000ACD4B /* MagiSearchExension.swift */,
+				9D2C99F2210A17DF000ACD4B /* MagiSearch.xcassets */,
+				9D2C99F3210A17DF000ACD4B /* MagiSearchTextField.swift */,
+				9D2C99F4210A17DF000ACD4B /* MagiSearchDelegate.swift */,
+				9D2C99F5210A17DF000ACD4B /* MagiSearchListView.swift */,
+				9D2C99F6210A17DF000ACD4B /* MagiSearchHistoryButton.swift */,
+				9D2C99F7210A17DF000ACD4B /* MagiSearchView.swift */,
+				9D2C99F8210A17DF000ACD4B /* MagiSearchModel.swift */,
+				9D2C99F9210A17DF000ACD4B /* Objectification.swift */,
+				9D2C99FA210A17DF000ACD4B /* MagiSearchListViewCell.swift */,
+				9D2C99FB210A17DF000ACD4B /* MagiSearch.swift */,
+				9D2C99FC210A17DF000ACD4B /* MagiCategoryButton.swift */,
+				9D2C99FD210A17DF000ACD4B /* MagiConst.swift */,
+				9D2C99FE210A17DF000ACD4B /* MagiSearchMainView.swift */,
+				9D2C99FF210A17DF000ACD4B /* MagiSearchViewController.swift */,
+			);
+			name = MagiSearch;
+			path = "../../../../../../Downloads/MagiSearch-master/MagiSearchDemo/MagiSearchDemo/MagiSearch";
+			sourceTree = "<group>";
+		};
 		C717C678203D13710070447D /* TasksAndRequests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1320,6 +1387,7 @@
 		C76EFB96202EA72C00FA2BB9 /* External */ = {
 			isa = PBXGroup;
 			children = (
+				9D2C99F0210A17DF000ACD4B /* MagiSearch */,
 				C7AB6F37204BE8F400328E17 /* FileExplorer */,
 				C7D64204203463E0001DCA98 /* RxFlow */,
 				C73EB2622032F9A300429921 /* RxAdditions */,
@@ -1933,9 +2001,9 @@
 				C7BB5C6A203FD6730056BBF9 /* SuggestionViewController.swift */,
 				C7BB5C6C203FD6810056BBF9 /* SuggestionSectionController.swift */,
 				C7BB5C7A20401A870056BBF9 /* SuggestionFormViewController.swift */,
-				9D1B8D05210895810080FD0E /* NewsSearchViewController.swift */,
-				9D1B8D07210895A90080FD0E /* NewsSearchSectionController.swift */,
-				9D1B8D092109C06F0080FD0E /* NewsSearchHeaderSectionController.swift */,
+				9D2C99EF210A13DF000ACD4B /* SearchTemp */,
+				9D2C99CC210A132B000ACD4B /* SearchViewController.swift */,
+				9D2C99CE210A1348000ACD4B /* DetailViewController.swift */,
 			);
 			path = Lenta;
 			sourceTree = "<group>";
@@ -2280,6 +2348,7 @@
 				C7BB5C5F203F00690056BBF9 /* news_details.json in Resources */,
 				C7D641D1203411D3001DCA98 /* token.json in Resources */,
 				C76EFBBE203008C100FA2BB9 /* Roboto-Thin.ttf in Resources */,
+				9D2C9A01210A17DF000ACD4B /* MagiSearch.xcassets in Resources */,
 				C76EFBBF203008C100FA2BB9 /* Roboto-Light.ttf in Resources */,
 				C76EFB8A202E947800FA2BB9 /* Localizable.strings in Resources */,
 				C752ACE8204113B100D04E26 /* employees.json in Resources */,
@@ -2584,6 +2653,7 @@
 				C7AB6F7E204BE8F500328E17 /* UIToolbar+Extension.swift in Sources */,
 				C73EB29F2032F9B100429921 /* SectionModel.swift in Sources */,
 				C7D832D42035C80E00282891 /* MainMenuFlow.swift in Sources */,
+				9D2C9A0A210A17DF000ACD4B /* MagiSearch.swift in Sources */,
 				C7D641F920344F3B001DCA98 /* BIOfficeFlow.swift in Sources */,
 				C720EC862037093A007E4CD4 /* LentaOverviewCell.swift in Sources */,
 				C7A27456205383090026B549 /* MessageObject.swift in Sources */,
@@ -2628,6 +2698,7 @@
 				C7AB6F66204BE8F500328E17 /* Item.swift in Sources */,
 				C7F7CB41203B10D3007B9D1E /* Event.swift in Sources */,
 				C7AB6F6B204BE8F500328E17 /* Result.swift in Sources */,
+				9D2C9A03210A17DF000ACD4B /* MagiSearchDelegate.swift in Sources */,
 				C7F7CB4B203B1974007B9D1E /* TasksAndRequestsViewModel.swift in Sources */,
 				C7D832BB203576B400282891 /* Error+Extensions.swift in Sources */,
 				C7A274712053DF6B0026B549 /* SuggestionObject.swift in Sources */,
@@ -2638,8 +2709,10 @@
 				C7BB5C68203FD4420056BBF9 /* SuggestionDetailsCell.swift in Sources */,
 				C7F7CB65203C5F24007B9D1E /* SBSectionController.swift in Sources */,
 				C73EB29C2032F9B100429921 /* SectionModelType.swift in Sources */,
+				9D2C9A02210A17DF000ACD4B /* MagiSearchTextField.swift in Sources */,
 				C7F7CB49203B16FD007B9D1E /* Image.swift in Sources */,
 				C7F7CB5D203C2921007B9D1E /* DateCell.swift in Sources */,
+				9D2C9A05210A17DF000ACD4B /* MagiSearchHistoryButton.swift in Sources */,
 				C73EB2A22032F9B100429921 /* IdentifiableValue.swift in Sources */,
 				C7BB5C49203E86020056BBF9 /* AnswersSectionController.swift in Sources */,
 				C79251E8203148D300CDFBBA /* BenefitsViewController.swift in Sources */,
@@ -2664,6 +2737,7 @@
 				C7D832B920356F9B00282891 /* Response+Extensions.swift in Sources */,
 				C717C677203D135F0070447D /* TasksAndRequetsView.swift in Sources */,
 				C7BB5C69203FD4420056BBF9 /* SuggestionHeaderNode.swift in Sources */,
+				9D2C99CD210A132B000ACD4B /* SearchViewController.swift in Sources */,
 				C7D641DF2034190B001DCA98 /* ResetPasswordViewModel.swift in Sources */,
 				C7C90910207A311D00012188 /* LinkBuilder.swift in Sources */,
 				C79251FF2031A18B00CDFBBA /* MyInfoMainView.swift in Sources */,
@@ -2688,6 +2762,7 @@
 				C717C681203D892C0070447D /* EmployeeHeaderView.swift in Sources */,
 				C7F7CB6D203C65AA007B9D1E /* SBViewModel.swift in Sources */,
 				C720EC7020368CBA007E4CD4 /* StuffViewController.swift in Sources */,
+				9D2C9A0E210A17DF000ACD4B /* MagiSearchViewController.swift in Sources */,
 				C7AB6F86204BE8F500328E17 /* Array+Extension.swift in Sources */,
 				C7AB6F6E204BE8F500328E17 /* ImageViewController.swift in Sources */,
 				C7F7CB3F203AF21F007B9D1E /* Employee.swift in Sources */,
@@ -2702,6 +2777,7 @@
 				C76EFBEC20302F8C00FA2BB9 /* PolyMaskTextFieldDelegate.swift in Sources */,
 				C7BB5C51203ED31C0056BBF9 /* NewsBodyNode.swift in Sources */,
 				C720EC782036A0E0007E4CD4 /* EmployeeCell.swift in Sources */,
+				9D2C9A08210A17DF000ACD4B /* Objectification.swift in Sources */,
 				C7D641F320344B22001DCA98 /* ViewModelBased.swift in Sources */,
 				C7BB5C4B203E860F0056BBF9 /* QuestionSectionController.swift in Sources */,
 				C7A274732053E63E0026B549 /* LentaObject.swift in Sources */,
@@ -2711,6 +2787,7 @@
 				C7F7CB75203C75B4007B9D1E /* ImageNode.swift in Sources */,
 				C7D5BEC82075242400A8F37F /* QuestionnaireView.swift in Sources */,
 				C7D641F02034466B001DCA98 /* AppFlow.swift in Sources */,
+				9D2C9A0B210A17DF000ACD4B /* MagiCategoryButton.swift in Sources */,
 				C73EB28B2032F9B100429921 /* Array+Extensions.swift in Sources */,
 				C73EB28C2032F9B100429921 /* AnimationConfiguration.swift in Sources */,
 				C76EFBEF20302F8C00FA2BB9 /* Compiler.swift in Sources */,
@@ -2746,6 +2823,7 @@
 				C7A241B0204AB9C700994840 /* MenuHeaderButton.swift in Sources */,
 				C7AB6F87204BE8F500328E17 /* DirectoryContentViewController.swift in Sources */,
 				C7D6423820346FAC001DCA98 /* BIBoardViewModel.swift in Sources */,
+				9D2C9A0D210A17DF000ACD4B /* MagiSearchMainView.swift in Sources */,
 				C7BB5C75203FE7A50056BBF9 /* QuestionFormView.swift in Sources */,
 				C7AB6F63204BE8F500328E17 /* FileItemPresentationCoordinator.swift in Sources */,
 				C7BB5C4D203ED3000056BBF9 /* NewsDetailsCell.swift in Sources */,
@@ -2793,6 +2871,7 @@
 				C73EB2B020331DCC00429921 /* PlansView.swift in Sources */,
 				C7D641EE20344664001DCA98 /* AppStep.swift in Sources */,
 				C7310335205038B200E21672 /* VideoAnswerFooterView.swift in Sources */,
+				9D2C9A00210A17DF000ACD4B /* MagiSearchExension.swift in Sources */,
 				C7A241AC204A50A200994840 /* System.swift in Sources */,
 				C7AB6F78204BE8F500328E17 /* FileSpecificationProvider.swift in Sources */,
 				C7AB6F89204BE9D600328E17 /* NewsFormViewModel.swift in Sources */,
@@ -2814,6 +2893,7 @@
 				C7AB6F79204BE8F500328E17 /* ErrorViewController.swift in Sources */,
 				C7D6422D20346F4B001DCA98 /* EmployeesViewController.swift in Sources */,
 				C76EFBCB203027EB00FA2BB9 /* LoginViewController.swift in Sources */,
+				9D2C9A0C210A17DF000ACD4B /* MagiConst.swift in Sources */,
 				C720EC8820370B03007E4CD4 /* OverviewCell.swift in Sources */,
 				C7AB6F7B204BE8F500328E17 /* UICollectionView+Extension.swift in Sources */,
 				C7AB6F81204BE8F500328E17 /* UIBezierPath+Extension.swift in Sources */,
@@ -2829,13 +2909,17 @@
 				C7F7CB61203C5F07007B9D1E /* TasksAndRequestsSectionController.swift in Sources */,
 				C7D641B2203408D3001DCA98 /* RequestsService.swift in Sources */,
 				C79251F320315DDC00CDFBBA /* ImageTextView.swift in Sources */,
+				9D2C99CF210A1348000ACD4B /* DetailViewController.swift in Sources */,
 				C7D641FD20344F4A001DCA98 /* LentaFlow.swift in Sources */,
 				C720EC7A2036CC0E007E4CD4 /* BoardSliderCell.swift in Sources */,
 				C7AB6F6F204BE8F500328E17 /* Double+Extension.swift in Sources */,
 				C76EFBEE20302F8C00FA2BB9 /* CaretStringIterator.swift in Sources */,
+				9D2C9A06210A17DF000ACD4B /* MagiSearchView.swift in Sources */,
 				C73EB2922032F9B100429921 /* RxPickerViewAdapter.swift in Sources */,
 				C792634F20382CF700067371 /* NotificationView.swift in Sources */,
 				C7F7CB59203BD9FC007B9D1E /* TopQuestionsSectionController.swift in Sources */,
+				9D2C9A07210A17DF000ACD4B /* MagiSearchModel.swift in Sources */,
+				9D2C9A04210A17DF000ACD4B /* MagiSearchListView.swift in Sources */,
 				C73EB2B420331EAF00429921 /* PlansViewModel.swift in Sources */,
 				C716D801204D925B00C80912 /* TasksAndRequestsFlow.swift in Sources */,
 				C76EFBEA20302F8C00FA2BB9 /* Mask.swift in Sources */,
@@ -2898,6 +2982,7 @@
 				C76EFBEB20302F8C00FA2BB9 /* InterfaceBuilderSupport.swift in Sources */,
 				C7BB5C6D203FD6810056BBF9 /* SuggestionSectionController.swift in Sources */,
 				C79251EB2031532E00CDFBBA /* MyInfoView.swift in Sources */,
+				9D2C9A09210A17DF000ACD4B /* MagiSearchListViewCell.swift in Sources */,
 				C76EFBE420302F8C00FA2BB9 /* ValueState.swift in Sources */,
 				C7AB6F73204BE8F500328E17 /* URL+Extension.swift in Sources */,
 				C7AB6F84204BE8F500328E17 /* UITableView+Extension.swift in Sources */,

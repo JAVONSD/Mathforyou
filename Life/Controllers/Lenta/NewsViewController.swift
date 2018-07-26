@@ -272,9 +272,9 @@ extension NewsViewController: ListAdapterDataSource {
 
 extension NewsViewController : UIGestureRecognizerDelegate {
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool{
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         
-        return true
+        return false
     }
     
     private func setupGestureForDismiss() {
@@ -283,6 +283,8 @@ extension NewsViewController : UIGestureRecognizerDelegate {
         view.addGestureRecognizer(panGR)
         panGR.delegate = self
     }
+  
+    
     
     // Action
     @objc func panAct(recognizer : UIPanGestureRecognizer) {

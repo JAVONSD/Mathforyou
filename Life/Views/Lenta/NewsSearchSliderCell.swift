@@ -36,7 +36,7 @@ class NewsSearchSliderCell: ASCellNode {
     init(slides: [SliderViewModel],
          height: CGFloat,
          layout: UICollectionViewFlowLayout? = nil,
-         slidesCornerRadius: CGFloat = 50,
+         slidesCornerRadius: CGFloat = 0,
          hideSpinner: Bool = true) {
         
         self.slides = slides
@@ -137,7 +137,7 @@ extension NewsSearchSliderCell: ASCollectionDataSource, ASCollectionDelegate {
                 slide: slide,
                 width: self.height,
                 height: self.height,
-                slideCornerRadius: self.height/2
+                slideCornerRadius: self.slidesCornerRadius
             )
             return cell
         }

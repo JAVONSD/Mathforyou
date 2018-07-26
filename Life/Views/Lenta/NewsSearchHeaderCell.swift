@@ -35,36 +35,30 @@ class NewsSearchHeaderCell: ASCellNode {
         super.init()
         
         cornerRadius = slideCornerRadius
-  
+
         titleNode = ASTextNode()
-        titleNode.attributedText = attTitle(slide.title)
+        titleNode.attributedText = attTitle("news")
         titleNode.maximumNumberOfLines = 1
-        titleNode.backgroundColor = .red
+        titleNode.backgroundColor = App.Color.coolGrey
         addSubnode(titleNode)
     }
     
     override func layoutSpecThatFits(_ constrainedSize: ASSizeRange) -> ASLayoutSpec {
-
-        let relativeSpec = ASRelativeLayoutSpec(
-            horizontalPosition: .start,
-            verticalPosition: .center,
-            sizingOption: .minimumSize,
-            child: titleNode)
         
-        let spec = ASWrapperLayoutSpec(layoutElement: relativeSpec)
-        spec.style.preferredSize = CGSize(
-            width: width,
-            height: height
-        )
+        let insets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        let inset = ASInsetLayoutSpec(insets: insets, child: titleNode)
         
-        return spec
+        let centerSpec = ASCenterLayoutSpec(
+            centeringOptions: ASCenterLayoutSpecCenteringOptions.Y,
+            sizingOptions: ASCenterLayoutSpecSizingOptions.minimumX,
+            child: inset)
+        
+        return centerSpec
     }
-    
     
     override func didLoad() {
         super.didLoad()
         
-
     }
     
     // MARK: - Methods
@@ -73,7 +67,7 @@ class NewsSearchHeaderCell: ASCellNode {
         let attText = NSMutableAttributedString(string: string)
         
         let allRange = NSRange(location: 0, length: attText.length)
-        attText.addAttribute(.font, value: App.Font.caption, range: allRange)
+        attText.addAttribute(.font, value: App.Font.body, range: allRange)
         attText.addAttribute(.foregroundColor, value: UIColor.black, range: allRange)
         
         return attText
