@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class SearchHistoryCell: UITableViewCell {
+class SearchTagsCell: UITableViewCell {
     var deleteTapped: (() -> Void)?
     
     private lazy var titleLabel: UILabel = {

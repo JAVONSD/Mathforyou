@@ -10,11 +10,11 @@ import UIKit
 import SnapKit
 
 class SearchHistoryTitleCell: UITableViewCell {
-    var cleanTapped: (()->Void)?
+    var cleanTapped: (() -> Void)?
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel.init()
-        label.text = "搜索历史"
+        label.text = "history"
         label.font = UIFont.systemFont(ofSize: 12.0)
         label.textColor = UIColor.init(hexString: "#898989")
         return label
@@ -22,7 +22,7 @@ class SearchHistoryTitleCell: UITableViewCell {
     
     private lazy var cleanButton: UIButton = {
         let button = UIButton.init(type: UIButtonType.custom)
-        button.setTitle("清除历史", for: UIControlState.normal)
+        button.setTitle("clean", for: UIControlState.normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12.0)
         button.setTitleColor(UIColor.init(hexString: "#898989"), for: UIControlState.normal)
         return button

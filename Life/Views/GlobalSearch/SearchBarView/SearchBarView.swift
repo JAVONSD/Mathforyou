@@ -23,7 +23,7 @@ class SearchBarView: UIView {
         textField.backgroundColor = UIColor.init(hexString: "#ebeef1")
         textField.textColor = UIColor.init(hexString: "#494949")
         textField.font = UIFont.systemFont(ofSize: 15)
-        textField.placeholder = "搜索歌曲、歌手、专辑"
+        textField.placeholder = "поиск"
         textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder ?? "", attributes: [NSAttributedStringKey.foregroundColor : UIColor.init(hexString: "#bfbfbf")])
         textField.layer.cornerRadius = 15
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
@@ -39,7 +39,7 @@ class SearchBarView: UIView {
     
     private lazy var cancelButton: UIButton = {
         let button = UIButton.init(type: UIButtonType.system)
-        button.setTitle("取消", for: UIControlState.normal)
+        button.setTitle("X", for: UIControlState.normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17.0)
         button.setTitleColor(UIColor.init(hexString: "#494949"), for: UIControlState.normal)
         return button
@@ -59,13 +59,11 @@ class SearchBarView: UIView {
         self.addSubview(searchTextField)
         self.addSubview(cancelButton)
         cancelButton.addTarget(self, action: #selector(cancelAction), for: UIControlEvents.touchUpInside)
-        
     }
     
     @objc func cancelAction() {
         print("cancelAction")
         delegate?.SearchBarViewcancelAction()
-        
     }
     
     deinit {
@@ -79,7 +77,7 @@ class SearchBarView: UIView {
     func hideKeyboard(_ hide: Bool) {
         if hide {
             searchTextField.resignFirstResponder()
-        }else{
+        } else {
             searchTextField.becomeFirstResponder()
         }
     }
@@ -116,17 +114,17 @@ extension UIColor {
         }
         
         var startIndex = hexString.startIndex
-        if hexString.hasPrefix("0x"){
+        if hexString.hasPrefix("0x") {
             startIndex = hexString.index(startIndex, offsetBy: 2)
             hexString = String(hexString[startIndex..<hexString.endIndex])
-        }else if hexString.hasPrefix("#"){
+        } else if hexString.hasPrefix("#") {
             startIndex = hexString.index(startIndex, offsetBy: 1)
             hexString = String(hexString[startIndex..<hexString.endIndex])
         }
         
         if hexString.count != 6 {
             self.init(red: 0, green: 0, blue: 0, alpha: alpha)
-        }else{
+        } else {
             var r: UInt32 = 0
             var g: UInt32 = 0
             var b: UInt32 = 0

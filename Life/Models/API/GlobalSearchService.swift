@@ -12,7 +12,7 @@ import Moya
             /// may be do not need it
 
 enum GlobalSearchService {
-    case globalSearch(searchTxt: String, rows: Int, offset: Int, entityType: Int)
+    case globalSearch(searchTxt: String, rows: Int, offset: Int, entityType: Int, isMobile: Bool)
 }
 
 extension GlobalSearchService: AuthorizedTargetType {
@@ -33,12 +33,13 @@ extension GlobalSearchService: AuthorizedTargetType {
     
     var task: Moya.Task {
         switch self {
-        case let .globalSearch(searchTxt, rows, offset, entityType):
+        case let .globalSearch(searchTxt, rows, offset, entityType, isMobile):
             return .requestParameters(
                 parameters: ["searchTxt": searchTxt,
                              "rows": rows,
                              "offset": offset,
-                             "entityType": entityType],
+                             "entityType": entityType,
+                             "isMobile": isMobile],
                 encoding: URLEncoding.default
             )
         }

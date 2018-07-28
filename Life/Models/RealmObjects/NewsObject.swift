@@ -34,3 +34,9 @@ class NewsObject: Object {
         return "id"
     }
 }
+
+
+
+
+
+

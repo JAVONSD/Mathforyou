@@ -18,8 +18,7 @@ import RxCocoa
 import SnapKit
 import Hero
 
-/*
-class SearchViewController999: UIViewController, Stepper {
+class SearchViewController: UIViewController, Stepper {
     
     var resultTableView: UITableView!
     var tagsTableView: UITableView!
@@ -32,18 +31,17 @@ class SearchViewController999: UIViewController, Stepper {
     var searchString = ""
     
     var popRecognizer: InteractivePopRecognizer?
-    
-    //-----
-    
+
     let titles = ["Home", "Trending", "Subscriptions", "Account"]
     
+    var indexPathByTap: IndexPath?
+    var indexPathByScroll: IndexPath?
     lazy var menuBar: MenuBar = {
         let mb = MenuBar()
-        mb.translatesAutoresizingMaskIntoConstraints = false
+        mb.delegate = self
         return mb
     }()
 
-    ///--------------
     var viewModel: GlobalSearchViewModel!
     
     lazy var stuffViewModel = StuffViewModel()
@@ -55,11 +53,22 @@ class SearchViewController999: UIViewController, Stepper {
         padding: 0)
     private lazy var refreshCtrl = UIRefreshControl()
     
+    //---
     private var disposeBag = DisposeBag()
+
+    private var _provider: MoyaProvider<GlobalSearchService>?
+    private var provider: MoyaProvider<GlobalSearchService> {
+        if _provider != nil {
+            return _provider!
+        }
+        let authPlugin = AuthPlugin(tokenClosure: {
+            return User.current.token
+        })
+        _provider = MoyaProvider<GlobalSearchService>(plugins: [authPlugin])
+        return _provider!
+    }
     
-    private let provider = MoyaProvider<UserProfileService>(plugins: [AuthPlugin(tokenClosure: {
-        return User.current.token
-    })])
+    var items = [GlobalSearchItemViewModel]()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -76,9 +85,6 @@ class SearchViewController999: UIViewController, Stepper {
         if tagsTableView.isHidden == false {
             searchBarView.hideKeyboard(false)
         }
-        
-       
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -97,29 +103,70 @@ class SearchViewController999: UIViewController, Stepper {
         
         view.backgroundColor = UIColor.white
       
-        setupMenuBar()
+        setupAllViews()
+        loadData()
+        setInteractiveRecognizer()
         
+        fetchNews()
+    }
+    
+    // TODO: - rx
+    func fetchNews() {
+        provider
+            .rx
+            .request(.globalSearch(searchTxt: "A", rows: 15, offset: 4, entityType: 60, isMobile: true))
+            .filterSuccessfulStatusCodes()
+            .subscribe { response in
+                
+                switch response {
+                case .success(let json):
+                    
+                    let json = try? JSONSerialization.jsonObject(with: json.data, options: [])
+                    
+                    print(json)
+                   
+                case .error(let error):
+                    
+                    print("---- error", error)
+                }
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func setupAllViews() {
+        setupMenuBar()
         layoutTableViews()
         configNavigationBar()
         setupViews()
-        loadData()
-        setInteractiveRecognizer()
     }
     
-    func layoutTableViews() {
+    fileprivate func setupMenuBar() {
+        view.addSubview(menuBar)
+        menuBar.snp.makeConstraints { make in
+            if #available(iOS 11.0, *) {
+                make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            } else {
+                // Fallback on earlier versions
+                make.top.equalTo(self.topLayoutGuide.snp.bottom)
+            }
+            make.height.equalTo(50)
+            make.left.right.equalToSuperview()
+        }
+    }
+    
+    fileprivate func layoutTableViews() {
         tagsTableView = TableView()
         tagsTableView.dataSource = self
         tagsTableView.delegate = self
         view.addSubview(tagsTableView)
         tagsTableView.snp.makeConstraints { make in
             if #available(iOS 11.0, *) {
-                make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
                 make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             } else {
                 // Fallback on earlier versions
-                make.top.equalTo(self.topLayoutGuide.snp.bottom)
                 make.bottom.equalTo(self.bottomLayoutGuide.snp.top)
             }
+            make.top.equalTo(menuBar.snp.bottom)
             make.left.equalTo(view)
             make.right.equalTo(view)
         }
@@ -130,13 +177,12 @@ class SearchViewController999: UIViewController, Stepper {
         view.addSubview(relativeTableView)
         relativeTableView.snp.makeConstraints { make in
             if #available(iOS 11.0, *) {
-                make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
                 make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             } else {
                 // Fallback on earlier versions
-                make.top.equalTo(self.topLayoutGuide.snp.bottom)
                 make.bottom.equalTo(self.bottomLayoutGuide.snp.top)
             }
+            make.top.equalTo(menuBar.snp.bottom)
             make.left.equalTo(view)
             make.right.equalTo(view)
         }
@@ -147,19 +193,18 @@ class SearchViewController999: UIViewController, Stepper {
         view.addSubview(resultTableView)
         resultTableView.snp.makeConstraints { make in
             if #available(iOS 11.0, *) {
-                make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
                 make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             } else {
                 // Fallback on earlier versions
-                make.top.equalTo(self.topLayoutGuide.snp.bottom)
                 make.bottom.equalTo(self.bottomLayoutGuide.snp.top)
             }
+            make.top.equalTo(menuBar.snp.bottom)
             make.left.equalTo(view)
             make.right.equalTo(view)
         }
     }
     
-    func configNavigationBar() {
+    fileprivate func configNavigationBar() {
         self.navigationItem.leftBarButtonItem = nil
         self.navigationItem.backBarButtonItem = nil
         self.navigationItem.rightBarButtonItem = nil
@@ -175,7 +220,7 @@ class SearchViewController999: UIViewController, Stepper {
         searchBarView.hideKeyboard(false)
     }
     
-    func setupViews() {
+    fileprivate func setupViews() {
         if #available(iOS 11.0, *) {
             tagsTableView.contentInsetAdjustmentBehavior = .never
             relativeTableView.contentInsetAdjustmentBehavior = .never
@@ -236,15 +281,7 @@ class SearchViewController999: UIViewController, Stepper {
         
     }
     
-    fileprivate func setupMenuBar() {
-        view.addSubview(menuBar)
-        NSLayoutConstraint.activate([
-            menuBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            menuBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            menuBar.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
-            menuBar.heightAnchor.constraint(equalToConstant: 50)
-            ])
-    }
+    
  
 }
 
@@ -424,6 +461,15 @@ extension SearchViewController {
     }
 }
 
+extension SearchViewController: MenuBarProtocol {
+    func scrollToMenuIndex(menuIndex: Int) {
+        let indexPath = IndexPath(item: menuIndex, section: 0)
+        indexPathByTap = indexPath
+        indexPathByScroll = nil
+
+    }
+}
+
 class InteractivePopRecognizer: NSObject, UIGestureRecognizerDelegate {
     
     weak var navigationController: UINavigationController?
@@ -443,7 +489,7 @@ class InteractivePopRecognizer: NSObject, UIGestureRecognizerDelegate {
     }
 }
 
-*/
+
 
 
 

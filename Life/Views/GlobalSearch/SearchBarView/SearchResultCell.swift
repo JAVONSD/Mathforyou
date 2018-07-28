@@ -52,7 +52,7 @@ class SearchResultCell: UITableViewCell {
             $0.left.top.bottom.equalToSuperview().inset(UIEdgeInsetsMake(30, 15, 15, 0))
             $0.width.height.equalTo(70)
         }
-        avatarImageView.cornerRadius = 35
+        avatarImageView.layer.cornerRadius = 35
         
         titleLabel.snp.makeConstraints {
             $0.left.equalTo(avatarImageView.snp.right).offset(23.5)
@@ -79,7 +79,7 @@ class SearchResultCell: UITableViewCell {
     
     func setAvartar(_ avartarUrl: String) {
         //avatarImageView.kf.setImage(with: URL(string: avartarUrl), placeholder: #imageLiteral(resourceName: "icon_avatar_default"))
-        avatarImageView.image = #imageLiteral(resourceName: "jielun")
+        avatarImageView.image = #imageLiteral(resourceName: "bi")
     }
     
 }

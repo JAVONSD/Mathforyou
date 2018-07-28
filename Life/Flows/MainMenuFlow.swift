@@ -192,6 +192,7 @@ class MainMenuFlow: Flow {
         )
     }
     
+    // my
     private func navigationToNewsSearch() -> NextFlowItems {
         let vc = configuredNewsSearch()
         let nav = UINavigationController(rootViewController: vc)
@@ -246,7 +247,9 @@ class MainMenuFlow: Flow {
     
     private func configuredNewsSearch() -> SearchViewController {
         let vc = SearchViewController()
+//        vc.stuffViewModel = stuffViewModel
         return vc
     }
+
 
 }

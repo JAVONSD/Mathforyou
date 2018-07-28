@@ -5,3 +5,26 @@
   Created by 123 on 27.07.2018.
   Copyright © 2018 Shyngys Kassymov. All rights reserved.
 */
+
+/* EntityTypes for Global search
+ 
+ Employee = 10,
+ Task = 20,
+ Request = 30,
+ Tag = 40,
+ News = 60,
+ Board = 70,
+ Vacation = 80,
+ Suggestion = 90,
+ BIMS = 100,
+ Procurement = 110,
+ Question = 120,
+ Questionnaire = 130,
+ ProjectHistory = 140,
+ BusinessPartners = 150,
+ Benchmarking = 160,
+ NewsСomment = 170,
+ TaskMessage = 180,
+ Others = 200
+ 
+ */

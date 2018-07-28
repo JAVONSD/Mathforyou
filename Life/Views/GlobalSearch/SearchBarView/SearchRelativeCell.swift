@@ -47,7 +47,7 @@ class SearchRelativeCell: UITableViewCell {
     }
     
     func setSearchText(searchText: String) {
-        let leftAttr = NSMutableAttributedString.init(string: "搜索")
+        let leftAttr = NSMutableAttributedString.init(string: "")
         leftAttr.addAttributes([NSAttributedStringKey.font : UIFont.systemFont(ofSize: 15), NSAttributedStringKey.foregroundColor : UIColor.init(hexString: "#63c6f9")],
                                range: NSMakeRange(0, leftAttr.length))
         
@@ -58,3 +58,9 @@ class SearchRelativeCell: UITableViewCell {
         titleLabel.attributedText = leftAttr
     }
 }
+
+
+
+
+
+

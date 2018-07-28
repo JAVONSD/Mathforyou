@@ -77,6 +77,9 @@ target 'Life' do
   # Transition
   pod 'Hero'
 
+  # 500 extentions
+  # pod 'SwifterSwift'
+
   target 'LifeTests' do
     inherit! :search_paths
   end
