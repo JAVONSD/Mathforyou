@@ -21,11 +21,11 @@ import Hero
 class SearchViewController: UIViewController, Stepper {
     
     var resultTableView: UITableView!
-    var tagsTableView: UITableView!
+    var historyTableView: UITableView!
     var relativeTableView: UITableView!
     
-    let testViewModel = SearchViewModel()
-    var tagsList = [String]()
+    let historyViewModel = SearchViewModel()
+    var historyList = [String]()
     let searchBarView = SearchBarView.init(frame: CGRect.zero)
     
     var searchString = ""
@@ -53,7 +53,6 @@ class SearchViewController: UIViewController, Stepper {
         padding: 0)
     private lazy var refreshCtrl = UIRefreshControl()
     
-    //---
     private var disposeBag = DisposeBag()
 
     private var _provider: MoyaProvider<GlobalSearchService>?
@@ -82,7 +81,7 @@ class SearchViewController: UIViewController, Stepper {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        if tagsTableView.isHidden == false {
+        if historyTableView.isHidden == false {
             searchBarView.hideKeyboard(false)
         }
     }
@@ -155,11 +154,11 @@ class SearchViewController: UIViewController, Stepper {
     }
     
     fileprivate func layoutTableViews() {
-        tagsTableView = TableView()
-        tagsTableView.dataSource = self
-        tagsTableView.delegate = self
-        view.addSubview(tagsTableView)
-        tagsTableView.snp.makeConstraints { make in
+        historyTableView = TableView()
+        historyTableView.dataSource = self
+        historyTableView.delegate = self
+        view.addSubview(historyTableView)
+        historyTableView.snp.makeConstraints { make in
             if #available(iOS 11.0, *) {
                 make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
             } else {
@@ -222,14 +221,14 @@ class SearchViewController: UIViewController, Stepper {
     
     fileprivate func setupViews() {
         if #available(iOS 11.0, *) {
-            tagsTableView.contentInsetAdjustmentBehavior = .never
+            historyTableView.contentInsetAdjustmentBehavior = .never
             relativeTableView.contentInsetAdjustmentBehavior = .never
             resultTableView.contentInsetAdjustmentBehavior = .never
         } else {
             automaticallyAdjustsScrollViewInsets = false
         }
         
-        tagsTableView.isHidden = false
+        historyTableView.isHidden = false
         resultTableView.isHidden = true
         relativeTableView.isHidden = true
         
@@ -237,15 +236,16 @@ class SearchViewController: UIViewController, Stepper {
         resultTableView.backgroundColor = UIColor.white
         resultTableView.register(cellWithClass: SearchResultCell.self)
         
-        tagsTableView.separatorStyle = UITableViewCellSeparatorStyle.none
-        tagsTableView.register(cellWithClass: SearchTagsCell.self)
+        historyTableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        historyTableView.register(cellWithClass: SearchHistoryTitleCell.self)
+        historyTableView.register(cellWithClass: SearchHistoryCell.self)
         
         relativeTableView.separatorStyle = UITableViewCellSeparatorStyle.none
         relativeTableView.register(cellWithClass: SearchRelativeCell.self)
     }
     
     func loadData() {
-        self.tagsList = testViewModel.getSearchHistory()
+        self.historyList = historyViewModel.getSearchHistory()
     }
     
     func searchAction(_ searchString: String){
@@ -263,26 +263,24 @@ class SearchViewController: UIViewController, Stepper {
         }
         
         searchBarView.hideKeyboard(true)
-        if let index = self.tagsList.index(of: searchText) {
-            self.tagsList.remove(at: index)
-            self.tagsList.insert(searchText, at: 0)
+        if let index = self.historyList.index(of: searchText) {
+            self.historyList.remove(at: index)
+            self.historyList.insert(searchText, at: 0)
         } else {
-            self.tagsList.insert(searchText, at: 0)
+            self.historyList.insert(searchText, at: 0)
         }
-        testViewModel.saveSearchHistory(histroys: self.tagsList)
-        tagsTableView.reloadData()
+        historyViewModel.saveSearchHistory(histroys: self.historyList)
         
+        historyTableView.reloadData()
         relativeTableView.reloadData()
         resultTableView.reloadData()
-        tagsTableView.isHidden = true
+        
+        historyTableView.isHidden = true
         resultTableView.isHidden = false
         relativeTableView.isHidden = true
-        print("searchText“\(searchText)”")
         
+        print("searchText“\(searchText)”")
     }
-    
-    
- 
 }
 
 //MARK: - TableView DataSource Delegate
@@ -292,31 +290,34 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableView == tagsTableView {
-            if self.tagsList.count > 0 {
-                return self.tagsList.count
+        if tableView == historyTableView {
+            if self.historyList.count > 0 {
+                return self.historyList.count + 1
             }
             return 0
         } else if tableView == resultTableView {
+            // TODO: - make count form data source
             return 10
         } else if tableView == relativeTableView {
+            // TODO: - make count form data source
             return 1
         }
         return 0
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if tableView == tagsTableView {
-            return 45.0
-            
+        if tableView == historyTableView {
+            if indexPath.row == 0 {
+                return 64.0
+            } else {
+                return 45.0
+            }
         } else if tableView == resultTableView {
             return 115.0
-            
         } else if tableView == relativeTableView {
             return 60
         }
@@ -324,15 +325,33 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == tagsTableView {
-            let cell = tableView.dequeueReusableCell(withClass: SearchTagsCell.self)
-            cell.setTitle(titleString: self.tagsList[indexPath.row])
-            cell.deleteTapped = { [weak self] in
-                self?.testViewModel.saveSearchHistory(histroys: self?.tagsList ?? [String]())
-                tableView.reloadData()
+        if tableView == historyTableView {
+            if indexPath.row == 0 {
+                let cell = tableView.dequeueReusableCell(withClass: SearchHistoryTitleCell.self)
+                cell.cleanTapped = { [weak self] in
+                    self?.showAlert("Очистить историю", "Нет", "Да", UIColor.init(hexString: "#494949"), UIColor.init(hexString: "#494949"),
+                                    callback1: {
+                                        print("очистил")
+                    }, callback2: {
+                        print("callback2")
+                        self?.historyList.removeAll()
+                        self?.historyViewModel.clearSearchHistory()
+                        tableView.reloadData()
+                        
+                    })
+                }
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCell(withClass: SearchHistoryCell.self)
+                cell.setTitle(titleString: self.historyList[indexPath.row - 1])
+                cell.deleteTapped = { [weak self] in
+                    self?.historyList.remove(at: indexPath.row - 1)
+                    self?.historyViewModel.saveSearchHistory(histroys: self?.historyList ?? [String]())
+                    tableView.reloadData()
+                }
+                return cell
             }
-            return cell
-            
+
         } else if tableView == resultTableView {
             let cell = tableView.dequeueReusableCell(withClass: SearchResultCell.self)
             cell.setName("Test name")
@@ -353,11 +372,11 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if tableView == tagsTableView {
+        if tableView == historyTableView {
             if indexPath.row == 0 {
                 
             } else {
-                let historyString = self.tagsList[indexPath.row - 1]
+                let historyString = self.historyList[indexPath.row - 1]
                 searchString = historyString
                 searchBarView.setSearchTextString(searchTextString: historyString)
                 searchAction(searchString)
@@ -389,11 +408,11 @@ extension SearchViewController: SearchBarViewDelegate {
     func SearchBarViewEditingChanged(textField: UITextField) {
         searchString = textField.text ?? ""
         if textField.text?.count == 0 {
-            tagsTableView.isHidden = false
+            historyTableView.isHidden = false
             relativeTableView.isHidden = true
             resultTableView.isHidden = true
         } else {
-            tagsTableView.isHidden = true
+            historyTableView.isHidden = true
             relativeTableView.isHidden = false
             resultTableView.isHidden = true
             relativeTableView.reloadData()
@@ -408,11 +427,11 @@ extension SearchViewController: SearchBarViewDelegate {
     func SearchBarViewDidBeginEditing(textField: UITextField) {
         textField.text = searchString
         if textField.text?.count == 0 {
-            tagsTableView.isHidden = false
+            historyTableView.isHidden = false
             relativeTableView.isHidden = true
             resultTableView.isHidden = true
         } else {
-            tagsTableView.isHidden = true
+            historyTableView.isHidden = true
             relativeTableView.isHidden = false
             resultTableView.isHidden = true
         }
@@ -427,6 +446,7 @@ extension SearchViewController {
     }
 }
 
+// MARK: - Alert
 extension SearchViewController {
     private func showAlert(_ msg: String?, _ button1TitleString: String?, _ button2TitleString: String?, _ color1: UIColor, _ color2: UIColor, callback1:@escaping () -> Void, callback2: @escaping () -> Void) {
         let attributedString = NSAttributedString(string: msg ?? "", attributes: [
@@ -461,6 +481,7 @@ extension SearchViewController {
     }
 }
 
+// MARK: - MenuBar Protocol
 extension SearchViewController: MenuBarProtocol {
     func scrollToMenuIndex(menuIndex: Int) {
         let indexPath = IndexPath(item: menuIndex, section: 0)

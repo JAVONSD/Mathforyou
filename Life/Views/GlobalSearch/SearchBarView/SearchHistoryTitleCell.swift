@@ -14,7 +14,7 @@ class SearchHistoryTitleCell: UITableViewCell {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel.init()
-        label.text = "history"
+        label.text = "История"
         label.font = UIFont.systemFont(ofSize: 12.0)
         label.textColor = UIColor.init(hexString: "#898989")
         return label
@@ -22,7 +22,7 @@ class SearchHistoryTitleCell: UITableViewCell {
     
     private lazy var cleanButton: UIButton = {
         let button = UIButton.init(type: UIButtonType.custom)
-        button.setTitle("clean", for: UIControlState.normal)
+        button.setTitle("Удалить", for: UIControlState.normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 12.0)
         button.setTitleColor(UIColor.init(hexString: "#898989"), for: UIControlState.normal)
         return button

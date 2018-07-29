@@ -53,7 +53,7 @@ class GlobalSearchViewModel: NSObject {
             })
         ]
     )
-    
+  
     // MARK: - Methods
     
 //    public func getPopularNews(completion: @escaping ((Error?) -> Void)) {
@@ -404,7 +404,7 @@ class GlobalSearchItemViewModel: NSObject {
 //            }
 //            .disposed(by: disposeBag)
 //    }
-    
+
 
 }
 

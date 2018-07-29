@@ -9,7 +9,7 @@
 import UIKit
 import SnapKit
 
-class SearchTagsCell: UITableViewCell {
+class SearchHistoryCell: UITableViewCell {
     var deleteTapped: (() -> Void)?
     
     private lazy var titleLabel: UILabel = {
@@ -21,7 +21,7 @@ class SearchTagsCell: UITableViewCell {
     
     private lazy var deleleButton: UIButton = {
         let button = UIButton.init()
-        button.setImage(#imageLiteral(resourceName: "close-circle-dark"), for: UIControlState.normal)
+        button.setImage(#imageLiteral(resourceName: "deleteHistoryIcon"), for: UIControlState.normal)
         return button
     }()
     
@@ -46,9 +46,10 @@ class SearchTagsCell: UITableViewCell {
         self.contentView.addSubview(seperationView)
         
         deleleButton.snp.makeConstraints {
-            $0.top.bottom.right.equalToSuperview().inset(UIEdgeInsetsMake(21, 0, 12, 14.5))
-            $0.width.equalTo(12)
-            $0.height.equalTo(12)
+            $0.right.equalToSuperview().inset(UIEdgeInsetsMake(0, 0, 0, 16))
+            $0.width.equalTo(35)
+            $0.height.equalTo(35)
+            $0.centerX.equalToSuperview()
         }
         deleleButton.addTarget(self, action: #selector(deleteAction), for: UIControlEvents.touchUpInside)
         
