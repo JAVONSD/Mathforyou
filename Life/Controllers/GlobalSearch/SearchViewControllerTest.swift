@@ -466,7 +466,6 @@ extension SearchViewController: MenuBarProtocol {
         let indexPath = IndexPath(item: menuIndex, section: 0)
         indexPathByTap = indexPath
         indexPathByScroll = nil
-
     }
 }
 

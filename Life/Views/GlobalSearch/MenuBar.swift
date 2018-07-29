@@ -31,7 +31,7 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
     
     let cellID = "cellID"
     let titleNames = ["Новости", "Предложения", "Вопросы"]
-    
+
     //MARK: - View Life Circle
     
     override init(frame: CGRect) {
@@ -76,13 +76,30 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
             horizontalBarView.widthAnchor.constraint(equalTo: self.widthAnchor , multiplier: 1/3),
             horizontalBarView.heightAnchor.constraint(equalToConstant: 2)
             ])
+    
     }
     
     //MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
         delegate?.scrollToMenuIndex(menuIndex: indexPath.item)
         collectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionViewScrollPosition() )
+        
+        let partWidth = collectionView.frame.width / 3
+        
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
+            switch indexPath.item {
+            case 0:
+                self.horizontalLeftAnchor?.constant = self.frame.minX
+            case 1:
+                self.horizontalLeftAnchor?.constant = self.frame.minX + partWidth
+            case 2:
+                self.horizontalLeftAnchor?.constant = self.frame.maxX - partWidth
+            default:
+                self.horizontalLeftAnchor?.constant = self.frame.minX
+            }
+        })
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -110,7 +127,6 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 //MARK: - Setup MenuCell
