@@ -20,6 +20,25 @@ import Hero
 
 class SearchViewController: UIViewController, Stepper {
     
+    private var resultView: ResultView!
+    
+    private func setupResultView() {
+        resultView = ResultView(frame: .zero)
+//        resultView.searchView?.didType = { [weak self] text in
+//            guard let `self` = self else { return }
+////            self.viewModel?.filter(with: text)
+//
+//            print("employeesView.searchView?.didType")
+//        }
+        view.addSubview(resultView)
+        resultView.snp.makeConstraints({ [weak self] (make) in
+            guard let `self` = self else { return }
+            make.edges.equalTo(self.view)
+        })
+    }
+    
+    ///---------------------------------
+    
     var resultTableView: UITableView!
     var historyTableView: UITableView!
     var relativeTableView: UITableView!
@@ -186,21 +205,23 @@ class SearchViewController: UIViewController, Stepper {
             make.right.equalTo(view)
         }
         
-        resultTableView = TableView()
-        resultTableView.dataSource = self
-        resultTableView.delegate = self
-        view.addSubview(resultTableView)
-        resultTableView.snp.makeConstraints { make in
-            if #available(iOS 11.0, *) {
-                make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
-            } else {
-                // Fallback on earlier versions
-                make.bottom.equalTo(self.bottomLayoutGuide.snp.top)
-            }
-            make.top.equalTo(menuBar.snp.bottom)
-            make.left.equalTo(view)
-            make.right.equalTo(view)
-        }
+//        resultTableView = TableView()
+//        resultTableView.dataSource = self
+//        resultTableView.delegate = self
+//        view.addSubview(resultTableView)
+//        resultTableView.snp.makeConstraints { make in
+//            if #available(iOS 11.0, *) {
+//                make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+//            } else {
+//                // Fallback on earlier versions
+//                make.bottom.equalTo(self.bottomLayoutGuide.snp.top)
+//            }
+//            make.top.equalTo(menuBar.snp.bottom)
+//            make.left.equalTo(view)
+//            make.right.equalTo(view)
+//        }
+        
+        setupResultView()
     }
     
     fileprivate func configNavigationBar() {
@@ -223,18 +244,20 @@ class SearchViewController: UIViewController, Stepper {
         if #available(iOS 11.0, *) {
             historyTableView.contentInsetAdjustmentBehavior = .never
             relativeTableView.contentInsetAdjustmentBehavior = .never
-            resultTableView.contentInsetAdjustmentBehavior = .never
+//            resultTableView.contentInsetAdjustmentBehavior = .never
+            resultView.tableView?.contentInsetAdjustmentBehavior = .never
         } else {
             automaticallyAdjustsScrollViewInsets = false
         }
         
         historyTableView.isHidden = false
-        resultTableView.isHidden = true
+//        resultTableView.isHidden = true
+        resultView.isHidden = true
         relativeTableView.isHidden = true
         
-        resultTableView.separatorStyle = UITableViewCellSeparatorStyle.none
-        resultTableView.backgroundColor = UIColor.white
-        resultTableView.register(cellWithClass: SearchResultCell.self)
+//        resultTableView.separatorStyle = UITableViewCellSeparatorStyle.none
+//        resultTableView.backgroundColor = UIColor.white
+//        resultTableView.register(cellWithClass: SearchResultCell.self)
         
         historyTableView.separatorStyle = UITableViewCellSeparatorStyle.none
         historyTableView.register(cellWithClass: SearchHistoryTitleCell.self)
@@ -273,10 +296,12 @@ class SearchViewController: UIViewController, Stepper {
         
         historyTableView.reloadData()
         relativeTableView.reloadData()
-        resultTableView.reloadData()
+//        resultTableView.reloadData()
+        resultView.tableView?.reloadData()
         
         historyTableView.isHidden = true
-        resultTableView.isHidden = false
+//        resultTableView.isHidden = false
+        resultView.isHidden = false
         relativeTableView.isHidden = true
         
         print("searchText“\(searchText)”")
@@ -295,9 +320,9 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                 return self.historyList.count + 1
             }
             return 0
-        } else if tableView == resultTableView {
-            // TODO: - make count form data source
-            return 10
+//        } else if tableView == resultTableView {
+//            // TODO: - make count form data source
+//            return 10
         } else if tableView == relativeTableView {
             // TODO: - make count form data source
             return 1
@@ -316,8 +341,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
             } else {
                 return 45.0
             }
-        } else if tableView == resultTableView {
-            return 115.0
+//        } else if tableView == resultTableView {
+//            return 115.0
         } else if tableView == relativeTableView {
             return 60
         }
@@ -329,7 +354,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withClass: SearchHistoryTitleCell.self)
                 cell.cleanTapped = { [weak self] in
-                    self?.showAlert("Очистить историю", "Нет", "Да", UIColor.init(hexString: "#494949"), UIColor.init(hexString: "#494949"),
+                    self?.showAlert(NSLocalizedString("Очистить историю", comment: ""), NSLocalizedString("Нет", comment: ""), NSLocalizedString("Да", comment: ""), UIColor.init(hexString: "#494949"), UIColor.init(hexString: "#494949"),
                                     callback1: {
                                         print("очистил")
                     }, callback2: {
@@ -352,11 +377,11 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                 return cell
             }
 
-        } else if tableView == resultTableView {
-            let cell = tableView.dequeueReusableCell(withClass: SearchResultCell.self)
-            cell.setName("Test name")
-            cell.setAvartar("jielun.jpg")
-            return cell
+//        } else if tableView == resultTableView {
+//            let cell = tableView.dequeueReusableCell(withClass: SearchResultCell.self)
+//            cell.setName("Test name")
+//            cell.setAvartar("jielun.jpg")
+//            return cell
         } else if tableView == relativeTableView {
             let cell = tableView.dequeueReusableCell(withClass: SearchRelativeCell.self)
             cell.setSearchText(searchText: searchString)
@@ -381,10 +406,12 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
                 searchBarView.setSearchTextString(searchTextString: historyString)
                 searchAction(searchString)
             }
-        } else if tableView == resultTableView {
-           
-            
-        } else if tableView == relativeTableView {
+        }
+//        else if tableView == resultTableView {
+//
+//
+//        }
+        else if tableView == relativeTableView {
             searchAction(searchString)
         }
     }
@@ -410,11 +437,13 @@ extension SearchViewController: SearchBarViewDelegate {
         if textField.text?.count == 0 {
             historyTableView.isHidden = false
             relativeTableView.isHidden = true
-            resultTableView.isHidden = true
+//            resultTableView.isHidden = true
+            resultView.isHidden = true
         } else {
             historyTableView.isHidden = true
             relativeTableView.isHidden = false
-            resultTableView.isHidden = true
+//            resultTableView.isHidden = true
+            resultView.isHidden = true
             relativeTableView.reloadData()
         }
     }
@@ -429,11 +458,13 @@ extension SearchViewController: SearchBarViewDelegate {
         if textField.text?.count == 0 {
             historyTableView.isHidden = false
             relativeTableView.isHidden = true
-            resultTableView.isHidden = true
+//            resultTableView.isHidden = true
+            resultView.isHidden = true
         } else {
             historyTableView.isHidden = true
             relativeTableView.isHidden = false
-            resultTableView.isHidden = true
+//            resultTableView.isHidden = true
+            resultView.isHidden = true
         }
     }
 }
