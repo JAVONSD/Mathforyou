@@ -10,19 +10,17 @@ import UIKit
 import SnapKit
 
 protocol MenuBarProtocol: class {
-    func scrollToMenuIndex(menuIndex: Int)
+    func scrollToMenuIndex(sender: MenuBar, menuIndex: Int)
 }
 
 class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     //MARK: - Properties
-
-    weak var delegate: MenuBarProtocol?
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = .white
+        cv.backgroundColor = UIColor.rgb(red: 230, green: 32, blue: 31)
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.delegate = self
         cv.dataSource = self
@@ -30,8 +28,10 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }()
     
     let cellID = "cellID"
-    let titleNames = ["Новости", "Предложения", "Вопросы"]
-
+    let imageNames = ["home", "trending", "subscriptions", "account"]
+    
+    weak var delegate: MenuBarProtocol?
+    
     //MARK: - View Life Circle
     
     override init(frame: CGRect) {
@@ -56,7 +56,7 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
     
     override func layoutSubviews() {
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.invalidateLayout()
+            layout.invalidateLayout();
         }
     }
     
@@ -64,7 +64,7 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
     
     func setupHorizontalBar() {
         let horizontalBarView = UIView()
-        horizontalBarView.backgroundColor = UIColor.init(red: 0.06, green: 0.54, blue: 0.92, alpha: 1)
+        horizontalBarView.backgroundColor = UIColor(white: 0.95, alpha: 1)
         horizontalBarView.translatesAutoresizingMaskIntoConstraints =  false
         
         addSubview(horizontalBarView)
@@ -73,51 +73,35 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
         
         NSLayoutConstraint.activate([
             horizontalBarView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            horizontalBarView.widthAnchor.constraint(equalTo: self.widthAnchor , multiplier: 1/3),
-            horizontalBarView.heightAnchor.constraint(equalToConstant: 2)
+            horizontalBarView.widthAnchor.constraint(equalTo: self.widthAnchor , multiplier: 1/4),
+            horizontalBarView.heightAnchor.constraint(equalToConstant: 8)
             ])
-    
     }
     
     //MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        delegate?.scrollToMenuIndex(menuIndex: indexPath.item)
-        collectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionViewScrollPosition() )
-        
-        let partWidth = collectionView.frame.width / 3
-        
-        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseOut, animations: {
-            switch indexPath.item {
-            case 0:
-                self.horizontalLeftAnchor?.constant = self.frame.minX
-            case 1:
-                self.horizontalLeftAnchor?.constant = self.frame.minX + partWidth
-            case 2:
-                self.horizontalLeftAnchor?.constant = self.frame.maxX - partWidth
-            default:
-                self.horizontalLeftAnchor?.constant = self.frame.minX
-            }
-        })
+        // при тапе на item в menuBar сдвигаем item VC на этот item
+        delegate?.scrollToMenuIndex(sender: self, menuIndex: indexPath.item)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! MenuCell
-        cell.textLabel.text = titleNames[indexPath.item]
-        cell.tintColor = App.Color.azure
+        cell.imageView.image = UIImage(named: imageNames[indexPath.item])?.withRenderingMode(.alwaysTemplate)
+        cell.tintColor = UIColor.rgb(red: 91, green: 14, blue: 13)
+        
         return cell
     }
     
     //MARK: - UICollectionViewDelegateFlowLayout
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: frame.width / 3, height: frame.height)
+        return CGSize(width: frame.width / 4, height: frame.height)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -127,39 +111,48 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }
 
 //MARK: - Setup MenuCell
 
 class MenuCell: BaseCell {
-
-    let textLabel: UILabel = {
-        let lb = UILabel()
-        lb.font = App.Font.captionAlts
-        lb.textAlignment = .center
-        lb.textColor = App.Color.steel
-        return lb
+    
+    let imageView: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "home")?.withRenderingMode(.alwaysTemplate)
+        iv.tintColor = UIColor.rgb(red: 91, green: 14, blue: 13)
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        return iv
     }()
-
+    
+    // меняем цвет когда селектед
+    override var isHighlighted: Bool {
+        didSet {
+            imageView.tintColor = isHighlighted ? .white : UIColor.rgb(red: 91, green: 14, blue: 13)
+        }
+    }
+    
     override var isSelected: Bool {
         didSet {
-            textLabel.textColor = isSelected ? App.Color.black : App.Color.steel
+            imageView.tintColor = isSelected ? .white : UIColor.rgb(red: 91, green: 14, blue: 13)
         }
     }
     
     override func setupViews() {
         super.setupViews()
         
-        addSubview(textLabel)
-        textLabel.snp.makeConstraints { make in
-            make.height.equalTo(28)
-            make.left.equalTo(self)
-            make.right.equalTo(self)
-            make.centerY.equalToSuperview()
-        }
+        addSubview(imageView)
+        NSLayoutConstraint.activate([
+            imageView.heightAnchor.constraint(equalToConstant: 28),
+            imageView.widthAnchor.constraint(equalToConstant: 28),
+            imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            ])
     }
     
 }
+
 
 class BaseCell: UICollectionViewCell {
     

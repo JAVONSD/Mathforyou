@@ -9,8 +9,6 @@
 import Foundation
 import Moya
 
-            /// may be do not need it
-
 enum GlobalSearchService {
     case globalSearch(searchTxt: String, rows: Int, offset: Int, entityType: Int, isMobile: Bool)
 }
@@ -48,6 +46,7 @@ extension GlobalSearchService: AuthorizedTargetType {
     var sampleData: Data {
         switch self {
         case .globalSearch:
+            // TO DO - make for global search
             return Bundle.main.stubJSONWith(name: "globalSearch")
         }
     }

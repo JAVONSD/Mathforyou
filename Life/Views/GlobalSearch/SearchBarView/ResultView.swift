@@ -19,7 +19,6 @@ class ResultView: UIView {
         color: App.Color.azure,
         padding: 0)
     private(set) var tableView: UITableView?
-    private(set) var searchView: SearchView?
     
     var configureViewForHeader: ((UITableView, Int) -> UIView?)?
     
@@ -49,22 +48,8 @@ class ResultView: UIView {
     
     private func setupUI() {
         setupTableView()
-        setupSearchView()
     }
-    
-    private func setupSearchView() {
-        searchView = SearchView()
-        searchView?.edgeInsets = .init(
-            top: 20,
-            left: App.Layout.itemSpacingMedium,
-            bottom: App.Layout.itemSpacingMedium,
-            right: App.Layout.itemSpacingMedium
-        )
-        
-        guard let searchView = searchView else { return }
-        
-        tableView?.setAndLayoutTable(headerView: searchView)
-    }
+
     
     private func setupTableView() {
         tableView = UITableView(frame: .zero, style: .plain)
@@ -108,6 +93,8 @@ class ResultView: UIView {
             make.size.equalTo(self.spinner.frame.size)
             make.center.equalTo(tableView)
         }
+        
+        tableView.backgroundColor = .red
     }
     
 }

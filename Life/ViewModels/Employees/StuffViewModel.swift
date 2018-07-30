@@ -16,6 +16,8 @@ class StuffViewModel: NSObject, ListDiffable {
     private(set) var employeesViewModel = EmployeesViewModel()
     private(set) var birthdaysViewModel = BirthdaysViewModel()
     private(set) var vacanciesViewModel = VacanciesViewModel()
+    
+    private(set) var searchNewsViewModel = SearchNewsViewModel()
 
     private let allItemsSubject = PublishSubject<[ListDiffable]>()
     var allItemsObservable: Observable<[ListDiffable]> { return allItemsSubject.asObservable() }

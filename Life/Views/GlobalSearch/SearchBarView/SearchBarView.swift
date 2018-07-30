@@ -23,7 +23,7 @@ class SearchBarView: UIView {
         textField.backgroundColor = UIColor.init(hexString: "#ebeef1")
         textField.textColor = UIColor.init(hexString: "#494949")
         textField.font = UIFont.systemFont(ofSize: 15)
-        textField.placeholder = "поиск"
+        textField.placeholder = NSLocalizedString("поиск", comment: "") 
         textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder ?? "", attributes: [NSAttributedStringKey.foregroundColor : UIColor.init(hexString: "#bfbfbf")])
         textField.layer.cornerRadius = 15
         textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))

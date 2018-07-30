@@ -167,3 +167,10 @@ extension News: Persistable {
         return object
     }
 }
+
+
+
+
+
+
+

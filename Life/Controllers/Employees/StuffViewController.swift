@@ -84,7 +84,7 @@ class StuffViewController: TabsController, TabsControllerDelegate, Stepper {
         tabBar.setTabItemsColor(App.Color.slateGrey, for: .normal)
         tabBar.setTabItemsColor(UIColor.black, for: .selected)
         tabBar.setTabItemsColor(UIColor.black, for: .highlighted)
-
+ 
         tabBarAlignment = .top
         tabBar.tabBarStyle = .nonScrollable
         tabBar.dividerColor = nil

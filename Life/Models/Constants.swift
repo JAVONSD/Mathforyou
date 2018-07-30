@@ -149,6 +149,8 @@ struct App {
         static let attachmentCellId = "attachmentCellId"
         static let imageCellId = "imageCellId"
         static let dummyCellId = "dummyCellId"
+        
+        static let searchNews = "searchNews"
 
     }
 
@@ -194,7 +196,7 @@ struct App {
         case production
 
         static var current: Environment {
-            return .production
+            return .development //.production
         }
     }
 

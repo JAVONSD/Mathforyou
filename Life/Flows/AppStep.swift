@@ -51,7 +51,6 @@ enum AppStep: Step {
     case newsPicked(withId: String)
     case newsDone
     case forumPostPicked(withId: String)
-    case newsSearch
 
     // MARK: - Suggestions
 
@@ -83,4 +82,17 @@ enum AppStep: Step {
     case notifications
     case notificationsDone
 
+    // MARK: - Global Search (Kanat)
+    case newsSearch
+    case suggestionSearch
+    case questionSearch
 }
+
+
+
+
+
+
+
+
+

@@ -191,19 +191,30 @@ class MainMenuFlow: Flow {
                 nextStepper: notificationsViewController)
         )
     }
-    
-    // my
-    private func navigationToNewsSearch() -> NextFlowItems {
-        let vc = configuredNewsSearch()
-        let nav = UINavigationController(rootViewController: vc)
-
-        rootViewController.present(nav, animated: true, completion: nil)
-        return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc))
-    }
 
     private func navigationFromNotifications() -> NextFlowItems {
         rootViewController.presentedViewController?.dismiss(animated: true, completion: nil)
         return NextFlowItems.none
+    }
+    
+    // Kanat
+    private func navigationToNewsSearch() -> NextFlowItems {
+        //        let vc = configuredNewsSearch()
+        //        let nav = UINavigationController(rootViewController: vc)
+        //
+        //        rootViewController.present(nav, animated: true, completion: nil)
+        //        return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc))
+        
+//        let stuffSearchViewController = configuredStuffSearch()
+//        let employeesFlow = SearchNewsFlow(viewController: stuffSearchViewController)
+//
+//        rootViewController.present(stuffSearchViewController, animated: true, completion: nil)
+//        return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: employeesFlow, nextStepper: OneStepper(withSingleStep: AppStep.newsSearch)))
+        
+        let vc = configuredNewsSearch()
+        let nav = UINavigationController(rootViewController: vc)
+        rootViewController.present(nav, animated: true, completion: nil)
+        return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc as! Stepper))
     }
 
     // MARK: - Methods
@@ -244,12 +255,24 @@ class MainMenuFlow: Flow {
         let menuVC = MenuViewController.instantiate(withViewModel: MenuViewModel())
         return menuVC
     }
+
+//    private func configuredStuffSearch() -> SearchStuffViewController {
+//        let stuffVC = SearchStuffViewController(stuffViewModel: stuffViewModel)
+//        return stuffVC
+//    }
     
-    private func configuredNewsSearch() -> SearchViewController {
-        let vc = SearchViewController()
-//        vc.stuffViewModel = stuffViewModel
+    private func configuredNewsSearch() -> UIViewController {
+        let vc = GlobalSearchViewController()
         return vc
     }
 
-
 }
+
+
+
+
+
+
+
+
+

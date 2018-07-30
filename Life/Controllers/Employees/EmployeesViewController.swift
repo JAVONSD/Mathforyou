@@ -103,6 +103,7 @@ class EmployeesViewController: UIViewController {
                 onUnathorizedError()
             }
         }).disposed(by: disposeBag)
+        
         viewModel?.loading.asDriver().drive(onNext: { [weak self] loading in
             if loading {
                 self?.employeesView.startLoading()
