@@ -25,6 +25,7 @@ struct NewsSearch: Codable, Hashable {
         case title
         case body
     }
+   
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)

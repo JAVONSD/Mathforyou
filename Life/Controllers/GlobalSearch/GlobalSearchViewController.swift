@@ -78,7 +78,7 @@ class GlobalSearchViewController: UIViewController,  Stepper {
     }
     
     fileprivate func setupCollectionView() {
-        collectionView.register(SearchNewsCollectionCell.self, forCellWithReuseIdentifier: GlobalSearchCellIdentifiers.SearchNewsCell)
+        collectionView.register(GlobalSearchCollectionCell.self, forCellWithReuseIdentifier: GlobalSearchCellIdentifiers.SearchNewsCell)
         
         setupCollectionViewConstraints()
     }

@@ -25,8 +25,10 @@
 		9D1B8D0C2109C8DC0080FD0E /* NewsSearchSliderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1B8D0B2109C8DC0080FD0E /* NewsSearchSliderCell.swift */; };
 		9D1D10CF210F1DDB009525AD /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1D10CE210F1DDB009525AD /* CustomNavigationController.swift */; };
 		9D1D10D1210F1E0A009525AD /* GlobalSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1D10D0210F1E0A009525AD /* GlobalSearchViewController.swift */; };
-		9D1D10D3210F2722009525AD /* SearchNewsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1D10D2210F2722009525AD /* SearchNewsCollectionCell.swift */; };
+		9D1D10D3210F2722009525AD /* GlobalSearchCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1D10D2210F2722009525AD /* GlobalSearchCollectionCell.swift */; };
 		9D1D10D5210F3B1F009525AD /* UIColor+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1D10D4210F3B1F009525AD /* UIColor+Extentions.swift */; };
+		9D1D10D7211039DE009525AD /* GlobalSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1D10D6211039DE009525AD /* GlobalSearch.swift */; };
+		9D2AF0252110585F00E5995E /* SearchNewsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2AF0242110585F00E5995E /* SearchNewsCollectionCell.swift */; };
 		9D2C99CB2109E164000ACD4B /* NewsSearchHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99CA2109E164000ACD4B /* NewsSearchHeaderCell.swift */; };
 		9D3F77F0210DF0D80070227A /* SearchNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3F77EF210DF0D80070227A /* SearchNewsViewModel.swift */; };
 		9D63571F210AD01800657ACB /* GlobalSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D63571E210AD01800657ACB /* GlobalSearchViewModel.swift */; };
@@ -489,8 +491,10 @@
 		9D1B8D0B2109C8DC0080FD0E /* NewsSearchSliderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchSliderCell.swift; sourceTree = "<group>"; };
 		9D1D10CE210F1DDB009525AD /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		9D1D10D0210F1E0A009525AD /* GlobalSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchViewController.swift; sourceTree = "<group>"; };
-		9D1D10D2210F2722009525AD /* SearchNewsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewsCollectionCell.swift; sourceTree = "<group>"; };
+		9D1D10D2210F2722009525AD /* GlobalSearchCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchCollectionCell.swift; sourceTree = "<group>"; };
 		9D1D10D4210F3B1F009525AD /* UIColor+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extentions.swift"; sourceTree = "<group>"; };
+		9D1D10D6211039DE009525AD /* GlobalSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearch.swift; sourceTree = "<group>"; };
+		9D2AF0242110585F00E5995E /* SearchNewsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewsCollectionCell.swift; sourceTree = "<group>"; };
 		9D2C99CA2109E164000ACD4B /* NewsSearchHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchHeaderCell.swift; sourceTree = "<group>"; };
 		9D3F77EF210DF0D80070227A /* SearchNewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewsViewModel.swift; sourceTree = "<group>"; };
 		9D63571E210AD01800657ACB /* GlobalSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchViewModel.swift; sourceTree = "<group>"; };
@@ -979,6 +983,7 @@
 			children = (
 				9D63571E210AD01800657ACB /* GlobalSearchViewModel.swift */,
 				9D3F77EF210DF0D80070227A /* SearchNewsViewModel.swift */,
+				9D1D10D6211039DE009525AD /* GlobalSearch.swift */,
 			);
 			path = GlobalSearch;
 			sourceTree = "<group>";
@@ -988,7 +993,8 @@
 			children = (
 				9D086705210B595A000FE419 /* SearchBarView */,
 				9D086703210B2A37000FE419 /* MenuBar.swift */,
-				9D1D10D2210F2722009525AD /* SearchNewsCollectionCell.swift */,
+				9D1D10D2210F2722009525AD /* GlobalSearchCollectionCell.swift */,
+				9D2AF0242110585F00E5995E /* SearchNewsCollectionCell.swift */,
 			);
 			path = GlobalSearch;
 			sourceTree = "<group>";
@@ -2685,6 +2691,7 @@
 				C7A241AE204AB60C00994840 /* UIImageView+Extensions.swift in Sources */,
 				9D0867B2210B6B2A000FE419 /* UITableViewExtensions.swift in Sources */,
 				C79251EF2031569B00CDFBBA /* StackedScrollView.swift in Sources */,
+				9D2AF0252110585F00E5995E /* SearchNewsCollectionCell.swift in Sources */,
 				C7AB6F7E204BE8F500328E17 /* UIToolbar+Extension.swift in Sources */,
 				C73EB29F2032F9B100429921 /* SectionModel.swift in Sources */,
 				C7D832D42035C80E00282891 /* MainMenuFlow.swift in Sources */,
@@ -2901,7 +2908,7 @@
 				C7D64220203463E0001DCA98 /* Stepper.swift in Sources */,
 				C7F7CB37203AEAC2007B9D1E /* Questionnaire.swift in Sources */,
 				C7D641B6203408E9001DCA98 /* TasksService.swift in Sources */,
-				9D1D10D3210F2722009525AD /* SearchNewsCollectionCell.swift in Sources */,
+				9D1D10D3210F2722009525AD /* GlobalSearchCollectionCell.swift in Sources */,
 				C7D6423E20346FC9001DCA98 /* LentaViewModel.swift in Sources */,
 				C73EB2B020331DCC00429921 /* PlansView.swift in Sources */,
 				C7D641EE20344664001DCA98 /* AppStep.swift in Sources */,
@@ -2930,6 +2937,7 @@
 				C7D6422D20346F4B001DCA98 /* EmployeesViewController.swift in Sources */,
 				C76EFBCB203027EB00FA2BB9 /* LoginViewController.swift in Sources */,
 				C720EC8820370B03007E4CD4 /* OverviewCell.swift in Sources */,
+				9D1D10D7211039DE009525AD /* GlobalSearch.swift in Sources */,
 				C7AB6F7B204BE8F500328E17 /* UICollectionView+Extension.swift in Sources */,
 				C7AB6F81204BE8F500328E17 /* UIBezierPath+Extension.swift in Sources */,
 				C7AB6F65204BE8F500328E17 /* UIView+Extension.swift in Sources */,
