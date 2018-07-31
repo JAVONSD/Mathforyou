@@ -16,19 +16,21 @@ protocol MenuBarProtocol: class {
 class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     //MARK: - Properties
+    struct MenuBarCellIdentifiers {
+        static let cellID = "cellID"
+    }
     
     lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        cv.backgroundColor = UIColor.rgb(red: 230, green: 32, blue: 31)
+        cv.backgroundColor = .clear
         cv.translatesAutoresizingMaskIntoConstraints = false
         cv.delegate = self
         cv.dataSource = self
         return cv
     }()
     
-    let cellID = "cellID"
-    let imageNames = ["home", "trending", "subscriptions", "account"]
+    let titleNames = ["News", "None", "None", "Tags"]
     
     weak var delegate: MenuBarProtocol?
     
@@ -37,7 +39,7 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        collectionView.register(MenuCell.self, forCellWithReuseIdentifier: cellID)
+        collectionView.register(MenuCell.self, forCellWithReuseIdentifier: MenuBarCellIdentifiers.cellID)
         
         self.addSubview(collectionView)
         NSLayoutConstraint.activate([
@@ -56,7 +58,7 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
     
     override func layoutSubviews() {
         if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.invalidateLayout();
+            layout.invalidateLayout()
         }
     }
     
@@ -91,9 +93,10 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellID, for: indexPath) as! MenuCell
-        cell.imageView.image = UIImage(named: imageNames[indexPath.item])?.withRenderingMode(.alwaysTemplate)
-        cell.tintColor = UIColor.rgb(red: 91, green: 14, blue: 13)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MenuBarCellIdentifiers.cellID, for: indexPath) as! MenuCell
+        
+        let title = titleNames[indexPath.item]
+        cell.activeButton.setTitle(title, for: .normal)
         
         return cell
     }
@@ -118,37 +121,47 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
 
 class MenuCell: BaseCell {
     
-    let imageView: UIImageView = {
-        let iv = UIImageView()
-        iv.image = UIImage(named: "home")?.withRenderingMode(.alwaysTemplate)
-        iv.tintColor = UIColor.rgb(red: 91, green: 14, blue: 13)
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        return iv
+//    let activeButton: UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setTitle("News", for: .normal)
+//        button.tintColor = .black
+//        button.fontSize = 12
+//        button.addTarget(self, action: #selector(handleActiveButtun), for: .touchUpInside)
+//        return button
+//    }()
+    
+    let activeButton: UIButton = {
+        let fb = UIButton()
+        fb.layer.cornerRadius = 5
+        fb.setTitle("News", for: .normal)
+        fb.setTitleColor(.black, for: .normal)
+        fb.titleLabel?.font = App.Font.buttonSmall
+        fb.titleEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 0)
+        fb.addTarget(self, action: #selector(handleActiveButtun), for: .touchUpInside)
+        return fb
     }()
     
-    // меняем цвет когда селектед
-    override var isHighlighted: Bool {
-        didSet {
-            imageView.tintColor = isHighlighted ? .white : UIColor.rgb(red: 91, green: 14, blue: 13)
-        }
+    @objc
+    func handleActiveButtun() {
+        print("------------ active")
     }
     
+    // меняем цвет когда селектед
     override var isSelected: Bool {
         didSet {
-            imageView.tintColor = isSelected ? .white : UIColor.rgb(red: 91, green: 14, blue: 13)
+            let selectedColor = isSelected ? App.Color.azure : .black
+            activeButton.setTitleColor(selectedColor, for: .normal)
         }
     }
     
     override func setupViews() {
         super.setupViews()
         
-        addSubview(imageView)
-        NSLayoutConstraint.activate([
-            imageView.heightAnchor.constraint(equalToConstant: 28),
-            imageView.widthAnchor.constraint(equalToConstant: 28),
-            imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
-            ])
+        addSubview(activeButton)
+        activeButton.snp.makeConstraints {
+            $0.centerX.centerY.equalToSuperview()
+            $0.width.height.equalToSuperview()
+        }
     }
     
 }
@@ -161,9 +174,7 @@ class BaseCell: UICollectionViewCell {
         setupViews()
     }
     
-    func setupViews() {
-        
-    }
+    func setupViews() { }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

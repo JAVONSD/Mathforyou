@@ -38,13 +38,17 @@ class GlobalSearchViewController: UIViewController,  Stepper {
         return cv
         }()
     
+    let searchController = UISearchController(searchResultsController: nil)
+
+    
     lazy var menuBar: MenuBar = {
         let mb = MenuBar()
         mb.delegate = self
         return mb
     }()
+    var indexPathByTap: IndexPath?
+    var indexPathByScroll: IndexPath?
     
-    let searchController = UISearchController(searchResultsController: nil)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,13 +59,13 @@ class GlobalSearchViewController: UIViewController,  Stepper {
     }
     
     fileprivate func setupViews() {
-        setupMenuBar()
+        setupMenuBarConstaints()
         setupCollectionView()
         setupSeachViewController()
         setupNavBarButtons()
     }
     
-    fileprivate func setupMenuBar() {
+    fileprivate func setupMenuBarConstaints() {
         view.addSubview(menuBar)
         if #available(iOS 11.0, *) {
             menuBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
@@ -93,10 +97,10 @@ class GlobalSearchViewController: UIViewController,  Stepper {
         navigationItem.titleView = searchController.searchBar
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
-        self.searchController.hidesNavigationBarDuringPresentation = false
-        definesPresentationContext = true
+        searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchBar.delegate = self
         searchController.searchBar.becomeFirstResponder()
+        definesPresentationContext = true
     }
     
     fileprivate func setupNavBarButtons() {
@@ -135,11 +139,13 @@ extension GlobalSearchViewController: UICollectionViewDataSource {
     
 }
 
+// MARK: - UICollectionView Delegate
 extension GlobalSearchViewController: UICollectionViewDelegate {
     
     
 }
 
+// MARK: - UICollectionView DelegateFlowLayout
 extension GlobalSearchViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -148,17 +154,30 @@ extension GlobalSearchViewController: UICollectionViewDelegateFlowLayout {
     
 }
 
+// MARK: -  UIScrollView Delegate
 extension GlobalSearchViewController: UIScrollViewDelegate {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // чтобы horizontalBarView смещалась когда свайпаем вьюшки
         menuBar.horizontalLeftAnchor?.constant = scrollView.contentOffset.x / 4
     }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        // Делим 800 на 200 = получим индекс
+        let index = targetContentOffset.pointee.x / view.frame.width
+        let indexPath = IndexPath(item: Int(index), section: 0)
+        indexPathByScroll = indexPath
+        indexPathByTap = nil
+        
+        // Чтобы подсвечивались items в menuBar
+        menuBar.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
+    }
 }
 
-extension GlobalSearchViewController: UISearchBarDelegate {
+// MARK: - UISearchBar Delegate / UISearchResults Updating
+extension GlobalSearchViewController: UISearchBarDelegate, UISearchResultsUpdating {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         performSearch()
-        
     }
     
     func segmentChanged(_ sender: UISegmentedControl) {
@@ -170,24 +189,22 @@ extension GlobalSearchViewController: UISearchBarDelegate {
         collectionView.reloadData()
         searchController.searchBar.resignFirstResponder()
     }
-}
-
-extension GlobalSearchViewController: UISearchResultsUpdating {
     
     func updateSearchResults(for searchController: UISearchController) {
         
     }
-  
 }
 
+
+ // MARK: - MenuBar Protocol
 extension GlobalSearchViewController: MenuBarProtocol {
-    
     func scrollToMenuIndex(sender: MenuBar, menuIndex: Int) {
-        
-        
+        // При тапе в menuBar меняем item по indexPath
+        let indexPath = IndexPath(item: menuIndex, section: 0)
+        indexPathByTap = indexPath
+        indexPathByScroll = nil
+        collectionView.scrollToItem(at: indexPath, at: [], animated: true)
     }
-    
-    
 }
 
 
