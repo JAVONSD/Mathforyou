@@ -22,8 +22,6 @@ class GlobalSearchViewController: UIViewController,  Stepper {
     
     struct GlobalSearchCellIdentifiers {
         static let SearchNewsCell = "SearchNewsCell"
-        static let nothingFoundCell = "NothingFoundCell"
-        static let loadingCell = "LoadingCell"
     }
     
     lazy var collectionView: UICollectionView = { [weak self] in
@@ -39,13 +37,13 @@ class GlobalSearchViewController: UIViewController,  Stepper {
         }()
     
     let searchController = UISearchController(searchResultsController: nil)
-
     
     lazy var menuBar: MenuBar = {
         let mb = MenuBar()
         mb.delegate = self
         return mb
     }()
+    
     var indexPathByTap: IndexPath?
     var indexPathByScroll: IndexPath?
     
@@ -53,12 +51,12 @@ class GlobalSearchViewController: UIViewController,  Stepper {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .white
-        
         setupViews()
     }
     
     fileprivate func setupViews() {
+        view.backgroundColor = .white
+
         setupMenuBarConstaints()
         setupCollectionView()
         setupSeachViewController()

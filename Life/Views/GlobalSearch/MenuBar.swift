@@ -16,11 +16,12 @@ protocol MenuBarProtocol: class {
 class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     //MARK: - Properties
+    
     struct MenuBarCellIdentifiers {
         static let cellID = "cellID"
     }
     
-    lazy var collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = { [weak self] in
         let layout = UICollectionViewFlowLayout()
         let cv = UICollectionView(frame: .zero, collectionViewLayout: layout)
         cv.backgroundColor = .clear
@@ -39,8 +40,19 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        setupCollectionView()
+        setupHorizontalBar()
+    }
+    
+    override func layoutSubviews() {
+        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.invalidateLayout()
+        }
+    }
+    
+    private func setupCollectionView() {
         collectionView.register(MenuCell.self, forCellWithReuseIdentifier: MenuBarCellIdentifiers.cellID)
-        
+ 
         self.addSubview(collectionView)
         NSLayoutConstraint.activate([
             collectionView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
@@ -52,21 +64,13 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
         // item по-умолчанию
         let indexPath = IndexPath(item: 0, section: 0)
         collectionView.selectItem(at: indexPath, animated: false, scrollPosition: UICollectionViewScrollPosition() )
-        
-        setupHorizontalBar()
-    }
-    
-    override func layoutSubviews() {
-        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.invalidateLayout()
-        }
     }
     
     var horizontalLeftAnchor: NSLayoutConstraint?
     
-    func setupHorizontalBar() {
+    private func setupHorizontalBar() {
         let horizontalBarView = UIView()
-        horizontalBarView.backgroundColor = UIColor(white: 0.95, alpha: 1)
+        horizontalBarView.backgroundColor = App.Color.azure
         horizontalBarView.translatesAutoresizingMaskIntoConstraints =  false
         
         addSubview(horizontalBarView)
@@ -76,16 +80,19 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
         NSLayoutConstraint.activate([
             horizontalBarView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             horizontalBarView.widthAnchor.constraint(equalTo: self.widthAnchor , multiplier: 1/4),
-            horizontalBarView.heightAnchor.constraint(equalToConstant: 8)
+            horizontalBarView.heightAnchor.constraint(equalToConstant: 1)
             ])
     }
     
-    //MARK: - UICollectionViewDataSource
+    
+    //MARK: - UICollectionView Delegate
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // при тапе на item в menuBar сдвигаем item VC на этот item
         delegate?.scrollToMenuIndex(sender: self, menuIndex: indexPath.item)
     }
+    
+    //MARK: - UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 4
@@ -120,36 +127,23 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
 //MARK: - Setup MenuCell
 
 class MenuCell: BaseCell {
-    
-//    let activeButton: UIButton = {
-//        let button = UIButton(type: .system)
-//        button.setTitle("News", for: .normal)
-//        button.tintColor = .black
-//        button.fontSize = 12
-//        button.addTarget(self, action: #selector(handleActiveButtun), for: .touchUpInside)
-//        return button
-//    }()
-    
+
     let activeButton: UIButton = {
-        let fb = UIButton()
-        fb.layer.cornerRadius = 5
-        fb.setTitle("News", for: .normal)
-        fb.setTitleColor(.black, for: .normal)
-        fb.titleLabel?.font = App.Font.buttonSmall
-        fb.titleEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 0)
-        fb.addTarget(self, action: #selector(handleActiveButtun), for: .touchUpInside)
-        return fb
+        let ab = UIButton()
+        ab.layer.cornerRadius = 5
+        ab.setTitle("News", for: .normal)
+        ab.setTitleColor(App.Color.coolGrey, for: .normal)
+        ab.titleLabel?.font = App.Font.buttonSmall
+        ab.titleEdgeInsets = UIEdgeInsets(top: 0, left: -2, bottom: 0, right: 0)
+        ab.isUserInteractionEnabled = false
+        return ab
     }()
-    
-    @objc
-    func handleActiveButtun() {
-        print("------------ active")
-    }
+  
     
     // меняем цвет когда селектед
     override var isSelected: Bool {
         didSet {
-            let selectedColor = isSelected ? App.Color.azure : .black
+            let selectedColor = isSelected ? App.Color.azure : App.Color.coolGrey
             activeButton.setTitleColor(selectedColor, for: .normal)
         }
     }
