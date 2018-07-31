@@ -16,14 +16,16 @@ class ProfileViewController: TabsController, Stepper {
     var onUnathorizedError: (() -> Void)?
 
     private var previousShadowHidden = false
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         navigationItem.titleLabel.text = NSLocalizedString("profile", comment: "")
         navigationItem.titleLabel.font = App.Font.headline
         navigationItem.titleLabel.textAlignment = .left
         navigationItem.titleLabel.textColor = UIColor.black
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {

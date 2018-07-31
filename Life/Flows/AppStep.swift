@@ -33,6 +33,8 @@ enum AppStep: Step {
     case profile
     case resultPicked(withId: String)
     case planPicked(withId: String)
+    
+    case userProfile
 
     // MARK: - Tasks and Requests
 

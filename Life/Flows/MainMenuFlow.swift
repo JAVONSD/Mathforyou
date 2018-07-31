@@ -31,9 +31,9 @@ class MainMenuFlow: Flow {
         rootViewController.didTapNotifications = { [weak self] in
             self?.viewController.step.accept(AppStep.notifications)
         }
-        rootViewController.didTapProfile = { [weak self] in
-            self?.viewController.step.accept(AppStep.profile)
-        }
+//        rootViewController.didTapProfile = { [weak self] in
+//            self?.viewController.step.accept(AppStep.profile)
+//        }
         rootViewController.didTapSearch = { [weak self] in
             self?.viewController.step.accept(AppStep.newsSearch)
         }
@@ -59,6 +59,8 @@ class MainMenuFlow: Flow {
             return .stepNotHandled
         case .newsSearch:
             return navigationToNewsSearch()
+        case .userProfile:
+            return navigationToUserProfileScreen()
         default:
             return NextFlowItems.stepNotHandled
         }
@@ -84,18 +86,6 @@ class MainMenuFlow: Flow {
             nextPresentable: biOfficeFlow,
             nextStepper: OneStepper(withSingleStep: AppStep.biOffice)
         )
-
-//        let biBoardVC = configuredBIBoard()
-//        let biBoardFlow = BIBoardFlow(
-//            navigationController: rootViewController,
-//            viewController: biBoardVC,
-//            notificationsViewModel: notificationsViewModel,
-//            topQuestionsViewModel: topQuestionsViewModel
-//        )
-//        let biBoardFlowItem = NextFlowItem(
-//            nextPresentable: biBoardFlow,
-//            nextStepper: OneStepper(withSingleStep: AppStep.biBoard)
-//        )
 
         let lentaVC = configuredLenta()
         let lentaFlow = LentaFlow(
@@ -130,7 +120,6 @@ class MainMenuFlow: Flow {
 
         viewController.viewControllers = [
             biOfficeVC,
-//            biBoardVC,
             lentaVC,
             employeesViewController,
             menuVC
@@ -140,7 +129,6 @@ class MainMenuFlow: Flow {
             flowItems: [
                 tabBarFlowItem,
                 biOfficeFlowItem,
-//                biBoardFlowItem,
                 lentaFlowItem,
                 employeesFlowItem,
                 menuFlowItem
@@ -170,13 +158,13 @@ class MainMenuFlow: Flow {
     }
 
     private func navigationToProfileScreen() -> NextFlowItems {
-        let viewController = ProfileViewController.configuredVC
-        let flow = ProfileFlow(viewController: viewController)
-        rootViewController.pushViewController(viewController, animated: true)
+        let vc = ProfileViewController.configuredVC
+        let flow = ProfileFlow(viewController: vc)
+        rootViewController.pushViewController(vc, animated: true)
         return NextFlowItems.one(flowItem:
             NextFlowItem(
                 nextPresentable: flow,
-                nextStepper: viewController)
+                nextStepper: vc)
         )
     }
 
@@ -197,24 +185,23 @@ class MainMenuFlow: Flow {
         return NextFlowItems.none
     }
     
-    // Kanat
+    // Kanat 
     private func navigationToNewsSearch() -> NextFlowItems {
-        //        let vc = configuredNewsSearch()
-        //        let nav = UINavigationController(rootViewController: vc)
-        //
-        //        rootViewController.present(nav, animated: true, completion: nil)
-        //        return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc))
-        
-//        let stuffSearchViewController = configuredStuffSearch()
-//        let employeesFlow = SearchNewsFlow(viewController: stuffSearchViewController)
-//
-//        rootViewController.present(stuffSearchViewController, animated: true, completion: nil)
-//        return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: employeesFlow, nextStepper: OneStepper(withSingleStep: AppStep.newsSearch)))
-        
         let vc = configuredNewsSearch()
         let nav = UINavigationController(rootViewController: vc)
         rootViewController.present(nav, animated: true, completion: nil)
         return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc as! Stepper))
+    }
+    
+    private func navigationToUserProfileScreen() -> NextFlowItems {
+        let userProfileVC = UserProfileViewController.configuredVC
+        let flow = UserProfileFlow(viewController: userProfileVC)
+        rootViewController.pushViewController(userProfileVC, animated: true)
+        return NextFlowItems.one(flowItem:
+            NextFlowItem(
+                nextPresentable: flow,
+                nextStepper: userProfileVC)
+        )
     }
 
     // MARK: - Methods
@@ -256,11 +243,6 @@ class MainMenuFlow: Flow {
         return menuVC
     }
 
-//    private func configuredStuffSearch() -> SearchStuffViewController {
-//        let stuffVC = SearchStuffViewController(stuffViewModel: stuffViewModel)
-//        return stuffVC
-//    }
-    
     private func configuredNewsSearch() -> UIViewController {
         let vc = GlobalSearchViewController()
         return vc
