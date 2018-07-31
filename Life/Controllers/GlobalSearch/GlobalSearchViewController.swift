@@ -36,7 +36,7 @@ class GlobalSearchViewController: UIViewController,  Stepper {
         return cv
         }()
     
-    let searchController = UISearchController(searchResultsController: nil)
+//    let searchController = UISearchController(searchResultsController: nil)
     
     lazy var menuBar: MenuBar = {
         let mb = MenuBar()
@@ -47,10 +47,12 @@ class GlobalSearchViewController: UIViewController,  Stepper {
     var indexPathByTap: IndexPath?
     var indexPathByScroll: IndexPath?
     
+    var searchBar = SearchBar(frame: .zero)
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setupViews()
     }
     
@@ -59,8 +61,8 @@ class GlobalSearchViewController: UIViewController,  Stepper {
 
         setupMenuBarConstaints()
         setupCollectionView()
-        setupSeachViewController()
-        setupNavBarButtons()
+//        setupSeachViewController()
+        setupSearchBar()
     }
     
     fileprivate func setupMenuBarConstaints() {
@@ -91,28 +93,38 @@ class GlobalSearchViewController: UIViewController,  Stepper {
         }
     }
     
-    fileprivate func setupSeachViewController() {
-        navigationItem.titleView = searchController.searchBar
-        searchController.searchResultsUpdater = self
-        searchController.dimsBackgroundDuringPresentation = false
-        searchController.hidesNavigationBarDuringPresentation = false
-        searchController.searchBar.delegate = self
-        searchController.searchBar.becomeFirstResponder()
-        definesPresentationContext = true
+//    fileprivate func setupSeachViewController() {
+//        navigationItem.titleView = searchController.searchBar
+//        searchController.searchResultsUpdater = self
+//        searchController.dimsBackgroundDuringPresentation = false
+//        searchController.hidesNavigationBarDuringPresentation = false
+//        searchController.searchBar.delegate = self
+//        searchController.searchBar.becomeFirstResponder()
+//        definesPresentationContext = true
+//    }
+    
+    fileprivate func setupSearchBar() {
+//        let dismissImage = UIImage(named: "close-circle-dark")?.withRenderingMode(.alwaysOriginal)
+//        let dimissBarButtonItem = UIBarButtonItem(image: dismissImage, style: .plain, target: self, action: #selector(handleDismiss))
+//
+//        navigationItem.rightBarButtonItems = [dimissBarButtonItem]
+        
+        searchBar.delegate = self
+        navigationItem.centerViews = [searchBar]
     }
     
-    fileprivate func setupNavBarButtons() {
-        let dismissImage = UIImage(named: "close-circle-dark")?.withRenderingMode(.alwaysOriginal)
-        let dimissBarButtonItem = UIBarButtonItem(image: dismissImage, style: .plain, target: self, action: #selector(handleDismiss))
-
-        navigationItem.rightBarButtonItems = [dimissBarButtonItem]
-    }
+//    @objc
+//    private func handleDismiss() {
+//        if presentingViewController != nil {
+//            self.dismiss(animated: true, completion: nil)
+//        }
+//    }
     
-    @objc
-    private func handleDismiss() {
-        if presentingViewController != nil {
-            self.dismiss(animated: true, completion: nil)
-        }
+    fileprivate func performSearch() {
+        
+        collectionView.reloadData()
+        searchBar.resignFirstResponder()
+//        searchController.searchBar.resignFirstResponder()
     }
 
 }
@@ -173,25 +185,25 @@ extension GlobalSearchViewController: UIScrollViewDelegate {
 }
 
 // MARK: - UISearchBar Delegate / UISearchResults Updating
-extension GlobalSearchViewController: UISearchBarDelegate, UISearchResultsUpdating {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        performSearch()
-    }
-    
-    func segmentChanged(_ sender: UISegmentedControl) {
-        performSearch()
-    }
-    
-    fileprivate func performSearch() {
-        
-        collectionView.reloadData()
-        searchController.searchBar.resignFirstResponder()
-    }
-    
-    func updateSearchResults(for searchController: UISearchController) {
-        
-    }
-}
+//extension GlobalSearchViewController: UISearchBarDelegate, UISearchResultsUpdating {
+//    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+//        performSearch()
+//    }
+//
+//    func segmentChanged(_ sender: UISegmentedControl) {
+//        performSearch()
+//    }
+//
+//    fileprivate func performSearch() {
+//
+//        collectionView.reloadData()
+//        searchController.searchBar.resignFirstResponder()
+//    }
+//
+//    func updateSearchResults(for searchController: UISearchController) {
+//
+//    }
+//}
 
 
  // MARK: - MenuBar Protocol
@@ -205,6 +217,22 @@ extension GlobalSearchViewController: MenuBarProtocol {
     }
 }
 
+
+extension GlobalSearchViewController: SearchBarDelegate {
+    
+    func searchBar(searchBar: SearchBar, didChange textField: UITextField, with text: String?) {
+    }
+
+    @objc
+    func searchBar(searchBar: SearchBar, willClear textField: UITextField, with text: String?) {
+        
+    }
+
+    @objc
+    func searchBar(searchBar: SearchBar, didClear textField: UITextField, with text: String?) {
+        
+    }
+}
 
 
 

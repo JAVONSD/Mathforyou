@@ -188,8 +188,9 @@ class MainMenuFlow: Flow {
     // Kanat 
     private func navigationToNewsSearch() -> NextFlowItems {
         let vc = configuredNewsSearch()
-        let nav = UINavigationController(rootViewController: vc)
-        rootViewController.present(nav, animated: true, completion: nil)
+//        let nav = UINavigationController(rootViewController: vc)
+        rootViewController.pushViewController(vc, animated: true)
+//        rootViewController.present(nav, animated: true, completion: nil)
         return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc as! Stepper))
     }
     
