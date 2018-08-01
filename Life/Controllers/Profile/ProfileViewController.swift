@@ -17,7 +17,6 @@ class ProfileViewController: TabsController, Stepper {
 
     private var previousShadowHidden = false
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,7 +24,6 @@ class ProfileViewController: TabsController, Stepper {
         navigationItem.titleLabel.font = App.Font.headline
         navigationItem.titleLabel.textAlignment = .left
         navigationItem.titleLabel.textColor = UIColor.black
-        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -75,7 +73,8 @@ class ProfileViewController: TabsController, Stepper {
     // MARK: - Methods
 
     public static var configuredVC: ProfileViewController {
-        let myInfoVC = MyInfoViewController()
+        let myInfoVC = MyInfoViewControllerTableView()
+        //MyInfoViewController()
 
         let vsc = [
             myInfoVC,

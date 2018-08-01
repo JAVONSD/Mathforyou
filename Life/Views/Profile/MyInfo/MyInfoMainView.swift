@@ -18,6 +18,7 @@ class MyInfoMainView: StackedView {
         super.init(frame: frame)
 
         setupInfoView()
+        
     }
 
     required init?(coder aDecoder: NSCoder) {

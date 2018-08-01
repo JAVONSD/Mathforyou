@@ -29,10 +29,13 @@
 		9D1D10D5210F3B1F009525AD /* UIColor+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1D10D4210F3B1F009525AD /* UIColor+Extentions.swift */; };
 		9D1D10D7211039DE009525AD /* GlobalSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D1D10D6211039DE009525AD /* GlobalSearch.swift */; };
 		9D2AF0252110585F00E5995E /* SearchNewsCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2AF0242110585F00E5995E /* SearchNewsCollectionCell.swift */; };
-		9D2AF02721107BD100E5995E /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2AF02621107BD100E5995E /* UserProfileViewController.swift */; };
+		9D2AF02721107BD100E5995E /* MyInfoViewControllerTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2AF02621107BD100E5995E /* MyInfoViewControllerTableView.swift */; };
 		9D2AF02921107D7E00E5995E /* UserProfileFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2AF02821107D7E00E5995E /* UserProfileFlow.swift */; };
 		9D2C99CB2109E164000ACD4B /* NewsSearchHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99CA2109E164000ACD4B /* NewsSearchHeaderCell.swift */; };
 		9D3F77F0210DF0D80070227A /* SearchNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3F77EF210DF0D80070227A /* SearchNewsViewModel.swift */; };
+		9D588CCE2111B810007D9B84 /* MyInfoDataSourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D588CCD2111B810007D9B84 /* MyInfoDataSourse.swift */; };
+		9D588CD02111C7C2007D9B84 /* UserHeaderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D588CCF2111C7C2007D9B84 /* UserHeaderTableCell.swift */; };
+		9D588CD22111E3A8007D9B84 /* UserInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D588CD12111E3A8007D9B84 /* UserInfoHeaderView.swift */; };
 		9D63571F210AD01800657ACB /* GlobalSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D63571E210AD01800657ACB /* GlobalSearchViewModel.swift */; };
 		9DCFB621210C5A4B008515EF /* NewsSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCFB620210C5A4B008515EF /* NewsSearch.swift */; };
 		9DCFB623210DBD9B008515EF /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCFB622210DBD9B008515EF /* ResultView.swift */; };
@@ -497,10 +500,13 @@
 		9D1D10D4210F3B1F009525AD /* UIColor+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extentions.swift"; sourceTree = "<group>"; };
 		9D1D10D6211039DE009525AD /* GlobalSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearch.swift; sourceTree = "<group>"; };
 		9D2AF0242110585F00E5995E /* SearchNewsCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewsCollectionCell.swift; sourceTree = "<group>"; };
-		9D2AF02621107BD100E5995E /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		9D2AF02621107BD100E5995E /* MyInfoViewControllerTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewControllerTableView.swift; sourceTree = "<group>"; };
 		9D2AF02821107D7E00E5995E /* UserProfileFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileFlow.swift; sourceTree = "<group>"; };
 		9D2C99CA2109E164000ACD4B /* NewsSearchHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchHeaderCell.swift; sourceTree = "<group>"; };
 		9D3F77EF210DF0D80070227A /* SearchNewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewsViewModel.swift; sourceTree = "<group>"; };
+		9D588CCD2111B810007D9B84 /* MyInfoDataSourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoDataSourse.swift; sourceTree = "<group>"; };
+		9D588CCF2111C7C2007D9B84 /* UserHeaderTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHeaderTableCell.swift; sourceTree = "<group>"; };
+		9D588CD12111E3A8007D9B84 /* UserInfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeaderView.swift; sourceTree = "<group>"; };
 		9D63571E210AD01800657ACB /* GlobalSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchViewModel.swift; sourceTree = "<group>"; };
 		9DCFB620210C5A4B008515EF /* NewsSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearch.swift; sourceTree = "<group>"; };
 		9DCFB622210DBD9B008515EF /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
@@ -1045,6 +1051,14 @@
 			path = UIKit;
 			sourceTree = "<group>";
 		};
+		9D588CC821115CD7007D9B84 /* Temp */ = {
+			isa = PBXGroup;
+			children = (
+				C79251E12031487C00CDFBBA /* MyInfoViewController.swift */,
+			);
+			path = Temp;
+			sourceTree = "<group>";
+		};
 		C717C678203D13710070447D /* TasksAndRequests */ = {
 			isa = PBXGroup;
 			children = (
@@ -1571,9 +1585,12 @@
 		C79251DE203145D500CDFBBA /* Profile */ = {
 			isa = PBXGroup;
 			children = (
+				9D2AF02621107BD100E5995E /* MyInfoViewControllerTableView.swift */,
+				9D588CCD2111B810007D9B84 /* MyInfoDataSourse.swift */,
+				9D588CD12111E3A8007D9B84 /* UserInfoHeaderView.swift */,
+				9D588CCF2111C7C2007D9B84 /* UserHeaderTableCell.swift */,
+				9D588CC821115CD7007D9B84 /* Temp */,
 				C79251DF203145E200CDFBBA /* ProfileViewController.swift */,
-				9D2AF02621107BD100E5995E /* UserProfileViewController.swift */,
-				C79251E12031487C00CDFBBA /* MyInfoViewController.swift */,
 				C79251E32031489A00CDFBBA /* ResultsViewController.swift */,
 				C79251E5203148AF00CDFBBA /* PlansViewController.swift */,
 				C79251E7203148D300CDFBBA /* BenefitsViewController.swift */,
@@ -2730,7 +2747,7 @@
 				C73EB2A82032F9B100429921 /* AnimatableSectionModelType.swift in Sources */,
 				C7D641F720344DC0001DCA98 /* AppTabBarController.swift in Sources */,
 				C7A274652053CD780026B549 /* ImageObject.swift in Sources */,
-				9D2AF02721107BD100E5995E /* UserProfileViewController.swift in Sources */,
+				9D2AF02721107BD100E5995E /* MyInfoViewControllerTableView.swift in Sources */,
 				C7D5BEC32075004D00A8F37F /* QuestionnairePreviewController.swift in Sources */,
 				C73EB2982032F9B100429921 /* RxCollectionViewSectionedAnimatedDataSource.swift in Sources */,
 				C74F26AC207478D700C68EC7 /* AttachmentCollectionViewCell.swift in Sources */,
@@ -2863,6 +2880,7 @@
 				C7F7CB6B203C65A1007B9D1E /* KPIViewModel.swift in Sources */,
 				C7BB5C47203E85EE0056BBF9 /* AuthorsSectionController.swift in Sources */,
 				C7BB5C59203EF7190056BBF9 /* NewsDetailSectionController.swift in Sources */,
+				9D588CCE2111B810007D9B84 /* MyInfoDataSourse.swift in Sources */,
 				C74F26AE20747B9A00C68EC7 /* Attachment.swift in Sources */,
 				C7F7CB31203AE866007B9D1E /* BIBoardHeaderSectionController.swift in Sources */,
 				C76EFBF120302F8C00FA2BB9 /* NSCharacterSet.swift in Sources */,
@@ -2874,6 +2892,7 @@
 				C7AB6F87204BE8F500328E17 /* DirectoryContentViewController.swift in Sources */,
 				C7D6423820346FAC001DCA98 /* BIBoardViewModel.swift in Sources */,
 				C7BB5C75203FE7A50056BBF9 /* QuestionFormView.swift in Sources */,
+				9D588CD02111C7C2007D9B84 /* UserHeaderTableCell.swift in Sources */,
 				C7AB6F63204BE8F500328E17 /* FileItemPresentationCoordinator.swift in Sources */,
 				C7BB5C4D203ED3000056BBF9 /* NewsDetailsCell.swift in Sources */,
 				C74FCE7720464FD500E9C6BA /* URL+Extensions.swift in Sources */,
@@ -2900,6 +2919,7 @@
 				C717C67D203D4B1F0070447D /* TasksAndRequestsFABController.swift in Sources */,
 				C73EB2912032F9B100429921 /* String+IdentifiableType.swift in Sources */,
 				C73103392050405600E21672 /* AnswerFormViewController.swift in Sources */,
+				9D588CD22111E3A8007D9B84 /* UserInfoHeaderView.swift in Sources */,
 				C731AC1A2078834D00CD0708 /* EmptyTableViewController.swift in Sources */,
 				C76EFBE620302F8C00FA2BB9 /* FixedState.swift in Sources */,
 				C73997B0203A7A8F00C3981A /* SliderCell.swift in Sources */,

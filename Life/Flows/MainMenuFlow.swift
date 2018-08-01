@@ -59,8 +59,7 @@ class MainMenuFlow: Flow {
             return .stepNotHandled
         case .newsSearch:
             return navigationToNewsSearch()
-        case .userProfile:
-            return navigationToUserProfileScreen()
+        //case .userProfile: return navigationToUserProfileScreen()
         default:
             return NextFlowItems.stepNotHandled
         }
@@ -194,16 +193,16 @@ class MainMenuFlow: Flow {
         return NextFlowItems.one(flowItem: NextFlowItem(nextPresentable: vc, nextStepper: vc as! Stepper))
     }
     
-    private func navigationToUserProfileScreen() -> NextFlowItems {
-        let userProfileVC = UserProfileViewController.configuredVC
-        let flow = UserProfileFlow(viewController: userProfileVC)
-        rootViewController.pushViewController(userProfileVC, animated: true)
-        return NextFlowItems.one(flowItem:
-            NextFlowItem(
-                nextPresentable: flow,
-                nextStepper: userProfileVC)
-        )
-    }
+//    private func navigationToUserProfileScreen() -> NextFlowItems {
+//        let userProfileVC = MyInfoViewControllerTableView()
+//        let flow = UserProfileFlow(viewController: userProfileVC)
+//        rootViewController.pushViewController(userProfileVC, animated: true)
+//        return NextFlowItems.one(flowItem:
+//            NextFlowItem(
+//                nextPresentable: flow,
+//                nextStepper: userProfileVC)
+//        )
+//    }
 
     // MARK: - Methods
 

@@ -192,7 +192,7 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
         menuView.headerButton.rx.tap.asDriver()
             .throttle(0.5)
             .drive(onNext: { [weak self] in
-            self?.step.accept(AppStep.userProfile)
+            self?.step.accept(AppStep.profile)
         }).disposed(by: disposeBag)
     }
 

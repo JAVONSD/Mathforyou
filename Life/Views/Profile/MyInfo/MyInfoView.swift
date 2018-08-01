@@ -93,3 +93,10 @@ class MyInfoView: UIView {
     }
 
 }
+
+
+
+
+
+
+

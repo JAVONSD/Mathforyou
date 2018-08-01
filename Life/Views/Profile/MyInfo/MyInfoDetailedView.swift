@@ -28,6 +28,7 @@ class MyInfoDetailedView: StackedView {
     private(set) var lastMedicalView: ImageTextView?
     private(set) var nextMedicalView: ImageTextView?
 
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -44,6 +45,8 @@ class MyInfoDetailedView: StackedView {
         setupPersonalAndFamilyInfoView()
         setupWorkInfoView()
         setupMedicalInfoView()
+        
+        setupPersonalFamilyDetailedView()
     }
 
     private func setupPersonalAndFamilyInfoView() {
@@ -293,5 +296,14 @@ class MyInfoDetailedView: StackedView {
         subview.subtitleLabel?.font = App.Font.body
         subview.subtitleLabel?.textColor = UIColor.black
     }
+    
+    private func setupPersonalFamilyDetailedView() {}
 
 }
+
+
+
+
+
+
+

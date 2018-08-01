@@ -31,7 +31,7 @@ class MenuBar: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UIC
         return cv
     }()
     
-    let titleNames = ["News", "None", "None", "Tags"]
+    var titleNames: [String] = [] //["News", "None", "None", "Tags"]
     
     weak var delegate: MenuBarProtocol?
     

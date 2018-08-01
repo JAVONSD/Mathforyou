@@ -76,7 +76,7 @@ extension GlobalSearchCollectionCell: UICollectionViewDataSource {
 extension GlobalSearchCollectionCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let height = (frame.size.width - 16 - 16)
-        return CGSize(width: frame.size.width, height: height)
+        return CGSize(width: frame.size.width, height: 120)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

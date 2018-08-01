@@ -33,7 +33,7 @@ class MyInfoViewController: UIViewController {
     private func bind() {
         User.current.updated.asDriver().drive(onNext: { [weak self] profile in
             guard let `self` = self else { return }
-
+            
             self.updateUI(with: profile)
         }).disposed(by: disposeBag)
 
@@ -62,6 +62,7 @@ class MyInfoViewController: UIViewController {
 
         setupTabItem()
         setupMyInfoView()
+        
     }
 
     private func setupTabItem() {
@@ -84,6 +85,7 @@ class MyInfoViewController: UIViewController {
         fillDetailedInfo(from: profile)
     }
 
+    // Unfold  InfoView
     private func fillMainInfo(from profile: UserProfile?) {
         let tapGr = UITapGestureRecognizer(target: self, action: #selector(handleAvatarTap))
         tapGr.numberOfTapsRequired = 1

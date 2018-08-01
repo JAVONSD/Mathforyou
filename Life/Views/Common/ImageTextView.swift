@@ -73,6 +73,7 @@ class ImageTextView: UIView {
 
         subtitleLabel?.text = subtitle
         subtitleLabel?.isHidden = subtitle == nil
+        
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -41,6 +41,7 @@ class GlobalSearchViewController: UIViewController,  Stepper {
     lazy var menuBar: MenuBar = {
         let mb = MenuBar()
         mb.delegate = self
+        mb.titleNames = ["News", "None", "None", "Tags"]
         return mb
     }()
     
@@ -49,7 +50,6 @@ class GlobalSearchViewController: UIViewController,  Stepper {
     
     var searchBar = SearchBar(frame: .zero)
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         

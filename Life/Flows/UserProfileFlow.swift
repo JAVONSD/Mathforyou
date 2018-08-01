@@ -16,9 +16,9 @@ class UserProfileFlow: Flow {
         return self.rootViewController
     }
     
-    private var rootViewController: UserProfileViewController
+    private var rootViewController: MyInfoViewControllerTableView
     
-    init(viewController: UserProfileViewController) {
+    init(viewController: MyInfoViewControllerTableView) {
         rootViewController = viewController
     }
     
