@@ -1,5 +1,5 @@
 //
-//  UserHeaderTableCell.swift
+//  UserMainFoldableCell.swift
 //  Life
 //
 //  Created by 123 on 01.08.2018.
@@ -10,7 +10,33 @@ import UIKit
 import Kingfisher
 import SnapKit
 
-class UserHeaderTableCell: UITableViewCell {
+class ProfileViewModelUserMainFoldableItem: ProfileViewModelItemCollabsible {
+    var profile: UserProfile
+    
+    
+    var type: ProfileViewModelItemType {
+        return .email
+    }
+    
+    var sectionTitle: String {
+        return "Email"
+    }
+    
+    var isCollapsed = true
+    
+    init(profile: UserProfile) {
+        self.profile = profile
+    }
+}
+
+class UserMainFoldableCell: UITableViewCell {
+    
+    lazy var tableView: UITableView = {
+        let tv = UITableView(frame: .zero)
+        tv.dataSource = self
+        tv.delegate = self
+        return tv
+    }()
     
     static var identifier: String {
         return String(describing: self)
@@ -46,14 +72,14 @@ class UserHeaderTableCell: UITableViewCell {
         pictureImageView.image = nil
     }
     
-    var item: UserProfile? {
+    var item: ProfileViewModelUserMainFoldableItem? {
         didSet {
             guard let item = item else {
                 return
             }
             
-            fullNameLabel.text = item.fullname
-            jobPositionLabel.text = item.jobPosition
+            fullNameLabel.text = item.profile.fullname
+            jobPositionLabel.text = item.profile.jobPosition
             
             ImageDownloader.set(
                 image: "",
@@ -65,11 +91,12 @@ class UserHeaderTableCell: UITableViewCell {
             
         }
     }
-
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         setupViews()
+        setupTableView()
     }
     
     fileprivate func setupViews() {
@@ -96,11 +123,59 @@ class UserHeaderTableCell: UITableViewCell {
         }
     }
     
+    func setupTableView() {
+        addSubview(tableView)
+        tableView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        tableView.register(UserHeaderTableCell.self, forCellReuseIdentifier: UserHeaderTableCell.identifier)
+        tableView.register(UserMainFoldableCell.self, forCellReuseIdentifier: UserMainFoldableCell.identifier)
+        
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
+    }
+    
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
 }
+
+extension UserMainFoldableCell: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: UserHeaderTableCell.identifier, for: indexPath) as! UserHeaderTableCell
+        
+        if let profile = item?.profile {
+            cell.item = ProfileViewModelAboutItem(profile: )
+            cell.backgroundColor = .cyan
+        }
+
+        return cell
+        
+    }
+}
+
+extension UserMainFoldableCell: UITableViewDelegate {
+    
+}
+
+
+
+
+
+
+
 
 
 

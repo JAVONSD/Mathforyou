@@ -16,7 +16,7 @@ import SnapKit
 class MyInfoViewControllerTableView: UIViewController {
    
     lazy var tableView: UITableView = {
-        let tv = UITableView(frame: .zero)
+        let tv = UITableView(frame: .zero, style: .plain)
         tv.dataSource = self
         tv.delegate = self
         return tv
@@ -24,6 +24,8 @@ class MyInfoViewControllerTableView: UIViewController {
     
     private let disposeBag = DisposeBag()
     var didTapAvatar: (() -> Void)?
+    
+    var collapsed = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +56,11 @@ class MyInfoViewControllerTableView: UIViewController {
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        tableView.register(UserFoldHeaderView.self, forHeaderFooterViewReuseIdentifier: UserFoldHeaderView.identifier)
+        
+        tableView.sectionHeaderHeight = 70
+        tableView.separatorStyle = .none
+
         setHeaderView()
     }
     
@@ -70,14 +77,14 @@ class MyInfoViewControllerTableView: UIViewController {
             
             self.updateUI(with: profile)
         }).disposed(by: disposeBag)
-        
-       
     }
     
     var profile: UserProfile?
     private func updateUI(with profile: UserProfile?) {
         self.profile = profile
         print(profile)
+        
+        
     }
     
 
@@ -85,20 +92,30 @@ class MyInfoViewControllerTableView: UIViewController {
 
 // MARK: - UITableView DataSource
 extension MyInfoViewControllerTableView: UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 5
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: UserHeaderTableCell.identifier, for: indexPath) as! UserHeaderTableCell
         
-        cell.item = profile
         
-        return cell
+        if indexPath.section == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: UserHeaderTableCell.identifier, for: indexPath) as! UserHeaderTableCell
+            
+            cell.item = profile
+            return cell
+            
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: UserHeaderTableCell.identifier, for: indexPath) as! UserHeaderTableCell
+            
+            cell.item = profile
+            return cell
+        }
     }
     
 }
@@ -107,9 +124,55 @@ extension MyInfoViewControllerTableView: UITableViewDataSource {
 // MARK: - UITableView Delegate
 extension MyInfoViewControllerTableView: UITableViewDelegate {
     
-    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if section == 1 {
+            if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: UserFoldHeaderView.identifier) as? UserFoldHeaderView {
+                
+                headerView.section = section
+                headerView.delegate = self
+                
+                headerView.contentView.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
+                
+                return headerView
+            }
+        }
+        
+        return UIView()
+    }
     
 }
+
+extension MyInfoViewControllerTableView: HeaderViewDelegate {
+    
+    func toggleSection(header: UserFoldHeaderView, section: Int) {
+        
+        if collapsed == false {
+            collapsed = true
+        } else {
+            collapsed = false
+        }
+        
+        header.setCollapsed(collapsed: collapsed)
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
