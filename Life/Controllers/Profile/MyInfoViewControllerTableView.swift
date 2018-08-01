@@ -25,7 +25,7 @@ class MyInfoViewControllerTableView: UIViewController {
     private let disposeBag = DisposeBag()
     var didTapAvatar: (() -> Void)?
     
-    var collapsed = true
+    var collapsed = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,11 +98,14 @@ extension MyInfoViewControllerTableView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if collapsed && (section == 1) {
+            return 0
+        } else {
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: UserHeaderTableCell.identifier, for: indexPath) as! UserHeaderTableCell
@@ -132,7 +135,7 @@ extension MyInfoViewControllerTableView: UITableViewDelegate {
                 headerView.section = section
                 headerView.delegate = self
                 
-                headerView.contentView.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
+                headerView.contentView.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
                 
                 return headerView
             }
@@ -152,6 +155,10 @@ extension MyInfoViewControllerTableView: HeaderViewDelegate {
         } else {
             collapsed = false
         }
+        
+        tableView.beginUpdates()
+        tableView.reloadSections([1], with: .fade)
+        tableView.endUpdates()
         
         header.setCollapsed(collapsed: collapsed)
     }

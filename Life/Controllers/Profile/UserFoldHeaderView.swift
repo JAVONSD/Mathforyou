@@ -54,9 +54,11 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
         // When we call this method for collapsed state,
         // it will rotate the arrow to the original position,
         // for expanded state it will rotate the arrow to pi radians.
+//        DispatchQueue.main.async {
+//            self.arrowLabel.rotate(collapsed ? 0.0 : .pi)
+//        }
         arrowLabel.rotate(collapsed ? 0.0 : .pi)
     }
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
