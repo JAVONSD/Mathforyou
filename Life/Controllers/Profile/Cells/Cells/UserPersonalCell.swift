@@ -1,5 +1,5 @@
 //
-//  UserFamilyInfoCell.swift
+//  UserPersonalCell.swift
 //  Life
 //
 //  Created by 123 on 02.08.2018.
@@ -10,31 +10,43 @@ import UIKit
 import Kingfisher
 import SnapKit
 
-class UserFamilyInfoCell: UITableViewCell {
+class ProfileViewModelPersonalItem: ProfileViewModelItem {
+    
+    var type: ProfileViewModelItemType {
+        return .personal
+    }
+    
+    var sectionTitle: String {
+        return "personal"
+    }
+    
+    var isCollapsed = true
+    
+    init() { }
+}
+
+class UserPersonalCell: UITableViewCell {
+    
+    var modelItem: ProfileViewModelItem? 
     
     static var identifier: String {
         return String(describing: self)
     }
     
-    let fullNameLabel: UILabel = {
+    let txtLabel: UILabel = {
         let nl = UILabel()
         nl.font = App.Font.headline
         nl.numberOfLines = 2
         return nl
     }()
     
-    let jobPositionLabel: UILabel = {
+    let detailLabel: UILabel = {
         let jl = UILabel()
         jl.font = App.Font.footnote
         jl.textColor = App.Color.blackDisable
         jl.numberOfLines = 2
         return jl
     }()
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-    }
     
     var item: UserProfile? {
         didSet {
@@ -42,8 +54,9 @@ class UserFamilyInfoCell: UITableViewCell {
                 return
             }
             
-            fullNameLabel.text = item.address
-            jobPositionLabel.text = item.birthDate
+            txtLabel.text = item.fullname
+            detailLabel.text = item.jobPosition
+ 
             
         }
     }
@@ -55,26 +68,34 @@ class UserFamilyInfoCell: UITableViewCell {
     }
     
     fileprivate func setupViews() {
-        addSubview(fullNameLabel)
-        fullNameLabel.snp.makeConstraints {
-            $0.top.equalTo(self).offset(20)
-            $0.left.equalTo(self.snp.right).offset(20)
-            $0.right.equalTo(self).offset(-20)
+        addSubview(txtLabel)
+        txtLabel.snp.makeConstraints {
+            $0.top.left.equalToSuperview().offset(16)
+            $0.width.equalToSuperview().offset(-32)
+            $0.height.equalTo(24)
         }
         
-        addSubview(jobPositionLabel)
-        jobPositionLabel.snp.makeConstraints {
-            $0.top.equalTo(fullNameLabel.snp.bottom).offset(8)
-            $0.left.equalTo(fullNameLabel.snp.left)
-            $0.right.equalTo(self).offset(-20)
+        addSubview(detailLabel)
+        detailLabel.snp.makeConstraints {
+            $0.top.equalTo(txtLabel.snp.bottom).offset(4)
+            $0.left.equalToSuperview().offset(16)
+            $0.width.equalToSuperview().offset(-32)
+            $0.height.equalTo(24)
         }
     }
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
 }
+
+
+
+
+
+
 
 
 

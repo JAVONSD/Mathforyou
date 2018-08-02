@@ -14,11 +14,12 @@ import RxCocoa
 import SnapKit
 
 class MyInfoDataSourse:  NSObject {
+    var items = [ProfileViewModelItem]()
+
   
     var reloadSections: ( (_ section: Int) -> Void )?
     private let disposeBag = DisposeBag()
-    
-    var collapsed = false
+
     
      override init() {
         super.init()
@@ -40,7 +41,11 @@ class MyInfoDataSourse:  NSObject {
     private func updateUI(with profile: UserProfile?) {
         self.profile = profile
         
-        print(profile)
+        if let profile = profile {
+            let personalItem = ProfileViewModelPersonalItem()
+            items.append(personalItem)
+           
+        }
     }
     
 }
@@ -49,32 +54,36 @@ class MyInfoDataSourse:  NSObject {
 extension MyInfoDataSourse: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        print("items.count", items.count)
+        return items.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return 1
+        let item = items[section]
+        guard item.isCollapsible else {
+            return item.rowCount
         }
         
-        return 1
+        // when the section is collapsed, we will set its row count to zero
+        if item.isCollapsed {
+            return 0
+        } else {
+            return item.rowCount
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: UserHeaderTableCell.identifier, for: indexPath) as! UserHeaderTableCell
-            
-            cell.item = profile
-            return cell
-            
-        } else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: UserFamilyInfoCell.identifier, for: indexPath) as! UserFamilyInfoCell
-            
-            cell.item = profile
-            return cell
+        let modelItem = items[indexPath.section]
+        switch modelItem.type {
+        case .personal:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: UserPersonalCell.identifier, for: indexPath) as? UserPersonalCell {
+                cell.item = profile
+                cell.modelItem = modelItem
+                return cell
+            }
+        default:
+           return UITableViewCell()
         }
-        
         return UITableViewCell()
     }
     
@@ -83,24 +92,22 @@ extension MyInfoDataSourse: UITableViewDataSource {
 // MARK: - UITableView Delegate
 extension MyInfoDataSourse: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 0 {
-            return UIView()
-        }
-        
         if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: UserFoldHeaderView.identifier) as? UserFoldHeaderView {
+            let modelItem = items[section]
             
+            headerView.modelItem = modelItem
             headerView.section = section
             headerView.delegate = self
-            headerView.setCollapsed(collapsed: collapsed, section: section)
+            
             return headerView
         }
-         return UIView()
+        return UIView()
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 00.0
-        }
+//        if section == 0 {
+//            return 00.0
+//        }
         return 35.0
     }
 }
@@ -108,15 +115,18 @@ extension MyInfoDataSourse: UITableViewDelegate {
 extension MyInfoDataSourse: HeaderViewDelegate {
     
     func toggleSection(header: UserFoldHeaderView, section: Int) {
-        
-        if collapsed == false {
-            collapsed = true
-        } else {
-            collapsed = false
+        var item = items[section]
+        if item.isCollapsible {
+            
+            // Toggle collapse
+            let collapsed = !item.isCollapsed
+            item.isCollapsed = collapsed
+            header.setCollapsed(collapsed: collapsed)
+            
+            // Adjust the number of the rows inside the section
+            reloadSections!(section)
         }
         
-        // Adjust the number of the rows inside the section
-        reloadSections?(section)
     }
     
 }

@@ -18,6 +18,7 @@ class MyInfoViewControllerTableView: UIViewController {
     fileprivate let dataSource = MyInfoDataSourse()
     fileprivate var profile: UserProfile?
     fileprivate let disposeBag = DisposeBag()
+    
     fileprivate var collapsed = false
     
     public var didTapAvatar: (() -> Void)?
@@ -65,7 +66,7 @@ class MyInfoViewControllerTableView: UIViewController {
         tableView.register(UserFoldHeaderView.self, forHeaderFooterViewReuseIdentifier: UserFoldHeaderView.identifier)
         
         tableView.register(UserHeaderTableCell.self, forCellReuseIdentifier: UserHeaderTableCell.identifier)
-        tableView.register(UserFamilyInfoCell.self, forCellReuseIdentifier: UserFamilyInfoCell.identifier)
+        tableView.register(UserPersonalCell.self, forCellReuseIdentifier: UserPersonalCell.identifier)
 
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension

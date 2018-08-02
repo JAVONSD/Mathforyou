@@ -14,6 +14,17 @@ protocol HeaderViewDelegate: class {
 
 class UserFoldHeaderView: UITableViewHeaderFooterView {
     
+    var modelItem: ProfileViewModelItem? {
+        didSet {
+            guard let modelItem = modelItem else {
+                return
+            }
+            
+//            titleLabel?.text = item.sectionTitle
+            setCollapsed(collapsed: modelItem.isCollapsed)
+        }
+    }
+    
     weak var delegate: HeaderViewDelegate?
     
     static var identifier: String {
@@ -51,25 +62,14 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
         delegate?.toggleSection(header: self, section: section)
     }
     
-    func setCollapsed(collapsed: Bool, section: Int) {
+    func setCollapsed(collapsed: Bool) {
         // When we call this method for collapsed state,
         // it will rotate the arrow to the original position,
         // for expanded state it will rotate the arrow to pi radians.
         DispatchQueue.main.async { [weak self] in
             guard let weakSelf = self else { return }
             
-            var tempTitles = ("", "")
-            switch section {
-            case 1:
-                tempTitles = ("Показать личные и семья", "Скрыть личные и семья")
-            case 2:
-                tempTitles = ("Показать трудовая деятельность", "Скрыть трудовая деятельность")
-            case 3:
-                tempTitles = ("Показать медосмотр", "Скрыть медосмотр")
-            default:
-                tempTitles = ("", "")
-            }
-            let title = collapsed ? "▽  \(tempTitles.0)" : "△  \(tempTitles.1)"
+            let title = collapsed ? "▽  Показать личные и семья" : "△  Скрыть личные и семья"
             weakSelf.foldButton.setTitle(title, for: .normal)
         }
     }
