@@ -14,20 +14,15 @@ import RxCocoa
 import SnapKit
 
 class MyInfoDataSourse:  NSObject {
-    var isCollapsedFamily = false
-    
-    var items = [Bool]()
-    
+  
     var reloadSections: ( (_ section: Int) -> Void )?
     private let disposeBag = DisposeBag()
     
     var collapsed = false
-    var collapsedSection = 0
     
      override init() {
         super.init()
         
-        items = [isCollapsedFamily]
         
         bind()
     }
@@ -54,7 +49,7 @@ class MyInfoDataSourse:  NSObject {
 extension MyInfoDataSourse: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -62,7 +57,6 @@ extension MyInfoDataSourse: UITableViewDataSource {
             return 1
         }
         
-      
         return 1
     }
     
@@ -75,21 +69,12 @@ extension MyInfoDataSourse: UITableViewDataSource {
             return cell
             
         } else if indexPath.section == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: UserHeaderTableCell.identifier, for: indexPath) as! UserHeaderTableCell
-            
-            cell.item = profile
-            return cell
-        } else if indexPath.section == 2 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: UserHeaderTableCell.identifier, for: indexPath) as! UserHeaderTableCell
-            
-            cell.item = profile
-            return cell
-        } else if indexPath.section == 3 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: UserHeaderTableCell.identifier, for: indexPath) as! UserHeaderTableCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: UserFamilyInfoCell.identifier, for: indexPath) as! UserFamilyInfoCell
             
             cell.item = profile
             return cell
         }
+        
         return UITableViewCell()
     }
     
@@ -101,6 +86,7 @@ extension MyInfoDataSourse: UITableViewDelegate {
         if section == 0 {
             return UIView()
         }
+        
         if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: UserFoldHeaderView.identifier) as? UserFoldHeaderView {
             
             headerView.section = section
@@ -123,8 +109,6 @@ extension MyInfoDataSourse: HeaderViewDelegate {
     
     func toggleSection(header: UserFoldHeaderView, section: Int) {
         
-        collapsedSection = section
-        
         if collapsed == false {
             collapsed = true
         } else {
@@ -136,6 +120,18 @@ extension MyInfoDataSourse: HeaderViewDelegate {
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

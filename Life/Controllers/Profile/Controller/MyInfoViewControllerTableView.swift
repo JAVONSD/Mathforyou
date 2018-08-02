@@ -62,9 +62,11 @@ class MyInfoViewControllerTableView: UIViewController {
             $0.edges.equalToSuperview()
         }
         
-        tableView.register(UserHeaderTableCell.self, forCellReuseIdentifier: UserHeaderTableCell.identifier)
-          tableView.register(UserFoldHeaderView.self, forHeaderFooterViewReuseIdentifier: UserFoldHeaderView.identifier)
+        tableView.register(UserFoldHeaderView.self, forHeaderFooterViewReuseIdentifier: UserFoldHeaderView.identifier)
         
+        tableView.register(UserHeaderTableCell.self, forCellReuseIdentifier: UserHeaderTableCell.identifier)
+        tableView.register(UserFamilyInfoCell.self, forCellReuseIdentifier: UserFamilyInfoCell.identifier)
+
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .none
