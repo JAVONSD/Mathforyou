@@ -11,25 +11,43 @@ import Kingfisher
 import SnapKit
 import Material
 
-class UserInfoHeaderView: UIView {
+struct HeaderFooterModelItem: ProfileViewModelItem {
+    var profile: UserProfile?
     
-    var item: UserProfile? {
+    var isCollapsible: Bool = false
+    var isCollapsed: Bool = false
+
+    var type: UserInfoProfileViewModelItemType {
+        return .nameAndPicture
+    }
+    
+    var sectionTitle: String {
+        return ""
+    }
+    
+    init(profile: UserProfile?) {
+        self.profile = profile
+    }
+}
+
+class UserInfoHeaderFooterView: UIView {
+
+    var item: HeaderFooterModelItem? {
         didSet {
-            guard let item = item else {
-                return
-            }
+            guard
+                let item = item,
+                let profile = item.profile
+                else { return }
             
-            fullNameLabel.text = item.fullname
-            jobPositionLabel.text = item.jobPosition
-//
+            fullNameLabel.text = profile.fullname
+            jobPositionLabel.text = profile.jobPosition
+            
             ImageDownloader.set(
                 image: "",
                 employeeCode: User.current.employeeCode,
                 to: self.pictureImageView,
                 placeholderImage: #imageLiteral(resourceName: "ic-user"),
-                size: CGSize(width: 120, height: 120)
-            )
-            
+                size: CGSize(width: 120, height: 120))
         }
     }
     
@@ -37,8 +55,6 @@ class UserInfoHeaderView: UIView {
         let fl = UILabel()
         fl.font = App.Font.headline
         fl.numberOfLines = 2
-        fl.backgroundColor = .cyan
-        fl.text = "Name"
         return fl
     }()
 
@@ -47,7 +63,6 @@ class UserInfoHeaderView: UIView {
         jl.font = App.Font.footnote
         jl.textColor = App.Color.blackDisable
         jl.numberOfLines = 2
-        jl.backgroundColor = .yellow
         return jl
     }()
 

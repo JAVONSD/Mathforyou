@@ -1,8 +1,8 @@
 //
-//  ProfileViewController2.swift
+//  MyInfoDataSourse.swift
 //  Life
 //
-//  Created by 123 on 31.07.2018.
+//  Created by 123 on 01.08.2018.
 //  Copyright © 2018 Shyngys Kassymov. All rights reserved.
 //
 
@@ -13,66 +13,22 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class MyInfoViewControllerTableView: UIViewController {
-   
-    lazy var tableView: UITableView = {
-        let tv = UITableView(frame: .zero, style: .plain)
-        tv.dataSource = self
-        tv.delegate = self
-        return tv
-    }()
+class MyInfoDataSourse:  NSObject {
     
+    var reloadSections: ( (_ section: Int) -> Void )?
     private let disposeBag = DisposeBag()
-    var didTapAvatar: (() -> Void)?
     
+    // temporary
     var collapsed = false
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+     override init() {
+        super.init()
         
-        setupViews()
-    }
-    
-    // MARK: - Setup Views
-    func setupViews() {
         bind()
-        setupTabItem()
-        setupTableView()
     }
     
-    private func setupTabItem() {
-        tabItem.title = NSLocalizedString("info", comment: "").uppercased()
-        tabItem.titleLabel?.font = App.Font.buttonSmall
-    }
-    
-    func setupTableView() {
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-        tableView.register(UserHeaderTableCell.self, forCellReuseIdentifier: UserHeaderTableCell.identifier)
-        
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
-        
-        tableView.register(UserFoldHeaderView.self, forHeaderFooterViewReuseIdentifier: UserFoldHeaderView.identifier)
-        
-        tableView.sectionHeaderHeight = 35
-        tableView.separatorStyle = .none
-        tableView.allowsSelection = false
-
-        setHeaderView()
-    }
-    
-    private func setHeaderView() {
-        let header = UserInfoHeaderView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 200))
-        tableView.tableHeaderView = header
-        header.item = profile
-    }
-
     // MARK: - Bind
-    private func bind() {
+    fileprivate func bind() {
         User.current.updated.asDriver().drive(onNext: { [weak self] profile in
             guard let `self` = self else { return }
             
@@ -83,16 +39,14 @@ class MyInfoViewControllerTableView: UIViewController {
     var profile: UserProfile?
     private func updateUI(with profile: UserProfile?) {
         self.profile = profile
+        
         print(profile)
-        
-        
     }
     
-
 }
 
 // MARK: - UITableView DataSource
-extension MyInfoViewControllerTableView: UITableViewDataSource {
+extension MyInfoDataSourse: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -124,29 +78,31 @@ extension MyInfoViewControllerTableView: UITableViewDataSource {
     
 }
 
-
 // MARK: - UITableView Delegate
-extension MyInfoViewControllerTableView: UITableViewDelegate {
-    
+extension MyInfoDataSourse: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
         if section == 1 {
             if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: UserFoldHeaderView.identifier) as? UserFoldHeaderView {
-                headerView.section = section // ??????
+                
+                headerView.section = section 
                 headerView.delegate = self
                 headerView.setCollapsed(collapsed: collapsed)
                 
                 return headerView
             }
         }
-        
-        let hv = UITableViewHeaderFooterView()
-        return hv
+        return UIView()
     }
-    
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if section == 1 {
+            return 35.0
+        }
+        return 0.0
+    }
 }
 
-extension MyInfoViewControllerTableView: HeaderViewDelegate {
+extension MyInfoDataSourse: HeaderViewDelegate {
     
     func toggleSection(header: UserFoldHeaderView, section: Int) {
         
@@ -156,19 +112,11 @@ extension MyInfoViewControllerTableView: HeaderViewDelegate {
             collapsed = false
         }
         
-        tableView.beginUpdates()
-        tableView.reloadSections([1], with: .fade)
-        tableView.endUpdates()
+        // Adjust the number of the rows inside the section
+        reloadSections?(section)
     }
-
+    
 }
-
-
-
-
-
-
-
 
 
 

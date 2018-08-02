@@ -8,6 +8,25 @@
 
 import UIKit
 
+struct UserFoldHeaderModelItem: ProfileViewModelItem {
+    var profile: UserProfile?
+    
+    var isCollapsible: Bool = false
+    var isCollapsed: Bool = false
+    
+    var type: UserInfoProfileViewModelItemType {
+        return .nameAndPicture
+    }
+    
+    var sectionTitle: String {
+        return ""
+    }
+    
+    init(profile: UserProfile?) {
+        self.profile = profile
+    }
+}
+
 protocol HeaderViewDelegate: class {
     func toggleSection(header: UserFoldHeaderView, section: Int)
 }
@@ -23,11 +42,15 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
     // We will use the section variable to store the current section index
     var section: Int = 0
     
-    let arrowLabel: UILabel = {
-        let fl = UILabel()
-        fl.textAlignment = .center
-        fl.textColor = App.Color.azure
-        return fl
+    let foldButton: UIButton = {
+        let btn = UIButton(type: .system)
+        btn.showsTouchWhenHighlighted = true
+        btn.setTitleColor(App.Color.azure, for: .normal)
+        btn.titleLabel?.font = App.Font.subtitle
+        btn.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0)
+        btn.addTarget(self, action: #selector(didTapHeader), for: .touchUpInside)
+        btn.backgroundColor = .white
+        return btn
     }()
 
     override init(reuseIdentifier: String?) {
@@ -37,12 +60,10 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
     }
  
     fileprivate func setupViews() {
-        addSubview(arrowLabel)
-        arrowLabel.snp.makeConstraints {
+        addSubview(foldButton)
+        foldButton.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapHeader)))
     }
     
     @objc private func didTapHeader() {
@@ -53,10 +74,10 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
         // When we call this method for collapsed state,
         // it will rotate the arrow to the original position,
         // for expanded state it will rotate the arrow to pi radians.
-        
         DispatchQueue.main.async { [weak self] in
             guard let weakSelf = self else { return }
-            weakSelf.arrowLabel.text = collapsed ? "Закрыть" : "Подробная информация"
+            let title = collapsed ? "▽  Подробная информация" : "△  Скрыть информацию"
+            weakSelf.foldButton.setTitle(title, for: .normal)
         }
     }
     
