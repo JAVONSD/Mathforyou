@@ -25,7 +25,8 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
     
     let arrowLabel: UILabel = {
         let fl = UILabel()
-        fl.text = "▽"
+        fl.textAlignment = .center
+        fl.textColor = App.Color.azure
         return fl
     }()
 
@@ -38,9 +39,7 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
     fileprivate func setupViews() {
         addSubview(arrowLabel)
         arrowLabel.snp.makeConstraints {
-            $0.width.height.equalTo(35)
-            $0.top.equalTo(self).offset(20)
-            $0.right.equalTo(self).offset(-20)
+            $0.edges.equalToSuperview()
         }
         
         addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapHeader)))
@@ -54,10 +53,11 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
         // When we call this method for collapsed state,
         // it will rotate the arrow to the original position,
         // for expanded state it will rotate the arrow to pi radians.
-//        DispatchQueue.main.async {
-//            self.arrowLabel.rotate(collapsed ? 0.0 : .pi)
-//        }
-        arrowLabel.rotate(collapsed ? 0.0 : .pi)
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let weakSelf = self else { return }
+            weakSelf.arrowLabel.text = collapsed ? "Закрыть" : "Подробная информация"
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

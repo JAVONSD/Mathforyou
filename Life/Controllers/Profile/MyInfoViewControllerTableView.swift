@@ -58,8 +58,9 @@ class MyInfoViewControllerTableView: UIViewController {
         
         tableView.register(UserFoldHeaderView.self, forHeaderFooterViewReuseIdentifier: UserFoldHeaderView.identifier)
         
-        tableView.sectionHeaderHeight = 70
+        tableView.sectionHeaderHeight = 35
         tableView.separatorStyle = .none
+        tableView.allowsSelection = false
 
         setHeaderView()
     }
@@ -131,17 +132,16 @@ extension MyInfoViewControllerTableView: UITableViewDelegate {
         
         if section == 1 {
             if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: UserFoldHeaderView.identifier) as? UserFoldHeaderView {
-                
-                headerView.section = section
+                headerView.section = section // ??????
                 headerView.delegate = self
-                
-                headerView.contentView.backgroundColor = #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+                headerView.setCollapsed(collapsed: collapsed)
                 
                 return headerView
             }
         }
         
-        return UIView()
+        let hv = UITableViewHeaderFooterView()
+        return hv
     }
     
 }
@@ -159,8 +159,6 @@ extension MyInfoViewControllerTableView: HeaderViewDelegate {
         tableView.beginUpdates()
         tableView.reloadSections([1], with: .fade)
         tableView.endUpdates()
-        
-        header.setCollapsed(collapsed: collapsed)
     }
 
 }
