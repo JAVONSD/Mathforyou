@@ -41,7 +41,7 @@ class MyInfoDataSourse:  NSObject {
     private func updateUI(with profile: UserProfile?) {
         self.profile = profile
         
-        if let profile = profile {
+        if profile != nil {
             let personalItem = ProfileViewModelPersonalItem()
             items.append(personalItem)
            
@@ -54,7 +54,6 @@ class MyInfoDataSourse:  NSObject {
 extension MyInfoDataSourse: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        print("items.count", items.count)
         return items.count
     }
     
@@ -124,7 +123,11 @@ extension MyInfoDataSourse: HeaderViewDelegate {
             header.setCollapsed(collapsed: collapsed)
             
             // Adjust the number of the rows inside the section
-            reloadSections!(section)
+            DispatchQueue.main.async { [weak self] in
+                if let reloadSections = self?.reloadSections {
+                    reloadSections(section)
+                }
+            }
         }
         
     }
