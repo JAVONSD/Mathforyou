@@ -8,25 +8,6 @@
 
 import UIKit
 
-struct UserFoldHeaderModelItem: ProfileViewModelItem {
-    var profile: UserProfile?
-    
-    var isCollapsible: Bool = false
-    var isCollapsed: Bool = false
-    
-    var type: UserInfoProfileViewModelItemType {
-        return .nameAndPicture
-    }
-    
-    var sectionTitle: String {
-        return ""
-    }
-    
-    init(profile: UserProfile?) {
-        self.profile = profile
-    }
-}
-
 protocol HeaderViewDelegate: class {
     func toggleSection(header: UserFoldHeaderView, section: Int)
 }
@@ -34,6 +15,7 @@ protocol HeaderViewDelegate: class {
 class UserFoldHeaderView: UITableViewHeaderFooterView {
     
     weak var delegate: HeaderViewDelegate?
+    
     
     static var identifier: String {
         return String(describing: self)
@@ -49,7 +31,7 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
         btn.titleLabel?.font = App.Font.subtitle
         btn.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0)
         btn.addTarget(self, action: #selector(didTapHeader), for: .touchUpInside)
-        btn.backgroundColor = .white
+        btn.backgroundColor = .red
         return btn
     }()
 

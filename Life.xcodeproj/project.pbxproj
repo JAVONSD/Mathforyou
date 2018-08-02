@@ -1074,9 +1074,9 @@
 		9D588CDC2112C862007D9B84 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				9D588CD12111E3A8007D9B84 /* UserInfoHeaderFooterView.swift */,
-				9D588CCF2111C7C2007D9B84 /* UserHeaderTableCell.swift */,
-				9D588CD721121E29007D9B84 /* UserFoldHeaderView.swift */,
+				9DC09E0F21130FB100CF30B1 /* TableHeader */,
+				9DC09E1021130FBE00CF30B1 /* SectionHeader */,
+				9DC09E1121130FCF00CF30B1 /* Cells */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1095,6 +1095,30 @@
 				9D2AF02621107BD100E5995E /* MyInfoViewControllerTableView.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		9DC09E0F21130FB100CF30B1 /* TableHeader */ = {
+			isa = PBXGroup;
+			children = (
+				9D588CD12111E3A8007D9B84 /* UserInfoHeaderFooterView.swift */,
+			);
+			path = TableHeader;
+			sourceTree = "<group>";
+		};
+		9DC09E1021130FBE00CF30B1 /* SectionHeader */ = {
+			isa = PBXGroup;
+			children = (
+				9D588CD721121E29007D9B84 /* UserFoldHeaderView.swift */,
+			);
+			path = SectionHeader;
+			sourceTree = "<group>";
+		};
+		9DC09E1121130FCF00CF30B1 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9D588CCF2111C7C2007D9B84 /* UserHeaderTableCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		C717C678203D13710070447D /* TasksAndRequests */ = {

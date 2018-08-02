@@ -11,36 +11,16 @@ import Kingfisher
 import SnapKit
 import Material
 
-struct HeaderFooterModelItem: ProfileViewModelItem {
-    var profile: UserProfile?
-    
-    var isCollapsible: Bool = false
-    var isCollapsed: Bool = false
-
-    var type: UserInfoProfileViewModelItemType {
-        return .nameAndPicture
-    }
-    
-    var sectionTitle: String {
-        return ""
-    }
-    
-    init(profile: UserProfile?) {
-        self.profile = profile
-    }
-}
 
 class UserInfoHeaderFooterView: UIView {
 
-    var item: HeaderFooterModelItem? {
+    var item: UserProfile? {
         didSet {
             guard
-                let item = item,
-                let profile = item.profile
-                else { return }
+                let item = item else { return }
             
-            fullNameLabel.text = profile.fullname
-            jobPositionLabel.text = profile.jobPosition
+            fullNameLabel.text = item.fullname
+            jobPositionLabel.text = item.jobPosition
             
             ImageDownloader.set(
                 image: "",

@@ -8,37 +8,15 @@
 
 import UIKit
 
-enum UserInfoProfileViewModelItemType {
-    case nameAndPicture
-    case about
-    case email
-    case friend
-    case attribute
+enum UserInfoSectionTitels: Int {
+    case nameAndPicture = 0
+    case famuly = 1
+    case workexperiance = 2
+    case medical = 3
+    case education = 4
+    case movement = 5
 }
 
-protocol ProfileViewModelItem {
-    var profile: UserProfile? { get }
-    
-    var type: UserInfoProfileViewModelItemType { get }
-    var sectionTitle: String { get }
-    var rowCount: Int { get }
-    
-    // is the section is collapsible or not
-    // the current section state: collapsed/expanded
-    var isCollapsible: Bool { get }
-    var isCollapsed: Bool { get set }
-}
-
-// set default values
-extension ProfileViewModelItem {
-    var rowCount: Int {
-        return 1
-    }
-    
-    var isCollapsible: Bool {
-        return true
-    }
-}
 
 
 

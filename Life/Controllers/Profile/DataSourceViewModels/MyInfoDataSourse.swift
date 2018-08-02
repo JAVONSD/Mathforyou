@@ -14,15 +14,20 @@ import RxCocoa
 import SnapKit
 
 class MyInfoDataSourse:  NSObject {
+    var isCollapsedFamily = false
+    
+    var items = [Bool]()
     
     var reloadSections: ( (_ section: Int) -> Void )?
     private let disposeBag = DisposeBag()
     
-    // temporary
     var collapsed = false
+    var collapsedSection = 0
     
      override init() {
         super.init()
+        
+        items = [isCollapsedFamily]
         
         bind()
     }
@@ -49,15 +54,16 @@ class MyInfoDataSourse:  NSObject {
 extension MyInfoDataSourse: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if collapsed && (section == 1) {
-            return 0
-        } else {
+        if section == 0 {
             return 1
         }
+        
+      
+        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -68,12 +74,23 @@ extension MyInfoDataSourse: UITableViewDataSource {
             cell.item = profile
             return cell
             
-        } else {
+        } else if indexPath.section == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: UserHeaderTableCell.identifier, for: indexPath) as! UserHeaderTableCell
+            
+            cell.item = profile
+            return cell
+        } else if indexPath.section == 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: UserHeaderTableCell.identifier, for: indexPath) as! UserHeaderTableCell
+            
+            cell.item = profile
+            return cell
+        } else if indexPath.section == 3 {
             let cell = tableView.dequeueReusableCell(withIdentifier: UserHeaderTableCell.identifier, for: indexPath) as! UserHeaderTableCell
             
             cell.item = profile
             return cell
         }
+        return UITableViewCell()
     }
     
 }
@@ -81,30 +98,32 @@ extension MyInfoDataSourse: UITableViewDataSource {
 // MARK: - UITableView Delegate
 extension MyInfoDataSourse: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 1 {
-            if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: UserFoldHeaderView.identifier) as? UserFoldHeaderView {
-                
-                headerView.section = section 
-                headerView.delegate = self
-                headerView.setCollapsed(collapsed: collapsed)
-                
-                return headerView
-            }
+        if section == 0 {
+            return UIView()
         }
-        return UIView()
+        if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: UserFoldHeaderView.identifier) as? UserFoldHeaderView {
+            
+            headerView.section = section
+            headerView.delegate = self
+            headerView.setCollapsed(collapsed: collapsed, section: section)
+            return headerView
+        }
+         return UIView()
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 1 {
-            return 35.0
+        if section == 0 {
+            return 00.0
         }
-        return 0.0
+        return 35.0
     }
 }
 
 extension MyInfoDataSourse: HeaderViewDelegate {
     
     func toggleSection(header: UserFoldHeaderView, section: Int) {
+        
+        collapsedSection = section
         
         if collapsed == false {
             collapsed = true
@@ -117,28 +136,6 @@ extension MyInfoDataSourse: HeaderViewDelegate {
     }
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
