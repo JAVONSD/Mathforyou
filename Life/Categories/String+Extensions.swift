@@ -49,6 +49,13 @@ public extension String {
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: date)
     }
+    
+    public func prettyDateStringNoSeconds(format: String = "dd.MM.yyyy") -> String {
+        let date = self.date
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        return dateFormatter.string(from: date)
+    }
 
     public func prettyDateOrTimeAgoString(
         format: String = "dd.MM.yyyy HH:mm") -> String {

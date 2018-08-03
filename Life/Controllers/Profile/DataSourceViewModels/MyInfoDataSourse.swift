@@ -100,8 +100,12 @@ extension MyInfoDataSourse: UITableViewDataSource {
             }
         case .personal:
             if let cell = tableView.dequeueReusableCell(withIdentifier: UserPersonalCell.identifier, for: indexPath) as? UserPersonalCell {
-                cell.item = profile
                 cell.modelItem = modelItem
+                cell.txtLabel.text = NSLocalizedString("ИИН", comment: "")
+                cell.detailLabel.text = NSLocalizedString("\(String(describing: profile?.iin ?? ""))", comment: "")
+                cell.rightTxtLabel.text = NSLocalizedString("Дата рождения", comment: "")
+                cell.rightDetailLabel.text = NSLocalizedString("\(String(describing: profile?.birthDate ?? "").prettyDateStringNoSeconds())", comment: "")
+                
                 return cell
             }
         default:

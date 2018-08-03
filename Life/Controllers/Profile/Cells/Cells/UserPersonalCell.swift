@@ -36,30 +36,35 @@ class UserPersonalCell: UITableViewCell {
     let txtLabel: UILabel = {
         let nl = UILabel()
         nl.font = App.Font.headline
-        nl.numberOfLines = 2
+        nl.textColor = App.Color.black24
+        nl.numberOfLines = 1
         return nl
     }()
     
     let detailLabel: UILabel = {
         let jl = UILabel()
-        jl.font = App.Font.footnote
-        jl.textColor = App.Color.blackDisable
-        jl.numberOfLines = 2
+        jl.font = App.Font.body
+        jl.numberOfLines = 3
         return jl
     }()
     
-    var item: UserProfile? {
-        didSet {
-            guard let item = item else {
-                return
-            }
-            
-            txtLabel.text = item.fullname
-            detailLabel.text = item.jobPosition
- 
-            
-        }
-    }
+    let rightTxtLabel: UILabel = {
+        let nl = UILabel()
+        nl.font = App.Font.headline
+        nl.textColor = App.Color.black24
+        nl.numberOfLines = 1
+        return nl
+    }()
+    
+    let rightDetailLabel: UILabel = {
+        let jl = UILabel()
+        jl.font = App.Font.body
+        jl.numberOfLines = 3
+        return jl
+    }()
+
+    
+    var item: UserProfile?
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -68,19 +73,28 @@ class UserPersonalCell: UITableViewCell {
     }
     
     fileprivate func setupViews() {
-        addSubview(txtLabel)
-        txtLabel.snp.makeConstraints {
-            $0.top.left.equalToSuperview().offset(16)
-            $0.width.equalToSuperview().offset(-32)
-            $0.height.equalTo(24)
+        let leftStackView = UIStackView(arrangedSubviews: [txtLabel, detailLabel])
+        leftStackView.axis = .vertical
+        leftStackView.spacing = 3
+        leftStackView.distribution = .fillEqually
+        
+        addSubview(leftStackView)
+        leftStackView.snp.makeConstraints {
+            $0.top.bottom.equalTo(self)
+            $0.width.equalTo(self.snp.width).dividedBy(2).offset(-30)
+            $0.left.equalTo(self).offset(20)
         }
         
-        addSubview(detailLabel)
-        detailLabel.snp.makeConstraints {
-            $0.top.equalTo(txtLabel.snp.bottom).offset(4)
-            $0.left.equalToSuperview().offset(16)
-            $0.width.equalToSuperview().offset(-32)
-            $0.height.equalTo(24)
+        let rightStackView = UIStackView(arrangedSubviews: [rightTxtLabel, rightDetailLabel])
+        rightStackView.axis = .vertical
+        rightStackView.spacing = 3
+        rightStackView.distribution = .fillEqually
+        
+        addSubview(rightStackView)
+        rightStackView.snp.makeConstraints {
+            $0.top.bottom.equalTo(self)
+            $0.width.equalTo(self.snp.width).dividedBy(2).offset(-30)
+            $0.right.equalTo(self).offset(-20)
         }
     }
     

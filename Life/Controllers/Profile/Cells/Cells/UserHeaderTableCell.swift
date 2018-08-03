@@ -42,7 +42,6 @@ class UserHeaderTableCell: UITableViewCell {
     
     let pictureImageView: UIImageView = {
         let pi = UIImageView()
-    
         return pi
     }()
     
