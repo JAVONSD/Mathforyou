@@ -10,26 +10,6 @@ import UIKit
 import Kingfisher
 import SnapKit
 
-class ProfileViewModeHeaderItem: ProfileViewModelItem {
-    
-    var type: ProfileViewModelItemType {
-        return .nameAndPicture
-    }
-    
-    var sectionTitle: String {
-        return ""
-    }
-    
-    var isCollapsed: Bool = false
-    
-    var isCollapsible: Bool = false
-    
-    var rowCount: Int {
-        return 4
-    }
-    
-    init() { }
-}
 
 class UserHeaderTableCell: UITableViewCell {
     

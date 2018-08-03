@@ -18,8 +18,9 @@ class MyInfoDataSourse:  NSObject {
     
     
     var reloadSections: ( (_ section: Int) -> Void )?
-    private let disposeBag = DisposeBag()
+    var showVCDetails: ( (_ profile: UserProfile) -> Void )?
     
+    private let disposeBag = DisposeBag()
     
     override init() {
         super.init()
@@ -41,7 +42,7 @@ class MyInfoDataSourse:  NSObject {
     private func updateUI(with profile: UserProfile?) {
         self.profile = profile
         
-        if profile != nil {
+        if let profile = profile {
             let headerItem = ProfileViewModeHeaderItem()
             items.append(headerItem)
             
@@ -53,6 +54,9 @@ class MyInfoDataSourse:  NSObject {
             
             let medicalItem = ProfileViewModelMedicalItem()
             items.append(medicalItem)
+            
+            let educationItem = ProfileViewModelEducationItem(profile: profile)
+            items.append(educationItem)
         }
     }
     
@@ -150,16 +154,21 @@ extension MyInfoDataSourse: UITableViewDataSource {
         case .medical:
             if let cell = tableView.dequeueReusableCell(withIdentifier: UserPersonalCell.identifier, for: indexPath) as? UserPersonalCell {
                 cell.modelItem = modelItem
-                
+                                
                 if indexPath.row == 0 {
                     cell.txtLabel.text = NSLocalizedString("Последнее прохождение", comment: "")
                     cell.detailLabel.text = NSLocalizedString("\(String(describing: profile?.medicalExamination.last ?? "").prettyDateStringNoSeconds())", comment: "")
                     cell.rightTxtLabel.text = NSLocalizedString("Ближайшее", comment: "")
                     cell.rightDetailLabel.text = NSLocalizedString("\(String(describing: profile?.medicalExamination.next ?? "").prettyDateStringNoSeconds())", comment: "")
                 }
-                
                 return cell
             }
+//        case .education:
+//            if let cell = tableView.dequeueReusableCell(withIdentifier: UserPersonalCell.identifier, for: indexPath) as? UserPersonalCell {
+//                cell.modelItem = modelItem
+//                cell.item = profile
+//                return cell
+//            }
         default:
             return UITableViewCell()
         }
@@ -189,7 +198,7 @@ extension MyInfoDataSourse: UITableViewDelegate {
         case .nameAndPicture:
             return 0
         default:
-            return 35.0
+            return 50
         }
     }
     
@@ -202,9 +211,15 @@ extension MyInfoDataSourse: UITableViewDelegate {
             return UITableViewAutomaticDimension
         }
     }
+    
 }
 
 extension MyInfoDataSourse: HeaderViewDelegate {
+    func showDetails(header: UserFoldHeaderView) {
+        if let showVCDetails = showVCDetails {
+            showVCDetails(profile!)
+        }
+    }
     
     func toggleSection(header: UserFoldHeaderView, section: Int) {
         var item = items[section]

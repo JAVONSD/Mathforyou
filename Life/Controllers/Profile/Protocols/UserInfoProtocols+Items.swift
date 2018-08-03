@@ -40,39 +40,23 @@ extension ProfileViewModelItem {
     }
 }
 
-class ProfileViewModelWorkActivitiesItem: ProfileViewModelItem {
-    
-    var type: ProfileViewModelItemType {
-        return .workexperiance
-    }
-    
-    var sectionTitle: String {
-        return NSLocalizedString("Трудовая деятельность", comment: "")
-    }
-    
-    var isCollapsed = true
-    
-    var rowCount: Int {
-        return 3
-    }
-    
-    init() { }
-}
 
-class ProfileViewModelMedicalItem: ProfileViewModelItem {
+class ProfileViewModeHeaderItem: ProfileViewModelItem {
     
     var type: ProfileViewModelItemType {
-        return .personal
+        return .nameAndPicture
     }
     
     var sectionTitle: String {
-        return NSLocalizedString("Медосмотр", comment: "")
+        return ""
     }
     
-    var isCollapsed = true
+    var isCollapsed: Bool = false
+    
+    var isCollapsible: Bool = false
     
     var rowCount: Int {
-        return 3
+        return 4
     }
     
     init() { }
@@ -96,6 +80,72 @@ class ProfileViewModelPersonalItem: ProfileViewModelItem {
     
     init() { }
 }
+
+class ProfileViewModelWorkActivitiesItem: ProfileViewModelItem {
+    
+    var type: ProfileViewModelItemType {
+        return .workexperiance
+    }
+    
+    var sectionTitle: String {
+        return NSLocalizedString("Трудовая деятельность", comment: "")
+    }
+    
+    var isCollapsed = true
+    
+    var rowCount: Int {
+        return 2
+    }
+    
+    init() { }
+}
+
+class ProfileViewModelMedicalItem: ProfileViewModelItem {
+    
+    var type: ProfileViewModelItemType {
+        return .medical
+    }
+    
+    var sectionTitle: String {
+        return NSLocalizedString("Медосмотр", comment: "")
+    }
+    
+    var isCollapsed = true
+    
+    var rowCount: Int {
+        return 1
+    }
+    
+    init() { }
+}
+
+class ProfileViewModelEducationItem: ProfileViewModelItem {
+    
+    var type: ProfileViewModelItemType {
+        return .education
+    }
+    
+    var sectionTitle: String {
+        return NSLocalizedString("Образование и квалификация", comment: "")
+    }
+    
+    var isCollapsed = true
+    var isCollapsible = false
+    
+    var rowCount: Int {
+        return 0 //profile.educations.count
+    }
+    
+    var profile: UserProfile
+    
+    init(profile: UserProfile) {
+        self.profile = profile
+    }
+}
+
+
+
+
 
 
 

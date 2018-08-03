@@ -8,8 +8,10 @@
 
 import UIKit
 
+
 protocol HeaderViewDelegate: class {
     func toggleSection(header: UserFoldHeaderView, section: Int)
+    func showDetails(header: UserFoldHeaderView)
 }
 
 class UserFoldHeaderView: UITableViewHeaderFooterView {
@@ -20,7 +22,6 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
                 return
             }
             
-//            titleLabel?.text = modelItem.sectionTitle
             setCollapsed(collapsed: modelItem.isCollapsed)
             
             DispatchQueue.main.async { [weak self] in
@@ -72,6 +73,15 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
     }
     
     @objc private func didTapHeader() {
+        if let modelItem = modelItem {
+            switch modelItem.type {
+            case .education:
+                delegate?.showDetails(header: self)
+            default:
+                break
+            }
+        }
+        
         delegate?.toggleSection(header: self, section: section)
     }
     

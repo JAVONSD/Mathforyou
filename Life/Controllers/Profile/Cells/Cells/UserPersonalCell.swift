@@ -56,6 +56,15 @@ class UserPersonalCell: UITableViewCell {
     
     var item: UserProfile?
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        txtLabel.text = ""
+        detailLabel.text = ""
+        rightTxtLabel.text = ""
+        rightDetailLabel.text = ""
+    }
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         

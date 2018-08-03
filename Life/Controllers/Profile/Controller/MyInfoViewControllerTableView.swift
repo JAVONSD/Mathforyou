@@ -27,7 +27,7 @@ class MyInfoViewControllerTableView: UIViewController {
         let tv = UITableView(frame: .zero, style: .plain)
         tv.dataSource = dataSource
         tv.delegate = dataSource
-        tv.contentInset = UIEdgeInsetsMake(0, 0, 44, 0)
+        tv.contentInset = UIEdgeInsetsMake(0, 0, 70, 0)
         return tv
     }()
     
@@ -40,6 +40,12 @@ class MyInfoViewControllerTableView: UIViewController {
             weakSelf.tableView.beginUpdates()
             weakSelf.tableView.reloadSections([section], with: .fade)
             weakSelf.tableView.endUpdates()
+        }
+        
+        dataSource.showVCDetails = { [weak self] profile in
+            guard let weakSelf = self else { return }
+            
+            weakSelf.show(UserEducationViewController(), sender: AnyObject.self)
         }
         
         bind()
@@ -68,6 +74,8 @@ class MyInfoViewControllerTableView: UIViewController {
         
         tableView.register(UserHeaderTableCell.self, forCellReuseIdentifier: UserHeaderTableCell.identifier)
         tableView.register(UserPersonalCell.self, forCellReuseIdentifier: UserPersonalCell.identifier)
+        
+//        tableView.register(UserProfileCellWithTableView.self, forCellReuseIdentifier: UserProfileCellWithTableView.identifier)
 
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
