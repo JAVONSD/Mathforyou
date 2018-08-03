@@ -42,9 +42,12 @@ class MyInfoDataSourse:  NSObject {
         self.profile = profile
         
         if profile != nil {
+            let headerItem = ProfileViewModeHeaderItem()
+             items.append(headerItem)
+            
             let personalItem = ProfileViewModelPersonalItem()
             items.append(personalItem)
-           
+            
         }
     }
     
@@ -74,6 +77,27 @@ extension MyInfoDataSourse: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let modelItem = items[indexPath.section]
         switch modelItem.type {
+        case .nameAndPicture:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: UserHeaderTableCell.identifier, for: indexPath) as? UserHeaderTableCell {
+                cell.item = profile
+                cell.modelItem = modelItem
+
+                if indexPath.row == 0 {
+                    cell.pictureImageView.image = #imageLiteral(resourceName: "domain").withRenderingMode(.alwaysTemplate)
+                    cell.companyLabel.text = profile?.company
+                } else if indexPath.row == 1 {
+                    cell.pictureImageView.image = #imageLiteral(resourceName: "mobile").withRenderingMode(.alwaysTemplate)
+                    cell.companyLabel.text = profile?.mobilePhoneNumber
+                } else if indexPath.row == 2 {
+                    cell.pictureImageView.image = #imageLiteral(resourceName: "mail").withRenderingMode(.alwaysTemplate)
+                    cell.companyLabel.text = profile?.email
+                } else if indexPath.row == 3 {
+                    cell.pictureImageView.image = #imageLiteral(resourceName: "phone-inactive").withRenderingMode(.alwaysTemplate)
+                    cell.companyLabel.text = profile?.workPhoneNumber
+                }
+               
+                return cell
+            }
         case .personal:
             if let cell = tableView.dequeueReusableCell(withIdentifier: UserPersonalCell.identifier, for: indexPath) as? UserPersonalCell {
                 cell.item = profile
@@ -104,10 +128,23 @@ extension MyInfoDataSourse: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        if section == 0 {
-//            return 00.0
-//        }
-        return 35.0
+        let modelItem = items[section]
+        switch modelItem.type {
+        case .nameAndPicture:
+            return 0
+        default:
+            return 35.0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let modelItem = items[indexPath.section]
+        switch modelItem.type {
+        case .nameAndPicture:
+            return 55
+        default:
+            return UITableViewAutomaticDimension
+        }
     }
 }
 

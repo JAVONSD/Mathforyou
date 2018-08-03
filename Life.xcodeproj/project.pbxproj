@@ -1073,13 +1073,14 @@
 			path = DataSourceViewModels;
 			sourceTree = "<group>";
 		};
-		9D588CDC2112C862007D9B84 /* Cells */ = {
+		9D588CDC2112C862007D9B84 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				9DC09E0F21130FB100CF30B1 /* TableHeader */,
 				9DC09E1021130FBE00CF30B1 /* SectionHeader */,
 				9DC09E1121130FCF00CF30B1 /* Cells */,
 			);
+			name = Views;
 			path = Cells;
 			sourceTree = "<group>";
 		};
@@ -1652,7 +1653,7 @@
 			children = (
 				9D588CDE2112D3DF007D9B84 /* Controller */,
 				9D588CD92112B632007D9B84 /* DataSourceViewModels */,
-				9D588CDC2112C862007D9B84 /* Cells */,
+				9D588CDC2112C862007D9B84 /* Views */,
 				9D588CDD2112C87A007D9B84 /* Protocols */,
 				9D588CC821115CD7007D9B84 /* Temp */,
 				C79251DF203145E200CDFBBA /* ProfileViewController.swift */,
