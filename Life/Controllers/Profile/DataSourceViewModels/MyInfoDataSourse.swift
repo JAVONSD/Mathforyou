@@ -16,7 +16,6 @@ import SnapKit
 class MyInfoDataSourse:  NSObject {
     var items = [ProfileViewModelItem]()
     
-    
     var reloadSections: ( (_ section: Int) -> Void )?
     var showVCDetails: ( (_ profile: UserProfile) -> Void )?
     
