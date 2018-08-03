@@ -40,7 +40,7 @@ class UserInfoHeaderFooterView: UIView {
 
     let jobPositionLabel: UILabel = {
         let jl = UILabel()
-        jl.font = App.Font.body
+        jl.font = App.Font.footnote
         jl.numberOfLines = 2
         return jl
     }()

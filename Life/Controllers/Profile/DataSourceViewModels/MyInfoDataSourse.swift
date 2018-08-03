@@ -15,13 +15,13 @@ import SnapKit
 
 class MyInfoDataSourse:  NSObject {
     var items = [ProfileViewModelItem]()
-
-  
+    
+    
     var reloadSections: ( (_ section: Int) -> Void )?
     private let disposeBag = DisposeBag()
-
     
-     override init() {
+    
+    override init() {
         super.init()
         
         
@@ -43,11 +43,16 @@ class MyInfoDataSourse:  NSObject {
         
         if profile != nil {
             let headerItem = ProfileViewModeHeaderItem()
-             items.append(headerItem)
+            items.append(headerItem)
             
             let personalItem = ProfileViewModelPersonalItem()
             items.append(personalItem)
             
+            let workActivities = ProfileViewModelWorkActivitiesItem()
+            items.append(workActivities)
+            
+            let medicalItem = ProfileViewModelMedicalItem()
+            items.append(medicalItem)
         }
     }
     
@@ -81,7 +86,7 @@ extension MyInfoDataSourse: UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(withIdentifier: UserHeaderTableCell.identifier, for: indexPath) as? UserHeaderTableCell {
                 cell.item = profile
                 cell.modelItem = modelItem
-
+                
                 if indexPath.row == 0 {
                     cell.pictureImageView.image = #imageLiteral(resourceName: "domain").withRenderingMode(.alwaysTemplate)
                     cell.companyLabel.text = profile?.company
@@ -95,21 +100,68 @@ extension MyInfoDataSourse: UITableViewDataSource {
                     cell.pictureImageView.image = #imageLiteral(resourceName: "phone-inactive").withRenderingMode(.alwaysTemplate)
                     cell.companyLabel.text = profile?.workPhoneNumber
                 }
-               
+                
                 return cell
             }
         case .personal:
             if let cell = tableView.dequeueReusableCell(withIdentifier: UserPersonalCell.identifier, for: indexPath) as? UserPersonalCell {
                 cell.modelItem = modelItem
-                cell.txtLabel.text = NSLocalizedString("ИИН", comment: "")
-                cell.detailLabel.text = NSLocalizedString("\(String(describing: profile?.iin ?? ""))", comment: "")
-                cell.rightTxtLabel.text = NSLocalizedString("Дата рождения", comment: "")
-                cell.rightDetailLabel.text = NSLocalizedString("\(String(describing: profile?.birthDate ?? "").prettyDateStringNoSeconds())", comment: "")
+                
+                if indexPath.row == 0 {
+                    cell.txtLabel.text = NSLocalizedString("ИИН", comment: "")
+                    cell.detailLabel.text = NSLocalizedString("\(String(describing: profile?.iin ?? ""))", comment: "")
+                    cell.rightTxtLabel.text = NSLocalizedString("Дата рождения", comment: "")
+                    cell.rightDetailLabel.text = NSLocalizedString("\(String(describing: profile?.birthDate ?? "").prettyDateStringNoSeconds())", comment: "")
+                    
+                } else if indexPath.row == 1 {
+                    cell.txtLabel.text = NSLocalizedString("Семейное положение", comment: "")
+                    cell.detailLabel.text = NSLocalizedString("\(String(describing: profile?.familyStatus ?? ""))", comment: "")
+                    cell.rightTxtLabel.text = NSLocalizedString("Пол", comment: "")
+                    cell.rightDetailLabel.text = NSLocalizedString("\(String(describing: profile?.gender ?? ""))", comment: "")
+                    
+                } else if indexPath.row == 2 {
+                    cell.txtLabel.text = NSLocalizedString("Дети", comment: "")
+                    cell.detailLabel.text = NSLocalizedString("\(String(describing: profile?.childrenQuantity ?? ""))", comment: "")
+                    cell.rightTxtLabel.text = NSLocalizedString("Размер одежды", comment: "")
+                    cell.rightDetailLabel.text = NSLocalizedString("\(String(describing: profile?.clothingSize ?? ""))", comment: "")
+                }
+                
+                return cell
+            }
+        case .workexperiance:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: UserPersonalCell.identifier, for: indexPath) as? UserPersonalCell {
+                cell.modelItem = modelItem
+                
+                if indexPath.row == 0 {
+                    cell.txtLabel.text = NSLocalizedString("Корпоративный стаж (мес)", comment: "")
+                    cell.detailLabel.text = NSLocalizedString("\(String(describing: profile?.corporateExperience ?? ""))", comment: "")
+                    cell.rightTxtLabel.text = NSLocalizedString("Общий стаж в ГК BI Group (мес)", comment: "")
+                    cell.rightDetailLabel.text = NSLocalizedString("\(String(describing: profile?.totalExperience ?? ""))", comment: "")
+                    
+                } else if indexPath.row == 1 {
+                    cell.txtLabel.text = NSLocalizedString("Административный руководитель", comment: "")
+                    cell.detailLabel.text = NSLocalizedString("\(String(describing: profile?.administrativeChiefName ?? ""))", comment: "")
+                    cell.rightTxtLabel.text = NSLocalizedString("Функциональный руководитель", comment: "")
+                    cell.rightDetailLabel.text = NSLocalizedString("\(String(describing: profile?.functionalChiefName ?? ""))", comment: "")
+                }
+                
+                return cell
+            }
+        case .medical:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: UserPersonalCell.identifier, for: indexPath) as? UserPersonalCell {
+                cell.modelItem = modelItem
+                
+                if indexPath.row == 0 {
+                    cell.txtLabel.text = NSLocalizedString("Последнее прохождение", comment: "")
+                    cell.detailLabel.text = NSLocalizedString("\(String(describing: profile?.medicalExamination.last ?? "").prettyDateStringNoSeconds())", comment: "")
+                    cell.rightTxtLabel.text = NSLocalizedString("Ближайшее", comment: "")
+                    cell.rightDetailLabel.text = NSLocalizedString("\(String(describing: profile?.medicalExamination.next ?? "").prettyDateStringNoSeconds())", comment: "")
+                }
                 
                 return cell
             }
         default:
-           return UITableViewCell()
+            return UITableViewCell()
         }
         return UITableViewCell()
     }
@@ -121,7 +173,7 @@ extension MyInfoDataSourse: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: UserFoldHeaderView.identifier) as? UserFoldHeaderView {
             let modelItem = items[section]
-            
+                        
             headerView.modelItem = modelItem
             headerView.section = section
             headerView.delegate = self
@@ -130,7 +182,7 @@ extension MyInfoDataSourse: UITableViewDelegate {
         }
         return UIView()
     }
-
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let modelItem = items[section]
         switch modelItem.type {

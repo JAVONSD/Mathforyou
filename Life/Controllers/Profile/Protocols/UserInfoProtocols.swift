@@ -40,6 +40,68 @@ extension ProfileViewModelItem {
     }
 }
 
+class ProfileViewModelWorkActivitiesItem: ProfileViewModelItem {
+    
+    var type: ProfileViewModelItemType {
+        return .workexperiance
+    }
+    
+    var sectionTitle: String {
+        return NSLocalizedString("Трудовая деятельность", comment: "")
+    }
+    
+    var isCollapsed = true
+    
+    var rowCount: Int {
+        return 3
+    }
+    
+    init() { }
+}
+
+class ProfileViewModelMedicalItem: ProfileViewModelItem {
+    
+    var type: ProfileViewModelItemType {
+        return .personal
+    }
+    
+    var sectionTitle: String {
+        return NSLocalizedString("Медосмотр", comment: "")
+    }
+    
+    var isCollapsed = true
+    
+    var rowCount: Int {
+        return 3
+    }
+    
+    init() { }
+}
+
+class ProfileViewModelPersonalItem: ProfileViewModelItem {
+    
+    var type: ProfileViewModelItemType {
+        return .personal
+    }
+    
+    var sectionTitle: String {
+        return NSLocalizedString("Личные и семья", comment: "")
+    }
+    
+    var isCollapsed = true
+    
+    var rowCount: Int {
+        return 3
+    }
+    
+    init() { }
+}
+
+
+
+
+
+
 
 
 

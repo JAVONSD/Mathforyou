@@ -20,10 +20,23 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
                 return
             }
             
-//            titleLabel?.text = item.sectionTitle
+//            titleLabel?.text = modelItem.sectionTitle
             setCollapsed(collapsed: modelItem.isCollapsed)
+            
+            DispatchQueue.main.async { [weak self] in
+                guard
+                let weakSelf = self,
+                let modelItem = weakSelf.modelItem
+                else { return }
+                
+                let title = modelItem.isCollapsed ? "▽  Показать \(String(describing: modelItem.sectionTitle))" : "△  \(String(describing: modelItem.sectionTitle))"
+                weakSelf.foldButton.setTitle(title, for: .normal)
+            }
+            
         }
     }
+    
+    var titleLabel: UILabel?
     
     weak var delegate: HeaderViewDelegate?
     
@@ -66,12 +79,12 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
         // When we call this method for collapsed state,
         // it will rotate the arrow to the original position,
         // for expanded state it will rotate the arrow to pi radians.
-        DispatchQueue.main.async { [weak self] in
-            guard let weakSelf = self else { return }
-            
-            let title = collapsed ? "▽  Показать личные и семья" : "△  Скрыть личные и семья"
-            weakSelf.foldButton.setTitle(title, for: .normal)
-        }
+//        DispatchQueue.main.async { [weak self] in
+//            guard let weakSelf = self else { return }
+//
+//            let title = collapsed ? "▽  Показать \(String(describing: weakSelf.titleLabel))" : "△  \(String(describing: weakSelf.titleLabel))"
+//            weakSelf.foldButton.setTitle(title, for: .normal)
+//        }
     }
     
     required init?(coder aDecoder: NSCoder) {
