@@ -59,7 +59,7 @@ class QuestionnairePreviewController: UIViewController {
             .request(.questionnaireShortInfo(id: questionnaireId))
             .filterSuccessfulStatusCodes()
             .subscribe { [weak self] response in
-                guard let `self` = self else { return }
+                guard let `self` = self else { return } 
 
                 self.previewView.set(isLoading: false)
 

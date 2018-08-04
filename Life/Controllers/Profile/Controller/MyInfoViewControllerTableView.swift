@@ -44,7 +44,10 @@ class MyInfoViewControllerTableView: UIViewController {
         dataSource.showVCDetails = { [weak self] profile in
             guard let weakSelf = self else { return }
             
-            weakSelf.show(UserEducationViewController(), sender: AnyObject.self)
+            let detailVC = UserEducationViewController()
+            detailVC.profile = profile
+            
+            weakSelf.show(detailVC, sender: AnyObject.self)
         }
         
         bind()

@@ -45,6 +45,7 @@
 		9DC09E1D2114836000CF30B1 /* Dispatch+Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC09E1C2114836000CF30B1 /* Dispatch+Globals.swift */; };
 		9DCFB621210C5A4B008515EF /* NewsSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCFB620210C5A4B008515EF /* NewsSearch.swift */; };
 		9DCFB623210DBD9B008515EF /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCFB622210DBD9B008515EF /* ResultView.swift */; };
+		9DDD6860211589B100BB33B3 /* UserEducationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDD685F211589B100BB33B3 /* UserEducationCell.swift */; };
 		9DF738CC21075F9200953214 /* UIGestureRecognizer+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF738CB21075F9200953214 /* UIGestureRecognizer+Extentions.swift */; };
 		C7054BB12041767C00A8ED1A /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7054BB02041767B00A8ED1A /* Notification.swift */; };
 		C7054BB32041782300A8ED1A /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = C7054BB22041782300A8ED1A /* notifications.json */; };
@@ -522,6 +523,7 @@
 		9DC09E1C2114836000CF30B1 /* Dispatch+Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dispatch+Globals.swift"; sourceTree = "<group>"; };
 		9DCFB620210C5A4B008515EF /* NewsSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearch.swift; sourceTree = "<group>"; };
 		9DCFB622210DBD9B008515EF /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
+		9DDD685F211589B100BB33B3 /* UserEducationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEducationCell.swift; sourceTree = "<group>"; };
 		9DF738CB21075F9200953214 /* UIGestureRecognizer+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Extentions.swift"; sourceTree = "<group>"; };
 		A5856C72266F971904DBA28A /* Pods-Life.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life.release.xcconfig"; path = "Pods/Target Support Files/Pods-Life/Pods-Life.release.xcconfig"; sourceTree = "<group>"; };
 		BB877A7D8C856CDF13C84955 /* Pods-LifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeTests/Pods-LifeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -1128,6 +1130,7 @@
 			children = (
 				9D588CCF2111C7C2007D9B84 /* UserHeaderTableCell.swift */,
 				9DC09E16211333F500CF30B1 /* UserPersonalCell.swift */,
+				9DDD685F211589B100BB33B3 /* UserEducationCell.swift */,
 				9DC09E18211447D700CF30B1 /* UserProfileCellWithTableView.swift */,
 			);
 			path = Cells;
@@ -3068,6 +3071,7 @@
 				C73EB2922032F9B100429921 /* RxPickerViewAdapter.swift in Sources */,
 				C792634F20382CF700067371 /* NotificationView.swift in Sources */,
 				C7F7CB59203BD9FC007B9D1E /* TopQuestionsSectionController.swift in Sources */,
+				9DDD6860211589B100BB33B3 /* UserEducationCell.swift in Sources */,
 				C73EB2B420331EAF00429921 /* PlansViewModel.swift in Sources */,
 				C716D801204D925B00C80912 /* TasksAndRequestsFlow.swift in Sources */,
 				9DCFB623210DBD9B008515EF /* ResultView.swift in Sources */,

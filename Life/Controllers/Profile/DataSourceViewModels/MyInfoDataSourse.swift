@@ -15,7 +15,8 @@ import SnapKit
 
 class MyInfoDataSourse:  NSObject {
     var items = [ProfileViewModelItem]()
-    
+    var profile: UserProfile?
+
     var reloadSections: ( (_ section: Int) -> Void )?
     var showVCDetails: ( (_ profile: UserProfile) -> Void )?
     
@@ -36,7 +37,6 @@ class MyInfoDataSourse:  NSObject {
         }).disposed(by: disposeBag)
     }
     
-    var profile: UserProfile?
     private func updateUI(with profile: UserProfile?) {
         self.profile = profile
         
@@ -208,8 +208,8 @@ extension MyInfoDataSourse: UITableViewDelegate {
 
 extension MyInfoDataSourse: HeaderViewDelegate {
     func showDetails(header: UserFoldHeaderView) {
-        if let showVCDetails = showVCDetails {
-            showVCDetails(profile!)
+        if let showVCDetails = showVCDetails, let profile = profile {
+            showVCDetails(profile)
         }
     }
     
@@ -228,6 +228,7 @@ extension MyInfoDataSourse: HeaderViewDelegate {
                     reloadSections(section)
                 }
             }
+            
         }
         
     }
