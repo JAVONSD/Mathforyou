@@ -12,6 +12,7 @@ import UIKit
 protocol HeaderViewDelegate: class {
     func toggleSection(header: UserFoldHeaderView, section: Int)
     func showDetails(header: UserFoldHeaderView)
+    func showHistoryDetails(header: UserFoldHeaderView)
 }
 
 class UserFoldHeaderView: UITableViewHeaderFooterView {
@@ -77,6 +78,8 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
             switch modelItem.type {
             case .education:
                 delegate?.showDetails(header: self)
+            case .history:
+                delegate?.showHistoryDetails(header: self)
             default:
                 break
             }

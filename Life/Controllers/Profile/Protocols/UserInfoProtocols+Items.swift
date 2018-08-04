@@ -14,7 +14,7 @@ enum ProfileViewModelItemType {
     case workexperiance
     case medical
     case education
-    case movement 
+    case history
 }
 
 protocol ProfileViewModelItem {
@@ -133,7 +133,7 @@ class ProfileViewModelEducationItem: ProfileViewModelItem {
     var isCollapsible = false
     
     var rowCount: Int {
-        return 0 //profile.educations.count
+        return 0
     }
     
     var profile: UserProfile
@@ -143,6 +143,29 @@ class ProfileViewModelEducationItem: ProfileViewModelItem {
     }
 }
 
+class ProfileViewModelHistoryItem: ProfileViewModelItem {
+    
+    var type: ProfileViewModelItemType {
+        return .history
+    }
+    
+    var sectionTitle: String {
+        return NSLocalizedString("Перемещения", comment: "")
+    }
+    
+    var isCollapsed = true
+    var isCollapsible = false
+    
+    var rowCount: Int {
+        return 0
+    }
+    
+    var profile: UserProfile
+    
+    init(profile: UserProfile) {
+        self.profile = profile
+    }
+}
 
 
 

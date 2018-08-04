@@ -8,22 +8,21 @@
 
 import UIKit
 
-
 class UserEducationViewController: UIViewController {
     var educations = [Education]()
-    var history = [Education]()
+    var history = [HistoryRelocation]()
     
-    var isEducation = true
+    var isEducationOrHistory: Bool
     
     var profile: UserProfile? {
         didSet {
             guard let profile = profile
                 else { return }
             
-            if isEducation {
+            if isEducationOrHistory {
                 educations = profile.educations
-            } else if !isEducation {
-
+            } else if !isEducationOrHistory {
+                history = profile.history
             }
             
             afterDelayOnMain(0) { [weak self] in
@@ -33,6 +32,15 @@ class UserEducationViewController: UIViewController {
             }
         }
         
+    }
+    
+    init(isEducationOrHistory: Bool) {
+        self.isEducationOrHistory = isEducationOrHistory
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     lazy var tableView: UITableView = {
@@ -67,28 +75,55 @@ class UserEducationViewController: UIViewController {
 
 extension UserEducationViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if educations.count > 0 {
-            return educations.count
+        if isEducationOrHistory {
+            if educations.count > 0 {
+                return educations.count
+            } else {
+                return 0
+            }
+        } else {
+            if history.count > 0 {
+                return history.count
+            } else {
+                return 0
+            }
         }
-        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: UserEducationCell.identifier, for: indexPath) as? UserEducationCell {
-            let education = educations[indexPath.row]
             
-            cell.txtLabel.text = "Вид образования"
-            cell.detailLabel.text = education.educationTypeName
-            
-            cell.rightTxtLabel.text = "Учебное заведение"
-            cell.rightDetailLabel.text = education.institutionName
-            
-            cell.txtLabel1.text = "Специальность"
-            cell.detailLabel1.text = education.specialty
-            
-            cell.rightTxtLabel1.text = "Год окончания"
-            cell.rightDetailLabel1.text = "\(education.graduationYear)"
-            
+            if isEducationOrHistory {
+                let education = educations[indexPath.row]
+                
+                cell.txtLabel.text = "Вид образования"
+                cell.detailLabel.text = education.educationTypeName
+                
+                cell.rightTxtLabel.text = "Учебное заведение"
+                cell.rightDetailLabel.text = education.institutionName
+                
+                cell.txtLabel1.text = "Специальность"
+                cell.detailLabel1.text = education.specialty
+                
+                cell.rightTxtLabel1.text = "Год окончания"
+                cell.rightDetailLabel1.text = "\(education.graduationYear)"
+                
+            } else {
+                let historyOne = history[indexPath.row]
+             
+                
+                cell.txtLabel.text = "Тип"
+                cell.detailLabel.text = historyOne.employmentType
+                
+                cell.rightTxtLabel.text = "Должность"
+                cell.rightDetailLabel.text = historyOne.position
+                
+                cell.txtLabel1.text = "Организация"
+                cell.detailLabel1.text = historyOne.organization
+                
+                cell.rightTxtLabel1.text = "Отдел"
+                cell.rightDetailLabel1.text = historyOne.department
+            }
             return cell
         }
         
@@ -97,13 +132,12 @@ extension UserEducationViewController: UITableViewDataSource {
 }
 
 extension UserEducationViewController: UITableViewDelegate {
-    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Образование"
+        return isEducationOrHistory ? "Образование" : "Перемещения"
     }
     
 }

@@ -19,6 +19,7 @@ class MyInfoDataSourse:  NSObject {
 
     var reloadSections: ( (_ section: Int) -> Void )?
     var showVCDetails: ( (_ profile: UserProfile) -> Void )?
+    var showVCHistoryDetails: ( (_ profile: UserProfile) -> Void )?
     
     private let disposeBag = DisposeBag()
     
@@ -55,6 +56,9 @@ class MyInfoDataSourse:  NSObject {
             
             let educationItem = ProfileViewModelEducationItem(profile: profile)
             items.append(educationItem)
+            
+            let history = ProfileViewModelHistoryItem(profile: profile)
+            items.append(history)
         }
     }
     
@@ -173,8 +177,8 @@ extension MyInfoDataSourse: UITableViewDataSource {
 extension MyInfoDataSourse: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: UserFoldHeaderView.identifier) as? UserFoldHeaderView {
+            
             let modelItem = items[section]
-                        
             headerView.modelItem = modelItem
             headerView.section = section
             headerView.delegate = self
@@ -207,8 +211,16 @@ extension MyInfoDataSourse: UITableViewDelegate {
 }
 
 extension MyInfoDataSourse: HeaderViewDelegate {
-    func showDetails(header: UserFoldHeaderView) {
-        if let showVCDetails = showVCDetails, let profile = profile {
+    func showHistoryDetails(header: UserFoldHeaderView) {
+        if let showVCHistoryDetails = showVCHistoryDetails,
+            let profile = profile {
+            showVCHistoryDetails(profile)
+        }
+    }
+    
+    func showDetails(header: UserFoldHeaderView) { 
+        if let showVCDetails = showVCDetails,
+            let profile = profile {
             showVCDetails(profile)
         }
     }

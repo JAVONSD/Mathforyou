@@ -197,6 +197,7 @@ struct UserProfile: Codable {
     var educations: [Education]
     var medicalExamination: MedicalExamination
     var adLogin: String
+    var history: [HistoryRelocation]
 
     // MARK: - Decodable
 
@@ -223,6 +224,7 @@ struct UserProfile: Codable {
         case educations
         case medicalExamination
         case adLogin
+        case history
     }
 
     init(from decoder: Decoder) throws {
@@ -261,6 +263,11 @@ struct UserProfile: Codable {
                 next: ""
             )
         )
+        self.history = try container.decodeWrapper(
+            key: .history,
+            defaultValue: []
+        )
+        
         self.adLogin = try container.decodeWrapper(key: .adLogin, defaultValue: "")
     }
 
@@ -286,6 +293,7 @@ struct UserProfile: Codable {
         aCoder.encode(educations, forKey: "educations")
         aCoder.encode(medicalExamination, forKey: "medicalExamination")
         aCoder.encode(adLogin, forKey: "adLogin")
+        aCoder.encode(history, forKey: "history")
     }
 }
 
@@ -320,6 +328,59 @@ struct Education: Codable {
         aCoder.encode(specialty, forKey: "specialty")
     }
 }
+
+// ---------------------
+
+struct HistoryRelocation: Codable {
+    var employmentType: String
+    var eventType: String
+    var employeeName: String
+    var position: String
+    var organization: String
+    var department: String
+    var eventDate: String
+    var employeeCode: String
+    
+    // MARK: - Decodable
+    
+    enum CodingKeys: String, CodingKey {
+        case employmentType
+        case eventType
+        case employeeName
+        case position
+        case organization
+        case department
+        case eventDate
+        case employeeCode
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        self.employmentType = try container.decodeWrapper(key: .employmentType, defaultValue: "")
+        self.eventType = try container.decodeWrapper(key: .eventType, defaultValue: "")
+        self.employeeName = try container.decodeWrapper(key: .employeeName, defaultValue: "")
+        self.position = try container.decodeWrapper(key: .position, defaultValue: "")
+        
+        self.organization = try container.decodeWrapper(key: .organization, defaultValue: "")
+        self.department = try container.decodeWrapper(key: .department, defaultValue: "")
+        self.eventDate = try container.decodeWrapper(key: .eventDate, defaultValue: "")
+        self.employeeCode = try container.decodeWrapper(key: .employeeCode, defaultValue: "")
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(employmentType, forKey: "employmentType")
+        aCoder.encode(eventType, forKey: "eventType")
+        aCoder.encode(employeeName, forKey: "employeeName")
+        aCoder.encode(position, forKey: "position")
+        aCoder.encode(organization, forKey: "organization")
+        aCoder.encode(department, forKey: "department")
+        aCoder.encode(eventDate, forKey: "eventDate")
+        aCoder.encode(employeeCode, forKey: "employeeCode")
+    }
+}
+
+// ---------------------
 
 struct MedicalExamination: Codable {
     var last: String?

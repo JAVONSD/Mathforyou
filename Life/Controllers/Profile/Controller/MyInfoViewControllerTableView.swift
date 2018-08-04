@@ -33,25 +33,37 @@ class MyInfoViewControllerTableView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        bindToDataSorceClousers()
+        bind()
+        setupViews()
+    }
+    
+    fileprivate func bindToDataSorceClousers() {
         dataSource.reloadSections = { [weak self] (section: Int) in
-            guard let weakSelf = self else { return }
+             guard let `self` = self else { return }
             
-            weakSelf.tableView.beginUpdates()
-            weakSelf.tableView.reloadSections([section], with: .fade)
-            weakSelf.tableView.endUpdates()
+            self.tableView.beginUpdates()
+            self.tableView.reloadSections([section], with: .fade)
+            self.tableView.endUpdates()
+        }
+        
+        dataSource.showVCHistoryDetails = { [weak self] profile in
+            guard let `self` = self else { return }
+            
+            let detailVC = UserEducationViewController(isEducationOrHistory: false)
+            detailVC.profile = profile
+            
+            self.show(detailVC, sender: AnyObject.self)
         }
         
         dataSource.showVCDetails = { [weak self] profile in
-            guard let weakSelf = self else { return }
+            guard let `self` = self else { return }
             
-            let detailVC = UserEducationViewController()
+            let detailVC = UserEducationViewController(isEducationOrHistory: true)
             detailVC.profile = profile
             
-            weakSelf.show(detailVC, sender: AnyObject.self)
+            self.show(detailVC, sender: AnyObject.self)
         }
-        
-        bind()
-        setupViews()
     }
     
     // MARK: - Setup Views
@@ -81,6 +93,7 @@ class MyInfoViewControllerTableView: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
+        tableView.contentInset = UIEdgeInsetsMake(0, 0, 100, 0)
     }
     
     fileprivate func setHeaderView() {
