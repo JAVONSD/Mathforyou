@@ -55,7 +55,7 @@ class MyInfoViewControllerTableView: UIViewController {
             guard let `self` = self else { return }
             
             self.tableView.beginUpdates()
-            self.tableView.reloadSections([section], with: .fade)
+            self.tableView.reloadSections([section], with: .none)
             self.tableView.endUpdates()
         }
         
@@ -101,8 +101,8 @@ class MyInfoViewControllerTableView: UIViewController {
         tableView.register(UserPersonalCell.self, forCellReuseIdentifier: UserPersonalCell.identifier)
         tableView.register(UserPictureCell.self, forCellReuseIdentifier: UserPictureCell.identifier)
 
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.estimatedRowHeight = 100
+//        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.contentInset = UIEdgeInsetsMake(0, 0, 200, 0)

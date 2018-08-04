@@ -97,7 +97,6 @@ extension MyInfoDataSourse: UITableViewDataSource {
                     cell.modelItem = modelItem
                     return cell
             }
-            
         case .nameAndPicture:
             if let cell = tableView.dequeueReusableCell(withIdentifier: UserHeaderTableCell.identifier, for: indexPath) as? UserHeaderTableCell {
                 cell.item = profile
@@ -116,7 +115,7 @@ extension MyInfoDataSourse: UITableViewDataSource {
                     cell.pictureImageView.image = #imageLiteral(resourceName: "phone-inactive").withRenderingMode(.alwaysTemplate)
                     cell.companyLabel.text = profile?.workPhoneNumber
                 }
-                
+                                
                 return cell
             }
         case .personal:
@@ -207,17 +206,22 @@ extension MyInfoDataSourse: UITableViewDelegate {
             return 50
         }
     }
-    
+ 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let modelItem = items[indexPath.section]
         switch modelItem.type {
+        case .bigPicture:
+            return 154.00
         case .nameAndPicture:
-            return 55
+            return 44.00
+        case .personal:
+            return 61.00
+        case .medical, .workexperiance:
+            return 98.33
         default:
             return UITableViewAutomaticDimension
         }
     }
-    
 }
 
 extension MyInfoDataSourse: HeaderViewDelegate {

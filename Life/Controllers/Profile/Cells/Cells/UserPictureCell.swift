@@ -82,6 +82,7 @@ class UserPictureCell: UITableViewCell {
             $0.left.equalTo(pictureImageView.snp.right).offset(20)
             $0.bottom.equalToSuperview().offset(-40)
         }
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

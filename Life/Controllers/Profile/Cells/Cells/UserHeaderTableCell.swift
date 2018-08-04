@@ -54,6 +54,8 @@ class UserHeaderTableCell: UITableViewCell {
             $0.right.equalTo(self).offset(-20)
             $0.centerY.equalToSuperview()
         }
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
