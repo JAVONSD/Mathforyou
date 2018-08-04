@@ -79,10 +79,8 @@ class MyInfoViewControllerTableView: UIViewController {
     }
     
     fileprivate func setupTableView() {
+        tableView.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height)
         view.addSubview(tableView)
-        tableView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
         
         tableView.register(UserFoldHeaderView.self, forHeaderFooterViewReuseIdentifier: UserFoldHeaderView.identifier)
         
@@ -93,7 +91,8 @@ class MyInfoViewControllerTableView: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
-        tableView.contentInset = UIEdgeInsetsMake(0, 0, 100, 0)
+        
+        tableView.contentInset = UIEdgeInsetsMake(0, 0, 200, 0)
     }
     
     fileprivate func setHeaderView() {
