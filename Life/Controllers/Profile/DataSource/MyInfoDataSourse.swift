@@ -42,6 +42,9 @@ class MyInfoDataSourse:  NSObject {
         self.profile = profile
         
         if let profile = profile {
+            let pictureItem = ProfileViewModePictureItem()
+            items.append(pictureItem)
+            
             let headerItem = ProfileViewModeHeaderItem()
             items.append(headerItem)
             
@@ -88,6 +91,13 @@ extension MyInfoDataSourse: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let modelItem = items[indexPath.section]
         switch modelItem.type {
+        case .bigPicture:
+                if let cell = tableView.dequeueReusableCell(withIdentifier: UserPictureCell.identifier, for: indexPath) as? UserPictureCell {
+                    cell.item = profile
+                    cell.modelItem = modelItem
+                    return cell
+            }
+            
         case .nameAndPicture:
             if let cell = tableView.dequeueReusableCell(withIdentifier: UserHeaderTableCell.identifier, for: indexPath) as? UserHeaderTableCell {
                 cell.item = profile
@@ -191,7 +201,7 @@ extension MyInfoDataSourse: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let modelItem = items[section]
         switch modelItem.type {
-        case .nameAndPicture:
+        case .nameAndPicture, .bigPicture:
             return 0
         default:
             return 50

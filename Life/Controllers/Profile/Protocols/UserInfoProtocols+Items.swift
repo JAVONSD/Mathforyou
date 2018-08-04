@@ -9,6 +9,7 @@
 import UIKit
 
 enum ProfileViewModelItemType {
+    case bigPicture
     case nameAndPicture
     case personal
     case workexperiance
@@ -40,6 +41,26 @@ extension ProfileViewModelItem {
     }
 }
 
+class ProfileViewModePictureItem: ProfileViewModelItem {
+    
+    var type: ProfileViewModelItemType {
+        return .bigPicture
+    }
+    
+    var sectionTitle: String {
+        return ""
+    }
+    
+    var isCollapsed: Bool = false
+    
+    var isCollapsible: Bool = false
+    
+    var rowCount: Int {
+        return 1
+    }
+    
+    init() { }
+}
 
 class ProfileViewModeHeaderItem: ProfileViewModelItem {
     

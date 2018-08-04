@@ -99,6 +99,7 @@ class MyInfoViewControllerTableView: UIViewController {
         
         tableView.register(UserHeaderTableCell.self, forCellReuseIdentifier: UserHeaderTableCell.identifier)
         tableView.register(UserPersonalCell.self, forCellReuseIdentifier: UserPersonalCell.identifier)
+        tableView.register(UserPictureCell.self, forCellReuseIdentifier: UserPictureCell.identifier)
 
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -109,7 +110,7 @@ class MyInfoViewControllerTableView: UIViewController {
     
     fileprivate func setHeaderView() {
         let header = UserInfoHeaderFooterView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 200))
-        tableView.tableHeaderView = header
+//        tableView.tableHeaderView = header
         header.item = profile
     }
 
