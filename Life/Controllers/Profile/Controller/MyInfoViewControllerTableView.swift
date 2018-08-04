@@ -19,6 +19,17 @@ class MyInfoViewControllerTableView: UIViewController {
     fileprivate var profile: UserProfile?
     fileprivate let disposeBag = DisposeBag()
     
+    private var fabButton: FABButton = {
+        let fabImg = #imageLiteral(resourceName: "profile_fab").resize(toWidth: 25)?.resize(toHeight: 25)
+        let fabButton = FABButton(image: fabImg, tintColor: .white)
+        fabButton.pulseColor = .white
+        fabButton.backgroundColor = App.Color.white
+        fabButton.shadowColor = App.Color.black24
+        fabButton.depth = Depth(offset: Offset.init(horizontal: 0, vertical: 12), opacity: 1, radius: 12)
+        fabButton.addTarget(self, action: #selector(onTappedFabButton), for: .touchUpInside)
+        return fabButton
+    }()
+    
     fileprivate var collapsed = false
     
     public var didTapAvatar: (() -> Void)?
@@ -71,6 +82,7 @@ class MyInfoViewControllerTableView: UIViewController {
         setupTabItem()
         setupTableView()
         setHeaderView()
+        setupFabButton()
     }
     
     fileprivate func setupTabItem() {
@@ -91,7 +103,6 @@ class MyInfoViewControllerTableView: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
-        
         tableView.contentInset = UIEdgeInsetsMake(0, 0, 200, 0)
     }
     
@@ -112,12 +123,37 @@ class MyInfoViewControllerTableView: UIViewController {
     
     private func updateUI(with profile: UserProfile?) {
         self.profile = profile
-        
-        
     }
     
+    private func setupFabButton() {
+        view.addSubview(fabButton)
+        fabButton.snp.makeConstraints { (make) in
+            make.bottom.equalTo(self.view).inset(App.Layout.sideOffset)
+            make.right.equalTo(self.view).inset(App.Layout.sideOffset)
+            make.size.equalTo(CGSize(width: 56, height: 56))
+        }
+    }
 
 }
+
+extension MyInfoViewControllerTableView {
+    @objc fileprivate
+    func onTappedFabButton() {
+        
+        print("*** onTappedFabButton")
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
 
 
 
