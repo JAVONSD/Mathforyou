@@ -24,7 +24,6 @@ class MyInfoDataSourse:  NSObject {
     override init() {
         super.init()
         
-        
         bind()
     }
     
@@ -162,12 +161,6 @@ extension MyInfoDataSourse: UITableViewDataSource {
                 }
                 return cell
             }
-//        case .education:
-//            if let cell = tableView.dequeueReusableCell(withIdentifier: UserPersonalCell.identifier, for: indexPath) as? UserPersonalCell {
-//                cell.modelItem = modelItem
-//                cell.item = profile
-//                return cell
-//            }
         default:
             return UITableViewCell()
         }

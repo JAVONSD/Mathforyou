@@ -27,7 +27,6 @@ class MyInfoViewControllerTableView: UIViewController {
         let tv = UITableView(frame: .zero, style: .plain)
         tv.dataSource = dataSource
         tv.delegate = dataSource
-//        tv.contentInset = UIEdgeInsetsMake(0, 0, 70, 0)
         return tv
     }()
     

@@ -28,6 +28,7 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
                 let cellId = App.CellIdentifier.menuCellId
 
                 let someCell = tv.dequeueReusableCell(withIdentifier: cellId) as? EmployeeCell
+                
                 guard let cell = someCell else {
                     return EmployeeCell(style: .default, reuseIdentifier: cellId)
                 }
@@ -57,6 +58,7 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
                 if indexPath.row == itemsCount - 2 {
                     cell.separatorLeftOffset = App.Layout.sideOffset
                     cell.containerInsets = .init(top: 0, left: 0, bottom: 32, right: 0)
+                    
                 } else if indexPath.row == itemsCount - 1 {
                     cell.disclosureImageViewIsHidden = true
                     cell.separatorView.isHidden = true
@@ -118,14 +120,16 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
                 } else if pair.0.row == 1 {
                     let title = NSLocalizedString("Развитие", comment: "")
                     self?.openEmptyScreen(with: title)
-                } else if pair.0.row == 2 {
-                    let title = NSLocalizedString("BI Wiki", comment: "")
-                    self?.openEmptyScreen(with: title)
-                } else if pair.0.row == 3 {
+                }
+//                else if pair.0.row == 2 {
+//                    let title = NSLocalizedString("BI Wiki", comment: "")
+//                    self?.openEmptyScreen(with: title)
+//                }
+                else if pair.0.row == 2 {
 //                    self?.step.accept(AppStep.topQuestions)
                     let title = NSLocalizedString("questions", comment: "")
                     self?.openEmptyScreen(with: title)
-                } else if pair.0.row == 4 {
+                } else if pair.0.row == 3 {
                     self?.askToConfirmLogout()
                 }
             })
