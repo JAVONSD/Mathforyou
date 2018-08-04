@@ -50,8 +50,9 @@ class MyInfoViewControllerTableView: UIViewController {
     }
     
     fileprivate func bindToDataSorceClousers() {
-        dataSource.reloadSections = { [weak self] (section: Int) in
-             guard let `self` = self else { return }
+
+        dataSource.reloadSections = { [weak self] section in
+            guard let `self` = self else { return }
             
             self.tableView.beginUpdates()
             self.tableView.reloadSections([section], with: .fade)

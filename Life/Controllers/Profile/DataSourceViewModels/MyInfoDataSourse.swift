@@ -228,7 +228,6 @@ extension MyInfoDataSourse: HeaderViewDelegate {
     func toggleSection(header: UserFoldHeaderView, section: Int) {
         var item = items[section]
         if item.isCollapsible {
-            
             // Toggle collapse
             let collapsed = !item.isCollapsed
             item.isCollapsed = collapsed
@@ -240,9 +239,7 @@ extension MyInfoDataSourse: HeaderViewDelegate {
                     reloadSections(section)
                 }
             }
-            
         }
-        
     }
     
 }
