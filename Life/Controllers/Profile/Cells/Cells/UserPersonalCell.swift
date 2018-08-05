@@ -25,6 +25,7 @@ class UserPersonalCell: UITableViewCell {
         nl.textColor = App.Color.black24
         nl.numberOfLines = 3
         nl.lineBreakMode = .byWordWrapping
+        nl.adjustsFontForContentSizeCategory = true
         return nl
     }()
     
@@ -33,6 +34,7 @@ class UserPersonalCell: UITableViewCell {
         jl.font = App.Font.body
         jl.numberOfLines = 3
         jl.lineBreakMode = .byWordWrapping
+        jl.adjustsFontForContentSizeCategory = true
         return jl
     }()
     
@@ -42,6 +44,7 @@ class UserPersonalCell: UITableViewCell {
         nl.textColor = App.Color.black24
         nl.numberOfLines = 3
         nl.lineBreakMode = .byWordWrapping
+        nl.adjustsFontForContentSizeCategory = true
         return nl
     }()
     
@@ -50,6 +53,7 @@ class UserPersonalCell: UITableViewCell {
         jl.font = App.Font.body
         jl.numberOfLines = 3
         jl.lineBreakMode = .byWordWrapping
+        jl.adjustsFontForContentSizeCategory = true
         return jl
     }()
 

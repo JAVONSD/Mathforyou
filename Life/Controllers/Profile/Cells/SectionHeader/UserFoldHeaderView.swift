@@ -25,14 +25,27 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
             
             setCollapsed(collapsed: modelItem.isCollapsed)
             
+            
+            
             DispatchQueue.main.async { [weak self] in
                 guard
                 let weakSelf = self,
                 let modelItem = weakSelf.modelItem
                 else { return }
                 
-                let title = modelItem.isCollapsed ? "▽  Показать \(String(describing: modelItem.sectionTitle))" : "△  \(String(describing: modelItem.sectionTitle))"
-                weakSelf.foldButton.setTitle(title, for: .normal)
+                switch modelItem.type {
+                case .personal, .medical, .workexperiance:
+                    weakSelf.foldLabel.font = App.Font.subhead
+                case .education, .history:
+                    weakSelf.foldLabel.font = UIFont.italicSystemFont(ofSize: 13)
+                default:
+                    break
+                }
+
+//                let title = modelItem.isCollapsed ? "\(String(describing: modelItem.sectionTitle))" : "Скрыть"
+//                weakSelf.foldButton.setTitle(title, for: .normal)
+                
+                weakSelf.foldLabel.text = "\(String(describing: modelItem.sectionTitle))"
             }
             
         }
@@ -49,27 +62,46 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
     // We will use the section variable to store the current section index
     var section: Int = 0
     
-    let foldButton: UIButton = {
-        let btn = UIButton(type: .system)
-        btn.showsTouchWhenHighlighted = true
-        btn.setTitleColor(App.Color.azure, for: .normal)
-        btn.titleLabel?.font = App.Font.subtitle
-        btn.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0)
-        btn.addTarget(self, action: #selector(didTapHeader), for: .touchUpInside)
-        btn.backgroundColor = .white
-        return btn
+//    let foldButton: UIButton = {
+//        let btn = UIButton(type: .system)
+//        btn.showsTouchWhenHighlighted = true
+//        btn.setTitleColor(App.Color.azure, for: .normal)
+//        btn.titleLabel?.font = App.Font.subtitle
+//        btn.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0)
+//        btn.addTarget(self, action: #selector(didTapHeader), for: .touchUpInside)
+//        btn.backgroundColor = .white
+//        return btn
+//    }()
+    
+    let foldLabel: UILabel = {
+        let lbl = UILabel()
+        lbl.textColor = App.Color.azure
+        lbl.font = App.Font.subhead
+        lbl.backgroundColor = .white
+        return lbl
     }()
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
+        // To detect a user interaction we can set a TapGestureRecognizer in our header
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapHeader))
+        tapGesture.numberOfTapsRequired = 1
+        addGestureRecognizer(tapGesture)
+        
         setupViews()
     }
  
     fileprivate func setupViews() {
-        addSubview(foldButton)
-        foldButton.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+//        addSubview(foldButton)
+//        foldButton.snp.makeConstraints {
+//            $0.edges.equalToSuperview()
+//        }
+        
+        addSubview(foldLabel)
+        foldLabel.snp.makeConstraints {
+            $0.top.right.bottom.equalToSuperview()
+            $0.left.equalToSuperview().offset(20)
         }
     }
     

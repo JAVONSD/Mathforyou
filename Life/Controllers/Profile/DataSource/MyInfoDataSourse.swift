@@ -203,7 +203,7 @@ extension MyInfoDataSourse: UITableViewDelegate {
         case .nameAndPicture, .bigPicture:
             return 0
         default:
-            return 50
+            return 44.0
         }
     }
  
