@@ -100,8 +100,10 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
         
         addSubview(foldLabel)
         foldLabel.snp.makeConstraints {
-            $0.top.right.bottom.equalToSuperview()
-            $0.left.equalToSuperview().offset(20)
+            $0.top.equalTo(self.snp.top)
+            $0.right.equalTo(self.snp.right)
+            $0.bottom.equalTo(self.snp.bottom)
+            $0.left.equalTo(self.snp.left).offset(20)
         }
     }
     

@@ -46,7 +46,7 @@ class UserHeaderTableCell: UITableViewCell {
     
     fileprivate func setupViews() {
         addSubview(pictureImageView)
-        pictureImageView.anchor(top: topAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 10, paddingLeft: 20, paddingBottom: 0, paddingRight: 0, width: 35, height: 35)
+        pictureImageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: nil, paddingTop: 10, paddingLeft: 20, paddingBottom: 10, paddingRight: 0, width: 35, height: 35)
 
         addSubview(companyLabel)
         companyLabel.snp.makeConstraints {
