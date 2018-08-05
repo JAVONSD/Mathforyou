@@ -142,8 +142,8 @@ extension MyInfoViewControllerTableView {
     @objc fileprivate
     func onTappedFabButton() {
         
-        print("*** onTappedFabButton")
-        
+        let vc = ProfileSubmitViewController()
+        present(vc, animated: true, completion: nil)
     }
 }
 

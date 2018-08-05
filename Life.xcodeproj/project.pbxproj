@@ -40,6 +40,7 @@
 		9D588CDB2112C759007D9B84 /* UserInfoProtocols+Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D588CDA2112C759007D9B84 /* UserInfoProtocols+Items.swift */; };
 		9D63571F210AD01800657ACB /* GlobalSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D63571E210AD01800657ACB /* GlobalSearchViewModel.swift */; };
 		9D6BFD282115EDB0007B86A4 /* UserPictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6BFD272115EDB0007B86A4 /* UserPictureCell.swift */; };
+		9D6BFD2E2116B35C007B86A4 /* ProfileSubmitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6BFD2D2116B35C007B86A4 /* ProfileSubmitViewController.swift */; };
 		9DC09E17211333F500CF30B1 /* UserPersonalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC09E16211333F500CF30B1 /* UserPersonalCell.swift */; };
 		9DC09E19211447D700CF30B1 /* UserProfileCellWithTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC09E18211447D700CF30B1 /* UserProfileCellWithTableView.swift */; };
 		9DC09E1B21147C4C00CF30B1 /* UserEducationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC09E1A21147C4C00CF30B1 /* UserEducationViewController.swift */; };
@@ -519,6 +520,7 @@
 		9D588CDA2112C759007D9B84 /* UserInfoProtocols+Items.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserInfoProtocols+Items.swift"; sourceTree = "<group>"; };
 		9D63571E210AD01800657ACB /* GlobalSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchViewModel.swift; sourceTree = "<group>"; };
 		9D6BFD272115EDB0007B86A4 /* UserPictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPictureCell.swift; sourceTree = "<group>"; };
+		9D6BFD2D2116B35C007B86A4 /* ProfileSubmitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSubmitViewController.swift; sourceTree = "<group>"; };
 		9DC09E16211333F500CF30B1 /* UserPersonalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPersonalCell.swift; sourceTree = "<group>"; };
 		9DC09E18211447D700CF30B1 /* UserProfileCellWithTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCellWithTableView.swift; sourceTree = "<group>"; };
 		9DC09E1A21147C4C00CF30B1 /* UserEducationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEducationViewController.swift; sourceTree = "<group>"; };
@@ -1107,6 +1109,7 @@
 			children = (
 				9D2AF02621107BD100E5995E /* MyInfoViewControllerTableView.swift */,
 				9DC09E1A21147C4C00CF30B1 /* UserEducationViewController.swift */,
+				9D6BFD2D2116B35C007B86A4 /* ProfileSubmitViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -3019,6 +3022,7 @@
 				C7A2746F2053DDF90026B549 /* NewsObject.swift in Sources */,
 				9D1D10CF210F1DDB009525AD /* CustomNavigationController.swift in Sources */,
 				C7E01E4B2045B68200204956 /* TRTableViewCell.swift in Sources */,
+				9D6BFD2E2116B35C007B86A4 /* ProfileSubmitViewController.swift in Sources */,
 				C7D64220203463E0001DCA98 /* Stepper.swift in Sources */,
 				C7F7CB37203AEAC2007B9D1E /* Questionnaire.swift in Sources */,
 				C7D641B6203408E9001DCA98 /* TasksService.swift in Sources */,
