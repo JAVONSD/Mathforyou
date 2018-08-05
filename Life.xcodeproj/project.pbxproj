@@ -41,8 +41,9 @@
 		9D63571F210AD01800657ACB /* GlobalSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D63571E210AD01800657ACB /* GlobalSearchViewModel.swift */; };
 		9D6BFD282115EDB0007B86A4 /* UserPictureCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6BFD272115EDB0007B86A4 /* UserPictureCell.swift */; };
 		9D6BFD2E2116B35C007B86A4 /* ProfileSubmitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6BFD2D2116B35C007B86A4 /* ProfileSubmitViewController.swift */; };
+		9D6BFD302116BAC8007B86A4 /* UserSubmitImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6BFD2F2116BAC8007B86A4 /* UserSubmitImageCell.swift */; };
 		9DC09E17211333F500CF30B1 /* UserPersonalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC09E16211333F500CF30B1 /* UserPersonalCell.swift */; };
-		9DC09E19211447D700CF30B1 /* UserProfileCellWithTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC09E18211447D700CF30B1 /* UserProfileCellWithTableView.swift */; };
+		9DC09E19211447D700CF30B1 /* UserSubmitDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC09E18211447D700CF30B1 /* UserSubmitDescriptionCell.swift */; };
 		9DC09E1B21147C4C00CF30B1 /* UserEducationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC09E1A21147C4C00CF30B1 /* UserEducationViewController.swift */; };
 		9DC09E1D2114836000CF30B1 /* Dispatch+Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DC09E1C2114836000CF30B1 /* Dispatch+Globals.swift */; };
 		9DCFB621210C5A4B008515EF /* NewsSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCFB620210C5A4B008515EF /* NewsSearch.swift */; };
@@ -521,8 +522,9 @@
 		9D63571E210AD01800657ACB /* GlobalSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSearchViewModel.swift; sourceTree = "<group>"; };
 		9D6BFD272115EDB0007B86A4 /* UserPictureCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPictureCell.swift; sourceTree = "<group>"; };
 		9D6BFD2D2116B35C007B86A4 /* ProfileSubmitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSubmitViewController.swift; sourceTree = "<group>"; };
+		9D6BFD2F2116BAC8007B86A4 /* UserSubmitImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSubmitImageCell.swift; sourceTree = "<group>"; };
 		9DC09E16211333F500CF30B1 /* UserPersonalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPersonalCell.swift; sourceTree = "<group>"; };
-		9DC09E18211447D700CF30B1 /* UserProfileCellWithTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileCellWithTableView.swift; sourceTree = "<group>"; };
+		9DC09E18211447D700CF30B1 /* UserSubmitDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSubmitDescriptionCell.swift; sourceTree = "<group>"; };
 		9DC09E1A21147C4C00CF30B1 /* UserEducationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEducationViewController.swift; sourceTree = "<group>"; };
 		9DC09E1C2114836000CF30B1 /* Dispatch+Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dispatch+Globals.swift"; sourceTree = "<group>"; };
 		9DCFB620210C5A4B008515EF /* NewsSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearch.swift; sourceTree = "<group>"; };
@@ -1137,7 +1139,8 @@
 				9D6BFD272115EDB0007B86A4 /* UserPictureCell.swift */,
 				9DC09E16211333F500CF30B1 /* UserPersonalCell.swift */,
 				9DDD685F211589B100BB33B3 /* UserEducationCell.swift */,
-				9DC09E18211447D700CF30B1 /* UserProfileCellWithTableView.swift */,
+				9DC09E18211447D700CF30B1 /* UserSubmitDescriptionCell.swift */,
+				9D6BFD2F2116BAC8007B86A4 /* UserSubmitImageCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2993,7 +2996,7 @@
 				C76EFB4E202E91F000FA2BB9 /* AppDelegate.swift in Sources */,
 				C7BB5C71203FE77F0056BBF9 /* NewsFormView.swift in Sources */,
 				C7D832C32035C49100282891 /* VacanciesViewController.swift in Sources */,
-				9DC09E19211447D700CF30B1 /* UserProfileCellWithTableView.swift in Sources */,
+				9DC09E19211447D700CF30B1 /* UserSubmitDescriptionCell.swift in Sources */,
 				9DC09E1B21147C4C00CF30B1 /* UserEducationViewController.swift in Sources */,
 				9D1B8D0C2109C8DC0080FD0E /* NewsSearchSliderCell.swift in Sources */,
 				C76EFBC4203008D200FA2BB9 /* Constants.swift in Sources */,
@@ -3117,6 +3120,7 @@
 				C716D803204D9D1500C80912 /* TopQuestionsFlow.swift in Sources */,
 				C7AB6F71204BE8F500328E17 /* ImageAssets.swift in Sources */,
 				C79263562038318E00067371 /* NotificationCell.swift in Sources */,
+				9D6BFD302116BAC8007B86A4 /* UserSubmitImageCell.swift in Sources */,
 				C7AB6F62204BE8F500328E17 /* UIAlertController+Extension.swift in Sources */,
 				C7D64217203463E0001DCA98 /* Presentable.swift in Sources */,
 				C7D64222203463E0001DCA98 /* Coordinator.swift in Sources */,

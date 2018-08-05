@@ -130,7 +130,7 @@ class MyInfoViewControllerTableView: UIViewController {
     private func setupFabButton() {
         view.addSubview(fabButton)
         fabButton.snp.makeConstraints { (make) in
-            make.bottom.equalTo(self.view).inset(App.Layout.sideOffset)
+            make.bottom.equalTo(self.view).inset(App.Layout.tabBarHeight)
             make.right.equalTo(self.view).inset(App.Layout.sideOffset)
             make.size.equalTo(CGSize(width: 56, height: 56))
         }
@@ -143,7 +143,9 @@ extension MyInfoViewControllerTableView {
     func onTappedFabButton() {
         
         let vc = ProfileSubmitViewController()
-        present(vc, animated: true, completion: nil)
+        let nav = UINavigationController(rootViewController: vc)
+        
+        present(nav, animated: true, completion: nil)
     }
 }
 
