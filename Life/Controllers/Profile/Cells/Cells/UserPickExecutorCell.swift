@@ -20,6 +20,11 @@ class UserPickExecutorCell: UITableViewCell {
         return tf
     }()
     
+    let searchBarExecutor: UISearchBar = {
+        let sb = UISearchBar(frame: .zero)
+        return sb
+    }()
+    
     static var identifier: String {
         return String(describing: self)
     }
@@ -37,8 +42,13 @@ class UserPickExecutorCell: UITableViewCell {
     
     fileprivate func setupViews() {
         // add executorTextField into self
-        addSubview(executorTextField)
-        executorTextField.snp.makeConstraints {
+//        addSubview(executorTextField)
+//        executorTextField.snp.makeConstraints {
+//            $0.edges.equalToSuperview().inset(UIEdgeInsetsMake(20, 20, 20, 20))
+//        }
+        
+        addSubview(searchBarExecutor)
+        searchBarExecutor.snp.makeConstraints {
             $0.edges.equalToSuperview().inset(UIEdgeInsetsMake(20, 20, 20, 20))
         }
     }

@@ -461,6 +461,7 @@ extension TaskFormViewController: UITextFieldAutoSuggestionDataSource {
 
     func autoSuggestionField(_ field: UITextField!, tableView: UITableView!, didSelectRowAt indexPath: IndexPath!, forText text: String!) {
         let employees = viewModel.employeesViewModel.filteredEmployees.value
+        
         if employees.count > indexPath.row {
             if field == taskFormView.participantsField {
                 viewModel.participants.insert(employees[indexPath.row].employee)
@@ -474,7 +475,21 @@ extension TaskFormViewController: UITextFieldAutoSuggestionDataSource {
     }
 
     func autoSuggestionField(_ field: UITextField!, textChanged text: String!) {
+        
+        print("---- text", text)
+        
         viewModel.employeesViewModel.filter(with: text)
     }
 }
 //swiftlint:enable line_length
+
+
+
+
+
+
+
+
+
+
+

@@ -39,7 +39,7 @@ class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
         self.init()
         self.employees.accept(employees)
     }
-
+    
     // MARK: - Methods
 
     public func getEmployees() {

@@ -77,6 +77,9 @@ target 'Life' do
   # Transition
   pod 'Hero'
 
+# bindings for Moya for easier JSON serialization with RxSwift
+pod 'Moya-ModelMapper/RxSwift', '7.1.0'
+
   # 500 extentions
   # pod 'SwifterSwift'
 

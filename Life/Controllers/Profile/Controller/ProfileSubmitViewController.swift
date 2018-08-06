@@ -7,6 +7,13 @@
 //
 
 import UIKit
+import FileProvider
+import IQMediaPickerController
+import Photos
+import RxSwift
+import RxCocoa
+import SnapKit
+import UITextField_AutoSuggestion
 
 class ProfileSubmitViewController: UIViewController {
     
@@ -29,11 +36,21 @@ class ProfileSubmitViewController: UIViewController {
         return lbl
     }()
     
+    private(set) var viewModel = FindEmployeeByRoleViewModel()
+    private let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        bindExecutorList()
+        
         setupViews()
+    }
+    
+    private func bindExecutorList() {
+       
+        
     }
     
     private func setupViews() {
@@ -105,7 +122,7 @@ extension ProfileSubmitViewController: UITableViewDataSource {
         case (2,0):
             let cell = tableView.dequeueReusableCell(withIdentifier: UserPickExecutorCell.identifier, for: indexPath) as! UserPickExecutorCell
             
-            
+            cell.searchBarExecutor.delegate = self
             
             return cell
         case (3,0):
@@ -251,6 +268,21 @@ extension ProfileSubmitViewController: UIImagePickerControllerDelegate, UINaviga
         alertController.addAction(chooseFromLibraryAction)
         present(alertController, animated: true, completion: nil)
     }
+}
+
+extension ProfileSubmitViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let text = searchBar.text, text != "" else { return }
+        
+        
+        
+        performSearch()
+    }
+    
+    fileprivate func performSearch() {
+        
+    }
+   
 }
 
 class MyImagePickerController: UIImagePickerController {

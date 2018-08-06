@@ -17,6 +17,7 @@ enum EmployeesService {
     case birthdays
     case congratulate(code: String, text: String)
     
+    case findEmployeeByRole(fltTxt: String)
     case globalSearch(searchTxt: String, rows: Int, offset: Int, entityType: Int)
 }
 
@@ -38,6 +39,8 @@ extension EmployeesService: AuthorizedTargetType {
             return "/employees/\(code)/congratulations"
         case .globalSearch:
             return "/GlobalSearch"
+        case .findEmployeeByRole:
+            return "/employees/role/hr)"
         }
     }
 
@@ -48,7 +51,8 @@ extension EmployeesService: AuthorizedTargetType {
              .employeeInfo,
              .vacancies,
              .birthdays,
-             .globalSearch:
+             .globalSearch,
+             .findEmployeeByRole:
             return .get
         case .congratulate:
             return .post
@@ -80,6 +84,11 @@ extension EmployeesService: AuthorizedTargetType {
                              "entityType": entityType],
                 encoding: URLEncoding.default
             )
+        case .findEmployeeByRole(let fltTxt):
+            return .requestParameters(
+                parameters: ["fltTxt": fltTxt],
+                encoding: URLEncoding.default
+            )
         }
     }
 
@@ -97,8 +106,10 @@ extension EmployeesService: AuthorizedTargetType {
             return Bundle.main.stubJSONWith(name: "birthdays")
         case .congratulate:
             return "{\"status\": 200}".utf8Encoded
-        case .globalSearch:
+        case .globalSearch: // to do  
             return Bundle.main.stubJSONWith(name: "globalSearch")
+        case .findEmployeeByRole:
+            return Bundle.main.stubJSONWith(name: "findEmployeeByRole")
         }
     }
 
