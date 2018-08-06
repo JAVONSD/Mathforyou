@@ -106,6 +106,7 @@ class MyInfoViewControllerTableView: UIViewController {
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.contentInset = UIEdgeInsetsMake(0, 0, 200, 0)
+        tableView.bounces = false
     }
     
     fileprivate func setHeaderView() {
