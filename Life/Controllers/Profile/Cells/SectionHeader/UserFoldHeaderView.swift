@@ -45,7 +45,7 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
 //                let title = modelItem.isCollapsed ? "\(String(describing: modelItem.sectionTitle))" : "Скрыть"
 //                weakSelf.foldButton.setTitle(title, for: .normal)
                 
-                weakSelf.foldLabel.text = "\(String(describing: modelItem.sectionTitle))"
+                weakSelf.foldLabel.text = "  \(String(describing: modelItem.sectionTitle))"
             }
             
         }
@@ -103,7 +103,7 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
             $0.top.equalTo(self.snp.top)
             $0.right.equalTo(self.snp.right)
             $0.bottom.equalTo(self.snp.bottom)
-            $0.left.equalTo(self.snp.left).offset(20)
+            $0.left.equalTo(self.snp.left)
         }
     }
     

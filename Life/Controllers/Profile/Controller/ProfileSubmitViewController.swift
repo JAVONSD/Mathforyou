@@ -17,10 +17,16 @@ class ProfileSubmitViewController: UIViewController {
         return tv
     }()
 
-    let addedImageView: UIImageView = {
+    var image: UIImage?
+    var addedImageView: UIImageView = {
         let iv = UIImageView()
         iv.isHidden = true
         return iv
+    }()
+    var addPhotoLabel: UILabel = {
+        let lbl = UILabel()
+         lbl.isHidden = false
+        return lbl
     }()
     
     override func viewDidLoad() {
@@ -43,6 +49,8 @@ class ProfileSubmitViewController: UIViewController {
         
         tableView.register(UserSubmitDescriptionCell.self, forCellReuseIdentifier: UserSubmitDescriptionCell.identifier)
         tableView.register(UserSubmitImageCell.self, forCellReuseIdentifier: UserSubmitImageCell.identifier)
+        tableView.register(UserPickExecutorCell.self, forCellReuseIdentifier: UserPickExecutorCell.identifier)
+        tableView.register(UserSendButtonCell.self, forCellReuseIdentifier: UserSendButtonCell.identifier)
         
         tableView.separatorStyle = .none
         tableView.allowsSelection = true
@@ -71,7 +79,7 @@ class ProfileSubmitViewController: UIViewController {
 //MARK: - UITableView DataSource
 extension ProfileSubmitViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 4
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -90,6 +98,18 @@ extension ProfileSubmitViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: UserSubmitImageCell.identifier, for: indexPath) as! UserSubmitImageCell
             
             cell.addPhotoLabel.text = "Выбрать фото"
+            self.addPhotoLabel = cell.addPhotoLabel
+            self.addedImageView = cell.addImageView
+            
+            return cell
+        case (2,0):
+            let cell = tableView.dequeueReusableCell(withIdentifier: UserPickExecutorCell.identifier, for: indexPath) as! UserPickExecutorCell
+            
+            
+            
+            return cell
+        case (3,0):
+            let cell = tableView.dequeueReusableCell(withIdentifier: UserSendButtonCell.identifier, for: indexPath) as! UserSendButtonCell
             
             return cell
         default:
@@ -106,7 +126,6 @@ extension ProfileSubmitViewController: UITableViewDelegate {
         if indexPath.section == 0 || indexPath.section == 1 {
             // only two sections are tappable
             return indexPath
-            
         } else {
             // tap не срабатывает
             return nil
@@ -142,6 +161,8 @@ extension ProfileSubmitViewController: UITableViewDelegate {
             return 88
         case (1, 0):
             return addedImageView.isHidden ? 44 : 280
+        case (2, 0):
+            return 84
         default:
             return 44
         }
@@ -152,8 +173,12 @@ extension ProfileSubmitViewController: UITableViewDelegate {
         switch (section) {
         case (0):
             return "Описание"
-        default:
+        case 1:
             return "Изображение"
+        case 2:
+            return "Исполнитель"
+        default:
+            return ""
         }
     }
 }
@@ -169,31 +194,72 @@ extension ProfileSubmitViewController {
 extension ProfileSubmitViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
+        image = info[UIImagePickerControllerEditedImage] as? UIImage
+        if let theImage = image {
+            show(image: theImage)
+        }
+        tableView.reloadData()
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func show(image: UIImage) {
+        addedImageView.image = image
+        addedImageView.isHidden = false
+        addedImageView.frame = CGRect(x: 10, y: 10, width: 260, height: 260)
+        addPhotoLabel.isHidden = true
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        
+        dismiss(animated: true, completion: nil)
     }
     
     fileprivate func takePhotoWithCamera() {
-        
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .camera
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        present(imagePicker, animated: true, completion: nil)
     }
     
     fileprivate func choosePhotoFromLibrary() {
-        
+        let imagePicker = MyImagePickerController()
+        imagePicker.view.tintColor = view.tintColor
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        present(imagePicker, animated: true, completion: nil)
     }
     
     fileprivate func pickPhoto() {
-        
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            showPhotoMenu()
+        } else {
+            choosePhotoFromLibrary()
+        }
     }
     
     fileprivate func showPhotoMenu() {
-        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        let takePhotoAction = UIAlertAction(title: "Take Photo", style: .default) { _ in
+            self.takePhotoWithCamera()
+        }
+        alertController.addAction(takePhotoAction)
+        let chooseFromLibraryAction = UIAlertAction(title:"Choose From Library", style: .default) { _ in self.choosePhotoFromLibrary()
+        }
+        alertController.addAction(chooseFromLibraryAction)
+        present(alertController, animated: true, completion: nil)
     }
 }
 
-
+class MyImagePickerController: UIImagePickerController {
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
+}
 
 
 

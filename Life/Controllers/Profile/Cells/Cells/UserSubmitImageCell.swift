@@ -20,9 +20,10 @@ class UserSubmitImageCell: UITableViewCell {
     }()
     
     let addPhotoLabel: UILabel = {
-        let pl = UILabel()
-        pl.isUserInteractionEnabled = false
-        return pl
+        let lbl = UILabel()
+        lbl.isUserInteractionEnabled = false
+        lbl.borderColor = App.Color.black
+        return lbl
     }()
     
     static var identifier: String {
@@ -38,7 +39,7 @@ class UserSubmitImageCell: UITableViewCell {
     fileprivate func setupViews() {
         // add addPhotoLabel into self
         addSubview(addPhotoLabel)
-        addPhotoLabel.frame = CGRect(x: 15, y: 10, width: 120, height: 20)
+        addPhotoLabel.frame = CGRect(x: 30, y: 10, width: 120, height: 20)
         
         // add addImageView into self
         addSubview(addImageView)
