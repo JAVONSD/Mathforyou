@@ -14,6 +14,9 @@ import RxSwift
 import RxCocoa
 import SnapKit
 import UITextField_AutoSuggestion
+import Moya
+import Moya_ModelMapper
+import Material
 
 class ProfileSubmitViewController: UIViewController {
     
@@ -36,26 +39,35 @@ class ProfileSubmitViewController: UIViewController {
         return lbl
     }()
     
-    private(set) var viewModel = FindEmployeeByRoleViewModel()
+    lazy var hrCardTableView: HRCardTableView = {
+        let view = HRCardTableView()
+        view.isHidden = true
+        view.delegate = self
+        return view
+    }()
+
+    private(set) var viewModel: FindEmployeeByRoleViewModel!
     private let disposeBag = DisposeBag()
+    
+    private let provider = MoyaProvider<EmployeesService>(
+        plugins: [
+            AuthPlugin(tokenClosure: {
+                return User.current.token
+            })
+        ]
+    )
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-        bindExecutorList()
-        
+    
         setupViews()
     }
-    
-    private func bindExecutorList() {
-       
-        
-    }
-    
+
     private func setupViews() {
         setupTableView()
         setupCloseButton()
+        setupHRCardTableView()
     }
     
     fileprivate func setupTableView() {
@@ -71,6 +83,13 @@ class ProfileSubmitViewController: UIViewController {
         
         tableView.separatorStyle = .none
         tableView.allowsSelection = true
+    }
+    
+    fileprivate func setupHRCardTableView() {
+        view.addSubview(hrCardTableView)
+        hrCardTableView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     fileprivate func setupCloseButton() {
@@ -122,7 +141,7 @@ extension ProfileSubmitViewController: UITableViewDataSource {
         case (2,0):
             let cell = tableView.dequeueReusableCell(withIdentifier: UserPickExecutorCell.identifier, for: indexPath) as! UserPickExecutorCell
             
-            cell.searchBarExecutor.delegate = self
+            cell.delegate = self
             
             return cell
         case (3,0):
@@ -159,8 +178,10 @@ extension ProfileSubmitViewController: UITableViewDelegate {
         } else if indexPath.section == 1 && indexPath.row == 0 {
             tableView.deselectRow(at: indexPath, animated: true)
             pickPhoto()
+            
+        } else if indexPath.section == 2 && indexPath.row == 0 {
+            tableView.deselectRow(at: indexPath, animated: true)
         }
-      
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -185,7 +206,6 @@ extension ProfileSubmitViewController: UITableViewDelegate {
         }
     }
     
-    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch (section) {
         case (0):
@@ -197,6 +217,26 @@ extension ProfileSubmitViewController: UITableViewDelegate {
         default:
             return ""
         }
+    }
+}
+
+extension ProfileSubmitViewController: UserPickExecutorCellDelegate {
+    func showTableView(sender: UserPickExecutorCell, hrList: [HRPerson]) {
+        hrCardTableView.isHidden = false
+    }
+}
+
+extension ProfileSubmitViewController: HRCardTableViewDelegate {
+    func hideView(sender: HRCardTableView) {
+        
+        UIView.animate(withDuration: 0.3, delay: 0.1, usingSpringWithDamping: 1, initialSpringVelocity: 0.1, options: UIViewAnimationOptions.curveEaseInOut, animations: { [weak self] in
+            
+            self?.hrCardTableView.isHidden = true
+            
+        }) { (bool) in
+            
+        }
+        
     }
 }
 
@@ -268,21 +308,6 @@ extension ProfileSubmitViewController: UIImagePickerControllerDelegate, UINaviga
         alertController.addAction(chooseFromLibraryAction)
         present(alertController, animated: true, completion: nil)
     }
-}
-
-extension ProfileSubmitViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let text = searchBar.text, text != "" else { return }
-        
-        
-        
-        performSearch()
-    }
-    
-    fileprivate func performSearch() {
-        
-    }
-   
 }
 
 class MyImagePickerController: UIImagePickerController {

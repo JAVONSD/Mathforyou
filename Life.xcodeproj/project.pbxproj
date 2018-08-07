@@ -34,6 +34,7 @@
 		9D2AF02921107D7E00E5995E /* UserProfileFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2AF02821107D7E00E5995E /* UserProfileFlow.swift */; };
 		9D2C99CB2109E164000ACD4B /* NewsSearchHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D2C99CA2109E164000ACD4B /* NewsSearchHeaderCell.swift */; };
 		9D3F77F0210DF0D80070227A /* SearchNewsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D3F77EF210DF0D80070227A /* SearchNewsViewModel.swift */; };
+		9D5499D921195D00005420A3 /* HRCardTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5499D821195D00005420A3 /* HRCardTableView.swift */; };
 		9D588CCE2111B810007D9B84 /* MyInfoDataSourse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D588CCD2111B810007D9B84 /* MyInfoDataSourse.swift */; };
 		9D588CD02111C7C2007D9B84 /* UserHeaderTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D588CCF2111C7C2007D9B84 /* UserHeaderTableCell.swift */; };
 		9D588CD22111E3A8007D9B84 /* UserInfoHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D588CD12111E3A8007D9B84 /* UserInfoHeaderFooterView.swift */; };
@@ -52,6 +53,7 @@
 		9DCFB621210C5A4B008515EF /* NewsSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCFB620210C5A4B008515EF /* NewsSearch.swift */; };
 		9DCFB623210DBD9B008515EF /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCFB622210DBD9B008515EF /* ResultView.swift */; };
 		9DDD6860211589B100BB33B3 /* UserEducationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDD685F211589B100BB33B3 /* UserEducationCell.swift */; };
+		9DF56BBB2119521B005A3E3E /* HRPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF56BBA2119521B005A3E3E /* HRPerson.swift */; };
 		9DF738CC21075F9200953214 /* UIGestureRecognizer+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF738CB21075F9200953214 /* UIGestureRecognizer+Extentions.swift */; };
 		C7054BB12041767C00A8ED1A /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = C7054BB02041767B00A8ED1A /* Notification.swift */; };
 		C7054BB32041782300A8ED1A /* notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = C7054BB22041782300A8ED1A /* notifications.json */; };
@@ -518,6 +520,7 @@
 		9D2AF02821107D7E00E5995E /* UserProfileFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileFlow.swift; sourceTree = "<group>"; };
 		9D2C99CA2109E164000ACD4B /* NewsSearchHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearchHeaderCell.swift; sourceTree = "<group>"; };
 		9D3F77EF210DF0D80070227A /* SearchNewsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewsViewModel.swift; sourceTree = "<group>"; };
+		9D5499D821195D00005420A3 /* HRCardTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRCardTableView.swift; sourceTree = "<group>"; };
 		9D588CCD2111B810007D9B84 /* MyInfoDataSourse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoDataSourse.swift; sourceTree = "<group>"; };
 		9D588CCF2111C7C2007D9B84 /* UserHeaderTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserHeaderTableCell.swift; sourceTree = "<group>"; };
 		9D588CD12111E3A8007D9B84 /* UserInfoHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeaderFooterView.swift; sourceTree = "<group>"; };
@@ -536,6 +539,7 @@
 		9DCFB620210C5A4B008515EF /* NewsSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearch.swift; sourceTree = "<group>"; };
 		9DCFB622210DBD9B008515EF /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 		9DDD685F211589B100BB33B3 /* UserEducationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEducationCell.swift; sourceTree = "<group>"; };
+		9DF56BBA2119521B005A3E3E /* HRPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRPerson.swift; sourceTree = "<group>"; };
 		9DF738CB21075F9200953214 /* UIGestureRecognizer+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Extentions.swift"; sourceTree = "<group>"; };
 		A5856C72266F971904DBA28A /* Pods-Life.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life.release.xcconfig"; path = "Pods/Target Support Files/Pods-Life/Pods-Life.release.xcconfig"; sourceTree = "<group>"; };
 		BB877A7D8C856CDF13C84955 /* Pods-LifeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-LifeTests/Pods-LifeTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -1156,6 +1160,7 @@
 				9D6BFD2F2116BAC8007B86A4 /* UserSubmitImageCell.swift */,
 				9DA3499321180A9500FF90B1 /* UserPickExecutorCell.swift */,
 				9DA349AB2118199D00FF90B1 /* UserSendButtonCell.swift */,
+				9D5499D821195D00005420A3 /* HRCardTableView.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1504,6 +1509,7 @@
 				C7054BB02041767B00A8ED1A /* Notification.swift */,
 				C7A241AB204A50A200994840 /* System.swift */,
 				9DCFB620210C5A4B008515EF /* NewsSearch.swift */,
+				9DF56BBA2119521B005A3E3E /* HRPerson.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2697,8 +2703,10 @@
 				"${BUILT_PRODUCTS_DIR}/Lightbox/Lightbox.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
+				"${BUILT_PRODUCTS_DIR}/ModelMapper/Mapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/Moya-ModelMapper/Moya_ModelMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/PINCache/PINCache.framework",
 				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
@@ -2708,6 +2716,7 @@
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxOptional/RxOptional.framework",
 				"${BUILT_PRODUCTS_DIR}/RxRealm/RxRealm.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SCSiriWaveformView/SCSiriWaveformView.framework",
@@ -2738,8 +2747,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lightbox.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya_ModelMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINCache.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
@@ -2749,6 +2760,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxOptional.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRealm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SCSiriWaveformView.framework",
@@ -2837,6 +2849,7 @@
 				C7D641B0203408C1001DCA98 /* ReferencesService.swift in Sources */,
 				C7B28ECC20727C330043E0DB /* TabNode.swift in Sources */,
 				C7D64215203463E0001DCA98 /* Flow.swift in Sources */,
+				9DF56BBB2119521B005A3E3E /* HRPerson.swift in Sources */,
 				C70ECFD1203AB83800710DB5 /* SlideCell.swift in Sources */,
 				C7AB6F72204BE8F500328E17 /* FileService.swift in Sources */,
 				C7A2745E20539A840026B549 /* TagObject.swift in Sources */,
@@ -3128,6 +3141,7 @@
 				C73EB29D2032F9B100429921 /* Utilities.swift in Sources */,
 				C7F7CB73203C7442007B9D1E /* DashboardGalleryCell.swift in Sources */,
 				C79251FD2031A16700CDFBBA /* MyInfoContactView.swift in Sources */,
+				9D5499D921195D00005420A3 /* HRCardTableView.swift in Sources */,
 				C792634C2037D24F00067371 /* Lenta.swift in Sources */,
 				C7A2746120539B1E0026B549 /* TagsProvider.swift in Sources */,
 				C73EB2A92032F9B100429921 /* CLLocationManager+Rx.swift in Sources */,

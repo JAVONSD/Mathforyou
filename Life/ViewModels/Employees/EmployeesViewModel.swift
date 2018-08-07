@@ -67,6 +67,7 @@ class EmployeesViewModel: NSObject, ListDiffable, ViewModel {
 
                 switch response {
                 case .success(let json):
+         
                     if let jsonData = (try? JSONSerialization.jsonObject(
                             with: json.data,
                             options: []
@@ -236,6 +237,7 @@ class EmployeeViewModel: NSObject, ViewModel, ListDiffable {
             .subscribe { response in
                 switch response {
                 case .success(let json):
+                    
                     if let employee = try? JSONDecoder().decode(Employee.self, from: json.data) {
                         self.employee.login = employee.login
                         self.employee.jobPosition = employee.jobPosition

@@ -7,26 +7,30 @@
 //
 
 import Foundation
-import Moya
 import RealmSwift
 import RxSwift
 import RxCocoa
+import Moya
+import Moya_ModelMapper
+import RxOptional
+import Mapper
 
-class FindEmployeeByRoleViewModel: NSObject, ViewModel {
+
+struct FindEmployeeByRoleViewModel {
     
+//    private(set) var loading = BehaviorRelay<Bool>(value: false)
+//    private(set) var didLoadEmployees = false
+//
+//    let employees = BehaviorRelay<[EmployeeViewModel]>(value: [])
+//    let filteredEmployees = BehaviorRelay<[EmployeeViewModel]>(value: [])
+//
+//    var filterText = Observable.just("")
+//
+//    let onSuccess = PublishSubject<Void>()
+//    let onError = PublishSubject<Error>()
+    
+    //---------
     private let disposeBag = DisposeBag()
-    
-    private(set) var loading = BehaviorRelay<Bool>(value: false)
-    private(set) var didLoadEmployees = false
-    
-    let employees = BehaviorRelay<[EmployeeViewModel]>(value: [])
-    let filteredEmployees = BehaviorRelay<[EmployeeViewModel]>(value: [])
-    
-    var filterText = Observable.just("")
-    
-    let onSuccess = PublishSubject<Void>()
-    let onError = PublishSubject<Error>()
-    
     private let provider = MoyaProvider<EmployeesService>(
         plugins: [
             AuthPlugin(tokenClosure: {
@@ -35,9 +39,8 @@ class FindEmployeeByRoleViewModel: NSObject, ViewModel {
         ]
     )
     
-    convenience init(employees: [EmployeeViewModel]) {
-        self.init()
-    }
+    let hrName: Observable<String>
+    
 
 }
 
@@ -45,28 +48,14 @@ class FindEmployeeByRoleViewModel: NSObject, ViewModel {
 // MARK: - Methods
 extension FindEmployeeByRoleViewModel {
     
-    
+   
 }
 
-extension FindEmployeeByRoleViewModel: Mockable {
-    typealias T = FindEmployeeByRoleViewModel
-    
-    static func sample() -> FindEmployeeByRoleViewModel {
-        var employees = [EmployeeViewModel]()
-        for _ in 0..<2 {
-            let json = [
-                "fullname": "Фамилия Имя",
-                "jobPosition": "Должность"
-            ]
-            if let suggestion = try? JSONDecoder().decode(Employee.self, from: json.toJSONData()) {
-                let item = EmployeeViewModel(employee: suggestion)
-                employees.append(item)
-            }
-        }
-        
-        return FindEmployeeByRoleViewModel(employees: employees)
-    }
+extension FindEmployeeByRoleViewModel {
+  
 }
+
+
 
 
 

@@ -9,6 +9,12 @@
 import Foundation
 import Moya
 
+private extension String {
+    var URLEscapedString: String {
+        return self.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed)!
+    }
+}
+
 enum EmployeesService {
     case employees
     case search(text: String, top: Int)
@@ -37,10 +43,11 @@ extension EmployeesService: AuthorizedTargetType {
             return "/employeesEvents"
         case .congratulate(let code, _):
             return "/employees/\(code)/congratulations"
+            
         case .globalSearch:
             return "/GlobalSearch"
         case .findEmployeeByRole:
-            return "/employees/role/hr)"
+            return "/employees/role/hr"
         }
     }
 
@@ -66,6 +73,7 @@ extension EmployeesService: AuthorizedTargetType {
              .vacancies,
              .birthdays:
             return .requestPlain
+            
         case let .search(text, top):
             return .requestParameters(
                 parameters: ["filterText": text, "top": top],
@@ -77,6 +85,7 @@ extension EmployeesService: AuthorizedTargetType {
                 encoding: JSONEncoding.default
             )
         case let .globalSearch(searchTxt, rows, offset, entityType):
+            // FIXME: - remove parameters
             return .requestParameters(
                 parameters: ["searchTxt": searchTxt,
                              "rows": rows,
@@ -84,11 +93,12 @@ extension EmployeesService: AuthorizedTargetType {
                              "entityType": entityType],
                 encoding: URLEncoding.default
             )
-        case .findEmployeeByRole(let fltTxt):
+        case .findEmployeeByRole(let fltText):
             return .requestParameters(
-                parameters: ["fltTxt": fltTxt],
+                parameters: ["fltTxt": fltText],
                 encoding: URLEncoding.default
             )
+
         }
     }
 
@@ -120,6 +130,7 @@ extension EmployeesService: AuthorizedTargetType {
     var needsAuth: Bool {
         return true
     }
+    
 
 }
 

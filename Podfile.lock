@@ -29,9 +29,19 @@ PODS:
   - Material/Core (2.16.3):
     - Motion (~> 1.4.3)
   - MBProgressHUD (1.1.0)
+  - ModelMapper (8.0.0)
   - Motion (1.4.3):
     - Motion/Core (= 1.4.3)
   - Motion/Core (1.4.3)
+  - Moya (11.0.2):
+    - Moya/Core (= 11.0.2)
+  - Moya-ModelMapper/Core (7.1.0):
+    - ModelMapper
+    - Moya (~> 11.0)
+  - Moya-ModelMapper/RxSwift (7.1.0):
+    - Moya-ModelMapper/Core
+    - Moya/RxSwift (~> 11.0)
+    - RxSwift
   - Moya/Core (11.0.2):
     - Alamofire (~> 4.1)
     - Result (~> 3.0)
@@ -65,6 +75,9 @@ PODS:
     - Realm (= 3.7.4)
   - Result (3.2.4)
   - RxCocoa (4.2.0):
+    - RxSwift (~> 4.0)
+  - RxOptional (3.5.0):
+    - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
   - RxRealm (0.7.5):
     - RealmSwift (~> 3.0)
@@ -103,10 +116,12 @@ DEPENDENCIES:
   - Lightbox (~> 2.0)
   - Material (~> 2.0)
   - MBProgressHUD (~> 1.1.0)
+  - Moya-ModelMapper/RxSwift (= 7.1.0)
   - Moya/RxSwift (~> 11.0)
   - NVActivityIndicatorView (~> 4.0)
   - PopupDialog (~> 0.7)
   - RxCocoa (~> 4.0)
+  - RxOptional
   - RxRealm (~> 0.7)
   - SnapKit (~> 4.0)
   - SwiftLint
@@ -136,8 +151,10 @@ SPEC CHECKSUMS:
   Lightbox: 2dc267df8be2285bc7724cb11cbbf4aaaf59dced
   Material: 7e587f1625457a7656e32ef3d353de9911166ca6
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
+  ModelMapper: a258c5f8e1422e0e826c8265a3e89ae1b329c3a6
   Motion: 153ba49692997888556c7a95207278a8b1f8be95
   Moya: a725035953bc1c0eb1be505ab903984501d82440
+  Moya-ModelMapper: 35209257d9e886cedf91289559a41723f5fbd095
   NVActivityIndicatorView: 963f62bf9f993fcf23218e55958e5b1761b9504c
   PINCache: d195fdba255283f7e9900a55e3cced377f431f9b
   PINOperation: a6219e6fc9db9c269eb7a7b871ac193bcf400aac
@@ -147,6 +164,7 @@ SPEC CHECKSUMS:
   RealmSwift: a45861b21c180f5cf0f122144b9759fa8dde3e9e
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   RxCocoa: 0b54909c902e1e581212a03e690bbd94032d8baa
+  RxOptional: bd32ff8ca9df4177683d56ffeb618a9d4d5d5cad
   RxRealm: a6c6c0a07cb61f34209969ca6657734edfdfff30
   RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
   SCSiriWaveformView: 15b9dd6f94c7536e2032b34a35c6ff74d38c7411
@@ -158,6 +176,6 @@ SPEC CHECKSUMS:
   UITextField_AutoSuggestion: ba430510ec9ec00a4a7091fd9d24032d2721f641
   Yoga: 81670877477311136b1b3f69a6307ce62e1c89cf
 
-PODFILE CHECKSUM: 04c9d1e120d4bf4227074cb2fe44310e555b61a3
+PODFILE CHECKSUM: f17dcb12e921c71c264db6a3db4f58b44e834f30
 
 COCOAPODS: 1.4.0
