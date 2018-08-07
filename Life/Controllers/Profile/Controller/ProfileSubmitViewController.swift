@@ -153,10 +153,17 @@ extension ProfileSubmitViewController: UITableViewDataSource {
         case (3,0):
             let cell = tableView.dequeueReusableCell(withIdentifier: UserSendButtonCell.identifier, for: indexPath) as! UserSendButtonCell
             
+            cell.sendButton.addTarget(self, action: #selector(sendData), for: .touchUpInside)
+            
             return cell
         default:
             return UITableViewCell()
         }
+    }
+    
+    @objc
+    private func sendData() {
+        print("---------------")
     }
   
 }
@@ -165,8 +172,8 @@ extension ProfileSubmitViewController: UITableViewDataSource {
 extension ProfileSubmitViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        if indexPath.section == 0 || indexPath.section == 1 {
-            // only two sections are tappable
+        if indexPath.section == 0 || indexPath.section == 1 || indexPath.section == 3 {
+            // only three sections are tappable
             return indexPath
         } else {
             // tap здесь не срабатывает
@@ -185,7 +192,7 @@ extension ProfileSubmitViewController: UITableViewDelegate {
             tableView.deselectRow(at: indexPath, animated: true)
             pickPhoto()
             
-        } else if indexPath.section == 2 && indexPath.row == 0 {
+        } else if indexPath.section == 3 && indexPath.row == 0 {
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }

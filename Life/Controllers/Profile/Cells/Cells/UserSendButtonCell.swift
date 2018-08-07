@@ -16,6 +16,7 @@ class UserSendButtonCell: UITableViewCell {
         let btn = UIButton()
         btn.backgroundColor = App.Color.azure
         btn.layer.cornerRadius = 10
+        btn.setTitle(NSLocalizedString("Отправить", comment: ""), for: .normal)
         return btn
     }()
     
@@ -25,7 +26,6 @@ class UserSendButtonCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        
     }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -47,6 +47,14 @@ class UserSendButtonCell: UITableViewCell {
     }
     
 }
+
+
+
+
+
+
+
+
 
 
 
