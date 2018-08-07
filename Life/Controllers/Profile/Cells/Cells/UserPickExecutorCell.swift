@@ -27,7 +27,7 @@ class UserPickExecutorCell: UITableViewCell {
     
     let executorTextField: UITextField = {
         let tf = UITextField()
-        tf.placeholder = "Выберите исполнителя"
+        tf.placeholder = NSLocalizedString("Выберите исполнителя", comment: "")
         tf.borderColor = App.Color.black
         tf.borderStyle = .roundedRect
         return tf
@@ -75,8 +75,6 @@ class UserPickExecutorCell: UITableViewCell {
     }
     
     func searchApi(name: String) {
-        print("---- name", name)
-        
         provider
             .rx
             .request(EmployeesService.findEmployeeByRole(fltTxt: name))
@@ -84,7 +82,6 @@ class UserPickExecutorCell: UITableViewCell {
             .subscribe { [weak self] event in
                 switch event {
                 case .success(let hrsList):
-                    
                     guard let weakSelf = self, let list = hrsList else { return }
                     
                     weakSelf.delegate?.showTableView(sender: weakSelf, hrList: list)
@@ -95,7 +92,6 @@ class UserPickExecutorCell: UITableViewCell {
         }.disposed(by: disposeBag)
 
     }
-    
     
     fileprivate func setupViews() {
         // add executorTextField into self

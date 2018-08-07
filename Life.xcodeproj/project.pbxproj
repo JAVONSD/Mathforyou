@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		2645CE45D7BDDF7B375C06AD /* Pods_Life.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6099E4209624F63B0227327D /* Pods_Life.framework */; };
-		9D06DF712118523D0093B6EC /* FindEmployeeByRoleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D06DF702118523D0093B6EC /* FindEmployeeByRoleViewModel.swift */; };
 		9D0866EC210AED5D000FE419 /* Methods-Helpers.strings in Resources */ = {isa = PBXBuildFile; fileRef = 9D0866EB210AED5D000FE419 /* Methods-Helpers.strings */; };
 		9D086704210B2A37000FE419 /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D086703210B2A37000FE419 /* MenuBar.swift */; };
 		9D08670F210B595A000FE419 /* SearchResultCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D086707210B595A000FE419 /* SearchResultCell.swift */; };
@@ -494,7 +493,6 @@
 		5C89D515CE0C2B4C9EF00C4C /* Pods-LifeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LifeUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LifeUITests/Pods-LifeUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		6099E4209624F63B0227327D /* Pods_Life.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Life.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		639719E8416CCF3FD63614E7 /* Pods-Life.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Life.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Life/Pods-Life.debug.xcconfig"; sourceTree = "<group>"; };
-		9D06DF702118523D0093B6EC /* FindEmployeeByRoleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindEmployeeByRoleViewModel.swift; sourceTree = "<group>"; };
 		9D0866EB210AED5D000FE419 /* Methods-Helpers.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = "Methods-Helpers.strings"; sourceTree = "<group>"; };
 		9D086703210B2A37000FE419 /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		9D086707210B595A000FE419 /* SearchResultCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResultCell.swift; sourceTree = "<group>"; };
@@ -2241,7 +2239,6 @@
 			children = (
 				C7DE698D20479FB800E028BC /* StuffViewModel.swift */,
 				C7D6423B20346FC0001DCA98 /* EmployeesViewModel.swift */,
-				9D06DF702118523D0093B6EC /* FindEmployeeByRoleViewModel.swift */,
 				C7D832C42035C4ED00282891 /* BirthdaysViewModel.swift */,
 				C7D832C62035C4FC00282891 /* VacanciesViewModel.swift */,
 				C7F4EAE42071F42400898204 /* CongratulateViewModel.swift */,
@@ -2861,7 +2858,6 @@
 				C7D832C52035C4ED00282891 /* BirthdaysViewModel.swift in Sources */,
 				C7A2745C2053894C0026B549 /* RequestObject.swift in Sources */,
 				9D1D10D1210F1E0A009525AD /* GlobalSearchViewController.swift in Sources */,
-				9D06DF712118523D0093B6EC /* FindEmployeeByRoleViewModel.swift in Sources */,
 				C73EB2A82032F9B100429921 /* AnimatableSectionModelType.swift in Sources */,
 				C7D641F720344DC0001DCA98 /* AppTabBarController.swift in Sources */,
 				C7A274652053CD780026B549 /* ImageObject.swift in Sources */,

@@ -24,6 +24,7 @@ class ProfileSubmitViewController: UIViewController {
         let tv = UITableView(frame: .zero, style: .plain)
         tv.dataSource = self
         tv.delegate = self
+        tv.contentInset = UIEdgeInsetsMake(0, 0, 100, 0)
         return tv
     }()
 
@@ -45,8 +46,12 @@ class ProfileSubmitViewController: UIViewController {
         view.delegate = self
         return view
     }()
+    
+    var pickedHRTextfield: UITextField = {
+        let tf = UITextField()
+        return tf
+    }()
 
-    private(set) var viewModel: FindEmployeeByRoleViewModel!
     private let disposeBag = DisposeBag()
     
     private let provider = MoyaProvider<EmployeesService>(
@@ -133,7 +138,7 @@ extension ProfileSubmitViewController: UITableViewDataSource {
         case (1, 0):
             let cell = tableView.dequeueReusableCell(withIdentifier: UserSubmitImageCell.identifier, for: indexPath) as! UserSubmitImageCell
             
-            cell.addPhotoLabel.text = "Выбрать фото"
+            cell.addPhotoLabel.text = NSLocalizedString("Выбрать фото", comment: "")
             self.addPhotoLabel = cell.addPhotoLabel
             self.addedImageView = cell.addImageView
             
@@ -141,6 +146,7 @@ extension ProfileSubmitViewController: UITableViewDataSource {
         case (2,0):
             let cell = tableView.dequeueReusableCell(withIdentifier: UserPickExecutorCell.identifier, for: indexPath) as! UserPickExecutorCell
             
+            self.pickedHRTextfield = cell.executorTextField
             cell.delegate = self
             
             return cell
@@ -163,7 +169,7 @@ extension ProfileSubmitViewController: UITableViewDelegate {
             // only two sections are tappable
             return indexPath
         } else {
-            // tap не срабатывает
+            // tap здесь не срабатывает
             return nil
         }
     }
@@ -209,43 +215,39 @@ extension ProfileSubmitViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch (section) {
         case (0):
-            return "Описание"
+            return NSLocalizedString("Описание", comment: "")
         case 1:
-            return "Изображение"
+            return NSLocalizedString("Изображение", comment: "")
         case 2:
-            return "Исполнитель"
+            return NSLocalizedString("Исполнитель", comment: "")
         default:
             return ""
         }
     }
 }
 
+//MARK: - UserPickExecutorCell Delegate
 extension ProfileSubmitViewController: UserPickExecutorCellDelegate {
     func showTableView(sender: UserPickExecutorCell, hrList: [HRPerson]) {
+        // Cell tels to show card with table
         hrCardTableView.isHidden = false
+        hrCardTableView.hrPersons = hrList
     }
 }
 
+// Card tels that person is picked
 extension ProfileSubmitViewController: HRCardTableViewDelegate {
-    func hideView(sender: HRCardTableView) {
-        
-        UIView.animate(withDuration: 0.3, delay: 0.1, usingSpringWithDamping: 1, initialSpringVelocity: 0.1, options: UIViewAnimationOptions.curveEaseInOut, animations: { [weak self] in
-            
-            self?.hrCardTableView.isHidden = true
-            
-        }) { (bool) in
-            
+    func hideView(sender: HRCardTableView, hr: HRPerson) {
+        DispatchQueue.main.async { [weak self] in
+            UIView.animate(withDuration: 0.3, delay: 0.1, usingSpringWithDamping: 1, initialSpringVelocity: 0.1, options: UIViewAnimationOptions.curveEaseInOut, animations: {
+                
+                self?.pickedHRTextfield.text = hr.fullname
+                self?.hrCardTableView.isHidden = true
+            })
         }
-        
     }
 }
 
-//MARK: - Navigation
-extension ProfileSubmitViewController {
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-    }
-}
 
 //MARK: - UIImagePickerController Delegate
 extension ProfileSubmitViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
