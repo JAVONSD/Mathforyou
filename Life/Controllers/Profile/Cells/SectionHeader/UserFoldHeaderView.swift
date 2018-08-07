@@ -25,8 +25,6 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
             
             setCollapsed(collapsed: modelItem.isCollapsed)
             
-            
-            
             DispatchQueue.main.async { [weak self] in
                 guard
                 let weakSelf = self,
@@ -45,7 +43,7 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
 //                let title = modelItem.isCollapsed ? "\(String(describing: modelItem.sectionTitle))" : "Скрыть"
 //                weakSelf.foldButton.setTitle(title, for: .normal)
                 
-                weakSelf.foldLabel.text = "  \(String(describing: modelItem.sectionTitle))"
+                weakSelf.foldLabel.text = " \(String(describing: modelItem.sectionTitle))"
             }
             
         }
@@ -61,18 +59,7 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
     
     // We will use the section variable to store the current section index
     var section: Int = 0
-    
-//    let foldButton: UIButton = {
-//        let btn = UIButton(type: .system)
-//        btn.showsTouchWhenHighlighted = true
-//        btn.setTitleColor(App.Color.azure, for: .normal)
-//        btn.titleLabel?.font = App.Font.subtitle
-//        btn.titleEdgeInsets = UIEdgeInsetsMake(0, -40, 0, 0)
-//        btn.addTarget(self, action: #selector(didTapHeader), for: .touchUpInside)
-//        btn.backgroundColor = .white
-//        return btn
-//    }()
-    
+
     let foldLabel: UILabel = {
         let lbl = UILabel()
         lbl.textColor = App.Color.azure
@@ -83,6 +70,7 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
+        backgroundColor = .white
         
         // To detect a user interaction we can set a TapGestureRecognizer in our header
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapHeader))
@@ -93,17 +81,12 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
     }
  
     fileprivate func setupViews() {
-//        addSubview(foldButton)
-//        foldButton.snp.makeConstraints {
-//            $0.edges.equalToSuperview()
-//        }
-        
         addSubview(foldLabel)
         foldLabel.snp.makeConstraints {
             $0.top.equalTo(self.snp.top)
             $0.right.equalTo(self.snp.right)
             $0.bottom.equalTo(self.snp.bottom)
-            $0.left.equalTo(self.snp.left)
+            $0.left.equalTo(self.snp.left).offset(20)
         }
     }
     
@@ -118,7 +101,6 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
                 break
             }
         }
-        
         delegate?.toggleSection(header: self, section: section)
     }
     

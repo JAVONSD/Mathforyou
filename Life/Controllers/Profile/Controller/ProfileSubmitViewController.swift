@@ -18,6 +18,7 @@ import Moya
 import Moya_ModelMapper
 import Material
 
+
 class ProfileSubmitViewController: UIViewController {
     
     lazy var tableView: UITableView = {
@@ -39,6 +40,10 @@ class ProfileSubmitViewController: UIViewController {
          lbl.isHidden = false
         return lbl
     }()
+    var descriptionTextView: UITextView = {
+        let tv = UITextView()
+        return tv
+    }()
     
     lazy var hrCardTableView: HRCardTableView = {
         let view = HRCardTableView()
@@ -54,13 +59,16 @@ class ProfileSubmitViewController: UIViewController {
 
     private let disposeBag = DisposeBag()
     
-    private let provider = MoyaProvider<EmployeesService>(
+    private let provider = MoyaProvider<UserProfileService>(
         plugins: [
             AuthPlugin(tokenClosure: {
                 return User.current.token
             })
         ]
     )
+    
+    var attachments = [URL]()
+    var hrperson: HRPerson?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -136,7 +144,8 @@ extension ProfileSubmitViewController: UITableViewDataSource {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
             let cell = tableView.dequeueReusableCell(withIdentifier: UserSubmitDescriptionCell.identifier, for: indexPath) as! UserSubmitDescriptionCell
-     
+            
+            self.descriptionTextView = cell.descriptionTextView
             
             return cell
         case (1, 0):
@@ -167,7 +176,36 @@ extension ProfileSubmitViewController: UITableViewDataSource {
     
     @objc
     private func sendData() {
-        print("---------------")
+        guard let hrperson = hrperson else { return }
+        
+        print("-- hrperson.code", hrperson.code)
+        print("-- descriptionTextView.text", descriptionTextView.text)
+        print("-- ", attachments[0])
+        
+        provider
+        .rx
+        .request(.errors(
+            executor: hrperson.code,
+            description: descriptionTextView.text,
+            attachments: attachments)
+            )
+            .filterSuccessfulStatusCodes()
+            .subscribe { [weak self] response in
+
+                switch response {
+                case .success(let json):
+                    
+                    print(json)
+                    
+                    self?.sendCloseAction()
+                  
+                case .error(let error):
+                    
+                    print(error)
+                }
+            }
+            .disposed(by: disposeBag)
+        
     }
   
 }
@@ -254,6 +292,7 @@ extension ProfileSubmitViewController: HRCardTableViewDelegate {
         DispatchQueue.main.async { [weak self] in
             UIView.animate(withDuration: 0.3, delay: 0.1, usingSpringWithDamping: 1, initialSpringVelocity: 0.1, options: UIViewAnimationOptions.curveEaseInOut, animations: {
                 if let hr = hr {
+                    self?.hrperson = hr
                     self?.pickedHRTextfield.text = hr.fullname
                 }
                 self?.hrCardTableView.isHidden = true
@@ -267,10 +306,35 @@ extension ProfileSubmitViewController: HRCardTableViewDelegate {
 extension ProfileSubmitViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        image = info[UIImagePickerControllerEditedImage] as? UIImage
-        if let theImage = image {
-            show(image: theImage)
+        
+//        image = info[UIImagePickerControllerEditedImage] as? UIImage
+//        if let theImage = image {
+//            show(image: theImage)
+//        }
+        
+        //---
+    
+        let imageUrl          = info[UIImagePickerControllerReferenceURL] as! NSURL
+        let imageName         = imageUrl.lastPathComponent
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first!
+        let photoURL          = NSURL(fileURLWithPath: documentDirectory)
+        let localPath         = photoURL.appendingPathComponent(imageName!)
+        let image             = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let data              = UIImagePNGRepresentation(image)
+        
+        do {
+            try data?.write(to: localPath!, options: Data.WritingOptions.atomic)
+        } catch {
+            // Catch exception here and act accordingly
         }
+        
+        if let url = localPath {
+            attachments.append(url)
+            show(image: image)
+        }
+        
+        //---
+        
         tableView.reloadData()
         dismiss(animated: true, completion: nil)
     }

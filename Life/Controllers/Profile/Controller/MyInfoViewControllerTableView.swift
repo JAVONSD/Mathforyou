@@ -110,9 +110,9 @@ class MyInfoViewControllerTableView: UIViewController {
     }
     
     fileprivate func setHeaderView() {
-        let header = UserInfoHeaderFooterView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 200))
+//        let header = UserInfoHeaderFooterView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 200))
 //        tableView.tableHeaderView = header
-        header.item = profile
+//        header.item = profile
     }
 
     // MARK: - Bind
