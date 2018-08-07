@@ -93,7 +93,11 @@ class ProfileSubmitViewController: UIViewController {
     fileprivate func setupHRCardTableView() {
         view.addSubview(hrCardTableView)
         hrCardTableView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.equalTo(view.snp.top)
+            $0.left.equalTo(view.snp.left)
+            $0.right.equalTo(view.snp.right)
+            $0.height.equalTo(300)
+            
         }
     }
     
@@ -242,13 +246,16 @@ extension ProfileSubmitViewController: UserPickExecutorCellDelegate {
     }
 }
 
-// Card tels that person is picked
+//MARK: - HRCardTableView Delegate
 extension ProfileSubmitViewController: HRCardTableViewDelegate {
-    func hideView(sender: HRCardTableView, hr: HRPerson) {
+    
+    // Card tels that person is picked
+    func hideView(sender: HRCardTableView, hr: HRPerson?) {
         DispatchQueue.main.async { [weak self] in
             UIView.animate(withDuration: 0.3, delay: 0.1, usingSpringWithDamping: 1, initialSpringVelocity: 0.1, options: UIViewAnimationOptions.curveEaseInOut, animations: {
-                
-                self?.pickedHRTextfield.text = hr.fullname
+                if let hr = hr {
+                    self?.pickedHRTextfield.text = hr.fullname
+                }
                 self?.hrCardTableView.isHidden = true
             })
         }

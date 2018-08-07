@@ -87,3 +87,8 @@ class SuggestionFormViewModel: NSObject {
         TagsProvider.getTags()
     }
 }
+
+
+
+
+

@@ -10,7 +10,7 @@ import UIKit
 import Material
 
 protocol HRCardTableViewDelegate: class {
-    func hideView(sender: HRCardTableView, hr: HRPerson)
+    func hideView(sender: HRCardTableView, hr: HRPerson?)
 }
 
 class HRCardTableView: UIView {
@@ -18,6 +18,7 @@ class HRCardTableView: UIView {
     weak var delegate: HRCardTableViewDelegate?
     
     open var dataSourceItems = [DataSourceItem]()
+    
     open var hrPersons: [HRPerson]? {
         didSet {
             guard let hrPersons = hrPersons else { return }
@@ -35,6 +36,7 @@ class HRCardTableView: UIView {
         }
     }
     
+    fileprivate var toolbar: Toolbar!
     fileprivate var tableView: TableView!
     fileprivate var card: Card!
     
@@ -52,25 +54,38 @@ class HRCardTableView: UIView {
     
     private func setupViews() {
         prepareTableView()
+        prepareToolbar()
         prepareCard()
     }
 }
 
 //MARK: - Material
 extension HRCardTableView {
-  
     fileprivate func prepareTableView() {
         tableView = TableView()
-        tableView.frame.size.height = 300
+        tableView.frame.size.height = 200
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(TableViewCell.self, forCellReuseIdentifier: "HRCardTableView")
+    }
+    
+    fileprivate func prepareToolbar() {
+        toolbar = Toolbar()
+        toolbar.title = NSLocalizedString("Закрыть", comment: "")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(closeAction))
+        toolbar.addGestureRecognizer(tap)
+    }
+    
+    @objc
+    func closeAction(sender: UITapGestureRecognizer) {
+        delegate?.hideView(sender: self, hr: nil)
     }
     
     fileprivate func prepareCard() {
         card = Card()
         card.depthPreset = .depth3
         card.contentView = tableView
+        card.bottomBar = toolbar
         self.addSubview(card)
         card.snp.makeConstraints {
             $0.top.equalTo(self.snp.top)

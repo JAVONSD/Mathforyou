@@ -25,11 +25,12 @@ class UserPickExecutorCell: UITableViewCell {
     
     weak var delegate: UserPickExecutorCellDelegate?
     
-    let executorTextField: UITextField = {
+    lazy var executorTextField: UITextField = {
         let tf = UITextField()
         tf.placeholder = NSLocalizedString("Выберите исполнителя", comment: "")
         tf.borderColor = App.Color.black
         tf.borderStyle = .roundedRect
+        tf.delegate = self
         return tf
     }()
 
@@ -108,6 +109,12 @@ class UserPickExecutorCell: UITableViewCell {
 
 }
 
+extension UserPickExecutorCell: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+    }
+    
+}
 
 
 

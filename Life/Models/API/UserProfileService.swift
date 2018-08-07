@@ -11,6 +11,11 @@ import Moya
 
 enum UserProfileService {
     case userProfile
+    case errors(
+        executor: String,
+        description: String,
+        attachments: [URL]
+    )
 }
 
 extension UserProfileService: AuthorizedTargetType {
@@ -19,6 +24,8 @@ extension UserProfileService: AuthorizedTargetType {
         switch self {
         case .userProfile:
             return "/UserProfile"
+        case .errors:
+            return "/UserProfile/errors"
         }
     }
 
@@ -26,6 +33,8 @@ extension UserProfileService: AuthorizedTargetType {
         switch self {
         case .userProfile:
             return .get
+        case .errors:
+            return .post
         }
     }
 
@@ -33,6 +42,18 @@ extension UserProfileService: AuthorizedTargetType {
         switch self {
         case .userProfile:
             return .requestPlain
+        case .errors(let executor, let description, let attachments):
+            var data = [MultipartFormData]()
+
+            for image in attachments {
+                let imageData = image.multipartFormData("Attachments")
+                data.append(imageData)
+            }
+            
+            data.append(description.multipartFormData("Description"))
+            data.append(executor.multipartFormData("Executor"))
+            
+            return .uploadMultipart(data)
         }
     }
 
@@ -40,6 +61,8 @@ extension UserProfileService: AuthorizedTargetType {
         switch self {
         case .userProfile:
             return Bundle.main.stubJSONWith(name: "user_profile")
+        case .errors:
+            return Bundle.main.stubJSONWith(name: "errors")
         }
     }
 
@@ -52,3 +75,8 @@ extension UserProfileService: AuthorizedTargetType {
     }
 
 }
+
+
+
+
+

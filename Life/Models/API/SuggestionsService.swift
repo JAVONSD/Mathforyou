@@ -86,6 +86,7 @@ extension SuggestionsService: AuthorizedTargetType {
             let title,
             let text,
             let tags):
+            
             var data = [MultipartFormData]()
 
             if let mainImage = mainImage {
