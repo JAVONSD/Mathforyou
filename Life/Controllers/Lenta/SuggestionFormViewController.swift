@@ -184,6 +184,7 @@ class SuggestionFormViewController: UIViewController, Stepper {
     }
 
     private func bindSendButton() {
+        
         suggestionFormView.sendButton
             .rx
             .tap
@@ -199,9 +200,15 @@ class SuggestionFormViewController: UIViewController, Stepper {
                 self?.viewModel.createSuggestion()
             })
             .disposed(by: disposeBag)
+        
+        //----
+        
         viewModel.isLoadingSubject.skip(1).subscribe(onNext: { [weak self] isLoading in
             self?.suggestionFormView.sendButton.buttonState = isLoading ? .loading : .normal
         }).disposed(by: disposeBag)
+        
+        //---
+        
         viewModel.suggestionCreatedSubject.subscribe(onNext: {[weak self] suggestion in
             if let didAddSuggestion = self?.didAddSuggestion {
                 var imageSize = ImageSize.init(width: 0, height: 0)
@@ -215,6 +222,9 @@ class SuggestionFormViewController: UIViewController, Stepper {
             }
             self?.step.accept(AppStep.createSuggestionDone)
         }).disposed(by: disposeBag)
+        
+        //---
+        
         viewModel.errorSubject.subscribe(onNext: {[weak self] error in
             let errorMessages = error.parseMessages()
             if let key = errorMessages.keys.first,

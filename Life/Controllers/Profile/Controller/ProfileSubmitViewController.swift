@@ -20,7 +20,7 @@ import Material
 
 
 class ProfileSubmitViewController: UIViewController {
-    
+
     lazy var tableView: UITableView = {
         let tv = UITableView(frame: .zero, style: .plain)
         tv.dataSource = self
@@ -69,6 +69,8 @@ class ProfileSubmitViewController: UIViewController {
     
     var attachments = [URL]()
     var hrperson: HRPerson?
+    
+    var isLoading = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -166,7 +168,7 @@ extension ProfileSubmitViewController: UITableViewDataSource {
         case (3,0):
             let cell = tableView.dequeueReusableCell(withIdentifier: UserSendButtonCell.identifier, for: indexPath) as! UserSendButtonCell
             
-            cell.sendButton.addTarget(self, action: #selector(sendData), for: .touchUpInside)
+            cell.sendButton.addTarget(self, action: #selector(ProfileSubmitViewController.sendData(_:)), for: .touchUpInside)
             
             return cell
         default:
@@ -175,13 +177,13 @@ extension ProfileSubmitViewController: UITableViewDataSource {
     }
     
     @objc
-    private func sendData() {
+    private func sendData(_ sender : Button) {
         guard let hrperson = hrperson else { return }
         
-        print("-- hrperson.code", hrperson.code)
-        print("-- descriptionTextView.text", descriptionTextView.text)
-        print("-- ", attachments[0])
+        isLoading = false
         
+        sender.buttonState = isLoading ? .loading : .normal
+    
         provider
         .rx
         .request(.errors(
@@ -191,16 +193,26 @@ extension ProfileSubmitViewController: UITableViewDataSource {
             )
             .filterSuccessfulStatusCodes()
             .subscribe { [weak self] response in
+                guard let weakSelf = self else { return }
+                
+                weakSelf.isLoading = true
+                sender.buttonState = weakSelf.isLoading ? .loading : .normal
 
                 switch response {
                 case .success(let json):
                     
                     print(json)
                     
-                    self?.sendCloseAction()
+                    weakSelf.sendCloseAction()
                   
                 case .error(let error):
                     
+                    let errorMessages = error.parseMessages()
+                    if let key = errorMessages.keys.first,
+                        let message = errorMessages[key] {
+                        weakSelf.showToast(message)
+                    }
+
                     print(error)
                 }
             }
@@ -306,13 +318,7 @@ extension ProfileSubmitViewController: HRCardTableViewDelegate {
 extension ProfileSubmitViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-//        image = info[UIImagePickerControllerEditedImage] as? UIImage
-//        if let theImage = image {
-//            show(image: theImage)
-//        }
-        
-        //---
+
     
         let imageUrl          = info[UIImagePickerControllerReferenceURL] as! NSURL
         let imageName         = imageUrl.lastPathComponent

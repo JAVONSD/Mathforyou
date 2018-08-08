@@ -12,11 +12,12 @@ import SnapKit
 
 class UserSendButtonCell: UITableViewCell {
     
-    let sendButton: UIButton = {
-        let btn = UIButton()
-        btn.backgroundColor = App.Color.azure
-        btn.layer.cornerRadius = 10
-        btn.setTitle(NSLocalizedString("Отправить", comment: ""), for: .normal)
+    let sendButton: Button = {
+        let btn = Button(
+            title: NSLocalizedString("send", comment: "").uppercased()
+        )
+//        btn.backgroundColor = App.Color.azure
+//        btn.layer.cornerRadius = 10
         return btn
     }()
     
