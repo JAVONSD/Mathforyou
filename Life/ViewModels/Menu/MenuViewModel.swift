@@ -28,14 +28,14 @@ extension MenuViewModel: Mockable {
             subtitle: "Просмотрено",
             image: ""
         )
-//        let menu3 = MenuItemViewModel(
-//            title: "BI Wiki",
-//            subtitle: "Текст",
-//            image: ""
-//        )
-        let menu4 = MenuItemViewModel(
+        let menu3 = MenuItemViewModel(
             title: NSLocalizedString("questions", comment: ""),
             subtitle: "Последний вопрос",
+            image: ""
+        )
+        let menu4 = MenuItemViewModel(
+            title: "Приложения",
+            subtitle: "BI-Group",
             image: ""
         )
         let menu5 = MenuItemViewModel(
@@ -47,7 +47,7 @@ extension MenuViewModel: Mockable {
         menuViewModel.items = [
             menu1,
             menu2,
-//            menu3,
+            menu3,
             menu4,
             menu5
         ]

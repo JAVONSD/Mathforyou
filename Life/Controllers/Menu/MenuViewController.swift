@@ -121,15 +121,16 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
                     let title = NSLocalizedString("Развитие", comment: "")
                     self?.openEmptyScreen(with: title)
                 }
-//                else if pair.0.row == 2 {
-//                    let title = NSLocalizedString("BI Wiki", comment: "")
-//                    self?.openEmptyScreen(with: title)
-//                }
                 else if pair.0.row == 2 {
 //                    self?.step.accept(AppStep.topQuestions)
-                    let title = NSLocalizedString("questions", comment: "")
+                    let title = NSLocalizedString("Опросник", comment: "")
                     self?.openEmptyScreen(with: title)
-                } else if pair.0.row == 3 {
+                }
+                else if pair.0.row == 3 {
+                    let title = NSLocalizedString("Приложения", comment: "")
+                    self?.openApps(with: title)
+                }
+                else if pair.0.row == 4 {
                     self?.askToConfirmLogout()
                 }
             })
@@ -141,6 +142,20 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
     }
 
     // MARK: - Methods
+    
+    private func openApps(with title: String) {
+        let vc = AppsViewController()
+        
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
+        layout.minimumInteritemSpacing = 0
+        layout.minimumLineSpacing = 10
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .white
+        vc.collectionView = collectionView
+        vc.titleStr = title
+        parent?.navigationController?.pushViewController(vc, animated: true)
+    }
 
     private func openEmptyScreen(with title: String) {
         let vc = EmptyTableViewController(style: .plain)
