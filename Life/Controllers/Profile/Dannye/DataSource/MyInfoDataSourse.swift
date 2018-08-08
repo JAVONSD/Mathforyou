@@ -20,6 +20,8 @@ class MyInfoDataSourse:  NSObject {
     var reloadSections: ( (_ section: Int) -> Void )?
     var showVCDetails: ( (_ profile: UserProfile) -> Void )?
     var showVCHistoryDetails: ( (_ profile: UserProfile) -> Void )?
+    var scrolToRow: ( (_ indexPath: IndexPath) -> Void )?
+    var indexPathForscroll: IndexPath!
     
     private let disposeBag = DisposeBag()
     
@@ -122,6 +124,8 @@ extension MyInfoDataSourse: UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(withIdentifier: UserPersonalCell.identifier, for: indexPath) as? UserPersonalCell {
                 cell.modelItem = modelItem
                 
+                self.indexPathForscroll = indexPath
+                
                 if indexPath.row == 0 {
                     cell.txtLabel.text = NSLocalizedString("ИИН", comment: "")
                     cell.detailLabel.text = NSLocalizedString("\(String(describing: profile?.iin ?? ""))", comment: "")
@@ -147,6 +151,8 @@ extension MyInfoDataSourse: UITableViewDataSource {
             if let cell = tableView.dequeueReusableCell(withIdentifier: UserPersonalCell.identifier, for: indexPath) as? UserPersonalCell {
                 cell.modelItem = modelItem
                 
+                self.indexPathForscroll = indexPath
+                
                 if indexPath.row == 0 {
                     cell.txtLabel.text = NSLocalizedString("Корпоративный стаж (мес)", comment: "")
                     cell.detailLabel.text = NSLocalizedString("\(String(describing: profile?.corporateExperience ?? ""))", comment: "")
@@ -165,7 +171,9 @@ extension MyInfoDataSourse: UITableViewDataSource {
         case .medical:
             if let cell = tableView.dequeueReusableCell(withIdentifier: UserPersonalCell.identifier, for: indexPath) as? UserPersonalCell {
                 cell.modelItem = modelItem
-                                
+                
+                self.indexPathForscroll = indexPath
+                
                 if indexPath.row == 0 {
                     cell.txtLabel.text = NSLocalizedString("Последнее прохождение", comment: "")
                     cell.detailLabel.text = NSLocalizedString("\(String(describing: profile?.medicalExamination.last ?? "").prettyDateStringNoSeconds())", comment: "")
@@ -177,6 +185,8 @@ extension MyInfoDataSourse: UITableViewDataSource {
         case .education:
             if let cell = tableView.dequeueReusableCell(withIdentifier: UserEducationCell.identifier, for: indexPath) as? UserEducationCell, let educations = profile?.educations {
                 cell.modelItem = modelItem
+                
+                self.indexPathForscroll = indexPath
                 
                 let education = educations[indexPath.row]
                 
@@ -197,6 +207,8 @@ extension MyInfoDataSourse: UITableViewDataSource {
         case .history:
             if let cell = tableView.dequeueReusableCell(withIdentifier: UserEducationCell.identifier, for: indexPath) as? UserEducationCell, let history = profile?.history {
                 cell.modelItem = modelItem
+                
+                self.indexPathForscroll = indexPath
                 
                 let historyOne = history[indexPath.row]
                 
@@ -219,11 +231,14 @@ extension MyInfoDataSourse: UITableViewDataSource {
         }
         return UITableViewCell()
     }
+   
     
 }
 
+
 // MARK: - UITableView Delegate
 extension MyInfoDataSourse: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         view.tintColor = UIColor.white
     }
@@ -296,6 +311,13 @@ extension MyInfoDataSourse: HeaderViewDelegate {
             DispatchQueue.main.async { [weak self] in
                 if let reloadSections = self?.reloadSections {
                     reloadSections(section)
+                }
+                
+                if item.isCollapsed == false,
+                    let scrolToRow = self?.scrolToRow,
+                    let indexpath = self?.indexPathForscroll {
+                    
+                    scrolToRow(indexpath)
                 }
             }
         }

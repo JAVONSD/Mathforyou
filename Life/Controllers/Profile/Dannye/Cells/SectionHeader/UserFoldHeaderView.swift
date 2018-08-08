@@ -40,7 +40,7 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
                     break
                 }
 
-                let title = modelItem.isCollapsed ? "▽ \(String(describing: modelItem.sectionTitle))" : "△ \(String(describing: modelItem.sectionTitle))"
+                let title = modelItem.isCollapsed ? "⇣ \(String(describing: modelItem.sectionTitle))" : "↑ \(String(describing: modelItem.sectionTitle))"
                 
 //                weakSelf.foldButton.setTitle(title, for: .normal)
                 

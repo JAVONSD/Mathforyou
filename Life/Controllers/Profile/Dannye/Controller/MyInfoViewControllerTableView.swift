@@ -76,6 +76,13 @@ class MyInfoViewControllerTableView: UIViewController {
             
             self.show(detailVC, sender: AnyObject.self)
         }
+        
+        dataSource.scrolToRow = { [weak self] indexPath in
+            guard let `self` = self else { return }
+            
+            self.tableView.scrollToRow(at: indexPath, at: .middle, animated: true)
+        }
+    
     }
     
     // MARK: - Setup Views
@@ -108,7 +115,7 @@ class MyInfoViewControllerTableView: UIViewController {
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.contentInset = UIEdgeInsetsMake(0, 0, 200, 0)
-        tableView.bounces = false
+        tableView.bounces = true
     }
     
     fileprivate func setHeaderView() {

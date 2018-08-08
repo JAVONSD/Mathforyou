@@ -70,6 +70,31 @@ extension AppsViewController: UICollectionViewDataSource {
 
 extension AppsViewController: UICollectionViewDelegate {
     
+    /*
+     if let url  = URL(string: "http://stackoverflow.com/questions/24728854/is-it-possible-to-launch-another-app-in-ios-8-using-swift/") // Change the URL with your URL Scheme
+     {
+     if UIApplication.shared.canOpenURL(url)
+     {
+     UIApplication.shared.openURL(url)
+     }
+     }
+    */
+    
+    /*
+     func launchTwitterApp() {
+     guard let url = URL(string: "twitter://user?id=12345") else {
+     preconditionFailure("There was something wrong with our url, this shouldn't happen")
+     }
+     UIApplication.shared.open(url, completion: { success in
+     if success {
+     print("We opened the Twitter app.")
+     }
+     else {
+     print("Something went wrong. We might not have the necessary app or the right url.")
+     }
+     })
+     }
+    */
     
 }
 
