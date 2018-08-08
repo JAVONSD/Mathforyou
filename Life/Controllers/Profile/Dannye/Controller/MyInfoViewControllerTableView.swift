@@ -100,6 +100,8 @@ class MyInfoViewControllerTableView: UIViewController {
         tableView.register(UserHeaderTableCell.self, forCellReuseIdentifier: UserHeaderTableCell.identifier)
         tableView.register(UserPersonalCell.self, forCellReuseIdentifier: UserPersonalCell.identifier)
         tableView.register(UserPictureCell.self, forCellReuseIdentifier: UserPictureCell.identifier)
+        tableView.register(UserEducationCell.self, forCellReuseIdentifier: UserEducationCell.identifier)
+
 
 //        tableView.estimatedRowHeight = 100
 //        tableView.rowHeight = UITableViewAutomaticDimension

@@ -151,11 +151,14 @@ class ProfileViewModelEducationItem: ProfileViewModelItem {
     }
     
     var isCollapsed = true
-    var isCollapsible = false
+    var isCollapsible = true
     
     var rowCount: Int {
-        return 0
+        print("profile.educations.count", profile.educations.count)
+
+        return profile.educations.count
     }
+    
     
     var profile: UserProfile
     
@@ -175,10 +178,10 @@ class ProfileViewModelHistoryItem: ProfileViewModelItem {
     }
     
     var isCollapsed = true
-    var isCollapsible = false
+    var isCollapsible = true
     
     var rowCount: Int {
-        return 0
+        return profile.history.count
     }
     
     var profile: UserProfile

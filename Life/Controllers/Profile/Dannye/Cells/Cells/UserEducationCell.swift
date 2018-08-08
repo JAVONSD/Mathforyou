@@ -1,8 +1,8 @@
 //
-//  UserPersonalCell.swift
+//  UserEducationCell.swift
 //  Life
 //
-//  Created by 123 on 02.08.2018.
+//  Created by 123 on 04.08.2018.
 //  Copyright © 2018 Shyngys Kassymov. All rights reserved.
 //
 
@@ -11,10 +11,10 @@ import Kingfisher
 import SnapKit
 
 
-class UserPersonalCell: UITableViewCell {
+class UserEducationCell: UITableViewCell {
     
-    var modelItem: ProfileViewModelItem? 
-    
+    var modelItem: ProfileViewModelItem?
+
     static var identifier: String {
         return String(describing: self)
     }
@@ -25,7 +25,6 @@ class UserPersonalCell: UITableViewCell {
         nl.textColor = App.Color.black24
         nl.numberOfLines = 3
         nl.lineBreakMode = .byWordWrapping
-        nl.adjustsFontForContentSizeCategory = true
         return nl
     }()
     
@@ -34,7 +33,6 @@ class UserPersonalCell: UITableViewCell {
         jl.font = App.Font.body
         jl.numberOfLines = 3
         jl.lineBreakMode = .byWordWrapping
-        jl.adjustsFontForContentSizeCategory = true
         return jl
     }()
     
@@ -44,7 +42,6 @@ class UserPersonalCell: UITableViewCell {
         nl.textColor = App.Color.black24
         nl.numberOfLines = 3
         nl.lineBreakMode = .byWordWrapping
-        nl.adjustsFontForContentSizeCategory = true
         return nl
     }()
     
@@ -53,10 +50,43 @@ class UserPersonalCell: UITableViewCell {
         jl.font = App.Font.body
         jl.numberOfLines = 3
         jl.lineBreakMode = .byWordWrapping
-        jl.adjustsFontForContentSizeCategory = true
         return jl
     }()
-
+    
+    let txtLabel1: UILabel = {
+        let nl = UILabel()
+        nl.font = App.Font.subheadAlts
+        nl.textColor = App.Color.black24
+        nl.numberOfLines = 3
+        nl.lineBreakMode = .byWordWrapping
+        return nl
+    }()
+    
+    let detailLabel1: UILabel = {
+        let jl = UILabel()
+        jl.font = App.Font.body
+        jl.numberOfLines = 3
+        jl.lineBreakMode = .byWordWrapping
+        return jl
+    }()
+    
+    let rightTxtLabel1: UILabel = {
+        let nl = UILabel()
+        nl.font = App.Font.subheadAlts
+        nl.textColor = App.Color.black24
+        nl.numberOfLines = 3
+        nl.lineBreakMode = .byWordWrapping
+        return nl
+    }()
+    
+    let rightDetailLabel1: UILabel = {
+        let jl = UILabel()
+        jl.font = App.Font.body
+        jl.numberOfLines = 3
+        jl.lineBreakMode = .byWordWrapping
+        return jl
+    }()
+    
     
     var item: UserProfile?
     
@@ -76,7 +106,7 @@ class UserPersonalCell: UITableViewCell {
     }
     
     fileprivate func setupViews() {
-        let leftStackView = UIStackView(arrangedSubviews: [txtLabel, detailLabel])
+        let leftStackView = UIStackView(arrangedSubviews: [txtLabel, detailLabel, txtLabel1, detailLabel1])
         leftStackView.axis = .vertical
         leftStackView.spacing = 3
         leftStackView.distribution = .fillEqually
@@ -89,7 +119,7 @@ class UserPersonalCell: UITableViewCell {
             $0.left.equalTo(self).offset(20)
         }
         
-        let rightStackView = UIStackView(arrangedSubviews: [rightTxtLabel, rightDetailLabel])
+        let rightStackView = UIStackView(arrangedSubviews: [rightTxtLabel, rightDetailLabel, rightTxtLabel1, rightDetailLabel1])
         rightStackView.axis = .vertical
         rightStackView.spacing = 3
         rightStackView.distribution = .fillEqually
@@ -101,6 +131,7 @@ class UserPersonalCell: UITableViewCell {
             $0.width.equalTo(self.snp.width).dividedBy(2).offset(-30)
             $0.right.equalTo(self).offset(-20)
         }
+        
     }
     
     
@@ -109,14 +140,6 @@ class UserPersonalCell: UITableViewCell {
     }
     
 }
-
-
-
-
-
-
-
-
 
 
 

@@ -32,20 +32,20 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
                 else { return }
                 
                 switch modelItem.type {
-                case .personal, .medical, .workexperiance:
+                case .personal, .medical, .workexperiance, .education:
                     weakSelf.foldLabel.font = App.Font.subhead
-                case .education, .history:
-                    weakSelf.foldLabel.font = UIFont.italicSystemFont(ofSize: 13)
+//                case .education, .history:
+//                    weakSelf.foldLabel.font = UIFont.italicSystemFont(ofSize: 13)
                 default:
                     break
                 }
 
-//                let title = modelItem.isCollapsed ? "\(String(describing: modelItem.sectionTitle))" : "Скрыть"
+                let title = modelItem.isCollapsed ? "▽ \(String(describing: modelItem.sectionTitle))" : "△ \(String(describing: modelItem.sectionTitle))"
+                
 //                weakSelf.foldButton.setTitle(title, for: .normal)
                 
-                weakSelf.foldLabel.text = " \(String(describing: modelItem.sectionTitle))"
+                weakSelf.foldLabel.text = " \(title)"
             }
-            
         }
     }
     
@@ -93,10 +93,10 @@ class UserFoldHeaderView: UITableViewHeaderFooterView {
     @objc private func didTapHeader() {
         if let modelItem = modelItem {
             switch modelItem.type {
-            case .education:
-                delegate?.showDetails(header: self)
-            case .history:
-                delegate?.showHistoryDetails(header: self)
+//            case .education:
+//                delegate?.showDetails(header: self)
+//            case .history:
+//                delegate?.showHistoryDetails(header: self)
             default:
                 break
             }

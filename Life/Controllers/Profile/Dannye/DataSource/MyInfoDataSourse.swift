@@ -174,8 +174,48 @@ extension MyInfoDataSourse: UITableViewDataSource {
                 }
                 return cell
             }
-        default:
-            return UITableViewCell()
+        case .education:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: UserEducationCell.identifier, for: indexPath) as? UserEducationCell, let educations = profile?.educations {
+                cell.modelItem = modelItem
+                
+                let education = educations[indexPath.row]
+                
+                cell.txtLabel.text = "Вид образования"
+                cell.detailLabel.text = education.educationTypeName
+                
+                cell.rightTxtLabel.text = "Учебное заведение"
+                cell.rightDetailLabel.text = education.institutionName
+                
+                cell.txtLabel1.text = "Специальность"
+                cell.detailLabel1.text = education.specialty
+                
+                cell.rightTxtLabel1.text = "Год окончания"
+                cell.rightDetailLabel1.text = "\(education.graduationYear)"
+                
+                return cell
+            }
+        case .history:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: UserEducationCell.identifier, for: indexPath) as? UserEducationCell, let history = profile?.history {
+                cell.modelItem = modelItem
+                
+                let historyOne = history[indexPath.row]
+                
+                cell.txtLabel.text = "Тип"
+                cell.detailLabel.text = historyOne.employmentType
+                
+                cell.rightTxtLabel.text = "Должность"
+                cell.rightDetailLabel.text = historyOne.position
+                
+                cell.txtLabel1.text = "Организация"
+                cell.detailLabel1.text = historyOne.organization
+                
+                cell.rightTxtLabel1.text = "Отдел"
+                cell.rightDetailLabel1.text = historyOne.department
+                
+                return cell
+            }
+//        default:
+//            return UITableViewCell()
         }
         return UITableViewCell()
     }
