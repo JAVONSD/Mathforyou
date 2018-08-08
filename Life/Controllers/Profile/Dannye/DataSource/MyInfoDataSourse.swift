@@ -226,19 +226,15 @@ extension MyInfoDataSourse: UITableViewDataSource {
                 
                 return cell
             }
-//        default:
-//            return UITableViewCell()
         }
         return UITableViewCell()
     }
-   
-    
 }
 
 
 // MARK: - UITableView Delegate
 extension MyInfoDataSourse: UITableViewDelegate {
-    
+  
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         view.tintColor = UIColor.white
     }

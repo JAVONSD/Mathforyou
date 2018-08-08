@@ -55,7 +55,7 @@ class MyInfoViewControllerTableView: UIViewController {
             guard let `self` = self else { return }
             
             self.tableView.beginUpdates()
-            self.tableView.reloadSections([section], with: .none)
+            self.tableView.reloadSections([section], with: .automatic)
             self.tableView.endUpdates()
         }
         
@@ -89,7 +89,6 @@ class MyInfoViewControllerTableView: UIViewController {
     fileprivate func setupViews() {
         setupTabItem()
         setupTableView()
-        setHeaderView()
         setupFabButton()
     }
     
@@ -109,19 +108,10 @@ class MyInfoViewControllerTableView: UIViewController {
         tableView.register(UserPictureCell.self, forCellReuseIdentifier: UserPictureCell.identifier)
         tableView.register(UserEducationCell.self, forCellReuseIdentifier: UserEducationCell.identifier)
 
-
-//        tableView.estimatedRowHeight = 100
-//        tableView.rowHeight = UITableViewAutomaticDimension
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.contentInset = UIEdgeInsetsMake(0, 0, 200, 0)
         tableView.bounces = true
-    }
-    
-    fileprivate func setHeaderView() {
-//        let header = UserInfoHeaderFooterView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 200))
-//        tableView.tableHeaderView = header
-//        header.item = profile
     }
 
     // MARK: - Bind
@@ -151,7 +141,6 @@ class MyInfoViewControllerTableView: UIViewController {
 extension MyInfoViewControllerTableView {
     @objc fileprivate
     func onTappedFabButton() {
-        
         let vc = ProfileSubmitViewController()
         let nav = UINavigationController(rootViewController: vc)
         
