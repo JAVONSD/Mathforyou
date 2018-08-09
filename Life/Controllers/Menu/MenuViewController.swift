@@ -146,7 +146,6 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
     
     private func openApps(with title: String) {
         let vc = AppsViewController()
-        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         layout.minimumInteritemSpacing = 0

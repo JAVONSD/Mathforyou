@@ -81,7 +81,7 @@ class ProfileViewController: TabsController, Stepper {
             ResultsViewController(),
             PlansViewController(),
             BenefitsViewController(),
-            BiClubViewController()
+            BiClubViewController(UIScrollView())
         ]
 
         let profileVC = ProfileViewController(viewControllers: vsc)
