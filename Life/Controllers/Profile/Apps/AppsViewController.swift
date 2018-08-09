@@ -57,8 +57,10 @@ extension AppsViewController: UICollectionViewDataSource {
         switch indexPath.item {
         case 0:
             cell.appImageView.image = #imageLiteral(resourceName: "ic_clients")
+            cell.titleLabel.text = "BI GROUP Clients"
         case 1:
             cell.appImageView.image = #imageLiteral(resourceName: "ic_partners")
+            cell.titleLabel.text = "BI GROUP Partners"
         default:
             printMine(items: "no apps")
         }
@@ -66,43 +68,47 @@ extension AppsViewController: UICollectionViewDataSource {
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: false)
+        var url: URL?
+        if indexPath.item == 0 {
+            url = URL(string: "itms-apps://itunes.apple.com/us/app/bi-group-clients/id1311182242?mt=8")
+        } else if indexPath.item == 1 {
+            url = URL(string: "itms-apps://itunes.apple.com/us/app/bi-group-partners/id1303499262?mt=8")
+        }
+        
+        if let url = url, UIApplication.shared.canOpenURL(url) {
+            
+            if #available(iOS 10.0, *) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else { UIApplication.shared.openURL(url) }
+        }
+    }
 }
 
 extension AppsViewController: UICollectionViewDelegate {
-    
-    /*
-     if let url  = URL(string: "http://stackoverflow.com/questions/24728854/is-it-possible-to-launch-another-app-in-ios-8-using-swift/") // Change the URL with your URL Scheme
-     {
-     if UIApplication.shared.canOpenURL(url)
-     {
-     UIApplication.shared.openURL(url)
-     }
-     }
-    */
-    
-    /*
-     func launchTwitterApp() {
-     guard let url = URL(string: "twitter://user?id=12345") else {
-     preconditionFailure("There was something wrong with our url, this shouldn't happen")
-     }
-     UIApplication.shared.open(url, completion: { success in
-     if success {
-     print("We opened the Twitter app.")
-     }
-     else {
-     print("Something went wrong. We might not have the necessary app or the right url.")
-     }
-     })
-     }
-    */
+
     
 }
 
 extension AppsViewController: UICollectionViewDelegateFlowLayout {
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        let width = (view.frame.width - 50) / 4
+//        return CGSize(width: width, height: width + 30)
+//    }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
+        let dummyCell = AppCollectionViewCell(frame: frame)
+        dummyCell.titleLabel.text = "BI GROUP Partners"
+        dummyCell.layoutIfNeeded()
+        
+        let estimatedSize = dummyCell.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
+        
         let width = (view.frame.width - 50) / 4
-        return CGSize(width: width, height: width + 30)
+        return CGSize(width: width, height: estimatedSize.height)
     }
 }
 

@@ -33,6 +33,7 @@ class AppCollectionViewCell: UICollectionViewCell {
         let lbl = UILabel()
         lbl.text = "BI-Life"
         lbl.textAlignment = .center
+        lbl.numberOfLines = 2
         return lbl
     }()
     

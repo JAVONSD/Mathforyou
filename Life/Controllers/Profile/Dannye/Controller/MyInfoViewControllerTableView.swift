@@ -58,25 +58,7 @@ class MyInfoViewControllerTableView: UIViewController {
             self.tableView.reloadSections([section], with: .automatic)
             self.tableView.endUpdates()
         }
-        
-        dataSource.showVCHistoryDetails = { [weak self] profile in
-            guard let `self` = self else { return }
-            
-            let detailVC = UserEducationViewController(isEducationOrHistory: false)
-            detailVC.profile = profile
-            
-            self.show(detailVC, sender: AnyObject.self)
-        }
-        
-        dataSource.showVCDetails = { [weak self] profile in
-            guard let `self` = self else { return }
-            
-            let detailVC = UserEducationViewController(isEducationOrHistory: true)
-            detailVC.profile = profile
-            
-            self.show(detailVC, sender: AnyObject.self)
-        }
-        
+
         dataSource.scrolToRow = { [weak self] indexPath in
             guard let `self` = self else { return }
             
