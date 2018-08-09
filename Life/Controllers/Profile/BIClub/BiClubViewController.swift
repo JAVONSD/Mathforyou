@@ -78,7 +78,7 @@ class BiClubViewController: UIViewController {
         
         qrcodeView.anchor(top: headerView.bottomAnchor, left: headerView.leftAnchor, bottom: nil, right: headerView.rightAnchor, paddingTop: padding-10, paddingLeft: 20, paddingBottom: 0, paddingRight: 20, width: 0, height: paddingQrcodeView * 3)
 
-        qrcodeView.backgroundColor = .blue
+        qrcodeView.backgroundColor = .cyan
     }
 
 }
