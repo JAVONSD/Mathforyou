@@ -20,6 +20,8 @@ class BiClubViewController: UIViewController {
         return view
     }()
     
+    private var qrcodeView = QRCodeContainerView()
+    
     var scrollview: UIScrollView
     
     let screenSize = UIScreen.main.bounds
@@ -46,6 +48,7 @@ class BiClubViewController: UIViewController {
         setupTabItem()
         setupScrollview()
         setupheaderView()
+        setupQRCodeView()
     }
     
     fileprivate func setupTabItem() {
@@ -59,12 +62,23 @@ class BiClubViewController: UIViewController {
         scrollview.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        scrollview.contentSize = CGSize(width: screenSize.width, height: 2000)
+        scrollview.contentSize = CGSize(width: screenSize.width, height: screenSize.height + 50)
     }
 
     fileprivate func setupheaderView() {
         scrollview.addSubview(headerView)
         headerView.frame = CGRect(x: padding, y: padding, width: screenSize.width - (padding * 2), height: 325)
+    }
+    
+    fileprivate func setupQRCodeView() {
+        qrcodeView.translatesAutoresizingMaskIntoConstraints = false
+        
+        scrollview.addSubview(qrcodeView)
+        let paddingQrcodeView = screenSize.width / 5
+        
+        qrcodeView.anchor(top: headerView.bottomAnchor, left: headerView.leftAnchor, bottom: nil, right: headerView.rightAnchor, paddingTop: padding-10, paddingLeft: 20, paddingBottom: 0, paddingRight: 20, width: 0, height: paddingQrcodeView * 3)
+
+        qrcodeView.backgroundColor = .blue
     }
 
 }

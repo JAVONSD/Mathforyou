@@ -56,6 +56,11 @@
 		9DCFB623210DBD9B008515EF /* ResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DCFB622210DBD9B008515EF /* ResultView.swift */; };
 		9DD19289211C2BE0009373DA /* BiClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD19288211C2BE0009373DA /* BiClubViewController.swift */; };
 		9DD1928C211C2F07009373DA /* BiclubHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD1928B211C2F07009373DA /* BiclubHeaderView.swift */; };
+		9DD1928F211C622B009373DA /* CIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD1928E211C622B009373DA /* CIColorExtension.swift */; };
+		9DD19291211C6234009373DA /* CIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD19290211C6233009373DA /* CIImageExtension.swift */; };
+		9DD19293211C623D009373DA /* QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD19292211C623C009373DA /* QRCode.swift */; };
+		9DD19295211C6244009373DA /* UIImageViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD19294211C6243009373DA /* UIImageViewExtension.swift */; };
+		9DD19297211C6301009373DA /* QRCodeContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD19296211C6301009373DA /* QRCodeContainerView.swift */; };
 		9DDD6860211589B100BB33B3 /* UserEducationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DDD685F211589B100BB33B3 /* UserEducationCell.swift */; };
 		9DF56BBB2119521B005A3E3E /* HRPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF56BBA2119521B005A3E3E /* HRPerson.swift */; };
 		9DF738CC21075F9200953214 /* UIGestureRecognizer+Extentions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DF738CB21075F9200953214 /* UIGestureRecognizer+Extentions.swift */; };
@@ -546,6 +551,11 @@
 		9DCFB622210DBD9B008515EF /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
 		9DD19288211C2BE0009373DA /* BiClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiClubViewController.swift; sourceTree = "<group>"; };
 		9DD1928B211C2F07009373DA /* BiclubHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiclubHeaderView.swift; sourceTree = "<group>"; };
+		9DD1928E211C622B009373DA /* CIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CIColorExtension.swift; sourceTree = "<group>"; };
+		9DD19290211C6233009373DA /* CIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CIImageExtension.swift; sourceTree = "<group>"; };
+		9DD19292211C623C009373DA /* QRCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCode.swift; sourceTree = "<group>"; };
+		9DD19294211C6243009373DA /* UIImageViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageViewExtension.swift; sourceTree = "<group>"; };
+		9DD19296211C6301009373DA /* QRCodeContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeContainerView.swift; sourceTree = "<group>"; };
 		9DDD685F211589B100BB33B3 /* UserEducationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEducationCell.swift; sourceTree = "<group>"; };
 		9DF56BBA2119521B005A3E3E /* HRPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRPerson.swift; sourceTree = "<group>"; };
 		9DF738CB21075F9200953214 /* UIGestureRecognizer+Extentions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+Extentions.swift"; sourceTree = "<group>"; };
@@ -1208,8 +1218,21 @@
 			children = (
 				9DD19288211C2BE0009373DA /* BiClubViewController.swift */,
 				9DD1928B211C2F07009373DA /* BiclubHeaderView.swift */,
+				9DD19296211C6301009373DA /* QRCodeContainerView.swift */,
+				9DD1928D211C61F1009373DA /* QRCode */,
 			);
 			path = BIClub;
+			sourceTree = "<group>";
+		};
+		9DD1928D211C61F1009373DA /* QRCode */ = {
+			isa = PBXGroup;
+			children = (
+				9DD1928E211C622B009373DA /* CIColorExtension.swift */,
+				9DD19290211C6233009373DA /* CIImageExtension.swift */,
+				9DD19292211C623C009373DA /* QRCode.swift */,
+				9DD19294211C6243009373DA /* UIImageViewExtension.swift */,
+			);
+			path = QRCode;
 			sourceTree = "<group>";
 		};
 		C717C678203D13710070447D /* TasksAndRequests */ = {
@@ -2928,6 +2951,7 @@
 				C7AB6F66204BE8F500328E17 /* Item.swift in Sources */,
 				C7F7CB41203B10D3007B9D1E /* Event.swift in Sources */,
 				C7AB6F6B204BE8F500328E17 /* Result.swift in Sources */,
+				9DD19295211C6244009373DA /* UIImageViewExtension.swift in Sources */,
 				C7F7CB4B203B1974007B9D1E /* TasksAndRequestsViewModel.swift in Sources */,
 				C7D832BB203576B400282891 /* Error+Extensions.swift in Sources */,
 				C7A274712053DF6B0026B549 /* SuggestionObject.swift in Sources */,
@@ -2940,6 +2964,7 @@
 				C73EB29C2032F9B100429921 /* SectionModelType.swift in Sources */,
 				C7F7CB49203B16FD007B9D1E /* Image.swift in Sources */,
 				C7F7CB5D203C2921007B9D1E /* DateCell.swift in Sources */,
+				9DD19293211C623D009373DA /* QRCode.swift in Sources */,
 				C73EB2A22032F9B100429921 /* IdentifiableValue.swift in Sources */,
 				C7BB5C49203E86020056BBF9 /* AnswersSectionController.swift in Sources */,
 				C79251E8203148D300CDFBBA /* BenefitsViewController.swift in Sources */,
@@ -3003,6 +3028,7 @@
 				C73EB2AE2033114500429921 /* HeaderView.swift in Sources */,
 				9D1B8D04210842530080FD0E /* GlobalSearchService.swift in Sources */,
 				C79251E42031489A00CDFBBA /* ResultsViewController.swift in Sources */,
+				9DD19291211C6234009373DA /* CIImageExtension.swift in Sources */,
 				9D8A1E03211ABE8D00AC42BA /* UserCollapsEducationTableViewCell.swift in Sources */,
 				C7F7CB69203C5F57007B9D1E /* EventsSectionController.swift in Sources */,
 				C70ECFD5203AC76500710DB5 /* SuggestionsViewModel.swift in Sources */,
@@ -3048,6 +3074,7 @@
 				C7F7CB6B203C65A1007B9D1E /* KPIViewModel.swift in Sources */,
 				C7BB5C47203E85EE0056BBF9 /* AuthorsSectionController.swift in Sources */,
 				C7BB5C59203EF7190056BBF9 /* NewsDetailSectionController.swift in Sources */,
+				9DD1928F211C622B009373DA /* CIColorExtension.swift in Sources */,
 				9D588CCE2111B810007D9B84 /* MyInfoDataSourse.swift in Sources */,
 				C74F26AE20747B9A00C68EC7 /* Attachment.swift in Sources */,
 				C7F7CB31203AE866007B9D1E /* BIBoardHeaderSectionController.swift in Sources */,
@@ -3246,6 +3273,7 @@
 				C73EB29A2032F9B100429921 /* RxTableViewSectionedReloadDataSource.swift in Sources */,
 				9D0867B6210B6B5B000FE419 /* UIImageViewExtensions.swift in Sources */,
 				C7AB6F8B204C10B600328E17 /* SuggestionFormViewModel.swift in Sources */,
+				9DD19297211C6301009373DA /* QRCodeContainerView.swift in Sources */,
 				C7054BB12041767C00A8ED1A /* Notification.swift in Sources */,
 				C7A2746D2053DCBC0026B549 /* CommentObject.swift in Sources */,
 				C7F7CB3D203AF089007B9D1E /* Message.swift in Sources */,
