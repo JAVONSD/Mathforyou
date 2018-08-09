@@ -18,11 +18,11 @@ import Material
 class AppsViewController: UIViewController {
     
     var collectionView: UICollectionView!
-    
     var titleStr = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         
         setupCollectionView()
     }
@@ -86,18 +86,8 @@ extension AppsViewController: UICollectionViewDataSource {
     }
 }
 
-extension AppsViewController: UICollectionViewDelegate {
-
-    
-}
-
 extension AppsViewController: UICollectionViewDelegateFlowLayout {
-//
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        let width = (view.frame.width - 50) / 4
-//        return CGSize(width: width, height: width + 30)
-//    }
-    
+
      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)

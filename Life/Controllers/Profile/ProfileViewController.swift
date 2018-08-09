@@ -80,7 +80,8 @@ class ProfileViewController: TabsController, Stepper {
             myInfoVC,
             ResultsViewController(),
             PlansViewController(),
-            BenefitsViewController()
+            BenefitsViewController(),
+            BiClubViewController()
         ]
 
         let profileVC = ProfileViewController(viewControllers: vsc)

@@ -122,13 +122,14 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
                     self?.openEmptyScreen(with: title)
                 }
                 else if pair.0.row == 2 {
-//                    self?.step.accept(AppStep.topQuestions)
                     let title = NSLocalizedString("Опросник", comment: "")
                     self?.openEmptyScreen(with: title)
                 }
                 else if pair.0.row == 3 {
-                    let title = NSLocalizedString("Приложения", comment: "")
-                    self?.openApps(with: title)
+                    afterDelayOnMain(0, closure: {
+                        let title = NSLocalizedString("Приложения", comment: "")
+                        self?.openApps(with: title)
+                    })
                 }
                 else if pair.0.row == 4 {
                     self?.askToConfirmLogout()
