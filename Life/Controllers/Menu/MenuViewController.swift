@@ -159,6 +159,13 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
         vc.collectionView = collectionView
         vc.titleStr = title
         parent?.navigationController?.navigationBar.isTranslucent = true
+        navigationItem.backButton.tintColor = .white
+        guard let v = navigationController?.navigationBar as? NavigationBar else {
+            return
+        }
+        
+        v.backButtonImage = Icon.cm.arrowBack?.withRenderingMode(.alwaysOriginal)
+        
         parent?.navigationController?.pushViewController(vc, animated: true)
     }
 
