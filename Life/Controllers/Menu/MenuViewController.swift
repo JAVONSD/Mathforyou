@@ -83,8 +83,6 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
         bind()
     }
     
-
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -96,6 +94,10 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
         }
         
         navigationController?.navigationBar.isTranslucent = false
+        guard let v = navigationController?.navigationBar as? NavigationBar else {
+            return
+        }
+        v.backButtonImage = Icon.cm.arrowBack?.withRenderingMode(.alwaysTemplate)
     }
 
     // MARK: - Bind
@@ -160,10 +162,10 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
         vc.titleStr = title
         parent?.navigationController?.navigationBar.isTranslucent = true
         navigationItem.backButton.tintColor = .white
+        
         guard let v = navigationController?.navigationBar as? NavigationBar else {
             return
         }
-        
         v.backButtonImage = Icon.cm.arrowBack?.withRenderingMode(.alwaysOriginal)
         
         parent?.navigationController?.pushViewController(vc, animated: true)
