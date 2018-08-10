@@ -24,7 +24,7 @@ class BiClubViewController: UIViewController {
     var scrollview: UIScrollView
     
     let screenSize = UIScreen.main.bounds
-    let padding = UIScreen.main.bounds.width / 5
+    let padding: CGFloat = 25
     
     init(_ scrollView: UIScrollView) {
         self.scrollview = scrollView
@@ -77,21 +77,27 @@ class BiClubViewController: UIViewController {
     fileprivate func setupQRCodeView() {
         let padd = (screenSize.width - 200) / 2
         imageViewLarge.frame = CGRect(x: padd, y: 350, width: 200, height: 200)
-        
         scrollview.addSubview(imageViewLarge)
+        
         imageViewLarge.image = {
-            var qrCode = QRCode("http://github.com/aschuch/QRCode")!
-            qrCode.size = self.imageViewLarge.bounds.size
-            qrCode.errorCorrection = .High
-            return qrCode.image
+            var profileString = ""
+           
+            if let profile: UserProfile = User.current.profile  {
+                profileString = String(format: "%@\n%@\n%@\n%@", profile.fullname, profile.mobilePhoneNumber, profile.employeeCode, profile.email)
+                let data = profileString.data(using: .utf8)!
+                var qrCode = QRCode.init(data)
+                qrCode.size = self.imageViewLarge.bounds.size
+                qrCode.errorCorrection = .High
+                return qrCode.image
+            } else {
+                let url = URL(string: "https://www.bi-group.org/ru/")!
+                let qrCode = QRCode(url)
+                return qrCode?.image
+            }
         }()
-
     }
 
 }
-
-
-
 
 
 

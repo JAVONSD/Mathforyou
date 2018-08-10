@@ -9,7 +9,7 @@
 import Foundation
 import Moya
 
-private extension String {
+extension String {
     var URLEscapedString: String {
         return self.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlHostAllowed)!
     }
