@@ -20,25 +20,40 @@ class AppsViewController: UIViewController {
     var collectionView: UICollectionView!
     var titleStr = ""
     
+    var imageBack: UIImageView = {
+        let img = UIImageView()
+        img.image = #imageLiteral(resourceName: "imageBack")
+        return img
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+                        
         setupCollectionView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(false)
+        
+        parent?.navigationController?.navigationBar.isTranslucent = false
     }
 
     fileprivate func setupCollectionView() {
         collectionView.dataSource = self
         collectionView.delegate = self
         
+        imageBack.addBlurEffect()
+        collectionView.backgroundView = imageBack
+        
         collectionView.register(AppCollectionViewCell.self, forCellWithReuseIdentifier: AppCollectionViewCell.identifier)
         
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {
-            $0.top.equalTo(view.snp.top).offset(10)
-            $0.right.equalTo(view.snp.right).offset(-10)
-            $0.left.equalTo(view.snp.left).offset(10)
-            $0.bottom.equalTo(view.snp.bottom).offset(-10)
+            $0.top.equalTo(view.snp.top)
+            $0.right.equalTo(view.snp.right)
+            $0.left.equalTo(view.snp.left)
+            $0.bottom.equalTo(view.snp.bottom)
         }
         
         collectionView.reloadData()
@@ -99,6 +114,10 @@ extension AppsViewController: UICollectionViewDelegateFlowLayout {
         
         let width = (view.frame.width - 50) / 4
         return CGSize(width: width, height: estimatedSize.height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsMake(0, 10, 0, 10)
     }
 }
 

@@ -34,6 +34,7 @@ class AppCollectionViewCell: UICollectionViewCell {
         lbl.text = "BI-Life"
         lbl.textAlignment = .center
         lbl.numberOfLines = 2
+        lbl.textColor = .white
         return lbl
     }()
     

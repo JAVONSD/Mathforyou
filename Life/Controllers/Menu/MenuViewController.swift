@@ -82,6 +82,8 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
 
         bind()
     }
+    
+
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -92,6 +94,8 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
                 self?.menuView.tableView?.setContentOffset(.zero, animated: true)
             }
         }
+        
+        navigationController?.navigationBar.isTranslucent = false
     }
 
     // MARK: - Bind
@@ -148,12 +152,13 @@ class MenuViewController: UIViewController, ViewModelBased, Stepper {
         let vc = AppsViewController()
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
-        layout.minimumInteritemSpacing = 0
+        layout.minimumInteritemSpacing = 10
         layout.minimumLineSpacing = 10
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .white
         vc.collectionView = collectionView
         vc.titleStr = title
+        parent?.navigationController?.navigationBar.isTranslucent = true
         parent?.navigationController?.pushViewController(vc, animated: true)
     }
 

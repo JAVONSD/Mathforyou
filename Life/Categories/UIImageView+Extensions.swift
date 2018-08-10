@@ -31,4 +31,21 @@ extension UIImageView {
 
         kf.setImage(with: url, placeholder: placeholderImage, options: [.requestModifier(modifier)])
     }
+    
+    func addBlurEffect()
+    {
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = self.bounds
+        
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
+        self.addSubview(blurEffectView)
+    }
 }
+
+
+
+
+
+
+
