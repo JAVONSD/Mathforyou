@@ -549,6 +549,7 @@
 		9DC09E1C2114836000CF30B1 /* Dispatch+Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dispatch+Globals.swift"; sourceTree = "<group>"; };
 		9DCFB620210C5A4B008515EF /* NewsSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSearch.swift; sourceTree = "<group>"; };
 		9DCFB622210DBD9B008515EF /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
+		9DD0AC09211D502200081B95 /* QRCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QRCode.h; sourceTree = "<group>"; };
 		9DD19288211C2BE0009373DA /* BiClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiClubViewController.swift; sourceTree = "<group>"; };
 		9DD1928B211C2F07009373DA /* BiclubHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiclubHeaderView.swift; sourceTree = "<group>"; };
 		9DD1928E211C622B009373DA /* CIColorExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CIColorExtension.swift; sourceTree = "<group>"; };
@@ -1227,6 +1228,7 @@
 		9DD1928D211C61F1009373DA /* QRCode */ = {
 			isa = PBXGroup;
 			children = (
+				9DD0AC09211D502200081B95 /* QRCode.h */,
 				9DD1928E211C622B009373DA /* CIColorExtension.swift */,
 				9DD19290211C6233009373DA /* CIImageExtension.swift */,
 				9DD19292211C623C009373DA /* QRCode.swift */,
@@ -2779,6 +2781,7 @@
 				"${BUILT_PRODUCTS_DIR}/PINOperation/PINOperation.framework",
 				"${BUILT_PRODUCTS_DIR}/PINRemoteImage/PINRemoteImage.framework",
 				"${BUILT_PRODUCTS_DIR}/PopupDialog/PopupDialog.framework",
+				"${BUILT_PRODUCTS_DIR}/QRCode/QRCode.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
@@ -2823,6 +2826,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINOperation.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PINRemoteImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PopupDialog.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/QRCode.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",

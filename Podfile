@@ -73,6 +73,8 @@ target 'Life' do
 
   # Suggestion
   pod 'UITextField_AutoSuggestion', '~> 0.0'
+
+pod "QRCode"
   
   # Transition
   pod 'Hero'

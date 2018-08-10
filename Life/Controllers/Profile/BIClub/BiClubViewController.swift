@@ -11,7 +11,7 @@ import Material
 import RxCocoa
 import RxSwift
 import SnapKit
-import Kingfisher
+import QRCode
 
 class BiClubViewController: UIViewController {
     
@@ -19,13 +19,12 @@ class BiClubViewController: UIViewController {
         let view = BiclubHeaderView()
         return view
     }()
-    
-    private var qrcodeView = QRCodeContainerView()
+
     
     var scrollview: UIScrollView
     
     let screenSize = UIScreen.main.bounds
-    let padding: CGFloat = 25
+    let padding = UIScreen.main.bounds.width / 5
     
     init(_ scrollView: UIScrollView) {
         self.scrollview = scrollView
@@ -58,7 +57,6 @@ class BiClubViewController: UIViewController {
     
     fileprivate func setupScrollview() {
         view.addSubview(scrollview)
-        scrollview.delegate = self
         scrollview.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
@@ -70,93 +68,29 @@ class BiClubViewController: UIViewController {
         headerView.frame = CGRect(x: padding, y: padding, width: screenSize.width - (padding * 2), height: 325)
     }
     
+    var imageViewLarge: UIImageView = {
+        let img = UIImageView()
+        img.contentMode = .scaleAspectFit
+        return img
+    }()
+    
     fileprivate func setupQRCodeView() {
-        qrcodeView.translatesAutoresizingMaskIntoConstraints = false
+        let padd = (screenSize.width - 200) / 2
+        imageViewLarge.frame = CGRect(x: padd, y: 350, width: 200, height: 200)
         
-        scrollview.addSubview(qrcodeView)
-        let paddingQrcodeView = screenSize.width / 5
-        
-        qrcodeView.anchor(top: headerView.bottomAnchor, left: headerView.leftAnchor, bottom: nil, right: headerView.rightAnchor, paddingTop: padding-10, paddingLeft: 20, paddingBottom: 0, paddingRight: 20, width: 0, height: paddingQrcodeView * 3)
+        scrollview.addSubview(imageViewLarge)
+        imageViewLarge.image = {
+            var qrCode = QRCode("http://github.com/aschuch/QRCode")!
+            qrCode.size = self.imageViewLarge.bounds.size
+            qrCode.errorCorrection = .High
+            return qrCode.image
+        }()
 
-        qrcodeView.backgroundColor = .cyan
     }
 
 }
 
-extension BiClubViewController: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        
-    }
-    
-    // any offset changes
-    func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        
-    }
-  
-    // called on start of dragging (may require some time and or distance to move)
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        
-    }
-    
-    // called on finger up if the user dragged. velocity is in points/millisecond. targetContentOffset may be changed to adjust where the scroll view comes to rest
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
-    }
 
-    // called on finger up if the user dragged. decelerate is true if it will continue moving afterwards
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        
-    }
-    
-    // called on finger up as we are moving
-    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-        
-    }
-    
-    // called when scroll view grinds to a halt
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        
-    }
-
-    // called when setContentOffset/scrollRectVisible:animated: finishes. not called if not animating
-    func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        
-    }
-    
-    // return a view that will be scaled. if delegate returns nil, nothing happens
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        
-        return UIView()
-    }
-    
-    // called before the scroll view begins zooming its content
-    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
-        
-    }
-    
-    // scale between minimum and maximum. called after any 'bounce' animations
-    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        
-    }
-    
-    // return a yes if you want to scroll to the top. if not defined, assumes YES
-    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        
-        return false
-    }
-    
-     // called when scrolling animation finished. may be called immediately if already at top
-    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        
-    }
-    
-    // Also see -[UIScrollView adjustedContentInsetDidChange] ios(11.0)
-    func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
-        
-    }
-
-    
-}
 
 
 

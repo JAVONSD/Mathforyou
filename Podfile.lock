@@ -68,6 +68,7 @@ PODS:
     - PINRemoteImage/Core
   - PopupDialog (0.8.0):
     - DynamicBlurView (~> 2.0)
+  - QRCode (2.0)
   - Realm (3.7.4):
     - Realm/Headers (= 3.7.4)
   - Realm/Headers (3.7.4)
@@ -120,6 +121,7 @@ DEPENDENCIES:
   - Moya/RxSwift (~> 11.0)
   - NVActivityIndicatorView (~> 4.0)
   - PopupDialog (~> 0.7)
+  - QRCode
   - RxCocoa (~> 4.0)
   - RxOptional
   - RxRealm (~> 0.7)
@@ -160,6 +162,7 @@ SPEC CHECKSUMS:
   PINOperation: a6219e6fc9db9c269eb7a7b871ac193bcf400aac
   PINRemoteImage: d6d51c5d2adda55f1ce30c96e850b6c4ebd2856a
   PopupDialog: 11347197b6ac3e0548ac445d40ce68d1d407e9a0
+  QRCode: f98a1886c8f37523704a7512a4c0cd45b34c18a4
   Realm: a469bb59e33f9926102ccaea4349822c53b9117e
   RealmSwift: a45861b21c180f5cf0f122144b9759fa8dde3e9e
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
@@ -176,6 +179,6 @@ SPEC CHECKSUMS:
   UITextField_AutoSuggestion: ba430510ec9ec00a4a7091fd9d24032d2721f641
   Yoga: 81670877477311136b1b3f69a6307ce62e1c89cf
 
-PODFILE CHECKSUM: f17dcb12e921c71c264db6a3db4f58b44e834f30
+PODFILE CHECKSUM: 87461423a94b9a0b5331836538884e100f65a5bf
 
 COCOAPODS: 1.4.0
